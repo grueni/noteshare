@@ -4,7 +4,7 @@ require 'spec_helper'
 
 describe Document do
   it 'can be initialised with attributes' do
-    book = Document.new(title: 'Quantum Mechanics')
-    book.title.must_equal 'Quantum Mechanics'
+    document = Document.new(title: 'Quantum Mechanics')
+    document.title.must_equal 'Quantum Mechanics'
   end
 end

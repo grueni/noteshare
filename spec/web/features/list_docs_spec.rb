@@ -1,12 +1,18 @@
-# spec/web/features/list_books_spec.rb
+# spec/web/features/list_documents_spec.rb
 require 'features_helper'
 
-describe 'List docs' do
-  it 'displays each documents on the page' do
-    visit '/documents'
+describe 'List Docs' do
 
-    within '#documents' do
-      assert page.has_css?('.document', count: 2), "Expected to find 2 documents"
-    end
+  before do
+    DocumentRepository.clear
+
+    DocumentRepository.create(Document.new(title: 'OS Z', author: 'Melvin Luck'))
+    DocumentRepository.create(Document.new(title: 'Electromagnetic Theory', author: 'Coram Daag'))
   end
+
+  it 'shows a document element for each document' do
+    visit '/documents'
+    assert page.has_css?('.document', count: 2), "Expected to find 2 books"
+  end
+
 end

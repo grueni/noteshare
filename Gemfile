@@ -9,7 +9,7 @@ gem 'lotus-model', '~> 0.5'
 
 gem 'pg'
 
-gem 'sequel'
+#   gem 'sequel'
 
 
 gem 'haml'
