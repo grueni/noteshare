@@ -30,10 +30,18 @@ describe Document do
   end
 
 
-  it 'can add parts to a document' do
+  it 'can add subdocuments to a document, setting up refs from parent to child and vice versa' do
 
     @section.add_to(@article)
     @article.subdocument(0).title.must_equal @section.title
+    @section.parent_id.must_equal @article.id
+
+  end
+
+  it 'can ask subdocument to reference its parent' do
+
+    @section.add_to(@article)
+    @section.parent.title.must_equal @article.title
 
   end
 

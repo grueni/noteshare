@@ -4,7 +4,8 @@ class Document
     :createdAt, :modifiedAt, :content, :subdoc_refs, :parent_id
 
   # *section.add_to(doc)* appends the id of *section*
-  # to the array *doc.subdoc_refs*
+  # to the array *doc.subdoc_refs*.  It also creates
+  # a pointer (*parent_id*) to the parent document
   def add_to(parent_document)
     DocumentRepository.persist(self) unless self.id
     if parent_document
@@ -12,7 +13,14 @@ class Document
     else
       parent_document.subdoc_refs = [self.id]
     end
+    self.parent_id = parent_document.id
+    DocumentRepository.persist(self)
     DocumentRepository.persist(parent_document)
+  end
+
+  # *doc.parent* returns nil or the parent object
+  def parent
+    DocumentRepository.find(parent_id)
   end
 
   # *doc.subdocment(k)* returns the k-th
