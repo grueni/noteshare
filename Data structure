@@ -1,0 +1,18 @@
+----
+noteshare_development=# \d documents
+                                     Table "public.documents"
+   Column   |            Type             |                       Modifiers                        
+------------+-----------------------------+--------------------------------------------------------
+ id         | integer                     | not null default nextval('documents_id_seq'::regclass)
+ author     | text                        | not null
+ title      | text                        | not null
+ tags       | text                        | 
+ meta       | text                        | 
+ createdAt  | timestamp without time zone | 
+ modifiedAt | timestamp without time zone | 
+ content    | text                        | 
+ part       | integer[]                   | 
+Indexes:
+    "documents_pkey" PRIMARY KEY, btree (id)
+----  
+    
