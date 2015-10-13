@@ -1,0 +1,5 @@
+The purpose of this project is to lay the groundwork for a future version
+of http://www.noteshare.io[Noteshare.io] -- a (technical) web publishing
+site powered by the awesome http://asciidoctor.org[Asciidoctor.org] text
+processing engine.  In addition to supporting Noteshare.io, the project
+aims to develop a good chunked editing system.
