@@ -1,16 +1,16 @@
 class Document
   include Lotus::Entity
   attributes :id, :author, :title, :tags, :meta,
-    :createdAt, :modifiedAt, :content, :part
+    :createdAt, :modifiedAt, :content, :subdoc_refs, :parent_id
 
   # *section.add_to(doc)* appends the id of *section*
-  # to the array *doc.part*
+  # to the array *doc.subdoc_refs*
   def add_to(parent_document)
     DocumentRepository.persist(self) unless self.id
     if parent_document
-      parent_document.part << self.id
+      parent_document.subdoc_refs << self.id
     else
-      parent_document.part = [self.id]
+      parent_document.subdoc_refs = [self.id]
     end
     DocumentRepository.persist(parent_document)
   end
@@ -18,14 +18,14 @@ class Document
   # *doc.subdocment(k)* returns the k-th
   # subdocument of *doc*
   def subdocument(k)
-    DocumentRepository.find(part[k])
+    DocumentRepository.find(subdoc_refs[k])
   end
 
   # *doc.subdocument_titles* returns a list of the
   # titles of the sections of *document*.
   def subdocument_titles
     list = []
-    part.each do |id|
+    subdoc_refs.each do |id|
       section = DocumentRepository.find(id)
       list << section.title
     end
@@ -41,10 +41,10 @@ class Document
   # *doc*.
   def compile
     compiled_text = self.content || 'Yo! '
-    part.each do |id|
+    subdoc_refs.each do |id|
       section = DocumentRepository.find(id)
       compiled_text << "\n" << section.content
-      if section.part
+      if section.subdoc_refs
         compiled_text << section.compile
       end
     end

@@ -49,7 +49,8 @@ Lotus::Model.configure do
       attribute :modifiedAt, DateTime
       attribute :meta, String
       attribute :content, String
-      attribute :part, PGIntArray
+      attribute :subdoc_refs, PGIntArray
+      attribute :parent_id, Integer
     end
   end
 end.load!

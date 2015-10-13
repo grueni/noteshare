@@ -7,10 +7,10 @@ describe Document do
   before do
     DocumentRepository.clear
 
-    @article = DocumentRepository.create(Document.new(title: 'Quantum Mechanics', author: 'Jared. Foo-Bar', part: []))
-    @section = DocumentRepository.create(Document.new(title: 'Uncertainty Principle', author: 'Jared Foo-Bar', part: []))
-    @section2 = DocumentRepository.create(Document.new(title: 'Wave-Particle Duality', author: 'Jared Foo-Bar', part: []))
-    @subsection =  DocumentRepository.create(Document.new(title: "de Broglie's idea", author: 'Jared Foo-Bar', part: []))
+    @article = DocumentRepository.create(Document.new(title: 'Quantum Mechanics', author: 'Jared. Foo-Bar', subdoc_refs: []))
+    @section = DocumentRepository.create(Document.new(title: 'Uncertainty Principle', author: 'Jared Foo-Bar', subdoc_refs: []))
+    @section2 = DocumentRepository.create(Document.new(title: 'Wave-Particle Duality', author: 'Jared Foo-Bar', subdoc_refs: []))
+    @subsection =  DocumentRepository.create(Document.new(title: "de Broglie's idea", author: 'Jared Foo-Bar', subdoc_refs: []))
 
     @article.content = 'Quantum phenomena are weird!'
     @section.content = 'The Uncertainty Principle invalidates the notion of trajectory'
