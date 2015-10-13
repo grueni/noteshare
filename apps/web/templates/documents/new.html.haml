@@ -1,0 +1,10 @@
+%h2 Add Document
+
+= form_for :document, '/document' do
+  .input
+    =text_field :title
+  .input
+    =text_field :author
+  .controls
+    =submit 'Create Book'
+

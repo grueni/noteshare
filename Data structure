@@ -1,15 +1,22 @@
-                                      Table "public.documents"
-   Column    |            Type             |                       Modifiers                        
--------------+-----------------------------+--------------------------------------------------------
- id          | integer                     | not null default nextval('documents_id_seq'::regclass)
- author      | text                        | not null
- title       | text                        | not null
- tags        | text                        | 
- meta        | text                        | 
- createdAt   | timestamp without time zone | 
- modifiedAt  | timestamp without time zone | 
- content     | text                        | 
- subdoc_refs | integer[]                   | 
- parent_id   | integer                     | 
+                                        Table "public.documents"
+      Column      |            Type             |                       Modifiers                        
+------------------+-----------------------------+--------------------------------------------------------
+ id               | integer                     | not null default nextval('documents_id_seq'::regclass)
+ author           | text                        | not null
+ title            | text                        | not null
+ tags             | text                        | 
+ meta             | text                        | 
+ createdAt        | timestamp without time zone | 
+ modifiedAt       | timestamp without time zone | 
+ content          | text                        | 
+ subdoc_refs      | integer[]                   | 
+ parent_id        | integer                     | 
+ type             | text                        | 
+ author_id        | integer                     | 
+ area             | text                        | 
+ rendered_content | text                        | 
+ doc_refs         | jsonb                       | 
+ index_in_parent  | integer                     | 
 Indexes:
     "documents_pkey" PRIMARY KEY, btree (id)
+

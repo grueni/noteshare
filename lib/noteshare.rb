@@ -45,12 +45,18 @@ Lotus::Model.configure do
       attribute :author, String
       attribute :title, String
       attribute :tags, String
+      attribute :meta, String
       attribute :createdAt, DateTime
       attribute :modifiedAt, DateTime
-      attribute :meta, String
       attribute :content, String
       attribute :subdoc_refs, PGIntArray
       attribute :parent_id, Integer
+      attribute :type, String
+      attribute :author_id, Integer
+      attribute :area, String
+      attribute :rendered_content, String
+      attribute :doc_refs, JSON
+      attribute :index_in_parent, Integer
     end
   end
 end.load!

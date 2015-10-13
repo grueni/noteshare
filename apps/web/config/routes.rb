@@ -1,3 +1,4 @@
+get '/document', to: 'documents#new'
 get '/', to: 'home#index'
 
 get '/documents', to: 'documents#index'
