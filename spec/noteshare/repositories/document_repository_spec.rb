@@ -1,5 +1,22 @@
 require 'spec_helper'
 
 describe DocumentRepository do
-  # place your tests here
+
+    before do
+      DocumentRepository.clear
+
+      @document = DocumentRepository.create(Document.new(title: 'TDD', author: 'Kent Beck'))
+    end
+
+    it 'persists objects' do
+      doc = DocumentRepository.find @document.id
+      doc.title.must_equal 'TDD'
+    end
+
+    it 'finds objects by title' do
+      docs = DocumentRepository.find_by_title 'TDD'
+      docs.first.title.must_equal 'TDD'
+    end
+
+
 end
