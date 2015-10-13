@@ -16,4 +16,19 @@ class Document
   def subdocument(k)
     DocumentRepository.find(part[k])
   end
+
+  def compile
+    puts "**** COMPILE ****"
+    compiled_text = self.text || 'Yo! '
+    puts "ct: #{compiled_text}"
+    puts "number of parts = #{part.count}"
+    part.each do |id|
+      section = DocumentRepository.find(id)
+      puts "#{id}: #{section.title}"
+      compiled_text << "\n" << section.text
+      puts "ct: #{compiled_text}"
+    end
+    compiled_text
+  end
+
 end

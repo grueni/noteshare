@@ -6,4 +6,5 @@ class DocumentRepository
       where(title: title)
     end
   end
+
 end
