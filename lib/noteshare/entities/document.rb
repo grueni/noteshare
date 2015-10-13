@@ -17,16 +17,23 @@ class Document
     DocumentRepository.find(part[k])
   end
 
-  def compile
-    puts "**** COMPILE ****"
-    compiled_text = self.text || 'Yo! '
-    puts "ct: #{compiled_text}"
-    puts "number of parts = #{part.count}"
+  def subdocument_titles
+    list = []
     part.each do |id|
       section = DocumentRepository.find(id)
-      puts "#{id}: #{section.title}"
+      list << section.title
+    end
+    list
+  end
+  
+  def compile
+    compiled_text = self.text || 'Yo! '
+    part.each do |id|
+      section = DocumentRepository.find(id)
       compiled_text << "\n" << section.text
-      puts "ct: #{compiled_text}"
+      if section.part
+        compiled_text << section.compile
+      end
     end
     compiled_text
   end

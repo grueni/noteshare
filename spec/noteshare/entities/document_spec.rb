@@ -9,12 +9,18 @@ describe Document do
 
     @article = DocumentRepository.create(Document.new(title: 'Quantum Mechanics', author: 'Jared. Foo-Bar', part: []))
     @section = DocumentRepository.create(Document.new(title: 'Uncertainty Principle', author: 'Jared Foo-Bar', part: []))
+    @section2 = DocumentRepository.create(Document.new(title: 'Wave-Particle Duality', author: 'Jared Foo-Bar', part: []))
+    @subsection =  DocumentRepository.create(Document.new(title: "de Broglie's idea", author: 'Jared Foo-Bar', part: []))
 
     @article.text = 'Quantum phenomena are weird!'
     @section.text = 'The Uncertainty Principle invalidates the notion of trajectory'
+    @section2.text = 'It is, like, _so_ weird!'
+    @subsection.text = 'He was a count.'
 
     DocumentRepository.persist @article
     DocumentRepository.persist @section
+    DocumentRepository.persist @section2
+    DocumentRepository.persist @subsection
 
   end
 
@@ -31,6 +37,13 @@ describe Document do
 
   end
 
+  it 'can form a list of subdocument titles' do
+    @section.add_to(@article)
+    @section2.add_to(@article)
+    @article.subdocument_titles.must_equal ['Uncertainty Principle', 'Wave-Particle Duality']
+
+  end
+
   it 'can compile a document' do
 
     @section.add_to(@article)
@@ -38,7 +51,19 @@ describe Document do
     compiled_text.must_include @article.text
     compiled_text.must_include @section.text
 
+  end
 
+  it 'can compile a document to deeper levels' do
+
+    @section.add_to(@article)
+    @section2.add_to(@article)
+    @subsection.add_to(@section2)
+    compiled_text = @article.compile
+    compiled_text.must_include @article.text
+    compiled_text.must_include @section.text
+    compiled_text.must_include @section2.text
+    compiled_text.must_include @subsection.text
 
   end
+
 end
