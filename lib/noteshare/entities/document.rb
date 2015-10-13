@@ -1,7 +1,7 @@
 class Document
   include Lotus::Entity
   attributes :id, :author, :title, :tags, :meta,
-    :createdAt, :modifiedAt, :text, :part
+    :createdAt, :modifiedAt, :content, :part
 
   def add_to(parent_document)
     DocumentRepository.persist(self) unless self.id
@@ -27,10 +27,10 @@ class Document
   end
   
   def compile
-    compiled_text = self.text || 'Yo! '
+    compiled_text = self.content || 'Yo! '
     part.each do |id|
       section = DocumentRepository.find(id)
-      compiled_text << "\n" << section.text
+      compiled_text << "\n" << section.content
       if section.part
         compiled_text << section.compile
       end

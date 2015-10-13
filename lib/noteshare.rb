@@ -48,7 +48,7 @@ Lotus::Model.configure do
       attribute :createdAt, DateTime
       attribute :modifiedAt, DateTime
       attribute :meta, String
-      attribute :text, String
+      attribute :content, String
       attribute :part, PGIntArray
     end
   end

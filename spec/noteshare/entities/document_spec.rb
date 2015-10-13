@@ -12,10 +12,10 @@ describe Document do
     @section2 = DocumentRepository.create(Document.new(title: 'Wave-Particle Duality', author: 'Jared Foo-Bar', part: []))
     @subsection =  DocumentRepository.create(Document.new(title: "de Broglie's idea", author: 'Jared Foo-Bar', part: []))
 
-    @article.text = 'Quantum phenomena are weird!'
-    @section.text = 'The Uncertainty Principle invalidates the notion of trajectory'
-    @section2.text = 'It is, like, _so_ weird!'
-    @subsection.text = 'He was a count.'
+    @article.content = 'Quantum phenomena are weird!'
+    @section.content = 'The Uncertainty Principle invalidates the notion of trajectory'
+    @section2.content = 'It is, like, _so_ weird!'
+    @subsection.content = 'He was a count.'
 
     DocumentRepository.persist @article
     DocumentRepository.persist @section
@@ -48,8 +48,8 @@ describe Document do
 
     @section.add_to(@article)
     compiled_text = @article.compile
-    compiled_text.must_include @article.text
-    compiled_text.must_include @section.text
+    compiled_text.must_include @article.content
+    compiled_text.must_include @section.content
 
   end
 
@@ -59,10 +59,10 @@ describe Document do
     @section2.add_to(@article)
     @subsection.add_to(@section2)
     compiled_text = @article.compile
-    compiled_text.must_include @article.text
-    compiled_text.must_include @section.text
-    compiled_text.must_include @section2.text
-    compiled_text.must_include @subsection.text
+    compiled_text.must_include @article.content
+    compiled_text.must_include @section.content
+    compiled_text.must_include @section2.content
+    compiled_text.must_include @subsection.content
 
   end
 
