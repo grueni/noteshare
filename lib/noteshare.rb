@@ -46,8 +46,8 @@ Lotus::Model.configure do
       attribute :title, String
       attribute :tags, String
       attribute :meta, String
-      attribute :createdAt, DateTime
-      attribute :modifiedAt, DateTime
+      attribute :created_at, DateTime
+      attribute :modified_at, DateTime
       attribute :content, String
       attribute :subdoc_refs, PGIntArray
       attribute :parent_id, Integer

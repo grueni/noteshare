@@ -1,7 +1,7 @@
 class Document
   include Lotus::Entity
   attributes :id, :author, :title, :tags, :meta,
-    :createdAt, :modifiedAt, :content, :subdoc_refs, :parent_id,
+    :created_at, :modified_at, :content, :subdoc_refs, :parent_id,
     :type, :author_id, :area, :rendered_content, :doc_refs, :index_in_parent
 
 
