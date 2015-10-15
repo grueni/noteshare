@@ -5,14 +5,8 @@
   </component>
   <component name="ChangeListManager">
     <list default="true" id="b34824e7-5183-4862-ad94-000b50337213" name="Default" comment="">
-      <change type="MODIFICATION" beforePath="$PROJECT_DIR$/Data structure" afterPath="$PROJECT_DIR$/Data structure" />
-      <change type="MODIFICATION" beforePath="$PROJECT_DIR$/Rakefile" afterPath="$PROJECT_DIR$/Rakefile" />
-      <change type="MODIFICATION" beforePath="$PROJECT_DIR$/spec/web/features/add_document_spec.rb" afterPath="$PROJECT_DIR$/spec/web/features/add_document_spec.rb" />
       <change type="MODIFICATION" beforePath="$PROJECT_DIR$/lib/noteshare/entities/document.rb" afterPath="$PROJECT_DIR$/lib/noteshare/entities/document.rb" />
       <change type="MODIFICATION" beforePath="$PROJECT_DIR$/spec/noteshare/entities/document_spec.rb" afterPath="$PROJECT_DIR$/spec/noteshare/entities/document_spec.rb" />
-      <change type="MODIFICATION" beforePath="$PROJECT_DIR$/apps/web/templates/documents/new.html.haml" afterPath="$PROJECT_DIR$/apps/web/templates/documents/new.html.haml" />
-      <change type="MODIFICATION" beforePath="$PROJECT_DIR$/lib/noteshare.rb" afterPath="$PROJECT_DIR$/lib/noteshare.rb" />
-      <change type="MODIFICATION" beforePath="$PROJECT_DIR$/apps/web/config/routes.rb" afterPath="$PROJECT_DIR$/apps/web/config/routes.rb" />
       <change type="MODIFICATION" beforePath="$PROJECT_DIR$/.idea/workspace.xml" afterPath="$PROJECT_DIR$/.idea/workspace.xml" />
     </list>
     <ignored path="noteshare.iws" />
@@ -35,16 +29,6 @@
   </component>
   <component name="FileEditorManager">
     <leaf>
-      <file leaf-file-name="document.rb" pinned="false" current-in-tab="true">
-        <entry file="file://$PROJECT_DIR$/lib/noteshare/entities/document.rb">
-          <provider selected="true" editor-type-id="text-editor">
-            <state vertical-scroll-proportion="0.17737003">
-              <caret line="36" column="44" selection-start-line="36" selection-start-column="44" selection-end-line="36" selection-end-column="44" />
-              <folding />
-            </state>
-          </provider>
-        </entry>
-      </file>
       <file leaf-file-name="Data structure" pinned="false" current-in-tab="false">
         <entry file="file://$PROJECT_DIR$/Data structure">
           <provider selected="true" editor-type-id="text-editor">
@@ -55,11 +39,35 @@
           </provider>
         </entry>
       </file>
-      <file leaf-file-name="document_spec.rb" pinned="false" current-in-tab="false">
+      <file leaf-file-name="document.rb" pinned="false" current-in-tab="false">
+        <entry file="file://$PROJECT_DIR$/lib/noteshare/entities/document.rb">
+          <provider selected="true" editor-type-id="text-editor">
+            <state vertical-scroll-proportion="0.0">
+              <caret line="201" column="63" selection-start-line="201" selection-start-column="63" selection-end-line="201" selection-end-column="63" />
+              <folding>
+                <marker date="1444889151000" expanded="true" signature="5379:5756" placeholder=" ... end" />
+                <marker date="1444889151000" expanded="true" signature="5491:5732" placeholder="if ... end" />
+                <marker date="1444889151000" expanded="true" signature="5535:5551" placeholder="do ... end" />
+              </folding>
+            </state>
+          </provider>
+        </entry>
+      </file>
+      <file leaf-file-name="document_spec.rb" pinned="false" current-in-tab="true">
         <entry file="file://$PROJECT_DIR$/spec/noteshare/entities/document_spec.rb">
           <provider selected="true" editor-type-id="text-editor">
-            <state vertical-scroll-proportion="-12.518518">
-              <caret line="108" column="45" selection-start-line="108" selection-start-column="45" selection-end-line="108" selection-end-column="45" />
+            <state vertical-scroll-proportion="0.40528634">
+              <caret line="207" column="4" selection-start-line="207" selection-start-column="4" selection-end-line="207" selection-end-column="4" />
+              <folding />
+            </state>
+          </provider>
+        </entry>
+      </file>
+      <file leaf-file-name="index.html.haml" pinned="false" current-in-tab="false">
+        <entry file="file://$PROJECT_DIR$/apps/web/templates/documents/index.html.haml">
+          <provider selected="true" editor-type-id="text-editor">
+            <state vertical-scroll-proportion="0.0">
+              <caret line="1" column="4" selection-start-line="1" selection-start-column="4" selection-end-line="1" selection-end-column="4" />
               <folding />
             </state>
           </provider>
@@ -95,15 +103,25 @@
           </provider>
         </entry>
       </file>
+      <file leaf-file-name="20151013042935_redo.rb" pinned="false" current-in-tab="false">
+        <entry file="file://$PROJECT_DIR$/db/migrations/20151013042935_redo.rb">
+          <provider selected="true" editor-type-id="text-editor">
+            <state vertical-scroll-proportion="0.0">
+              <caret line="12" column="26" selection-start-line="12" selection-start-column="26" selection-end-line="12" selection-end-column="26" />
+              <folding />
+            </state>
+          </provider>
+        </entry>
+      </file>
       <file leaf-file-name="new.html.haml" pinned="false" current-in-tab="false">
         <entry file="file://$PROJECT_DIR$/apps/web/templates/documents/new.html.haml">
           <provider selected="true" editor-type-id="text-editor">
             <state vertical-scroll-proportion="0.0">
               <caret line="0" column="16" selection-start-line="0" selection-start-column="16" selection-end-line="0" selection-end-column="16" />
               <folding>
-                <marker date="1444778470000" expanded="true" signature="57:86" placeholder=".input" />
-                <marker date="1444778470000" expanded="true" signature="89:119" placeholder=".input" />
-                <marker date="1444778470000" expanded="true" signature="122:159" placeholder=".controls" />
+                <marker date="1444850952000" expanded="true" signature="57:86" placeholder=".input" />
+                <marker date="1444850952000" expanded="true" signature="89:119" placeholder=".input" />
+                <marker date="1444850952000" expanded="true" signature="122:159" placeholder=".controls" />
               </folding>
             </state>
           </provider>
@@ -139,7 +157,6 @@
         <option value="$PROJECT_DIR$/db/migrations/20151013004146_int_array.rb" />
         <option value="$PROJECT_DIR$/db/migrations/20151013040832_int_array2.rb" />
         <option value="$PROJECT_DIR$/db/migrations/20151011203722_create_documents.rb" />
-        <option value="$PROJECT_DIR$/db/migrations/20151013042935_redo.rb" />
         <option value="$PROJECT_DIR$/spec/noteshare/repositories/document_repository_spec.rb" />
         <option value="$PROJECT_DIR$/lib/noteshare/repositories/document_repository.rb" />
         <option value="$PROJECT_DIR$/lib/ext/pg_array.rb" />
@@ -150,8 +167,9 @@
         <option value="$PROJECT_DIR$/lib/noteshare.rb" />
         <option value="$PROJECT_DIR$/spec/web/features/add_document_spec.rb" />
         <option value="$PROJECT_DIR$/Rakefile" />
-        <option value="$PROJECT_DIR$/spec/noteshare/entities/document_spec.rb" />
+        <option value="$PROJECT_DIR$/db/migrations/20151013042935_redo.rb" />
         <option value="$PROJECT_DIR$/lib/noteshare/entities/document.rb" />
+        <option value="$PROJECT_DIR$/spec/noteshare/entities/document_spec.rb" />
       </list>
     </option>
   </component>
@@ -190,7 +208,6 @@
       <sortByType />
     </navigator>
     <panes>
-      <pane id="Scratches" />
       <pane id="ProjectPane">
         <subPane>
           <PATH>
@@ -443,6 +460,7 @@
           </PATH>
         </subPane>
       </pane>
+      <pane id="Scratches" />
       <pane id="Scope" />
     </panes>
   </component>
@@ -603,24 +621,24 @@
     <frame x="0" y="23" width="1260" height="773" extended-state="0" />
     <editor active="true" />
     <layout>
-      <window_info id="Project" active="false" anchor="left" auto_hide="false" internal_type="DOCKED" type="DOCKED" visible="true" weight="0.17816092" sideWeight="0.5" order="0" side_tool="false" content_ui="combo" />
+      <window_info id="Project" active="false" anchor="left" auto_hide="false" internal_type="DOCKED" type="DOCKED" visible="true" weight="0.18555008" sideWeight="0.5" order="0" side_tool="false" content_ui="combo" />
       <window_info id="TODO" active="false" anchor="bottom" auto_hide="false" internal_type="DOCKED" type="DOCKED" visible="false" weight="0.33" sideWeight="0.5" order="6" side_tool="false" content_ui="tabs" />
       <window_info id="Event Log" active="false" anchor="bottom" auto_hide="false" internal_type="DOCKED" type="DOCKED" visible="false" weight="0.33" sideWeight="0.5" order="7" side_tool="true" content_ui="tabs" />
       <window_info id="Application Servers" active="false" anchor="bottom" auto_hide="false" internal_type="DOCKED" type="DOCKED" visible="false" weight="0.33" sideWeight="0.5" order="7" side_tool="false" content_ui="tabs" />
       <window_info id="Database" active="false" anchor="right" auto_hide="false" internal_type="DOCKED" type="DOCKED" visible="false" weight="0.33" sideWeight="0.5" order="3" side_tool="false" content_ui="tabs" />
-      <window_info id="Find" active="false" anchor="bottom" auto_hide="false" internal_type="DOCKED" type="DOCKED" visible="false" weight="0.4400564" sideWeight="0.5" order="1" side_tool="false" content_ui="tabs" />
       <window_info id="Version Control" active="false" anchor="bottom" auto_hide="false" internal_type="DOCKED" type="DOCKED" visible="false" weight="0.33" sideWeight="0.5" order="7" side_tool="false" content_ui="tabs" />
-      <window_info id="Run" active="false" anchor="bottom" auto_hide="false" internal_type="DOCKED" type="DOCKED" visible="false" weight="0.33" sideWeight="0.5" order="2" side_tool="false" content_ui="tabs" />
       <window_info id="Structure" active="false" anchor="left" auto_hide="false" internal_type="DOCKED" type="DOCKED" visible="false" weight="0.25" sideWeight="0.5" order="1" side_tool="false" content_ui="tabs" />
       <window_info id="Terminal" active="false" anchor="bottom" auto_hide="false" internal_type="DOCKED" type="DOCKED" visible="false" weight="0.33" sideWeight="0.5" order="7" side_tool="false" content_ui="tabs" />
       <window_info id="Favorites" active="false" anchor="left" auto_hide="false" internal_type="DOCKED" type="DOCKED" visible="false" weight="0.33" sideWeight="0.5" order="2" side_tool="true" content_ui="tabs" />
-      <window_info id="Debug" active="false" anchor="bottom" auto_hide="false" internal_type="DOCKED" type="DOCKED" visible="false" weight="0.4" sideWeight="0.5" order="3" side_tool="false" content_ui="tabs" />
       <window_info id="Cvs" active="false" anchor="bottom" auto_hide="false" internal_type="DOCKED" type="DOCKED" visible="false" weight="0.25" sideWeight="0.5" order="4" side_tool="false" content_ui="tabs" />
       <window_info id="Message" active="false" anchor="bottom" auto_hide="false" internal_type="DOCKED" type="DOCKED" visible="false" weight="0.33" sideWeight="0.5" order="0" side_tool="false" content_ui="tabs" />
       <window_info id="Commander" active="false" anchor="right" auto_hide="false" internal_type="SLIDING" type="SLIDING" visible="false" weight="0.4" sideWeight="0.5" order="0" side_tool="false" content_ui="tabs" />
       <window_info id="Inspection" active="false" anchor="bottom" auto_hide="false" internal_type="DOCKED" type="DOCKED" visible="false" weight="0.39915374" sideWeight="0.5" order="5" side_tool="false" content_ui="tabs" />
+      <window_info id="Run" active="false" anchor="bottom" auto_hide="false" internal_type="DOCKED" type="DOCKED" visible="false" weight="0.33" sideWeight="0.5" order="2" side_tool="false" content_ui="tabs" />
       <window_info id="Hierarchy" active="false" anchor="right" auto_hide="false" internal_type="DOCKED" type="DOCKED" visible="false" weight="0.25" sideWeight="0.5" order="2" side_tool="false" content_ui="combo" />
+      <window_info id="Find" active="false" anchor="bottom" auto_hide="false" internal_type="DOCKED" type="DOCKED" visible="false" weight="0.4400564" sideWeight="0.5" order="1" side_tool="false" content_ui="tabs" />
       <window_info id="Ant Build" active="false" anchor="right" auto_hide="false" internal_type="DOCKED" type="DOCKED" visible="false" weight="0.25" sideWeight="0.5" order="1" side_tool="false" content_ui="tabs" />
+      <window_info id="Debug" active="false" anchor="bottom" auto_hide="false" internal_type="DOCKED" type="DOCKED" visible="false" weight="0.4" sideWeight="0.5" order="3" side_tool="false" content_ui="tabs" />
     </layout>
     <layout-to-restore>
       <window_info id="TODO" active="false" anchor="bottom" auto_hide="false" internal_type="DOCKED" type="DOCKED" visible="false" weight="0.33" sideWeight="0.5" order="6" side_tool="false" content_ui="tabs" />
@@ -659,14 +677,6 @@
     <watches-manager />
   </component>
   <component name="editorHistoryManager">
-    <entry file="file://$PROJECT_DIR$/spec/web/features/add_document_spec.rb">
-      <provider selected="true" editor-type-id="text-editor">
-        <state vertical-scroll-proportion="0.0">
-          <caret line="21" column="4" selection-start-line="21" selection-start-column="4" selection-end-line="21" selection-end-column="4" />
-          <folding />
-        </state>
-      </provider>
-    </entry>
     <entry file="file://$PROJECT_DIR$/lib/noteshare.rb">
       <provider selected="true" editor-type-id="text-editor">
         <state vertical-scroll-proportion="0.0">
@@ -680,9 +690,9 @@
         <state vertical-scroll-proportion="0.0">
           <caret line="0" column="16" selection-start-line="0" selection-start-column="16" selection-end-line="0" selection-end-column="16" />
           <folding>
-            <marker date="1444778470000" expanded="true" signature="57:86" placeholder=".input" />
-            <marker date="1444778470000" expanded="true" signature="89:119" placeholder=".input" />
-            <marker date="1444778470000" expanded="true" signature="122:159" placeholder=".controls" />
+            <marker date="1444850952000" expanded="true" signature="57:86" placeholder=".input" />
+            <marker date="1444850952000" expanded="true" signature="89:119" placeholder=".input" />
+            <marker date="1444850952000" expanded="true" signature="122:159" placeholder=".controls" />
           </folding>
         </state>
       </provider>
@@ -691,7 +701,11 @@
       <provider selected="true" editor-type-id="text-editor">
         <state vertical-scroll-proportion="0.0">
           <caret line="5" column="0" selection-start-line="5" selection-start-column="0" selection-end-line="5" selection-end-column="0" />
-          <folding />
+          <folding>
+            <marker date="1444889151000" expanded="true" signature="5379:5756" placeholder=" ... end" />
+            <marker date="1444889151000" expanded="true" signature="5491:5732" placeholder="if ... end" />
+            <marker date="1444889151000" expanded="true" signature="5535:5551" placeholder="do ... end" />
+          </folding>
         </state>
       </provider>
     </entry>
@@ -882,24 +896,10 @@
         </state>
       </provider>
     </entry>
-    <entry file="file://$PROJECT_DIR$/apps/web/templates/documents/index.html.haml">
-      <provider selected="true" editor-type-id="text-editor">
-        <state vertical-scroll-proportion="-0.625">
-          <caret line="1" column="4" selection-start-line="1" selection-start-column="4" selection-end-line="1" selection-end-column="4" />
-        </state>
-      </provider>
-    </entry>
     <entry file="file://$PROJECT_DIR$/apps/web/controllers/documents/index.rb">
       <provider selected="true" editor-type-id="text-editor">
         <state vertical-scroll-proportion="0.0">
           <caret line="7" column="41" selection-start-line="7" selection-start-column="41" selection-end-line="7" selection-end-column="41" />
-        </state>
-      </provider>
-    </entry>
-    <entry file="file://$PROJECT_DIR$/db/migrations/20151013042935_redo.rb">
-      <provider selected="true" editor-type-id="text-editor">
-        <state vertical-scroll-proportion="0.0">
-          <caret line="17" column="0" selection-start-line="17" selection-start-column="0" selection-end-line="17" selection-end-column="0" />
         </state>
       </provider>
     </entry>
@@ -980,22 +980,14 @@
         </state>
       </provider>
     </entry>
-    <entry file="file://$PROJECT_DIR$/lib/noteshare.rb">
-      <provider selected="true" editor-type-id="text-editor">
-        <state vertical-scroll-proportion="0.0">
-          <caret line="58" column="41" selection-start-line="58" selection-start-column="41" selection-end-line="58" selection-end-column="41" />
-          <folding />
-        </state>
-      </provider>
-    </entry>
     <entry file="file://$PROJECT_DIR$/apps/web/templates/documents/new.html.haml">
       <provider selected="true" editor-type-id="text-editor">
         <state vertical-scroll-proportion="0.0">
           <caret line="0" column="16" selection-start-line="0" selection-start-column="16" selection-end-line="0" selection-end-column="16" />
           <folding>
-            <marker date="1444778470000" expanded="true" signature="57:86" placeholder=".input" />
-            <marker date="1444778470000" expanded="true" signature="89:119" placeholder=".input" />
-            <marker date="1444778470000" expanded="true" signature="122:159" placeholder=".controls" />
+            <marker date="1444850952000" expanded="true" signature="57:86" placeholder=".input" />
+            <marker date="1444850952000" expanded="true" signature="89:119" placeholder=".input" />
+            <marker date="1444850952000" expanded="true" signature="122:159" placeholder=".controls" />
           </folding>
         </state>
       </provider>
@@ -1016,6 +1008,37 @@
         </state>
       </provider>
     </entry>
+    <entry file="file://$PROJECT_DIR$/doc/Document.html">
+      <provider selected="true" editor-type-id="text-editor">
+        <state vertical-scroll-proportion="0.18721461">
+          <caret line="849" column="105" selection-start-line="849" selection-start-column="105" selection-end-line="849" selection-end-column="105" />
+        </state>
+      </provider>
+    </entry>
+    <entry file="file://$PROJECT_DIR$/apps/web/templates/documents/index.html.haml">
+      <provider selected="true" editor-type-id="text-editor">
+        <state vertical-scroll-proportion="0.0">
+          <caret line="1" column="4" selection-start-line="1" selection-start-column="4" selection-end-line="1" selection-end-column="4" />
+          <folding />
+        </state>
+      </provider>
+    </entry>
+    <entry file="file://$PROJECT_DIR$/lib/noteshare.rb">
+      <provider selected="true" editor-type-id="text-editor">
+        <state vertical-scroll-proportion="0.0">
+          <caret line="58" column="41" selection-start-line="58" selection-start-column="41" selection-end-line="58" selection-end-column="41" />
+          <folding />
+        </state>
+      </provider>
+    </entry>
+    <entry file="file://$PROJECT_DIR$/db/migrations/20151013042935_redo.rb">
+      <provider selected="true" editor-type-id="text-editor">
+        <state vertical-scroll-proportion="0.0">
+          <caret line="12" column="26" selection-start-line="12" selection-start-column="26" selection-end-line="12" selection-end-column="26" />
+          <folding />
+        </state>
+      </provider>
+    </entry>
     <entry file="file://$PROJECT_DIR$/Data structure">
       <provider selected="true" editor-type-id="text-editor">
         <state vertical-scroll-proportion="0.0">
@@ -1024,18 +1047,22 @@
         </state>
       </provider>
     </entry>
-    <entry file="file://$PROJECT_DIR$/spec/noteshare/entities/document_spec.rb">
+    <entry file="file://$PROJECT_DIR$/lib/noteshare/entities/document.rb">
       <provider selected="true" editor-type-id="text-editor">
-        <state vertical-scroll-proportion="-12.518518">
-          <caret line="108" column="45" selection-start-line="108" selection-start-column="45" selection-end-line="108" selection-end-column="45" />
-          <folding />
+        <state vertical-scroll-proportion="0.0">
+          <caret line="201" column="63" selection-start-line="201" selection-start-column="63" selection-end-line="201" selection-end-column="63" />
+          <folding>
+            <marker date="1444889151000" expanded="true" signature="5379:5756" placeholder=" ... end" />
+            <marker date="1444889151000" expanded="true" signature="5491:5732" placeholder="if ... end" />
+            <marker date="1444889151000" expanded="true" signature="5535:5551" placeholder="do ... end" />
+          </folding>
         </state>
       </provider>
     </entry>
-    <entry file="file://$PROJECT_DIR$/lib/noteshare/entities/document.rb">
+    <entry file="file://$PROJECT_DIR$/spec/noteshare/entities/document_spec.rb">
       <provider selected="true" editor-type-id="text-editor">
-        <state vertical-scroll-proportion="0.17737003">
-          <caret line="36" column="44" selection-start-line="36" selection-start-column="44" selection-end-line="36" selection-end-column="44" />
+        <state vertical-scroll-proportion="0.40528634">
+          <caret line="207" column="4" selection-start-line="207" selection-start-column="4" selection-end-line="207" selection-end-column="4" />
           <folding />
         </state>
       </provider>

@@ -9,7 +9,7 @@ describe Document do
   before do
     DocumentRepository.clear
 
-    @article = DocumentRepository.create(Document.new(title: 'Quantum Mechanics', author: 'Jared. Foo-Bar', subdoc_refs: []))
+    @article = DocumentRepository.create(Document.new(title: 'Quantum Mechanics', author: 'Jared. Foo-Bar'))
     @section = DocumentRepository.create(Document.new(title: 'Uncertainty Principle', author: 'Jared Foo-Bar', subdoc_refs: []))
     @section2 = DocumentRepository.create(Document.new(title: 'Wave-Particle Duality', author: 'Jared Foo-Bar', subdoc_refs: []))
     @section3 = DocumentRepository.create(Document.new(title: 'Matrix Mechanics', author: 'Jared Foo-Bar', subdoc_refs: []))
@@ -28,11 +28,17 @@ describe Document do
 
   end
 
-  it 'can be initialised with attributes' do
-    document = Document.new(title: 'Quantum Mechanics')
+  it 'can be initialised with attributes, with default set iii' do
+    document = Document.new(title: 'Quantum Mechanics', author: 'J.L Foo-Bar')
     document.title.must_equal 'Quantum Mechanics'
+    empty_hash = {}
+    document.doc_refs.must_equal empty_hash
+   document.subdoc_refs.must_equal []
   end
 
+  it 'can find the next document nxx' do
+    @article.next_document
+  end
 
   it 'can add subdocuments to a document, setting up refs from parent to child and vice versa' do
 
@@ -49,44 +55,80 @@ describe Document do
 
   end
 
+  ######### next and prev #####
+
+  it 'can set the doc_refs hash at will xdr' do
+
+    @artcile.doc_refs = {}
+    @article.doc_refs['foo'] = 'bar'
+    @article.doc_refs['foo'].must_equal 'bar'
+
+  end
+
   it 'can set the next and previous doc aaa' do
     @section.add_to(@article)
     @section.set_previous_doc(666)
     @section.set_next_doc(777)
 
-    @section.doc_refs[:previous].must_equal 666
-    @section.doc_refs[:next].must_equal 777
+    @section.doc_refs['previous'].must_equal 666
+    @section.doc_refs['next'].must_equal 777
 
     puts "STATUS #{@section.status}"
   end
 
-  it 'can find the previous section for a newly appended section' do
+  it 'can find the previous section for a newly appended section bbb' do
 
-    @section.add_to(@article)
-    @section2.add_to(@article)
-    hash = {'previous': @section.id}
+    @section.insert(0,@article)
+    @section2.insert(1,@article)
+
+    puts @section.status
+    puts @section2.status
+
+    puts
+
+    puts @article.subdocument_titles(:verbose)
+    hash = {'previous'=> @section.id}
+    puts  @section2.doc_refs
 
     @section2.doc_refs.must_equal hash
-    @section2.previous_subdocument.title.must_equal @section.title
+    @section2.previous_document_title.must_equal @section.title
 
 
   end
 
+
+
   it 'can find the next section of the previous section for a newly appended section qqq' do
 
-    @section.add_to(@article)
-    @section2.add_to(@article)
-    hash = {'next': @section2.id}
+    # @section.add_to(@article)
+    # @section2.add_to(@article)
+    @section.insert(0, @article)
+    @section2.insert(1,@article)
+    @section3.insert(2,@article)
+    hash = {'next'=> @section2.id}
 
     puts "\n----------------------\n"
 
     puts @section.status
     puts @section2.status
+    puts @section3.status
+
+    puts
+
+    puts @article.subdocument_titles(:verbose)
+
+    puts
+
+    puts @section.status
+    puts @section2.status
+    puts @section3.status
 
     puts "----------------------\n"
 
+    puts "@section.title: #{@section.title}"
+    puts "@section.doc_refs: #{@section.doc_refs}"
     @section.doc_refs.must_equal hash
-    @section.next_subdocument.title.must_equal @section2.title
+    @section.next_document.title.must_equal @section2.title
 
   end
 
@@ -139,14 +181,58 @@ describe Document do
 
   end
 
-  it 'can compile a document to deeper levels' do
+  it 'can compile a document to deeper levels using recursion cccc' do
 
     @section.add_to(@article)
     @section2.add_to(@article)
     @subsection.add_to(@section2)
+
+
+    puts @section2.subdocument_titles :header
+    puts @section2.subdoc_refs
+
+
+    puts "AAAAA"
+    puts @article.subdocument_titles :header
+    puts "BBBBB"
+    puts @section2.subdocument_titles :header
+    puts "CCCCCC"
+
     compiled_text = @article.compile
+    puts
+
+    compiled_text2 = @section2.compile
+    compiled_text2.must_include @section2.content
+    compiled_text2.must_include @subsection.content
+    puts
+    
+
+
     compiled_text.must_include @article.content
     compiled_text.must_include @section.content
+    compiled_text.must_include @section2.content
+    compiled_text.must_include @subsection.content
+
+  end
+
+  it 'can compile a document to deeper levels using recursion ccc2' do
+
+    @section.add_to(@article)
+    @section2.add_to(@article)
+    @subsection.add_to(@section2)
+
+
+    puts @section2.subdocument_titles :header
+    puts @section2.subdoc_refs
+
+
+    puts "AAAAA"
+    puts @article.subdocument_titles :header
+    puts "BBBBB"
+    puts @section2.subdocument_titles :header
+    puts "CCCCCC"
+
+    compiled_text = @section2.compile
     compiled_text.must_include @section2.content
     compiled_text.must_include @subsection.content
 
