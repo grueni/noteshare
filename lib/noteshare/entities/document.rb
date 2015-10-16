@@ -1,3 +1,5 @@
+require_relative '../../ext/core'
+
 class Document
   include Lotus::Entity
   attributes :id, :author, :title, :tags, :meta,
@@ -8,9 +10,10 @@ class Document
 
   def initialize(hash)
     hash.each { |name, value| instance_variable_set("@#{name}", value) }
-    @subdoc_refs = []
-    @doc_refs = {}
+    @subdoc_refs = [] if @subdoc_refs.nil?
+    @doc_refs = {} if @doc_refs.nil?
   end
+
 
 
   def add_to(parent_document)
@@ -24,61 +27,20 @@ class Document
     self.index_in_parent =  parent_document.subdoc_refs.length - 1
     self.parent_id = parent_document.id
 
-    # set the previous subdoc link
-    previous_doc_id = parent_document.subdoc_refs[-2]
-    if previous_doc_id
-      self.set_previous_doc(previous_doc_id)
-      previous_doc = DocumentRepository.find previous_doc_id
-      previous_doc.set_next_doc(self.id)
-      # puts "PREV: #{previous_doc.status}"
+    self.set_previous_doc
+    if previous_document
+      previous_document.set_next_doc
+    end
+
+    self.set_next_doc
+    if next_document
+      next_document.set_previous_doc
     end
 
     DocumentRepository.persist(self)
     DocumentRepository.persist(parent_document)
   end
 
-
-  # *section.add_to(doc)* appends the id of *section*
-  # to the array *doc.subdoc_refs*.  It also creates
-  # a pointer (*parent_id*) to the parent document
-  def xadd_to(parent_document)
-    # DocumentRepository.persist(pa
-    # add the subdocument
-    parent_document.subdoc_refs ||= []
-    parent_document.subdoc_refs << self.id
-
-    # refer to the parent in the added document
-    self.index_in_parent =  parent_document.subdoc_refs.length - 1
-    self.parent_id = parent_document.id
-
-    # DocumentRepository.persist(self)
-
-    # set the previous subdoc link
-    previous_doc_id = parent_document.subdoc_refs[-2]
-    if previous_doc_id
-      puts "+++++++++++++++++"
-      self.set_previous_doc(previous_doc_id)
-      puts self.status
-      previous_doc = DocumentRepository.find previous_doc_id
-      puts  "1) >>> #{previous_doc.status}"
-      previous_doc.set_next_doc(self.id)
-      puts  "2) >>> #{previous_doc.status}"
-      # DocumentRepository.persist(previous_doc)
-      #nputs "Persisted: #{previous_doc.title}"
-      # puts "PREV: #{previous_doc.status}"
-      DocumentRepository.persist(previous_doc)
-    end
-
-
-    DocumentRepository.persist(self)
-    DocumentRepository.persist(parent_document)
-  end
-
-  def x_add_to(parent_document)
-    refs = parent_document.subdoc_refs || []
-    n = refs.length
-    insert(n, parent_document )
-  end
 
 
   # Insert a subdocument at position k
@@ -86,27 +48,56 @@ class Document
   # amd the relevant next and previous links
   def insert(k, parent_document)
 
+    # puts "Insert #{self.id} (#{self.title}) at k = #{k}"
+
     index = parent_document.subdoc_refs || []
     index.insert(k, self.id)
     parent_document.subdoc_refs = index
     self.index_in_parent =  k
     self.parent_id = parent_document.id
-    DocumentRepository.persist(self )
 
-    n = index.length
-
-    if k > 0
-      self.set_previous_doc(index[k-1])
-      parent_document.subdocument(k-1).set_next_doc(self.id)
+    # update index_in_parent for subdocuments
+    # that were shifted to the right
+    # puts "Shifting ..."
+    # puts "parent_document.subdoc_refs.tail(k+1): #{parent_document.subdoc_refs.tail(k)}"
+    parent_document.subdoc_refs.tail(k).each do |id|
+      doc = DocumentRepository.find id
+      doc.index_in_parent = doc.index_in_parent + 1
+      DocumentRepository.persist(doc )
     end
 
-    if k+1 < n
-      self.set_next_doc(index[k+1])
-      parent_document.subdocument(k+1).set_previous_doc(self.id)
-    end
+
 
     DocumentRepository.persist(self)
+    DocumentRepository.persist(parent_document)
 
+    self.set_previous_doc
+    self.set_next_doc
+
+    if previous_document
+      previous_document.set_next_doc
+    end
+
+    if next_document
+      next_document.set_previous_doc
+    end
+
+  end
+
+  # Assume that receiver is subdocument k of parent.
+  # Return the id of subdocuemnt k - 1 or nil
+  def previous_id
+    parent = DocumentRepository.find parent_id
+    return nil if index_in_parent-1 < 0
+    return parent.subdoc_refs[index_in_parent-1]
+  end
+
+  # Assume that receiver is subdocument k of parent.
+  # Return the id of subdocuemnt k + 1 or nil
+  def next_id
+    parent = DocumentRepository.find parent_id
+    return nil if index_in_parent+1 > parent.subdoc_refs.length
+    parent.subdoc_refs[index_in_parent+1]
   end
 
   def info
@@ -118,24 +109,20 @@ class Document
   end
 
   def next_document
-    DocumentRepository.find doc_refs['next'] if doc_refs
+    DocumentRepository.find next_id
   end
 
   def previous_document
-    DocumentRepository.find doc_refs['previous']
+    DocumentRepository.find previous_id
   end
 
-  def set_previous_doc(id)
-    hash = self.doc_refs || {}
-    hash['previous'] = id
-    self.doc_refs = hash
+  def set_previous_doc
+    self.doc_refs['previous'] = previous_id
     DocumentRepository.persist(self)
   end
 
-  def set_next_doc(id)
-    hash = self.doc_refs || {}
-    hash['next'] = id
-    self.doc_refs = hash
+  def set_next_doc
+    self.doc_refs['next'] = next_id
     DocumentRepository.persist(self)
   end
 
@@ -150,15 +137,6 @@ class Document
     DocumentRepository.find(subdoc_refs[k])
   end
 
-  def next_document
-    id = self.doc_refs['next']
-    DocumentRepository.find id.to_i if id
-  end
-
-  def previous_document
-    id = self.doc_refs['previous']
-    DocumentRepository.find id.to_i if id
-  end
 
   def previous_document_title
     doc = self.previous_document
@@ -175,12 +153,12 @@ class Document
   # titles of the sections of *document*.
   def subdocument_titles(option=:simple)
     list = []
-    if option == :header
+    if [:header].include? option
       list << self.title.upcase
     end
     subdoc_refs.each do |id|
       section = DocumentRepository.find(id)
-      if option == :simple or option ==:header
+      if [:header, :simple].include? option
         item = section.title
       elsif option == :verbose
         item = "#{section.title}. back: #{section.previous_document_title}, forward: #{section.next_document_title}"
@@ -199,33 +177,19 @@ class Document
   # represent the id's of the sections of
   # *doc*.
   def compile
-    puts "compiling #{self.title} with array = #{self.subdoc_refs}"
-    compiled_text = self.content || ''
-    if subdoc_refs != []
+    if subdoc_refs == []
+      return content
+    else
+      text = content + "\n" || ''
       subdoc_refs.each do |id|
         section = DocumentRepository.find(id)
-        compiled_text << "\n" << section.compile
+        text  << section.compile << "\n"
+        # section.xcompile
       end
-    else
-      puts "stopping at #{self.title} with array = #{subdoc_refs} "
+      return text
     end
-    compiled_text
   end
 
-
-  def xcompile
-    compiled_text = self.content || 'Yo! '
-    subdoc_refs.each do |id|
-      section = DocumentRepository.find(id)
-      compiled_text << "\n" << section.content
-      puts section.subdoc_refs
-      if section.subdoc_refs != []
-        puts "OK! diving ..."
-        compiled_text << section.compile
-      end
-    end
-    compiled_text
-  end
 
 
 end

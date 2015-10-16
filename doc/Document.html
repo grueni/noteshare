@@ -135,10 +135,7 @@
   
 
   
-    <span class="summary_desc"><div class='inline'>
-<p>*section.add_to(doc)* appends the id of <strong>section</strong> to the
-array <strong>doc.subdoc_refs</strong>.</p>
-</div></span>
+    <span class="summary_desc"><div class='inline'></div></span>
   
 </li>
 
@@ -194,6 +191,32 @@ array <strong>doc.subdoc_refs</strong>.</p>
         <li class="public ">
   <span class="summary_signature">
     
+      <a href="#initialize-instance_method" title="#initialize (instance method)">- (Document) <strong>initialize</strong>(hash) </a>
+    
+
+    
+  </span>
+  
+  
+    <span class="note title constructor">constructor</span>
+  
+  
+  
+  
+  
+  
+
+  
+    <span class="summary_desc"><div class='inline'>
+<p>A new instance of Document.</p>
+</div></span>
+  
+</li>
+
+      
+        <li class="public ">
+  <span class="summary_signature">
+    
       <a href="#insert-instance_method" title="#insert (instance method)">- (Object) <strong>insert</strong>(k, parent_document) </a>
     
 
@@ -209,7 +232,8 @@ array <strong>doc.subdoc_refs</strong>.</p>
 
   
     <span class="summary_desc"><div class='inline'>
-<p>Insert …</p>
+<p>Insert a subdocument at position k and update all links: parent,
+index_in_parent, amd the relevant next and previous links.</p>
 </div></span>
   
 </li>
@@ -218,7 +242,7 @@ array <strong>doc.subdoc_refs</strong>.</p>
         <li class="public ">
   <span class="summary_signature">
     
-      <a href="#next_subdocument-instance_method" title="#next_subdocument (instance method)">- (Object) <strong>next_subdocument</strong> </a>
+      <a href="#next_document-instance_method" title="#next_document (instance method)">- (Object) <strong>next_document</strong> </a>
     
 
     
@@ -233,6 +257,52 @@ array <strong>doc.subdoc_refs</strong>.</p>
 
   
     <span class="summary_desc"><div class='inline'></div></span>
+  
+</li>
+
+      
+        <li class="public ">
+  <span class="summary_signature">
+    
+      <a href="#next_document_title-instance_method" title="#next_document_title (instance method)">- (Object) <strong>next_document_title</strong> </a>
+    
+
+    
+  </span>
+  
+  
+  
+  
+  
+  
+  
+
+  
+    <span class="summary_desc"><div class='inline'></div></span>
+  
+</li>
+
+      
+        <li class="public ">
+  <span class="summary_signature">
+    
+      <a href="#next_id-instance_method" title="#next_id (instance method)">- (Object) <strong>next_id</strong> </a>
+    
+
+    
+  </span>
+  
+  
+  
+  
+  
+  
+  
+
+  
+    <span class="summary_desc"><div class='inline'>
+<p>Assume that receiver is subdocument k of parent.</p>
+</div></span>
   
 </li>
 
@@ -264,7 +334,7 @@ array <strong>doc.subdoc_refs</strong>.</p>
         <li class="public ">
   <span class="summary_signature">
     
-      <a href="#previous_subdocument-instance_method" title="#previous_subdocument (instance method)">- (Object) <strong>previous_subdocument</strong> </a>
+      <a href="#previous_document-instance_method" title="#previous_document (instance method)">- (Object) <strong>previous_document</strong> </a>
     
 
     
@@ -286,7 +356,7 @@ array <strong>doc.subdoc_refs</strong>.</p>
         <li class="public ">
   <span class="summary_signature">
     
-      <a href="#set_next_doc-instance_method" title="#set_next_doc (instance method)">- (Object) <strong>set_next_doc</strong>(id) </a>
+      <a href="#previous_document_title-instance_method" title="#previous_document_title (instance method)">- (Object) <strong>previous_document_title</strong> </a>
     
 
     
@@ -308,7 +378,53 @@ array <strong>doc.subdoc_refs</strong>.</p>
         <li class="public ">
   <span class="summary_signature">
     
-      <a href="#set_previous_doc-instance_method" title="#set_previous_doc (instance method)">- (Object) <strong>set_previous_doc</strong>(id) </a>
+      <a href="#previous_id-instance_method" title="#previous_id (instance method)">- (Object) <strong>previous_id</strong> </a>
+    
+
+    
+  </span>
+  
+  
+  
+  
+  
+  
+  
+
+  
+    <span class="summary_desc"><div class='inline'>
+<p>Assume that receiver is subdocument k of parent.</p>
+</div></span>
+  
+</li>
+
+      
+        <li class="public ">
+  <span class="summary_signature">
+    
+      <a href="#set_next_doc-instance_method" title="#set_next_doc (instance method)">- (Object) <strong>set_next_doc</strong> </a>
+    
+
+    
+  </span>
+  
+  
+  
+  
+  
+  
+  
+
+  
+    <span class="summary_desc"><div class='inline'></div></span>
+  
+</li>
+
+      
+        <li class="public ">
+  <span class="summary_signature">
+    
+      <a href="#set_previous_doc-instance_method" title="#set_previous_doc (instance method)">- (Object) <strong>set_previous_doc</strong> </a>
     
 
     
@@ -376,7 +492,7 @@ array <strong>doc.subdoc_refs</strong>.</p>
         <li class="public ">
   <span class="summary_signature">
     
-      <a href="#subdocument_titles-instance_method" title="#subdocument_titles (instance method)">- (Object) <strong>subdocument_titles</strong> </a>
+      <a href="#subdocument_titles-instance_method" title="#subdocument_titles (instance method)">- (Object) <strong>subdocument_titles</strong>(option = :simple) </a>
     
 
     
@@ -402,7 +518,56 @@ sections of <strong>document</strong>.</p>
   
 
 
+  <div id="constructor_details" class="method_details_list">
+  <h2>Constructor Details</h2>
   
+    <div class="method_details first">
+  <h3 class="signature first" id="initialize-instance_method">
+  
+    - (<tt><span class='object_link'><a href="" title="Document (class)">Document</a></span></tt>) <strong>initialize</strong>(hash) 
+  
+
+  
+
+  
+</h3><div class="docstring">
+  <div class="discussion">
+    
+<p>Returns a new instance of Document</p>
+
+
+  </div>
+</div>
+<div class="tags">
+  
+
+</div><table class="source_code">
+  <tr>
+    <td>
+      <pre class="lines">
+
+
+11
+12
+13
+14
+15</pre>
+    </td>
+    <td>
+      <pre class="code"><span class="info file"># File 'lib/noteshare/entities/document.rb', line 11</span>
+
+<span class='kw'>def</span> <span class='id identifier rubyid_initialize'>initialize</span><span class='lparen'>(</span><span class='id identifier rubyid_hash'>hash</span><span class='rparen'>)</span>
+  <span class='id identifier rubyid_hash'>hash</span><span class='period'>.</span><span class='id identifier rubyid_each'>each</span> <span class='lbrace'>{</span> <span class='op'>|</span><span class='id identifier rubyid_name'>name</span><span class='comma'>,</span> <span class='id identifier rubyid_value'>value</span><span class='op'>|</span> <span class='id identifier rubyid_instance_variable_set'>instance_variable_set</span><span class='lparen'>(</span><span class='tstring'><span class='tstring_beg'>&quot;</span><span class='tstring_content'>@</span><span class='embexpr_beg'>#{</span><span class='id identifier rubyid_name'>name</span><span class='embexpr_end'>}</span><span class='tstring_end'>&quot;</span></span><span class='comma'>,</span> <span class='id identifier rubyid_value'>value</span><span class='rparen'>)</span> <span class='rbrace'>}</span>
+  <span class='ivar'>@subdoc_refs</span> <span class='op'>=</span> <span class='lbracket'>[</span><span class='rbracket'>]</span> <span class='kw'>if</span> <span class='ivar'>@subdoc_refs</span><span class='period'>.</span><span class='id identifier rubyid_nil?'>nil?</span>
+  <span class='ivar'>@doc_refs</span> <span class='op'>=</span> <span class='lbrace'>{</span><span class='rbrace'>}</span> <span class='kw'>if</span> <span class='ivar'>@doc_refs</span><span class='period'>.</span><span class='id identifier rubyid_nil?'>nil?</span>
+<span class='kw'>end</span></pre>
+    </td>
+  </tr>
+</table>
+</div>
+  
+</div>
+
 
   <div id="instance_method_details" class="method_details_list">
     <h2>Instance Method Details</h2>
@@ -417,34 +582,12 @@ sections of <strong>document</strong>.</p>
   
 
   
-</h3><div class="docstring">
-  <div class="discussion">
-    
-<p>*section.add_to(doc)* appends the id of <strong>section</strong> to the
-array <strong>doc.subdoc_refs</strong>.  It also creates a pointer
-(<strong>parent_id</strong>) to the parent document</p>
-
-
-  </div>
-</div>
-<div class="tags">
-  
-
-</div><table class="source_code">
+</h3><table class="source_code">
   <tr>
     <td>
       <pre class="lines">
 
 
-10
-11
-12
-13
-14
-15
-16
-17
-18
 19
 20
 21
@@ -458,10 +601,20 @@ array <strong>doc.subdoc_refs</strong>.  It also creates a pointer
 29
 30
 31
-32</pre>
+32
+33
+34
+35
+36
+37
+38
+39
+40
+41
+42</pre>
     </td>
     <td>
-      <pre class="code"><span class="info file"># File 'lib/noteshare/entities/document.rb', line 10</span>
+      <pre class="code"><span class="info file"># File 'lib/noteshare/entities/document.rb', line 19</span>
 
 <span class='kw'>def</span> <span class='id identifier rubyid_add_to'>add_to</span><span class='lparen'>(</span><span class='id identifier rubyid_parent_document'>parent_document</span><span class='rparen'>)</span>
   <span class='const'>DocumentRepository</span><span class='period'>.</span><span class='id identifier rubyid_persist'>persist</span><span class='lparen'>(</span><span class='kw'>self</span><span class='rparen'>)</span> <span class='kw'>unless</span> <span class='kw'>self</span><span class='period'>.</span><span class='id identifier rubyid_id'>id</span>
@@ -474,14 +627,15 @@ array <strong>doc.subdoc_refs</strong>.  It also creates a pointer
 </span>  <span class='kw'>self</span><span class='period'>.</span><span class='id identifier rubyid_index_in_parent'>index_in_parent</span> <span class='op'>=</span>  <span class='id identifier rubyid_parent_document'>parent_document</span><span class='period'>.</span><span class='id identifier rubyid_subdoc_refs'>subdoc_refs</span><span class='period'>.</span><span class='id identifier rubyid_length'>length</span> <span class='op'>-</span> <span class='int'>1</span>
   <span class='kw'>self</span><span class='period'>.</span><span class='id identifier rubyid_parent_id'>parent_id</span> <span class='op'>=</span> <span class='id identifier rubyid_parent_document'>parent_document</span><span class='period'>.</span><span class='id identifier rubyid_id'>id</span>
 
-  <span class='comment'># set the previous subdoc link
-</span>  <span class='id identifier rubyid_previous_doc_id'>previous_doc_id</span> <span class='op'>=</span> <span class='id identifier rubyid_parent_document'>parent_document</span><span class='period'>.</span><span class='id identifier rubyid_subdoc_refs'>subdoc_refs</span><span class='lbracket'>[</span><span class='op'>-</span><span class='int'>2</span><span class='rbracket'>]</span>
-  <span class='kw'>if</span> <span class='id identifier rubyid_previous_doc_id'>previous_doc_id</span>
-    <span class='kw'>self</span><span class='period'>.</span><span class='id identifier rubyid_set_previous_doc'>set_previous_doc</span><span class='lparen'>(</span><span class='id identifier rubyid_previous_doc_id'>previous_doc_id</span><span class='rparen'>)</span>
-    <span class='id identifier rubyid_previous_doc'>previous_doc</span> <span class='op'>=</span> <span class='const'>DocumentRepository</span><span class='period'>.</span><span class='id identifier rubyid_find'>find</span> <span class='id identifier rubyid_previous_doc_id'>previous_doc_id</span>
-    <span class='id identifier rubyid_previous_doc'>previous_doc</span><span class='period'>.</span><span class='id identifier rubyid_set_next_doc'>set_next_doc</span><span class='lparen'>(</span><span class='kw'>self</span><span class='period'>.</span><span class='id identifier rubyid_id'>id</span><span class='rparen'>)</span>
-    <span class='comment'># puts &quot;PREV: #{previous_doc.status}&quot;
-</span>  <span class='kw'>end</span>
+  <span class='kw'>self</span><span class='period'>.</span><span class='id identifier rubyid_set_previous_doc'>set_previous_doc</span>
+  <span class='kw'>if</span> <span class='id identifier rubyid_previous_document'>previous_document</span>
+    <span class='id identifier rubyid_previous_document'>previous_document</span><span class='period'>.</span><span class='id identifier rubyid_set_next_doc'>set_next_doc</span>
+  <span class='kw'>end</span>
+
+  <span class='kw'>self</span><span class='period'>.</span><span class='id identifier rubyid_set_next_doc'>set_next_doc</span>
+  <span class='kw'>if</span> <span class='id identifier rubyid_next_document'>next_document</span>
+    <span class='id identifier rubyid_next_document'>next_document</span><span class='period'>.</span><span class='id identifier rubyid_set_previous_doc'>set_previous_doc</span>
+  <span class='kw'>end</span>
 
   <span class='const'>DocumentRepository</span><span class='period'>.</span><span class='id identifier rubyid_persist'>persist</span><span class='lparen'>(</span><span class='kw'>self</span><span class='rparen'>)</span>
   <span class='const'>DocumentRepository</span><span class='period'>.</span><span class='id identifier rubyid_persist'>persist</span><span class='lparen'>(</span><span class='id identifier rubyid_parent_document'>parent_document</span><span class='rparen'>)</span>
@@ -521,31 +675,35 @@ of <strong>doc</strong>.</p>
       <pre class="lines">
 
 
-129
-130
-131
-132
-133
-134
-135
-136
-137
-138
-139</pre>
+184
+185
+186
+187
+188
+189
+190
+191
+192
+193
+194
+195
+196</pre>
     </td>
     <td>
-      <pre class="code"><span class="info file"># File 'lib/noteshare/entities/document.rb', line 129</span>
+      <pre class="code"><span class="info file"># File 'lib/noteshare/entities/document.rb', line 184</span>
 
 <span class='kw'>def</span> <span class='id identifier rubyid_compile'>compile</span>
-  <span class='id identifier rubyid_compiled_text'>compiled_text</span> <span class='op'>=</span> <span class='kw'>self</span><span class='period'>.</span><span class='id identifier rubyid_content'>content</span> <span class='op'>||</span> <span class='tstring'><span class='tstring_beg'>&#39;</span><span class='tstring_content'>Yo! </span><span class='tstring_end'>&#39;</span></span>
-  <span class='id identifier rubyid_subdoc_refs'>subdoc_refs</span><span class='period'>.</span><span class='id identifier rubyid_each'>each</span> <span class='kw'>do</span> <span class='op'>|</span><span class='id identifier rubyid_id'>id</span><span class='op'>|</span>
-    <span class='id identifier rubyid_section'>section</span> <span class='op'>=</span> <span class='const'>DocumentRepository</span><span class='period'>.</span><span class='id identifier rubyid_find'>find</span><span class='lparen'>(</span><span class='id identifier rubyid_id'>id</span><span class='rparen'>)</span>
-    <span class='id identifier rubyid_compiled_text'>compiled_text</span> <span class='op'>&lt;&lt;</span> <span class='tstring'><span class='tstring_beg'>&quot;</span><span class='tstring_content'>\n</span><span class='tstring_end'>&quot;</span></span> <span class='op'>&lt;&lt;</span> <span class='id identifier rubyid_section'>section</span><span class='period'>.</span><span class='id identifier rubyid_content'>content</span>
-    <span class='kw'>if</span> <span class='id identifier rubyid_section'>section</span><span class='period'>.</span><span class='id identifier rubyid_subdoc_refs'>subdoc_refs</span>
-      <span class='id identifier rubyid_compiled_text'>compiled_text</span> <span class='op'>&lt;&lt;</span> <span class='id identifier rubyid_section'>section</span><span class='period'>.</span><span class='id identifier rubyid_compile'>compile</span>
-    <span class='kw'>end</span>
+  <span class='kw'>if</span> <span class='id identifier rubyid_subdoc_refs'>subdoc_refs</span> <span class='op'>==</span> <span class='lbracket'>[</span><span class='rbracket'>]</span>
+    <span class='kw'>return</span> <span class='id identifier rubyid_content'>content</span>
+  <span class='kw'>else</span>
+    <span class='id identifier rubyid_text'>text</span> <span class='op'>=</span> <span class='id identifier rubyid_content'>content</span> <span class='op'>+</span> <span class='tstring'><span class='tstring_beg'>&quot;</span><span class='tstring_content'>\n</span><span class='tstring_end'>&quot;</span></span> <span class='op'>||</span> <span class='tstring'><span class='tstring_beg'>&#39;</span><span class='tstring_end'>&#39;</span></span>
+    <span class='id identifier rubyid_subdoc_refs'>subdoc_refs</span><span class='period'>.</span><span class='id identifier rubyid_each'>each</span> <span class='kw'>do</span> <span class='op'>|</span><span class='id identifier rubyid_id'>id</span><span class='op'>|</span>
+      <span class='id identifier rubyid_section'>section</span> <span class='op'>=</span> <span class='const'>DocumentRepository</span><span class='period'>.</span><span class='id identifier rubyid_find'>find</span><span class='lparen'>(</span><span class='id identifier rubyid_id'>id</span><span class='rparen'>)</span>
+      <span class='id identifier rubyid_text'>text</span>  <span class='op'>&lt;&lt;</span> <span class='id identifier rubyid_section'>section</span><span class='period'>.</span><span class='id identifier rubyid_compile'>compile</span> <span class='op'>&lt;&lt;</span> <span class='tstring'><span class='tstring_beg'>&quot;</span><span class='tstring_content'>\n</span><span class='tstring_end'>&quot;</span></span>
+      <span class='comment'># section.xcompile
+</span>    <span class='kw'>end</span>
+    <span class='kw'>return</span> <span class='id identifier rubyid_text'>text</span>
   <span class='kw'>end</span>
-  <span class='id identifier rubyid_compiled_text'>compiled_text</span>
 <span class='kw'>end</span></pre>
     </td>
   </tr>
@@ -567,12 +725,12 @@ of <strong>doc</strong>.</p>
       <pre class="lines">
 
 
-68
-69
-70</pre>
+108
+109
+110</pre>
     </td>
     <td>
-      <pre class="code"><span class="info file"># File 'lib/noteshare/entities/document.rb', line 68</span>
+      <pre class="code"><span class="info file"># File 'lib/noteshare/entities/document.rb', line 108</span>
 
 <span class='kw'>def</span> <span class='id identifier rubyid_info'>info</span>
   <span class='tstring'><span class='tstring_beg'>&quot;</span><span class='embexpr_beg'>#{</span><span class='kw'>self</span><span class='period'>.</span><span class='id identifier rubyid_title'>title</span><span class='embexpr_end'>}</span><span class='tstring_content'>:: id: </span><span class='embexpr_beg'>#{</span><span class='kw'>self</span><span class='period'>.</span><span class='id identifier rubyid_id'>id</span><span class='embexpr_end'>}</span><span class='tstring_end'>&quot;</span></span>
@@ -594,7 +752,8 @@ of <strong>doc</strong>.</p>
 </h3><div class="docstring">
   <div class="discussion">
     
-<p>Insert …</p>
+<p>Insert a subdocument at position k and update all links: parent,
+index_in_parent, amd the relevant next and previous links</p>
 
 
   </div>
@@ -608,19 +767,6 @@ of <strong>doc</strong>.</p>
       <pre class="lines">
 
 
-36
-37
-38
-39
-40
-41
-42
-43
-44
-45
-46
-47
-48
 49
 50
 51
@@ -638,40 +784,75 @@ of <strong>doc</strong>.</p>
 63
 64
 65
-66</pre>
+66
+67
+68
+69
+70
+71
+72
+73
+74
+75
+76
+77
+78
+79
+80
+81
+82
+83
+84
+85
+86
+87
+88
+89
+90</pre>
     </td>
     <td>
-      <pre class="code"><span class="info file"># File 'lib/noteshare/entities/document.rb', line 36</span>
+      <pre class="code"><span class="info file"># File 'lib/noteshare/entities/document.rb', line 49</span>
 
 <span class='kw'>def</span> <span class='id identifier rubyid_insert'>insert</span><span class='lparen'>(</span><span class='id identifier rubyid_k'>k</span><span class='comma'>,</span> <span class='id identifier rubyid_parent_document'>parent_document</span><span class='rparen'>)</span>
-  <span class='id identifier rubyid_puts'>puts</span> <span class='tstring'><span class='tstring_beg'>&quot;</span><span class='tstring_content'>INSERT ...</span><span class='tstring_end'>&quot;</span></span>
-  <span class='id identifier rubyid_puts'>puts</span> <span class='id identifier rubyid_parent_document'>parent_document</span><span class='period'>.</span><span class='id identifier rubyid_subdocument'>subdocument</span><span class='lparen'>(</span><span class='int'>0</span><span class='rparen'>)</span><span class='period'>.</span><span class='id identifier rubyid_status'>status</span>
-  <span class='id identifier rubyid_puts'>puts</span> <span class='id identifier rubyid_parent_document'>parent_document</span><span class='period'>.</span><span class='id identifier rubyid_subdocument'>subdocument</span><span class='lparen'>(</span><span class='int'>1</span><span class='rparen'>)</span><span class='period'>.</span><span class='id identifier rubyid_status'>status</span>
-  <span class='id identifier rubyid_puts'>puts</span>
 
-  <span class='id identifier rubyid_index'>index</span> <span class='op'>=</span> <span class='id identifier rubyid_parent_document'>parent_document</span><span class='period'>.</span><span class='id identifier rubyid_subdoc_refs'>subdoc_refs</span>
+  <span class='id identifier rubyid_puts'>puts</span> <span class='tstring'><span class='tstring_beg'>&quot;</span><span class='tstring_content'>Insert </span><span class='embexpr_beg'>#{</span><span class='kw'>self</span><span class='period'>.</span><span class='id identifier rubyid_id'>id</span><span class='embexpr_end'>}</span><span class='tstring_content'> (</span><span class='embexpr_beg'>#{</span><span class='kw'>self</span><span class='period'>.</span><span class='id identifier rubyid_title'>title</span><span class='embexpr_end'>}</span><span class='tstring_content'>) at k = </span><span class='embexpr_beg'>#{</span><span class='id identifier rubyid_k'>k</span><span class='embexpr_end'>}</span><span class='tstring_end'>&quot;</span></span>
+
+  <span class='id identifier rubyid_index'>index</span> <span class='op'>=</span> <span class='id identifier rubyid_parent_document'>parent_document</span><span class='period'>.</span><span class='id identifier rubyid_subdoc_refs'>subdoc_refs</span> <span class='op'>||</span> <span class='lbracket'>[</span><span class='rbracket'>]</span>
   <span class='id identifier rubyid_index'>index</span><span class='period'>.</span><span class='id identifier rubyid_insert'>insert</span><span class='lparen'>(</span><span class='id identifier rubyid_k'>k</span><span class='comma'>,</span> <span class='kw'>self</span><span class='period'>.</span><span class='id identifier rubyid_id'>id</span><span class='rparen'>)</span>
   <span class='id identifier rubyid_parent_document'>parent_document</span><span class='period'>.</span><span class='id identifier rubyid_subdoc_refs'>subdoc_refs</span> <span class='op'>=</span> <span class='id identifier rubyid_index'>index</span>
   <span class='kw'>self</span><span class='period'>.</span><span class='id identifier rubyid_index_in_parent'>index_in_parent</span> <span class='op'>=</span>  <span class='id identifier rubyid_k'>k</span>
   <span class='kw'>self</span><span class='period'>.</span><span class='id identifier rubyid_parent_id'>parent_id</span> <span class='op'>=</span> <span class='id identifier rubyid_parent_document'>parent_document</span><span class='period'>.</span><span class='id identifier rubyid_id'>id</span>
-  <span class='const'>DocumentRepository</span><span class='period'>.</span><span class='id identifier rubyid_persist'>persist</span><span class='lparen'>(</span><span class='kw'>self</span> <span class='rparen'>)</span>
 
-  <span class='id identifier rubyid_n'>n</span> <span class='op'>=</span> <span class='id identifier rubyid_index'>index</span><span class='period'>.</span><span class='id identifier rubyid_length'>length</span>
-
-  <span class='kw'>if</span> <span class='id identifier rubyid_k'>k</span> <span class='op'>&gt;</span> <span class='int'>0</span>
-    <span class='kw'>self</span><span class='period'>.</span><span class='id identifier rubyid_set_previous_doc'>set_previous_doc</span><span class='lparen'>(</span><span class='id identifier rubyid_index'>index</span><span class='lbracket'>[</span><span class='id identifier rubyid_k'>k</span><span class='op'>-</span><span class='int'>1</span><span class='rbracket'>]</span><span class='rparen'>)</span>
-    <span class='id identifier rubyid_parent_document'>parent_document</span><span class='period'>.</span><span class='id identifier rubyid_subdocument'>subdocument</span><span class='lparen'>(</span><span class='id identifier rubyid_k'>k</span><span class='op'>-</span><span class='int'>1</span><span class='rparen'>)</span><span class='period'>.</span><span class='id identifier rubyid_set_next_doc'>set_next_doc</span><span class='lparen'>(</span><span class='kw'>self</span><span class='period'>.</span><span class='id identifier rubyid_id'>id</span><span class='rparen'>)</span>
+  <span class='comment'># update index_in_parent for subdocuments
+</span>  <span class='comment'># that were shifted to the right
+</span>  <span class='id identifier rubyid_puts'>puts</span> <span class='tstring'><span class='tstring_beg'>&quot;</span><span class='tstring_content'>Shifting ...</span><span class='tstring_end'>&quot;</span></span>
+  <span class='id identifier rubyid_puts'>puts</span> <span class='tstring'><span class='tstring_beg'>&quot;</span><span class='tstring_content'>parent_document.subdoc_refs.tail(k+1): </span><span class='embexpr_beg'>#{</span><span class='id identifier rubyid_parent_document'>parent_document</span><span class='period'>.</span><span class='id identifier rubyid_subdoc_refs'>subdoc_refs</span><span class='period'>.</span><span class='id identifier rubyid_tail'>tail</span><span class='lparen'>(</span><span class='id identifier rubyid_k'>k</span><span class='rparen'>)</span><span class='embexpr_end'>}</span><span class='tstring_end'>&quot;</span></span>
+  <span class='id identifier rubyid_parent_document'>parent_document</span><span class='period'>.</span><span class='id identifier rubyid_subdoc_refs'>subdoc_refs</span><span class='period'>.</span><span class='id identifier rubyid_tail'>tail</span><span class='lparen'>(</span><span class='id identifier rubyid_k'>k</span><span class='rparen'>)</span><span class='period'>.</span><span class='id identifier rubyid_each'>each</span> <span class='kw'>do</span> <span class='op'>|</span><span class='id identifier rubyid_id'>id</span><span class='op'>|</span>
+    <span class='id identifier rubyid_doc'>doc</span> <span class='op'>=</span> <span class='const'>DocumentRepository</span><span class='period'>.</span><span class='id identifier rubyid_find'>find</span> <span class='id identifier rubyid_id'>id</span>
+    <span class='kw'>if</span> <span class='id identifier rubyid_doc'>doc</span>
+      <span class='id identifier rubyid_puts'>puts</span> <span class='tstring'><span class='tstring_beg'>&quot;</span><span class='tstring_content'>#</span><span class='embexpr_beg'>#{</span><span class='id identifier rubyid_doc'>doc</span><span class='period'>.</span><span class='id identifier rubyid_info'>info</span><span class='embexpr_end'>}</span><span class='tstring_content'>, doc.index_in_parent = </span><span class='embexpr_beg'>#{</span><span class='id identifier rubyid_doc'>doc</span><span class='period'>.</span><span class='id identifier rubyid_index_in_parent'>index_in_parent</span><span class='embexpr_end'>}</span><span class='tstring_end'>&quot;</span></span>
+    <span class='kw'>else</span>
+      <span class='id identifier rubyid_puts'>puts</span> <span class='tstring'><span class='tstring_beg'>&quot;</span><span class='tstring_content'>doc is NIL</span><span class='tstring_end'>&quot;</span></span>
+    <span class='kw'>end</span>
+    <span class='id identifier rubyid_doc'>doc</span><span class='period'>.</span><span class='id identifier rubyid_index_in_parent'>index_in_parent</span> <span class='op'>=</span> <span class='id identifier rubyid_doc'>doc</span><span class='period'>.</span><span class='id identifier rubyid_index_in_parent'>index_in_parent</span> <span class='op'>+</span> <span class='int'>1</span>
+    <span class='const'>DocumentRepository</span><span class='period'>.</span><span class='id identifier rubyid_persist'>persist</span><span class='lparen'>(</span><span class='id identifier rubyid_doc'>doc</span> <span class='rparen'>)</span>
   <span class='kw'>end</span>
 
-  <span class='kw'>if</span> <span class='id identifier rubyid_k'>k</span><span class='op'>+</span><span class='int'>1</span> <span class='op'>&lt;</span> <span class='id identifier rubyid_n'>n</span>
-    <span class='kw'>self</span><span class='period'>.</span><span class='id identifier rubyid_set_next_doc'>set_next_doc</span><span class='lparen'>(</span><span class='id identifier rubyid_index'>index</span><span class='lbracket'>[</span><span class='id identifier rubyid_k'>k</span><span class='op'>+</span><span class='int'>1</span><span class='rbracket'>]</span><span class='rparen'>)</span>
-    <span class='id identifier rubyid_parent_document'>parent_document</span><span class='period'>.</span><span class='id identifier rubyid_subdocument'>subdocument</span><span class='lparen'>(</span><span class='id identifier rubyid_k'>k</span><span class='op'>+</span><span class='int'>1</span><span class='rparen'>)</span><span class='period'>.</span><span class='id identifier rubyid_set_previous_doc'>set_previous_doc</span><span class='lparen'>(</span><span class='kw'>self</span><span class='period'>.</span><span class='id identifier rubyid_id'>id</span><span class='rparen'>)</span>
+
+
+  <span class='const'>DocumentRepository</span><span class='period'>.</span><span class='id identifier rubyid_persist'>persist</span><span class='lparen'>(</span><span class='kw'>self</span><span class='rparen'>)</span>
+  <span class='const'>DocumentRepository</span><span class='period'>.</span><span class='id identifier rubyid_persist'>persist</span><span class='lparen'>(</span><span class='id identifier rubyid_parent_document'>parent_document</span><span class='rparen'>)</span>
+
+  <span class='kw'>self</span><span class='period'>.</span><span class='id identifier rubyid_set_previous_doc'>set_previous_doc</span>
+  <span class='kw'>self</span><span class='period'>.</span><span class='id identifier rubyid_set_next_doc'>set_next_doc</span>
+
+  <span class='kw'>if</span> <span class='id identifier rubyid_previous_document'>previous_document</span>
+    <span class='id identifier rubyid_previous_document'>previous_document</span><span class='period'>.</span><span class='id identifier rubyid_set_next_doc'>set_next_doc</span>
   <span class='kw'>end</span>
 
-  <span class='id identifier rubyid_puts'>puts</span> <span class='id identifier rubyid_parent_document'>parent_document</span><span class='period'>.</span><span class='id identifier rubyid_subdocument'>subdocument</span><span class='lparen'>(</span><span class='id identifier rubyid_k'>k</span><span class='op'>-</span><span class='int'>1</span><span class='rparen'>)</span><span class='period'>.</span><span class='id identifier rubyid_status'>status</span>
-  <span class='id identifier rubyid_puts'>puts</span> <span class='id identifier rubyid_parent_document'>parent_document</span><span class='period'>.</span><span class='id identifier rubyid_subdocument'>subdocument</span><span class='lparen'>(</span><span class='id identifier rubyid_k'>k</span><span class='rparen'>)</span><span class='period'>.</span><span class='id identifier rubyid_status'>status</span>
-  <span class='id identifier rubyid_puts'>puts</span> <span class='id identifier rubyid_parent_document'>parent_document</span><span class='period'>.</span><span class='id identifier rubyid_subdocument'>subdocument</span><span class='lparen'>(</span><span class='id identifier rubyid_k'>k</span><span class='op'>+</span><span class='int'>1</span><span class='rparen'>)</span><span class='period'>.</span><span class='id identifier rubyid_status'>status</span>
-
+  <span class='kw'>if</span> <span class='id identifier rubyid_next_document'>next_document</span>
+    <span class='id identifier rubyid_next_document'>next_document</span><span class='period'>.</span><span class='id identifier rubyid_set_previous_doc'>set_previous_doc</span>
+  <span class='kw'>end</span>
 
 <span class='kw'>end</span></pre>
     </td>
@@ -680,9 +861,9 @@ of <strong>doc</strong>.</p>
 </div>
     
       <div class="method_details ">
-  <h3 class="signature " id="next_subdocument-instance_method">
+  <h3 class="signature " id="next_document-instance_method">
   
-    - (<tt>Object</tt>) <strong>next_subdocument</strong> 
+    - (<tt>Object</tt>) <strong>next_document</strong> 
   
 
   
@@ -694,17 +875,93 @@ of <strong>doc</strong>.</p>
       <pre class="lines">
 
 
-101
-102
-103
-104</pre>
+116
+117
+118</pre>
     </td>
     <td>
-      <pre class="code"><span class="info file"># File 'lib/noteshare/entities/document.rb', line 101</span>
+      <pre class="code"><span class="info file"># File 'lib/noteshare/entities/document.rb', line 116</span>
 
-<span class='kw'>def</span> <span class='id identifier rubyid_next_subdocument'>next_subdocument</span>
-  <span class='id identifier rubyid_id'>id</span> <span class='op'>=</span> <span class='kw'>self</span><span class='period'>.</span><span class='id identifier rubyid_doc_refs'>doc_refs</span><span class='lbracket'>[</span><span class='symbol'>:next</span><span class='rbracket'>]</span>
-  <span class='const'>DocumentRepository</span><span class='period'>.</span><span class='id identifier rubyid_find'>find</span> <span class='id identifier rubyid_id'>id</span><span class='period'>.</span><span class='id identifier rubyid_to_i'>to_i</span> <span class='kw'>if</span> <span class='id identifier rubyid_id'>id</span>
+<span class='kw'>def</span> <span class='id identifier rubyid_next_document'>next_document</span>
+  <span class='const'>DocumentRepository</span><span class='period'>.</span><span class='id identifier rubyid_find'>find</span> <span class='id identifier rubyid_next_id'>next_id</span>
+<span class='kw'>end</span></pre>
+    </td>
+  </tr>
+</table>
+</div>
+    
+      <div class="method_details ">
+  <h3 class="signature " id="next_document_title-instance_method">
+  
+    - (<tt>Object</tt>) <strong>next_document_title</strong> 
+  
+
+  
+
+  
+</h3><table class="source_code">
+  <tr>
+    <td>
+      <pre class="lines">
+
+
+151
+152
+153
+154</pre>
+    </td>
+    <td>
+      <pre class="code"><span class="info file"># File 'lib/noteshare/entities/document.rb', line 151</span>
+
+<span class='kw'>def</span> <span class='id identifier rubyid_next_document_title'>next_document_title</span>
+  <span class='id identifier rubyid_doc'>doc</span> <span class='op'>=</span> <span class='kw'>self</span><span class='period'>.</span><span class='id identifier rubyid_next_document'>next_document</span>
+  <span class='id identifier rubyid_doc'>doc</span> <span class='op'>?</span> <span class='id identifier rubyid_doc'>doc</span><span class='period'>.</span><span class='id identifier rubyid_title'>title</span> <span class='op'>:</span> <span class='tstring'><span class='tstring_beg'>&#39;</span><span class='tstring_content'>X</span><span class='tstring_end'>&#39;</span></span>
+<span class='kw'>end</span></pre>
+    </td>
+  </tr>
+</table>
+</div>
+    
+      <div class="method_details ">
+  <h3 class="signature " id="next_id-instance_method">
+  
+    - (<tt>Object</tt>) <strong>next_id</strong> 
+  
+
+  
+
+  
+</h3><div class="docstring">
+  <div class="discussion">
+    
+<p>Assume that receiver is subdocument k of parent. Return the id of
+subdocuemnt k + 1 or nil</p>
+
+
+  </div>
+</div>
+<div class="tags">
+  
+
+</div><table class="source_code">
+  <tr>
+    <td>
+      <pre class="lines">
+
+
+102
+103
+104
+105
+106</pre>
+    </td>
+    <td>
+      <pre class="code"><span class="info file"># File 'lib/noteshare/entities/document.rb', line 102</span>
+
+<span class='kw'>def</span> <span class='id identifier rubyid_next_id'>next_id</span>
+  <span class='id identifier rubyid_parent'>parent</span> <span class='op'>=</span> <span class='const'>DocumentRepository</span><span class='period'>.</span><span class='id identifier rubyid_find'>find</span> <span class='id identifier rubyid_parent_id'>parent_id</span>
+  <span class='kw'>return</span> <span class='kw'>nil</span> <span class='kw'>if</span> <span class='id identifier rubyid_index_in_parent'>index_in_parent</span><span class='op'>+</span><span class='int'>1</span> <span class='op'>&gt;</span> <span class='id identifier rubyid_parent'>parent</span><span class='period'>.</span><span class='id identifier rubyid_subdoc_refs'>subdoc_refs</span><span class='period'>.</span><span class='id identifier rubyid_length'>length</span>
+  <span class='id identifier rubyid_parent'>parent</span><span class='period'>.</span><span class='id identifier rubyid_subdoc_refs'>subdoc_refs</span><span class='lbracket'>[</span><span class='id identifier rubyid_index_in_parent'>index_in_parent</span><span class='op'>+</span><span class='int'>1</span><span class='rbracket'>]</span>
 <span class='kw'>end</span></pre>
     </td>
   </tr>
@@ -737,12 +994,12 @@ of <strong>doc</strong>.</p>
       <pre class="lines">
 
 
-91
-92
-93</pre>
+135
+136
+137</pre>
     </td>
     <td>
-      <pre class="code"><span class="info file"># File 'lib/noteshare/entities/document.rb', line 91</span>
+      <pre class="code"><span class="info file"># File 'lib/noteshare/entities/document.rb', line 135</span>
 
 <span class='kw'>def</span> <span class='id identifier rubyid_parent'>parent</span>
   <span class='const'>DocumentRepository</span><span class='period'>.</span><span class='id identifier rubyid_find'>find</span><span class='lparen'>(</span><span class='id identifier rubyid_parent_id'>parent_id</span><span class='rparen'>)</span>
@@ -753,9 +1010,9 @@ of <strong>doc</strong>.</p>
 </div>
     
       <div class="method_details ">
-  <h3 class="signature " id="previous_subdocument-instance_method">
+  <h3 class="signature " id="previous_document-instance_method">
   
-    - (<tt>Object</tt>) <strong>previous_subdocument</strong> 
+    - (<tt>Object</tt>) <strong>previous_document</strong> 
   
 
   
@@ -767,17 +1024,93 @@ of <strong>doc</strong>.</p>
       <pre class="lines">
 
 
-106
-107
-108
-109</pre>
+120
+121
+122</pre>
     </td>
     <td>
-      <pre class="code"><span class="info file"># File 'lib/noteshare/entities/document.rb', line 106</span>
+      <pre class="code"><span class="info file"># File 'lib/noteshare/entities/document.rb', line 120</span>
 
-<span class='kw'>def</span> <span class='id identifier rubyid_previous_subdocument'>previous_subdocument</span>
-  <span class='id identifier rubyid_id'>id</span> <span class='op'>=</span> <span class='kw'>self</span><span class='period'>.</span><span class='id identifier rubyid_doc_refs'>doc_refs</span><span class='lbracket'>[</span><span class='symbol'>:previous</span><span class='rbracket'>]</span>
-  <span class='const'>DocumentRepository</span><span class='period'>.</span><span class='id identifier rubyid_find'>find</span> <span class='id identifier rubyid_id'>id</span><span class='period'>.</span><span class='id identifier rubyid_to_i'>to_i</span> <span class='kw'>if</span> <span class='id identifier rubyid_id'>id</span>
+<span class='kw'>def</span> <span class='id identifier rubyid_previous_document'>previous_document</span>
+  <span class='const'>DocumentRepository</span><span class='period'>.</span><span class='id identifier rubyid_find'>find</span> <span class='id identifier rubyid_previous_id'>previous_id</span>
+<span class='kw'>end</span></pre>
+    </td>
+  </tr>
+</table>
+</div>
+    
+      <div class="method_details ">
+  <h3 class="signature " id="previous_document_title-instance_method">
+  
+    - (<tt>Object</tt>) <strong>previous_document_title</strong> 
+  
+
+  
+
+  
+</h3><table class="source_code">
+  <tr>
+    <td>
+      <pre class="lines">
+
+
+146
+147
+148
+149</pre>
+    </td>
+    <td>
+      <pre class="code"><span class="info file"># File 'lib/noteshare/entities/document.rb', line 146</span>
+
+<span class='kw'>def</span> <span class='id identifier rubyid_previous_document_title'>previous_document_title</span>
+  <span class='id identifier rubyid_doc'>doc</span> <span class='op'>=</span> <span class='kw'>self</span><span class='period'>.</span><span class='id identifier rubyid_previous_document'>previous_document</span>
+  <span class='id identifier rubyid_doc'>doc</span> <span class='op'>?</span> <span class='id identifier rubyid_doc'>doc</span><span class='period'>.</span><span class='id identifier rubyid_title'>title</span> <span class='op'>:</span> <span class='tstring'><span class='tstring_beg'>&#39;</span><span class='tstring_content'>X</span><span class='tstring_end'>&#39;</span></span>
+<span class='kw'>end</span></pre>
+    </td>
+  </tr>
+</table>
+</div>
+    
+      <div class="method_details ">
+  <h3 class="signature " id="previous_id-instance_method">
+  
+    - (<tt>Object</tt>) <strong>previous_id</strong> 
+  
+
+  
+
+  
+</h3><div class="docstring">
+  <div class="discussion">
+    
+<p>Assume that receiver is subdocument k of parent. Return the id of
+subdocuemnt k - 1 or nil</p>
+
+
+  </div>
+</div>
+<div class="tags">
+  
+
+</div><table class="source_code">
+  <tr>
+    <td>
+      <pre class="lines">
+
+
+94
+95
+96
+97
+98</pre>
+    </td>
+    <td>
+      <pre class="code"><span class="info file"># File 'lib/noteshare/entities/document.rb', line 94</span>
+
+<span class='kw'>def</span> <span class='id identifier rubyid_previous_id'>previous_id</span>
+  <span class='id identifier rubyid_parent'>parent</span> <span class='op'>=</span> <span class='const'>DocumentRepository</span><span class='period'>.</span><span class='id identifier rubyid_find'>find</span> <span class='id identifier rubyid_parent_id'>parent_id</span>
+  <span class='kw'>return</span> <span class='kw'>nil</span> <span class='kw'>if</span> <span class='id identifier rubyid_index_in_parent'>index_in_parent</span><span class='op'>-</span><span class='int'>1</span> <span class='op'>&lt;</span> <span class='int'>0</span>
+  <span class='kw'>return</span> <span class='id identifier rubyid_parent'>parent</span><span class='period'>.</span><span class='id identifier rubyid_subdoc_refs'>subdoc_refs</span><span class='lbracket'>[</span><span class='id identifier rubyid_index_in_parent'>index_in_parent</span><span class='op'>-</span><span class='int'>1</span><span class='rbracket'>]</span>
 <span class='kw'>end</span></pre>
     </td>
   </tr>
@@ -787,7 +1120,7 @@ of <strong>doc</strong>.</p>
       <div class="method_details ">
   <h3 class="signature " id="set_next_doc-instance_method">
   
-    - (<tt>Object</tt>) <strong>set_next_doc</strong>(id) 
+    - (<tt>Object</tt>) <strong>set_next_doc</strong> 
   
 
   
@@ -799,20 +1132,16 @@ of <strong>doc</strong>.</p>
       <pre class="lines">
 
 
-83
-84
-85
-86
-87
-88</pre>
+129
+130
+131
+132</pre>
     </td>
     <td>
-      <pre class="code"><span class="info file"># File 'lib/noteshare/entities/document.rb', line 83</span>
+      <pre class="code"><span class="info file"># File 'lib/noteshare/entities/document.rb', line 129</span>
 
-<span class='kw'>def</span> <span class='id identifier rubyid_set_next_doc'>set_next_doc</span><span class='lparen'>(</span><span class='id identifier rubyid_id'>id</span><span class='rparen'>)</span>
-  <span class='id identifier rubyid_hash'>hash</span> <span class='op'>=</span> <span class='kw'>self</span><span class='period'>.</span><span class='id identifier rubyid_doc_refs'>doc_refs</span> <span class='op'>||</span> <span class='lbrace'>{</span><span class='rbrace'>}</span>
-  <span class='id identifier rubyid_hash'>hash</span><span class='lbracket'>[</span><span class='symbol'>:next</span><span class='rbracket'>]</span> <span class='op'>=</span> <span class='id identifier rubyid_id'>id</span>
-  <span class='kw'>self</span><span class='period'>.</span><span class='id identifier rubyid_doc_refs'>doc_refs</span> <span class='op'>=</span> <span class='id identifier rubyid_hash'>hash</span>
+<span class='kw'>def</span> <span class='id identifier rubyid_set_next_doc'>set_next_doc</span>
+  <span class='kw'>self</span><span class='period'>.</span><span class='id identifier rubyid_doc_refs'>doc_refs</span><span class='lbracket'>[</span><span class='tstring'><span class='tstring_beg'>&#39;</span><span class='tstring_content'>next</span><span class='tstring_end'>&#39;</span></span><span class='rbracket'>]</span> <span class='op'>=</span> <span class='id identifier rubyid_next_id'>next_id</span>
   <span class='const'>DocumentRepository</span><span class='period'>.</span><span class='id identifier rubyid_persist'>persist</span><span class='lparen'>(</span><span class='kw'>self</span><span class='rparen'>)</span>
 <span class='kw'>end</span></pre>
     </td>
@@ -823,7 +1152,7 @@ of <strong>doc</strong>.</p>
       <div class="method_details ">
   <h3 class="signature " id="set_previous_doc-instance_method">
   
-    - (<tt>Object</tt>) <strong>set_previous_doc</strong>(id) 
+    - (<tt>Object</tt>) <strong>set_previous_doc</strong> 
   
 
   
@@ -835,20 +1164,16 @@ of <strong>doc</strong>.</p>
       <pre class="lines">
 
 
-76
-77
-78
-79
-80
-81</pre>
+124
+125
+126
+127</pre>
     </td>
     <td>
-      <pre class="code"><span class="info file"># File 'lib/noteshare/entities/document.rb', line 76</span>
+      <pre class="code"><span class="info file"># File 'lib/noteshare/entities/document.rb', line 124</span>
 
-<span class='kw'>def</span> <span class='id identifier rubyid_set_previous_doc'>set_previous_doc</span><span class='lparen'>(</span><span class='id identifier rubyid_id'>id</span><span class='rparen'>)</span>
-  <span class='id identifier rubyid_hash'>hash</span> <span class='op'>=</span> <span class='kw'>self</span><span class='period'>.</span><span class='id identifier rubyid_doc_refs'>doc_refs</span> <span class='op'>||</span> <span class='lbrace'>{</span><span class='rbrace'>}</span>
-  <span class='id identifier rubyid_hash'>hash</span><span class='lbracket'>[</span><span class='symbol'>:previous</span><span class='rbracket'>]</span> <span class='op'>=</span> <span class='id identifier rubyid_id'>id</span>
-  <span class='kw'>self</span><span class='period'>.</span><span class='id identifier rubyid_doc_refs'>doc_refs</span> <span class='op'>=</span> <span class='id identifier rubyid_hash'>hash</span>
+<span class='kw'>def</span> <span class='id identifier rubyid_set_previous_doc'>set_previous_doc</span>
+  <span class='kw'>self</span><span class='period'>.</span><span class='id identifier rubyid_doc_refs'>doc_refs</span><span class='lbracket'>[</span><span class='tstring'><span class='tstring_beg'>&#39;</span><span class='tstring_content'>previous</span><span class='tstring_end'>&#39;</span></span><span class='rbracket'>]</span> <span class='op'>=</span> <span class='id identifier rubyid_previous_id'>previous_id</span>
   <span class='const'>DocumentRepository</span><span class='period'>.</span><span class='id identifier rubyid_persist'>persist</span><span class='lparen'>(</span><span class='kw'>self</span><span class='rparen'>)</span>
 <span class='kw'>end</span></pre>
     </td>
@@ -871,16 +1196,16 @@ of <strong>doc</strong>.</p>
       <pre class="lines">
 
 
-72
-73
-74</pre>
+112
+113
+114</pre>
     </td>
     <td>
-      <pre class="code"><span class="info file"># File 'lib/noteshare/entities/document.rb', line 72</span>
+      <pre class="code"><span class="info file"># File 'lib/noteshare/entities/document.rb', line 112</span>
 
 <span class='kw'>def</span> <span class='id identifier rubyid_status'>status</span>
-  <span class='tstring'><span class='tstring_beg'>&quot;</span><span class='embexpr_beg'>#{</span><span class='kw'>self</span><span class='period'>.</span><span class='id identifier rubyid_title'>title</span><span class='embexpr_end'>}</span><span class='tstring_content'>:: id: </span><span class='embexpr_beg'>#{</span><span class='kw'>self</span><span class='period'>.</span><span class='id identifier rubyid_id'>id</span><span class='embexpr_end'>}</span><span class='tstring_content'>, parent: </span><span class='embexpr_beg'>#{</span><span class='kw'>self</span><span class='period'>.</span><span class='id identifier rubyid_parent'>parent</span><span class='period'>.</span><span class='id identifier rubyid_id'>id</span> <span class='embexpr_end'>}</span><span class='tstring_content'>, doc_refs: </span><span class='embexpr_beg'>#{</span><span class='kw'>self</span><span class='period'>.</span><span class='id identifier rubyid_doc_refs'>doc_refs</span><span class='embexpr_end'>}</span><span class='tstring_end'>&quot;</span></span>
-<span class='kw'>end</span></pre>
+  <span class='tstring'><span class='tstring_beg'>&quot;</span><span class='embexpr_beg'>#{</span><span class='kw'>self</span><span class='period'>.</span><span class='id identifier rubyid_title'>title</span><span class='embexpr_end'>}</span><span class='tstring_content'>:: id: </span><span class='embexpr_beg'>#{</span><span class='kw'>self</span><span class='period'>.</span><span class='id identifier rubyid_id'>id</span><span class='embexpr_end'>}</span><span class='tstring_content'>, parent: </span><span class='embexpr_beg'>#{</span><span class='kw'>self</span><span class='period'>.</span><span class='id identifier rubyid_parent'>parent</span><span class='period'>.</span><span class='id identifier rubyid_id'>id</span> <span class='embexpr_end'>}</span><span class='tstring_content'>, doc_refs: </span><span class='embexpr_beg'>#{</span><span class='kw'>self</span><span class='period'>.</span><span class='id identifier rubyid_doc_refs'>doc_refs</span><span class='embexpr_end'>}</span><span class='tstring_end'>&quot;</span></span> <span class='comment'># &quot;, back: #{self.doc_refs[&#39;previous&#39;]}, next: #{@self.doc_refs[&#39;next&#39;]}&quot;
+</span><span class='kw'>end</span></pre>
     </td>
   </tr>
 </table>
@@ -912,12 +1237,12 @@ of <strong>doc</strong>.</p>
       <pre class="lines">
 
 
-97
-98
-99</pre>
+141
+142
+143</pre>
     </td>
     <td>
-      <pre class="code"><span class="info file"># File 'lib/noteshare/entities/document.rb', line 97</span>
+      <pre class="code"><span class="info file"># File 'lib/noteshare/entities/document.rb', line 141</span>
 
 <span class='kw'>def</span> <span class='id identifier rubyid_subdocument'>subdocument</span><span class='lparen'>(</span><span class='id identifier rubyid_k'>k</span><span class='rparen'>)</span>
   <span class='const'>DocumentRepository</span><span class='period'>.</span><span class='id identifier rubyid_find'>find</span><span class='lparen'>(</span><span class='id identifier rubyid_subdoc_refs'>subdoc_refs</span><span class='lbracket'>[</span><span class='id identifier rubyid_k'>k</span><span class='rbracket'>]</span><span class='rparen'>)</span>
@@ -930,7 +1255,7 @@ of <strong>doc</strong>.</p>
       <div class="method_details ">
   <h3 class="signature " id="subdocument_titles-instance_method">
   
-    - (<tt>Object</tt>) <strong>subdocument_titles</strong> 
+    - (<tt>Object</tt>) <strong>subdocument_titles</strong>(option = :simple) 
   
 
   
@@ -954,23 +1279,39 @@ sections of <strong>document</strong>.</p>
       <pre class="lines">
 
 
-113
-114
-115
-116
-117
-118
-119
-120</pre>
+159
+160
+161
+162
+163
+164
+165
+166
+167
+168
+169
+170
+171
+172
+173
+174</pre>
     </td>
     <td>
-      <pre class="code"><span class="info file"># File 'lib/noteshare/entities/document.rb', line 113</span>
+      <pre class="code"><span class="info file"># File 'lib/noteshare/entities/document.rb', line 159</span>
 
-<span class='kw'>def</span> <span class='id identifier rubyid_subdocument_titles'>subdocument_titles</span>
+<span class='kw'>def</span> <span class='id identifier rubyid_subdocument_titles'>subdocument_titles</span><span class='lparen'>(</span><span class='id identifier rubyid_option'>option</span><span class='op'>=</span><span class='symbol'>:simple</span><span class='rparen'>)</span>
   <span class='id identifier rubyid_list'>list</span> <span class='op'>=</span> <span class='lbracket'>[</span><span class='rbracket'>]</span>
+  <span class='kw'>if</span> <span class='lbracket'>[</span><span class='symbol'>:header</span><span class='rbracket'>]</span><span class='period'>.</span><span class='id identifier rubyid_include?'>include?</span> <span class='id identifier rubyid_option'>option</span>
+    <span class='id identifier rubyid_list'>list</span> <span class='op'>&lt;&lt;</span> <span class='kw'>self</span><span class='period'>.</span><span class='id identifier rubyid_title'>title</span><span class='period'>.</span><span class='id identifier rubyid_upcase'>upcase</span>
+  <span class='kw'>end</span>
   <span class='id identifier rubyid_subdoc_refs'>subdoc_refs</span><span class='period'>.</span><span class='id identifier rubyid_each'>each</span> <span class='kw'>do</span> <span class='op'>|</span><span class='id identifier rubyid_id'>id</span><span class='op'>|</span>
     <span class='id identifier rubyid_section'>section</span> <span class='op'>=</span> <span class='const'>DocumentRepository</span><span class='period'>.</span><span class='id identifier rubyid_find'>find</span><span class='lparen'>(</span><span class='id identifier rubyid_id'>id</span><span class='rparen'>)</span>
-    <span class='id identifier rubyid_list'>list</span> <span class='op'>&lt;&lt;</span> <span class='id identifier rubyid_section'>section</span><span class='period'>.</span><span class='id identifier rubyid_title'>title</span>
+    <span class='kw'>if</span> <span class='lbracket'>[</span><span class='symbol'>:header</span><span class='comma'>,</span> <span class='symbol'>:simple</span><span class='rbracket'>]</span><span class='period'>.</span><span class='id identifier rubyid_include?'>include?</span> <span class='id identifier rubyid_option'>option</span>
+      <span class='id identifier rubyid_item'>item</span> <span class='op'>=</span> <span class='id identifier rubyid_section'>section</span><span class='period'>.</span><span class='id identifier rubyid_title'>title</span>
+    <span class='kw'>elsif</span> <span class='id identifier rubyid_option'>option</span> <span class='op'>==</span> <span class='symbol'>:verbose</span>
+      <span class='id identifier rubyid_item'>item</span> <span class='op'>=</span> <span class='tstring'><span class='tstring_beg'>&quot;</span><span class='embexpr_beg'>#{</span><span class='id identifier rubyid_section'>section</span><span class='period'>.</span><span class='id identifier rubyid_title'>title</span><span class='embexpr_end'>}</span><span class='tstring_content'>. back: </span><span class='embexpr_beg'>#{</span><span class='id identifier rubyid_section'>section</span><span class='period'>.</span><span class='id identifier rubyid_previous_document_title'>previous_document_title</span><span class='embexpr_end'>}</span><span class='tstring_content'>, forward: </span><span class='embexpr_beg'>#{</span><span class='id identifier rubyid_section'>section</span><span class='period'>.</span><span class='id identifier rubyid_next_document_title'>next_document_title</span><span class='embexpr_end'>}</span><span class='tstring_end'>&quot;</span></span>
+    <span class='kw'>end</span>
+    <span class='id identifier rubyid_list'>list</span> <span class='op'>&lt;&lt;</span> <span class='id identifier rubyid_item'>item</span>
   <span class='kw'>end</span>
   <span class='id identifier rubyid_list'>list</span>
 <span class='kw'>end</span></pre>
@@ -984,7 +1325,7 @@ sections of <strong>document</strong>.</p>
 </div>
 
     <div id="footer">
-  Generated on Wed Oct 14 15:13:13 2015 by
+  Generated on Sat Oct 17 13:27:48 2015 by
   <a href="http://yardoc.org" title="Yay! A Ruby Documentation Tool" target="_parent">yard</a>
   0.8.7.6 (ruby-2.2.3).
 </div>
