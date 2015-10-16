@@ -175,12 +175,12 @@ class Document
   # titles of the sections of *document*.
   def subdocument_titles(option=:simple)
     list = []
-    if option == :header
+    if [:header].include? option
       list << self.title.upcase
     end
     subdoc_refs.each do |id|
       section = DocumentRepository.find(id)
-      if option == :simple or option ==:header
+      if [:header, :simple].include? option
         item = section.title
       elsif option == :verbose
         item = "#{section.title}. back: #{section.previous_document_title}, forward: #{section.next_document_title}"
@@ -198,18 +198,30 @@ class Document
   # a persistent array of integers which
   # represent the id's of the sections of
   # *doc*.
-  def compile
+  def ycompile
     puts "compiling #{self.title} with array = #{self.subdoc_refs}"
     compiled_text = self.content || ''
-    if subdoc_refs != []
-      subdoc_refs.each do |id|
-        section = DocumentRepository.find(id)
-        compiled_text << "\n" << section.compile
-      end
-    else
-      puts "stopping at #{self.title} with array = #{subdoc_refs} "
+    self.subdoc_refs.each do |id|
+      section = DocumentRepository.find(id)
+      compiled_text << "\n" << section.compile
     end
+    puts "stopping at #{self.title} with array = #{subdoc_refs} "
     compiled_text
+  end
+
+  def compile
+    compile_aux('')
+  end
+
+  def compile_aux(text)
+    puts "compiling #{self.title} with array = #{self.subdoc_refs}"
+    text << self.content  || '-'
+    self.subdoc_refs.each do |id|
+      section = DocumentRepository.find(id)
+      text << "\n\n" << section.compile_aux(text)
+    end
+    puts "stopping at #{self.title} with array = #{subdoc_refs} "
+    text
   end
 
 

@@ -7,13 +7,14 @@ require 'json'
 describe Document do
 
   before do
+
     DocumentRepository.clear
 
-    @article = DocumentRepository.create(Document.new(title: 'Quantum Mechanics', author: 'Jared. Foo-Bar'))
-    @section = DocumentRepository.create(Document.new(title: 'Uncertainty Principle', author: 'Jared Foo-Bar', subdoc_refs: []))
-    @section2 = DocumentRepository.create(Document.new(title: 'Wave-Particle Duality', author: 'Jared Foo-Bar', subdoc_refs: []))
-    @section3 = DocumentRepository.create(Document.new(title: 'Matrix Mechanics', author: 'Jared Foo-Bar', subdoc_refs: []))
-    @subsection =  DocumentRepository.create(Document.new(title: "de Broglie's idea", author: 'Jared Foo-Bar', subdoc_refs: []))
+    @article = DocumentRepository.create(Document.new(title: 'A. Quantum Mechanics', author: 'Jared. Foo-Bar'))
+    @section = DocumentRepository.create(Document.new(title: 'S1. Uncertainty Principle', author: 'Jared Foo-Bar', subdoc_refs: []))
+    @section2 = DocumentRepository.create(Document.new(title: 'S2. Wave-Particle Duality', author: 'Jared Foo-Bar', subdoc_refs: []))
+    @section3 = DocumentRepository.create(Document.new(title: 'S3. Matrix Mechanics', author: 'Jared Foo-Bar', subdoc_refs: []))
+    @subsection =  DocumentRepository.create(Document.new(title: "SS. de Broglie's idea", author: 'Jared Foo-Bar', subdoc_refs: []))
 
     @article.content = 'Quantum phenomena are weird!'
     @section.content = 'The Uncertainty Principle invalidates the notion of trajectory'
@@ -25,6 +26,11 @@ describe Document do
     DocumentRepository.persist @section2
     DocumentRepository.persist @section3
     DocumentRepository.persist @subsection
+
+    puts '**********************************'
+    puts @section2.subdocument_titles :header
+    puts @section2.subdoc_refs
+    puts '**********************************'
 
   end
 
@@ -215,16 +221,55 @@ describe Document do
 
   end
 
-  it 'can compile a document to deeper levels using recursion ccc2' do
+
+  it 'can report ccc3' do
+
+    @section2.add_to(@article)
+    @subsection.add_to(@section2)
+
+    puts '*2*********************************'
+    puts @section2.subdocument_titles :header
+    puts @section2.subdoc_refs
+    puts '*2*********************************'
+
+    puts "@section2: #{@section2.content}"
+    puts "@subsection: #{ @subsection.content}"
+    compiled =  @article.compile
+    puts "compiled: #{compiled}"
+
+    compiled.must_include @section2.content
+    compiled.must_include @subsection.content
+
+
+
+  end
+
+
+    it 'can compile a document to deeper levels using recursion ccc2' do
+
+    puts '*2*********************************'
+    puts @section2.subdocument_titles :header
+    puts @section2.subdoc_refs
+    puts '*2*********************************'
+
 
     @section.add_to(@article)
     @section2.add_to(@article)
+    @section3.add_to(@article)
     @subsection.add_to(@section2)
+
+    puts '*3*********************************'
+    puts @section2.subdocument_titles :header
+    puts @section2.subdoc_refs
+    puts '*3*********************************'
+
 
 
     puts @section2.subdocument_titles :header
     puts @section2.subdoc_refs
 
+
+    puts
 
     puts "AAAAA"
     puts @article.subdocument_titles :header
@@ -232,9 +277,18 @@ describe Document do
     puts @section2.subdocument_titles :header
     puts "CCCCCC"
 
-    compiled_text = @section2.compile
+    compiled_text = @article.compile
+
+    puts
+
+    compiled_text2 = @section2.compile
+
     compiled_text.must_include @section2.content
     compiled_text.must_include @subsection.content
+
+
+    compiled_text2.must_include @section2.content
+    compiled_text2.must_include @subsection.content
 
   end
 
