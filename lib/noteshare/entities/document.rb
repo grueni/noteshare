@@ -104,11 +104,14 @@ class Document
       DocumentRepository.persist(doc )
     end
 
-
-
     DocumentRepository.persist(self)
     DocumentRepository.persist(parent_document)
 
+    update_neighbors
+
+  end
+
+  def update_neighbors
     self.set_previous_doc
     self.set_next_doc
 
@@ -119,13 +122,39 @@ class Document
     if next_document
       next_document.set_previous_doc
     end
+  end
 
+  def remove_from_parent
+    k = index_in_parent
+    p = parent
+    pd = previous_document
+    nd_id = next_document.id
+    p.subdoc_refs.delete_at(k)
+    DocumentRepository.persist(p)
+
+    # update index_in_parent for subdocuments
+    # that were shifted to the left
+    # puts "Shifting ..."
+    # puts "parent_document.subdoc_refs.tail(k+1): #{parent_document.subdoc_refs.tail(k)}"
+    p.subdoc_refs.tail(k-1).each do |id|
+      doc = DocumentRepository.find id
+      doc.index_in_parent = doc.index_in_parent - 1
+      DocumentRepository.persist(doc )
+    end
+
+    if pd
+      pd.set_next_doc
+    end
+
+    nd =  DocumentRepository.find nd_id
+    if nd
+      nd.set_previous_doc
+    end
   end
 
   # Assume that receiver is subdocument k of parent.
-  # Return the id of subdocuemnt k - 1 or nil
+  # Return the id of subdocument k - 1 or nil
   def previous_id
-    parent = DocumentRepository.find parent_id
     return nil if index_in_parent-1 < 0
     return parent.subdoc_refs[index_in_parent-1]
   end
@@ -133,9 +162,9 @@ class Document
   # Assume that receiver is subdocument k of parent.
   # Return the id of subdocuemnt k + 1 or nil
   def next_id
-    parent = DocumentRepository.find parent_id
-    return nil if index_in_parent+1 > parent.subdoc_refs.length
-    parent.subdoc_refs[index_in_parent+1]
+    p = parent
+    return nil if index_in_parent+1 > p.subdoc_refs.length
+    p.subdoc_refs[index_in_parent+1]
   end
 
   def info
@@ -199,7 +228,7 @@ class Document
       if [:header, :simple].include? option
         item = section.title
       elsif option == :verbose
-        item = "#{section.title}. back: #{section.previous_document_title}, forward: #{section.next_document_title}"
+        item = "#{section.id}, #{section.title}. back: #{section.previous_document_title}, forward: #{section.next_document_title}"
       end
       list << item
     end

@@ -32,6 +32,7 @@ describe Document do
     DocumentRepository.persist @section2
     DocumentRepository.persist @section3
     DocumentRepository.persist @subsection
+    DocumentRepository.persist @subsubsection
 
   end
 
@@ -64,7 +65,27 @@ describe Document do
     doc2.title.must_equal title
   end
 
-  it 'can modify doc_refs and later recall the same' do
+  it 'persists subdoc_refs pppe' do
+    title =  'A. Quantum Mechanics'
+    title2 = 'Ladidah!'
+    doc = DocumentRepository.find_one_by_title(title)
+    doc.subdoc_refs = [1,2,3]
+    doc.title = title2
+    DocumentRepository.update doc
+    doc2 = DocumentRepository.find_one_by_title(title2)
+    doc2.title.must_equal title2
+    doc2.subdoc_refs.must_equal [1,2,3]
+
+    doc.subdoc_refs = [4,5,6]
+    doc.title = 'Foo'
+    DocumentRepository.update doc
+    doc2 = DocumentRepository.find_one_by_title('Foo')
+    doc2.subdoc_refs.must_equal [4,5,6]
+
+  end
+
+
+  it 'can modify subdoc_refs and later recall the same' do
     title =  'A. Quantum Mechanics'
     title2 = 'Ladidah!'
     doc = DocumentRepository.find_one_by_title(title)
@@ -220,6 +241,25 @@ EOF
     # puts "-----------------------"
 
     @article.compile.must_equal text
+
+  end
+
+  #### DELETION
+
+  it 'can delete a subdocument ddd' do
+
+    @section1.add_to(@article)
+    @section2.add_to(@article)
+    @section3.add_to(@article)
+    @section2.remove_from_parent
+
+    p = @section2.parent
+
+    p.subdoc_refs.length.must_equal 2
+    p.subdoc_refs.must_equal [ @section1.id,  @section3.id]
+    
+    p.subdocument(0).next_document.title.must_equal p.subdocument(1).title
+    p.subdocument(1).previous_document.title.must_equal p.subdocument(0).title
 
   end
 
