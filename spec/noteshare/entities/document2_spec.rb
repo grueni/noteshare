@@ -353,10 +353,32 @@ EOF
   it 'can render mathematical content rmm' do
 
     @section2.content = "He said that $a^2 + b^2 = c^2$. *Wow!*\n[env.theorem]\n--\nThere are infinitely many primes.\n--\n\n"
-    @section2.render(backend: 'html5')
+    @section2.render
+
+    puts @section2.rendered_content
 
     asciidoc_content = "<div class=\"paragraph\">\n<p>He said that \\(a^2 + b^2 = c^2\\). <strong>Wow!</strong></p>\n</div>\n<div class=\"openblock theorem\">\n<div class=\"title\">Theorem 1.</div><div class=\"content\">\n<div class='click_oblique'>\nThere are infinitely many primes.\n</div>\n</div>\n</div>"
     @section2.rendered_content.must_equal asciidoc_content
+
+  end
+
+  it 'sets render_options to { format => adoc} by default roo' do
+
+    hash = { 'format' => 'adoc'}
+    @article.render_options.must_equal hash
+
+
+
+  end
+
+  it 'can change and persist render_options ro2' do
+
+    @article.render_options['foo'] = 'bar'
+    @article.render_options['foo'].must_equal 'bar'
+    DocumentRepository.persist(@article)
+    @foo = DocumentRepository.find(@article.id)
+    @foo.render_options['foo'].must_equal 'bar'
+
 
   end
 

@@ -41,16 +41,17 @@ require_relative '../../ext/core'
 class NSDocument
   include Lotus::Entity
   attributes :id, :author, :title, :tags, :type, :area, :meta,
-    :created_at, :modified_at, :content, :rendered_content,
+    :created_at, :modified_at, :content, :rendered_content, :render_options,
     :parent_id, :author_id, :index_in_parent, :root_document_id, :visibility,
     :subdoc_refs,  :doc_refs, :toc
 
-
+''
   def initialize(hash)
     hash.each { |name, value| instance_variable_set("@#{name}", value) }
     @subdoc_refs = [] if @subdoc_refs.nil?
     @doc_refs = {} if @doc_refs.nil?
-    @root_document_id = 0
+    @root_document_id ||= 0
+    @render_options ||= { 'format'=> 'adoc' }
   end
 
 
@@ -277,9 +278,18 @@ class NSDocument
     value
   end
 
-  def render(options= { })
-    default_options = { backend: 'html5', stem: 'latexmath' }
-    self.rendered_content = Render.convert(self.content, options)
+  # NSDocument#render is the sole connection between class NSDocument and
+  # module Render.  It updates self.rendered_content by applying
+  # Asciidoctor.convert to self.content with the provided options.
+  def render
+    if @render_options['format'] == 'adoc'
+      self.rendered_content = Render.convert(self.content, {})
+    elsif @render_options['format'] == 'adoc-latex'
+      self.rendered_content = Render.convert(self.content, {backend: 'html5'})
+    else
+      self.content
+    end
+    DocumentRepository.update(self)
   end
 
 

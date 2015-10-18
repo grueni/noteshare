@@ -52,6 +52,7 @@ Lotus::Model.configure do
       attribute :modified_at, DateTime
       attribute :content, String
       attribute :rendered_content, String
+      attribute :render_options, JSON
       attribute :parent_id, Integer
       attribute :author_id, Integer
       attribute :index_in_parent, Integer
