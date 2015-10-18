@@ -263,6 +263,14 @@ class Document
     end
   end
 
+  def update_table_of_contents
+    value = []
+    subdoc_refs.each do |id|
+      value << [id, DocumentRepository.find(id).title]
+    end
+    value
+  end
+
 
 
 end

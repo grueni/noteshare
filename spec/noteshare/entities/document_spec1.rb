@@ -266,7 +266,6 @@ EOF
   it 'can move a subdocument from one position to another mmm' do
 
     article_id = @article.id
-    puts "@article.id: #{@article.id}"
     @section1.add_to(@article)
     @section2.add_to(@article)
     @section3.add_to(@article)
@@ -279,6 +278,16 @@ EOF
     @article = DocumentRepository.find article_id
 
     puts @article.subdocument_titles :verbose
+
+  end
+
+  it 'can update its table of contents mtoc' do
+
+    @section1.add_to(@article)
+    @section2.add_to(@article)
+    @section3.add_to(@article)
+
+    puts @article.update_table_of_contents
 
   end
 
