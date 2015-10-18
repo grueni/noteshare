@@ -4,17 +4,17 @@ require 'spec_helper'
 
 require 'json'
 
-describe Document do
+describe NSDocument do
 
   before do
 
     DocumentRepository.clear
 
-    @article = DocumentRepository.create(Document.new(title: 'A. Quantum Mechanics', author: 'Jared. Foo-Bar'))
-    @section = DocumentRepository.create(Document.new(title: 'S1. Uncertainty Principle', author: 'Jared Foo-Bar', subdoc_refs: []))
-    @section2 = DocumentRepository.create(Document.new(title: 'S2. Wave-Particle Duality', author: 'Jared Foo-Bar', subdoc_refs: []))
-    @section3 = DocumentRepository.create(Document.new(title: 'S3. Matrix Mechanics', author: 'Jared Foo-Bar', subdoc_refs: []))
-    @subsection =  DocumentRepository.create(Document.new(title: "SS. de Broglie's idea", author: 'Jared Foo-Bar', subdoc_refs: []))
+    @article = DocumentRepository.create(NSDocument.new(title: 'A. Quantum Mechanics', author: 'Jared. Foo-Bar'))
+    @section = DocumentRepository.create(NSDocument.new(title: 'S1. Uncertainty Principle', author: 'Jared Foo-Bar', subdoc_refs: []))
+    @section2 = DocumentRepository.create(NSDocument.new(title: 'S2. Wave-Particle Duality', author: 'Jared Foo-Bar', subdoc_refs: []))
+    @section3 = DocumentRepository.create(NSDocument.new(title: 'S3. Matrix Mechanics', author: 'Jared Foo-Bar', subdoc_refs: []))
+    @subsection =  DocumentRepository.create(NSDocument.new(title: "SS. de Broglie's idea", author: 'Jared Foo-Bar', subdoc_refs: []))
 
     @article.content = 'Quantum phenomena are weird!'
     @section.content = 'The Uncertainty Principle invalidates the notion of trajectory'

@@ -39,7 +39,7 @@ Lotus::Model.configure do
   mapping do
     # ...
     collection :documents do
-      entity     Document
+      entity     NSDocument
       repository DocumentRepository
       attribute :id,   Integer
       attribute :author, String

@@ -5,7 +5,7 @@ describe DocumentRepository do
     before do
       DocumentRepository.clear
 
-      @document = DocumentRepository.create(Document.new(title: 'TDD', author: 'Kent Beck'))
+      @document = DocumentRepository.create(NSDocument.new(title: 'TDD', author: 'Kent Beck'))
     end
 
     it 'persists objects ppp' do

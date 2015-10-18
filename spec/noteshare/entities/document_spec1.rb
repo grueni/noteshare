@@ -6,18 +6,18 @@ require 'json'
 
 # The tests below are mainly concerned with
 # setting and persisting attributes
-describe Document do
+describe NSDocument do
 
   before do
 
     DocumentRepository.clear
 
-    @article = DocumentRepository.create(Document.new(title: 'A. Quantum Mechanics', author: 'Jared. Foo-Bar'))
-    @section1 = DocumentRepository.create(Document.new(title: 'S1. Uncertainty Principle', author: 'Jared Foo-Bar', subdoc_refs: []))
-    @section2 = DocumentRepository.create(Document.new(title: 'S2. Wave-Particle Duality', author: 'Jared Foo-Bar', subdoc_refs: []))
-    @section3 = DocumentRepository.create(Document.new(title: 'S3. Matrix Mechanics', author: 'Jared Foo-Bar', subdoc_refs: []))
-    @subsection =  DocumentRepository.create(Document.new(title: "SS. de Broglie's idea", author: 'Jared Foo-Bar', subdoc_refs: []))
-    @subsubsection =  DocumentRepository.create(Document.new(title: "Yo!", author: 'Jared Foo-Bar', subdoc_refs: []))
+    @article = DocumentRepository.create(NSDocument.new(title: 'A. Quantum Mechanics', author: 'Jared. Foo-Bar'))
+    @section1 = DocumentRepository.create(NSDocument.new(title: 'S1. Uncertainty Principle', author: 'Jared Foo-Bar', subdoc_refs: []))
+    @section2 = DocumentRepository.create(NSDocument.new(title: 'S2. Wave-Particle Duality', author: 'Jared Foo-Bar', subdoc_refs: []))
+    @section3 = DocumentRepository.create(NSDocument.new(title: 'S3. Matrix Mechanics', author: 'Jared Foo-Bar', subdoc_refs: []))
+    @subsection =  DocumentRepository.create(NSDocument.new(title: "SS. de Broglie's idea", author: 'Jared Foo-Bar', subdoc_refs: []))
+    @subsubsection =  DocumentRepository.create(NSDocument.new(title: "Yo!", author: 'Jared Foo-Bar', subdoc_refs: []))
 
 
     @article.content = 'Quantum phenomena are weird!'
@@ -51,7 +51,7 @@ describe Document do
   #### INITALIZATION, SETTING ATTRIBUTES, AND PERSISTENCE ####
 
   it 'can be initialised with attributes, with defaults set iii' do
-    document = Document.new(title: 'Quantum Mechanics', author: 'J.L Foo-Bar')
+    document = NSDocument.new(title: 'Quantum Mechanics', author: 'J.L Foo-Bar')
     document.title.must_equal 'Quantum Mechanics'
     empty_hash = {}
     document.doc_refs.must_equal empty_hash
@@ -331,18 +331,29 @@ EOF
 
   it 'can add recall associated documents ass' do
 
-    notes = DocumentRepository.create(Document.new(title: 'Tables', author: 'Jared. Foo-Bar'))
+    notes = DocumentRepository.create(NSDocument.new(title: 'Tables', author: 'Jared. Foo-Bar'))
     notes.associate_as('notes', @article)
     puts "@article.doc_refs: #{@article.doc_refs}"
     @article.associated_document('notes').must_equal notes
 
   end
 
-  it 'can render its conntent rcc' do
+  it 'can render its content rcc' do
 
-    puts @section2.content
+    puts "CONTENT:\n#{@section2.content}"
     @section2.render
-    # puts @section2.rendered_content
+
+    puts
+    puts "RENDERED CONTENT:\n#{@section2.rendered_content}"
+
+
+    asciidoc_content = <<EOF
+<div class="paragraph">
+<p>It is, like, <em>so</em> weird!</p>
+</div>
+EOF
+    @section2.rendered_content.must_include '<em>so</em>'
+
   end
 
 

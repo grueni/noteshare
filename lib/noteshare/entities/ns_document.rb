@@ -1,8 +1,8 @@
 require_relative '../../ext/core'
 require_relative '../modules/render'
 
-# require 'asciidoctor'
-# include Document::Asciidoctor
+require 'asciidoctor'
+include Asciidoctor
 
 # An instance of the Document class has *content*, a block of text,
 # various metadata -- *title*, *author*, *tags* etc. -- and a set
@@ -40,7 +40,7 @@ require_relative '../modules/render'
 # builds up the subdoc array of @article and manages
 # the pointers parent_id, index_in_parent, previous
 # and next.
-class Document
+class NSDocument
   include Lotus::Entity
   attributes :id, :author, :title, :tags, :type, :area, :meta,
     :created_at, :modified_at, :content, :rendered_content,
@@ -281,7 +281,7 @@ class Document
 
   def render
     default_options = { backend: 'html5' }
-    puts Asciidoctor.convert(self.content, default_options)
+    self.rendered_content = Asciidoctor.convert(self.content, default_options)
   end
 
 

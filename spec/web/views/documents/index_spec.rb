@@ -19,8 +19,8 @@ describe Web::Views::Documents::Index do
   end
 
   describe 'when there are documents' do
-    let(:document1)     { Document.new(title: 'OS Z', author: 'Melvin Foo-Bar') }
-    let(:document2)     { Document.new(title: 'Electromagnetic Theory', author: 'Laura Lee') }
+    let(:document1)     { NSDocument.new(title: 'OS Z', author: 'Melvin Foo-Bar') }
+    let(:document2)     { NSDocument.new(title: 'Electromagnetic Theory', author: 'Laura Lee') }
     let(:exposures) { Hash[documents: [document1, document2]] }
 
     it 'lists them all' do

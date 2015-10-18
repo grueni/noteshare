@@ -5,12 +5,22 @@
   </component>
   <component name="ChangeListManager">
     <list default="true" id="b34824e7-5183-4862-ad94-000b50337213" name="Default" comment="">
-      <change type="NEW" beforePath="" afterPath="$PROJECT_DIR$/lib/noteshare/modules/render.rb" />
-      <change type="MODIFICATION" beforePath="$PROJECT_DIR$/Gemfile.lock" afterPath="$PROJECT_DIR$/Gemfile.lock" />
-      <change type="MODIFICATION" beforePath="$PROJECT_DIR$/Gemfile" afterPath="$PROJECT_DIR$/Gemfile" />
-      <change type="MODIFICATION" beforePath="$PROJECT_DIR$/lib/noteshare/entities/document.rb" afterPath="$PROJECT_DIR$/lib/noteshare/entities/document.rb" />
+      <change type="MOVED" beforePath="$PROJECT_DIR$/lib/noteshare/entities/document.rb" afterPath="$PROJECT_DIR$/lib/noteshare/entities/ns_document.rb" />
+      <change type="MODIFICATION" beforePath="$PROJECT_DIR$/doc/DocumentRepository.html" afterPath="$PROJECT_DIR$/doc/DocumentRepository.html" />
+      <change type="MODIFICATION" beforePath="$PROJECT_DIR$/doc/PGIntArray.html" afterPath="$PROJECT_DIR$/doc/PGIntArray.html" />
+      <change type="MODIFICATION" beforePath="$PROJECT_DIR$/doc/_index.html" afterPath="$PROJECT_DIR$/doc/_index.html" />
+      <change type="MODIFICATION" beforePath="$PROJECT_DIR$/doc/class_list.html" afterPath="$PROJECT_DIR$/doc/class_list.html" />
+      <change type="MODIFICATION" beforePath="$PROJECT_DIR$/spec/noteshare/repositories/document_repository_spec.rb" afterPath="$PROJECT_DIR$/spec/noteshare/repositories/document_repository_spec.rb" />
+      <change type="MODIFICATION" beforePath="$PROJECT_DIR$/spec/noteshare/entities/document_spec.rb" afterPath="$PROJECT_DIR$/spec/noteshare/entities/document_spec.rb" />
       <change type="MODIFICATION" beforePath="$PROJECT_DIR$/spec/noteshare/entities/document_spec1.rb" afterPath="$PROJECT_DIR$/spec/noteshare/entities/document_spec1.rb" />
-      <change type="MODIFICATION" beforePath="$PROJECT_DIR$/.idea/noteshare.iml" afterPath="$PROJECT_DIR$/.idea/noteshare.iml" />
+      <change type="MODIFICATION" beforePath="$PROJECT_DIR$/doc/file.README.html" afterPath="$PROJECT_DIR$/doc/file.README.html" />
+      <change type="MODIFICATION" beforePath="$PROJECT_DIR$/doc/index.html" afterPath="$PROJECT_DIR$/doc/index.html" />
+      <change type="MODIFICATION" beforePath="$PROJECT_DIR$/spec/web/controllers/documents/index_spec.rb" afterPath="$PROJECT_DIR$/spec/web/controllers/documents/index_spec.rb" />
+      <change type="MODIFICATION" beforePath="$PROJECT_DIR$/spec/web/views/documents/index_spec.rb" afterPath="$PROJECT_DIR$/spec/web/views/documents/index_spec.rb" />
+      <change type="MODIFICATION" beforePath="$PROJECT_DIR$/spec/web/features/list_docs_spec.rb" afterPath="$PROJECT_DIR$/spec/web/features/list_docs_spec.rb" />
+      <change type="MODIFICATION" beforePath="$PROJECT_DIR$/doc/method_list.html" afterPath="$PROJECT_DIR$/doc/method_list.html" />
+      <change type="MODIFICATION" beforePath="$PROJECT_DIR$/lib/noteshare.rb" afterPath="$PROJECT_DIR$/lib/noteshare.rb" />
+      <change type="MODIFICATION" beforePath="$PROJECT_DIR$/doc/top-level-namespace.html" afterPath="$PROJECT_DIR$/doc/top-level-namespace.html" />
       <change type="MODIFICATION" beforePath="$PROJECT_DIR$/.idea/workspace.xml" afterPath="$PROJECT_DIR$/.idea/workspace.xml" />
     </list>
     <ignored path="noteshare.iws" />
@@ -56,11 +66,11 @@
           </provider>
         </entry>
       </file>
-      <file leaf-file-name="document_spec1.rb" pinned="false" current-in-tab="false">
+      <file leaf-file-name="document_spec1.rb" pinned="false" current-in-tab="true">
         <entry file="file://$PROJECT_DIR$/spec/noteshare/entities/document_spec1.rb">
           <provider selected="true" editor-type-id="text-editor">
-            <state vertical-scroll-proportion="-191.11111">
-              <caret line="344" column="6" selection-start-line="344" selection-start-column="6" selection-end-line="344" selection-end-column="6" />
+            <state vertical-scroll-proportion="0.37883437">
+              <caret line="340" column="23" selection-start-line="340" selection-start-column="23" selection-end-line="340" selection-end-column="23" />
               <folding />
             </state>
           </provider>
@@ -80,17 +90,17 @@
         <entry file="file://$PROJECT_DIR$/lib/noteshare/modules/render.rb">
           <provider selected="true" editor-type-id="text-editor">
             <state vertical-scroll-proportion="0.0">
-              <caret line="13" column="53" selection-start-line="11" selection-start-column="4" selection-end-line="13" selection-end-column="53" />
+              <caret line="7" column="13" selection-start-line="7" selection-start-column="13" selection-end-line="7" selection-end-column="13" />
               <folding />
             </state>
           </provider>
         </entry>
       </file>
-      <file leaf-file-name="document.rb" pinned="false" current-in-tab="true">
-        <entry file="file://$PROJECT_DIR$/lib/noteshare/entities/document.rb">
+      <file leaf-file-name="ns_document.rb" pinned="false" current-in-tab="false">
+        <entry file="file://$PROJECT_DIR$/lib/noteshare/entities/ns_document.rb">
           <provider selected="true" editor-type-id="text-editor">
-            <state vertical-scroll-proportion="0.09202454">
-              <caret line="4" column="2" selection-start-line="4" selection-start-column="2" selection-end-line="4" selection-end-column="2" />
+            <state vertical-scroll-proportion="-18.037037">
+              <caret line="283" column="27" selection-start-line="283" selection-start-column="27" selection-end-line="283" selection-end-column="27" />
               <folding />
             </state>
           </provider>
@@ -140,8 +150,9 @@
         <option value="$PROJECT_DIR$/Data structure" />
         <option value="$PROJECT_DIR$/Gemfile" />
         <option value="$PROJECT_DIR$/lib/noteshare/modules/render.rb" />
-        <option value="$PROJECT_DIR$/spec/noteshare/entities/document_spec1.rb" />
         <option value="$PROJECT_DIR$/lib/noteshare/entities/document.rb" />
+        <option value="$PROJECT_DIR$/lib/noteshare/entities/ns_document.rb" />
+        <option value="$PROJECT_DIR$/spec/noteshare/entities/document_spec1.rb" />
       </list>
     </option>
   </component>
@@ -671,7 +682,7 @@
     <watches-manager />
   </component>
   <component name="editorHistoryManager">
-    <entry file="file://$PROJECT_DIR$/lib/noteshare/entities/document.rb">
+    <entry file="file://$PROJECT_DIR$/lib/noteshare/entities/ns_document.rb">
       <provider selected="true" editor-type-id="text-editor">
         <state vertical-scroll-proportion="0.0">
           <caret line="5" column="0" selection-start-line="5" selection-start-column="0" selection-end-line="5" selection-end-column="0" />
@@ -1011,6 +1022,14 @@
         </state>
       </provider>
     </entry>
+    <entry file="file://$PROJECT_DIR$/lib/noteshare/modules/render.rb">
+      <provider selected="true" editor-type-id="text-editor">
+        <state vertical-scroll-proportion="0.0">
+          <caret line="7" column="13" selection-start-line="7" selection-start-column="13" selection-end-line="7" selection-end-column="13" />
+          <folding />
+        </state>
+      </provider>
+    </entry>
     <entry file="file://$PROJECT_DIR$/lib/noteshare.rb">
       <provider selected="true" editor-type-id="text-editor">
         <state vertical-scroll-proportion="0.0">
@@ -1019,26 +1038,18 @@
         </state>
       </provider>
     </entry>
-    <entry file="file://$PROJECT_DIR$/lib/noteshare/modules/render.rb">
+    <entry file="file://$PROJECT_DIR$/lib/noteshare/entities/ns_document.rb">
       <provider selected="true" editor-type-id="text-editor">
-        <state vertical-scroll-proportion="0.0">
-          <caret line="13" column="53" selection-start-line="11" selection-start-column="4" selection-end-line="13" selection-end-column="53" />
+        <state vertical-scroll-proportion="-18.037037">
+          <caret line="283" column="27" selection-start-line="283" selection-start-column="27" selection-end-line="283" selection-end-column="27" />
           <folding />
         </state>
       </provider>
     </entry>
     <entry file="file://$PROJECT_DIR$/spec/noteshare/entities/document_spec1.rb">
       <provider selected="true" editor-type-id="text-editor">
-        <state vertical-scroll-proportion="-191.11111">
-          <caret line="344" column="6" selection-start-line="344" selection-start-column="6" selection-end-line="344" selection-end-column="6" />
-          <folding />
-        </state>
-      </provider>
-    </entry>
-    <entry file="file://$PROJECT_DIR$/lib/noteshare/entities/document.rb">
-      <provider selected="true" editor-type-id="text-editor">
-        <state vertical-scroll-proportion="0.09202454">
-          <caret line="4" column="2" selection-start-line="4" selection-start-column="2" selection-end-line="4" selection-end-column="2" />
+        <state vertical-scroll-proportion="0.37883437">
+          <caret line="340" column="23" selection-start-line="340" selection-start-column="23" selection-end-line="340" selection-end-column="23" />
           <folding />
         </state>
       </provider>
