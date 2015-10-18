@@ -263,5 +263,24 @@ EOF
 
   end
 
+  it 'can move a subdocument from one position to another mmm' do
+
+    article_id = @article.id
+    puts "@article.id: #{@article.id}"
+    @section1.add_to(@article)
+    @section2.add_to(@article)
+    @section3.add_to(@article)
+
+    puts @article.subdocument_titles :verbose
+    puts
+
+    @section1.move_to(2)
+
+    @article = DocumentRepository.find article_id
+
+    puts @article.subdocument_titles :verbose
+
+  end
+
 
 end

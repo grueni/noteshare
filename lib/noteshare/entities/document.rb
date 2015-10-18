@@ -152,6 +152,12 @@ class Document
     end
   end
 
+
+  def move_to(new_position)
+    remove_from_parent
+    insert(new_position, parent)
+  end
+
   # Assume that receiver is subdocument k of parent.
   # Return the id of subdocument k - 1 or nil
   def previous_id
