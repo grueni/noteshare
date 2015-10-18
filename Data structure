@@ -14,7 +14,7 @@ CREATE TABLE documents(
    parent_id integer,
    author_id integer,
    index_in_parent integer,
-   root_document integer,
+   root_document_id integer,
    visibility integer,
    subdoc_refs integer[],
    doc_refs jsonb,

@@ -55,7 +55,7 @@ Lotus::Model.configure do
       attribute :parent_id, Integer
       attribute :author_id, Integer
       attribute :index_in_parent, Integer
-      attribute :root_document, Integer
+      attribute :root_document_id, Integer
       attribute :visibility, Integer
       attribute :subdoc_refs, PGIntArray
       attribute :doc_refs, JSON

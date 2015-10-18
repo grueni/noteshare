@@ -42,7 +42,7 @@ class Document
   include Lotus::Entity
   attributes :id, :author, :title, :tags, :type, :area, :meta,
     :created_at, :modified_at, :content, :rendered_content,
-    :parent_id, :author_id, :index_in_parent, :root_document, :visibility,
+    :parent_id, :author_id, :index_in_parent, :root_document_id, :visibility,
     :subdoc_refs,  :doc_refs, :toc
 
 
@@ -50,6 +50,7 @@ class Document
     hash.each { |name, value| instance_variable_set("@#{name}", value) }
     @subdoc_refs = [] if @subdoc_refs.nil?
     @doc_refs = {} if @doc_refs.nil?
+    @root_document_id = 0
   end
 
 
@@ -58,31 +59,16 @@ class Document
     insert(n, parent_document)
   end
 
-  def add_to_old(parent_document)
-    DocumentRepository.persist(self) unless self.id
-
-    # add the subdocument
-    parent_document.subdoc_refs ||= []
-    parent_document.subdoc_refs << self.id
-
-    # refer to the parent in the added document
-    self.index_in_parent =  parent_document.subdoc_refs.length - 1
-    self.parent_id = parent_document.id
-
-    self.set_previous_doc
-    if previous_document
-      previous_document.set_next_doc
-    end
-
-    self.set_next_doc
-    if next_document
-      next_document.set_previous_doc
-    end
-
-    DocumentRepository.persist(self)
-    DocumentRepository.persist(parent_document)
+  def associate_as(type, doc)
+    doc.doc_refs[type] = self.id
+    self.parent_id = doc.id
+    self.root_document_id = doc.id
+    DocumentRepository.update(doc)
   end
 
+  def associated_document(type)
+    DocumentRepository.find(self.doc_refs[type])
+  end
 
 
   # Insert a subdocument at position k
@@ -97,6 +83,12 @@ class Document
     parent_document.subdoc_refs = index
     self.index_in_parent =  k
     self.parent_id = parent_document.id
+    if parent_document.root_document_id == 0
+      self.root_document_id = parent_document.id
+    else
+      self.root_document_id = parent_document.root_document_id
+    end
+
 
     # update index_in_parent for subdocuments
     # that were shifted to the right
@@ -212,6 +204,14 @@ class Document
   # subdocument of *doc*
   def subdocument(k)
     DocumentRepository.find(subdoc_refs[k])
+  end
+
+  def root_document
+    if root_document_id == 0
+      return self
+    else
+      DocumentRepository.find(root_document_id)
+    end
   end
 
 

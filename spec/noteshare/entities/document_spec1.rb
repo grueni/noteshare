@@ -298,16 +298,45 @@ EOF
 
   end
 
-  it 'manages the root_document pointer' do
+  it 'manages the root_document pointer rrr' do
 
     @section1.add_to(@article)
     @section2.add_to(@article)
     @section3.add_to(@article)
-    @subsection.add_to(@section3)
-    @subsubsection.add_to(@ssubsection)
+    @subsection.add_to(@section2)
+    @subsubsection.add_to(@subsection)
+
+    @article.root_document_id.must_equal 0
+    @section1.root_document_id.must_equal @article.id
+    @subsection.root_document_id.must_equal @article.id
+    @subsubsection.root_document_id.must_equal @article.id
 
   end
 
+  it 'can find the root documnt of any document rr2' do
+
+    @section1.add_to(@article)
+    @section2.add_to(@article)
+    @section3.add_to(@article)
+    @subsection.add_to(@section2)
+    @subsubsection.add_to(@subsection)
+
+    @article.root_document.must_equal @article
+    @section1.root_document.must_equal @article
+    @subsection.root_document.must_equal @article
+    @subsubsection.root_document.must_equal @article
+
+
+  end
+
+  it 'can add recall assciated documents ass' do
+
+    notes = DocumentRepository.create(Document.new(title: 'Tables', author: 'Jared. Foo-Bar'))
+    notes.associate_as('notes', @article)
+    puts "@article.doc_refs: #{@article.doc_refs}"
+    @article.associated_document('notes').must_equal notes
+
+  end
 
 
 
