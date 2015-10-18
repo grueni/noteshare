@@ -40,10 +40,10 @@ require_relative '../../ext/core'
 # and next.
 class Document
   include Lotus::Entity
-  attributes :id, :author, :title, :tags, :meta,
-    :created_at, :modified_at, :content, :subdoc_refs, :parent_id,
-    :type, :author_id, :area, :rendered_content, :doc_refs, :index_in_parent
-
+  attributes :id, :author, :title, :tags, :type, :area, :meta,
+    :created_at, :modified_at, :content, :rendered_content,
+    :parent_id, :author_id, :index_in_parent, :root_document, :visibility,
+    :subdoc_refs,  :doc_refs, :toc
 
 
   def initialize(hash)
@@ -53,8 +53,12 @@ class Document
   end
 
 
-
   def add_to(parent_document)
+    n = parent_document.subdoc_refs.length
+    insert(n, parent_document)
+  end
+
+  def add_to_old(parent_document)
     DocumentRepository.persist(self) unless self.id
 
     # add the subdocument
@@ -268,6 +272,8 @@ class Document
     subdoc_refs.each do |id|
       value << [id, DocumentRepository.find(id).title]
     end
+    self.toc = value
+    DocumentRepository.update(self)
     value
   end
 

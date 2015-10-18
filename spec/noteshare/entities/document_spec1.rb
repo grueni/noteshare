@@ -287,9 +287,28 @@ EOF
     @section2.add_to(@article)
     @section3.add_to(@article)
 
-    puts @article.update_table_of_contents
+    @article.update_table_of_contents
+
+    flat_toc = @article.toc.flatten
+
+    flat_toc[1].must_equal 'S1. Uncertainty Principle'
+    flat_toc[3].must_equal 'S2. Wave-Particle Duality'
+    flat_toc[5].must_equal 'S3. Matrix Mechanics'
+
 
   end
+
+  it 'manages the root_document pointer' do
+
+    @section1.add_to(@article)
+    @section2.add_to(@article)
+    @section3.add_to(@article)
+    @subsection.add_to(@section3)
+    @subsubsection.add_to(@ssubsection)
+
+  end
+
+
 
 
 end
