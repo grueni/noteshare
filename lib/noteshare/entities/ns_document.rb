@@ -1,8 +1,6 @@
 require_relative '../../ext/core'
-require_relative '../modules/render'
+# require_relative '../modules/render'
 
-require 'asciidoctor'
-include Asciidoctor
 
 # An instance of the Document class has *content*, a block of text,
 # various metadata -- *title*, *author*, *tags* etc. -- and a set
@@ -279,9 +277,9 @@ class NSDocument
     value
   end
 
-  def render
-    default_options = { backend: 'html5' }
-    self.rendered_content = Asciidoctor.convert(self.content, default_options)
+  def render(options= { })
+    default_options = { backend: 'html5', stem: 'latexmath' }
+    self.rendered_content = Render.convert(self.content, options)
   end
 
 

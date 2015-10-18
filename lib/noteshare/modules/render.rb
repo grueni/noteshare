@@ -1,20 +1,20 @@
-=begin
-
-require 'asciidoctor'
-include Asciidoctor
 
 
 
 module Render
 
+  require 'asciidoctor'
+  require 'asciidoctor-latex'
 
-  def convert(options)
+  include Asciidoctor
+
+
+  def self.convert(source, options)
     default_options = { backend: 'html5' }
     options = options.merge default_options
-    Asciidoctor.convert("this __is_ a test", options)
+    Asciidoctor.convert(source, options)
   end
 
 
 end
 
-=end

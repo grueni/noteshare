@@ -346,13 +346,17 @@ EOF
     puts
     puts "RENDERED CONTENT:\n#{@section2.rendered_content}"
 
-
-    asciidoc_content = <<EOF
-<div class="paragraph">
-<p>It is, like, <em>so</em> weird!</p>
-</div>
-EOF
     @section2.rendered_content.must_include '<em>so</em>'
+
+  end
+
+  it 'can render mathematical content rmm' do
+
+    @section2.content = "He said that $a^2 + b^2 = c^2$. *Wow!*\n[env.theorem]\n--\nThere are infinitely many primes.\n--\n\n"
+    @section2.render(backend: 'html5')
+
+    asciidoc_content = "<div class=\"paragraph\">\n<p>He said that \\(a^2 + b^2 = c^2\\). <strong>Wow!</strong></p>\n</div>\n<div class=\"openblock theorem\">\n<div class=\"title\">Theorem 1.</div><div class=\"content\">\n<div class='click_oblique'>\nThere are infinitely many primes.\n</div>\n</div>\n</div>"
+    @section2.rendered_content.must_equal asciidoc_content
 
   end
 
