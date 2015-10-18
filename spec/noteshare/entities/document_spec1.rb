@@ -329,13 +329,20 @@ EOF
 
   end
 
-  it 'can add recall assciated documents ass' do
+  it 'can add recall associated documents ass' do
 
     notes = DocumentRepository.create(Document.new(title: 'Tables', author: 'Jared. Foo-Bar'))
     notes.associate_as('notes', @article)
     puts "@article.doc_refs: #{@article.doc_refs}"
     @article.associated_document('notes').must_equal notes
 
+  end
+
+  it 'can render its conntent rcc' do
+
+    puts @section2.content
+    @section2.render
+    # puts @section2.rendered_content
   end
 
 

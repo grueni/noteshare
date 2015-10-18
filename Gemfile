@@ -14,6 +14,9 @@ gem 'pg'
 
 gem 'haml'
 
+gem 'asciidoctor', '~> 1.5.2'
+gem 'asciidoctor-latex', :github => 'asciidoctor/asciidoctor-latex', :branch => 'master'
+
 group :test do
   gem 'minitest'
   gem 'capybara'

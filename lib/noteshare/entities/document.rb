@@ -1,6 +1,8 @@
 require_relative '../../ext/core'
+require_relative '../modules/render'
 
-
+# require 'asciidoctor'
+# include Document::Asciidoctor
 
 # An instance of the Document class has *content*, a block of text,
 # various metadata -- *title*, *author*, *tags* etc. -- and a set
@@ -277,6 +279,10 @@ class Document
     value
   end
 
+  def render
+    default_options = { backend: 'html5' }
+    puts Asciidoctor.convert(self.content, default_options)
+  end
 
 
 end
