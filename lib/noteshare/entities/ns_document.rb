@@ -356,6 +356,10 @@ class NSDocument
         toc.each_with_index do |item, index|
           output << "#{index + 1}. #{item[1]}" << "\n"
         end
+      when 'html'
+        toc.each_with_index do |item, index|
+          output << "%li #{item[1]}" << "\n"
+        end
       else
         output = toc.to_s
     end
