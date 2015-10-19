@@ -1,5 +1,14 @@
-
-.document
-  %p= document.author
-  %p= document.table_of_contents
-  = document.rendered_compilation
+- if document
+  .document{style: 'margin-top:6em;'}
+    .row
+      .col.s4.section
+        .container{style: 'overflow-y: auto;  height:100%; padding-left:1em; padding-right:1em;   background-color:#eee;;overflow-y:scroll'}
+          %h1{style: 'font-size:14pt;'}= document.title
+          %p= document.author
+          %ul
+            = document.table_of_contents 'html'
+      .col.s8
+        .container{style: 'overflow-y: auto;  height:100%; padding:1em; padding-bottom:1000px;overflow-y:scroll'}
+          = document.rendered_compilation
+- else
+  %p.placeholder Documents not found.

@@ -16,6 +16,7 @@ gem 'haml'
 
 gem 'asciidoctor', '~> 1.5.2'
 gem 'asciidoctor-latex', :github => 'asciidoctor/asciidoctor-latex', :branch => 'master'
+gem 'thread_safe'
 
 group :test do
   gem 'minitest'

@@ -1,4 +1,4 @@
-module Web::Views::Documents
+module Web::Views::NSDocument
   class Show
     include Web::View
   end

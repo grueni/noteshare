@@ -1,14 +1,14 @@
-=begin
 
-Module Web::Controllers::Documents
-class Show
-  include Web::Action
 
-  # expose :document
+module Web::Controllers::Documents
+  class Show
+    include Web::Action
 
-  #def call(params)
-   # @document = DocumentRepository.find(params['id'])
-  # end
+    expose :document
+
+    def call(params)
+      puts "XXXX: params = #{params}"
+      @document = DocumentRepository.find(params['id'])
+    end
+  end
 end
-
-=end
