@@ -332,10 +332,29 @@ class NSDocument
     value
   end
 
+  # Return a string representing the table of
+  # contents.  The format of the string can
+  # be modified by the choice of the option
+  # passed to the method.  The default 'simple_string'
+  # option gives a numbered list of titles.
+  def table_of_contents(option='simple_string')
+    output = ''
+    case option
+      when 'simple_string'
+        toc.each_with_index do |item, index|
+          output << "#{index + 1}. #{item[1]}" << "\n"
+        end
+      else
+        output = toc.to_s
+    end
+    output
+  end
+
   # NSDocument#render is the sole connection between class NSDocument and
   # module Render.  It updates self.rendered_content by applying
   # Asciidoctor.convert to self.content with the provided options.
   def render
+    puts "@render_options['format'] = #{@render_options['format']}"
     if @render_options['format'] == 'adoc'
       self.rendered_content = Render.convert(self.content, {})
     elsif @render_options['format'] == 'adoc-latex'
@@ -344,6 +363,43 @@ class NSDocument
       self.content
     end
     DocumentRepository.update(self)
+  end
+
+  def self.seed_db(option = {})
+
+    if option['clear'] == 'yes'
+      puts 'CLEARING DATABASE'
+      DocumentRepository.clear
+    end
+
+    @article = DocumentRepository.create(NSDocument.new(title: 'A. Quantum Mechanics', author: 'Jared. Foo-Bar'))
+    @section1 = DocumentRepository.create(NSDocument.new(title: 'S1. Uncertainty Principle', author: 'Jared Foo-Bar', subdoc_refs: []))
+    @section2 = DocumentRepository.create(NSDocument.new(title: 'S2. Wave-Particle Duality', author: 'Jared Foo-Bar', subdoc_refs: []))
+    @section3 = DocumentRepository.create(NSDocument.new(title: 'S3. Matrix Mechanics', author: 'Jared Foo-Bar', subdoc_refs: []))
+    @subsection =  DocumentRepository.create(NSDocument.new(title: "SS. de Broglie's idea", author: 'Jared Foo-Bar', subdoc_refs: []))
+    @subsubsection =  DocumentRepository.create(NSDocument.new(title: "Yo!", author: 'Jared Foo-Bar', subdoc_refs: []))
+
+
+    @article.content = 'Quantum phenomena are weird!'
+    @section1.content = 'The Uncertainty Principle invalidates the notion of trajectory'
+    @section2.content = 'It is, like, _so_ weird!'
+    @section3.content = 'Its all about the eigenvalues'
+    @subsection.content = 'He was a count.'
+    @subsubsection.content = 'Yay!'
+
+    DocumentRepository.persist @article
+    DocumentRepository.persist @section1
+    DocumentRepository.persist @section2
+    DocumentRepository.persist @section3
+    DocumentRepository.persist @subsection
+    DocumentRepository.persist @subsubsection
+
+    @section1.insert(0,@article)
+    @section2.insert(1,@article)
+    @section3.insert(2,@article)
+    @subsection.add_to(@section2)
+    @subsubsection.add_to(@subsection)
+
   end
 
 

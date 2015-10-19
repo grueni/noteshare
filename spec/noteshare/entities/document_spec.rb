@@ -169,6 +169,10 @@ describe NSDocument do
 
     it 'can compile a document to deeper levels using recursion ccc2' do
 
+      @section.add_to(@article)
+      @section2.add_to(@article)
+      @subsection.add_to(@section2)
+
     puts '*2*********************************'
     puts @section2.subdocument_titles :header
     puts @section2.subdoc_refs

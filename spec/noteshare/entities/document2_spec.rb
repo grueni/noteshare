@@ -353,6 +353,7 @@ EOF
   it 'can render mathematical content rmm' do
 
     @section2.content = "He said that $a^2 + b^2 = c^2$. *Wow!*\n[env.theorem]\n--\nThere are infinitely many primes.\n--\n\n"
+    @section2.render_options['format'] = 'adoc-latex'
     @section2.render
 
     puts @section2.rendered_content

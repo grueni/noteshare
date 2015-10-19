@@ -12,6 +12,7 @@ module Render
   include Asciidoctor
 
   def self.convert(source, options)
+    puts "Asciidoctor will convert with option = #{options}"
     Asciidoctor.convert(source, options)
   end
 
