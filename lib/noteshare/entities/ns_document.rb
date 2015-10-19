@@ -297,6 +297,17 @@ class NSDocument
   end
 
 
+  # Replace #content by str, render it
+  # and save it in #html.  Finally,
+  # update the database.
+  def update_content(str)
+    self.content = str
+    self.render
+    DocumentRepository.update self
+  end
+
+
+
   # *doc.compile* concatenates the contents
   # of *doc* with the compiled text of
   # each section of *doc*.  The sections
