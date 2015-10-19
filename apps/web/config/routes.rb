@@ -1,6 +1,7 @@
-get '/document', to: 'documents#new'
+
 get '/', to: 'home#index'
 
+get '/new', to: 'documents#new'
 get '/documents', to: 'documents#index'
 
 # Configure your routes here

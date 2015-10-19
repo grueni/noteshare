@@ -53,6 +53,7 @@ class NSDocument
     @doc_refs = {} if @doc_refs.nil?
     @root_document_id ||= 0
     @render_options ||= { 'format'=> 'adoc' }
+    @toc ||= []
   end
 
   # @section(k, @article) makes @section the k-th subdocument
@@ -307,10 +308,10 @@ class NSDocument
     if subdoc_refs == []
       return content
     else
-      text = content + "\n" || ''
+      text = content + "\n\n" || ''
       subdoc_refs.each do |id|
         section = DocumentRepository.find(id)
-        text  << section.compile << "\n"
+        text  << section.compile << "\n\n"
         # section.xcompile
       end
       return text
@@ -363,6 +364,17 @@ class NSDocument
       self.content
     end
     DocumentRepository.update(self)
+  end
+
+  def rendered_compilation
+    puts "@render_options['format'] = #{@render_options['format']}"
+    if @render_options['format'] == 'adoc'
+      Render.convert(self.compile, {  })
+    elsif @render_options['format'] == 'adoc-latex'
+      Render.convert(self.compile, {backend: 'html5'})
+    else
+      self.content
+    end
   end
 
   def self.seed_db(option = {})

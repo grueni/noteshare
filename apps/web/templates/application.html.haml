@@ -2,6 +2,23 @@
 %html
   %head
     %title Noteshare
+    %link{:href => "/stylesheets/min.css", :rel => "stylesheet", :type => "text/css"}/
+    %link{:href => "/stylesheets/main.css", :rel => "stylesheet", :type => "text/css"}/
+    %link{:href => "/stylesheets/asciidoctor.css", :rel => "stylesheet", :type => "text/css"}/
   %body
-    %h1 Noteshare
-    = yield
+    %header
+      .paddings
+        %a.logo{:href => "/"} Noteshare
+        %nav
+          %a{:href => "/"} Home
+  %main
+    .paddings
+      %article= yield
+  %footer
+    .paddings
+      %p
+        Crafted with
+        %span.heart ❤
+        by
+        %a{:href => "http:/noteshare.io/"} James Carlson
+        \- New York City

@@ -1,7 +1,8 @@
 - if documents.any?
   - documents.each do |document|
     .document
-      %h2= document.title
       %p= document.author
+      %p= document.table_of_contents
+      = document.rendered_compilation
 - else
   %p.placeholder There are no documents yet.

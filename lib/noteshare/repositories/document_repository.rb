@@ -19,4 +19,11 @@ class DocumentRepository
     self.find_by_title(title).first
   end
 
+  # Return all root documents
+  def self.root_documents
+    query do
+      where(root_document_id: 0)
+    end
+  end
+
 end

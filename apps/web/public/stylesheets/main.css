@@ -1,0 +1,47 @@
+body > header {
+    background-color: #551E54;
+}
+
+body .logo {
+    font-size: 230%;
+}
+
+body > header a, body > header a:hover {
+    color: #FFFFFF;
+}
+
+body > footer {
+    background-color: #1B1F23;
+    color: #7F8C8D;
+}
+
+body > footer a, body > footer a:hover {
+    color: #FFFFFF;
+    text-decoration: none
+}
+
+body > footer span.heart {
+    color: #ED4D50;
+}
+
+body section.post {
+    margin-bottom: 45px;
+}
+
+body div.posts {
+    color: #4C4C4C;
+}
+
+body div.posts section.post {
+    padding-bottom: 45px;
+    border-bottom: 1px solid #E6E6E6;
+}
+
+body div.posts section.post header.post-header h3.post-title {
+    margin-bottom: 30px;
+}
+
+body div.posts > h1 {
+    color: #333333;
+    margin-bottom: 60px;
+}
