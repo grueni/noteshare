@@ -103,7 +103,19 @@
 </dl>
 <div class="clear"></div>
 
+<h2>Overview</h2><div class="docstring">
+  <div class="discussion">
+    
+<p>DocumentRespository provides services for persisence and search to
+NSDocument</p>
 
+
+  </div>
+</div>
+<div class="tags">
+  
+
+</div>
 
 
 
@@ -135,7 +147,9 @@
   
 
   
-    <span class="summary_desc"><div class='inline'></div></span>
+    <span class="summary_desc"><div class='inline'>
+<p>Find all objects with a gvien title.</p>
+</div></span>
   
 </li>
 
@@ -157,7 +171,11 @@
   
 
   
-    <span class="summary_desc"><div class='inline'></div></span>
+    <span class="summary_desc"><div class='inline'>
+<p>Return one ob4ect (or none0 whidh have a given title Fixme: this could be
+problmatic because of the possibiility of multiple objects with the same
+title.</p>
+</div></span>
   
 </li>
 
@@ -181,20 +199,31 @@
   
 
   
-</h3><table class="source_code">
+</h3><div class="docstring">
+  <div class="discussion">
+    
+<p>Find all objects with a gvien title</p>
+
+
+  </div>
+</div>
+<div class="tags">
+  
+
+</div><table class="source_code">
   <tr>
     <td>
       <pre class="lines">
 
 
-4
-5
-6
-7
-8</pre>
+8
+9
+10
+11
+12</pre>
     </td>
     <td>
-      <pre class="code"><span class="info file"># File 'lib/noteshare/repositories/document_repository.rb', line 4</span>
+      <pre class="code"><span class="info file"># File 'lib/noteshare/repositories/document_repository.rb', line 8</span>
 
 <span class='kw'>def</span> <span class='kw'>self</span><span class='period'>.</span><span class='id identifier rubyid_find_by_title'>find_by_title</span><span class='lparen'>(</span><span class='id identifier rubyid_title'>title</span><span class='rparen'>)</span>
   <span class='id identifier rubyid_query'>query</span> <span class='kw'>do</span>
@@ -215,18 +244,31 @@
   
 
   
-</h3><table class="source_code">
+</h3><div class="docstring">
+  <div class="discussion">
+    
+<p>Return one ob4ect (or none0 whidh have a given title Fixme: this could be
+problmatic because of the possibiility of multiple objects with the same
+title</p>
+
+
+  </div>
+</div>
+<div class="tags">
+  
+
+</div><table class="source_code">
   <tr>
     <td>
       <pre class="lines">
 
 
-10
-11
-12</pre>
+18
+19
+20</pre>
     </td>
     <td>
-      <pre class="code"><span class="info file"># File 'lib/noteshare/repositories/document_repository.rb', line 10</span>
+      <pre class="code"><span class="info file"># File 'lib/noteshare/repositories/document_repository.rb', line 18</span>
 
 <span class='kw'>def</span> <span class='kw'>self</span><span class='period'>.</span><span class='id identifier rubyid_find_one_by_title'>find_one_by_title</span><span class='lparen'>(</span><span class='id identifier rubyid_title'>title</span><span class='rparen'>)</span>
   <span class='kw'>self</span><span class='period'>.</span><span class='id identifier rubyid_find_by_title'>find_by_title</span><span class='lparen'>(</span><span class='id identifier rubyid_title'>title</span><span class='rparen'>)</span><span class='period'>.</span><span class='id identifier rubyid_first'>first</span>
@@ -241,7 +283,7 @@
 </div>
 
     <div id="footer">
-  Generated on Sun Oct 18 15:57:15 2015 by
+  Generated on Sun Oct 18 18:21:37 2015 by
   <a href="http://yardoc.org" title="Yay! A Ruby Documentation Tool" target="_parent">yard</a>
   0.8.7.6 (ruby-2.2.3).
 </div>

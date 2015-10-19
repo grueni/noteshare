@@ -45,7 +45,8 @@ class NSDocument
     :parent_id, :author_id, :index_in_parent, :root_document_id, :visibility,
     :subdoc_refs,  :doc_refs, :toc
 
-''
+  # When initializing an NSDocument, ensure that certain fields
+  # have a standard non-nil value
   def initialize(hash)
     hash.each { |name, value| instance_variable_set("@#{name}", value) }
     @subdoc_refs = [] if @subdoc_refs.nil?
@@ -54,26 +55,10 @@ class NSDocument
     @render_options ||= { 'format'=> 'adoc' }
   end
 
-
-  def add_to(parent_document)
-    n = parent_document.subdoc_refs.length
-    insert(n, parent_document)
-  end
-
-  def associate_as(type, doc)
-    doc.doc_refs[type] = self.id
-    self.parent_id = doc.id
-    self.root_document_id = doc.id
-    DocumentRepository.update(doc)
-  end
-
-  def associated_document(type)
-    DocumentRepository.find(self.doc_refs[type])
-  end
-
-
-  # Insert a subdocument at position k
-  # and update all links: parent, index_in_parent,
+  # @section(k, @article) makes @section the k-th subdocument
+  # of @article.  The subdocuments that were in position
+  # k and above are shifted to the right.  This method
+  # updates all links: parent, index_in_parent,
   # amd the relevant next and previous links
   def insert(k, parent_document)
 
@@ -108,6 +93,9 @@ class NSDocument
 
   end
 
+  # Used by #insert to preserve the
+  # validity of the previous and next
+  # links of subdocuments.
   def update_neighbors
     self.set_previous_doc
     self.set_next_doc
@@ -121,6 +109,37 @@ class NSDocument
     end
   end
 
+
+  # @section.add_to(@article) makes @section
+  # the last subdocument of @article
+  def add_to(parent_document)
+    n = parent_document.subdoc_refs.length
+    insert(n, parent_document)
+  end
+
+  # @foo.associate('summary', @bar)
+  # associats @foo to @bar as a 'summary'.
+  # It can be retrieved as @foo.associatd_document('summary')
+  def associate_as(type, doc)
+    doc.doc_refs[type] = self.id
+    self.parent_id = doc.id
+    self.root_document_id = doc.id
+    DocumentRepository.update(doc)
+  end
+
+  # @foo.associatd_document('summary')
+  # retrieve the document associated to
+  # @foo which is of type 'summary'
+  def associated_document(type)
+    DocumentRepository.find(self.doc_refs[type])
+  end
+
+
+  # @foo.remove_from_parent removes
+  # @foo as a subdocument of its parent.
+  # It oes not delete @foo.
+  # Fixme: it is intended tht a document have at most one parent.
+  # However, this is not yet enforced.
   def remove_from_parent
     k = index_in_parent
     p = parent
@@ -149,7 +168,10 @@ class NSDocument
     end
   end
 
-
+  # @foo.move_to(7) moves @foo in its
+  # parent document to position 7.
+  # Subdocuments that were in position 7 and up
+  # are moved up.
   def move_to(new_position)
     remove_from_parent
     insert(new_position, parent)
@@ -170,27 +192,44 @@ class NSDocument
     p.subdoc_refs[index_in_parent+1]
   end
 
+  # Return title and id of NSDocument
   def info
     "#{self.title}:: id: #{self.id}"
   end
 
+  # Return title, id, an ids of previous and next documents
   def status
-    "#{self.title}:: id: #{self.id}, parent: #{self.parent.id }, doc_refs: #{self.doc_refs}" # ", back: #{self.doc_refs['previous']}, next: #{@self.doc_refs['next']}"
+    "#{self.title}:: id: #{self.id}, parent: #{self.parent.id }, back: #{self.doc_refs['previous']}, next: #{@self.doc_refs['next']}"
   end
 
+  # Return next NSDocument.  That is, if @foo, @bar, and @baz
+  # are subcocuments in order of @article, then @bar.next_document = @baz
   def next_document
     DocumentRepository.find next_id
   end
 
+
+  # Return previous NSDocument.  That is, if @foo, @bar, and @baz
+  # are subcocuments in order of @article, then @bar.previous_document = @foo
   def previous_document
     DocumentRepository.find previous_id
   end
 
+  # Use the information in self.parent.subdoc_refs
+  # to set the previous document link.  Thus,
+  # if @foo and @bar are subdocuments in order
+  # of @article, then after the call @bar.set_previous_doc,
+  # @bar.previous_doc == @foo.
   def set_previous_doc
     self.doc_refs['previous'] = previous_id
     DocumentRepository.persist(self)
   end
 
+  # Use the information in self.parent.subdoc_refs
+  # to set the previous document link.  Thus,
+  # if @foo and @bar are subdocuments in order
+  # of @article, then after the call @foo.set_next_doc,
+  # @foo.next_doc == @bar.
   def set_next_doc
     self.doc_refs['next'] = next_id
     DocumentRepository.persist(self)
@@ -207,6 +246,12 @@ class NSDocument
     DocumentRepository.find(subdoc_refs[k])
   end
 
+  # The root_document is what you get by
+  # following parent_document links to their
+  # source. If the root_document_id is zero,
+  # then the document is a root document.
+  # Otherwise, the root_document_id is the
+  # id of the root_documment.
   def root_document
     if root_document_id == 0
       return self
@@ -216,11 +261,15 @@ class NSDocument
   end
 
 
+  # Returnthe title of the previous document
+  # Fixme: what happens at the left end
   def previous_document_title
     doc = self.previous_document
     doc ? doc.title : 'X'
   end
 
+  # Return the title of the next document
+  # Fixme: what happens at the right end
   def next_document_title
     doc = self.next_document
     doc ? doc.title : 'X'
@@ -268,6 +317,11 @@ class NSDocument
     end
   end
 
+  # A table of contents is a list of lists,
+  # where the sublists are oof the form
+  # [id, title].  #update_table_of_contents
+  # creates this list from scratch, then stores
+  # it as jsonb in the toc field of the database
   def update_table_of_contents
     value = []
     subdoc_refs.each do |id|
