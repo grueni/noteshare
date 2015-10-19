@@ -6,8 +6,8 @@ describe 'List Docs' do
   before do
     DocumentRepository.clear
 
-    DocumentRepository.create(Document.new(title: 'OS Z', author: 'Melvin Luck'))
-    DocumentRepository.create(Document.new(title: 'Electromagnetic Theory', author: 'Coram Daag'))
+    DocumentRepository.create(NSDocument.new(title: 'OS Z', author: 'Melvin Luck'))
+    DocumentRepository.create(NSDocument.new(title: 'Electromagnetic Theory', author: 'Coram Daag'))
   end
 
   it 'shows a document element for each document' do

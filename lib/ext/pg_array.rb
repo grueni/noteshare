@@ -17,15 +17,3 @@ class PGIntArray < Lotus::Model::Coercer
   end
 end
 
-class PGJSONArray < Lotus::Model::Coercer
-  def self.dump(value)
-    ::Sequel.pg_array(value, :jsonb)
-  end
-
-  def self.load(value)
-    ::Kernel.Array(value) unless value.nil?
-  end
-end
-
-
-

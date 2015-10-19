@@ -4,17 +4,18 @@ require 'spec_helper'
 
 require 'json'
 
-describe Document do
+describe NSDocument do
 
   before do
 
     DocumentRepository.clear
 
-    @article = DocumentRepository.create(Document.new(title: 'A. Quantum Mechanics', author: 'Jared. Foo-Bar'))
-    @section = DocumentRepository.create(Document.new(title: 'S1. Uncertainty Principle', author: 'Jared Foo-Bar', subdoc_refs: []))
-    @section2 = DocumentRepository.create(Document.new(title: 'S2. Wave-Particle Duality', author: 'Jared Foo-Bar', subdoc_refs: []))
-    @section3 = DocumentRepository.create(Document.new(title: 'S3. Matrix Mechanics', author: 'Jared Foo-Bar', subdoc_refs: []))
-    @subsection =  DocumentRepository.create(Document.new(title: "SS. de Broglie's idea", author: 'Jared Foo-Bar', subdoc_refs: []))
+
+    @article = DocumentRepository.create(NSDocument.new(title: 'A. Quantum Mechanics', author: 'Jared. Foo-Bar'))
+    @section = DocumentRepository.create(NSDocument.new(title: 'S1. Uncertainty Principle', author: 'Jared Foo-Bar', subdoc_refs: []))
+    @section2 = DocumentRepository.create(NSDocument.new(title: 'S2. Wave-Particle Duality', author: 'Jared Foo-Bar', subdoc_refs: []))
+    @section3 = DocumentRepository.create(NSDocument.new(title: 'S3. Matrix Mechanics', author: 'Jared Foo-Bar', subdoc_refs: []))
+    @subsection =  DocumentRepository.create(NSDocument.new(title: "SS. de Broglie's idea", author: 'Jared Foo-Bar', subdoc_refs: []))
 
     @article.content = 'Quantum phenomena are weird!'
     @section.content = 'The Uncertainty Principle invalidates the notion of trajectory'
@@ -34,133 +35,74 @@ describe Document do
 
   end
 
-  it 'can be initialised with attributes, with default set iii' do
-    document = Document.new(title: 'Quantum Mechanics', author: 'J.L Foo-Bar')
-    document.title.must_equal 'Quantum Mechanics'
-    empty_hash = {}
-    document.doc_refs.must_equal empty_hash
-   document.subdoc_refs.must_equal []
-  end
+  it 'can run an intiaization script' do
 
-  it 'can find the next document nxx' do
-    @article.next_document
-  end
-
-  it 'can add subdocuments to a document, setting up refs from parent to child and vice versa' do
-
-    @section.add_to(@article)
-    @section2.add_to(@article)
-
-    @article.subdocument(0).title.must_equal @section.title
-    @section.parent_id.must_equal @article.id
-
-    @section.index_in_parent.must_equal 0
-    @section2.index_in_parent.must_equal 1
-
-    @section.parent.title.must_equal @article.title
+    @article = DocumentRepository.find_one_by_title 'A. Quantum Mechanics'
+    @section1 = DocumentRepository.find_one_by_title'S1. Uncertainty Principle'
+    @section2 = DocumentRepository.find_one_by_title  'S2. Wave-Particle Duality'
+    @section3 = DocumentRepository.find_one_by_title  'S3. Matrix Mechanics'
+    @subsection = DocumentRepository.find_one_by_title  "SS. de Broglie's idea"
 
   end
+
 
   ######### next and prev #####
 
-  it 'can set the doc_refs hash at will xdr' do
 
-    @artcile.doc_refs = {}
-    @article.doc_refs['foo'] = 'bar'
-    @article.doc_refs['foo'].must_equal 'bar'
 
-  end
+  it 'can accept insertions of new subdocuments aii' do
 
-  it 'can set the next and previous doc aaa' do
-    @section.add_to(@article)
-    @section.set_previous_doc(666)
-    @section.set_next_doc(777)
 
-    @section.doc_refs['previous'].must_equal 666
-    @section.doc_refs['next'].must_equal 777
-
-    puts "STATUS #{@section.status}"
-  end
-
-  it 'can find the previous section for a newly appended section bbb' do
+=begin
+    puts @section.info
+    puts @section2.info
+    puts @section3.info
+=end
 
     @section.insert(0,@article)
     @section2.insert(1,@article)
-
-    puts @section.status
-    puts @section2.status
-
-    puts
-
-    puts @article.subdocument_titles(:verbose)
-    hash = {'previous'=> @section.id}
-    puts  @section2.doc_refs
-
-    @section2.doc_refs.must_equal hash
-    @section2.previous_document_title.must_equal @section.title
-
-
-  end
-
-
-
-  it 'can find the next section of the previous section for a newly appended section qqq' do
-
-    # @section.add_to(@article)
-    # @section2.add_to(@article)
-    @section.insert(0, @article)
-    @section2.insert(1,@article)
-    @section3.insert(2,@article)
-    hash = {'next'=> @section2.id}
-
-    puts "\n----------------------\n"
-
-    puts @section.status
-    puts @section2.status
-    puts @section3.status
-
-    puts
-
-    puts @article.subdocument_titles(:verbose)
-
-    puts
-
-    puts @section.status
-    puts @section2.status
-    puts @section3.status
-
-    puts "----------------------\n"
-
-    puts "@section.title: #{@section.title}"
-    puts "@section.doc_refs: #{@section.doc_refs}"
-    @section.doc_refs.must_equal hash
-    @section.next_document.title.must_equal @section2.title
-
-  end
-
-  it 'can accept insertions of new subdocuments xxx' do
-
-    @section.add_to(@article)
-    @section2.add_to(@article)
     @section3.insert(1, @article)
 
+=begin
+
+    puts @section.status
+    puts @section2.status
+    puts @section3.status
+
+    puts
+    puts @article.subdocument(0).status
+    puts @article.subdocument(1).status
+    puts @article.subdocument(2).status
+
+=end
 
     @article.subdocument(0).title.must_equal @section.title
     @article.subdocument(1).title.must_equal @section3.title
     @article.subdocument(2).title.must_equal @section2.title
 
+=begin
+    puts "@article.subdocument(9.doc_refs['next'] #{@article.subdocument(0).doc_refs['next']}"
+
+    puts  "@article.subdocument(2).previous_document.title: #{@article.subdocument(2).previous_document.title}"
+    puts "@article.subdocument(0).index_in_parent: #{@article.subdocument(0).index_in_parent}"
+    puts "@article.subdocument(1).index_in_parent: #{@article.subdocument(1).index_in_parent}"
+    puts "@article.subdocument(2).index_in_parent: #{@article.subdocument(2).index_in_parent}"
+
+    # @article.subdocument(0).doc_refs['next'].must_equal @article.subdocument(1).id
+
+=end
+
     left = @article.subdocument(0)
     middle = @article.subdocument(1)
     right = @article.subdocument(2)
 
-    left.next_document.title = middle.title
-    middle.previous_document.title = left.title
+    left.next_document.title.must_equal middle.title
+    middle.previous_document.title.must_equal left.title
 
-    middle.next_document.title = right.title
-    right.previous_document.title = middle.title
+    middle.next_document.title.must_equal right.title
+    right.previous_document.title.must_equal middle.title
 
-    # @article.subdocument(0).next_subdocument.title.must_equql @section2.title
-
+    # @article.subdocument(0).next_document.title.must_equal @section1.title
 
   end
 
@@ -171,12 +113,6 @@ describe Document do
 
   end
 
-  it 'can form a list of subdocument titles' do
-    @section.add_to(@article)
-    @section2.add_to(@article)
-    @article.subdocument_titles.must_equal ['Uncertainty Principle', 'Wave-Particle Duality']
-
-  end
 
   it 'can compile a document' do
 
@@ -193,26 +129,11 @@ describe Document do
     @section2.add_to(@article)
     @subsection.add_to(@section2)
 
-
-    puts @section2.subdocument_titles :header
-    puts @section2.subdoc_refs
-
-
-    puts "AAAAA"
-    puts @article.subdocument_titles :header
-    puts "BBBBB"
-    puts @section2.subdocument_titles :header
-    puts "CCCCCC"
-
     compiled_text = @article.compile
-    puts
 
     compiled_text2 = @section2.compile
     compiled_text2.must_include @section2.content
     compiled_text2.must_include @subsection.content
-    puts
-    
-
 
     compiled_text.must_include @article.content
     compiled_text.must_include @section.content
@@ -220,6 +141,7 @@ describe Document do
     compiled_text.must_include @subsection.content
 
   end
+
 
 
   it 'can report ccc3' do
@@ -253,44 +175,19 @@ describe Document do
     puts '*2*********************************'
 
 
-    @section.add_to(@article)
-    @section2.add_to(@article)
-    @section3.add_to(@article)
-    @subsection.add_to(@section2)
-
     puts '*3*********************************'
     puts @section2.subdocument_titles :header
     puts @section2.subdoc_refs
     puts '*3*********************************'
 
+    compiled =  @article.compile
 
+    compiled.must_include @section2.content
+    compiled.must_include @subsection.content
 
-    puts @section2.subdocument_titles :header
-    puts @section2.subdoc_refs
-
-
-    puts
-
-    puts "AAAAA"
-    puts @article.subdocument_titles :header
-    puts "BBBBB"
-    puts @section2.subdocument_titles :header
-    puts "CCCCCC"
-
-    compiled_text = @article.compile
-
-    puts
-
-    compiled_text2 = @section2.compile
-
-    compiled_text.must_include @section2.content
-    compiled_text.must_include @subsection.content
-
-
-    compiled_text2.must_include @section2.content
-    compiled_text2.must_include @subsection.content
 
   end
+
 
   it 'can form an array of jsonb elements' do
     hash = { texmacros: 555, summary: 434 }

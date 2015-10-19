@@ -39,27 +39,33 @@ Lotus::Model.configure do
   mapping do
     # ...
     collection :documents do
-      entity     Document
+      entity     NSDocument
       repository DocumentRepository
       attribute :id,   Integer
       attribute :author, String
       attribute :title, String
       attribute :tags, String
-      attribute :meta, String
+      attribute :type, String
+      attribute :area, String
+      attribute :meta, JSON
       attribute :created_at, DateTime
       attribute :modified_at, DateTime
       attribute :content, String
-      attribute :subdoc_refs, PGIntArray
-      attribute :parent_id, Integer
-      attribute :type, String
-      attribute :author_id, Integer
-      attribute :area, String
       attribute :rendered_content, String
-      attribute :doc_refs, JSON
+      attribute :render_options, JSON
+      attribute :parent_id, Integer
+      attribute :author_id, Integer
       attribute :index_in_parent, Integer
+      attribute :root_document_id, Integer
+      attribute :visibility, Integer
+      attribute :subdoc_refs, PGIntArray
+      attribute :doc_refs, JSON
+      attribute :toc, JSON
     end
   end
 end.load!
+
+
 
 Lotus::Mailer.configure do
   root "#{ __dir__ }/noteshare/mailers"
