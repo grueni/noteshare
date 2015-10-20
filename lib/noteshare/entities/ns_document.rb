@@ -489,6 +489,8 @@ class NSDocument
       document.compile_with_render
     end
 
+    DocumentRepository.all.count
+
   end
 
 
