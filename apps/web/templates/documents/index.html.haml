@@ -10,7 +10,7 @@
               = document.table_of_contents 'html'
         .col.s8
           .container{style: 'overflow-y: auto;  height:100%; padding:1em; padding-bottom:1000px;overflow-y:scroll'}
-            = document.rendered_compilation
+            = document.compile_with_render
 - else
   %p.placeholder There are no documents yet.
 

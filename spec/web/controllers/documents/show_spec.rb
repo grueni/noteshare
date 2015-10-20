@@ -1,8 +1,9 @@
 # spec/web/views/books/index_spec.rb
+=begin
 require 'spec_helper'
 require_relative '../../../../apps/web/views/documents/show'
 
-describe Web::Views::NSDocument::Show do
+describe Web::Views::Document::Show do
   let(:exposures) { Hash[document: []] }
   let(:template)  { Lotus::View::Template.new('apps/web/templates/documents/show.html.erb') }
   let(:view)      { Web::Views::NSDocument::Show.new(template, exposures) }
@@ -19,7 +20,7 @@ describe Web::Views::NSDocument::Show do
   end
 
   describe 'when there is a document' do
-    let(:document)     { NSDocuemnt.new(title: 'Refactoring', author: 'Martin Fowler') }
+    let(:document)     { Docuemnt.new(title: 'Refactoring', author: 'Martin Fowler') }
     let(:exposures) { Hash[boo: [document1]] }
 
     it 'shows the document' do
@@ -32,3 +33,4 @@ describe Web::Views::NSDocument::Show do
     end
   end
 end
+=end

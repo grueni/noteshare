@@ -1,3 +1,4 @@
+=begin
 require 'features_helper'
 
 describe 'Show document' do
@@ -10,3 +11,4 @@ describe 'Show document' do
   assert page.has_css?('.document', count: 1), "Expected to find 1 document"
 
 end
+=end

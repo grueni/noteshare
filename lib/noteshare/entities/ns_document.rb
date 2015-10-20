@@ -41,7 +41,7 @@ require_relative '../../ext/core'
 class NSDocument
   include Lotus::Entity
   attributes :id, :author, :title, :tags, :type, :area, :meta,
-    :created_at, :modified_at, :content, :rendered_content, :render_options,
+    :created_at, :modified_at, :content, :rendered_content, :compiled_and_rendered_content, :render_options,
     :parent_id, :author_id, :index_in_parent, :root_document_id, :visibility,
     :subdoc_refs,  :doc_refs, :toc
 
@@ -437,15 +437,16 @@ class NSDocument
     DocumentRepository.update(self)
   end
 
-  def rendered_compilation
+  def compile_with_render
     puts "@render_options['format'] = #{@render_options['format']}"
-    if @render_options['format'] == 'adoc'
-      Render.convert(self.compile, {  })
-    elsif @render_options['format'] == 'adoc-latex'
-      Render.convert(self.compile, {backend: 'html5'})
+    if @render_options['format'] = 'adoc'
+      self.compiled_and_rendered_content = Render.convert(self.compile, {  })
+    elsif @render_options['format'] = 'adoc-latex'
+      self.compiled_and_rendered_content = Render.convert(self.compile, {backend: 'html5'})
     else
-      self.content
+      self.compiled_and_rendered_content = self.content
     end
+    DocumentRepository.update(self)
   end
 
   # NSDocument.seed_db clears
@@ -483,7 +484,10 @@ class NSDocument
     @subsection.add_to(@section2)
     @subsubsection.add_to(@subsection)
 
-    @article.update_table_of_contents
+    DocumentRepository.all.each do |document|
+      document.update_table_of_contents
+      document.compile_with_render
+    end
 
   end
 
