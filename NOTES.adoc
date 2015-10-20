@@ -6,3 +6,8 @@ INSERT INTO documents (title, author, subdoc_refs) VALUES ('The Red Wall', 'Morl
 http://www.postgresql.org/docs/current/interactive/indexes-partial.html[postgres partial index]
 http://lucaguidi.com/2014/12/23/2014-retrospective-a-year-of-lotus.html
 https://www.binpress.com/tutorial/building-a-robust-json-api-client-with-ruby/140
+To remove the file from the repo and not delete it from the local file system use:
+git rm --cached file.txt
+https://gitter.im/lotus/chat
+https://github.com/lotus/model/blob/master/lib/lotus/entity/dirty_tracking.rb#L69
+https://www.oreilly.com/ideas/4-reasons-why-microservices-resonate?utm_campaign=LaunchBit&utm_medium=email&utm_source=LaunchBit&utm_content=bsa-carbon&cmp=ba-prog-newsletter-article-lgen_lb_programming_site_launch_microsvcs[Microservices]

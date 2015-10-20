@@ -358,7 +358,7 @@ class NSDocument
         end
       when 'html'
         toc.each_with_index do |item, index|
-          output << "%li #{item[1]}" << "\n"
+          output << "<li>#{item[1]}</li>" << "\n"
         end
       else
         output = toc.to_s

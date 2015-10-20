@@ -2,7 +2,7 @@
 get '/', to: 'home#index'
 
 get '/new', to: 'documents#new'
-get '/document', to: 'documents#show'
+get '/document/:id', to: 'documents#show'
 get '/documents', to: 'documents#index'
 
 # Configure your routes here

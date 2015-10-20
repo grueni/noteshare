@@ -7,7 +7,7 @@ module Web::Controllers::Documents
     expose :document
 
     def call(params)
-      puts "XXXX: params = #{params}"
+      puts "XXXX: params = #{params[:id]}"
       @document = DocumentRepository.find(params['id'])
     end
 
