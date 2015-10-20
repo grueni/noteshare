@@ -11,3 +11,4 @@ git rm --cached file.txt
 https://gitter.im/lotus/chat
 https://github.com/lotus/model/blob/master/lib/lotus/entity/dirty_tracking.rb#L69
 https://www.oreilly.com/ideas/4-reasons-why-microservices-resonate?utm_campaign=LaunchBit&utm_medium=email&utm_source=LaunchBit&utm_content=bsa-carbon&cmp=ba-prog-newsletter-article-lgen_lb_programming_site_launch_microsvcs[Microservices]
+http://techoctave.com/c7/posts/25-rails-request-environment-variables/[Rails Request Environment Variables] + 

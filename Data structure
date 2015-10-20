@@ -11,6 +11,8 @@ CREATE TABLE documents(
    modified_at  timestamp with time zone,
    content text,
    rendered_content text,
+   compiled_content text,
+   compiled_and_rendered_content text,
    render_options jsonb,
    parent_id integer,
    author_id integer,

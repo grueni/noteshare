@@ -45,6 +45,10 @@ class NSDocument
     :parent_id, :author_id, :index_in_parent, :root_document_id, :visibility,
     :subdoc_refs,  :doc_refs, :toc
 
+  #Fixme: these parameters should be extracted from 'request.env'
+  SERVER_NAME = 'localhost'
+  SERVER_PORT = 2300
+
   # When initializing an NSDocument, ensure that certain fields
   # have a standard non-nil value
   def initialize(hash)
@@ -181,6 +185,7 @@ class NSDocument
   # Assume that receiver is subdocument k of parent.
   # Return the id of subdocument k - 1 or nil
   def previous_id
+    return nil if index_in_parent == nil
     return nil if index_in_parent-1 < 0
     return parent.subdoc_refs[index_in_parent-1]
   end
@@ -189,6 +194,7 @@ class NSDocument
   # Return the id of subdocuemnt k + 1 or nil
   def next_id
     p = parent
+    return nil if parent == nil
     return nil if index_in_parent+1 > p.subdoc_refs.length
     p.subdoc_refs[index_in_parent+1]
   end
@@ -216,6 +222,18 @@ class NSDocument
     DocumentRepository.find previous_id
   end
 
+  # Return previous document title or '-'
+  def previous_document_title
+    p = previous_document
+    p ? p.title : '-'
+  end
+
+  # Return next document title or '-'
+  def next_document_title
+    p = next_document
+    p ? p.title : '-'
+  end
+
   # Use the information in self.parent.subdoc_refs
   # to set the previous document link.  Thus,
   # if @foo and @bar are subdocuments in order
@@ -241,6 +259,11 @@ class NSDocument
     DocumentRepository.find(parent_id)
   end
 
+  def parent_document_title
+    p = parent
+    p ? p.title : '-'
+  end
+
   # *doc.subdocment(k)* returns the k-th
   # subdocument of *doc*
   def subdocument(k)
@@ -261,21 +284,10 @@ class NSDocument
     end
   end
 
-
-  # Returnthe title of the previous document
-  # Fixme: what happens at the left end
-  def previous_document_title
-    doc = self.previous_document
-    doc ? doc.title : 'X'
+  # Return link to the root document
+  def root_link
+    root_document.link
   end
-
-  # Return the title of the next document
-  # Fixme: what happens at the right end
-  def next_document_title
-    doc = self.next_document
-    doc ? doc.title : 'X'
-  end
-
 
   # *doc.subdocument_titles* returns a list of the
   # titles of the sections of *document*.
@@ -357,14 +369,58 @@ class NSDocument
           output << "#{index + 1}. #{item[1]}" << "\n"
         end
       when 'html'
+        output << "<strong>Table of Contents</strong>\n"
+        output << "<ul>\n"
         toc.each_with_index do |item, index|
-          output << "<li>#{item[1]}</li>" << "\n"
+          output << "<li><a href='http://#{SERVER_NAME}:#{SERVER_PORT}/document/#{item[0]}'>#{item[1]}</a>\n"
         end
+        output << "</ul>\n\n"
       else
         output = toc.to_s
     end
     output
   end
+
+  def document_map
+    str = "<strong>Map</strong>\n"
+    str << "<ul>\n"
+    str << "<li>Top: #{self.root_link}</li>\n"
+    str << "<li>Up: #{self.parent_link}</li>\n"
+    str << "<li>Prev: #{self.previous_link}</li>\n"
+    str << "<li>Next: #{self.next_link}</li>\n"
+    str << "</ul>\n\n"
+  end
+
+  # Return URL of document
+  # Fixme: the server name and port should be extracted
+  # from 'request.env'
+  def url
+    server =  SERVER_NAME # request.env['SERVER_NAME']
+    port = SERVER_PORT # request.env['SERVER_PORT']
+    "http://#{server}:#{port}/document/#{self.id}"
+  end
+
+  # Return html link to document
+  def link
+    "<a href=#{self.url}>#{self.title}</a>"
+  end
+
+  def parent_link
+    p = self.parent
+    p ? p.link : '-'
+  end
+
+  def previous_link
+    p = self.previous_document
+    p ? p.link : '-'
+  end
+
+
+  def next_link
+    n = self.next_document
+    n ? n.link : '-'
+  end
+
 
   # NSDocument#render is the sole connection between class NSDocument and
   # module Render.  It updates self.rendered_content by applying
