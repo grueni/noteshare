@@ -314,7 +314,8 @@ class NSDocument
   # update the database.
   def update_content(str)
     self.content = str
-    self.render
+    renderer = Render.new(str)
+    self.rendered_content = renderer.convert
     DocumentRepository.update self
   end
 
@@ -428,9 +429,11 @@ class NSDocument
   def render
     puts "@render_options['format'] = #{@render_options['format']}"
     if @render_options['format'] == 'adoc'
-      self.rendered_content = Render.convert(self.content, {})
+      renderer = Render.new(self.content)
+      self.rendered_content = renderer.convert
     elsif @render_options['format'] == 'adoc-latex'
-      self.rendered_content = Render.convert(self.content, {backend: 'html5'})
+      renderer = Render.new(self.content, {backend: 'html5'} )
+      self.rendered_content = renderer.convert
     else
       self.content
     end
@@ -440,9 +443,11 @@ class NSDocument
   def compile_with_render
     puts "@render_options['format'] = #{@render_options['format']}"
     if @render_options['format'] = 'adoc'
-      self.compiled_and_rendered_content = Render.convert(self.compile, {  })
+      renderer = Render.new(self.compile)
+      self.compiled_and_rendered_content = renderer.convert
     elsif @render_options['format'] = 'adoc-latex'
-      self.compiled_and_rendered_content = Render.convert(self.compile, {backend: 'html5'})
+      renderer = Render.new(self.compile, {backend: 'html5'} )
+      self.compiled_and_rendered_content = renderer.convert
     else
       self.compiled_and_rendered_content = self.content
     end
