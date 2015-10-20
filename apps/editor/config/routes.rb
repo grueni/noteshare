@@ -2,3 +2,4 @@
 # See: http://www.rubydoc.info/gems/lotus-router/#Usage
 
 get '/', to: 'home#index'
+get '/new', to: 'documents#new'

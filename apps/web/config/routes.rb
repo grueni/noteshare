@@ -1,7 +1,6 @@
 
 get '/', to: 'home#index'
 
-get '/new', to: 'documents#new'
 get '/document/:id', to: 'documents#show'
 get '/documents', to: 'documents#index'
 

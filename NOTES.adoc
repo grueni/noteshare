@@ -1,14 +1,83 @@
+= Noteshare V2
+:numbered:
+:toc2:
+
+== Plans
+
+. Reader
+.. Scrolling
+
+.. Add search to index
+
+.. Link search to show page
+
+.. Add glossary and index to Reader
+
+. Editor
+
+.. Build new document
+
+.. Build entry page
+
+.. Figure out how to link
+
+.. Could this be better built in Node?
+
+. Renderer
+
+.. Make this a separate based on JSON API
+
+.. Could this be better built in Node?
+
+. Image handler
+
+.. Could this be better built in Node?
+
+. Exporter
+
+. Print Handler
+
+. User
+
+. Group
+
+. Site
+
+. Permissions
+
+. Usage stats
+
+. Likes
+
+. Publishing
+
+. Admin
+
+== Commands
+
+=== Postgres
+
+----
 psql -U carlson postgres
 
 SELECT title, author, subdoc_refs, doc_refs FROM documents;
 INSERT INTO documents (title, author) VALUES ('Intro to Magic', 'Z. Umlaut');
 INSERT INTO documents (title, author, subdoc_refs) VALUES ('The Red Wall', 'Morlen Du', '{444, 555, 666}')
-http://www.postgresql.org/docs/current/interactive/indexes-partial.html[postgres partial index]
-http://lucaguidi.com/2014/12/23/2014-retrospective-a-year-of-lotus.html
-https://www.binpress.com/tutorial/building-a-robust-json-api-client-with-ruby/140
-To remove the file from the repo and not delete it from the local file system use:
-git rm --cached file.txt
-https://gitter.im/lotus/chat
-https://github.com/lotus/model/blob/master/lib/lotus/entity/dirty_tracking.rb#L69
-https://www.oreilly.com/ideas/4-reasons-why-microservices-resonate?utm_campaign=LaunchBit&utm_medium=email&utm_source=LaunchBit&utm_content=bsa-carbon&cmp=ba-prog-newsletter-article-lgen_lb_programming_site_launch_microsvcs[Microservices]
-http://techoctave.com/c7/posts/25-rails-request-environment-variables/[Rails Request Environment Variables] + 
+----
+
+
+
+=== GIT
+
+To remove the file from the repo and not delete it from the local file system use
+`git rm --cached file.txt`
+
+== Links
+
+http://www.postgresql.org/docs/current/interactive/indexes-partial.html[postgres partial index] +
+http://lucaguidi.com/2014/12/23/2014-retrospective-a-year-of-lotus.html[Lotus retrospective] +
+https://www.binpress.com/tutorial/building-a-robust-json-api-client-with-ruby/140[Lotus JSON API] +
+https://gitter.im/lotus/chat[Gitter Chat] +
+https://github.com/lotus/model/blob/master/lib/lotus/entity/dirty_tracking.rb#L69[Dirty records] +
+https://www.oreilly.com/ideas/4-reasons-why-microservices-resonate?utm_campaign=LaunchBit&utm_medium=email&utm_source=LaunchBit&utm_content=bsa-carbon&cmp=ba-prog-newsletter-article-lgen_lb_programming_site_launch_microsvcs[Microservices] +
+http://techoctave.com/c7/posts/25-rails-request-environment-variables/[Rails Request Environment Variables] +
