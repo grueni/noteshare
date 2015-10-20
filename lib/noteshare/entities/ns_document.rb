@@ -370,12 +370,16 @@ class NSDocument
           output << "#{index + 1}. #{item[1]}" << "\n"
         end
       when 'html'
-        output << "<strong>Table of Contents</strong>\n"
-        output << "<ul>\n"
-        toc.each_with_index do |item, index|
-          output << "<li><a href='http://#{SERVER_NAME}:#{SERVER_PORT}/document/#{item[0]}'>#{item[1]}</a>\n"
+        if toc.length == 0
+          output = ''
+        else
+          output << "<strong>Table of Contents</strong>\n"
+          output << "<ul>\n"
+          toc.each_with_index do |item, index|
+            output << "<li><a href='http://#{SERVER_NAME}:#{SERVER_PORT}/document/#{item[0]}'>#{item[1]}</a>\n"
+          end
+          output << "</ul>\n\n"
         end
-        output << "</ul>\n\n"
       else
         output = toc.to_s
     end
@@ -386,9 +390,9 @@ class NSDocument
     str = "<strong>Map</strong>\n"
     str << "<ul>\n"
     str << "<li>Top: #{self.root_link}</li>\n"
-    str << "<li>Up: #{self.parent_link}</li>\n"
-    str << "<li>Prev: #{self.previous_link}</li>\n"
-    str << "<li>Next: #{self.next_link}</li>\n"
+    str << "<li>Up: #{self.parent_link}</li>\n"  if self.parent and self.parent != self.root_document
+    str << "<li>Prev: #{self.previous_link}</li>\n"  if self.previous_document
+    str << "<li>Next: #{self.next_link}</li>\n"  if self.next_document
     str << "</ul>\n\n"
   end
 
@@ -408,18 +412,18 @@ class NSDocument
 
   def parent_link
     p = self.parent
-    p ? p.link : '-'
+    p ? p.link : ''
   end
 
   def previous_link
     p = self.previous_document
-    p ? p.link : '-'
+    p ? p.link : ''
   end
 
 
   def next_link
     n = self.next_document
-    n ? n.link : '-'
+    n ? n.link : ''
   end
 
 
