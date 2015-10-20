@@ -1,0 +1,8 @@
+psql -U carlson postgres
+
+SELECT title, author, subdoc_refs, doc_refs FROM documents;
+INSERT INTO documents (title, author) VALUES ('Intro to Magic', 'Z. Umlaut');
+INSERT INTO documents (title, author, subdoc_refs) VALUES ('The Red Wall', 'Morlen Du', '{444, 555, 666}')
+http://www.postgresql.org/docs/current/interactive/indexes-partial.html[postgres partial index]
+http://lucaguidi.com/2014/12/23/2014-retrospective-a-year-of-lotus.html
+https://www.binpress.com/tutorial/building-a-robust-json-api-client-with-ruby/140
