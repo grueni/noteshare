@@ -3,3 +3,5 @@
 
 get '/', to: 'home#index'
 get '/new', to: 'documents#new'
+get '/documents', to: 'documents#index'
+post '/documents', to: 'documents#create'

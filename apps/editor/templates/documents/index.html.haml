@@ -1,0 +1,16 @@
+- if documents.any?
+  - documents.each do |document|
+    .document{style: 'margin-top:6em;'}
+      .row
+        .col.s4.section
+          .container{style: 'overflow-y: auto;  height:100%; padding-left:1em; padding-right:1em;   background-color:#eee;;overflow-y:scroll'}
+            %h5{style: 'font-size:14pt;'}= document.link
+            %p= document.root_link
+            %p= document.author
+        .col.s8
+          .container{style: 'padding-too:3em;'}
+
+- else
+  %p.placeholder There are no documents yet.
+
+

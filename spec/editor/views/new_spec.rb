@@ -3,7 +3,7 @@ require_relative '../../../../apps/editor/views/documents/new'
 
 describe Editor::Views::Documents::New do
   let(:exposures) { Hash[foo: 'bar'] }
-  let(:template)  { Lotus::View::Template.new('apps/editor/templates/documents/new.html.haml') }
+  let(:template)  { Lotus::View::Template.new('apps/editor/templates/documents/new.html.erb') }
   let(:view)      { Editor::Views::Documents::New.new(template, exposures) }
   let(:rendered)  { view.render }
 
