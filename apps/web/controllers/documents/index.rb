@@ -5,7 +5,9 @@ module Web::Controllers::Documents
     expose :documents
 
     def call(params)
+      puts "XXXX: params = #{params}"
       @documents = DocumentRepository.root_documents
     end
+
   end
 end

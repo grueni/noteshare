@@ -23,25 +23,28 @@ CREATE TABLE documents(
    PRIMARY KEY( id )
 );
 
-                                       Table "public.documents"
-      Column      |           Type           |                       Modifiers
-------------------+--------------------------+--------------------------------------------------------
- id               | integer                  | not null default nextval('documents_id_seq'::regclass)
- author           | text                     |
- title            | text                     |
- tags             | text                     |
- area             | text                     |
- meta             | text                     |
- created_at       | timestamp with time zone |
- modified_at      | timestamp with time zone |
- content          | text                     |
- rendered_content | text                     |
- type             | text                     |
- parent_id        | integer                  |
- author_id        | integer                  |
- index_in_parent  | integer                  |
- subdoc_refs      | integer[]                |
- doc_refs         | jsonb                    |
- root_document    | integer                  |
-Indexes:
-    "documents_pkey" PRIMARY KEY, btree (id)
+                                         Table "public.documents"
+        Column      |           Type           |                       Modifiers
+  ------------------+--------------------------+--------------------------------------------------------
+   id               | integer                  | not null default nextval('documents_id_seq'::regclass)
+   author           | text                     |
+   title            | text                     |
+   tags             | text                     |
+   type             | text                     |
+   area             | text                     |
+   meta             | jsonb                    |
+   created_at       | timestamp with time zone |
+   modified_at      | timestamp with time zone |
+   content          | text                     |
+   rendered_content | text                     |
+   render_options   | jsonb                    |
+   parent_id        | integer                  |
+   author_id        | integer                  |
+   index_in_parent  | integer                  |
+   root_document_id | integer                  |
+   visibility       | integer                  |
+   subdoc_refs      | integer[]                |
+   doc_refs         | jsonb                    |
+   toc              | jsonb                    |
+  Indexes:
+      "documents_pkey" PRIMARY KEY, btree (id)

@@ -10,5 +10,6 @@ module Web::Controllers::Documents
       puts "XXXX: params = #{params}"
       @document = DocumentRepository.find(params['id'])
     end
+
   end
 end
