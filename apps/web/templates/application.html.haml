@@ -3,7 +3,7 @@
   %head
     %title Noteshare Reader
     %link{:href => 'http://cdnjs.cloudflare.com/ajax/libs/font-awesome/3.2.1/css/font-awesome.min.css', :rel => 'stylesheet'}/
-    %link{:href => "/stylesheets/materialize.min.css", :media => "screen,projection", :rel => "stylesheet", :type => "text/css"}/
+    /%link{:href => "/stylesheets/materialize.css", :media => "screen,projection", :rel => "stylesheet", :type => "text/css"}/
     %link{:href => "/stylesheets/asciidoctor.css", :rel => "stylesheet", :type => "text/css"}/
     %link{:href => "/stylesheets/main.css", :rel => "stylesheet", :type => "text/css"}/
     / Let browser know website is optimized for mobile
@@ -26,28 +26,26 @@
       });
 
     %script{:src => "https://cdnjs.cloudflare.com/ajax/libs/mathjax/2.4.0/MathJax.js?config=TeX-MML-AM_HTMLorMML"}
-  %body{style: 'position:absolute; left:0; right:0; bottom:0; top:0; width:100%; height:100%; '}
+  %body
     / Import jQuery before materialize.js
     %script{:src => "https://code.jquery.com/jquery-2.1.1.min.js", :type => "text/javascript"}
-    %script{:src => "/javascripts/materialize.min.js", :type => "text/javascript"}
-    .container{style: 'position:absolute; left:0; right:0; bottom:0; top:0; width:100%; height:100%; '}
-      .navbar-fixed{style: 'position:absolute; left:0; right:0; top:0;'}
-        %nav
-          .nav-wrapper{style: 'padding-left:3em; background-color:#aaa;'}
-            %a.brand-logo{:href => "#!"} LOGO
-            %ul.right.hide-on-med-and-down{style: 'margin-top:20px;'}
-              %li
-                %a{:href => "sass.html"} Sass
-              %li
-                %a{:href => "badges.html"} Components
-      .row{style: 'overflow: hidden'}
-        = yield
+    /%script{:src => "/javascripts/materialize.min.js", :type => "text/javascript"}
+    .nav
+      .div{style: 'position: absolute; left:2em; top:12px;'}
+        %a.brand-logo{:href => "#!"} LOGO
+      .div{style: 'position:absolute; right:2em; top: 8px;'}
+        %ul{id: 'navlist'}
+          %li
+            %a{:href => "sass.html"} Sass
+          %li
+            %a{:href => "badges.html"} Components
+    .row{style: 'top:0px;'}
+      = yield
 
-      %footer
-        .container
-          %p
-            Crafted with
-            %span.heart ❤
-            by
-            %a{:href => "http:/noteshare.io/"} James Carlson
-            \- New York City
+    .footer
+      %p
+        Crafted with
+        %span.heart ❤
+        by
+        %a{:href => "http:/noteshare.io/"} James Carlson
+        \- New York City
