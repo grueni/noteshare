@@ -81,3 +81,7 @@ https://gitter.im/lotus/chat[Gitter Chat] +
 https://github.com/lotus/model/blob/master/lib/lotus/entity/dirty_tracking.rb#L69[Dirty records] +
 https://www.oreilly.com/ideas/4-reasons-why-microservices-resonate?utm_campaign=LaunchBit&utm_medium=email&utm_source=LaunchBit&utm_content=bsa-carbon&cmp=ba-prog-newsletter-article-lgen_lb_programming_site_launch_microsvcs[Microservices] +
 http://techoctave.com/c7/posts/25-rails-request-environment-variables/[Rails Request Environment Variables] +
+http://arjanvandergaag.nl/blog/up-and-running-with-lotus.html[Up and running with Lotus] + 
+http://teotti.com/rails-vs-lotus/[Rails vs Lotus] + 
+http://kimh.github.io/blog/en/lotus/creating-web-application-with-ruby-lotus[Kimh on crafting web apps] + 
+https://elements.heroku.com/buttons/stevehook/lotus-todo[Lotus to-do on Heroku] + 
