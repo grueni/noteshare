@@ -271,11 +271,16 @@ class NSDocument
     end
   end
 
+  # If input is nil, render the content
+  # and save it in rendered_content.  Otherwise,
   # Replace #content by str, render it
-  # and save it in #html.  Finally,
-  # update the database.
-  def update_content(str)
-    self.content = str
+  # and save itl. .
+  def update_content(input=nil)
+    if input == nil
+      str = self.content
+    else
+      str = input
+    end
     renderer = Render.new(str)
     self.rendered_content = renderer.convert
     DocumentRepository.update self

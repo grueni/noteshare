@@ -56,6 +56,35 @@ ul {
 
  }
 
+
+.col.source {
+
+    width:40%;
+    left:10%;
+    margin:2em;
+    margin-top:40px;
+    whitespace: pre-wrap;
+    overflow-y: scroll;
+    background-color: #eee;
+    padding:1em;
+    height: 100%;
+
+}
+
+
+.col.rendered {
+
+    left: 50%;
+    width: 50%;
+    margin-top:40px;
+    overflow-y: scroll;
+    background-color: #fff;
+    padding-left:2em;
+    height: 100%;
+
+}
+
+
  .col.left {
 
      overflow-y: scroll;
