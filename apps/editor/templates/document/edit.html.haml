@@ -1,10 +1,10 @@
 - if document
-  .document{style: 'margin-top:40px;'}
-    .row
-      .col.source{style: ''}
-        = document.content
-      .col.rendered{style: ''}
-        = document.rendered_content    # = document.compiled_and_rendered_content
+  .document{style: ''}
+  .row
+    .col.source{style: ''}
+      = document.content
+    .col.rendered{style: ''}
+      = document.rendered_content    # = document.compiled_and_rendered_content
 - else
   %p.placeholder Documents not found.
 
