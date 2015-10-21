@@ -45,9 +45,12 @@ class NSDocument
     :parent_id, :author_id, :index_in_parent, :root_document_id, :visibility,
     :subdoc_refs,  :doc_refs, :toc
 
-  #Fixme: these parameters should be extracted from 'request.env'
-  SERVER_NAME = 'localhost'
-  SERVER_PORT = 2300
+  require_relative 'ns_document_presentation'
+  include NSDocument::Presentation
+
+  require_relative 'ns_document_setup'
+  include NSDocument::Setup
+
 
   # When initializing an NSDocument, ensure that certain fields
   # have a standard non-nil value
@@ -222,18 +225,6 @@ class NSDocument
     DocumentRepository.find previous_id
   end
 
-  # Return previous document title or '-'
-  def previous_document_title
-    p = previous_document
-    p ? p.title : '-'
-  end
-
-  # Return next document title or '-'
-  def next_document_title
-    p = next_document
-    p ? p.title : '-'
-  end
-
   # Use the information in self.parent.subdoc_refs
   # to set the previous document link.  Thus,
   # if @foo and @bar are subdocuments in order
@@ -259,10 +250,6 @@ class NSDocument
     DocumentRepository.find(parent_id)
   end
 
-  def parent_document_title
-    p = parent
-    p ? p.title : '-'
-  end
 
   # *doc.subdocment(k)* returns the k-th
   # subdocument of *doc*
@@ -284,31 +271,6 @@ class NSDocument
     end
   end
 
-  # Return link to the root document
-  def root_link
-    root_document.link
-  end
-
-  # *doc.subdocument_titles* returns a list of the
-  # titles of the sections of *document*.
-  def subdocument_titles(option=:simple)
-    list = []
-    if [:header].include? option
-      list << self.title.upcase
-    end
-    subdoc_refs.each do |id|
-      section = DocumentRepository.find(id)
-      if [:header, :simple].include? option
-        item = section.title
-      elsif option == :verbose
-        item = "#{section.id}, #{section.title}. back: #{section.previous_document_title}, forward: #{section.next_document_title}"
-      end
-      list << item
-    end
-    list
-  end
-
-
   # Replace #content by str, render it
   # and save it in #html.  Finally,
   # update the database.
@@ -318,8 +280,6 @@ class NSDocument
     self.rendered_content = renderer.convert
     DocumentRepository.update self
   end
-
-
 
   # *doc.compile* concatenates the contents
   # of *doc* with the compiled text of
@@ -357,79 +317,6 @@ class NSDocument
     value
   end
 
-  # Return a string representing the table of
-  # contents.  The format of the string can
-  # be modified by the choice of the option
-  # passed to the method.  The default 'simple_string'
-  # option gives a numbered list of titles.
-  def table_of_contents(option='simple_string')
-    output = ''
-    case option
-      when 'simple_string'
-        toc.each_with_index do |item, index|
-          output << "#{index + 1}. #{item[1]}" << "\n"
-        end
-      when 'html'
-        if toc.length == 0
-          output = ''
-        else
-          output << "<strong>Table of Contents</strong>\n"
-          output << "<ul>\n"
-          toc.each_with_index do |item, index|
-            output << "<li><a href='http://#{SERVER_NAME}:#{SERVER_PORT}/document/#{item[0]}'>#{item[1]}</a>\n"
-          end
-          output << "</ul>\n\n"
-        end
-      else
-        output = toc.to_s
-    end
-    output
-  end
-
-  def document_map
-    str = "<strong>Map</strong>\n"
-    str << "<ul>\n"
-    str << "<li>Top: #{self.root_link}</li>\n"
-    str << "<li>Up: #{self.parent_link}</li>\n"  if self.parent and self.parent != self.root_document
-    str << "<li>Prev: #{self.previous_link}</li>\n"  if self.previous_document
-    str << "<li>Next: #{self.next_link}</li>\n"  if self.next_document
-    str << "</ul>\n\n"
-  end
-
-  # Return URL of document
-  # Fixme: the server name and port should be extracted
-  # from 'request.env'
-  def url
-    server =  SERVER_NAME # request.env['SERVER_NAME']
-    port = SERVER_PORT # request.env['SERVER_PORT']
-    "http://#{server}:#{port}/document/#{self.id}"
-  end
-
-  # Return html link to document
-  def link(arg=:default)
-    if arg == :default
-      "<a href=#{self.url}>#{self.title}</a>"
-    else
-      "<a href=#{self.url}>#{arg}</a>"
-    end
-  end
-
-  def parent_link
-    p = self.parent
-    p ? p.link : ''
-  end
-
-  def previous_link(arg = :default)
-    p = self.previous_document
-    p ? p.link(arg) : ''
-  end
-
-
-  def next_link(arg = :default)
-    n = self.next_document
-    n ? n.link(arg) : ''
-  end
-
 
   # NSDocument#render is the sole connection between class NSDocument and
   # module Render.  It updates self.rendered_content by applying
@@ -448,6 +335,8 @@ class NSDocument
     DocumentRepository.update(self)
   end
 
+  # Compile the receiver, render it, and store the
+  # rendered text in self.compiled_and_rendered_content
   def compile_with_render
     puts "@render_options['format'] = #{@render_options['format']}"
     if @render_options['format'] = 'adoc'
@@ -462,49 +351,6 @@ class NSDocument
     DocumentRepository.update(self)
   end
 
-  # NSDocument.seed_db clears
-  def self.seed_db
-
-    DocumentRepository.clear
-
-
-    @article = DocumentRepository.create(NSDocument.new(title: 'Quantum Mechanics', author: 'Jared. Foo-Bar'))
-    @section1 = DocumentRepository.create(NSDocument.new(title: 'Uncertainty Principle', author: 'Jared Foo-Bar', subdoc_refs: []))
-    @section2 = DocumentRepository.create(NSDocument.new(title: 'Wave-Particle Duality', author: 'Jared Foo-Bar', subdoc_refs: []))
-    @section3 = DocumentRepository.create(NSDocument.new(title: 'Matrix Mechanics', author: 'Jared Foo-Bar', subdoc_refs: []))
-    @subsection =  DocumentRepository.create(NSDocument.new(title: "de Broglie's idea", author: 'Jared Foo-Bar', subdoc_refs: []))
-    @subsubsection =  DocumentRepository.create(NSDocument.new(title: "Einstein's view", author: 'Jared Foo-Bar', subdoc_refs: []))
-
-
-    @article.content = "= Quantum Mechanics\n\n:numbered:\nQuantum phenomena are weird!"
-    @section1.content = "== Uncertainty Principle\n\nThe Uncertainty Principle invalidates the notion of trajectory"
-    @section2.content = "== Wave-Particule Duality\n\nIt is, like, _so_ weird!"
-    @section3.content = "== Matrix Mechanic\n\nIts all about the eigenvalues"
-    @subsection.content = "=== de Broglie's idea\n\nHe was a count, and he firmly maintained that $a^2 + b^2 = c^2$"
-    @subsection.content << "\n[env.theorem]\n--\nThere are infinitely many primes\n--\n\n"
-    @subsubsection.content = "==== Einstein's view\n\nGod does not play with dice."
-
-    DocumentRepository.persist @article
-    DocumentRepository.persist @section1
-    DocumentRepository.persist @section2
-    DocumentRepository.persist @section3
-    DocumentRepository.persist @subsection
-    DocumentRepository.persist @subsubsection
-
-    @section1.insert(0,@article)
-    @section2.insert(1,@article)
-    @section3.insert(2,@article)
-    @subsection.add_to(@section2)
-    @subsubsection.add_to(@subsection)
-
-    DocumentRepository.all.each do |document|
-      document.update_table_of_contents
-      document.compile_with_render
-    end
-
-    DocumentRepository.all.count
-
-  end
 
 
 end
