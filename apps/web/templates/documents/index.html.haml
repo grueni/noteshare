@@ -1,17 +1,17 @@
 - if documents.any?
-  - documents.each do |document|
-    .document{style: 'margin-top:6em;'}
-      .row
-        .col.s4.section
-          .container{style: 'overflow-y: auto;  height:100%; padding-left:1em; padding-right:1em;   background-color:#eee;;overflow-y:scroll'}
-            %h1{style: 'font-size:14pt;'}= document.title
-            %p= document.author
-            %ul
-              = document.table_of_contents 'html'
-        .col.s8
-          .container{style: 'overflow-y: auto;  height:100%; padding:1em; padding-bottom:1000px;overflow-y:scroll'}
-            = document.root_link
-            .div{style: 'margin-top:1em'}= document.rendered_content
+  .document{style: 'margin-top:6em;'}
+    .row.s8{style: 'overflow-y: auto;  height:100%; padding-left:1em; padding-right:1em;overflow-y:scroll'}
+      %table{:style => 'margin-left:3em; margin-right:3em'}
+        %thead
+          %tr
+            %th Title
+            %th Author
+        %tbody
+          - documents.each do |document|
+            %tr
+              %td= document.root_link
+              %td= document.author
+
 - else
   %p.placeholder There are no documents yet.
 
