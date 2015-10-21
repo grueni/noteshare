@@ -85,3 +85,4 @@ http://arjanvandergaag.nl/blog/up-and-running-with-lotus.html[Up and running wit
 http://teotti.com/rails-vs-lotus/[Rails vs Lotus] + 
 http://kimh.github.io/blog/en/lotus/creating-web-application-with-ruby-lotus[Kimh on crafting web apps] + 
 https://elements.heroku.com/buttons/stevehook/lotus-todo[Lotus to-do on Heroku] + 
+https://www.amberbit.com/blog/2014/9/29/10-skills-that-will-make-you-better-ruby-developer/[Becoming a better Rubyist]

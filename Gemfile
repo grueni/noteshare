@@ -13,6 +13,7 @@ gem 'pg'
 
 
 gem 'haml'
+gem 'slim'
 
 gem 'asciidoctor', '~> 1.5.2'
 gem 'asciidoctor-latex', :github => 'asciidoctor/asciidoctor-latex', :branch => 'master'
