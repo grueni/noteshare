@@ -2,23 +2,23 @@
 require 'spec_helper'
 require_relative "#{ENV['PROJECT_HOME']}/apps/editor/controllers/documents/create"
 
-describe Editor::Controllers::Books::Create do
+describe Editor::Controllers::Documents::Create do
   let(:action) { Editor::Controllers::Documents::Create.new }
-  let(:params) { Hash[book: { title: 'Confident Ruby', author: 'Avdi Grimm' }] }
+  let(:params) { Hash[document: { title: 'Confident Ruby', author: 'Avdi Grimm' }] }
 
   after do
-    BookRepository.clear
+    DocumentRepository.clear
   end
 
   it 'creates a new book' do
     action.call(params)
-    action.book.id.wont_be_nil
+    action.document.id.wont_be_nil
   end
 
-  it 'redirects the user to the books listing' do
+  it 'redirects the user to the documents listing' do
     response = action.call(params)
 
     response[0].must_equal 302
-    response[1]['Location'].must_equal '/books'
+    response[1]['Location'].must_equal '/documents'
   end
 end

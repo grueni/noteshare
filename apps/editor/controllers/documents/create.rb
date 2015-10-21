@@ -6,7 +6,7 @@ module Editor::Controllers::Documents
     expose :document
 
     def call(params)
-      puts "CREATE with params #{params[:document]}"
+      puts "CCCC: CREATE with params #{params[:document]}"
       @document = DocumentRepository.create(NSDocument.new(params[:document]))
 
       redirect_to '/documents'
