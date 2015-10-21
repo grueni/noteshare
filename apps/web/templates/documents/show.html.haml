@@ -2,7 +2,8 @@
   .document{style: 'margin-top:40px;'}
     .row
       .col.left{style: 'width: 30%;'}
-        %p= '<a href="http://localhost:2300/documents">Index</a>'
+        %span= '<a href="http://localhost:2300/documents">Index</a>'
+        %span= "<a href='http://localhost:2300/editor/document/#{document.id}'>Edit</a>"
         %h1{style: 'font-size:14pt;'}= document.title
         %p= document.author
         .div= document.document_map

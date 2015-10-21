@@ -1,18 +1,17 @@
 - if documents.any?
   .document
-    .row{style: 'overflow-y: scroll;  height:100%; padding-left:1em; padding-right:1em;overflow-y:scroll'}
-      %table{:style => 'margin-left:3em; margin-right:3em'}
-        %thead
+    %table{:style => 'top:140px; margin-left:auto; margin-right:auto;'}
+      %thead
+        %tr
+          %th Title
+          %th Root
+          %th Author
+      %tbody
+        - documents.each do |document|
           %tr
-            %th Title
-            %th Root
-            %th Author
-        %tbody
-          - documents.each do |document|
-            %tr
-              %td= document.link
-              %td= document.root_link
-              %td= document.author
+            %td= document.link
+            %td= document.root_link
+            %td= document.author
 
 - else
   %p.placeholder There are no documents yet.

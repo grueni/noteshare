@@ -14,7 +14,8 @@ body {
     top: 0;
     width: 100%;
     height: 40px;
-    background-color: #aaa;
+    background-color:#000;
+    color: #ccc;
 }
 
 #navlist li
@@ -30,10 +31,10 @@ body {
     left:0; right:0;
     bottom:0;
     height:40px;
-    background-color:#888;
+    background-color:#000;
     padding-left:2em;
     padding-top:8px;
-    color:#eee;
+    color: #ccc;
  }
 
 
