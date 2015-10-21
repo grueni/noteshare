@@ -406,8 +406,12 @@ class NSDocument
   end
 
   # Return html link to document
-  def link
-    "<a href=#{self.url}>#{self.title}</a>"
+  def link(arg=:default)
+    if arg == :default
+      "<a href=#{self.url}>#{self.title}</a>"
+    else
+      "<a href=#{self.url}>#{arg}</a>"
+    end
   end
 
   def parent_link
@@ -415,15 +419,15 @@ class NSDocument
     p ? p.link : ''
   end
 
-  def previous_link
+  def previous_link(arg = :default)
     p = self.previous_document
-    p ? p.link : ''
+    p ? p.link(arg) : ''
   end
 
 
-  def next_link
+  def next_link(arg = :default)
     n = self.next_document
-    n ? n.link : ''
+    n ? n.link(arg) : ''
   end
 
 
