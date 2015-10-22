@@ -8,6 +8,8 @@ module Editor::Controllers::Documents
     def call(params)
 
       @document = DocumentRepository.create(NSDocument.new(params[:document]))
+      @document.update_content
+      @document.compile_with_render
 
       redirect_to '/documents'
     end
