@@ -105,3 +105,10 @@ ul {
 
     font-size:18pt;
 }
+
+.source_input {
+
+    background-color: #e1f5fe;
+    width: 500px;
+    height: 500px;
+}

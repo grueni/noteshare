@@ -3,8 +3,12 @@
 
      <%=
          form_for :document, '/editor/update', remote: true do
+           div class: 'input source_input' do
+             text_area :updated_text
+           end
+
            div class: 'input' do
-             text_area :qqq
+             hidden_field  document.id
            end
 
            div class: 'controls' do

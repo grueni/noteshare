@@ -280,6 +280,7 @@ class NSDocument
       str = self.content || ''
     else
       str = input
+      self.content = str
     end
     renderer = Render.new(str)
     self.rendered_content = renderer.convert
