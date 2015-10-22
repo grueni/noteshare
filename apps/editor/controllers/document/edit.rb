@@ -11,5 +11,6 @@ module Editor::Controllers::Document
       @document = DocumentRepository.find(params['id'])
       @updated_text = @document.content
     end
+
   end
 end
