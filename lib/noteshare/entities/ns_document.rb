@@ -277,7 +277,7 @@ class NSDocument
   # and save itl. .
   def update_content(input=nil)
     if input == nil
-      str = self.content
+      str = self.content || ''
     else
       str = input
     end

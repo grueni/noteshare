@@ -1,0 +1,27 @@
+<div class='row'>
+   <div class='col source'>
+
+     <%=
+         form_for :document, '/editor/documents' do
+           div class: 'input' do
+             text_area :qqq
+           end
+
+           div class: 'controls' do
+             submit 'update'
+           end
+         end
+     %>
+
+   </div>
+
+  <div class='col rendered'>
+
+    <%= document.rendered_content %>
+
+  </div>
+
+
+
+</div>
+

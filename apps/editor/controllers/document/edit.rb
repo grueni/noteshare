@@ -6,7 +6,7 @@ module Editor::Controllers::Document
 
 
     def call(params)
-      puts "XXXX: params = #{params[:id]}"
+      puts "XXXX: params[:id] = #{params[:id]}"
       @document = DocumentRepository.find(params['id'])
     end
   end
