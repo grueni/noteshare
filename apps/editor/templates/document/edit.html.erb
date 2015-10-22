@@ -3,8 +3,8 @@
 
      <%=
          form_for :document, '/editor/update', remote: true do
-           div class: 'input source_input', hohoho: 'foobar'   do
-             text_area :updated_text, document.content
+           div class: 'input', hohoho: 'foobar'   do
+             text_area :updated_text, document.content.gsub('\\r','')
            end
 
            div class: 'input' do
