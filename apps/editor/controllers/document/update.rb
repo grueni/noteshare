@@ -9,7 +9,7 @@ module Editor::Controllers::Document
       puts
       document_packet = params.env['rack.request.form_hash']['document']
       puts "UUU: document_packet = #{document_packet}"
-      new_text = document_packet['updated_text']
+      new_text = document_packet['updated_text'].gsub(/<*pre>/,'')
       id = document_packet.keys[1].sub(':', '')
       puts "id = #{id}"
       @document = DocumentRepository.find(id)
