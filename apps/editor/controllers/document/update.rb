@@ -7,9 +7,12 @@ module Editor::Controllers::Document
     def call(params)
       document_packet = params.env['rack.request.form_hash']['document']
 
-      new_text = document_packet['updated_text'].gsub('\\r', '')
+      new_text = document_packet['updated_text']   # .gsub('\\r', '')
       puts
       puts 'new_text (1)'
+      puts  new_text
+      puts
+      new_text =  new_text  # .gsub("\n     ", '')
       puts  new_text
       puts
       id = document_packet.keys[1].sub(':', '')
