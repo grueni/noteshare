@@ -86,3 +86,4 @@ http://teotti.com/rails-vs-lotus/[Rails vs Lotus] +
 http://kimh.github.io/blog/en/lotus/creating-web-application-with-ruby-lotus[Kimh on crafting web apps] + 
 https://elements.heroku.com/buttons/stevehook/lotus-todo[Lotus to-do on Heroku] + 
 https://www.amberbit.com/blog/2014/9/29/10-skills-that-will-make-you-better-ruby-developer/[Becoming a better Rubyist]
+http://solnic.eu/2015/06/06/cutting-corners-or-why-rails-may-kill-ruby.html[Is Rails killing Ruby?] + 
