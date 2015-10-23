@@ -34,7 +34,7 @@
       .navbar_left_item
         -if document
           <a href='http://localhost:2300/editor/document/#{document.id}'>Edit</a> &nbsp;
-        <a href="http://localhost:2300/documents">Index</a>
+        <a href="http://localhost:2300/documents">Documents</a>
       .col{style: 'left: 30%; width:100px; top:8px;'}
         -if document
           = document.previous_link(title: "<img src='/images/arrowleft_light_gray.png', width=24px>", alt_title: "<img src='/images/arrowleft_gray.png', width=24px>")
