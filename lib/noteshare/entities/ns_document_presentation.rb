@@ -104,11 +104,13 @@ module NSDocument::Presentation
   end
 
   # Return html link to document
-  def link(arg=:default)
-    if arg == :default
-      "<a href=#{self.url}>#{self.title}</a>"
+  def link(hash = {})
+    title = hash[:title]
+    prefix = hash[:prefix] || ''
+    if title
+      "<a href=#{self.url(prefix)}>#{title}</a>"
     else
-      "<a href=#{self.url}>#{arg}</a>"
+      "<a href=#{self.url(prefix)}>#{self.title}</a>"
     end
   end
 
@@ -119,15 +121,15 @@ module NSDocument::Presentation
   end
 
   # HTML link to previous document
-  def previous_link(arg = :default)
+  def previous_link(title = nil)
     p = self.previous_document
-    p ? p.link(arg) : ''
+    p ? p.link(title: title) : ''
   end
 
   # HTML link to nest document
-  def next_link(arg = :default)
+  def next_link(title = nil)
     n = self.next_document
-    n ? n.link(arg) : ''
+    n ? n.link(title: title) : ''
   end
 
   # HTML link to previous document
@@ -135,9 +137,9 @@ module NSDocument::Presentation
   # if the link is valid and arg2
   # = link text (or image)
   # if the link is not valid
-  def previous_link2(arg1, arg2)
+  def previous_link2(title, arg2)
     p = self.previous_document
-    p ? p.link(arg1) : arg2
+    p ? p.link(title: title) : arg2
   end
 
   # HTML link to next document
@@ -145,9 +147,9 @@ module NSDocument::Presentation
   # if the link is valid and arg2
   # = link text (or image)
   # if the link is not valid
-  def next_link2(arg1, arg2)
+  def next_link2(title, arg2)
     n = self.next_document
-    n ? n.link(arg1) : arg2
+    n ? n.link(title: title) : arg2
   end
 
 
