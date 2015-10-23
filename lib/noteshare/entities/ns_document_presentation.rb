@@ -115,21 +115,9 @@ module NSDocument::Presentation
   end
 
   # HTML link to parent document
-  def parent_link
+  def parent_link(hash = {})
     p = self.parent
-    p ? p.link : ''
-  end
-
-  # HTML link to previous document
-  def previous_link(title = nil)
-    p = self.previous_document
-    p ? p.link(title: title) : ''
-  end
-
-  # HTML link to nest document
-  def next_link(title = nil)
-    n = self.next_document
-    n ? n.link(title: title) : ''
+    p ? p.link(hash) : ''
   end
 
   # HTML link to previous document
@@ -137,9 +125,10 @@ module NSDocument::Presentation
   # if the link is valid and arg2
   # = link text (or image)
   # if the link is not valid
-  def previous_link2(title, arg2)
+  def previous_link(hash = {})
+    alt_title =  hash[:alt_title] || ''
     p = self.previous_document
-    p ? p.link(title: title) : arg2
+    p ? p.link(hash) : alt_title
   end
 
   # HTML link to next document
@@ -147,10 +136,12 @@ module NSDocument::Presentation
   # if the link is valid and arg2
   # = link text (or image)
   # if the link is not valid
-  def next_link2(title, arg2)
+  def next_link(hash = {})
+    alt_title =  hash[:alt_title] || ''
     n = self.next_document
-    n ? n.link(title: title) : arg2
+    n ? n.link(hash) : alt_title
   end
+  
 
 
 end
