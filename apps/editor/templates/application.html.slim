@@ -26,8 +26,8 @@ html
       .navbar_left_item Foo
       .navbar_middle_item
         - if document
-          == document.previous_link(title: "<img src='/images/arrowleft_light_gray.png', width=24px>", alt_title: "<img src='/images/arrowleft_gray.png', width=24px>")
-          == document.next_link(title: "<img src='/images/arrowright_light_gray.png', width=24px>", alt_title: "<img src='/images/arrowright_gray.png', width=24px>")
+          == document.previous_link(prefix: 'editor', title: "<img src='/images/arrowleft_light_gray.png', width=24px>", alt_title: "<img src='/images/arrowleft_gray.png', width=24px>")
+          == document.next_link(prefix: 'editor', title: "<img src='/images/arrowright_light_gray.png', width=24px>", alt_title: "<img src='/images/arrowright_gray.png', width=24px>")
       .navbar_right_item
         ul id='navlist'
           li

@@ -141,7 +141,7 @@ module NSDocument::Presentation
     n = self.next_document
     n ? n.link(hash) : alt_title
   end
-  
+
 
 
 end
