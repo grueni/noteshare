@@ -1,4 +1,7 @@
 
+
+/*** STUCTURE ***/
+
 body {
     position:absolute;
     left:0; right:0;
@@ -26,6 +29,16 @@ ul {
 
      position: absolute;
 
+ }
+
+ .col.left_medium {
+
+     width: 50%;
+ }
+
+ .inset {
+
+     margin: 2em;
  }
 
 
@@ -160,6 +173,29 @@ textarea {
     box-sizing: border-box;         /* Opera/IE 8+ */
     background-color: #e1f5fe;
     outline: none;
+}
+
+.textarea.height_small {
+
+
+    height:300px;
+}
+
+.text_field {
+
+    margin-top: 15px;
+    margin_left: 150px;
+}
+
+.label {
+
+    width: 80px;
+}
+
+.label.space {
+
+    margin-top: 30px;
+
 }
 
 
