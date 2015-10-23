@@ -5,7 +5,7 @@ module Editor::Controllers::Documents
     expose :documents
 
     def call(params)
-      puts "XXXX: params = #{params}"
+      puts "XX, Index: params = #{params}"
       @documents = DocumentRepository.all
     end
 

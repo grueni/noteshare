@@ -23,7 +23,8 @@ html
   body
     script src="https://code.jquery.com/jquery-2.1.1.min.js" type="text/javascript" 
     .nav
-      .navbar_left_item Foo
+      .navbar_left_item
+        a href="/document/#{document.id}"  Read
       .navbar_middle_item
         - if document
           == document.previous_link(prefix: 'editor', title: "<img src='/images/arrowleft_light_gray.png', width=24px>", alt_title: "<img src='/images/arrowleft_gray.png', width=24px>")
@@ -31,9 +32,9 @@ html
       .navbar_right_item
         ul id='navlist'
           li
-            a href="sass.html"  Sass
+            a href="/documents"  Index
           li
-            a href="badges.html"  Components
+            a href="/document/#{document.id}"  Reader
     .row
       == yield
 
