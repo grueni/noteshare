@@ -3,17 +3,18 @@
 
      <%=
          form_for :document, '/editor/update', remote: true do
-           div class: 'input', hohoho: 'foobar'   do
-             text_area :updated_text, document.content
+           div class: 'input ', hohoho: 'foobar'   do
+             text_area :updated_text, document.content, { }
            end
 
            div class: 'input' do
              hidden_field  document.id
            end
 
-           div class: 'controls' do
+           div class: 'controls footer_button_1' do
              submit 'update'
            end
+
          end
      %>
 
