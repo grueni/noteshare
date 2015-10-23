@@ -92,10 +92,15 @@ module NSDocument::Presentation
   # Return URL of document
   # Fixme: the server name and port should be extracted
   # from 'request.env'
-  def url
+  def url(prefix='')
     server =  SERVER_NAME # request.env['SERVER_NAME']
     port = SERVER_PORT # request.env['SERVER_PORT']
-    "http://#{server}:#{port}/document/#{self.id}"
+    if prefix == ''
+      "http://#{server}:#{port}/document/#{self.id}"
+    else
+      "http://#{server}:#{port}/#{prefix}/document/#{self.id}"
+    end
+
   end
 
   # Return html link to document
