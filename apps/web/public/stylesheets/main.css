@@ -7,23 +7,6 @@ body {
     overflow:hidden ;
 }
 
-.nav {
-    position: absolute;
-    left: 0;
-    right: 0;
-    top: 0;
-    width: 100%;
-    height: 40px;
-    background-color:#000;
-    color: #ccc;
-}
-
-#navlist li
-{
-    display: inline;
-    list-style-type: none;
-    padding-right: 20px;
-}
 
 .footer {
 
@@ -111,4 +94,56 @@ ul {
     background-color: #e1f5fe;
     width: 500px;
     height: 500px;
+}
+
+
+/* NAVIGATION BAR */
+
+.nav {
+    position: absolute;
+    left: 0;
+    right: 0;
+    top: 0;
+    width: 100%;
+    height: 40px;
+    background-color:#000;
+    color: #ccc;
+}
+
+#navlist li
+{
+    display: inline;
+    list-style-type: none;
+    padding-right: 20px;
+}
+
+
+.navbar_left_item {
+
+    position: absolute;
+    left:2em;
+    top: 12px;
+    width:30%;
+    display:inline-block;
+
+}
+
+.navbar_middle_item {
+
+    position: absolute;
+    left:50%;
+    top: 8px;
+    width:30%;
+    display:inline-block;
+
+}
+
+.navbar_right_item {
+
+    position: absolute;
+    right: 2em;
+    top: 8px;
+    width: 30%;
+    display: inline-block;
+
 }

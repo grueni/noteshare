@@ -6,8 +6,7 @@ html
     link href="/stylesheets/asciidoctor.css" rel="stylesheet" type="text/css" /
     link href="/stylesheets/main.css" rel="stylesheet" type="text/css" /
     meta content="width=device-width, initial-scale=1.0" name="viewport" /
-    script type="text/x-mathjax-config" 
-    cdata:
+    script type="text/x-mathjax-config"
       | MathJax.Hub.Config({
       | tex2jax: {
       | inlineMath: [["\\(", "\\)"]],
@@ -20,27 +19,27 @@ html
       | },
       | TeX: { extensions: ["mhchem.js"] }
       | });
-    script src="https://cdnjs.cloudflare.com/ajax/libs/mathjax/2.4.0/MathJax.js?config=TeX-MML-AM_HTMLorMML" 
+    script src="https://cdnjs.cloudflare.com/ajax/libs/mathjax/2.4.0/MathJax.js?config=TeX-MML-AM_HTMLorMML"
   body
     script src="https://code.jquery.com/jquery-2.1.1.min.js" type="text/javascript" 
     .nav
-      .col style: 'left:2em; top: 12px; width:30%'  | Foo
-      .col style: 'left: 30%; width:100px; top:8px;'  
+      .navbar_left_item Foo
+      .navbar_middle_item
         - if document
-          = document.previous_link2("<img src='/images/arrowleft_light_gray.png', width=24px>", "<img src='/images/arrowleft_gray.png', width=24px>")
-          = document.next_link2("<img src='/images/arrowright_light_gray.png', width=24px>", "<img src='/images/arrowright_gray.png', width=24px>")
-      .col style: 'right:2em; top:8px;'
-        ul id: 'navlist'
+          == document.previous_link2("<img src='/images/arrowleft_light_gray.png', width=24px>", "<img src='/images/arrowleft_gray.png', width=24px>")
+          == document.next_link2("<img src='/images/arrowright_light_gray.png', width=24px>", "<img src='/images/arrowright_gray.png', width=24px>")
+      .navbar_right_item
+        ul id='navlist'
           li
             a href="sass.html"  Sass
           li
             a href="badges.html"  Components
-    .row style: 'top:0px;' 
-      = yield
+    .row
+      == yield
 
-    .footer style: '' 
+    .footer
       p
-        | Craaaaafted with
+        | Crafted with
         span.heart ❤
         | by
         a href="http:/noteshare.io/"  James Carlson
