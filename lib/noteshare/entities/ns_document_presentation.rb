@@ -63,6 +63,11 @@ module NSDocument::Presentation
   # option gives a numbered list of titles.
   def table_of_contents(hash)
     option = hash[:format] || 'simple_string'
+    current_document = hash[:current_document]
+    if current_document
+      noa = current_document.next_oldest_ancestor
+      noa_id = noa.id if noa
+    end
     output = ''
     case option
       when 'simple_string'
@@ -73,10 +78,12 @@ module NSDocument::Presentation
         if toc.length == 0
           output = ''
         else
-          output << "<strong>Table of Contents</strong>\n"
           output << "<ul>\n"
           toc.each_with_index do |item, index|
             output << "<li><a href='http://#{SERVER_NAME}:#{SERVER_PORT}/document/#{item[0]}'>#{item[1]}</a>\n"
+            if noa_id and item[0] == noa_id
+              output << "<ul>\n" << noa.table_of_contents(format: 'html', current_document: nil) << "</ul>"
+            end
           end
           output << "</ul>\n\n"
         end

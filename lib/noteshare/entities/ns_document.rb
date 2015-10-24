@@ -259,6 +259,15 @@ class NSDocument
     DocumentRepository.find(parent_id)
   end
 
+  def next_oldest_ancestor
+    noa = self
+    return self if noa == root_document
+    while noa.parent != root_document
+      noa = noa.parent
+    end
+    noa
+  end
+
 
   # *doc.subdocment(k)* returns the k-th
   # subdocument of *doc*

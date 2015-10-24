@@ -390,6 +390,20 @@ EOF
 
   end
 
+  it 'can find the next oldest ancestor noa' do
+
+    @section1.add_to(@article)
+    @section2.add_to(@article)
+    @section3.add_to(@article)
+    @subsection.add_to(@section2)
+    @subsubsection.add_to(@subsection)
+
+    @section2.next_oldest_ancestor.must_equal @section2
+    @subsection.next_oldest_ancestor.must_equal @section2
+    @subsubsection.next_oldest_ancestor.must_equal @section2
+
+  end
+
 
 
 end
