@@ -170,7 +170,7 @@ previous and next documents if they are present.</p>
         <li class="public ">
   <span class="summary_signature">
     
-      <a href="#link-instance_method" title="#link (instance method)">- (Object) <strong>link</strong>(arg = :default) </a>
+      <a href="#link-instance_method" title="#link (instance method)">- (Object) <strong>link</strong>(hash = {}) </a>
     
 
     
@@ -218,31 +218,7 @@ previous and next documents if they are present.</p>
         <li class="public ">
   <span class="summary_signature">
     
-      <a href="#next_link-instance_method" title="#next_link (instance method)">- (Object) <strong>next_link</strong>(arg = :default) </a>
-    
-
-    
-  </span>
-  
-  
-  
-  
-  
-  
-  
-
-  
-    <span class="summary_desc"><div class='inline'>
-<p>HTML link to nest document.</p>
-</div></span>
-  
-</li>
-
-      
-        <li class="public ">
-  <span class="summary_signature">
-    
-      <a href="#next_link2-instance_method" title="#next_link2 (instance method)">- (Object) <strong>next_link2</strong>(arg1, arg2) </a>
+      <a href="#next_link-instance_method" title="#next_link (instance method)">- (Object) <strong>next_link</strong>(hash = {}) </a>
     
 
     
@@ -281,7 +257,9 @@ valid and arg2 = link text (or image) if the link is not valid.</p>
   
 
   
-    <span class="summary_desc"><div class='inline'></div></span>
+    <span class="summary_desc"><div class='inline'>
+<p>TITLES.</p>
+</div></span>
   
 </li>
 
@@ -289,7 +267,7 @@ valid and arg2 = link text (or image) if the link is not valid.</p>
         <li class="public ">
   <span class="summary_signature">
     
-      <a href="#parent_link-instance_method" title="#parent_link (instance method)">- (Object) <strong>parent_link</strong> </a>
+      <a href="#parent_link-instance_method" title="#parent_link (instance method)">- (Object) <strong>parent_link</strong>(hash = {}) </a>
     
 
     
@@ -337,31 +315,7 @@ valid and arg2 = link text (or image) if the link is not valid.</p>
         <li class="public ">
   <span class="summary_signature">
     
-      <a href="#previous_link-instance_method" title="#previous_link (instance method)">- (Object) <strong>previous_link</strong>(arg = :default) </a>
-    
-
-    
-  </span>
-  
-  
-  
-  
-  
-  
-  
-
-  
-    <span class="summary_desc"><div class='inline'>
-<p>HTML link to previous document.</p>
-</div></span>
-  
-</li>
-
-      
-        <li class="public ">
-  <span class="summary_signature">
-    
-      <a href="#previous_link2-instance_method" title="#previous_link2 (instance method)">- (Object) <strong>previous_link2</strong>(arg1, arg2) </a>
+      <a href="#previous_link-instance_method" title="#previous_link (instance method)">- (Object) <strong>previous_link</strong>(hash = {}) </a>
     
 
     
@@ -386,7 +340,7 @@ is valid and arg2 = link text (or image) if the link is not valid.</p>
         <li class="public ">
   <span class="summary_signature">
     
-      <a href="#root_link-instance_method" title="#root_link (instance method)">- (Object) <strong>root_link</strong> </a>
+      <a href="#root_link-instance_method" title="#root_link (instance method)">- (Object) <strong>root_link</strong>(hash = {}) </a>
     
 
     
@@ -459,7 +413,7 @@ sections of <strong>document</strong>.</p>
         <li class="public ">
   <span class="summary_signature">
     
-      <a href="#url-instance_method" title="#url (instance method)">- (Object) <strong>url</strong> </a>
+      <a href="#url-instance_method" title="#url (instance method)">- (Object) <strong>url</strong>(prefix = &#39;&#39;) </a>
     
 
     
@@ -517,18 +471,18 @@ previous and next documents if they are present.</p>
       <pre class="lines">
 
 
-82
-83
-84
-85
-86
-87
-88
-89
-90</pre>
+90
+91
+92
+93
+94
+95
+96
+97
+98</pre>
     </td>
     <td>
-      <pre class="code"><span class="info file"># File 'lib/noteshare/entities/ns_document_presentation.rb', line 82</span>
+      <pre class="code"><span class="info file"># File 'lib/noteshare/entities/ns_document_presentation.rb', line 90</span>
 
 <span class='kw'>def</span> <span class='id identifier rubyid_document_map'>document_map</span>
   <span class='id identifier rubyid_str'>str</span> <span class='op'>=</span> <span class='tstring'><span class='tstring_beg'>&quot;</span><span class='tstring_content'>&lt;strong&gt;Map&lt;/strong&gt;\n</span><span class='tstring_end'>&quot;</span></span>
@@ -547,7 +501,7 @@ previous and next documents if they are present.</p>
       <div class="method_details ">
   <h3 class="signature " id="link-instance_method">
   
-    - (<tt>Object</tt>) <strong>link</strong>(arg = :default) 
+    - (<tt>Object</tt>) <strong>link</strong>(hash = {}) 
   
 
   
@@ -570,22 +524,26 @@ previous and next documents if they are present.</p>
       <pre class="lines">
 
 
-102
-103
-104
-105
-106
-107
-108</pre>
+121
+122
+123
+124
+125
+126
+127
+128
+129</pre>
     </td>
     <td>
-      <pre class="code"><span class="info file"># File 'lib/noteshare/entities/ns_document_presentation.rb', line 102</span>
+      <pre class="code"><span class="info file"># File 'lib/noteshare/entities/ns_document_presentation.rb', line 121</span>
 
-<span class='kw'>def</span> <span class='id identifier rubyid_link'>link</span><span class='lparen'>(</span><span class='id identifier rubyid_arg'>arg</span><span class='op'>=</span><span class='symbol'>:default</span><span class='rparen'>)</span>
-  <span class='kw'>if</span> <span class='id identifier rubyid_arg'>arg</span> <span class='op'>==</span> <span class='symbol'>:default</span>
-    <span class='tstring'><span class='tstring_beg'>&quot;</span><span class='tstring_content'>&lt;a href=</span><span class='embexpr_beg'>#{</span><span class='kw'>self</span><span class='period'>.</span><span class='id identifier rubyid_url'>url</span><span class='embexpr_end'>}</span><span class='tstring_content'>&gt;</span><span class='embexpr_beg'>#{</span><span class='kw'>self</span><span class='period'>.</span><span class='id identifier rubyid_title'>title</span><span class='embexpr_end'>}</span><span class='tstring_content'>&lt;/a&gt;</span><span class='tstring_end'>&quot;</span></span>
+<span class='kw'>def</span> <span class='id identifier rubyid_link'>link</span><span class='lparen'>(</span><span class='id identifier rubyid_hash'>hash</span> <span class='op'>=</span> <span class='lbrace'>{</span><span class='rbrace'>}</span><span class='rparen'>)</span>
+  <span class='id identifier rubyid_title'>title</span> <span class='op'>=</span> <span class='id identifier rubyid_hash'>hash</span><span class='lbracket'>[</span><span class='symbol'>:title</span><span class='rbracket'>]</span>
+  <span class='id identifier rubyid_prefix'>prefix</span> <span class='op'>=</span> <span class='id identifier rubyid_hash'>hash</span><span class='lbracket'>[</span><span class='symbol'>:prefix</span><span class='rbracket'>]</span> <span class='op'>||</span> <span class='tstring'><span class='tstring_beg'>&#39;</span><span class='tstring_end'>&#39;</span></span>
+  <span class='kw'>if</span> <span class='id identifier rubyid_title'>title</span>
+    <span class='tstring'><span class='tstring_beg'>&quot;</span><span class='tstring_content'>&lt;a href=</span><span class='embexpr_beg'>#{</span><span class='kw'>self</span><span class='period'>.</span><span class='id identifier rubyid_url'>url</span><span class='lparen'>(</span><span class='id identifier rubyid_prefix'>prefix</span><span class='rparen'>)</span><span class='embexpr_end'>}</span><span class='tstring_content'>&gt;</span><span class='embexpr_beg'>#{</span><span class='id identifier rubyid_title'>title</span><span class='embexpr_end'>}</span><span class='tstring_content'>&lt;/a&gt;</span><span class='tstring_end'>&quot;</span></span>
   <span class='kw'>else</span>
-    <span class='tstring'><span class='tstring_beg'>&quot;</span><span class='tstring_content'>&lt;a href=</span><span class='embexpr_beg'>#{</span><span class='kw'>self</span><span class='period'>.</span><span class='id identifier rubyid_url'>url</span><span class='embexpr_end'>}</span><span class='tstring_content'>&gt;</span><span class='embexpr_beg'>#{</span><span class='id identifier rubyid_arg'>arg</span><span class='embexpr_end'>}</span><span class='tstring_content'>&lt;/a&gt;</span><span class='tstring_end'>&quot;</span></span>
+    <span class='tstring'><span class='tstring_beg'>&quot;</span><span class='tstring_content'>&lt;a href=</span><span class='embexpr_beg'>#{</span><span class='kw'>self</span><span class='period'>.</span><span class='id identifier rubyid_url'>url</span><span class='lparen'>(</span><span class='id identifier rubyid_prefix'>prefix</span><span class='rparen'>)</span><span class='embexpr_end'>}</span><span class='tstring_content'>&gt;</span><span class='embexpr_beg'>#{</span><span class='kw'>self</span><span class='period'>.</span><span class='id identifier rubyid_title'>title</span><span class='embexpr_end'>}</span><span class='tstring_content'>&lt;/a&gt;</span><span class='tstring_end'>&quot;</span></span>
   <span class='kw'>end</span>
 <span class='kw'>end</span></pre>
     </td>
@@ -619,13 +577,13 @@ previous and next documents if they are present.</p>
       <pre class="lines">
 
 
-22
-23
-24
-25</pre>
+28
+29
+30
+31</pre>
     </td>
     <td>
-      <pre class="code"><span class="info file"># File 'lib/noteshare/entities/ns_document_presentation.rb', line 22</span>
+      <pre class="code"><span class="info file"># File 'lib/noteshare/entities/ns_document_presentation.rb', line 28</span>
 
 <span class='kw'>def</span> <span class='id identifier rubyid_next_document_title'>next_document_title</span>
   <span class='id identifier rubyid_p'>p</span> <span class='op'>=</span> <span class='id identifier rubyid_next_document'>next_document</span>
@@ -639,50 +597,7 @@ previous and next documents if they are present.</p>
       <div class="method_details ">
   <h3 class="signature " id="next_link-instance_method">
   
-    - (<tt>Object</tt>) <strong>next_link</strong>(arg = :default) 
-  
-
-  
-
-  
-</h3><div class="docstring">
-  <div class="discussion">
-    
-<p>HTML link to nest document</p>
-
-
-  </div>
-</div>
-<div class="tags">
-  
-
-</div><table class="source_code">
-  <tr>
-    <td>
-      <pre class="lines">
-
-
-123
-124
-125
-126</pre>
-    </td>
-    <td>
-      <pre class="code"><span class="info file"># File 'lib/noteshare/entities/ns_document_presentation.rb', line 123</span>
-
-<span class='kw'>def</span> <span class='id identifier rubyid_next_link'>next_link</span><span class='lparen'>(</span><span class='id identifier rubyid_arg'>arg</span> <span class='op'>=</span> <span class='symbol'>:default</span><span class='rparen'>)</span>
-  <span class='id identifier rubyid_n'>n</span> <span class='op'>=</span> <span class='kw'>self</span><span class='period'>.</span><span class='id identifier rubyid_next_document'>next_document</span>
-  <span class='id identifier rubyid_n'>n</span> <span class='op'>?</span> <span class='id identifier rubyid_n'>n</span><span class='period'>.</span><span class='id identifier rubyid_link'>link</span><span class='lparen'>(</span><span class='id identifier rubyid_arg'>arg</span><span class='rparen'>)</span> <span class='op'>:</span> <span class='tstring'><span class='tstring_beg'>&#39;</span><span class='tstring_end'>&#39;</span></span>
-<span class='kw'>end</span></pre>
-    </td>
-  </tr>
-</table>
-</div>
-    
-      <div class="method_details ">
-  <h3 class="signature " id="next_link2-instance_method">
-  
-    - (<tt>Object</tt>) <strong>next_link2</strong>(arg1, arg2) 
+    - (<tt>Object</tt>) <strong>next_link</strong>(hash = {}) 
   
 
   
@@ -710,17 +625,19 @@ valid and arg2</p>
       <pre class="lines">
 
 
-143
-144
-145
-146</pre>
+158
+159
+160
+161
+162</pre>
     </td>
     <td>
-      <pre class="code"><span class="info file"># File 'lib/noteshare/entities/ns_document_presentation.rb', line 143</span>
+      <pre class="code"><span class="info file"># File 'lib/noteshare/entities/ns_document_presentation.rb', line 158</span>
 
-<span class='kw'>def</span> <span class='id identifier rubyid_next_link2'>next_link2</span><span class='lparen'>(</span><span class='id identifier rubyid_arg1'>arg1</span><span class='comma'>,</span> <span class='id identifier rubyid_arg2'>arg2</span><span class='rparen'>)</span>
+<span class='kw'>def</span> <span class='id identifier rubyid_next_link'>next_link</span><span class='lparen'>(</span><span class='id identifier rubyid_hash'>hash</span> <span class='op'>=</span> <span class='lbrace'>{</span><span class='rbrace'>}</span><span class='rparen'>)</span>
+  <span class='id identifier rubyid_alt_title'>alt_title</span> <span class='op'>=</span>  <span class='id identifier rubyid_hash'>hash</span><span class='lbracket'>[</span><span class='symbol'>:alt_title</span><span class='rbracket'>]</span> <span class='op'>||</span> <span class='tstring'><span class='tstring_beg'>&#39;</span><span class='tstring_end'>&#39;</span></span>
   <span class='id identifier rubyid_n'>n</span> <span class='op'>=</span> <span class='kw'>self</span><span class='period'>.</span><span class='id identifier rubyid_next_document'>next_document</span>
-  <span class='id identifier rubyid_n'>n</span> <span class='op'>?</span> <span class='id identifier rubyid_n'>n</span><span class='period'>.</span><span class='id identifier rubyid_link'>link</span><span class='lparen'>(</span><span class='id identifier rubyid_arg1'>arg1</span><span class='rparen'>)</span> <span class='op'>:</span> <span class='id identifier rubyid_arg2'>arg2</span>
+  <span class='id identifier rubyid_n'>n</span> <span class='op'>?</span> <span class='id identifier rubyid_n'>n</span><span class='period'>.</span><span class='id identifier rubyid_link'>link</span><span class='lparen'>(</span><span class='id identifier rubyid_hash'>hash</span><span class='rparen'>)</span> <span class='op'>:</span> <span class='id identifier rubyid_alt_title'>alt_title</span>
 <span class='kw'>end</span></pre>
     </td>
   </tr>
@@ -736,19 +653,30 @@ valid and arg2</p>
   
 
   
-</h3><table class="source_code">
+</h3><div class="docstring">
+  <div class="discussion">
+    
+<p>TITLES</p>
+
+
+  </div>
+</div>
+<div class="tags">
+  
+
+</div><table class="source_code">
   <tr>
     <td>
       <pre class="lines">
 
 
-10
-11
-12
-13</pre>
+16
+17
+18
+19</pre>
     </td>
     <td>
-      <pre class="code"><span class="info file"># File 'lib/noteshare/entities/ns_document_presentation.rb', line 10</span>
+      <pre class="code"><span class="info file"># File 'lib/noteshare/entities/ns_document_presentation.rb', line 16</span>
 
 <span class='kw'>def</span> <span class='id identifier rubyid_parent_document_title'>parent_document_title</span>
   <span class='id identifier rubyid_p'>p</span> <span class='op'>=</span> <span class='id identifier rubyid_parent'>parent</span>
@@ -762,7 +690,7 @@ valid and arg2</p>
       <div class="method_details ">
   <h3 class="signature " id="parent_link-instance_method">
   
-    - (<tt>Object</tt>) <strong>parent_link</strong> 
+    - (<tt>Object</tt>) <strong>parent_link</strong>(hash = {}) 
   
 
   
@@ -785,17 +713,17 @@ valid and arg2</p>
       <pre class="lines">
 
 
-111
-112
-113
-114</pre>
+137
+138
+139
+140</pre>
     </td>
     <td>
-      <pre class="code"><span class="info file"># File 'lib/noteshare/entities/ns_document_presentation.rb', line 111</span>
+      <pre class="code"><span class="info file"># File 'lib/noteshare/entities/ns_document_presentation.rb', line 137</span>
 
-<span class='kw'>def</span> <span class='id identifier rubyid_parent_link'>parent_link</span>
+<span class='kw'>def</span> <span class='id identifier rubyid_parent_link'>parent_link</span><span class='lparen'>(</span><span class='id identifier rubyid_hash'>hash</span> <span class='op'>=</span> <span class='lbrace'>{</span><span class='rbrace'>}</span><span class='rparen'>)</span>
   <span class='id identifier rubyid_p'>p</span> <span class='op'>=</span> <span class='kw'>self</span><span class='period'>.</span><span class='id identifier rubyid_parent'>parent</span>
-  <span class='id identifier rubyid_p'>p</span> <span class='op'>?</span> <span class='id identifier rubyid_p'>p</span><span class='period'>.</span><span class='id identifier rubyid_link'>link</span> <span class='op'>:</span> <span class='tstring'><span class='tstring_beg'>&#39;</span><span class='tstring_end'>&#39;</span></span>
+  <span class='id identifier rubyid_p'>p</span> <span class='op'>?</span> <span class='id identifier rubyid_p'>p</span><span class='period'>.</span><span class='id identifier rubyid_link'>link</span><span class='lparen'>(</span><span class='id identifier rubyid_hash'>hash</span><span class='rparen'>)</span> <span class='op'>:</span> <span class='tstring'><span class='tstring_beg'>&#39;</span><span class='tstring_end'>&#39;</span></span>
 <span class='kw'>end</span></pre>
     </td>
   </tr>
@@ -828,13 +756,13 @@ valid and arg2</p>
       <pre class="lines">
 
 
-16
-17
-18
-19</pre>
+22
+23
+24
+25</pre>
     </td>
     <td>
-      <pre class="code"><span class="info file"># File 'lib/noteshare/entities/ns_document_presentation.rb', line 16</span>
+      <pre class="code"><span class="info file"># File 'lib/noteshare/entities/ns_document_presentation.rb', line 22</span>
 
 <span class='kw'>def</span> <span class='id identifier rubyid_previous_document_title'>previous_document_title</span>
   <span class='id identifier rubyid_p'>p</span> <span class='op'>=</span> <span class='id identifier rubyid_previous_document'>previous_document</span>
@@ -848,50 +776,7 @@ valid and arg2</p>
       <div class="method_details ">
   <h3 class="signature " id="previous_link-instance_method">
   
-    - (<tt>Object</tt>) <strong>previous_link</strong>(arg = :default) 
-  
-
-  
-
-  
-</h3><div class="docstring">
-  <div class="discussion">
-    
-<p>HTML link to previous document</p>
-
-
-  </div>
-</div>
-<div class="tags">
-  
-
-</div><table class="source_code">
-  <tr>
-    <td>
-      <pre class="lines">
-
-
-117
-118
-119
-120</pre>
-    </td>
-    <td>
-      <pre class="code"><span class="info file"># File 'lib/noteshare/entities/ns_document_presentation.rb', line 117</span>
-
-<span class='kw'>def</span> <span class='id identifier rubyid_previous_link'>previous_link</span><span class='lparen'>(</span><span class='id identifier rubyid_arg'>arg</span> <span class='op'>=</span> <span class='symbol'>:default</span><span class='rparen'>)</span>
-  <span class='id identifier rubyid_p'>p</span> <span class='op'>=</span> <span class='kw'>self</span><span class='period'>.</span><span class='id identifier rubyid_previous_document'>previous_document</span>
-  <span class='id identifier rubyid_p'>p</span> <span class='op'>?</span> <span class='id identifier rubyid_p'>p</span><span class='period'>.</span><span class='id identifier rubyid_link'>link</span><span class='lparen'>(</span><span class='id identifier rubyid_arg'>arg</span><span class='rparen'>)</span> <span class='op'>:</span> <span class='tstring'><span class='tstring_beg'>&#39;</span><span class='tstring_end'>&#39;</span></span>
-<span class='kw'>end</span></pre>
-    </td>
-  </tr>
-</table>
-</div>
-    
-      <div class="method_details ">
-  <h3 class="signature " id="previous_link2-instance_method">
-  
-    - (<tt>Object</tt>) <strong>previous_link2</strong>(arg1, arg2) 
+    - (<tt>Object</tt>) <strong>previous_link</strong>(hash = {}) 
   
 
   
@@ -919,17 +804,19 @@ is valid and arg2</p>
       <pre class="lines">
 
 
-133
-134
-135
-136</pre>
+147
+148
+149
+150
+151</pre>
     </td>
     <td>
-      <pre class="code"><span class="info file"># File 'lib/noteshare/entities/ns_document_presentation.rb', line 133</span>
+      <pre class="code"><span class="info file"># File 'lib/noteshare/entities/ns_document_presentation.rb', line 147</span>
 
-<span class='kw'>def</span> <span class='id identifier rubyid_previous_link2'>previous_link2</span><span class='lparen'>(</span><span class='id identifier rubyid_arg1'>arg1</span><span class='comma'>,</span> <span class='id identifier rubyid_arg2'>arg2</span><span class='rparen'>)</span>
+<span class='kw'>def</span> <span class='id identifier rubyid_previous_link'>previous_link</span><span class='lparen'>(</span><span class='id identifier rubyid_hash'>hash</span> <span class='op'>=</span> <span class='lbrace'>{</span><span class='rbrace'>}</span><span class='rparen'>)</span>
+  <span class='id identifier rubyid_alt_title'>alt_title</span> <span class='op'>=</span>  <span class='id identifier rubyid_hash'>hash</span><span class='lbracket'>[</span><span class='symbol'>:alt_title</span><span class='rbracket'>]</span> <span class='op'>||</span> <span class='tstring'><span class='tstring_beg'>&#39;</span><span class='tstring_end'>&#39;</span></span>
   <span class='id identifier rubyid_p'>p</span> <span class='op'>=</span> <span class='kw'>self</span><span class='period'>.</span><span class='id identifier rubyid_previous_document'>previous_document</span>
-  <span class='id identifier rubyid_p'>p</span> <span class='op'>?</span> <span class='id identifier rubyid_p'>p</span><span class='period'>.</span><span class='id identifier rubyid_link'>link</span><span class='lparen'>(</span><span class='id identifier rubyid_arg1'>arg1</span><span class='rparen'>)</span> <span class='op'>:</span> <span class='id identifier rubyid_arg2'>arg2</span>
+  <span class='id identifier rubyid_p'>p</span> <span class='op'>?</span> <span class='id identifier rubyid_p'>p</span><span class='period'>.</span><span class='id identifier rubyid_link'>link</span><span class='lparen'>(</span><span class='id identifier rubyid_hash'>hash</span><span class='rparen'>)</span> <span class='op'>:</span> <span class='id identifier rubyid_alt_title'>alt_title</span>
 <span class='kw'>end</span></pre>
     </td>
   </tr>
@@ -939,7 +826,7 @@ is valid and arg2</p>
       <div class="method_details ">
   <h3 class="signature " id="root_link-instance_method">
   
-    - (<tt>Object</tt>) <strong>root_link</strong> 
+    - (<tt>Object</tt>) <strong>root_link</strong>(hash = {}) 
   
 
   
@@ -962,15 +849,15 @@ is valid and arg2</p>
       <pre class="lines">
 
 
-28
-29
-30</pre>
+132
+133
+134</pre>
     </td>
     <td>
-      <pre class="code"><span class="info file"># File 'lib/noteshare/entities/ns_document_presentation.rb', line 28</span>
+      <pre class="code"><span class="info file"># File 'lib/noteshare/entities/ns_document_presentation.rb', line 132</span>
 
-<span class='kw'>def</span> <span class='id identifier rubyid_root_link'>root_link</span>
-  <span class='id identifier rubyid_root_document'>root_document</span><span class='period'>.</span><span class='id identifier rubyid_link'>link</span>
+<span class='kw'>def</span> <span class='id identifier rubyid_root_link'>root_link</span><span class='lparen'>(</span><span class='id identifier rubyid_hash'>hash</span> <span class='op'>=</span> <span class='lbrace'>{</span><span class='rbrace'>}</span><span class='rparen'>)</span>
+  <span class='id identifier rubyid_root_document'>root_document</span><span class='period'>.</span><span class='id identifier rubyid_link'>link</span><span class='lparen'>(</span><span class='id identifier rubyid_hash'>hash</span><span class='rparen'>)</span>
 <span class='kw'>end</span></pre>
     </td>
   </tr>
@@ -1004,7 +891,6 @@ sections of <strong>document</strong>.</p>
       <pre class="lines">
 
 
-34
 35
 36
 37
@@ -1019,10 +905,11 @@ sections of <strong>document</strong>.</p>
 46
 47
 48
-49</pre>
+49
+50</pre>
     </td>
     <td>
-      <pre class="code"><span class="info file"># File 'lib/noteshare/entities/ns_document_presentation.rb', line 34</span>
+      <pre class="code"><span class="info file"># File 'lib/noteshare/entities/ns_document_presentation.rb', line 35</span>
 
 <span class='kw'>def</span> <span class='id identifier rubyid_subdocument_titles'>subdocument_titles</span><span class='lparen'>(</span><span class='id identifier rubyid_option'>option</span><span class='op'>=</span><span class='symbol'>:simple</span><span class='rparen'>)</span>
   <span class='id identifier rubyid_list'>list</span> <span class='op'>=</span> <span class='lbracket'>[</span><span class='rbracket'>]</span>
@@ -1073,14 +960,6 @@ The default &#39;simple_string&#39; option gives a numbered list of titles.</p>
       <pre class="lines">
 
 
-56
-57
-58
-59
-60
-61
-62
-63
 64
 65
 66
@@ -1095,10 +974,18 @@ The default &#39;simple_string&#39; option gives a numbered list of titles.</p>
 75
 76
 77
-78</pre>
+78
+79
+80
+81
+82
+83
+84
+85
+86</pre>
     </td>
     <td>
-      <pre class="code"><span class="info file"># File 'lib/noteshare/entities/ns_document_presentation.rb', line 56</span>
+      <pre class="code"><span class="info file"># File 'lib/noteshare/entities/ns_document_presentation.rb', line 64</span>
 
 <span class='kw'>def</span> <span class='id identifier rubyid_table_of_contents'>table_of_contents</span><span class='lparen'>(</span><span class='id identifier rubyid_option'>option</span><span class='op'>=</span><span class='tstring'><span class='tstring_beg'>&#39;</span><span class='tstring_content'>simple_string</span><span class='tstring_end'>&#39;</span></span><span class='rparen'>)</span>
   <span class='id identifier rubyid_output'>output</span> <span class='op'>=</span> <span class='tstring'><span class='tstring_beg'>&#39;</span><span class='tstring_end'>&#39;</span></span>
@@ -1131,7 +1018,7 @@ The default &#39;simple_string&#39; option gives a numbered list of titles.</p>
       <div class="method_details ">
   <h3 class="signature " id="url-instance_method">
   
-    - (<tt>Object</tt>) <strong>url</strong> 
+    - (<tt>Object</tt>) <strong>url</strong>(prefix = &#39;&#39;) 
   
 
   
@@ -1155,19 +1042,29 @@ from &#39;request.env&#39;</p>
       <pre class="lines">
 
 
-95
-96
-97
-98
-99</pre>
+109
+110
+111
+112
+113
+114
+115
+116
+117
+118</pre>
     </td>
     <td>
-      <pre class="code"><span class="info file"># File 'lib/noteshare/entities/ns_document_presentation.rb', line 95</span>
+      <pre class="code"><span class="info file"># File 'lib/noteshare/entities/ns_document_presentation.rb', line 109</span>
 
-<span class='kw'>def</span> <span class='id identifier rubyid_url'>url</span>
+<span class='kw'>def</span> <span class='id identifier rubyid_url'>url</span><span class='lparen'>(</span><span class='id identifier rubyid_prefix'>prefix</span><span class='op'>=</span><span class='tstring'><span class='tstring_beg'>&#39;</span><span class='tstring_end'>&#39;</span></span><span class='rparen'>)</span>
   <span class='id identifier rubyid_server'>server</span> <span class='op'>=</span>  <span class='const'>SERVER_NAME</span> <span class='comment'># request.env[&#39;SERVER_NAME&#39;]
 </span>  <span class='id identifier rubyid_port'>port</span> <span class='op'>=</span> <span class='const'>SERVER_PORT</span> <span class='comment'># request.env[&#39;SERVER_PORT&#39;]
-</span>  <span class='tstring'><span class='tstring_beg'>&quot;</span><span class='tstring_content'>http://</span><span class='embexpr_beg'>#{</span><span class='id identifier rubyid_server'>server</span><span class='embexpr_end'>}</span><span class='tstring_content'>:</span><span class='embexpr_beg'>#{</span><span class='id identifier rubyid_port'>port</span><span class='embexpr_end'>}</span><span class='tstring_content'>/document/</span><span class='embexpr_beg'>#{</span><span class='kw'>self</span><span class='period'>.</span><span class='id identifier rubyid_id'>id</span><span class='embexpr_end'>}</span><span class='tstring_end'>&quot;</span></span>
+</span>  <span class='kw'>if</span> <span class='id identifier rubyid_prefix'>prefix</span> <span class='op'>==</span> <span class='tstring'><span class='tstring_beg'>&#39;</span><span class='tstring_end'>&#39;</span></span>
+    <span class='tstring'><span class='tstring_beg'>&quot;</span><span class='tstring_content'>http://</span><span class='embexpr_beg'>#{</span><span class='id identifier rubyid_server'>server</span><span class='embexpr_end'>}</span><span class='tstring_content'>:</span><span class='embexpr_beg'>#{</span><span class='id identifier rubyid_port'>port</span><span class='embexpr_end'>}</span><span class='tstring_content'>/document/</span><span class='embexpr_beg'>#{</span><span class='kw'>self</span><span class='period'>.</span><span class='id identifier rubyid_id'>id</span><span class='embexpr_end'>}</span><span class='tstring_end'>&quot;</span></span>
+  <span class='kw'>else</span>
+    <span class='tstring'><span class='tstring_beg'>&quot;</span><span class='tstring_content'>http://</span><span class='embexpr_beg'>#{</span><span class='id identifier rubyid_server'>server</span><span class='embexpr_end'>}</span><span class='tstring_content'>:</span><span class='embexpr_beg'>#{</span><span class='id identifier rubyid_port'>port</span><span class='embexpr_end'>}</span><span class='tstring_content'>/</span><span class='embexpr_beg'>#{</span><span class='id identifier rubyid_prefix'>prefix</span><span class='embexpr_end'>}</span><span class='tstring_content'>/document/</span><span class='embexpr_beg'>#{</span><span class='kw'>self</span><span class='period'>.</span><span class='id identifier rubyid_id'>id</span><span class='embexpr_end'>}</span><span class='tstring_end'>&quot;</span></span>
+  <span class='kw'>end</span>
+
 <span class='kw'>end</span></pre>
     </td>
   </tr>
@@ -1179,7 +1076,7 @@ from &#39;request.env&#39;</p>
 </div>
 
     <div id="footer">
-  Generated on Wed Oct 21 10:19:14 2015 by
+  Generated on Fri Oct 23 22:09:20 2015 by
   <a href="http://yardoc.org" title="Yay! A Ruby Documentation Tool" target="_parent">yard</a>
   0.8.7.6 (ruby-2.2.1).
 </div>

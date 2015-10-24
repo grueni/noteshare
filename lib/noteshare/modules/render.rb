@@ -7,7 +7,7 @@
 class Render
 
   require 'asciidoctor'
-  # require 'asciidoctor-latex'
+  require 'asciidoctor-latex'
 
   include Asciidoctor
 

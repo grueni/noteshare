@@ -2,8 +2,8 @@
   .document{style: 'margin-top:40px;'}
     .row
       .col.left{style: 'width: 30%;'}
-        %h1{style: 'font-size:14pt;'}= document.title
-        %p= document.author
+        %h1{style: 'font-size:14pt; margin-bottom:0;'}= document.title
+        %p{style: 'margin-top:0'}= document.author
         .div= document.document_map
         .div= document.table_of_contents 'html'
       .col.middle{style: 'left: 30%; width: 70%;'}

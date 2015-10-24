@@ -33,12 +33,29 @@ require_relative '../../ext/core'
 #
 #    @section1.insert(0, @article)
 #    @section2.insert(1, @article)
-#    @section2.insert(2, @artcile)
+#    @section2.insert(2, @article)
 #
 # builds up the subdoc array of @article and manages
 # the pointers parent_id, index_in_parent, previous
 # and next.
+#
+#    CONTENTS
+#
+#       1. REQUIRE, INCLUDE, AND INITIALIZE
+#
 class NSDocument
+
+  ###################################################
+  #
+  #     CONTENTS
+  #
+  #     1. REQUIRE, INCLUDE, AND INITIALIZE
+  #     2. MANAGE SUBDOCUMENTS
+  #     3. ASSOCIATED DOCUMENTS
+  #     4. UPDATE, COMPILE & RENDER
+  #
+  ###################################################
+
   include Lotus::Entity
   attributes :id, :author, :title, :tags, :type, :area, :meta,
     :created_at, :modified_at, :content, :rendered_content, :compiled_and_rendered_content, :render_options,
@@ -55,13 +72,21 @@ class NSDocument
   # When initializing an NSDocument, ensure that certain fields
   # have a standard non-nil value
   def initialize(hash)
+
     hash.each { |name, value| instance_variable_set("@#{name}", value) }
     @subdoc_refs = [] if @subdoc_refs.nil?
-    @doc_refs = {} if @doc_refs.nil?
-    @root_document_id ||= 0
-    @render_options ||= { 'format'=> 'adoc' }
     @toc ||= []
+    @doc_refs = {} if @doc_refs.nil?
+    @render_options ||= { 'format'=> 'adoc' }
+    @root_document_id ||= 0
+
   end
+
+  ###################################################
+  #
+  #     2. MANAGE SUBDOCUMENTS
+  #
+  ###################################################
 
   # @section(k, @article) makes @section the k-th subdocument
   # of @article.  The subdocuments that were in position
@@ -125,22 +150,6 @@ class NSDocument
     insert(n, parent_document)
   end
 
-  # @foo.associate('summary', @bar)
-  # associats @foo to @bar as a 'summary'.
-  # It can be retrieved as @foo.associatd_document('summary')
-  def associate_as(type, doc)
-    doc.doc_refs[type] = self.id
-    self.parent_id = doc.id
-    self.root_document_id = doc.id
-    DocumentRepository.update(doc)
-  end
-
-  # @foo.associatd_document('summary')
-  # retrieve the document associated to
-  # @foo which is of type 'summary'
-  def associated_document(type)
-    DocumentRepository.find(self.doc_refs[type])
-  end
 
 
   # @foo.remove_from_parent removes
@@ -270,6 +279,36 @@ class NSDocument
       DocumentRepository.find(root_document_id)
     end
   end
+
+
+  ###################################################
+  #
+  #      3. ASSOCIATED DOCUMENTS
+  #
+  ###################################################
+
+  # @foo.associate('summary', @bar)
+  # associats @foo to @bar as a 'summary'.
+  # It can be retrieved as @foo.associatd_document('summary')
+  def associate_as(type, doc)
+    doc.doc_refs[type] = self.id
+    self.parent_id = doc.id
+    self.root_document_id = doc.id
+    DocumentRepository.update(doc)
+  end
+
+  # @foo.associatd_document('summary')
+  # retrieve the document associated to
+  # @foo which is of type 'summary'
+  def associated_document(type)
+    DocumentRepository.find(self.doc_refs[type])
+  end
+
+  ###################################################
+  #
+  #      4. UPDATE, COMPILE & RENDER
+  #
+  ###################################################
 
   # If input is nil, render the content
   # and save it in rendered_content.  Otherwise,

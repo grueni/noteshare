@@ -1,0 +1,70 @@
+= Noteshare Design Notes
+James Carlson
+v0.1, 2015-10-23
+:toc2:
+
+:numbered:
+
+== Document structure
+
+A ((document)) consists of
+
+. Title
+. Author
+. Content (the text of the document)
+. Various metadata
+. Various pointers
+. References to associated documents
+. References to Subdocuments
+
+Associated documents and and subdocuments are themselves
+documents. What we normally think of as a document
+is a ((root document)), that is, a document that
+has no subdocuments or children.
+
+The ((subdocument)) references are given by an array
+of integers (the `id`'s of the subdocuments.
+Thus the subdocuments are ordered.  The content
+of the document is the content of the root document
+plus the contents of the subdocuments in order.
+Subdocuments may themselves have subdocuments.
+Thus a book may consist of a possbily empty
+ introductory note (the content
+of the root document) folllowed by the contents
+of its chapters.  If the chapters are not
+large, they may have no subdocuments.
+If the chapters are large, they may consist
+of subdocuments.  In this case the subdocuments
+are usually sections. This rule of good
+practice is, however, not enforced.
+
+
+
+== Database
+
+(((@render_options)))
+
+=== @render_options
+
+`@render_options` is a hash whose default
+value is `{format: adoc}`, meaning
+Asciidoctor-flavored Asciidoc. The options
+are `adoc`, `adoc2`, and `adoc3`.
+The `adoc` Asciidco-LaTeX without
+LaTeX preprocessing, e.g, transformation
+of $..$ and without turning on MathJax.
+The aim here is to provide the user
+with all of Asciidoctor-LaTeX's non-math
+facilies -- the `env` and `click` constructs,
+glossary and index, etc., without having
+to write \$ for $, etc.  The `adoc3` option
+is Asciidoctor-LaTeX with LaTeX preprocessing
+and MathJax turned on.
+
+The value of @render_options[:format]
+of a subdocument is
+inherited from its root document when the subdocument
+is created.  Thus when a document is compiled
+and rendered, it is compiled and rendered
+according to a single of the above three
+schemes.

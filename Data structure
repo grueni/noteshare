@@ -49,3 +49,4 @@ CREATE TABLE documents(
    toc              | jsonb                    |
   Indexes:
       "documents_pkey" PRIMARY KEY, btree (id)
+

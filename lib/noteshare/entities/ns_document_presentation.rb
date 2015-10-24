@@ -7,6 +7,12 @@ module NSDocument::Presentation
   SERVER_NAME = 'localhost'
   SERVER_PORT = 2300
 
+  ############################################################
+  #
+  #   TITLES
+  #
+  ############################################################
+
   def parent_document_title
     p = parent
     p ? p.title : '-'
@@ -22,11 +28,6 @@ module NSDocument::Presentation
   def next_document_title
     p = next_document
     p ? p.title : '-'
-  end
-
-  # Return link to the root document
-  def root_link
-    root_document.link
   end
 
   # *doc.subdocument_titles* returns a list of the
@@ -47,6 +48,13 @@ module NSDocument::Presentation
     end
     list
   end
+
+
+  ############################################################
+  #
+  #   TABLE OF CONTENTS & MAP
+  #
+  ############################################################
 
   # Return a string representing the table of
   # contents.  The format of the string can
@@ -89,6 +97,12 @@ module NSDocument::Presentation
     str << "</ul>\n\n"
   end
 
+  ############################################################
+  #
+  #   URLS & LINKS
+  #
+  ############################################################
+
   # Return URL of document
   # Fixme: the server name and port should be extracted
   # from 'request.env'
@@ -112,6 +126,11 @@ module NSDocument::Presentation
     else
       "<a href=#{self.url(prefix)}>#{self.title}</a>"
     end
+  end
+
+  # Return link to the root document
+  def root_link(hash = {})
+    root_document.link(hash)
   end
 
   # HTML link to parent document
