@@ -3,19 +3,20 @@ module Web::Views::Documents
     include Web::View
 
     def edit_tag
-      html.tag(:a, 'Edit', href: "/editor/document/#{document.id}")
+      link_to 'Edit', "/editor/document/#{document.id}"
+      #  html.tag(:a, 'Edit', href: "/editor/document/#{document.id}")
     end
 
     def new_tag
-      html.tag(:a, 'New', href: '/editor/new')
+      link_to 'New', '/editor/new'
     end
 
     def documents_tag
-      html.tag(:a, 'Documents', href: '/documents')
+      link_to 'Documents', '/documents'
     end
 
     def left_menu
-      [edit_tag, new_tag, documents_tag].map(&:to_s)
+      [edit_tag, '&nbsp;', new_tag, '&nbsp;', documents_tag].map(&:to_s)
     end
 
   end
