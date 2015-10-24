@@ -348,7 +348,7 @@ class NSDocument
   end
 
   # A table of contents is a list of lists,
-  # where the sublists are oof the form
+  # where the sublists are of the form
   # [id, title].  #update_table_of_contents
   # creates this list from scratch, then stores
   # it as jsonb in the toc field of the database
