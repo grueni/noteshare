@@ -3,7 +3,13 @@ module Web::Views::Documents
     include Web::View
 
     def foo
-      '&bsp; WIDX'
+      html.tag(:a, 'Foo', href: 'http://nytimes.com')
+    end
+
+    def foo1
+      html.span do
+        'La di dah'
+      end
     end
 
   end

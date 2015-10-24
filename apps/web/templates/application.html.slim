@@ -30,9 +30,10 @@ html
           a href="/editor/document/#{document.id}"  Edit &nbsp;
           a href="/editor/new"  New  &nbsp;  &nbsp;  &nbsp;
           a href="/documents"  Documents
+          == foo
         -else
           a href="/editor/new"  New
-        == foo
+          == foo
       .navbar_middle_item
         - if document
           == document.previous_link(title: "<img src='/images/arrowleft_light_gray.png', width=24px>", alt_title: "<img src='/images/arrowleft_gray.png', width=24px>")
