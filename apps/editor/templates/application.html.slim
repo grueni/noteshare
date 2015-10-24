@@ -20,7 +20,7 @@ html
       | },
       | TeX: { extensions: ["mhchem.js"] }
       | });
-      script src="http://cdn.mathjax.org/mathjax/latest/MathJax.js?config=TeX-AMS-MML_HTMLorMML"
+    script src="http://cdn.mathjax.org/mathjax/latest/MathJax.js?config=TeX-AMS-MML_HTMLorMML"
   body
     script src="https://code.jquery.com/jquery-2.1.1.min.js" type="text/javascript"
     script src="/javascripts/materialize.min.jss" type="text/javascript"
@@ -28,7 +28,6 @@ html
       .navbar_left_item
         - if document
           a href="/document/#{document.id}"  TOC
-          == foo
       .navbar_middle_item
         - if document
           == document.previous_link(prefix: 'editor', title: "<img src='/images/arrowleft_light_gray.png', width=24px>", alt_title: "<img src='/images/arrowleft_gray.png', width=24px>")
