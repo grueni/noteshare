@@ -177,6 +177,8 @@ module Web
       #  * http://content-security-policy.com/
       #  * https://developer.mozilla.org/en-US/docs/Web/Security/CSP/Using_Content_Security_Policy
       #
+
+      # Fixme: temporarily disabled by JC
       # security.content_security_policy "default-src 'none'; script-src 'self' 'unsafe-inline' 'unsafe-eval' cdnjs.cloudflare.com; connect-src 'self'; img-src 'self'; style-src 'self' cdnjs.cloudflare.com; font-src 'self' cdnjs.cloudflare.com;"
 
       ##
