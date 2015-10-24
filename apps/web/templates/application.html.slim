@@ -26,14 +26,11 @@ html
     script src="/javascripts/materialize.min.jss" type="text/javascript"
     .nav
       .navbar_left_item
-        - if document
-          a href="/editor/document/#{document.id}"  Edit &nbsp;
-          a href="/editor/new"  New  &nbsp;  &nbsp;  &nbsp;
-          a href="/documents"  Documents
-          == foo
-        -else
-          a href="/editor/new"  New
-          == foo
+        == edit_tag
+        | &nbsp;
+        == new_tag
+        | &nbsp;
+        == documents_tag
       .navbar_middle_item
         - if document
           == document.previous_link(title: "<img src='/images/arrowleft_light_gray.png', width=24px>", alt_title: "<img src='/images/arrowleft_gray.png', width=24px>")

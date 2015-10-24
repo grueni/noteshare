@@ -2,14 +2,16 @@ module Web::Views::Documents
   class Index
     include Web::View
 
-    def foo
-      html.tag(:a, 'Foo', href: 'http://nytimes.com')
+    def edit_tag
+
     end
 
-    def foo1
-      html.span do
-        'La di dah'
-      end
+    def new_tag
+      html.tag(:a, 'New', href: '/editor/new')
+    end
+
+    def documents_tag
+
     end
 
   end
