@@ -28,6 +28,7 @@ html
       .navbar_left_item
         - if document
           a href="/document/#{document.id}"  TOC
+          == foo
       .navbar_middle_item
         - if document
           == document.previous_link(prefix: 'editor', title: "<img src='/images/arrowleft_light_gray.png', width=24px>", alt_title: "<img src='/images/arrowleft_gray.png', width=24px>")
