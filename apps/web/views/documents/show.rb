@@ -2,10 +2,6 @@ module Web::Views::Documents
   class Show
     include Web::View
 
-    def left_menu
-      html.div { edit_tag  }
-    end
-
     def edit_tag
       html.tag(:a, 'Edit', href: "/editor/document/#{document.id}")
     end
@@ -18,6 +14,9 @@ module Web::Views::Documents
       html.tag(:a, 'Documents', href: '/documents')
     end
 
+    def left_menu
+      [edit_tag, new_tag, documents_tag].map(&:to_s)
+    end
 
   end
 end
