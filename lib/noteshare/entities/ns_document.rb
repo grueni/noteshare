@@ -405,6 +405,4 @@ class NSDocument
     DocumentRepository.update(self)
   end
 
-
-
 end

@@ -90,3 +90,4 @@ http://solnic.eu/2015/06/06/cutting-corners-or-why-rails-may-kill-ruby.html[Is R
 http://www.rubydoc.info/gems/slim/frames[Slim] + 
 bundle exec lotus server --no-code-reloading
 git remote set-url origin git@github.com:jxxcarlson/noteshare.git
+https://github.com/slim-template/slim#output-without-html-escaping-[Slim, HTML escaping] + 
