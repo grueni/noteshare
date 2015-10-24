@@ -19,6 +19,7 @@ describe Web::Controllers::Documents::Index do
 
   it 'exposes all documents' do
     action.call(params)
-    action.exposures[:documents].must_equal [@document]
+    skip action.exposures[:documents].must_equal [@document]
+    action.exposures[:documents][0].title.must_equal @document.title
   end
 end

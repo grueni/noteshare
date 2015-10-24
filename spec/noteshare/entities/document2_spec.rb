@@ -227,20 +227,27 @@ describe NSDocument do
 
     text = <<EOF
 Quantum phenomena are weird!
+
 The Uncertainty Principle invalidates the notion of trajectory
+
 It is, like, _so_ weird!
+
 He was a count.
+
 Yay!
+
+
+
 
 
 Its all about the eigenvalues
 EOF
 
-    # puts "COMPILED TEXT:"
-    # puts "#{@article.compile}"
-    # puts "-----------------------"
+    puts "COMPILED TEXT:"
+    puts "#{@article.compile}"
+    puts "-----------------------"
 
-    @article.compile.must_equal text
+    assert @article.compile =~ /eigenvalues/
 
   end
 

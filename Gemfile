@@ -22,6 +22,7 @@ gem 'thread_safe'
 group :test do
   gem 'minitest'
   gem 'capybara'
+  gem 'minitest-capybara'
 end
 
 group :production do
