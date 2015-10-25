@@ -3,8 +3,10 @@
 module NSDocument::Interface
 
 
-  def current_user_name
-    SettingsRepository.first.owner
+  def current_user_full_name
+    # SettingsRepository.first.owner
+    user = UsersRepository.find(1)
+    "#{user.first_name} #{user.last_name}"
   end
 
   class User

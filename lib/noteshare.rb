@@ -71,8 +71,18 @@ Lotus::Model.configure do
       attribute :owner, String
     end
 
-  end
+    collection :users do
+      entity Users
+      repository UsersRepository
+      attribute :id, Integer
+      attribute :first_name, String
+      attribute :last_name, String
+      attribute :email, String
+      attribute :screen_name, String
+      attribute :level, Integer
+    end
 
+  end
 
 end.load!
 

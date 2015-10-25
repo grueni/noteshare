@@ -24,8 +24,8 @@ CREATE TABLE documents(
    PRIMARY KEY( id )
 );
 
-DROP TABLE user;
-CREATE TABLE user {
+DROP TABLE users;
+CREATE TABLE users(
   id serial,
   first_name text,
   last_name text,
@@ -33,7 +33,7 @@ CREATE TABLE user {
   screen_name text,
   level integer,
   PRIMARY KEY( id )
-};
+);
 
 DROP TABLE settings;
 CREATE TABLE settings (

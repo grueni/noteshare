@@ -9,6 +9,8 @@ module NSDocument::Setup
 
     SettingsRepository.create(Settings.new(owner: owner))
 
+    UsersRepository.create(Users.new(first_name: 'J.A.', last_name: 'Carlson'))
+
     DocumentRepository.clear
 
     @article = DocumentRepository.create(NSDocument.new(title: 'Quantum Mechanics', author: owner))

@@ -14,7 +14,7 @@ module Editor::Controllers::Documents
       parent_id = doc_params['parent_id']
       title = doc_params['title']
       # author = NSDocument::Interface::User.current
-      author = current_user_name
+      author = current_user_full_name
       puts "CCCC: author = #{author}"
 
       @document = DocumentRepository.create(NSDocument.new(title: title, author: author))

@@ -64,6 +64,7 @@ ul.toc {
 }
 
 
+
 .col.rendered {
 
     left: 50%;
@@ -247,4 +248,18 @@ textarea {
 
     margin-left:0.5em;
     margin-top:-0.1em;
+
+}
+
+
+/***  inline ***/
+
+p.subheading{
+
+    font-size:larger;
+}
+
+p.compact {
+
+    margin-bottom:0;
 }
