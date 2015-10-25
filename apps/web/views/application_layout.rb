@@ -11,6 +11,10 @@ module Web
         end
       end
 
+      def left_menu
+        'NADA'
+      end
+
     end
   end
 end

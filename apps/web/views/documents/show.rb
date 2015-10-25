@@ -28,7 +28,6 @@ module Web::Views::Documents
     end
 
     def left_menu
-     # [edit_tag, '&nbsp;', new_tag, '&nbsp;', documents_tag].map(&:to_s)
       [ edit_tag, '&nbsp;', new_tag, '&nbsp;',documents_tag].map(&:to_s)
      # "Foo"
     end
