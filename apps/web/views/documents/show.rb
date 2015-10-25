@@ -3,12 +3,21 @@ module Web::Views::Documents
     include Web::View
 
     def edit_tag
+
       link_to 'Edit', "/editor/document/#{document.id}"
+
       #  html.tag(:a, 'Edit', href: "/editor/document/#{document.id}")
     end
 
     def new_tag
-      link_to 'New', '/editor/new'
+
+      puts "In new_tag,  document.id = #{ document.id}"
+      if document
+        link_to 'New', "/editor/new/#{document.id}"
+      else
+        link_to 'New', "/editor/new"
+      end
+
     end
 
     def documents_tag

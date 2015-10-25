@@ -371,6 +371,9 @@ class NSDocument
     value
   end
 
+  def update_table_of_contents_at_root
+    root_document.update_table_of_contents
+  end
 
   # NSDocument#render is the sole connection between class NSDocument and
   # module Render.  It updates self.rendered_content by applying

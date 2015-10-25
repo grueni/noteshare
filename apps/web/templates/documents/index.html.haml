@@ -4,12 +4,14 @@
       %table{:style => 'margin-left:3em; margin-right:3em'}
         %thead
           %tr
-            %th Title
+            %th Document
+            %th Section
             %th Author
         %tbody
           - documents.each do |document|
             %tr
               %td= document.root_link
+              %td= document.link
               %td= document.author
 
 - else

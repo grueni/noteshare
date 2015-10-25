@@ -23,6 +23,16 @@ module NSDocument::Setup
     @subsection.content << "\n[env.theorem]\n--\nThere are infinitely many primes\n--\n\n"
     @subsubsection.content = "==== Einstein's view\n\nGod does not play with dice."
 
+    @article.render_options[:format] = 'adoc-latex'
+    @section1.render_options[:format] = 'adoc-latex'
+    @section1.render_options[:format] = 'adoc-latex'
+    @section2.render_options[:format] = 'adoc-latex'
+    @section3.render_options[:format] = 'adoc-latex'
+    @subsection.render_options[:format] = 'adoc-latex'
+    @subsection.render_options[:format] = 'adoc-latex'
+    @subsubsection.render_options[:format] = 'adoc-latex'
+
+
     DocumentRepository.persist @article
     DocumentRepository.persist @section1
     DocumentRepository.persist @section2
