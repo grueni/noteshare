@@ -19,6 +19,14 @@ ul {
     margin-left: 0;
 }​
 
+
+ul.toc {
+     list-style:none;
+     padding-left:20px;
+     margin-left: 20px;
+ }​
+
+
 .row{
     position:absolute;
     left:0;

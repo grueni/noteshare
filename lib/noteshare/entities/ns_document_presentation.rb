@@ -99,7 +99,7 @@ end
     if toc.length == 0
       output = ''
     else
-      output = "<ul>\n"
+      output = "<ul class='toc'>\n"
       toc.each do |item|
         output << "<li><a href='http://#{SERVER_NAME}:#{SERVER_PORT}/document/#{item[0]}'>#{item[1]}</a>\n"
         doc = DocumentRepository.find item[0]
