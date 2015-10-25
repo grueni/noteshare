@@ -2,21 +2,33 @@ The purpose of this project is to lay the groundwork for a future version
 of http://www.noteshare.io[Noteshare.io] -- a (technical) web publishing
 site powered by the awesome http://asciidoctor.org[Asciidoctor.org] text
 processing engine.  In addition to supporting Noteshare.io, the project
-aims to develop a good chunked editing system.
+aims to develop a good chunked editing system for general use.
 
 == Setup
 
 . Clone this repository
 
-. Make sure that your Postgres database is set up
+. Make sure that your Postgres database is set up, that
+`psql` is installed, and the `psql` can access your
+database.
 
-. In the `Noteshare` directory, ru `sudo sh setup.sh USERNAME`.  This
-will setup the tables you need in the database.  Please look at the
-contents of this file before running it.  It should read
+. (Optional)  Edit the file `lib/noteshare/entities/ns_document_setup.rb`
+so that the line `owner = 'Jared Foo-Bar'` reflects your identity.
+It will be used to set the authorship of documents created in this
+experimentail version of Noteshare.
+
+. In the `Noteshare` directory, run `sh setup.sh USERNAME`.  This
+will create the tables needed by Noteshare.
+The contents of the file `setup.sh` read as follows
 +
 ----
 psql -U $1 -d noteshare_test --file psql.setup
 psql -U $1 -d noteshare_development --file psql.setup
 ----
+You will have to modify things if you have tables
+of the same name:-)
 
 . Run `lotus console` and then execute the command `NSDocument::Setup.seed_db`
+
+You can now view the local Noteshare website at http://localhost:2300.
+It still needs quite a bit of work.

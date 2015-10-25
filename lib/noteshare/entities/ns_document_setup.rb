@@ -1,23 +1,22 @@
 # Seed data for the database for NSDocument
 module NSDocument::Setup
 
-  # NSDocument.seed_db clears
   def self.seed_db
 
+    owner = 'Jared Foo-Bar'
 
     SettingsRepository.clear
 
-    SettingsRepository.create(Settings.new(owner: 'J. Carlson'))
+    SettingsRepository.create(Settings.new(owner: owner))
 
     DocumentRepository.clear
 
-
-    @article = DocumentRepository.create(NSDocument.new(title: 'Quantum Mechanics', author: 'Jared. Foo-Bar'))
-    @section1 = DocumentRepository.create(NSDocument.new(title: 'Uncertainty Principle', author: 'Jared Foo-Bar', subdoc_refs: []))
-    @section2 = DocumentRepository.create(NSDocument.new(title: 'Wave-Particle Duality', author: 'Jared Foo-Bar', subdoc_refs: []))
-    @section3 = DocumentRepository.create(NSDocument.new(title: 'Matrix Mechanics', author: 'Jared Foo-Bar', subdoc_refs: []))
-    @subsection =  DocumentRepository.create(NSDocument.new(title: "de Broglie's idea", author: 'Jared Foo-Bar', subdoc_refs: []))
-    @subsubsection =  DocumentRepository.create(NSDocument.new(title: "Einstein's view", author: 'Jared Foo-Bar', subdoc_refs: []))
+    @article = DocumentRepository.create(NSDocument.new(title: 'Quantum Mechanics', author: owner))
+    @section1 = DocumentRepository.create(NSDocument.new(title: 'Uncertainty Principle', author: owner, subdoc_refs: []))
+    @section2 = DocumentRepository.create(NSDocument.new(title: 'Wave-Particle Duality', author: owner, subdoc_refs: []))
+    @section3 = DocumentRepository.create(NSDocument.new(title: 'Matrix Mechanics', author: owner, subdoc_refs: []))
+    @subsection =  DocumentRepository.create(NSDocument.new(title: "de Broglie's idea", author: owner, subdoc_refs: []))
+    @subsubsection =  DocumentRepository.create(NSDocument.new(title: "Einstein's view", author: owner, subdoc_refs: []))
 
 
     @article.content = "= Quantum Mechanics\n\n:numbered:\nQuantum phenomena are weird!"
@@ -36,7 +35,6 @@ module NSDocument::Setup
     @subsection.render_options[:format] = 'adoc-latex'
     @subsection.render_options[:format] = 'adoc-latex'
     @subsubsection.render_options[:format] = 'adoc-latex'
-
 
     DocumentRepository.persist @article
     DocumentRepository.persist @section1
