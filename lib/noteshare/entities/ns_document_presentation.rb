@@ -72,7 +72,7 @@ module NSDocument::Presentation
     case option
       when 'simple_string'
         toc.each_with_index do |item, index|
-          output << "#{index + 1}. #{item[1]}" << "\n"
+          output << "#{index + 1}. #{item['title']}" << "\n"
         end
       when 'html'
          if toc.length == 0
@@ -80,15 +80,15 @@ module NSDocument::Presentation
         else
           output << "<ul>\n"
           toc.each_with_index do |item, index|
-            output << "<li><a href='http://#{SERVER_NAME}:#{SERVER_PORT}/document/#{item[0]}'>#{item[1]}</a>\n"
-            if noa_id and item[0] == noa_id
+            output << "<li><a href='http://#{SERVER_NAME}:#{SERVER_PORT}/document/#{item['id']}'>#{item['title']}</a>\n"
+            if noa_id and item['id'] == noa_id
               output << "<ul>\n" << noa.table_of_contents(format: 'html', current_document: nil) << "</ul>"
             end
           end
           output << "</ul>\n\n"
         end
       else
-        output = toc.to_s
+        output = toc.to_Os
     end
     output
 end
@@ -101,8 +101,8 @@ end
     else
       output = "<ul class='toc'>\n"
       toc.each do |item|
-        output << "<li><a href='http://#{SERVER_NAME}:#{SERVER_PORT}/document/#{item[0]}'>#{item[1]}</a>\n"
-        doc = DocumentRepository.find item[0]
+        output << "<li><a href='http://#{SERVER_NAME}:#{SERVER_PORT}/document/#{item['id']}'>#{item['title']}</a>\n"
+        doc = DocumentRepository.find item['id']
         doc.update_table_of_contents
         if doc.toc.length > 0
           output << "<ul>\n" << doc.master_table_of_contents << "</ul>"

@@ -364,7 +364,10 @@ class NSDocument
   def update_table_of_contents
     value = []
     subdoc_refs.each do |id|
-      value << [id, DocumentRepository.find(id).title]
+      hash = {}
+      hash['id'] = id
+      hash['title'] = DocumentRepository.find(id).title
+      value << hash
     end
     self.toc = value
     DocumentRepository.update(self)
