@@ -75,7 +75,7 @@ module NSDocument::Presentation
           output << "#{index + 1}. #{item[1]}" << "\n"
         end
       when 'html'
-        if toc.length == 0
+         if toc.length == 0
           output = ''
         else
           output << "<ul>\n"
@@ -91,7 +91,31 @@ module NSDocument::Presentation
         output = toc.to_s
     end
     output
+end
+
+
+  def master_table_of_contents
+    self.update_table_of_contents
+    if toc.length == 0
+      output = ''
+    else
+      output = "<ul>\n"
+      toc.each do |item|
+        output << "<li><a href='http://#{SERVER_NAME}:#{SERVER_PORT}/document/#{item[0]}'>#{item[1]}</a>\n"
+        doc = DocumentRepository.find item[0]
+        doc.update_table_of_contents
+        if doc.toc.length > 0
+          output << "<ul>\n" << doc.master_table_of_contents << "</ul>"
+        end
+      end
+      output << "</ul>\n\n"
+    end
+    output
   end
+
+
+
+
 
   # Return html text with links to the root and parent documents
   # as well as previous and next documents if they are present.
