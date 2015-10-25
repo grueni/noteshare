@@ -23,6 +23,11 @@ CREATE TABLE documents(
    toc jsonb,
    PRIMARY KEY( id )
 );
+CREATE TABLE settings (
+    id integer UNIQUE default(1),
+    owner text,
+    Constraint CHK_Logging_singlerow CHECK (id = 1)
+);
 
                                          Table "public.documents"
         Column      |           Type           |                       Modifiers

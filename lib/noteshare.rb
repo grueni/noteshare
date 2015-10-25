@@ -64,7 +64,21 @@ Lotus::Model.configure do
       attribute :toc, JSON
     end
   end
+
+  mapping do
+    # ...
+    collection :settings do
+      entity     Settings
+      repository SettingsRepository
+      attribute :id,   Integer
+      attribute :owner, String
+    end
+  end
+
 end.load!
+
+
+
 
 
 
