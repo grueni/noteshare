@@ -6,7 +6,7 @@ module Web::Controllers::Documents
 
     def call(params)
       puts "XXXX: params = #{params}"
-      @documents = DocumentRepository.all # root_documents
+      @documents = DocumentRepository.root_documents
     end
 
   end
