@@ -24,6 +24,17 @@ CREATE TABLE documents(
    PRIMARY KEY( id )
 );
 
+DROP TABLE user;
+CREATE TABLE user {
+  id serial,
+  first_name text,
+  last_name text,
+  email text,
+  screen_name text,
+  level integer,
+  PRIMARY KEY( id )
+};
+
 DROP TABLE settings;
 CREATE TABLE settings (
     id integer UNIQUE default(1),

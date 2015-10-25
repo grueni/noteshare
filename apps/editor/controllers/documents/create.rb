@@ -13,7 +13,8 @@ module Editor::Controllers::Documents
       puts "CCCC: doc_params = #{doc_params.to_s}"
       parent_id = doc_params['parent_id']
       title = doc_params['title']
-      author = NSDocument::Interface::User.current
+      # author = NSDocument::Interface::User.current
+      author = current_user_name
       puts "CCCC: author = #{author}"
 
       @document = DocumentRepository.create(NSDocument.new(title: title, author: author))
