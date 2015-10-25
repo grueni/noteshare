@@ -1,4 +1,3 @@
-\connect noteshare_development
 DROP TABLE documents;
 CREATE TABLE documents(
    id serial,
@@ -24,29 +23,10 @@ CREATE TABLE documents(
    toc jsonb,
    PRIMARY KEY( id )
 );
-\connect noteshare_test
-DROP TABLE documents;
-CREATE TABLE documents(
-   id serial,
-   author text,
-   title text,
-   tags text,
-   type text,
-   area text,
-   meta jsonb,
-   created_at timestamp with time zone,
-   modified_at  timestamp with time zone,
-   content text,
-   rendered_content text,
-   compiled_and_rendered_content text,
-   render_options jsonb,
-   parent_id integer,
-   author_id integer,
-   index_in_parent integer,
-   root_document_id integer,
-   visibility integer,
-   subdoc_refs integer[],
-   doc_refs jsonb,
-   toc jsonb,
-   PRIMARY KEY( id )
+
+DROP TABLE settings;
+CREATE TABLE settings (
+    id integer UNIQUE default(1),
+    owner text,
+    Constraint CHK_Logging_singlerow CHECK (id = 1)
 );

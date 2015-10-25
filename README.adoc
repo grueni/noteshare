@@ -3,3 +3,20 @@ of http://www.noteshare.io[Noteshare.io] -- a (technical) web publishing
 site powered by the awesome http://asciidoctor.org[Asciidoctor.org] text
 processing engine.  In addition to supporting Noteshare.io, the project
 aims to develop a good chunked editing system.
+
+== Setup
+
+. Clone this repository
+
+. Make sure that your Postgres database is set up
+
+. In the `Noteshare` directory, ru `sudo sh setup.sh USERNAME`.  This
+will setup the tables you need in the database.  Please look at the
+contents of this file before running it.  It should read
++
+----
+psql -U $1 -d noteshare_test --file psql.setup
+psql -U $1 -d noteshare_development --file psql.setup
+----
+
+. Run `lotus console` and then execute the command `NSDocument::Setup.seed_db`

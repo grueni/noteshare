@@ -4,6 +4,11 @@ module NSDocument::Setup
   # NSDocument.seed_db clears
   def self.seed_db
 
+
+    SettingsRepository.clear
+
+    SettingsRepository.create(Settings.new(owner: 'J. Carlson'))
+
     DocumentRepository.clear
 
 

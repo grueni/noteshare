@@ -4,14 +4,17 @@ module Web::Views::Documents
 
     def edit_tag
 
-      link_to 'Edit', "/editor/document/#{document.id}"
+      if document
+       link_to 'Edit', "/editor/document/#{document.id}"
+      else
+        ''
+      end
 
       #  html.tag(:a, 'Edit', href: "/editor/document/#{document.id}")
     end
 
     def new_tag
 
-      puts "In new_tag,  document.id = #{ document.id}"
       if document
         link_to 'New', "/editor/new/#{document.id}"
       else
@@ -25,7 +28,8 @@ module Web::Views::Documents
     end
 
     def left_menu
-     [edit_tag, '&nbsp;', new_tag, '&nbsp;', documents_tag].map(&:to_s)
+     # [edit_tag, '&nbsp;', new_tag, '&nbsp;', documents_tag].map(&:to_s)
+      [ edit_tag, '&nbsp;', new_tag, '&nbsp;',documents_tag].map(&:to_s)
      # "Foo"
     end
 
