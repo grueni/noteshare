@@ -3,20 +3,23 @@ module Editor::Controllers::Documents
   class Create
     include Editor::Action
     include NSDocument::Interface
+    include NSDocument::Asciidoc
 
     expose :document
 
     def call(params)
 
       doc_params = params[:document]
-      puts "CCCC: doc_params = #{doc_params}"
+      puts "CCCC: doc_params = #{doc_params.to_s}"
       parent_id = doc_params['parent_id']
       title = doc_params['title']
       author = NSDocument::Interface::User.current
       puts "CCCC: author = #{author}"
 
       @document = DocumentRepository.create(NSDocument.new(title: title, author: author))
-      @document.content ||= ''
+
+      content = prepare_content(@document, doc_params['content'])
+      @document.content = content
       @document.update_content
       @document.compile_with_render
 
@@ -28,7 +31,7 @@ module Editor::Controllers::Documents
 
       DocumentRepository.update @document
 
-      redirect_to '/documents'
+      redirect_to "/document/#{@document.id}"
     end
   end
 end

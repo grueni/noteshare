@@ -39,6 +39,14 @@ describe NSDocument do
     DocumentRepository.persist @subsubsection1
     DocumentRepository.persist @subsubsection2
 
+    @section1.add_to(@article)
+    @section2.add_to(@article)
+    @section3.add_to(@article)
+    @subsection1.add_to(@section2)
+    @subsection2.add_to(@section2)
+    @subsubsection1.add_to(@subsection1)
+    @subsubsection2.add_to(@subsection1)
+
   end
 
   it 'can update its table of contents mtoc' do
@@ -60,16 +68,16 @@ describe NSDocument do
 
   it 'can construct a master table of contents' do
 
-    @section1.add_to(@article)
-    @section2.add_to(@article)
-    @section3.add_to(@article)
-    @subsection1.add_to(@section2)
-    @subsection2.add_to(@section2)
-    @subsubsection1.add_to(@subsection1)
-    @subsubsection2.add_to(@subsection1)
-
     @article.update_table_of_contents
     puts @article.master_table_of_contents
+
+  end
+
+  it 'can compute the level of a subdocument xxx' do
+
+    @article.level.must_equal 0
+    @section1.level.must_equal 1
+    @subsection1.level.must_equal 2
 
   end
 

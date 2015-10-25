@@ -289,6 +289,18 @@ class NSDocument
     end
   end
 
+  # The level is the length of path from the root
+  # to the give node (self)
+  def level
+    length = 0
+    cursor = self
+    while cursor.parent
+      length += 1
+      cursor = cursor.parent
+    end
+    length
+  end
+
 
   ###################################################
   #
