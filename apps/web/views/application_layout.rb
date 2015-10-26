@@ -12,7 +12,15 @@ module Web
       end
 
       def left_menu
-        'NADA'
+        ''
+      end
+
+      def home_link
+        link_to 'Home', '/'
+      end
+
+      def documents_link
+          link_to 'Documents', '/documents'
       end
 
     end

@@ -57,6 +57,7 @@ include NSDocument::Interface
 
     DocumentRepository.all.each do |document|
       document.update_table_of_contents
+      document.update_content
       document.compile_with_render
     end
 

@@ -27,6 +27,8 @@ html
     script src="/javascripts/materialize.min.jss" type="text/javascript"
     .nav
       .navbar_left_item
+        == home_link
+        | &nbsp; &nbsp; &nbsp;
         == left_menu
       .navbar_middle_item
         - if document
@@ -35,10 +37,8 @@ html
       .navbar_right_item
         ul id='navlist'
           li
-            a href="/documents"  Index
-          li
-            -if document
-              a href="/document/#{document.id}"  Reader
+            == documents_link
+
     .row
       == yield
 

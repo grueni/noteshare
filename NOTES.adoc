@@ -92,3 +92,4 @@ bundle exec lotus server --no-code-reloading
 git remote set-url origin git@github.com:jxxcarlson/noteshare.git
 https://github.com/slim-template/slim#output-without-html-escaping-[Slim, HTML escaping] + 
 https://freezeapp.net/[Amazon Glacier] +
+http://arjanvandergaag.nl/blog/up-and-running-with-lotus.html[Up and runing with Lotus] + 

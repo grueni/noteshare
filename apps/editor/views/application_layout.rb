@@ -11,6 +11,18 @@ module Editor
         end
       end
 
+      def reader_link
+        link_to 'Reader', "/document/#{document.id}"
+      end
+
+      def home_link
+        link_to 'Home', '/'
+      end
+
+      def documents_link
+        link_to 'Documents', '/documents'
+      end
+
     end
   end
 end

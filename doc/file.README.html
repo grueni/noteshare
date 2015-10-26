@@ -66,7 +66,7 @@
 of <a href="http://www.noteshare.io">Noteshare.io</a>&#8201;&#8212;&#8201;a (technical) web publishing
 site powered by the awesome <a href="http://asciidoctor.org">Asciidoctor.org</a> text
 processing engine.  In addition to supporting Noteshare.io, the project
-aims to develop a good chunked editing system.</p>
+aims to develop a good chunked editing system for general use.</p>
 </div>
 <div class="sect1">
 <h2 id="_setup">Setup</h2>
@@ -77,17 +77,29 @@ aims to develop a good chunked editing system.</p>
 <p>Clone this repository</p>
 </li>
 <li>
-<p>Make sure that your Postgres database is set up</p>
+<p>Make sure that your Postgres database is set up, that
+<code>psql</code> is installed, and the <code>psql</code> can access your
+database.</p>
 </li>
 <li>
-<p>In the <code>Noteshare</code> directory, ru <code>sudo sh setup.sh USERNAME</code>.  This
-will setup the tables you need in the database.  Please look at the
-contents of this file before running it.  It should read</p>
+<p>(Optional)  Edit the file <code>lib/noteshare/entities/ns_document_setup.rb</code>
+so that the line <code>UsersRepository.create(Users.new(first_name: 'Jason', last_name: 'Foo-Bar'))</code> reflects your identity.
+It will be used to set the authorship of documents created in this
+experimentail version of Noteshare.</p>
+</li>
+<li>
+<p>In the <code>Noteshare</code> directory, run <code>sh setup.sh USERNAME</code>.  This
+will create the tables needed by Noteshare.
+The contents of the file <code>setup.sh</code> read as follows</p>
 <div class="listingblock">
 <div class="content">
 <pre class="code ruby"><code class="ruby">psql -U $1 -d noteshare_test --file psql.setup
 psql -U $1 -d noteshare_development --file psql.setup</code></pre>
 </div>
+</div>
+<div class="paragraph">
+<p>You will have to modify things if you have tables
+of the same name:-)</p>
 </div>
 </li>
 <li>
@@ -95,11 +107,15 @@ psql -U $1 -d noteshare_development --file psql.setup</code></pre>
 </li>
 </ol>
 </div>
+<div class="paragraph">
+<p>You can now view the local Noteshare website at <a href="http://localhost:2300" class="bare">http://localhost:2300</a>.
+It still needs quite a bit of work.</p>
+</div>
 </div>
 </div></div></div>
 
     <div id="footer">
-  Generated on Sun Oct 25 14:21:59 2015 by
+  Generated on Mon Oct 26 05:35:50 2015 by
   <a href="http://yardoc.org" title="Yay! A Ruby Documentation Tool" target="_parent">yard</a>
   0.8.7.6 (ruby-2.2.3).
 </div>
