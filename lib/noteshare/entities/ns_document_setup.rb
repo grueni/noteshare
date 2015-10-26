@@ -1,24 +1,28 @@
+
+
+require_relative 'ns_document_interface'
+include NSDocument::Interface
+
+
 # Seed data for the database for NSDocument
-module NSDocument::Setup
+  module NSDocument::Setup
 
-  def self.seed_db
-
-    owner = 'Jared Foo-Bar'
+    def self.seed_db
 
     SettingsRepository.clear
-
-    SettingsRepository.create(Settings.new(owner: owner))
-
-    UsersRepository.create(Users.new(first_name: 'J.A.', last_name: 'Carlson'))
-
+    UsersRepository.clear
     DocumentRepository.clear
 
-    @article = DocumentRepository.create(NSDocument.new(title: 'Quantum Mechanics', author: owner))
-    @section1 = DocumentRepository.create(NSDocument.new(title: 'Uncertainty Principle', author: owner, subdoc_refs: []))
-    @section2 = DocumentRepository.create(NSDocument.new(title: 'Wave-Particle Duality', author: owner, subdoc_refs: []))
-    @section3 = DocumentRepository.create(NSDocument.new(title: 'Matrix Mechanics', author: owner, subdoc_refs: []))
-    @subsection =  DocumentRepository.create(NSDocument.new(title: "de Broglie's idea", author: owner, subdoc_refs: []))
-    @subsubsection =  DocumentRepository.create(NSDocument.new(title: "Einstein's view", author: owner, subdoc_refs: []))
+    UsersRepository.create(Users.new(first_name: 'Jason', last_name: 'Foo-Bar'))
+    SettingsRepository.create(Settings.new(owner: current_user_full_name))
+
+
+    @article = DocumentRepository.create(NSDocument.new(title: 'Quantum Mechanics', author: current_user_full_name))
+    @section1 = DocumentRepository.create(NSDocument.new(title: 'Uncertainty Principle', author: current_user_full_name, subdoc_refs: []))
+    @section2 = DocumentRepository.create(NSDocument.new(title: 'Wave-Particle Duality', author: current_user_full_name, subdoc_refs: []))
+    @section3 = DocumentRepository.create(NSDocument.new(title: 'Matrix Mechanics', author: current_user_full_name, subdoc_refs: []))
+    @subsection =  DocumentRepository.create(NSDocument.new(title: "de Broglie's idea", author: current_user_full_name, subdoc_refs: []))
+    @subsubsection =  DocumentRepository.create(NSDocument.new(title: "Einstein's view", author: current_user_full_name, subdoc_refs: []))
 
 
     @article.content = "= Quantum Mechanics\n\n:numbered:\nQuantum phenomena are weird!"

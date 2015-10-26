@@ -13,7 +13,7 @@ aims to develop a good chunked editing system for general use.
 database.
 
 . (Optional)  Edit the file `lib/noteshare/entities/ns_document_setup.rb`
-so that the line `owner = 'Jared Foo-Bar'` reflects your identity.
+so that the line `UsersRepository.create(Users.new(first_name: 'Jason', last_name: 'Foo-Bar'))` reflects your identity.
 It will be used to set the authorship of documents created in this
 experimentail version of Noteshare.
 
