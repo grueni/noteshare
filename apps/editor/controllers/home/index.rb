@@ -4,7 +4,7 @@ module Editor::Controllers::Home
     include Editor::Action
 
     def call(params)
-      self.body = 'OK'
+
     end
   end
 end

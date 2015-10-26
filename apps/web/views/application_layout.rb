@@ -23,11 +23,13 @@ module Web
           link_to 'Documents', '/documents'
       end
 
-      def search
-        form_for '/search' do
+      def search_form
+        form_for :documents, '/search' do
           text_field :search
+          submit 'search'
         end
       end
+
 
     end
   end
