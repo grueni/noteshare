@@ -1,0 +1,18 @@
+- if users.any?
+  .users
+    table style=('top:140px; margin-left:auto; margin-right:auto;')
+      thead
+        tr
+          th First Name
+          th Last Name
+
+      tbody
+        - users.each do |user|
+          tr
+            td= user.first_name
+            td= user.last_name
+
+- else
+  p.placeholder There are no users yet.
+
+

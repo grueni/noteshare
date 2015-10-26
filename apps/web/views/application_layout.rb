@@ -1,7 +1,12 @@
+
+
+
 module Web
   module Views
     class ApplicationLayout
       include Web::Layout
+      require_relative '../../../lib/ui/links'
+      include UI::Links
 
       def mathjax_script(doc)
         if doc and doc.render_options['format']
@@ -13,18 +18,6 @@ module Web
 
       def left_menu
         ''
-      end
-
-      def home_link
-        link_to 'Home', '/'
-      end
-
-      def documents_link
-          link_to 'Documents', '/documents'
-      end
-
-      def admin_link
-        link_to 'Admin' '/admin'
       end
 
     end

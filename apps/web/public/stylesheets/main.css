@@ -122,13 +122,20 @@ ul.toc {
 
 #navlist ul
 {
-    display: inline;
+
     list-style-type: none;
     padding-right: 20px;
 }
 
+#navlist li {
+
+    display: inline;
+    padding-right:1em;
+}
+
 #navlist li a
 {
+
     color: #eee;
     text-decoration: none;
 }
