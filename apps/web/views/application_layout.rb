@@ -23,6 +23,10 @@ module Web
           link_to 'Documents', '/documents'
       end
 
+      def admin_link
+        link_to 'Admin' '/admin'
+      end
+
     end
   end
 end
