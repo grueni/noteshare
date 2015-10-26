@@ -37,11 +37,9 @@ html
           == document.next_link(prefix: 'editor', title: "<img src='/images/arrowright_light_gray.png', width=24px>", alt_title: "<img src='/images/arrowright_gray.png', width=24px>")
       .navbar_right_item
         ul id='navlist'
-          li
-            a href="/documents"  Documents
-          li
-            -if document
-              a href="/document/#{document.id}"  Reader
+          li == reader_link(document)
+          li == documents_link
+
     .row
       == yield
 

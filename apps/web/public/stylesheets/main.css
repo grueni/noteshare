@@ -76,6 +76,7 @@ ul.toc {
     background-color: #fff;
     padding-left:2em;
     height: 100%;
+    padding-top:2em;
     padding-bottom: 6em;
 
 }
@@ -119,7 +120,7 @@ ul.toc {
     color: #ccc;
 }
 
-#navlist li
+#navlist ul
 {
     display: inline;
     list-style-type: none;
