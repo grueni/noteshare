@@ -10,22 +10,18 @@ module Editor::Controllers::Documents
     def call(params)
 
       doc_params = params[:document]
-      puts "CCCC: doc_params = #{doc_params.to_s}"
       parent_id = doc_params['parent_id']
       title = doc_params['title']
-      # author = NSDocument::Interface::User.current
       author = current_user_full_name
-      puts "CCCC: author = #{author}"
 
       @document = DocumentRepository.create(NSDocument.new(title: title, author: author))
 
-      content = prepare_content(@document, doc_params['content'])
-      @document.content = content
+      @document.content = prepare_content(@document, doc_params['content'])
       @document.update_content
       @document.compile_with_render
 
-      if parent_id
-        @parent_doc = DocumentRepository.find parent_id
+      if parent_id != ''
+        @parent_doc = DocumentRepository.find parent_id.to_i
         @document.add_to(@parent_doc)
         @parent_doc.update_table_of_contents
       end
