@@ -8,6 +8,8 @@ body {
     bottom:0; top:0;
     width:100%; height:100%;
     overflow:hidden ;
+    background-image: url("http://vschool.s3.amazonaws.com/public/library1.jpg")
+    /* background-image: 'bubble-colour.jpg') */
 }
 
 
