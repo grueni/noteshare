@@ -1,5 +1,5 @@
 module Web::Views::Documents
-  class Index
+  class Search
     include Web::View
 
   end

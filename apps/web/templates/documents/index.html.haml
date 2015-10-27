@@ -1,21 +1,21 @@
-- if documents.any?
-  .document.inset
-    %h4 Documents
-    .row.s8{style: 'overflow-y: scroll;  height:100%; padding-left:1em; padding-right:1em;overflow-y:scroll'}
-      %table{:style => 'margin-left:3em; margin-right:3em'}
-        %thead
-          %tr
-            %th Title
-            /%th Section
-            %th Author
-        %tbody
-          - documents.each do |document|
+.row.inset
+  %h4 Documents
+  = search_form
+  - if documents
+    .document.inset
+      .row.s8{style: 'overflow-y: scroll;  height:100%; padding-left:1em; padding-right:1em;overflow-y:scroll'}
+        %table{:style => 'margin-left:3em; margin-right:3em'}
+          %thead
             %tr
-              %td= document.root_link
-              /%td= document.link
+              %th Title
+              /%th Section
+              %th Author
+          %tbody
+            - documents.each do |document|
+              %tr
+                %td= document.root_link
+                /%td= document.link
               %td= document.author
 
-- else
-  %p.placeholder There are no documents yet.
 
 
