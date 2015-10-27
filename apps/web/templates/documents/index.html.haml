@@ -1,11 +1,13 @@
 
 .row.inset
   %h4 Documents
-  = search_form
-  - if documents
-    .document.inset
-      .row.s8{style: 'overflow-y: scroll;  height:100%; padding-left:1em; padding-right:1em;overflow-y:scroll'}
-        %table{:style => 'margin-left:3em; margin-right:3em'}
+  .col
+    = search_form
+- if documents
+  .row.s8{style: ' margin-top:100px; padding-left:1em; padding-right:1em;  '}
+    .col{style: '' }
+      .div{style: 'height:400px; overflow-y:scroll; padding-bottom:3em;'}
+        %table{:style => ''}
           %thead
             %tr
               %th Title

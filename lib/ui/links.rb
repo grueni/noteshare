@@ -29,6 +29,7 @@ module UI
     def search_form
 
       form_for :search, '/search' do
+        label 'Search for:'
         text_field :search, {style: 'inline-display;'}
       end
 
