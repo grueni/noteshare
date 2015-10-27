@@ -11,7 +11,7 @@ module Web::Controllers::Documents
       @documents = DocumentRepository.by_title(search_key)
       puts "N = #{@documents.count} documents"
 
-      redirect_to '/documents'
+      # redirect_to '/documents'
     end
 
   end

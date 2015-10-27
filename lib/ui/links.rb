@@ -23,4 +23,16 @@ module UI
     end
 
   end
+
+  module Forms
+
+    def search_form
+
+      form_for :search, '/search' do
+        text_field :search, {style: 'inline-display;'}
+      end
+
+    end
+
+  end
 end
