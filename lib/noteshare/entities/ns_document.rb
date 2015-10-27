@@ -79,6 +79,7 @@ class NSDocument
     @doc_refs = {} if @doc_refs.nil?
     @render_options ||= { 'format'=> 'adoc' }
     @root_document_id ||= 0
+    @parent_id ||= 0
 
   end
 
@@ -256,7 +257,9 @@ class NSDocument
 
   # *doc.parent* returns nil or the parent object
   def parent
-    DocumentRepository.find(parent_id)
+    if parent_id and parent_id > 0
+      DocumentRepository.find(parent_id)
+    end
   end
 
   def next_oldest_ancestor

@@ -5,7 +5,7 @@ module Web::Controllers::Documents
     expose :documents
 
     def call(params)
-      @documents = DocumentRepository.all
+      @documents = DocumentRepository.root_documents.sort_by { |item| item.title }
     end
 
   end
