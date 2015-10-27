@@ -93,3 +93,4 @@ git remote set-url origin git@github.com:jxxcarlson/noteshare.git
 https://github.com/slim-template/slim#output-without-html-escaping-[Slim, HTML escaping] + 
 https://freezeapp.net/[Amazon Glacier] +
 http://arjanvandergaag.nl/blog/up-and-running-with-lotus.html[Up and runing with Lotus] + 
+http://blog.endpoint.com/2012/06/detecting-postgres-sql-injection.html[SQL Injection Attacks] + 
