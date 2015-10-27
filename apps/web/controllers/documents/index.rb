@@ -5,8 +5,10 @@ module Web::Controllers::Documents
     expose :documents
 
     def call(params)
-      puts "XXXX: params = #{params}"
-      @documents = DocumentRepository.root_documents
+      puts "\n\nYYYYYY"
+      puts params.inspect
+      puts "YYYYYY\n\n"
+      # redirect_to '/documents'
     end
 
   end

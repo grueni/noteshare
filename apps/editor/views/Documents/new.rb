@@ -24,5 +24,6 @@ module Editor::Views::Documents
         submit 'Create', {style: 'margin-top:1em;'}
       end
     end
+
   end
 end

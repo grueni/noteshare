@@ -26,4 +26,11 @@ class DocumentRepository
     end
   end
 
+  def self.by_title(title, limit: 8)
+    query do
+      where(title: title).
+          order(:title)
+    end.limit(limit)
+  end
+
 end
