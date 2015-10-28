@@ -372,6 +372,7 @@ class NSDocument
     end
   end
 
+
   # A table of contents is a list of lists,
   # where the sublists are of the form
   # [id, title].  #update_table_of_contents
@@ -414,17 +415,30 @@ class NSDocument
   # Compile the receiver, render it, and store the
   # rendered text in self.compiled_and_rendered_content
   def compile_with_render
-    puts "@render_options['format'] = #{@render_options['format']}"
-    if @render_options['format'] = 'adoc'
-      renderer = Render.new(self.compile)
-      self.compiled_and_rendered_content = renderer.convert
-    elsif @render_options['format'] = 'adoc-latex'
-      renderer = Render.new(self.compile, {backend: 'html5'} )
-      self.compiled_and_rendered_content = renderer.convert
-    else
-      self.compiled_and_rendered_content = self.content
+
+    format = @render_options['format']
+
+    case format
+      when 'adoc'
+        render_option = {}
+      when 'adoc-latex'
+        render_option = {backend: 'html5'}
+      else
+        render_option = {}
     end
+
+    if format == 'text'
+      self.compiled_and_rendered_content = self.content
+    else
+      renderer = Render.new(self.compile, render_option )
+      self.compiled_and_rendered_content = renderer.convert
+    end
+
     DocumentRepository.update(self)
+  end
+
+  def export
+
   end
 
 end

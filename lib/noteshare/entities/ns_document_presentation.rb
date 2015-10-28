@@ -124,7 +124,7 @@ end
 
   def associated_document_map
     hash = self.doc_refs
-    keys = hash.keys                
+    keys = hash.keys
     if keys
       keys.delete "previous"
       keys.delete "next"
