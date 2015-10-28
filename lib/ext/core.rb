@@ -61,6 +61,18 @@ end
 
 class String
 
+  # 'foo123bar'.alpha_filter => 'foobar'
+  # 'foo123bar(' ')'.alpha_filter => 'foobar'
+  #
+  def alpha_filter(substitution_character = '')
+    gsub(/[^a-zA-Z_]/, substitution_character)
+  end
+
+  # Map "It's cool!" to 'its_cool``
+  def normalize
+    self.gsub(' ', '_').downcase.alpha_filter
+  end
+
   # Map 'foo: 123, bar: 456, baz:' to {'foo': 123, 'bar': 456}
   def hash_value(arg = {})
     key_value_separator = arg[:key_value_separator] || ':'

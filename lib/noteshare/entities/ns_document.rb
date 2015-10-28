@@ -122,7 +122,7 @@ class NSDocument
     # Inherit the render_option from the root document
     root_doc = DocumentRepository.find root_document_id
     if root_doc != self
-      self.render_options = root_doc.render_options.
+      self.render_options = root_doc.render_options
     end
 
     # update index_in_parent for subdocuments
@@ -366,6 +366,20 @@ class NSDocument
     DocumentRepository.update self
   end
 
+  def texmacros
+    rd = root_document
+    puts "ThE ROOT DOCUMENT IS #{rd.title}".red
+    if rd.doc_refs['texmacros']
+      macro_text = rd.associated_document('texmacros').content
+      macro_text = macro_text.gsub(/^=*= .*$/,'')
+      macro_text = "\n\n[env.texmacro]\n--\n#{macro_text}\n--\n\n"
+      puts "ThE MACRO TEXT IS #{macro_text}".red
+      macro_text
+    else
+      ''
+    end
+  end
+
   # *doc.compile* concatenates the contents
   # of *doc* with the compiled text of
   # each section of *doc*.  The sections
@@ -374,10 +388,11 @@ class NSDocument
   # represent the id's of the sections of
   # *doc*.
   def compile
+    preamble = texmacros
     if subdoc_refs == []
-      return content
+      return preamble + content
     else
-      text = content + "\n\n" || ''
+      text = preamble + content + "\n\n" || ''
       subdoc_refs.each do |id|
         section = DocumentRepository.find(id)
         text  << section.compile << "\n\n"
@@ -437,7 +452,7 @@ class NSDocument
   # rendered text in self.compiled_and_rendered_content
   def compile_with_render(option={})
 
-    format = @render_options['format']
+    format = self.render_options['format']
 
     puts "FORMAT: #{format}"
 
@@ -455,8 +470,12 @@ class NSDocument
     self.compiled_and_rendered_content = renderer.convert
     DocumentRepository.update(self)
 
-   if true # option['export']
-     IO.write('outgoing/export.adoc', compiled_content)
+   if true or option['export'] == 'yes'
+     file_name = self.title.normalize
+     path = "outgoing/#{file_name}.adoc"
+
+     IO.write(path, compiled_content)
+     puts "I will export with format #{format}".red
      export_html(format)
    end
 
@@ -464,16 +483,21 @@ class NSDocument
 
   def export_html(format)
 
+    puts "EXPORTING ...".red
+
+    file_name = self.title.normalize
+    path = "outgoing/#{file_name}.adoc"
+
     case format
       when 'adoc'
-        cmd = 'asciidoctor outgoing/export.adoc'
+        cmd = "asciidoctor #{path}"
       when 'adoc-latex'
-        cmd = 'asciidoctor-latex -b html outgoing/export.adoc'
+        cmd = "asciidoctor-latex -b html #{path}"
       else
-        cmd = 'asciidoctor outgoing/export.adoc'
+        cmd =  "asciidoctor #{path}c"
     end
 
-    puts cmd
+    puts cmd.red
     system cmd
 
   end
