@@ -114,6 +114,30 @@ end
   end
 
 
+  ############################################################
+  #
+  #   ASSOCIATED DOCUMENTS
+  #
+  ############################################################
+
+
+
+  def associated_document_map
+    hash = self.doc_refs
+    keys = hash.keys                
+    if keys
+      keys.delete "previous"
+      keys.delete "next"
+      map = "<ul>\n"
+      keys.each do |key|
+        map << "<li>" << "#{self.associate_link(key)}</li>\n"
+      end
+      map << "</ul>\n"
+    else
+      map = ''
+    end
+    map
+  end
 
 
 
@@ -191,6 +215,11 @@ end
     alt_title =  hash[:alt_title] || ''
     n = self.next_document
     n ? n.link(hash) : alt_title
+  end
+
+
+  def associate_link(type)
+    "<a href='/document/#{self.doc_refs[type]}'>#{type.capitalize}</a>"
   end
 
 

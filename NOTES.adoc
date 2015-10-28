@@ -94,3 +94,15 @@ https://github.com/slim-template/slim#output-without-html-escaping-[Slim, HTML e
 https://freezeapp.net/[Amazon Glacier] +
 http://arjanvandergaag.nl/blog/up-and-running-with-lotus.html[Up and runing with Lotus] + 
 http://blog.endpoint.com/2012/06/detecting-postgres-sql-injection.html[SQL Injection Attacks] + 
+
+cat /usr/local/var/postgres/postmaster.pid
+kill PID
+
+pgstart
+ps wax | grep `head -1 /usr/local/var/postgres/postmaster.pid`
+http://sequel.jeremyevans.net/documentation.html[Sequel] + 
+B = Sequel.connect('postgres://carlson:Lenus.417.Kamiah@localhost:5432/noteshare_development')
+[4] pry(main)> dataset = DB['select id from documents']
+=> #<Sequel::Postgres::Dataset: "select id from documents">
+[5] pry(main)> dataset.count
+=> 12

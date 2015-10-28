@@ -1,3 +1,6 @@
+require_relative '../../../../lib/noteshare/modules/ns_document_asciidoc'
+include NSDocument::Asciidoc
+
 module Editor::Controllers::Document
   class Update
     include Editor::Action
@@ -19,6 +22,8 @@ module Editor::Controllers::Document
       @document = DocumentRepository.find(id)
       @document.update_content new_text
       @document.compile_with_render
+      @document.synchronize_title
+
       redirect_to "/editor/document/#{id}"
     end
 

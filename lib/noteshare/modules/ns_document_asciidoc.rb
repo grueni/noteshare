@@ -1,20 +1,6 @@
 module NSDocument::Asciidoc
 
   def prepare_content(document, new_content)
-    puts "XXX: entering prepare_content"
-
-    if document
-      puts "document title = #{document.title}"
-    else
-      puts "DOCUMENT IS NIL"
-    end
-
-    if new_content
-      puts "new_contente = #{new_content}"
-    else
-      puts "new_content IS NIL"
-    end
-
 
     if document
       prefix = "="*(document.level + 2)
@@ -36,12 +22,35 @@ module NSDocument::Asciidoc
       prepared_content = header
     end
 
-    puts "prepared conetent = #{prepared_content}"
     prepared_content
   end
 
-  def prepare_content2(document, new_content)
-   new_content
+  # Extract title from content. Thus, if
+  # the content is
+  #
+  # Ho ho ho!
+  # === Mr. Klaus and his laugh
+  # blah, blah,
+  #
+  # Then #title_from_content returns
+  # the string 'Mr. Klaus and his lauggh'
+  def title_from_content
+    m = self.content.match /^=* .*$/
+    if m
+     m[0].gsub(/=*=/, '').strip
+    end
   end
+
+  # Make document.title agree with what
+  # is said in the text.
+  def synchronize_title
+    old_title = self.title
+    new_title = title_from_content
+    if new_title and old_title != new_title
+      self.title = new_title
+      DocumentRepository.update self
+    end
+  end
+
 
 end

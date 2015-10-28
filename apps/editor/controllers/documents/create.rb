@@ -14,6 +14,15 @@ module Editor::Controllers::Documents
       title = doc_params['title']
       author = current_user_full_name
 
+      begin
+        option = doc_params['options'].hash_value
+      rescue
+        option = {}
+      end
+      associated_doc_type = option['associate_as'] || ''
+
+      puts "DOC_PARAMS['options']: #{doc_params['options']}"
+
       @document = DocumentRepository.create(NSDocument.new(title: title, author: author))
 
       @document.content = prepare_content(@document, doc_params['content'])
@@ -22,13 +31,18 @@ module Editor::Controllers::Documents
 
       if parent_id != ''
         @parent_doc = DocumentRepository.find parent_id.to_i
-        @document.add_to(@parent_doc)
-        @parent_doc.update_table_of_contents
+        if associated_doc_type == ''
+          @document.add_to(@parent_doc)
+          @parent_doc.update_table_of_contents
+        else
+          @document.associate_as(associated_doc_type, @parent_doc)
+        end
       end
 
       DocumentRepository.update @document
 
       redirect_to "/document/#{@document.id}"
     end
+
   end
 end

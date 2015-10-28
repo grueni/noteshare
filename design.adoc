@@ -40,7 +40,14 @@ practice is, however, not enforced.
 
 
 
-== Database
+=== Type
+
+Values for the type are
+
+`root`:: the head of what we normally think of as a document
+`resource`:: a stand alone document that may be referenced
+by many other documents as an associated document.  An example
+would a document containing tex macros.
 
 (((@render_options)))
 

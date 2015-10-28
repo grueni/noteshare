@@ -208,6 +208,7 @@ class NSDocument
   def next_id
     p = parent
     return nil if parent == nil
+    return nil if index_in_parent == nil
     return nil if index_in_parent+1 > p.subdoc_refs.length
     p.subdoc_refs[index_in_parent+1]
   end

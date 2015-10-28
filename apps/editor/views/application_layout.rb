@@ -13,9 +13,6 @@ module Editor
         end
       end
 
-
-
-
     end
   end
 end

@@ -4,6 +4,8 @@
       .col.left{style: 'width: 30%;padding-left:2em;'}
         %p{style: 'font-size:larger; padding-top:1.8em;margin-bottom:0;'}= document.root_link
         %p{style: 'margin-top:0.05em;'}= "by #{document.author}"
+        - if document.doc_refs
+          .toc= document.associated_document_map
         %h5{style: 'margin-bottom:0;'} Table of Contents
         .toc= document.root_document.master_table_of_contents
       .col.middle{style: 'left: 30%; width: 70%; padding-bottom:6em;padding-top:2em;'}
