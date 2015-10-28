@@ -30,6 +30,8 @@ html
         == home_link
         | &nbsp; &nbsp; &nbsp; &nbsp;
         == left_menu
+        - if document
+          == options_link(document)
       .navbar_middle_item
 
         - if document

@@ -106,3 +106,22 @@ B = Sequel.connect('postgres://carlson:Lenus.417.Kamiah@localhost:5432/noteshare
 => #<Sequel::Postgres::Dataset: "select id from documents">
 [5] pry(main)> dataset.count
 => 12
+
+
+.jsonb coercer
+----
+require 'lotus/model/coercer'
+require 'sequel'
+require 'sequel/extensions/pg_json'
+
+class PGJsonb < Lotus::Model::Coercer
+  def self.dump(value)
+    ::Sequel.pg_jsonb(value)
+  end
+
+  def self.load(value)
+    ::Kernel.Hash(value) unless value.nil?
+  end
+end
+----
+

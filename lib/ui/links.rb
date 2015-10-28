@@ -22,6 +22,10 @@ module UI
       link_to 'Admin', '/admin'
     end
 
+    def options_link(document)
+      link_to 'Options', "/editor/document/options/#{document.id}"
+    end
+
   end
 
   module Forms
