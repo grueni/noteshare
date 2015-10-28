@@ -1,4 +1,5 @@
 
+
 # Configure your routes here
 # See: http://www.rubydoc.info/gems/lotus-router/#Usage
 
@@ -9,3 +10,4 @@ get '/documents', to: 'documents#index'
 post '/documents', to: 'documents#create'
 get '/document/:id', to: 'document#edit'
 post '/update', to: 'document#update'
+get '/document/options/:id', to: 'document#options'

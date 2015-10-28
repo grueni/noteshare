@@ -414,9 +414,11 @@ class NSDocument
 
   # Compile the receiver, render it, and store the
   # rendered text in self.compiled_and_rendered_content
-  def compile_with_render
+  def compile_with_render(option={})
 
     format = @render_options['format']
+
+    puts "FORMAT: #{format}"
 
     case format
       when 'adoc'
@@ -427,18 +429,33 @@ class NSDocument
         render_option = {}
     end
 
-    if format == 'text'
-      self.compiled_and_rendered_content = self.content
-    else
-      renderer = Render.new(self.compile, render_option )
-      self.compiled_and_rendered_content = renderer.convert
+    renderer = Render.new(self.compile, render_option )
+    compiled_content = self.compile
+    self.compiled_and_rendered_content = renderer.convert
+    DocumentRepository.update(self)
+
+   if true # option['export']
+     IO.write('outgoing/export.adoc', compiled_content)
+     export_html(format)
+   end
+
+  end
+
+  def export_html(format)
+
+    case format
+      when 'adoc'
+        cmd = 'asciidoctor outgoing/export.adoc'
+      when 'adoc-latex'
+        cmd = 'asciidoctor-latex -b html outgoing/export.adoc'
+      else
+        cmd = 'asciidoctor outgoing/export.adoc'
     end
 
-    DocumentRepository.update(self)
-  end
-
-  def export
+    puts cmd
+    system cmd
 
   end
+
 
 end
