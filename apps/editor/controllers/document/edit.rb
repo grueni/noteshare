@@ -7,6 +7,7 @@ module Editor::Controllers::Document
 
 
     def call(params)
+      puts ">> Editor edit".red
       puts "XXXX: params[:id] = #{params[:id]}"
       @document = DocumentRepository.find(params['id'])
       @updated_text = @document.content

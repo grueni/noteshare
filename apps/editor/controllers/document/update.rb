@@ -8,6 +8,7 @@ module Editor::Controllers::Document
     expose :document
 
     def call(params)
+        puts ">> Editor update".red
       document_packet = params.env['rack.request.form_hash']['document']
 
       new_text = document_packet['updated_text']   # .gsub('\\r', '')

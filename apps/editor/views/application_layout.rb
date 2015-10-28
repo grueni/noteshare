@@ -13,6 +13,10 @@ module Editor
         end
       end
 
+      def options_link(document)
+        link_to 'Options', "/editor/document/options/#{document.id}"
+      end
+
     end
   end
 end
