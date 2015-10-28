@@ -12,7 +12,7 @@ module Editor::Controllers::Document
       hash = option.hash_value
       puts "IN PROCESS_OPTIONS, OPTION HASH = #{hash}".red
       if hash
-        document.render_options = hash['format']
+        document.render_options['format'] = hash['format']
         puts "Set document render_options to #{hash['format']}".red
         dirty = true
       end

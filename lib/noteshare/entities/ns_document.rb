@@ -98,10 +98,20 @@ class NSDocument
 
     # puts "Insert #{self.id} (#{self.title}) at k = #{k}"
 
+    # Insert the id o the current document (receiver)
+    # in the subdoc_refs table of the parent document.
+    # Not the index of the id and copy that index
+    # into self.index_in_parent.  Thus, at the
+    # the end of these operatiopations, the parent
+    # refernces the child (the subdocument),
+    # and vice vrsa.
     index = parent_document.subdoc_refs || []
     index.insert(k, self.id)
     parent_document.subdoc_refs = index
     self.index_in_parent =  k
+
+
+    # Set the parent_id and root_document_id
     self.parent_id = parent_document.id
     if parent_document.root_document_id == 0
       self.root_document_id = parent_document.id
@@ -109,6 +119,11 @@ class NSDocument
       self.root_document_id = parent_document.root_document_id
     end
 
+    # Inherit the render_option from the root document
+    root_doc = DocumentRepository.find root_document_id
+    if root_doc != self
+      self.render_options = root_doc.render_options.
+    end
 
     # update index_in_parent for subdocuments
     # that were shifted to the right
@@ -400,16 +415,22 @@ class NSDocument
   # Asciidoctor.convert to self.content with the provided options.
   def render
     puts "@render_options['format'] = #{@render_options['format']}"
-    if @render_options['format'] == 'adoc'
-      renderer = Render.new(self.content)
-      self.rendered_content = renderer.convert
-    elsif @render_options['format'] == 'adoc-latex'
-      renderer = Render.new(self.content, {backend: 'html5'} )
-      self.rendered_content = renderer.convert
-    else
-      self.content
+
+    format = @render_options['format']
+
+    case format
+      when 'adoc'
+        render_option = {}
+      when 'adoc-latex'
+        render_option = {backend: 'html5'}
+      else
+        render_option = {}
     end
+
+    renderer = Render.new(self.compile, render_option )
+    self.rendered_content = renderer.convert
     DocumentRepository.update(self)
+
   end
 
   # Compile the receiver, render it, and store the
