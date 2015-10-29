@@ -125,3 +125,5 @@ class PGJsonb < Lotus::Model::Coercer
 end
 ----
 
+https://css-tricks.com/how-css-selectors-work/[CSS Selectors] + 
+https://learn.jquery.com/ajax/[AJAX] + 

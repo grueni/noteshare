@@ -5,6 +5,9 @@
   - STRUCTURE
   - NAVIGATION BAR
   - EDITOR
+  - FOOTER
+  - TABLE OF CONTENTS
+  - OTHER
 
 
 ***/
@@ -273,15 +276,17 @@ textarea {
 }
 
 
-.active a {
+.active > a {
 
-    color: red;
+    color: darkred;
+    text-decoration: none;
 }
 
 
-.inactive a {
+.inactive > a {
 
-    color: blue;
+    color: slateblue;
+    text-decoration: none;
 }
 
 /*** OTHER ***/

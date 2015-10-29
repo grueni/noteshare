@@ -101,10 +101,6 @@ end
   # TOC entry for the document being currently
   # viewed can be highlighted.
   #
-  # Fixme: need to make udpate_table_of_contents lazy
-  # Fixme: Updating the toc will need to be done elswhere - or big performance hit
-  # Fixme: pehaps call 'update_table_of_contents' in the update controller
-  #
   def master_table_of_contents(active_id)
     self.update_table_of_contents
     if toc.length == 0
@@ -115,18 +111,17 @@ end
 
         # Compute list item:
         doc_id = item['id']
-        puts "id: #{doc_id}, active: #{active_id}".blue
         doc_title = item['title']
         doc_link = "href='http://#{SERVER_NAME}:#{SERVER_PORT}/document/#{doc_id}'>#{doc_title}</a>"
         if doc_id == active_id
-          puts "id: #{doc_id}, active: #{active_id}".red
           output << "<li class='toc active'><a #{doc_link}</a>\n"
         else
-          puts "id: #{doc_id}, active: #{active_id}".cyan
           output << "<li class='toc inactive'><a #{doc_link}</a>\n"
         end
 
-        # If necessary, update TOC
+        # Fixme: need to make udpate_table_of_contents lazy
+        # Fixme: Updating the toc will need to be done elswhere - or big performance hit
+        # Fixme: pehaps call 'update_table_of_contents' in the update controller
         doc = DocumentRepository.find item['id']
         doc.update_table_of_contents
 
