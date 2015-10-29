@@ -361,7 +361,7 @@ class NSDocument
       str = input
       self.content = str
     end
-    renderer = Render.new(str)
+    renderer = Render.new(texmacros + str)
     self.rendered_content = renderer.convert
     DocumentRepository.update self
   end
@@ -387,19 +387,21 @@ class NSDocument
   # a persistent array of integers which
   # represent the id's of the sections of
   # *doc*.
-  def compile
-    preamble = texmacros
+  def compile_aux
     if subdoc_refs == []
-      return preamble + content
+      return content
     else
-      text = preamble + content + "\n\n" || ''
+      text = content + "\n\n" || ''
       subdoc_refs.each do |id|
         section = DocumentRepository.find(id)
-        text  << section.compile << "\n\n"
-        # section.xcompile
+        text  << section.compile_aux << "\n\n"
       end
       return text
     end
+  end
+
+  def compile
+    texmacros + compile_aux
   end
 
 
@@ -470,7 +472,7 @@ class NSDocument
     self.compiled_and_rendered_content = renderer.convert
     DocumentRepository.update(self)
 
-   if true or option['export'] == 'yes'
+   if option['export'] == 'yes'
      file_name = self.title.normalize
      path = "outgoing/#{file_name}.adoc"
 
