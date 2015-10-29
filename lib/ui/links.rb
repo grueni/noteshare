@@ -26,6 +26,10 @@ module UI
       link_to 'Options', "/editor/document/options/#{document.id}"
     end
 
+    def export_link(document)
+      link_to 'Export', "/editor/export/#{document.id}"
+    end
+
   end
 
   module Forms

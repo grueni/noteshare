@@ -454,6 +454,8 @@ class NSDocument
   # rendered text in self.compiled_and_rendered_content
   def compile_with_render(option={})
 
+    puts "IN compile_with_render. option = #{option}".red
+
     format = self.render_options['format']
 
     puts "FORMAT: #{format}"
@@ -472,7 +474,8 @@ class NSDocument
     self.compiled_and_rendered_content = renderer.convert
     DocumentRepository.update(self)
 
-   if option['export'] == 'yes'
+   if option[:export] == 'yes'
+     puts "EXPORTING ................".red
      file_name = self.title.normalize
      path = "outgoing/#{file_name}.adoc"
 

@@ -1,3 +1,4 @@
+get '/export/:id', to: 'document#export'
 
 
 # Configure your routes here
@@ -12,4 +13,3 @@ get '/document/:id', to: 'document#edit'
 post '/update', to: 'document#update'
 get '/document/options/:id', to: 'document#options'
 post '/update_options/', to: 'document#update_options'
-# get '/export/:id', to: 'document#export'
