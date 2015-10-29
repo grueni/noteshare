@@ -94,19 +94,47 @@ module NSDocument::Presentation
 end
 
 
-  def master_table_of_contents
+  # If active_id matches the id of an item
+  # in the table of contents, that item is
+  # marked with the css 'active'.  Otherwise
+  # it is marked 'inactive'.  This way the
+  # TOC entry for the document being currently
+  # viewed can be highlighted.
+  #
+  # Fixme: need to make udpate_table_of_contents lazy
+  # Fixme: Updating the toc will need to be done elswhere - or big performance hit
+  # Fixme: pehaps call 'update_table_of_contents' in the update controller
+  #
+  def master_table_of_contents(active_id)
     self.update_table_of_contents
     if toc.length == 0
       output = ''
     else
       output = "<ul class='toc'>\n"
       toc.each do |item|
-        output << "<li><a href='http://#{SERVER_NAME}:#{SERVER_PORT}/document/#{item['id']}'>#{item['title']}</a>\n"
+
+        # Compute list item:
+        doc_id = item['id']
+        puts "id: #{doc_id}, active: #{active_id}".blue
+        doc_title = item['title']
+        doc_link = "href='http://#{SERVER_NAME}:#{SERVER_PORT}/document/#{doc_id}'>#{doc_title}</a>"
+        if doc_id == active_id
+          puts "id: #{doc_id}, active: #{active_id}".red
+          output << "<li class='toc active'><a #{doc_link}</a>\n"
+        else
+          puts "id: #{doc_id}, active: #{active_id}".cyan
+          output << "<li class='toc inactive'><a #{doc_link}</a>\n"
+        end
+
+        # If necessary, update TOC
         doc = DocumentRepository.find item['id']
         doc.update_table_of_contents
+
+        # Recursion:
         if doc.toc.length > 0
-          output << "<ul>\n" << doc.master_table_of_contents << "</ul>"
+          output << "<ul>\n" << doc.master_table_of_contents(active_id) << "</ul>"
         end
+
       end
       output << "</ul>\n\n"
     end

@@ -1,5 +1,14 @@
 
 
+/***  CONTENTS
+
+  - STRUCTURE
+  - NAVIGATION BAR
+  - EDITOR
+
+
+***/
+
 /*** STUCTURE ***/
 
 body {
@@ -220,6 +229,7 @@ textarea {
 }
 
 
+
 /** FOOTER **/
 
 .footer {
@@ -253,6 +263,28 @@ textarea {
     color: red;
 
 }
+
+/*** TABLE OF CONTENTS ***/
+
+.toc ul {
+
+    padding-left: 0.25em;
+    margin-left: 0.25em;
+}
+
+
+.active a {
+
+    color: red;
+}
+
+
+.inactive a {
+
+    color: blue;
+}
+
+/*** OTHER ***/
 
 
 .heart {
