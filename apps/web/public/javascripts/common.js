@@ -8,8 +8,17 @@ function reloadMathJax() {
 
 function yak() {
 
-    console.log('Yak yak yak yak!');
+    alert('Yak yak yak yak!');
+
+    // console.log('Yak yak yak yak!');
 }
 
 
-$('.yak')
+$(document).ready(function(){
+
+
+    $('#Yak').click(yak);
+
+
+
+});
