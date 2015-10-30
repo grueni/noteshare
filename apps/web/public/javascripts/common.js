@@ -5,3 +5,11 @@ function reloadMathJax() {
     console.log("reloadMathJax called");
 
 }
+
+function yak() {
+
+    console.log('Yak yak yak yak!');
+}
+
+
+$('.yak')
