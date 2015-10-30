@@ -1,6 +1,8 @@
 .row
 
-  == render partial: 'document/edit_pane', locals: {}
+  /== render partial: 'document/edit_pane', locals: {}
+  .col.source
+    == form
 
   .col.rendered
     == document.rendered_content

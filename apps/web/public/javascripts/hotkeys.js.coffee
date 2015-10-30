@@ -6,19 +6,15 @@
 
 
 # Press ctrl+u to update (refresh) rendered content
-$('#OriginalContentTextArea').bind 'keydown', 'ctrl+u', ->
-  $('#refresh_button' ).trigger( "click" );
+$('#document-updated-text').bind 'keydown', 'ctrl+u', ->
+  $('#text_update_button' ).trigger( "click" );
 
-$('#OriginalAsideTextArea').bind 'keydown', 'ctrl+u', ->
-  $('#refresh_button' ).trigger( "click" );
 
 ##
 
-$('#OriginalContentTextArea').bind 'keydown', 'ctrl+x', ->
+$('#document-updated-text').bind 'keydown', 'ctrl+x', ->
   $('#save_edits_button a')[0].click()
 
-$('#OriginalAsideTextArea').bind 'keydown', 'ctrl+x', ->
-  $('#save_edits_button a')[0].click()
 
 
 ############################################
@@ -60,11 +56,11 @@ $(document).bind 'keypress', 'ctrl-t', ->
     localStorage['use_editor_sync'] = !localStorage['use_editor_sync']
   console.log('use_editor_sync is ' + localStorage['use_editor_sync'] )
 
-$('#OriginalContentTextArea').bind 'keydown', 'ctrl+i', ->
+$('#document-updated-text').bind 'keydown', 'ctrl+i', ->
   console.log('ctrl-i pressed: windows scroll independently')
   $('.editor_rendered').removeClass('editor_rendered').addClass('editor_rendered_no_scroll');
 
-$('#OriginalContentTextArea').bind 'keydown', 'ctrl+y', ->
+$('#document-updated-text').bind 'keydown', 'ctrl+y', ->
   console.log('ctrl-y pressed (yoke)')
   $('.editor_rendered_no_scroll').removeClass('editor_rendered_no_scroll').addClass('editor_rendered');
 

@@ -8,18 +8,12 @@ module Editor::Controllers::Document
     expose :document
 
     def call(params)
-        puts ">> Editor update".red
-      document_packet = params.env['rack.request.form_hash']['document']
+      puts ">> Editor update".red
 
-      new_text = document_packet['updated_text']   # .gsub('\\r', '')
-      puts
-      puts 'new_text (1)'
-      puts  new_text
-      puts
-      new_text =  new_text  # .gsub("\n     ", '')
-      puts  new_text
-      puts
-      id = document_packet.keys[1].sub(':', '')
+      document_packet = params['document']
+      id = document_packet['document_id'].to_i
+      new_text = document_packet['updated_text']
+
       @document = DocumentRepository.find(id)
       @document.update_content new_text
       @document.compile_with_render
