@@ -62,10 +62,10 @@ class NSDocument
     :parent_id, :author_id, :index_in_parent, :root_document_id, :visibility,
     :subdoc_refs,  :doc_refs, :toc
 
-  require_relative 'ns_document_presentation'
+  require_relative '../modules/ns_document_presentation'
   include NSDocument::Presentation
 
-  require_relative 'ns_document_setup'
+  require_relative '../modules/ns_document_setup'
   include NSDocument::Setup
 
 

@@ -42,6 +42,14 @@ namespace :db do
     exec cmd
   end
 
+  desc "`Loads vschool.dump."
+  task :load_vschool do
+    cmd = "pg_restore --verbose --host 'localhost' --username #{user} --clean --no-owner --no-acl --dbname #{db} #{here}/db/vschool.dump"
+    # Rake::Task["db:reset"].invoke
+    puts cmd
+    exec cmd
+  end
+
 end
 
 namespace :update do

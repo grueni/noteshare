@@ -82,6 +82,30 @@ Lotus::Model.configure do
       attribute :level, Integer
     end
 
+    collection :courses do
+      entity     Course
+      repository CourseRepository
+
+      attribute :id,    Integer
+      attribute :title, String
+      attribute :author, Integer
+
+    end
+
+    collection :lessons do
+      entity     Lesson
+      repository LessonRepository
+
+      attribute :id,    Integer
+      attribute :title, String
+      attribute :author_id, Integer
+      attribute :course_id, Integer
+      attribute :content, String,  as: :original_content
+      attribute :sequence, Integer
+
+    end
+
+
   end
 
 end.load!
