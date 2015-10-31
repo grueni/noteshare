@@ -89,6 +89,12 @@ Lotus::Model.configure do
       attribute :id,    Integer
       attribute :title, String
       attribute :author, Integer
+      attribute :author_id, Integer
+      attribute :tags, String
+      attribute :area, String
+      attribute :created_at, DateTime
+      attribute :modified_at, DateTime, as: :updated_at
+      attribute :content, String, as: :description
 
     end
 
