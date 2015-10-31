@@ -8,9 +8,9 @@ function reloadMathJax() {
 
 function yak() {
 
-    alert('Yak yak yak yak!');
+   alert('Yak yak yak yak!');
+   // console.log('Yak yak yak yak!');
 
-    // console.log('Yak yak yak yak!');
 }
 
 

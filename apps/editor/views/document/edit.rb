@@ -12,6 +12,7 @@ module Editor::Views::Document
 
         hidden_field :document_id, value: document.id
 
+        #submit 'Update', {id: 'text_update_button', class: 'footer_button_1', remote: true, data: :json}
         submit 'Update', {id: 'text_update_button', class: 'footer_button_1'}
       end
     end

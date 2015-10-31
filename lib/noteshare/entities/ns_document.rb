@@ -368,12 +368,10 @@ class NSDocument
 
   def texmacros
     rd = root_document
-    puts "ThE ROOT DOCUMENT IS #{rd.title}".red
     if rd.doc_refs['texmacros']
       macro_text = rd.associated_document('texmacros').content
       macro_text = macro_text.gsub(/^=*= .*$/,'')
       macro_text = "\n\n[env.texmacro]\n--\n#{macro_text}\n--\n\n"
-      puts "ThE MACRO TEXT IS #{macro_text}".red
       macro_text
     else
       ''
@@ -431,7 +429,6 @@ class NSDocument
   # module Render.  It updates self.rendered_content by applying
   # Asciidoctor.convert to self.content with the provided options.
   def render
-    puts "@render_options['format'] = #{@render_options['format']}"
 
     format = @render_options['format']
 
@@ -454,11 +451,7 @@ class NSDocument
   # rendered text in self.compiled_and_rendered_content
   def compile_with_render(option={})
 
-    puts "IN compile_with_render. option = #{option}".red
-
     format = self.render_options['format']
-
-    puts "FORMAT: #{format}"
 
     case format
       when 'adoc'
@@ -475,20 +468,16 @@ class NSDocument
     DocumentRepository.update(self)
 
    if option[:export] == 'yes'
-     puts "EXPORTING ................".red
      file_name = self.title.normalize
      path = "outgoing/#{file_name}.adoc"
 
      IO.write(path, compiled_content)
-     puts "I will export with format #{format}".red
      export_html(format)
    end
 
   end
 
   def export_html(format)
-
-    puts "EXPORTING ...".red
 
     file_name = self.title.normalize
     path = "outgoing/#{file_name}.adoc"
@@ -502,7 +491,6 @@ class NSDocument
         cmd =  "asciidoctor #{path}c"
     end
 
-    puts cmd.red
     system cmd
 
   end
