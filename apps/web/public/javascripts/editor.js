@@ -25,7 +25,7 @@ $(document).ready(function(){
     $.post( 'http://localhost:2300/editor/json_update/' + id, { source: source_text}, update_rendered_content );
   }
 
-$('#test_button').click(udpate_document);
+$('#update_source_button').click(udpate_document);
 
 
 
