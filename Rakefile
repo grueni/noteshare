@@ -43,3 +43,17 @@ namespace :db do
   end
 
 end
+
+namespace :update do
+
+  desc "Update documentation"
+  task :docs do
+    `asciidoctor NOTES.adoc`
+    `asciidoctor README.adoc`
+    `asciidoctor design.adoc`
+    `mv NOTES.html apps/web/public/html/`
+    `mv README.html apps/web/public/html/`
+    `mv design.html apps/web/public/html/`
+  end
+
+end
