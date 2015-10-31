@@ -9,7 +9,7 @@ $(document).ready(function(){
     $('#rendered_content').html(data);
 
   }
-  
+
 
   function udpate_document() {
 
