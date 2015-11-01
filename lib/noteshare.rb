@@ -88,8 +88,7 @@ Lotus::Model.configure do
 
       attribute :id,    Integer
       attribute :title, String
-      attribute :author, Integer
-      attribute :author_id, Integer
+      attribute :author_id, Integer, as: :author
       attribute :tags, String
       attribute :area, String
       attribute :created_at, DateTime
@@ -105,9 +104,12 @@ Lotus::Model.configure do
       attribute :id,    Integer
       attribute :title, String
       attribute :author_id, Integer
+      attribute :tags, String
       attribute :course_id, Integer
       attribute :content, String,  as: :original_content
       attribute :sequence, Integer
+      attribute :created_at, DateTime
+      attribute :modified_at, DateTime, as: :updated_at
 
     end
 

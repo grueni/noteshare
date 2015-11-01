@@ -88,7 +88,7 @@ module NSDocument::Presentation
           output << "</ul>\n\n"
         end
       else
-        output = toc.to_Os
+        output = toc.to_s
     end
     output
 end

@@ -121,7 +121,7 @@ class NSDocument
 
     # Inherit the render_option from the root document
     root_doc = DocumentRepository.find root_document_id
-    if root_doc != self
+    if root_doc and root_doc != self
       self.render_options = root_doc.render_options
     end
 
@@ -213,16 +213,18 @@ class NSDocument
   # Assume that receiver is subdocument k of parent.
   # Return the id of subdocument k - 1 or nil
   def previous_id
+    p = parent
+    return nil if p == nil
     return nil if index_in_parent == nil
     return nil if index_in_parent-1 < 0
-    return parent.subdoc_refs[index_in_parent-1]
+    return p.subdoc_refs[index_in_parent-1]
   end
 
   # Assume that receiver is subdocument k of parent.
   # Return the id of subdocuemnt k + 1 or nil
   def next_id
     p = parent
-    return nil if parent == nil
+    return nil if p == nil
     return nil if index_in_parent == nil
     return nil if index_in_parent+1 > p.subdoc_refs.length
     p.subdoc_refs[index_in_parent+1]
@@ -355,6 +357,7 @@ class NSDocument
   # Replace #content by str, render it
   # and save itl. .
   def update_content(input=nil)
+    puts "update_content, id = #{self.id}, title = #{self.title}".red
     if input == nil
       str = self.content || ''
     else
@@ -368,7 +371,7 @@ class NSDocument
 
   def texmacros
     rd = root_document
-    if rd.doc_refs['texmacros']
+    if rd and rd.doc_refs['texmacros']
       macro_text = rd.associated_document('texmacros').content
       macro_text = macro_text.gsub(/^=*= .*$/,'')
       macro_text = "\n\n[env.texmacro]\n--\n#{macro_text}\n--\n\n"
@@ -409,12 +412,18 @@ class NSDocument
   # creates this list from scratch, then stores
   # it as jsonb in the toc field of the database
   def update_table_of_contents
+    puts "update_table_of_contents, id = #{self.id}, title = #{self.title}".blue
     value = []
     subdoc_refs.each do |id|
-      hash = {}
-      hash['id'] = id
-      hash['title'] = DocumentRepository.find(id).title
-      value << hash
+      begin
+        hash = {}
+        hash['id'] = id
+        hash['title'] = DocumentRepository.find(id).title
+        value << hash
+      rescue
+        puts "bad id #{id} inupdate_table_of_contentsd".red
+      end
+
     end
     self.toc = value
     DocumentRepository.update(self)
@@ -450,7 +459,7 @@ class NSDocument
   # Compile the receiver, render it, and store the
   # rendered text in self.compiled_and_rendered_content
   def compile_with_render(option={})
-
+    puts "compile_with_render, id = #{self.id}, title = #{self.title}".yellow
     format = self.render_options['format']
 
     case format

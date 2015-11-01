@@ -18,7 +18,6 @@ class Render
 
   def convert
     @options = @options.merge({verbose:0})
-    puts "Asciidoctor will convert with option = #{@options}"
     Asciidoctor.convert(@source, @options)
   end
 

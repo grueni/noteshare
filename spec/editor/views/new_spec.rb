@@ -1,7 +1,5 @@
 require 'spec_helper'
-#  require_relative '../../../../apps/editor/views/documents/new'
-require  "#{ENV['PROJECT_HOME']}/apps/editor/views/documents/new"
-# require_relative File.expand_path('/apps/editor/views/documents/new')
+require_relative '../../../apps/editor/controllers/documents/new'
 
 describe Editor::Views::Documents::New do
   let(:exposures) { Hash[foo: 'bar'] }

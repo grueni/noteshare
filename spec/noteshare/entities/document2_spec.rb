@@ -1,7 +1,5 @@
 require 'spec_helper'
 
-require 'spec_helper'
-
 require 'json'
 
 # The tests below are mainly concerned with

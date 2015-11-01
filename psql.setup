@@ -41,3 +41,5 @@ CREATE TABLE settings (
     owner text,
     Constraint CHK_Logging_singlerow CHECK (id = 1)
 );
+
+

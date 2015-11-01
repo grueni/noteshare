@@ -1,6 +1,5 @@
-# spec/web/controllers/books/create_spec.rb
 require 'spec_helper'
-require_relative "#{ENV['PROJECT_HOME']}/apps/editor/controllers/documents/create"
+require_relative '../../../../apps/editor/controllers/documents/create'
 
 describe Editor::Controllers::Documents::Create do
 
