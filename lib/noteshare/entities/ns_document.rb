@@ -80,9 +80,6 @@ class NSDocument
     @render_options ||= { 'format'=> 'adoc' }
     @root_document_id ||= 0
     @parent_id ||= 0
-    @content_dirty ||= true
-    @compiled_dirty ||= true
-    @toc_dirty ||= true
 
   end
 
@@ -409,27 +406,51 @@ class NSDocument
   end
 
 
+
   # A table of contents is a list of lists,
   # where the sublists are of the form
   # [id, title].  #update_table_of_contents
   # creates this list from scratch, then stores
   # it as jsonb in the toc field of the database
   def update_table_of_contents
-    puts "update_table_of_contents, id = #{self.id}, title = #{self.title}".blue
-    value = []
-    subdoc_refs.each do |id|
-      begin
-        hash = {}
-        hash['id'] = id
-        hash['title'] = DocumentRepository.find(id).title
-        value << hash
-      rescue
-        puts "bad id #{id} inupdate_table_of_contentsd".red
-      end
 
+    case self.toc_dirty
+      when nil
+        puts "update_table_of_contents, id = #{self.id}, title = #{self.title}, dirty = #{self.toc_dirty}".red
+      when true
+        puts "update_table_of_contents, id = #{self.id}, title = #{self.title}, dirty = #{self.toc_dirty}".yellow
+      when false
+        puts "update_table_of_contents, id = #{self.id}, title = #{self.title}, dirty = #{self.toc_dirty}".cyan
+      else
+        puts "update_table_of_contents, id = #{self.id}, title = #{self.title}, dirty = #{self.toc_dirty}".magenta
     end
-    self.toc = value
-    DocumentRepository.update(self)
+
+    dirty = self.toc_dirty
+    dirty = true if dirty.nil?
+
+    if dirty
+      value = []
+      subdoc_refs.each do |id|
+        begin
+          hash = {}
+          hash['id'] = id
+          section = DocumentRepository.find(id)
+          section.toc_dirty = false
+          hash['title'] = section.title
+          value << hash
+          DocumentRepository.update section
+        rescue
+          puts "bad id #{id} in update_table_of_contents".red
+        end
+
+      end
+      self.toc = value
+      self.toc_dirty = false
+      puts "I set toc_dirty = #{self.toc_dirty}  for id = #{self.id}, title = #{self.title}".magenta
+      DocumentRepository.persist(self)
+    else
+      value = self.toc
+    end
     value
   end
 
