@@ -32,4 +32,22 @@ class DocumentRepository
     array.map{ |id| DocumentRepository.find id }.sort_by { |item| item.title }
   end
 
+
+  # List all descendants of a given document
+  def self.descendants(doc_id)
+    query do
+      where(parent_id: doc_id)
+    end
+  end
+
+  # Destroy all descendants of a given
+  # document and the document itself
+  def self.destroy_descendants(doc_id)
+    self.descendants(doc_id).each do |doc|
+      DocumentRepository.delete doc
+    end
+    doc = DocumentRepository.find(doc_id)
+    DocumentRepository.delete(doc)
+  end
+
 end

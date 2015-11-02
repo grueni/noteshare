@@ -23,19 +23,16 @@ class Course
     master = self.to_document(author_name)
     lessons = self.associated_lessons
     puts "lessons.all.count = #{lessons.all.count}".magenta
-    section_list = []
+    # section_list = []
     lessons.all.each do |lesson|
       puts "processing id #{lesson.id} (#{lesson.title})".cyan
       section = lesson.to_document(author_name)
       # section.update_content
       # section.compile_with_render
-      section_list << section
+      # section_list << section
       section.add_to(master)
     end
     master.update_table_of_contents
-    #Fixme: the below will not be necessary when we have lazy compilation for display
-    # master.update_content
-    # master.compile_with_render
     master
   end
 
