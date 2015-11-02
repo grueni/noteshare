@@ -505,10 +505,21 @@ class NSDocument
         render_option = {}
     end
 
-    renderer = Render.new(self.compile, render_option )
-    compiled_content = self.compile
-    self.compiled_and_rendered_content = renderer.convert
-    DocumentRepository.update(self)
+
+    dirty = self.compiled_dirty
+    dirty = true if dirty.nil?
+
+    if dirty
+      puts "compile_with_render (dirty): id = #{self.id}, title = #{self.title}".magenta
+      renderer = Render.new(self.compile, render_option )
+      compiled_content = self.compile
+      self.compiled_and_rendered_content = renderer.convert
+      self.compiled_dirty = false
+      DocumentRepository.update(self)
+    else
+      puts "compile_with_render (clean): id = #{self.id}, title = #{self.title}".blue
+    end
+
 
    if option[:export] == 'yes'
      file_name = self.title.normalize
