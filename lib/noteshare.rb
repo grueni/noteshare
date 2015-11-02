@@ -62,6 +62,9 @@ Lotus::Model.configure do
       attribute :subdoc_refs, PGIntArray
       attribute :doc_refs, JSON
       attribute :toc, JSON
+      attribute :content_dirty, Boolean
+      attribute :compiled_dirty, Boolean
+      attribute :toc_dirty, Boolean
     end
 
     collection :settings do

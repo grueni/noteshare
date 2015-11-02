@@ -35,7 +35,7 @@ html
         == home_link
         | &nbsp; &nbsp; &nbsp;
         - if document
-          a href="/document/#{document.id}"  TOC
+          == link_to 'TOC', "/document/#{document.id}", id: 'toclink'
         - if document
           | &nbsp;
           == options_link(document)

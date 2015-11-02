@@ -21,6 +21,9 @@ CREATE TABLE documents(
    subdoc_refs integer[],
    doc_refs jsonb,
    toc jsonb,
+   content_dirty boolean,
+   compiled_dirty boolean,
+   toc_dirty boolean,
    PRIMARY KEY( id )
 );
 
