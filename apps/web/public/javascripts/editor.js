@@ -8,6 +8,8 @@ $(document).ready(function(){
 
     $('#rendered_content').html(data);
 
+    reloadMathJax();
+
   }
 
 
