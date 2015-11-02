@@ -357,16 +357,26 @@ class NSDocument
   # Replace #content by str, render it
   # and save itl. .
   def update_content(input=nil)
-    puts "update_content, id = #{self.id}, title = #{self.title}".red
-    if input == nil
-      str = self.content || ''
+
+    dirty = self.content_dirty
+    dirty = true if dirty.nil?
+
+    if dirty == true
+      puts "update_content (dirty), id = #{self.id}, title = #{self.title}".magenta
+      if input == nil
+        str = self.content || ''
+      else
+        str = input
+        self.content = str
+      end
+      renderer = Render.new(texmacros + str)
+      self.rendered_content = renderer.convert
+      self.content_dirty = false
+      DocumentRepository.update self
     else
-      str = input
-      self.content = str
+      puts "update_content (clean), id = #{self.id}, title = #{self.title}".blue
     end
-    renderer = Render.new(texmacros + str)
-    self.rendered_content = renderer.convert
-    DocumentRepository.update self
+
   end
 
   def texmacros

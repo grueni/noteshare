@@ -12,6 +12,7 @@ module Web::Controllers::Documents
       puts "SERVER: #{request.env['SERVER_NAME']}"
       puts "PORT: #{request.env['SERVER_PORT']}"
       @document = DocumentRepository.find(params['id'])
+      @document.update_content
     end
 
   end
