@@ -102,7 +102,8 @@ end
   # viewed can be highlighted.
   #
   def master_table_of_contents(active_id)
-    self.update_table_of_contents
+    self.update_table_of_contents(force: true) if toc_is_dirty
+    
     if toc.length == 0
       output = ''
     else
@@ -123,7 +124,7 @@ end
         # Fixme: Updating the toc will need to be done elswhere - or big performance hit
         # Fixme: pehaps call 'update_table_of_contents' in the update controller
         doc = DocumentRepository.find item['id']
-        doc.update_table_of_contents
+        # doc.update_table_of_contents
 
         # Recursion:
         if doc.toc.length > 0

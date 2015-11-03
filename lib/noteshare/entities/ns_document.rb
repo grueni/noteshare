@@ -509,7 +509,23 @@ class NSDocument
   #########################################################
 
 
+  def set_toc_dirty
+    self.toc_dirty = true
+    self.root_document.toc_dirty = true
+  end
+
+  def set_toc_clean
+    self.toc_dirty = false
+    self.root_document.toc_dirty = false
+  end
+
+  def toc_is_dirty
+    self.root_document.toc_dirty
+  end
+
+
   def toc_message
+    puts "UPDATE TABLE OF CONNTENTS -- BOSS, I AM WORKING!".magenta
     case self.toc_dirty
       when nil
         puts "update_table_of_contents, id = #{self.id}, title = #{self.title}, dirty = #{self.toc_dirty}".red
@@ -527,37 +543,43 @@ class NSDocument
   # [id, title].  #update_table_of_contents
   # creates this list from scratch, then stores
   # it as jsonb in the toc field of the database
-  def update_table_of_contents(force=false)
+  def update_table_of_contents(arg = {force: false})
+
+
+    puts "arg = #{arg.to_s}".red
+
+    dirty =  self.root_document.toc_dirty || arg[:force]
+
+    if dirty == false
+      puts "BOSS, no update for the table of contents is needed".blue
+      return
+    end
 
     toc_message
 
-    dirty = self.toc_dirty
-    dirty = true if dirty.nil?
-    dirty = dirty || force
-
-    if dirty
-      value = []
-      subdoc_refs.each do |id|
-        begin
-          hash = {}
-          hash['id'] = id
-          section = DocumentRepository.find(id)
-          section.toc_dirty = false
-          hash['title'] = section.title
-          value << hash
-          DocumentRepository.update section
-        rescue
-          puts "bad id #{id} in update_table_of_contents".red
-        end
-
+    value = []
+    subdoc_refs.each do |id|
+      hash = {}
+      hash['id'] = id
+      section = DocumentRepository.find(id)
+      section.toc_dirty = false
+      if section.subdoc_refs
+        puts "I will now upddate toc for section #{section.title} with hash = #{arg}".yellow
+        section.update_table_of_contents(arg)
+      else
+        puts "No upddate of toc for section #{section.title}".green
       end
-      self.toc = value
-      self.toc_dirty = false
-      puts "I set toc_dirty = #{self.toc_dirty}  for id = #{self.id}, title = #{self.title}".magenta
-      DocumentRepository.persist(self)
-    else
-      value = self.toc
+      hash['title'] = section.title
+      value << hash
+      puts hash.to_s.blue
+      DocumentRepository.update section
     end
+
+    self.toc = value
+    self.toc_dirty = false
+    puts "I set toc_dirty = #{self.toc_dirty}  for id = #{self.id}, title = #{self.title}".magenta
+    self.root_document.toc_dirty = false
+    DocumentRepository.persist(self)
     value
   end
 

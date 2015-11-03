@@ -44,7 +44,7 @@ class Course
       last_node = section
     end
 
-    master.update_table_of_contents
+    master.update_table_of_contents(force: true)
     lesson_count
   end
 
