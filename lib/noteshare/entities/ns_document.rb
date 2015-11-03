@@ -81,7 +81,7 @@ class NSDocument
     @root_document_id ||= 0
     @parent_id ||= 0
 
-    @toc_dirty ||= true
+    # @toc_dirty ||= true
 
   end
 
@@ -419,13 +419,8 @@ class NSDocument
 
 
 
-  # A table of contents is a list of lists,
-  # where the sublists are of the form
-  # [id, title].  #update_table_of_contents
-  # creates this list from scratch, then stores
-  # it as jsonb in the toc field of the database
-  def update_table_of_contents
 
+  def toc_message
     case self.toc_dirty
       when nil
         puts "update_table_of_contents, id = #{self.id}, title = #{self.title}, dirty = #{self.toc_dirty}".red
@@ -436,9 +431,20 @@ class NSDocument
       else
         puts "update_table_of_contents, id = #{self.id}, title = #{self.title}, dirty = #{self.toc_dirty}".magenta
     end
+  end
+
+  # A table of contents is a list of lists,
+  # where the sublists are of the form
+  # [id, title].  #update_table_of_contents
+  # creates this list from scratch, then stores
+  # it as jsonb in the toc field of the database
+  def update_table_of_contents(force=false)
+
+    toc_message
 
     dirty = self.toc_dirty
     dirty = true if dirty.nil?
+    dirty = dirty || force
 
     if dirty
       value = []
