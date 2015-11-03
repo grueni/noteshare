@@ -107,6 +107,9 @@ end
     if toc.length == 0
       output = ''
     else
+      if active_id > 0
+        active_document = DocumentRepository.find(active_id)
+      end
       output = "<ul class='toc'>\n"
       toc.each do |item|
 
@@ -127,7 +130,7 @@ end
         # doc.update_table_of_contents
 
         # Recursion:
-        if doc.toc.length > 0
+        if doc.toc.length > 0 and (doc.id == active_document.parent_id) or (doc.id == active_document.id)
           output << "<ul>\n" << doc.master_table_of_contents(active_id) << "</ul>"
         end
 
