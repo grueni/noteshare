@@ -130,7 +130,9 @@ end
         # doc.update_table_of_contents
 
         # Recursion:
-        if doc.toc.length > 0 and (doc.id == active_document.parent_id) or (doc.id == active_document.id)
+        ancestral_ids = active_document.ancestor_ids << active_document.id
+        if doc.toc.length > 0 and ancestral_ids.include? doc.id
+            #(doc.id == active_document.parent_id) or (doc.id == active_document.id)
           output << "<ul>\n" << doc.master_table_of_contents(active_id) << "</ul>"
         end
 

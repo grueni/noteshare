@@ -283,6 +283,16 @@ class NSDocument
     end
   end
 
+  def ancestor_ids
+    cursor = self
+    list = []
+    while cursor.parent != nil
+      list << cursor.parent.id
+      cursor = cursor.parent
+    end
+    list
+  end
+
   def next_oldest_ancestor
     noa = self
     return self if noa == root_document
