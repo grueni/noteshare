@@ -20,20 +20,32 @@ class Course
 
   # Add all of the lessons associated to a given course
   def create_master_document(author_name = 'James Carlson')
+
     master = self.to_document(author_name)
+    master.content ||= ''
     lessons = self.associated_lessons
-    puts "lessons.all.count = #{lessons.all.count}".magenta
-    # section_list = []
+    lesson_count = lessons.count
+
+    stack = []
+    last_node = master
+
     lessons.all.each do |lesson|
-      puts "processing id #{lesson.id} (#{lesson.title})".cyan
       section = lesson.to_document(author_name)
-      # section.update_content
-      # section.compile_with_render
-      # section_list << section
-      section.add_to(master)
+      stack == [] ?  delta = 2 : delta =  section.asciidoc_level - stack.last.asciidoc_level
+      if delta >= 2
+        stack.push(last_node)
+        puts "push #{last_node.title}".magenta
+      elsif delta <= 0
+        x = stack.pop
+        puts "pop #{x.title}".magenta
+      end
+      section.add_to(stack.last)
+      puts "#{section.title} => #{stack.last.title}".blue
+      last_node = section
     end
+
     master.update_table_of_contents
-    master
+    lesson_count
   end
 
 

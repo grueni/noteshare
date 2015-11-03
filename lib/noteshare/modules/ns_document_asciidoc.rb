@@ -41,6 +41,23 @@ module NSDocument::Asciidoc
     end
   end
 
+  # Return the level of a document  Thus, if
+  # the content is
+  #
+  # Ho ho ho!
+  # === Mr. Klaus and his laugh
+  # blah, blah,
+  # the returned value is 2
+  def asciidoc_level
+    _content = self.content || ''
+    m = _content.match /^(=*) .*$/
+    if m
+      m[1].length - 1
+    else
+      0
+    end
+  end
+
   # Make document.title agree with what
   # is said in the text.
   def synchronize_title

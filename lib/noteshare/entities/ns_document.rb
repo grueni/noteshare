@@ -81,6 +81,8 @@ class NSDocument
     @root_document_id ||= 0
     @parent_id ||= 0
 
+    @toc_dirty ||= true
+
   end
 
   ###################################################

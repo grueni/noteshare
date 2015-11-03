@@ -133,6 +133,54 @@ NSDocument</p>
         <li class="public ">
   <span class="summary_signature">
     
+      <a href="#descendants-class_method" title="descendants (class method)">+ (Object) <strong>descendants</strong>(doc_id) </a>
+    
+
+    
+  </span>
+  
+  
+  
+  
+  
+  
+  
+
+  
+    <span class="summary_desc"><div class='inline'>
+<p>List all descendants of a given document.</p>
+</div></span>
+  
+</li>
+
+      
+        <li class="public ">
+  <span class="summary_signature">
+    
+      <a href="#destroy_tree-class_method" title="destroy_tree (class method)">+ (Object) <strong>destroy_tree</strong>(doc_id) </a>
+    
+
+    
+  </span>
+  
+  
+  
+  
+  
+  
+  
+
+  
+    <span class="summary_desc"><div class='inline'>
+<p>Destroy all descendants of a given document and the document itself.</p>
+</div></span>
+  
+</li>
+
+      
+        <li class="public ">
+  <span class="summary_signature">
+    
       <a href="#find_by_title-class_method" title="find_by_title (class method)">+ (Object) <strong>find_by_title</strong>(title) </a>
     
 
@@ -237,7 +285,107 @@ title.</p>
 
     
       <div class="method_details first">
-  <h3 class="signature first" id="find_by_title-class_method">
+  <h3 class="signature first" id="descendants-class_method">
+  
+    + (<tt>Object</tt>) <strong>descendants</strong>(doc_id) 
+  
+
+  
+
+  
+</h3><div class="docstring">
+  <div class="discussion">
+    
+<p>List all descendants of a given document</p>
+
+
+  </div>
+</div>
+<div class="tags">
+  
+
+</div><table class="source_code">
+  <tr>
+    <td>
+      <pre class="lines">
+
+
+37
+38
+39
+40
+41</pre>
+    </td>
+    <td>
+      <pre class="code"><span class="info file"># File 'lib/noteshare/repositories/document_repository.rb', line 37</span>
+
+<span class='kw'>def</span> <span class='kw'>self</span><span class='period'>.</span><span class='id identifier rubyid_descendants'>descendants</span><span class='lparen'>(</span><span class='id identifier rubyid_doc_id'>doc_id</span><span class='rparen'>)</span>
+  <span class='id identifier rubyid_query'>query</span> <span class='kw'>do</span>
+    <span class='id identifier rubyid_where'>where</span><span class='lparen'>(</span><span class='label'>parent_id:</span> <span class='id identifier rubyid_doc_id'>doc_id</span><span class='rparen'>)</span>
+  <span class='kw'>end</span>
+<span class='kw'>end</span></pre>
+    </td>
+  </tr>
+</table>
+</div>
+    
+      <div class="method_details ">
+  <h3 class="signature " id="destroy_tree-class_method">
+  
+    + (<tt>Object</tt>) <strong>destroy_tree</strong>(doc_id) 
+  
+
+  
+
+  
+</h3><div class="docstring">
+  <div class="discussion">
+    
+<p>Destroy all descendants of a given document and the document itself</p>
+
+
+  </div>
+</div>
+<div class="tags">
+  
+
+</div><table class="source_code">
+  <tr>
+    <td>
+      <pre class="lines">
+
+
+45
+46
+47
+48
+49
+50
+51
+52
+53
+54</pre>
+    </td>
+    <td>
+      <pre class="code"><span class="info file"># File 'lib/noteshare/repositories/document_repository.rb', line 45</span>
+
+<span class='kw'>def</span> <span class='kw'>self</span><span class='period'>.</span><span class='id identifier rubyid_destroy_tree'>destroy_tree</span><span class='lparen'>(</span><span class='id identifier rubyid_doc_id'>doc_id</span><span class='rparen'>)</span>
+  <span class='id identifier rubyid_descendants'>descendants</span> <span class='op'>=</span> <span class='kw'>self</span><span class='period'>.</span><span class='id identifier rubyid_descendants'>descendants</span><span class='lparen'>(</span><span class='id identifier rubyid_doc_id'>doc_id</span><span class='rparen'>)</span>
+  <span class='id identifier rubyid_n'>n</span> <span class='op'>=</span> <span class='id identifier rubyid_descendants'>descendants</span><span class='period'>.</span><span class='id identifier rubyid_count'>count</span>
+  <span class='id identifier rubyid_descendants'>descendants</span><span class='period'>.</span><span class='id identifier rubyid_each'>each</span> <span class='kw'>do</span> <span class='op'>|</span><span class='id identifier rubyid_doc'>doc</span><span class='op'>|</span>
+    <span class='const'>DocumentRepository</span><span class='period'>.</span><span class='id identifier rubyid_delete'>delete</span> <span class='id identifier rubyid_doc'>doc</span>
+  <span class='kw'>end</span>
+  <span class='id identifier rubyid_doc'>doc</span> <span class='op'>=</span> <span class='const'>DocumentRepository</span><span class='period'>.</span><span class='id identifier rubyid_find'>find</span><span class='lparen'>(</span><span class='id identifier rubyid_doc_id'>doc_id</span><span class='rparen'>)</span>
+  <span class='const'>DocumentRepository</span><span class='period'>.</span><span class='id identifier rubyid_delete'>delete</span><span class='lparen'>(</span><span class='id identifier rubyid_doc'>doc</span><span class='rparen'>)</span>
+  <span class='id identifier rubyid_n'>n</span>
+<span class='kw'>end</span></pre>
+    </td>
+  </tr>
+</table>
+</div>
+    
+      <div class="method_details ">
+  <h3 class="signature " id="find_by_title-class_method">
   
     + (<tt>Object</tt>) <strong>find_by_title</strong>(title) 
   
@@ -408,7 +556,7 @@ title</p>
 </div>
 
     <div id="footer">
-  Generated on Sun Nov  1 15:13:50 2015 by
+  Generated on Tue Nov  3 08:44:56 2015 by
   <a href="http://yardoc.org" title="Yay! A Ruby Documentation Tool" target="_parent">yard</a>
   0.8.7.6 (ruby-2.2.3).
 </div>

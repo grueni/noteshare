@@ -42,12 +42,15 @@ class DocumentRepository
 
   # Destroy all descendants of a given
   # document and the document itself
-  def self.destroy_descendants(doc_id)
-    self.descendants(doc_id).each do |doc|
+  def self.destroy_tree(doc_id)
+    descendants = self.descendants(doc_id)
+    n = descendants.count
+    descendants.each do |doc|
       DocumentRepository.delete doc
     end
     doc = DocumentRepository.find(doc_id)
     DocumentRepository.delete(doc)
+    n
   end
 
 end

@@ -386,6 +386,22 @@ EOF
 
   end
 
+  it 'can compute the level of a document' do
+
+    @section1.content = 'Foo'
+    @section1.asciidoc_level.must_equal(0)
+
+      @section1.content = '= Foo'
+      @section1.asciidoc_level.must_equal(0)
+
+      @section1.content = '== Foo'
+      @section1.asciidoc_level.must_equal(1)
+
+      @section1.content = '=== Foo'
+      @section1.asciidoc_level.must_equal(2)
+
+  end
+
 
 
 end
