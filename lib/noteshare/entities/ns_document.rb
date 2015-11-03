@@ -53,6 +53,7 @@ class NSDocument
   #     2. MANAGE SUBDOCUMENTS
   #     3. ASSOCIATED DOCUMENTS
   #     4. UPDATE, COMPILE & RENDER
+  #     5. TABLE OF CONTENTS
   #
   ###################################################
 
@@ -350,7 +351,7 @@ class NSDocument
 
   ###################################################
   #
-  #      4. UPDATE, COMPILE & RENDER
+  #      4. UPDATE CONTENT, COMPILE & RENDER
   #
   ###################################################
 
@@ -419,6 +420,94 @@ class NSDocument
 
 
 
+  # NSDocument#render is the sole connection between class NSDocument and
+  # module Render.  It updates self.rendered_content by applying
+  # Asciidoctor.convert to self.content with the provided options.
+  def render
+
+    format = @render_options['format']
+
+    case format
+      when 'adoc'
+        render_option = {}
+      when 'adoc-latex'
+        render_option = {backend: 'html5'}
+      else
+        render_option = {}
+    end
+
+    renderer = Render.new(self.compile, render_option )
+    self.rendered_content = renderer.convert
+    DocumentRepository.update(self)
+
+  end
+
+  # Compile the receiver, render it, and store the
+  # rendered text in self.compiled_and_rendered_content
+  def compile_with_render(option={})
+    puts "compile_with_render, id = #{self.id}, title = #{self.title}".yellow
+    format = self.render_options['format']
+
+    case format
+      when 'adoc'
+        render_option = {}
+      when 'adoc-latex'
+        render_option = {backend: 'html5'}
+      else
+        render_option = {}
+    end
+
+
+    dirty = self.compiled_dirty
+    dirty = true if dirty.nil?
+
+    if dirty
+      puts "compile_with_render (dirty): id = #{self.id}, title = #{self.title}".magenta
+      renderer = Render.new(self.compile, render_option )
+      compiled_content = self.compile
+      self.compiled_and_rendered_content = renderer.convert
+      self.compiled_dirty = false
+      DocumentRepository.update(self)
+    else
+      puts "compile_with_render (clean): id = #{self.id}, title = #{self.title}".blue
+    end
+
+
+    if option[:export] == 'yes'
+      file_name = self.title.normalize
+      path = "outgoing/#{file_name}.adoc"
+
+      IO.write(path, compiled_content)
+      export_html(format)
+    end
+
+  end
+
+  def export_html(format)
+
+    file_name = self.title.normalize
+    path = "outgoing/#{file_name}.adoc"
+
+    case format
+      when 'adoc'
+        cmd = "asciidoctor #{path}"
+      when 'adoc-latex'
+        cmd = "asciidoctor-latex -b html #{path}"
+      else
+        cmd =  "asciidoctor #{path}c"
+    end
+
+    system cmd
+
+  end
+
+
+  #########################################################
+  #
+  #  TABLE OF CONTENTS
+  #
+  #########################################################
+
 
   def toc_message
     case self.toc_dirty
@@ -476,86 +565,7 @@ class NSDocument
     root_document.update_table_of_contents
   end
 
-  # NSDocument#render is the sole connection between class NSDocument and
-  # module Render.  It updates self.rendered_content by applying
-  # Asciidoctor.convert to self.content with the provided options.
-  def render
 
-    format = @render_options['format']
-
-    case format
-      when 'adoc'
-        render_option = {}
-      when 'adoc-latex'
-        render_option = {backend: 'html5'}
-      else
-        render_option = {}
-    end
-
-    renderer = Render.new(self.compile, render_option )
-    self.rendered_content = renderer.convert
-    DocumentRepository.update(self)
-
-  end
-
-  # Compile the receiver, render it, and store the
-  # rendered text in self.compiled_and_rendered_content
-  def compile_with_render(option={})
-    puts "compile_with_render, id = #{self.id}, title = #{self.title}".yellow
-    format = self.render_options['format']
-
-    case format
-      when 'adoc'
-        render_option = {}
-      when 'adoc-latex'
-        render_option = {backend: 'html5'}
-      else
-        render_option = {}
-    end
-
-
-    dirty = self.compiled_dirty
-    dirty = true if dirty.nil?
-
-    if dirty
-      puts "compile_with_render (dirty): id = #{self.id}, title = #{self.title}".magenta
-      renderer = Render.new(self.compile, render_option )
-      compiled_content = self.compile
-      self.compiled_and_rendered_content = renderer.convert
-      self.compiled_dirty = false
-      DocumentRepository.update(self)
-    else
-      puts "compile_with_render (clean): id = #{self.id}, title = #{self.title}".blue
-    end
-
-
-   if option[:export] == 'yes'
-     file_name = self.title.normalize
-     path = "outgoing/#{file_name}.adoc"
-
-     IO.write(path, compiled_content)
-     export_html(format)
-   end
-
-  end
-
-  def export_html(format)
-
-    file_name = self.title.normalize
-    path = "outgoing/#{file_name}.adoc"
-
-    case format
-      when 'adoc'
-        cmd = "asciidoctor #{path}"
-      when 'adoc-latex'
-        cmd = "asciidoctor-latex -b html #{path}"
-      else
-        cmd =  "asciidoctor #{path}c"
-    end
-
-    system cmd
-
-  end
 
 
 
