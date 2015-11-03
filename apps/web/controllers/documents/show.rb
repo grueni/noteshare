@@ -13,7 +13,7 @@ module Web::Controllers::Documents
       puts "PORT: #{request.env['SERVER_PORT']}"
       @document = DocumentRepository.find(params['id'])
       @document.update_content
-      @document.compile_with_render
+      # @document.compile_with_render
     end
 
   end
