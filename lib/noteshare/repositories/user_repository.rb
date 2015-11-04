@@ -1,3 +1,3 @@
-class UsersRepository
+class UserRepository
   include Lotus::Repository
 end

@@ -22,8 +22,8 @@ module UI
       link_to 'Admin', '/admin'
     end
 
-    def options_link(document)
-      link_to 'Options', "/editor/document/options/#{document.id}"
+    def settings_link(document)
+      link_to "Settings", "/editor/document/options/#{document.id}"
     end
 
     def export_link(document)

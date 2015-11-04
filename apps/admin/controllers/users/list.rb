@@ -5,7 +5,7 @@ module Admin::Controllers::Users
     expose :users
 
     def call(params)
-      @users = UsersRepository.all
+      @users = UserRepository.all
     end
   end
 end

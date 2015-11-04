@@ -5,7 +5,7 @@ module NSDocument::Interface
 
   def current_user_full_name
     # SettingsRepository.first.owner
-    user = UsersRepository.first
+    user = UserRepository.first
     "#{user.first_name} #{user.last_name}"
   end
 

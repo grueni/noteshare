@@ -1,5 +1,5 @@
 require 'spec_helper'
 
-describe UsersRepository do
+describe UserRepository do
   # place your tests here
 end

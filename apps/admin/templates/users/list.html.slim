@@ -1,18 +1,23 @@
-- if users.any?
-  .users
-    table style=('top:140px; margin-left:auto; margin-right:auto;')
-      thead
-        tr
-          th First Name
-          th Last Name
+.row.inset
+  .col style='margin-bottom:2em; height:90%;'
 
-      tbody
-        - users.each do |user|
-          tr
-            td= user.first_name
-            td= user.last_name
+    - if users.any?
+      .users
+        table style=('top:140px; margin-left:auto; margin-right:auto;')
+          thead
+            tr
+              th Name
+              th Screen Name
+              th Email
 
-- else
-  p.placeholder There are no users yet.
+          tbody
+            - users.each do |user|
+              tr
+                td= "#{user.first_name} #{user.last_name}"
+                td= user.screen_name
+                td= user.email
+
+    - else
+      p.placeholder There are no users yet.
 
 

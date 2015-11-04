@@ -35,6 +35,8 @@ CREATE TABLE users(
   email text,
   screen_name text,
   level integer,
+  password text;
+  password_confirmation text;
   PRIMARY KEY( id )
 );
 

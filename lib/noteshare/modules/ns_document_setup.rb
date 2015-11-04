@@ -10,10 +10,10 @@ include NSDocument::Interface
     def self.seed_db
 
     SettingsRepository.clear
-    UsersRepository.clear
+    UserRepository.clear
     DocumentRepository.clear
 
-    UsersRepository.create(Users.new(first_name: 'Jason', last_name: 'Foo-Bar'))
+    UserRepository.create(User.new(first_name: 'Jason', last_name: 'Foo-Bar'))
     SettingsRepository.create(Settings.new(owner: current_user_full_name))
 
 
