@@ -189,6 +189,15 @@ ul.toc {
 
 }
 
+.navbar_right_item2 {
+
+    position: absolute;
+    right: 1em;
+    top:3px;
+    display: inline-block;
+
+}
+
 /* EDITOR */
 
 .source_input {
@@ -275,6 +284,21 @@ textarea {
     margin-left: 0.25em;
 }
 
+
+/* https://css-tricks.com/almanac/properties/l/list-style/ */
+/* .toc > li { list-style-type: square; } */
+
+
+/* http://stackoverflow.com/questions/5306640/setting-bullet-colors-in-ul-li-lists-via-css-without-using-images-or-span-tags */
+/*  http://fontawesome.io/cheatsheet/ */
+.toc > li:before {
+    content: "\f0c8";
+    font-family: FontAwesome;
+    font-size:8px;
+    color: slateblue; /* or whatever color you prefer */
+    margin-right:1.0em;
+    /* alignment-baseline:-4px; */
+}
 
 .active > a {
 

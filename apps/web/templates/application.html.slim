@@ -5,6 +5,7 @@ html
     link href='http://cdnjs.cloudflare.com/ajax/libs/font-awesome/3.2.1/css/font-awesome.min.css' rel='stylesheet' /
     link href="/stylesheets/materialize.css" rel="stylesheet" type="text/css" /
     link href="/stylesheets/asciidoctor.css" rel="stylesheet" type="text/css" /
+    link href="/stylesheets/asciidoctor2.css" rel="stylesheet" type="text/css" /
     link href="/stylesheets/main.css" rel="stylesheet" type="text/css" /
     meta content="width=device-width, initial-scale=1.0" name="viewport" /
     -if document and document.render_options['format'] == 'adoc-latex'
@@ -22,7 +23,7 @@ html
         | TeX: { extensions: ["mhchem.js"] }
         | });
     script  src= mathjax_script(document)
-  body
+  body id='web-body'
     script src="https://code.jquery.com/jquery-2.1.1.min.js" type="text/javascript"
     script src="/javascripts/materialize.min.js" type="text/javascript"
     script src="/javascripts/common.js" type="text/javascript"
@@ -44,8 +45,26 @@ html
         ul id='navlist'
           li
             == documents_link
+
+
+      .navbar_right_item2
+        ul#dropdown2a.dropdown-content
           li
-            == admin_link
+            a[href="#!"]
+              == admin_link
+              span.badge
+                | 1
+          li
+            a[href="#!"]
+              | two
+              span.new.badge
+                | 1
+          li
+            a[href="#!"]
+              | three
+        a.btn.dropdown-button[href="#!" data-activates="dropdown2a"]
+          | Go
+          i.mdi-navigation-arrow-drop-down.right
 
     .row
       == yield

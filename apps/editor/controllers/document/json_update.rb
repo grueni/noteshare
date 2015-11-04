@@ -6,8 +6,8 @@ module Editor::Controllers::Document
       puts ">> JSON UPDATE".red
       id = params['id'].to_i
       @document = DocumentRepository.find(id)
+      @document.content_dirty = true
       @document.update_content params['source']
-      @document.compile_with_render
       @document.synchronize_title
       self.body = @document.rendered_content
     end
