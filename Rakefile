@@ -31,6 +31,12 @@ namespace :t do
     exec cmd
   end
 
+  desc "Run tests on Session Managery"
+  task :session do
+    cmd = 'ruby -I"Lib:spec" spec/session_manager/features/*'
+    exec cmd
+  end
+
 end
 
 # lib/tasks/db.rake
