@@ -1,4 +1,4 @@
-# Interface to other classes
+  # Interface to other classes
 
 module NSDocument::Interface
 
@@ -9,7 +9,7 @@ module NSDocument::Interface
     "#{user.first_name} #{user.last_name}"
   end
 
-  class User
+  class UserXX
 
     def self.current
       SettingsRepository.first.owner

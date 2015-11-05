@@ -6,9 +6,16 @@ module SessionManager::Controllers::User
       puts "SessionManager, AUTHENTICATE".magenta
       email = params[:user]['email']
       password = params[:user]['password']
-      authenticated = User.authenticate(email, password)
-      params[:user]['authenticated'] = authenticated
-      puts "authenticated: #{params[:user]['authenticated']}".cyan
+      user = UserRepository.find_one_by_email(email)
+      if user
+        authenticated = user.authenticate(password)
+        params[:user]['authenticated'] = authenticated
+        puts "authenticated: #{params[:user]['authenticated']}".cyan
+        user.login(password)
+      else
+        params[:user]['authenticated'] = false
+      end
+
     end
   end
 end
