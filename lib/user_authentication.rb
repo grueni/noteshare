@@ -1,35 +1,23 @@
 
 class UserAuthentication
 
-  attr :email, :password
-
   def initialize(email, password)
     @email = email
     @password = password
+    @user = UserRepository.find_one_by_email(@email)
   end
 
   def authenticate
-    user = UserRepository.find_one_by_email(@email)
-    BCrypt::Password.new(user.password) == password if user
+    BCrypt::Password.new(@user.password) == @password if @user
   end
 
   def login(session)
-    if self.authenticate
-      session[:user_id] = self.id
+    if authenticate
+      session[:user_id] = @user.id
       return true
     else
       return false
     end
   end
-
-=begin
-  def logout
-    session[self.id] = nil
-  end
-
-  def self.current_user
-    UserRepository.find session[:user_id]
-  end
-=end
 
 end

@@ -16,26 +16,5 @@ class User
     return true
   end
 
-  def authenticate(password)
-    BCrypt::Password.new(self.password) == password
-  end
-
-  def login(password, session)
-    if self.authenticate(password)
-      session[:user_id] = self.id
-      return true
-    else
-      return false
-    end
-  end
-
-  def logout
-    session[self.id] = nil
-  end
-
-  def self.current_user
-    UserRepository.find session[:user_id]
-  end
-
 
 end
