@@ -1,4 +1,4 @@
-require_relative '../../../../lib/session_tools'
+require_relative '../../../../lib/user_authentication'
 include SessionTools
 
 module SessionManager::Views::User
