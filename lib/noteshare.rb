@@ -124,10 +124,6 @@ Lotus::Model.configure do
 end.load!
 
 
-
-
-
-
 Lotus::Mailer.configure do
   root "#{ __dir__ }/noteshare/mailers"
 

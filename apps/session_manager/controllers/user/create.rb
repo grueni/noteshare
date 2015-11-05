@@ -1,4 +1,7 @@
+require 'bcrypt'
+
 module SessionManager::Controllers::User
+
   class Create
     include SessionManager::Action
 
@@ -6,7 +9,14 @@ module SessionManager::Controllers::User
       puts ">> Controller, create new user".magenta
       # data = params[:user]
       new_user = User.new(params[:user])
-      UserRepository.create new_user
+      if new_user.password == new_user.password_confirmation
+        new_user.password = BCrypt::Password.create(new_user.password)
+        new_user.password_confirmation = ''
+        UserRepository.create new_user
+      end
+
+
+      redirect_to '/admin/users'
     end
 
   end

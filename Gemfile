@@ -15,6 +15,8 @@ gem 'pg'
 gem 'haml'
 gem 'slim'
 
+gem 'bcrypt'
+
 gem 'asciidoctor', '~> 1.5.2'
 gem 'asciidoctor-latex', :github => 'asciidoctor/asciidoctor-latex', :branch => 'master'
 gem 'thread_safe'

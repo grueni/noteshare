@@ -1,0 +1,7 @@
+.row.inset
+  - if params[:user]['authenticated'] == true
+    h4 Congratuatlions!
+    p You are now logged in
+  - else
+    h4 Sorry!
+    p Either your email address or your password was incorrect
