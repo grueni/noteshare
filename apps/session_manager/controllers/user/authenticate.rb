@@ -2,6 +2,8 @@ module SessionManager::Controllers::User
   class Authenticate
     include SessionManager::Action
 
+    expose :user
+
     # https://discuss.lotusrb.org/t/problem-after-updating-to-0-4-0/99
     def call(params)
       puts "SessionManager, AUTHENTICATE".magenta
@@ -9,7 +11,8 @@ module SessionManager::Controllers::User
       result = false
       if user
         password = params[:user]['password']
-        result = user.login(password)
+        result = user.login(password, session)
+        puts "Login result = #{result}".red
       end
       params[:user]['authenticated'] = result
     end

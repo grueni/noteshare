@@ -20,9 +20,9 @@ class User
     BCrypt::Password.new(self.password) == password
   end
 
-  def login(password)
+  def login(password, session)
     if self.authenticate(password)
-      # session[:user_id] = self.id
+      session[:user_id] = self.id
       return true
     else
       return false
