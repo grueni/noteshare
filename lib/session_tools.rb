@@ -1,11 +1,11 @@
 module SessionTools
 
 
-  def self.logout(user)
+  def logout(user, session)
     session[user.id] = nil
   end
 
-  def self.current_user
+  def current_user(session)
     UserRepository.find session[:user_id]
   end
 
