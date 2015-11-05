@@ -22,7 +22,10 @@ class User
 
   def login(password)
     if self.authenticate(password)
-      session[:user_id] = self.id
+      # session[:user_id] = self.id
+      return true
+    else
+      return false
     end
   end
 
