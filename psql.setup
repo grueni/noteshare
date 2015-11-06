@@ -35,8 +35,21 @@ CREATE TABLE users(
   email text,
   screen_name text,
   level integer,
-  password text;
-  password_confirmation text;
+  password text,
+  password_confirmation text,
+  meta jsonb,
+  PRIMARY KEY( id )
+);
+
+DROP TABLE ns_nodes;
+CREATE TABLE ns_nodes(
+  id serial,
+  owner_id integer,
+  name text,
+  type text,
+  meta jsonb,
+  docs integer[],
+  children integer[],
   PRIMARY KEY( id )
 );
 

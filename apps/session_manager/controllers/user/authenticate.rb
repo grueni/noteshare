@@ -10,7 +10,8 @@ module SessionManager::Controllers::User
     def call(params)
       puts "SessionManager, AUTHENTICATE".magenta
       authenticator = UserAuthentication.new(params[:user]['email'], params[:user]['password'])
-      params[:user]['authenticated'] = authenticator.login(session)
+      result = authenticator.login(session)
+      params[:user]['authenticated']  = result
     end
 
 

@@ -84,7 +84,21 @@ Lotus::Model.configure do
       attribute :screen_name, String
       attribute :level, Integer
       attribute :password, String
+      attribute :meta, JSON
       attribute :password_confirmation, String
+    end
+
+
+    collection :nodes do
+      entity NSNode
+      repository NSNodeRepository
+      attribute :id, Integer
+      attribute :owner_id, Integer
+      attribute :name, String
+      attribute :type, String
+      attribute :meta, JSON
+      attribute :docs, PGIntArray
+      attribute :children, PGIntArray
     end
 
     collection :courses do

@@ -1,0 +1,50 @@
+doctype html
+html
+  head
+    title Noteshare Reader
+    link href='http://cdnjs.cloudflare.com/ajax/libs/font-awesome/3.2.1/css/font-awesome.min.css' rel='stylesheet' /
+    link href="/stylesheets/materialize.css" rel="stylesheet" type="text/css" /
+    link href="/stylesheets/asciidoctor.css" rel="stylesheet" type="text/css" /
+    link href="/stylesheets/asciidoctor2.css" rel="stylesheet" type="text/css" /
+    link href="/stylesheets/main.css" rel="stylesheet" type="text/css" /
+    meta content="width=device-width, initial-scale=1.0" name="viewport" /
+  body id='web-body'
+    script src="https://code.jquery.com/jquery-2.1.1.min.js" type="text/javascript"
+    script src="/javascripts/materialize.min.js" type="text/javascript"
+    script src="/javascripts/common.js" type="text/javascript"
+    .nav
+      .navbar_left_item
+
+      .navbar_middle_item
+
+
+      .navbar_right_item
+
+
+
+      .navbar_right_item2
+        ul#dropdown2a.dropdown-content
+          li
+            a[href="#!"]
+             |FFFFF
+              span.badge
+                | 1
+          li
+            a[href="#!"]
+              | two
+              span.new.badge
+                | 1
+          li
+            a[href="#!"]
+              | three
+        a.btn.dropdown-button[href="#!" data-activates="dropdown2a"]
+          | Go
+          i.mdi-navigation-arrow-drop-down.right
+
+    .row
+      == yield
+
+    .footer
+      .footer_item_right
+        | Crafted with
+        span.heart ❤

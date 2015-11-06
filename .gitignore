@@ -5,3 +5,4 @@ db/*.dump
 outgoing/
 db/bak/
 tmp/
+.gitkeep
