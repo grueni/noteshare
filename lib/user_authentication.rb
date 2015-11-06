@@ -13,10 +13,9 @@ class UserAuthentication
 
   def login(session)
     if authenticate
+      puts "in login, authenticate  is successful".magenta
       session[:user_id] = @user.id
-      return true
-    else
-      return false
+      return @user
     end
   end
 
