@@ -16,5 +16,11 @@ class User
     return true
   end
 
+  # Return the id of the node associate
+  # to te user if  it exists.
+  def node_id
+    JSON.parse(self.meta)['node']
+  end
+
 
 end
