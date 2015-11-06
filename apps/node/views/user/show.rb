@@ -11,5 +11,15 @@ module Node::Views::User
       "This is #{user.screen_name}'s node" if user
     end
 
+=begin
+    def doclist(node)
+      ul
+      documents.each do |doc|
+        li == document_link(doc)
+    end
+
+=end
+
   end
+
 end

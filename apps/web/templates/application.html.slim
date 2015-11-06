@@ -30,6 +30,8 @@ html
     .nav
       .navbar_left_item
         == home_link
+        | &nbsp;&nbsp;
+        == current_user_node_link(session)
         | &nbsp; &nbsp; &nbsp; &nbsp;
         == left_menu
         - if document

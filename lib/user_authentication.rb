@@ -14,7 +14,10 @@ class UserAuthentication
   def login(session)
     if authenticate
       puts "in login, authenticate  is successful".magenta
+      puts "  -- user id is #{@user.id}".green
+      puts "  -- session is #{session.inspect}".blue
       session[:user_id] = @user.id
+      puts "  -- NOW session is #{session.inspect}".cyan
       return @user
     end
   end

@@ -25,4 +25,14 @@ class User
   end
 
 
+  ################################
+  #
+  #  SEARCH
+  #
+  ################################
+
+  # Return all root documents
+
+
+
 end

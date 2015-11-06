@@ -32,6 +32,12 @@ class DocumentRepository
     end
   end
 
+  def self.root_documents_for_user(author_id)
+    query do
+      where(root_document_id: 0, author_id: author_id)
+    end
+  end
+
   def self.root_document_by_title(key, limit: 8)
     array = fetch("SELECT id FROM documents WHERE parent_id = 0 AND title ILIKE '%#{key}%';")
     array = array.map{ |h| h[:id] }.uniq
