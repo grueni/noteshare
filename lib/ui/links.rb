@@ -1,7 +1,53 @@
 module UI
+
+  #####################################################
+  #
+  #  1. MODULE LINKS
+  #  2. MODULE FORS
+  #
+  #####################################################
+
+
   module Links
     require_relative '../../lib/user_authentication'
     include SessionTools
+
+    #####################################################
+    #
+    #  1. SESSION LINKS
+    #  2. APPLICATION-WIDE LINKS
+    #  3. DOCUMENT LINKS
+    #  4. OTHER LINKS
+    #
+    #####################################################
+
+    #####################################################
+    #
+    #   1. SESSION LINKS
+    #
+    #####################################################
+
+    def signin_link
+      link_to 'Sign in', '/session_manager/login'
+    end
+
+    def signup_link
+      link_to 'Sign up', '/session_manager/new_user'
+    end
+
+    def signout_link
+      link_to 'Sign out', '/session_manager/logout'
+    end
+
+    def admin_link
+      link_to 'Admin', '/admin'
+    end
+
+    #####################################################
+    #
+    #   APPLICATION-WIDE LINKS
+    #
+    #####################################################
 
     def home_link
       link_to 'NS', '/'
@@ -9,16 +55,20 @@ module UI
 
     def current_user_node_link(session)
       user = current_user(session)
-      link_to "#{user.screen_name.capitalize}", "/node/user/#{user.node_id}"
+      if user
+        puts session.inspect.to_s.magenta
+        link_to "#{user.screen_name.capitalize}", "/node/user/#{user.node_id}"
+      else
+        puts "No current user".red
+      end
     end
 
-    def current_user_node_link2(session)
-      puts "HOHOHO!".magenta
-      # puts session[:user_id]
-      puts session.inspect.to_s.magenta
-      'foobar'
-    end
 
+    #####################################################
+    #
+    #   3. DOCUMENT LINKS
+    #
+    #####################################################
 
     def document_link(document)
       link_to document.title, "/document/#{document.id}"
@@ -26,6 +76,10 @@ module UI
 
     def documents_link
       link_to 'Documents', '/documents'
+    end
+
+    def export_link(document)
+      link_to 'Export', "/editor/export/#{document.id}"
     end
 
     def reader_link(doc)
@@ -37,25 +91,20 @@ module UI
       end
     end
 
-    def signin_link
-      link_to 'Sign in', '/session_manager/login'
-    end
 
-    def signup_link
-      link_to 'Sign up', '/session_manager/new_user'
-    end
 
-    def admin_link
-      link_to 'Admin', '/admin'
-    end
+
+    #####################################################
+    #
+    #   4. OTHER LINKS
+    #
+    #####################################################
 
     def settings_link(document)
       link_to "Settings", "/editor/document/options/#{document.id}"
     end
 
-    def export_link(document)
-      link_to 'Export', "/editor/export/#{document.id}"
-    end
+
 
   end
 

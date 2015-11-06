@@ -35,6 +35,7 @@ html
       .navbar_left_item
         == home_link
         | &nbsp; &nbsp; &nbsp;
+        == current_user_node_link
         - if document
           == link_to 'TOC', "/document/#{document.id}", id: 'toclink'
         - if document

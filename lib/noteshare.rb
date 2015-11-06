@@ -97,8 +97,8 @@ Lotus::Model.configure do
       attribute :name, String
       attribute :type, String
       attribute :meta, JSON
-      attribute :docs, PGIntArray
-      attribute :children, PGIntArray
+      attribute :docs, JSON
+      attribute :children, JSON
     end
 
     collection :courses do

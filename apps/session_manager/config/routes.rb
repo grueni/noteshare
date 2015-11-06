@@ -1,3 +1,4 @@
+get '/logout', to: 'user#logout'
 post '/authenticate', to: 'user#authenticate'
 get '/login', to: 'user#login'
 post '/create_user', to: 'user#create'

@@ -6,7 +6,7 @@ module SessionManager::Controllers::User
     include SessionManager::Action
 
     def call(params)
-      puts ">> Controller, create new user".magenta
+      puts "controller SessionManager, create new user".magenta
       # data = params[:user]
       new_user = User.new(params[:user])
       if new_user.password == new_user.password_confirmation

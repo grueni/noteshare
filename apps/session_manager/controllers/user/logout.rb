@@ -1,10 +1,10 @@
 module SessionManager::Controllers::User
-  class Login
+  class Logout
     include SessionManager::Action
 
     def call(params)
-      puts "controler SessionManager, Login".magenta
-
+      session[:user_id] = nil
+      self.body = 'You are now logged out'
     end
   end
 end
