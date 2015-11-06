@@ -113,16 +113,28 @@ end
       output = "<ul class='toc'>\n"
       toc.each do |item|
 
+        puts item.to_s.red
+
         # Compute list item:
         doc_id = item['id']
         doc_title = item['title']
         doc_link = "href='http://#{SERVER_NAME}:#{SERVER_PORT}/document/#{doc_id}'>#{doc_title}</a>"
-        if doc_id == active_id
-          output << "<li class='toc active'><a #{doc_link}</a>\n"
+        class_str = "class = '"
+
+        if item['subdocs']
+          class_str << 'subdocs-yes '
         else
-          output << "<li class='toc inactive'><a #{doc_link}</a>\n"
+          class_str << 'subdocs-no '
         end
 
+        if doc_id == active_id
+          class_str << 'active'
+        else
+          class_str << 'inactive'
+        end
+
+
+        output << "<li #{class_str} '><a #{doc_link}</a>\n"
         # Fixme: need to make udpate_table_of_contents lazy
         # Fixme: Updating the toc will need to be done elswhere - or big performance hit
         # Fixme: pehaps call 'update_table_of_contents' in the update controller

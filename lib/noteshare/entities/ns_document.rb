@@ -548,10 +548,15 @@ class NSDocument
     end
   end
 
-  # A table of contents is a list of lists,
-  # where the sublists are of the form
-  # [id, title].  #update_table_of_contents
-  # creates this list from scratch, then stores
+  # A table of contents is an array of hashes,
+  # where the key-value pairs are like
+  #
+  #    hash['id'] = 23
+  #    hash['title'] = 'Long Journey'
+  #    hash['subdocs'] = true
+  #
+  # The metnod  #update_table_of_contents
+  # creates this structure from scratch, then stores
   # it as jsonb in the toc field of the database
   def update_table_of_contents(arg = {force: false})
 
@@ -573,10 +578,12 @@ class NSDocument
       hash['id'] = id
       section = DocumentRepository.find(id)
       section.toc_dirty = false
-      if section.subdoc_refs
+      if section.subdoc_refs != []
+        hash['subdocs'] = true
         puts "I will now upddate toc for section #{section.title} with hash = #{arg}".yellow
         section.update_table_of_contents(arg)
       else
+        hash['subdocs'] = false
         puts "No upddate of toc for section #{section.title}".green
       end
       hash['title'] = section.title

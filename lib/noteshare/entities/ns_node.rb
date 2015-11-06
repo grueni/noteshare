@@ -5,8 +5,8 @@ class NSNode
   require 'json'
 
 
-  # update_docs_for_owner docs: replace current list with list of ids of
-  # root documents belonging to the owner of the node
+  # update_docs_for_owner docs: replace current list with list of ids
+  # and title root documents belonging to the owner of the node
   def update_docs_for_owner
     dd = DocumentRepository.root_documents_for_user self.owner_id
     doc_data = dd.map{ |doc| [doc.id, doc.title]}
@@ -14,10 +14,12 @@ class NSNode
     NSNodeRepository.update self
   end
 
+  # Retrieve the document list: unpack
   def documents
     JSON.parse self.docs
   end
 
+  # Return an HTML list of links to documents
   def documents_as_list
     list = documents
     output = "<ul>\n"
