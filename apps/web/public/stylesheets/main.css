@@ -12,6 +12,40 @@
 
 ***/
 
+.inset_left{
+
+    margin-left:2em;
+}
+
+.inset_top{
+
+    margin-top:2em;
+}
+
+
+.ns_card {
+
+    background-color: #444;
+    padding-left: 2em;
+    padding-right: 2em;
+    padding-top:2em;
+    padding-bottom:1em;
+
+    color: #fff;
+    max-width:400px;'
+}
+
+.ns_card h4, h5   {
+
+    color: #fff;
+}
+
+.ns_card a {
+
+    text-decoration: none;
+    color: #fff;
+}
+
 /*** STUCTURE ***/
 
 body {
@@ -21,7 +55,9 @@ body {
     width:100%; height:100%;
     overflow:hidden ;
     /* background-color: #F7FEE7; */
+    background-color: transparent;
     background-image: url("http://vschool.s3.amazonaws.com/public/library1.jpg");
+    /* background: url("http://vschool.s3.amazonaws.com/public/library1.jpg"); */
 }
 
 
@@ -65,9 +101,24 @@ ul.toc {
  }
 
 
+.col.tools {
+
+    left:0;
+    width:20%;
+    top:40px;
+    background-color:#444;
+    overflow-y: scroll;
+    background-color: #eee;
+    padding:1em;
+    height: 100%;
+
+}
+
+
 .col.source {
 
-    width:50%;
+    left:20%;
+    width:40%;
     top:40px;
     whitespace: pre-wrap;
     overflow-y: scroll;
@@ -81,8 +132,8 @@ ul.toc {
 
 .col.rendered {
 
-    left: 50%;
-    width: 50%;
+    left: 60%;
+    width: 40%;
     top:40px;
     overflow-y: scroll;
     background-color: #fff;
@@ -361,4 +412,11 @@ p.compact {
 .color1 {
 
     background-color: palegreen;
+}
+
+
+body {
+
+    background-image: url("http://vschool.s3.amazonaws.com/public/library1.jpg");
+
 }

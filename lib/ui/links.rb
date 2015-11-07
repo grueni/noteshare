@@ -90,7 +90,7 @@ module UI
 
     def reader_link(doc)
       #'READER_LINK'
-      if doc
+      if
         link_to 'Reader', "/document/#{doc.id}"
       else
         ''

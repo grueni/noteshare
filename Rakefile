@@ -13,9 +13,15 @@ task spec: :test
 
 namespace :t do
 
-  desc "Run tests on NSDocumnt entity"
+  desc "Run tests on NSDocument entity"
   task :doc do
     cmd = 'ruby -I"Lib:spec" spec/noteshare/entities/document2_spec.rb'
+    exec cmd
+  end
+
+  desc "Run tests on User entity"
+  task :user do
+    cmd = 'ruby -I"Lib:spec" spec/noteshare/entities/user_spec.rb'
     exec cmd
   end
 
@@ -31,7 +37,7 @@ namespace :t do
     exec cmd
   end
 
-  desc "Run tests on Session Managery"
+  desc "Run tests on Session Manager"
   task :session do
     cmd = 'ruby -I"Lib:spec" spec/session_manager/features/*'
     exec cmd

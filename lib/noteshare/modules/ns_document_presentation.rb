@@ -99,9 +99,9 @@ end
   # marked with the css 'active'.  Otherwise
   # it is marked 'inactive'.  This way the
   # TOC entry for the document being currently
-  # viewed can be highlighted.
+  # viewed can be highlighted.``
   #
-  def master_table_of_contents(active_id)
+  def master_table_of_contents(active_id, target='reader')
     self.update_table_of_contents(force: true) if toc_is_dirty
     
     if toc.length == 0
@@ -118,7 +118,11 @@ end
         # Compute list item:
         doc_id = item['id']
         doc_title = item['title']
-        doc_link = "href='/document/#{doc_id}'>#{doc_title}</a>"
+        if target == 'reader'
+          doc_link = "href='/document/#{doc_id}'>#{doc_title}</a>"
+        else
+          doc_link = "href='/editor/document/#{doc_id}'>#{doc_title}</a>"
+        end
         class_str = "class = '"
 
         if item['subdocs']
@@ -145,7 +149,7 @@ end
         ancestral_ids = active_document.ancestor_ids << active_document.id
         if doc.toc.length > 0 and ancestral_ids.include? doc.id
             #(doc.id == active_document.parent_id) or (doc.id == active_document.id)
-          output << "<ul>\n" << doc.master_table_of_contents(active_id) << "</ul>"
+          output << "<ul>\n" << doc.master_table_of_contents(active_id, target) << "</ul>"
         end
 
       end

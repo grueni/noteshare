@@ -8,6 +8,13 @@ class User
   #    :coder => Rack::Session::Cookie::Identity.new
   #})
 
+  def initialize(hash)
+
+    hash.each { |name, value| instance_variable_set("@#{name}", value) }
+    @meta ||= '{}'
+
+  end
+
 
 
   def set_password(new_password)
@@ -19,9 +26,30 @@ class User
   # Return the id of the node associate
   # to te user if  it exists.
   def node_id
-    if self.meta
-      JSON.parse(self.meta)['node']
-    end
+    dict_lookup('node')\
+  end
+
+  def dict_set(new_dict)
+    metadata = JSON.parse self.meta
+    metadata[:dict] = new_dict
+    self.meta = JSON.generate metadata
+    puts self.class.name.green
+    UserRepository.update self
+  end
+
+  def dict_update(entry)
+    metadata = JSON.parse self.meta
+    dict = metadata[:dict] || { }
+    dict[entry.keys[0]] = entry.values[0]
+    metadata[:dict] = dict
+    self.meta = JSON.generate metadata
+    UserRepository.update self
+  end
+
+  def dict_lookup(key)
+    metadata = JSON.parse self.meta
+    dict = metadata['dict'] || { }
+    dict[key]
   end
 
 

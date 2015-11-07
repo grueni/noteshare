@@ -2,6 +2,13 @@
   .div id='source_text_data' data-source-text="#{document.content}"
   button id='update_source_button' style='background: green; color:white; position: absolute; bottom:10px; left:40px;z-index:100;'   Update
   /== render partial: 'document/edit_pane', locals: {}
+  .col.tools
+    p style = 'font-size:larger; padding-top:0.4em;margin-bottom:0;' == document.root_link
+    p style = 'margin-top:0.05em;' == "by #{document.author}"
+    - if document.doc_refs
+     .toc == document.associated_document_map
+     h5 style = 'margin-bottom:0;' Table of Contents
+    .toc == document.root_document.master_table_of_contents(document.id, 'editor')
   .col.source
     == form
 
