@@ -8,7 +8,13 @@ module Web::Views::Documents
     def left_menu
       html.tag(:a, 'New', href: '/editor/new')
     end
-    
+
+     def right_menu(session)
+       out = "<ul id='navlist'>\n"
+       out << "<li> <a href='/documents/'>Documents</a> </li>\n"
+       out << "</ul>\n"
+       # html.div(out)
+     end
 
   end
 end

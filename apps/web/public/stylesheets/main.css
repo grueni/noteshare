@@ -224,10 +224,16 @@ ul.toc {
 
     position: absolute;
     left:50%;
-    top: 8px;
+    top: 10px;
     width:30%;
     display:inline-block;
 
+}
+
+.navbar_middle_item a {
+
+    text-decoration: none;
+    color: white;
 }
 
 .navbar_right_item {

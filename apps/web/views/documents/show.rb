@@ -5,7 +5,7 @@ module Web::Views::Documents
     def edit_tag
 
       if document
-       link_to 'Edit', "/editor/document/#{document.id}"
+       link_to 'Editor', "/editor/document/#{document.id}"
       else
         ''
       end
@@ -30,6 +30,12 @@ module Web::Views::Documents
     def left_menu
       [ edit_tag, '&nbsp;&nbsp;', new_tag, '&nbsp;&nbsp;'].map(&:to_s)
      # "Foo"
+    end
+
+
+
+    def right_menu(session)
+      'Right menu (show)'
     end
 
   end
