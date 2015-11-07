@@ -120,14 +120,12 @@ module Node
       # Specify sources for assets
       # The directory `public/` is added by default
       #
-      # assets << [
-      #   'vendor/javascripts'
-      # ]
+       assets << [ '../web/public/' ]
 
       # Enabling serving assets
       # Defaults to false
       #
-      # serve_assets false
+      serve_assets true
 
       ##
       # SECURITY

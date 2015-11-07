@@ -118,7 +118,7 @@ end
         # Compute list item:
         doc_id = item['id']
         doc_title = item['title']
-        doc_link = "href='http://#{SERVER_NAME}:#{SERVER_PORT}/document/#{doc_id}'>#{doc_title}</a>"
+        doc_link = "href='/document/#{doc_id}'>#{doc_title}</a>"
         class_str = "class = '"
 
         if item['subdocs']

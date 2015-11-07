@@ -21,6 +21,11 @@ module UI
     #
     #####################################################
 
+
+    def image_link(image, link)
+      "<a href='#{link}'><img src='images/#{image}'></a>"
+    end
+
     #####################################################
     #
     #   1. SESSION LINKS
@@ -49,15 +54,16 @@ module UI
     #
     #####################################################
 
+
     def home_link
-      link_to 'NS', '/'
+      image_link('earth.png', '/')
     end
 
     def current_user_node_link(session)
       user = current_user(session)
       if user
-        puts session.inspect.to_s.magenta
-        link_to "#{user.screen_name.capitalize}", "/node/user/#{user.node_id}"
+        image_link('home_white.png', "/node/user/#{user.node_id}")
+        # link_to "#{user.screen_name.capitalize}", "/node/user/#{user.node_id}"
       else
         puts "No current user".red
       end

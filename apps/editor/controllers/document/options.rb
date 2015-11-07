@@ -5,8 +5,7 @@ module Editor::Controllers::Document
      expose :document
 
     def call(params)
-      puts ">> Editor options".red
-      puts "PARAMS: #{params.inspect}".yellow
+      puts "controller Editor Options".red
       puts "PARAM ID: #{params[:id]}".red
       @document = DocumentRepository.find params[:id]
       puts "DOC TITLE: #{@document.title}".cyan
