@@ -233,9 +233,9 @@ module Web
     # PRODUCTION
     #
     configure :production do
-      # scheme 'https'
-      # host   'example.org'
-      # port   443
+      scheme 'https'
+      host   'nslab.herokuapp.com'
+      port   443
     end
   end
 end
