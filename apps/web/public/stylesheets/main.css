@@ -42,7 +42,7 @@
     padding-bottom:1em;
 
     color: #fff;
-    max-width:400px;'
+    max-width:400px;
 }
 
 .ns_card h4, h5   {
@@ -467,8 +467,3 @@ p.compact {
 }
 
 
-body {
-
-    background-image: url("http://vschool.s3.amazonaws.com/public/library1.jpg");
-
-}
