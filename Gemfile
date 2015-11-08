@@ -16,6 +16,7 @@ gem 'haml'
 gem 'slim'
 
 gem 'bcrypt'
+gem 'aws-sdk', '~> 2'
 
 gem 'asciidoctor', '~> 1.5.2'
 gem 'asciidoctor-latex', :github => 'asciidoctor/asciidoctor-latex', :branch => 'master'

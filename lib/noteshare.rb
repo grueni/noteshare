@@ -101,6 +101,26 @@ Lotus::Model.configure do
       attribute :children, JSON
     end
 
+    collection :images do
+      entity Image
+      repository ImageRepository
+      attribute :id, Integer
+      attribute :owner_id, Integer, as: :owner
+      attribute :title, String
+      attribute :file_name, String, as: :data_file_name
+      attribute :type, String, as: :data_content_type
+      attribute :created_at, DateTime
+      attribute :modified_at, DateTime, as: :updated_at
+      attribute :public, Boolean
+      attribute :meta, JSON
+      attribute :doc_ids, PGIntArray
+      attribute :tags, String
+      attribute :identifier, String
+      attribute :url, String
+      attribute :source, String
+    end
+
+
     collection :courses do
       entity     Course
       repository CourseRepository
