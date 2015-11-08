@@ -425,7 +425,7 @@ textarea {
 
 .toc2 .active > a {
 
-    color: yellow;
+    color: red;
     text-decoration: none;
 }
 
