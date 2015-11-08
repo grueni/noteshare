@@ -12,5 +12,10 @@ module Editor::Controllers::Document
       self.body = @document.rendered_content
     end
 
+    private
+    def verify_csrf_token?
+      false
+    end
+
   end
 end
