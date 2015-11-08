@@ -40,8 +40,9 @@ html
           == document.next_link(title: "<img src='/images/arrowright_light_gray.png', width=24px>", alt_title: "<img src='/images/arrowright_gray.png', width=24px>")
       .navbar_right_item
         ul id='navlist'
-          li
-            == editor_link(session)
+          - if current_user(session)
+            li
+             == editor_link(session)
           li
             == documents_link
 

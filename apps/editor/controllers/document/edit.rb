@@ -11,7 +11,7 @@ module Editor::Controllers::Document
       puts "XXXX: params[:id] = #{params[:id]}"
       @document = DocumentRepository.find(params['id'])
       session[:current_doc_id] = @document.id
-      puts 'SESSION:'.magenta
+      puts 'SESSION (in Editor:'.magenta
       puts session.inspect.cyan
       @updated_text = @document.content
     end

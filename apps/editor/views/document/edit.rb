@@ -4,7 +4,7 @@ module Editor::Views::Document
 
 
     def form
-      puts ">> form EDITOR".red
+      puts "form EDITOR".red
 
       form_for :document, '/editor/update' do
 
@@ -12,8 +12,6 @@ module Editor::Views::Document
 
         hidden_field :document_id, value: document.id
 
-        #submit 'Update', {id: 'text_update_button', class: 'footer_button_1', remote: true, data: :json}
-        # # submit 'Update', {id: 'text_update_button', class: 'footer_button_1'}
       end
     end
    

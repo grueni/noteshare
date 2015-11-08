@@ -5,7 +5,7 @@
     div
       .ns_card
         - if current_document != nil
-          == link_to current_document.title, "document/#{current_document.id}"
+          == link_to current_document.title, "/document/#{current_document.id}"
 
         h4 Documents
         == current_node.documents_as_list

@@ -3,7 +3,7 @@ module Editor::Controllers::Document
     include Editor::Action
 
     def call(params)
-      puts ">> JSON UPDATE".red
+      puts "JSON update firing".red
       id = params['id'].to_i
       @document = DocumentRepository.find(id)
       @document.content_dirty = true

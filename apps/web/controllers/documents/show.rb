@@ -8,12 +8,11 @@ module Web::Controllers::Documents
 
 
     def call(params)
-      puts "XXXX: params = #{params[:id]}"
-      puts "SERVER: #{request.env['SERVER_NAME']}"
-      puts "PORT: #{request.env['SERVER_PORT']}"
       @document = DocumentRepository.find(params['id'])
+      session[:current_doc_id] = @document.id
+      puts 'SESSION (in Web (Reader):'.magenta
+      puts session.inspect.cyan
       @document.update_content
-      # @document.compile_with_render
     end
 
   end

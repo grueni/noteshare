@@ -22,8 +22,12 @@ module UI
     #####################################################
 
 
-    def image_link(image, link)
+    def image_link2(image, link)
       "<a href='#{link}'><img src='images/#{image}'></a>"
+    end
+
+    def image_link(image_path, url)
+      link_to html.img(src: image_path), url
     end
 
     #####################################################
@@ -56,13 +60,13 @@ module UI
 
 
     def home_link
-      image_link('earth.png', '/')
+      image_link('images/earth.png', '/')
     end
 
     def current_user_node_link(session)
       user = current_user(session)
       if user
-        image_link('home_white.png', "/node/user/#{user.node_id}")
+        image_link('images/home_white.png', "/node/user/#{user.node_id}")
         # link_to "#{user.screen_name.capitalize}", "/node/user/#{user.node_id}"
       else
         puts "No current user".red
