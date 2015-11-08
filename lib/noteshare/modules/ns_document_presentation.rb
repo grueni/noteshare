@@ -110,7 +110,11 @@ end
       if active_id > 0
         active_document = DocumentRepository.find(active_id)
       end
-      output = "<ul class='toc'>\n"
+      if target == 'editor'
+        output = "<ul class='toc2'>\n"
+      else
+        output = "<ul class='toc'>\n"
+      end
       toc.each do |item|
 
         puts item.to_s.red
@@ -118,10 +122,10 @@ end
         # Compute list item:
         doc_id = item['id']
         doc_title = item['title']
-        if target == 'reader'
-          doc_link = "href='/document/#{doc_id}'>#{doc_title}</a>"
-        else
+        if target == 'editor'
           doc_link = "href='/editor/document/#{doc_id}'>#{doc_title}</a>"
+        else
+          doc_link = "href='/document/#{doc_id}'>#{doc_title}</a>"
         end
         class_str = "class = '"
 
@@ -167,7 +171,7 @@ end
 
 
 
-  def associated_document_map
+  def associated_document_map(target='reader')
     hash = self.doc_refs
     keys = hash.keys
     if keys
@@ -175,7 +179,11 @@ end
       keys.delete "next"
       map = "<ul>\n"
       keys.each do |key|
-        map << "<li>" << "#{self.associate_link(key)}</li>\n"
+        if target == 'editor'
+          map << "<li>" << "#{self.associate_link(key, 'editor')}</li>\n"
+        else
+          map << "<li>" << "#{self.associate_link(key)}</li>\n"
+        end
       end
       map << "</ul>\n"
     else
@@ -263,8 +271,13 @@ end
   end
 
 
-  def associate_link(type)
-    "<a href='/document/#{self.doc_refs[type]}'>#{type.capitalize}</a>"
+  def associate_link(type, prefix='')
+    if prefix == ''
+      "<a href='/document/#{self.doc_refs[type]}'>#{type.capitalize}</a>"
+    else
+      "<a href='/#{prefix}/document/#{self.doc_refs[type]}'>#{type.capitalize}</a>"
+    end
+
   end
 
 

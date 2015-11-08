@@ -12,6 +12,16 @@
 
 ***/
 
+.plainlink a {
+
+    text-decoration: none;
+}
+
+.lightlink a {
+
+    color: white;
+}
+
 .inset_left{
 
     margin-left:2em;
@@ -123,7 +133,6 @@ ul.toc {
     whitespace: pre-wrap;
     overflow-y: scroll;
     background-color: #eee;
-    padding:1em;
     height: 100%;
 
 }
@@ -267,6 +276,7 @@ ul.toc {
 textarea {
     height: 1000px;
     width: 100%;
+    padding:1em;
     -webkit-box-sizing: border-box; /* Safari/Chrome, other WebKit */
     -moz-box-sizing: border-box;    /* Firefox, other Gecko */
     box-sizing: border-box;         /* Opera/IE 8+ */
@@ -347,17 +357,8 @@ textarea {
 /* http://stackoverflow.com/questions/5306640/setting-bullet-colors-in-ul-li-lists-via-css-without-using-images-or-span-tags */
 /*  http://fontawesome.io/cheatsheet/ */
 
-/**
-li:before {
-    content: "\f0b";
-    font-family: FontAwesome;
-    font-size:8px;
-    color: slateblue;
-    margin-right:1.0em;
-}
-***/
 
-li.subdocs-yes:before  {
+.toc li.subdocs-yes:before  {
     content: "\f0da";
     font-family: FontAwesome;
     font-size:18px;
@@ -366,7 +367,7 @@ li.subdocs-yes:before  {
     /* alignment-baseline:-4px; */
 }
 
-li.subdocs-no:before  {
+.toc li.subdocs-no:before  {
     content: "\f0c8";
     font-family: FontAwesome;
     font-size:8px;
@@ -376,18 +377,63 @@ li.subdocs-no:before  {
 }
 
 
-.active > a {
+.toc .active > a {
 
     color: darkred;
     text-decoration: none;
 }
 
-.inactive > a {
+.toc .inactive > a {
 
     color: blue;
     text-decoration: none;
 }
 
+/*** TABLE OF CONTENTS 2 ***/
+
+.toc2 ul {
+
+    padding-left: 0.25em;
+    margin-left: 0.25em;
+}
+
+
+/* https://css-tricks.com/almanac/properties/l/list-style/ */
+/* .toc > li { list-style-type: square; } */
+/* http://stackoverflow.com/questions/5306640/setting-bullet-colors-in-ul-li-lists-via-css-without-using-images-or-span-tags */
+/*  http://fontawesome.io/cheatsheet/ */
+
+
+.toc2 li.subdocs-yes:before  {
+    content: "\f0da";
+    font-family: FontAwesome;
+    font-size:18px;
+    color: white; /* or whatever color you prefer */
+    margin-right:0.3em;
+    /* alignment-baseline:-4px; */
+}
+
+.toc2 li.subdocs-no:before  {
+    content: "\f0c8";
+    font-family: FontAwesome;
+    font-size:8px;
+    color: white; /* or whatever color you prefer */
+    margin-right:1.0em;
+    /* alignment-baseline:-4px; */
+}
+
+
+.toc2 .active > a {
+
+    color: yellow;
+    text-decoration: none;
+}
+
+.toc2 .inactive > a {
+
+    color: white;
+    text-decoration: none;
+}
 
 
 
