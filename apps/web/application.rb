@@ -129,7 +129,7 @@ module Web
       # Enabling serving assets
       # Defaults to false
       #
-      # serve_assets false
+      serve_assets true
 
       ##
       # SECURITY
