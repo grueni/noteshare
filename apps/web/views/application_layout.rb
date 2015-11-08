@@ -7,6 +7,7 @@ module Web
       include Web::Layout
       require_relative '../../../lib/ui/links'
       include UI::Links
+      include UI::Forms
 
       def mathjax_script(doc)
         if doc and doc.render_options['format']
@@ -19,7 +20,6 @@ module Web
       def left_menu
         ''
       end
-
 
     end
   end

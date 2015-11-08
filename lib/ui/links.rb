@@ -142,6 +142,14 @@ module UI
 
   module Forms
 
+    def basic_search_form
+
+      form_for :search, '/search' do
+        text_field :search, {style: 'inline-display;'}
+      end
+
+    end
+
     def search_form
 
       form_for :search, '/search' do

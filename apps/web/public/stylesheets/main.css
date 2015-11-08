@@ -12,6 +12,30 @@
 
 ***/
 
+tr.clear_style:nth-child(even)  {
+
+    background-color: #444;
+    color: #fff;
+}
+
+tr.clear_style:nth-child(odd)  {
+
+    background-color: #444;
+    color: #fff;
+}
+
+td.clear_style {
+
+    border: 0;
+    border-color: #444;
+}
+
+.clear_style > td {
+
+    color: #fff;
+}
+
+
 .plainlink a {
 
     text-decoration: none;
@@ -20,6 +44,13 @@
 .lightlink a {
 
     color: white;
+
+}
+
+.lightlink a:hover {
+
+    color: red;
+
 }
 
 .inset_left{

@@ -33,7 +33,6 @@ module Web::Views::Documents
     end
 
 
-
     def right_menu(session)
       'Right menu (show)'
     end
