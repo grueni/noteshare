@@ -17,9 +17,6 @@ module Node::Controllers::User
         @current_document = DocumentRepository.find session[:current_doc_id]
       end
 
-      puts 'SESSION (in Node:'.magenta
-      puts session.inspect.cyan
-
       @documents  = self.documents
 
     end

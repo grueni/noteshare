@@ -70,6 +70,18 @@ namespace :db do
     exec cmd
   end
 
+  desc "Dump noteshare database offline. Bravo!!"
+  task :herokudump  do
+    cmd = 'PGPASSWORD=Password -Fc --no-acl --no-owner -h localhost -U carlson noteshare_development > jcdb.dump'
+    exec cmd
+  end
+
+  desc "Restore heroku database from dump"
+  task :herokurestore do
+    cmd = "heroku pg:backups restore 'http://vschool.s3.amazonaws.com/noteshare.dump' DATABASE_URL"
+    exec cmd
+  end
+
   desc "Restores the database dump at db/APP_NAME.dump."
   task :restore => :reset do
     cmd = "pg_restore --verbose --host 'localhost' --username #{user} --clean --no-owner --no-acl --dbname #{db} #{here}/db/#{app}.dump"

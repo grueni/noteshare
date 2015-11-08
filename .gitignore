@@ -1,7 +1,7 @@
 .idea/
 .yardoc/
 node_modules/
-# db/*.dump
+db/*.dump
 outgoing/
 db/bak/
 tmp/
