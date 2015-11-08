@@ -3,6 +3,8 @@ source 'https://rubygems.org'
 gem 'bundler'
 gem 'rake'
 
+gem 'puma'
+
 gem 'lotusrb',     '0.5.0'
 gem 'lotus-model', '~> 0.5'
 

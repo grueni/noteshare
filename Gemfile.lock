@@ -81,6 +81,7 @@ GEM
       source_map
       sprockets
     pg (0.18.3)
+    puma (2.14.0)
     rack (1.6.4)
     rack-test (0.6.3)
       rack (>= 1.0)
@@ -120,6 +121,7 @@ DEPENDENCIES
   minitest
   minitest-capybara
   pg
+  puma
   rake
   slim
   thread_safe
