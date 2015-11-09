@@ -4,10 +4,10 @@
 
 class Image
   include Lotus::Entity
-  attributes :id, :title, :object_name, :mime_type, :created_at, :mofified_at, :owner_id, :public, :doc_ids, :tags, :meta, :url, :identifier, :source
+  attributes :id, :title, :file_name, :mime_type, :created_at, :modified_at, :owner_id, :public, :doc_ids, :tags, :meta, :url, :identifier, :source
 
 
-
+=begin
   def self.upload(local_file)
 
   # http://ruby.awsblog.com/post/Tx354Y6VTZ421PJ/-Downloading-Objects-from-Amazon-span-class-matches-S3-span-using-the-AWS-SDK-fo
@@ -35,5 +35,21 @@ class Image
     message =  "Uploaded as #{obj.public_url}"
     message << "Elapsed: #{t2-t1}\n"
   end
+
+=end
+
+  def object_name(size='original')
+    old_name = self.file_name
+    name_parts = old_name.split('/')
+    file_name = name_parts[-1]
+    base_name, extension = file_name.split('.')
+    new_name = "#{base_name}-#{size}.#{extension}"
+    "vschool/noteshare_images/#{new_name}"
+  end
+
+  def url(size='original')
+    "http://s3.amazonaws.com/#{self.object_name}"
+  end
+
 
 end
