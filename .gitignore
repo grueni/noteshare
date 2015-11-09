@@ -5,3 +5,5 @@ db/*.dump
 outgoing/
 db/bak/
 tmp/
+*.dump
+outbox/

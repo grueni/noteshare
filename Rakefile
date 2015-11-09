@@ -13,6 +13,12 @@ task spec: :test
 
 namespace :t do
 
+  desc "Run tests on Render class"
+  task :render do
+    cmd = 'ruby -I"Lib:spec" spec/noteshare/modules/render_spec.rb'
+    exec cmd
+  end
+
   desc "Run tests on NSDocument entity"
   task :doc do
     cmd = 'ruby -I"Lib:spec" spec/noteshare/entities/document2_spec.rb'
@@ -85,6 +91,14 @@ namespace :db do
   desc "Restores the database dump at db/APP_NAME.dump."
   task :restore => :reset do
     cmd = "pg_restore --verbose --host 'localhost' --username #{user} --clean --no-owner --no-acl --dbname #{db} #{here}/db/#{app}.dump"
+    # Rake::Task["db:reset"].invoke
+    puts cmd
+    exec cmd
+  end
+
+  desc "Restores the database dump at db/APP_NAME.dump."
+  task :restore_test => :reset do
+    cmd = "pg_restore --verbose --host 'localhost' --username #{user} --clean --no-owner --no-acl --dbname #{db_test} #{here}/db/#{app}.dump"
     # Rake::Task["db:reset"].invoke
     puts cmd
     exec cmd
