@@ -7,3 +7,5 @@ db/bak/
 tmp/
 *.dump
 outbox/
+bak
+aws*rb
