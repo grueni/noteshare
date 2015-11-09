@@ -117,8 +117,6 @@ end
       end
       toc.each do |item|
 
-        puts item.to_s.red
-
         # Compute list item:
         doc_id = item['id']
         doc_title = item['title']
