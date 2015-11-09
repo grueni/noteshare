@@ -5,6 +5,8 @@ $(document).ready(function(){
 
     $('#rendered_content').html(data);
 
+    console.log('update_rendered_content');
+
     reloadMathJax();
 
   }
@@ -18,7 +20,9 @@ $(document).ready(function(){
     var element2 = document.getElementById('document-document-id');
     var id = element2.value;
 
-    $.post( 'http://localhost:2300/editor/json_update/' + id, { source: source_text}, update_rendered_content );
+    console.log('udpate_document');
+
+    $.post( 'http://localhost:2300/editor/json_update/' + id, { source: source_text }, update_rendered_content );
   }
 
   $('#update_source_button').click(udpate_document);
