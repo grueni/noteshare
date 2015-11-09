@@ -20,7 +20,7 @@ $(document).ready(function(){
     var element2 = document.getElementById('document-document-id');
     var id = element2.value;
 
-    console.log('udpate_document');
+    console.log('udpate_document with id = ' + id);
 
     $.post( 'http://localhost:2300/editor/json_update/' + id, { source: source_text }, update_rendered_content );
   }
