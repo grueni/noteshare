@@ -13,8 +13,8 @@ module Node::Controllers::User
       @current_node = NSNodeRepository.find params[:id]
       puts "Node name = #{@current_node.name}".blue
 
-      if session[:current_doc_id]
-        @current_document = DocumentRepository.find session[:current_doc_id]
+      if session[:current_document_id]
+        @current_document = DocumentRepository.find session[:current_document_id]
       end
 
       @documents  = self.documents

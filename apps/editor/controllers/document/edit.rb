@@ -7,10 +7,10 @@ module Editor::Controllers::Document
 
 
     def call(params)
-      puts ">> Editor edit".red
-      puts "XXXX: params[:id] = #{params[:id]}"
-      @document = DocumentRepository.find(params['id'])
-      session[:current_doc_id] = @document.id
+      session[:current_document_id] = params[:id]
+      puts "params[:id] = #{params[:id]}"
+      puts "Editor, Document, Edit, session[:current_document_id] = #{session[:current_document_id]}".red
+      @document = DocumentRepository.find(session[:current_document_id])
       @document.update_content
       @updated_text = @document.content
     end

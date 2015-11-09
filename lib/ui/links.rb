@@ -95,8 +95,8 @@ module UI
     end
 
     def editor_link(session)
-      if session['current_doc_id']
-        current_document = DocumentRepository.find session[:current_doc_id]
+      if session['current_document_id']
+        current_document = DocumentRepository.find session[:current_document_id]
         link_to 'Editor', "/editor/document/#{current_document.id}"
       else
         ''
@@ -108,8 +108,8 @@ module UI
     end
 
     def reader_link(session)
-      if session['current_doc_id']
-        current_document = DocumentRepository.find session[:current_doc_id]
+      if session['current_document_id']
+        current_document = DocumentRepository.find session[:current_document_id]
         link_to 'Reader', "/document/#{current_document.id}"
       else
         ''
@@ -117,8 +117,8 @@ module UI
     end
 
     def current_document_link(session)
-      if session['current_doc_id']
-        current_document = DocumentRepository.find session[:current_doc_id]
+      if session['current_document_id']
+        current_document = DocumentRepository.find session[:current_document_id]
         link_to current_document.title, "/document/#{current_document.id}"
       end
     end

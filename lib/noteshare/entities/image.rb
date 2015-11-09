@@ -44,6 +44,7 @@ class Image
     file_name = name_parts[-1]
     base_name, extension = file_name.split('.')
     new_name = "#{base_name}-#{size}.#{extension}"
+    puts "OJECT: #{new_name} "
     "vschool/noteshare_images/#{new_name}"
   end
 

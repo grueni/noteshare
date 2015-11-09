@@ -9,7 +9,7 @@ module Web::Controllers::Documents
 
     def call(params)
       @document = DocumentRepository.find(params['id'])
-      session[:current_doc_id] = @document.id
+      session[:current_document_id] = @document.id
       @document.update_content
     end
 
