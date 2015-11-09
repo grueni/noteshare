@@ -18,7 +18,7 @@ class Render
 
   def convert
     @options = @options.merge({verbose:0})
-    # rewrite_urls
+    rewrite_urls
     Asciidoctor.convert(@source, @options)
   end
 
