@@ -80,7 +80,7 @@ module NSDocument::Presentation
         else
           output << "<ul>\n"
           toc.each_with_index do |item, index|
-            output << "<li><a href='http://#{SERVER_NAME}:#{SERVER_PORT}/document/#{item['id']}'>#{item['title']}</a>\n"
+            output << "<li><a href='/document/#{item['id']}'>#{item['title']}</a>\n"
             if noa_id and item['id'] == noa_id
               output << "<ul>\n" << noa.table_of_contents(format: 'html', current_document: nil) << "</ul>"
             end
@@ -127,7 +127,6 @@ end
 
         if item['subdocs']
           if ancestral_ids.include? item['id']
-            puts "subdocs open for #{item.inspect} (#{ancestral_ids})"
             class_str << 'subdocs-open '
           else
             class_str << 'subdocs-yes '
@@ -213,9 +212,9 @@ end
     server =  SERVER_NAME # request.env['SERVER_NAME']
     port = SERVER_PORT # request.env['SERVER_PORT']
     if prefix == ''
-      "http://#{server}:#{port}/document/#{self.id}"
+      "http:/document/#{self.id}"
     else
-      "http://#{server}:#{port}/#{prefix}/document/#{self.id}"
+      "http://#{prefix}/document/#{self.id}"
     end
 
   end

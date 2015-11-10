@@ -22,7 +22,7 @@ $(document).ready(function(){
 
     console.log('udpate_document with id = ' + id);
 
-    $.post( 'http://localhost:2300/editor/json_update/' + id, { source: source_text }, update_rendered_content );
+    $.post( '/editor/json_update/' + id, { source: source_text }, update_rendered_content );
   }
 
   $('#update_source_button').click(udpate_document);
