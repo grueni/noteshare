@@ -1,4 +1,11 @@
 # https://github.com/rails/jquery-ujs/blob/master/src/rails.js#L59
+# Take a look at Warden (mentioned by @solnic):
+#
+#  https://github.com/hassox/warden/wiki
+#
+# Info on Rack-based-apps:
+#
+#
 
 class UserAuthentication
 
