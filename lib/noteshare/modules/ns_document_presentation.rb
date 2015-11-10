@@ -206,15 +206,13 @@ end
   ############################################################
 
   # Return URL of document
-  # Fixme: the server name and port should be extracted
-  # from 'request.env'
   def url(prefix='')
-    server =  SERVER_NAME # request.env['SERVER_NAME']
-    port = SERVER_PORT # request.env['SERVER_PORT']
     if prefix == ''
-      "http:/document/#{self.id}"
+      #"http:/document/#{self.id}"
+      "/document/#{self.id}"
     else
-      "http://#{prefix}/document/#{self.id}"
+      #"http://#{prefix}/document/#{self.id}"
+      "#{prefix}/document/#{self.id}"
     end
 
   end
