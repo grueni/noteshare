@@ -1,3 +1,4 @@
+get '/about', to: 'home#about'
 
 
 get '/', to: 'home#index'

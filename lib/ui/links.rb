@@ -41,11 +41,20 @@ module UI
     end
 
     def signup_link
-      link_to 'Sign up', '/session_manager/new_user'
+      link_to 'No account?  click here', '/session_manager/new_user'
     end
 
     def signout_link
       link_to 'Sign out', '/session_manager/logout'
+    end
+
+    def welcome_link(session)
+      user = current_user(session)
+      if user
+        "Wwelcome back, #{user.screen_name}"
+      else
+        ''
+      end
     end
 
     def admin_link
