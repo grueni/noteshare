@@ -66,6 +66,7 @@ module NSDocument::Asciidoc
     if new_title and old_title != new_title
       self.title = new_title
       t1 = Time.now
+      self.root_document.toc_dirty = true
       self.root_document.update_table_of_contents
       t2 = Time.now
       puts "Elapsed time: #{t2 - t1}".magenta
