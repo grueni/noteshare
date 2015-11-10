@@ -128,3 +128,9 @@ end
 https://css-tricks.com/how-css-selectors-work/[CSS Selectors] + 
 https://learn.jquery.com/ajax/[AJAX] + 
 git grep "string" $(git rev-list --all)
+Ruby struct: http://blog.steveklabnik.com/posts/2012-09-01-random-ruby-tricks--struct-new
+Rack:: https://github.com/lotus/lotus/blob/master/lib/lotus/action/csrf_protection.rb#L65
+http://ruby.awsblog.com/post/Tx354Y6VTZ421PJ/-Downloading-Objects-from-Amazon-span-class-matches-S3-span-using-the-AWS-SDK-fo[Download from s3]
+http://jasonseifer.com/2010/04/06/rake-tutorial[Rack Tutorial]
+https://ruby.awsblog.com/post/Tx1K43Z7KXHM5D5/Uploading-Files-to-Amazon-S3[Upload Files to S3]
+http://www.rubyinside.com/simple-file-upload-to-amazon-s3-from-ruby-313.html[Simple file upload to S3]

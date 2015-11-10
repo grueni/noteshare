@@ -5,7 +5,10 @@
 #
 # Info on Rack-based-apps:
 #
-#
+# https://www.mobomo.com/2010/4/rack-middleware-and-applications-whats-the-difference/
+
+
+ # https://github.com/lotus/lotus/blob/master/lib/lotus/action/csrf_protection.rb#L65
 
 class UserAuthentication
 
