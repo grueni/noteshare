@@ -1,4 +1,4 @@
-
+require_relative '..//entities/ns_document'
 
 # Provide presentation methods to NSDocument
 module NSDocument::Presentation

@@ -1,4 +1,5 @@
-  # Interface to other classes
+require_relative '..//entities/ns_document'
+
 
 module NSDocument::Interface
 
