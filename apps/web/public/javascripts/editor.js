@@ -20,7 +20,9 @@ $(document).ready(function(){
     var element2 = document.getElementById('document-document-id');
     var id = element2.value;
 
-    console.log('udpate_document with id = ' + id);
+    console.log('update_document with id = ' + id);
+    // console.log('update_document with csrf_token ' + csrfToken()); /* DANGER */
+
 
     $.post( '/editor/json_update/' + id, { source: source_text }, update_rendered_content );
   }

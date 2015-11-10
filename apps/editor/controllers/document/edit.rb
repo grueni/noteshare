@@ -9,6 +9,7 @@ module Editor::Controllers::Document
       session[:current_document_id] = params[:id]
       puts "params[:id] = #{params[:id]}"
       puts "Editor, Document, Edit, session[:current_document_id] = #{session[:current_document_id]}".red
+      # puts "Editor, session = #{session.inspect}".magenta if ENV[LOG_THIS]
       @document = DocumentRepository.find(session[:current_document_id])
       @document.update_content
       @updated_text = @document.content

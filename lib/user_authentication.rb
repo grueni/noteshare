@@ -1,3 +1,4 @@
+# https://github.com/rails/jquery-ujs/blob/master/src/rails.js#L59
 
 class UserAuthentication
 
@@ -15,9 +16,9 @@ class UserAuthentication
     if authenticate
       puts "in login, authenticate  is successful".magenta
       puts "  -- user id is #{@user.id}".green
-      puts "  -- session is #{session.inspect}".blue
+      # puts "  -- session is #{session.inspect}".blue  if ENV[LOG_THIS]
       session[:user_id] = @user.id
-       # puts "  -- NOW session is #{session.inspect}".cyan
+      puts "  -- NOW session is #{session.inspect}".cyan
       return @user
     end
   end

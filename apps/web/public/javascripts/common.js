@@ -14,6 +14,19 @@ function yak() {
 }
 
 
+// Up-to-date Cross-Site Request Forgery token
+// See: https://github.com/rails/jquery-ujs/blob/master/src/rails.js#L59
+
+
+
+
+function csrfToken() {
+
+    return $('meta[name=csrf-token]').attr('content');
+}
+
+
+
 $(document).ready(function(){
 
 

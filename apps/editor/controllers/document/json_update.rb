@@ -6,6 +6,7 @@ module Editor::Controllers::Document
       puts "JSON update firing".red
       id = params['id'].to_i
       puts "ID = #{params['id']}".magenta
+      # puts "jsonupdate, session = #{session.inspect}".magenta  if ENV[LOG_THIS]
       puts "------------------------------".blue
       #Fixme: is this the way to proceed?
       session[:current_document_id] = id
