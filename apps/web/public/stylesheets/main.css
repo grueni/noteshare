@@ -537,3 +537,31 @@ p.compact {
 }
 
 
+/*** SEARCH FORMS ****/
+
+
+.basic_search_form {
+
+    position:absolute;
+    top:-6px; left:100px;;
+    padding-left: 20px;
+    placeholder: Search for;
+    color: white;
+    background-color: #444;
+    height: 28px;
+    width:380px;
+}
+
+
+.basic_search_form_short {
+
+    position:absolute;
+    top:-6px; left:300px;;
+    padding-left: 20px;
+    placeholder: Search for;
+    color: white;
+    background-color: #444;
+    height: 28px;
+    width:180px;
+}
+

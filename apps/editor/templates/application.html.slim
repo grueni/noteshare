@@ -46,6 +46,7 @@ html
           == settings_link(document)
           | &nbsp; &nbsp;
           == export_link(document)
+        == basic_search_form_short
       .navbar_middle_item
         - if document
           == document.previous_link(prefix: '/editor', title: "<img src='/images/arrowleft_light_gray.png', width=24px>", alt_title: "<img src='/images/arrowleft_gray.png', width=24px>")

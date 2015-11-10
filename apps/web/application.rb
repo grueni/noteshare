@@ -1,4 +1,5 @@
 require 'lotus/helpers'
+require_relative 'views/forms'
 
 module Web
   class Application < Lotus::Application
@@ -204,6 +205,7 @@ module Web
       # See: http://www.rubydoc.info/gems/lotus-view#Configuration
       view.prepare do
         include Lotus::Helpers
+        include Web::Views::Forms
       end
     end
 
