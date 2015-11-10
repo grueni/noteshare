@@ -57,16 +57,19 @@ class NSDocument
   #
   ###################################################
 
+  require_relative '../modules/ns_document_setup'
+  require_relative '../modules/ns_document_presentation'
+
   include Lotus::Entity
   attributes :id, :author, :title, :tags, :type, :area, :meta,
     :created_at, :modified_at, :content, :rendered_content, :compiled_and_rendered_content, :render_options,
     :parent_id, :author_id, :index_in_parent, :root_document_id, :visibility,
     :subdoc_refs,  :doc_refs, :toc, :content_dirty, :compiled_dirty, :toc_dirty
 
-  require_relative '../modules/ns_document_presentation'
+
   include NSDocument::Presentation
 
-  require_relative '../modules/ns_document_setup'
+
   include NSDocument::Setup
 
 
