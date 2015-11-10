@@ -1,3 +1,9 @@
+# Fixme -does this solve the Heroku proeduction issue?
+# ! Unable to load application: NameError: uninitialized constant NSDocument
+# 2015-11-10T12:54:09.371257+00:00 app[web.1]: /app/lib/noteshare/modules/ns_document_asciidoc.rb:1:in `<top (required)>': uninitialized constant NSDocument (NameError)
+
+require_relative '../../../lib/noteshare/entities/ns_document'
+
 module NSDocument::Asciidoc
 
   def prepare_content(document, new_content)

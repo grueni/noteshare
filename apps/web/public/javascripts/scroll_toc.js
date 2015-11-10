@@ -1,15 +1,22 @@
-var ready;
+// Keep active table of content item centered
+// in table of contents panel.  Uses 'scrollintoview.js'
+//  Good for long tables of content,
 
-ready = function() {
+
+
+$(document).ready(function(){
+
     $.scrollIndex = function() {
+
         console.log('ENTER: scrollIndex');
-        if (infoDiv === null) {
-            return;
-        }
-        return $('.active').scrollintoview({
+
+        $('.active').scrollintoview({
             duration: 40,
             direction: "vertical"
         });
     };
-    return $.scrollIndex();
-};
+
+    $.scrollIndex();
+
+});
+
