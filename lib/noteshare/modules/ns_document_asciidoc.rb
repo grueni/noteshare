@@ -65,6 +65,7 @@ module NSDocument::Asciidoc
     new_title = title_from_content
     if new_title and old_title != new_title
       self.title = new_title
+      self.toc_dirty = true
       DocumentRepository.update self
     end
   end
