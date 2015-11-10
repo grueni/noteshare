@@ -490,7 +490,7 @@ ul.toc {
 
 .toc2 .active > a {
 
-    color: #ee0000;
+    color: palevioletred;
     text-decoration: none;
 }
 
@@ -500,6 +500,11 @@ ul.toc {
     text-decoration: none;
 }
 
+.toc2 a {
+
+    text_decoration: none;
+    color: white;
+}
 
 
 /*** OTHER ***/

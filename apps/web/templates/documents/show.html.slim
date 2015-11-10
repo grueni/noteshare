@@ -6,7 +6,7 @@
           p.plainlink.lightlink style='font-size:larger; padding-top:1.8em;margin-bottom:0;' == document.root_link
           p style = 'margin-top:0.05em; color: #444'}== "  by #{document.author}"
           - if document.doc_refs
-            .toc2== document.associated_document_map
+            .toc2 style = 'padding-top:0' == document.associated_document_map
           h5 style = 'margin-bottom:0; color:#444;'  Table of Contents
           .toc2== document.root_document.master_table_of_contents(document.id)
         .col.middle style = 'left: 30%; width: 70%; padding-bottom:6em;padding-top:2em;'
