@@ -51,7 +51,7 @@ module UI
     def welcome_link(session)
       user = current_user(session)
       if user
-        "Wwelcome back, #{user.screen_name}"
+        "Welcome back, #{user.screen_name}"
       else
         ''
       end

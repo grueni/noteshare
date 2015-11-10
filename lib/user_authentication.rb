@@ -17,7 +17,7 @@ class UserAuthentication
       puts "  -- user id is #{@user.id}".green
       puts "  -- session is #{session.inspect}".blue
       session[:user_id] = @user.id
-      puts "  -- NOW session is #{session.inspect}".cyan
+       # puts "  -- NOW session is #{session.inspect}".cyan
       return @user
     end
   end
