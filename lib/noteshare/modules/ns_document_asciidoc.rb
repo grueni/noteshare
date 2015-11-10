@@ -65,7 +65,10 @@ module NSDocument::Asciidoc
     new_title = title_from_content
     if new_title and old_title != new_title
       self.title = new_title
-      self.toc_dirty = true
+      t1 = Time.now
+      self.root_document.update_table_of_contents
+      t2 = Time.now
+      puts "Elapsed time: #{t2 - t1}".magenta
       DocumentRepository.update self
     end
   end
