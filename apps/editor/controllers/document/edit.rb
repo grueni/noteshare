@@ -5,7 +5,6 @@ module Editor::Controllers::Document
     expose :document
     expose :updated_text
 
-
     def call(params)
       session[:current_document_id] = params[:id]
       puts "params[:id] = #{params[:id]}"

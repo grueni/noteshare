@@ -107,14 +107,12 @@ end
     if toc.length == 0
       output = ''
     else
-      if active_id > 0
-        active_document = DocumentRepository.find(active_id)
-      end
-      if target == 'editor'
-        output = "<ul class='toc2'>\n"
-      else
-        output = "<ul class='toc'>\n"
-      end
+
+      active_document = DocumentRepository.find(active_id) if active_id > 0
+      # Gett "long" ancestor chain: ancestors plust the given active id:
+      ancestral_ids = active_document.ancestor_ids << active_document.id
+      target == 'editor'? output = "<ul class='toc2'>\n" : output = "<ul class='toc'>\n"
+
       toc.each do |item|
 
         # Compute list item:
@@ -128,17 +126,17 @@ end
         class_str = "class = '"
 
         if item['subdocs']
-          class_str << 'subdocs-yes '
+          if ancestral_ids.include? item['id']
+            puts "subdocs open for #{item.inspect} (#{ancestral_ids})"
+            class_str << 'subdocs-open '
+          else
+            class_str << 'subdocs-yes '
+          end
         else
           class_str << 'subdocs-no '
         end
 
-        if doc_id == active_id
-          class_str << 'active'
-        else
-          class_str << 'inactive'
-        end
-
+        doc_id == active_id ? class_str << 'active' : class_str << 'inactive'
 
         output << "<li #{class_str} '><a #{doc_link}</a>\n"
         # Fixme: need to make udpate_table_of_contents lazy
@@ -147,8 +145,6 @@ end
         doc = DocumentRepository.find item['id']
         # doc.update_table_of_contents
 
-        # Recursion:
-        ancestral_ids = active_document.ancestor_ids << active_document.id
         if doc.toc.length > 0 and ancestral_ids.include? doc.id
             #(doc.id == active_document.parent_id) or (doc.id == active_document.id)
           output << "<ul>\n" << doc.master_table_of_contents(active_id, target) << "</ul>"
