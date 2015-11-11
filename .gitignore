@@ -9,3 +9,4 @@ tmp/
 outbox/
 bak
 aws*rb
+apps/node/public

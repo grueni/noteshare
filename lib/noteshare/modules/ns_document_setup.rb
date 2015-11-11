@@ -1,6 +1,7 @@
 
 
 require_relative 'ns_document_interface'
+require_relative '../entities/ns_document'
 include NSDocument::Interface
 
 
