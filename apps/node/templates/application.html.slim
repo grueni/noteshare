@@ -17,10 +17,14 @@ html
         == home_link
         | &nbsp; &nbsp;
         == current_user_node_link(session)
-        .div
-          == basic_search_form
+        | &nbsp; &nbsp;
+        == basic_search_form
       .navbar_middle_item
+        == editor_link(session)
+        | &nbsp; &nbsp;
         == reader_link(session)
+        | &nbsp; &nbsp;
+        == documents_link
 
       .navbar_right_item
 
