@@ -1,4 +1,4 @@
-module Web::Controllers::Documents
+ module Web::Controllers::Documents
   class Index
     include Web::Action
 

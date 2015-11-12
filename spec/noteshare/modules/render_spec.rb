@@ -1,6 +1,6 @@
 require 'spec_helper'
 
-describe NSNode do
+describe Render do
 
 
 

@@ -104,26 +104,30 @@ module UI
     end
 
     def editor_link(session)
-      if session['current_document_id']
-        current_document = DocumentRepository.find session[:current_document_id]
-        link_to 'Editor', "/editor/document/#{current_document.id}"
-      else
-        ''
-      end
+      return '' if session == nil
+      _id = session['current_document_id']
+      return '' if _id == nil
+      current_document = DocumentRepository.find session[_id]
+      return link_to 'Editor', "editor/document/#{current_document.id}" if current_document
+      return ''
+      return ''
+      # link_to 'Editor', "/editor/document/#{current_document.id}"
+    end
+
+    def reader_link(session)
+      return '' if session == nil
+      _id = session['current_document_id']
+      return '' if _id == nil
+      current_document = DocumentRepository.find session[_id]
+      return link_to 'Reader', "/document/#{current_document.id}" if current_document
+      return ''
     end
 
     def new_document_link
         html.tag(:a, 'New', href: '/editor/new')
     end
 
-    def reader_link(session)
-      if session['current_document_id']
-        current_document = DocumentRepository.find session[:current_document_id]
-        link_to 'Reader', "/document/#{current_document.id}"
-      else
-        ''
-      end
-    end
+
 
     def current_document_link(session)
       if session['current_document_id']

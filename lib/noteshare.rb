@@ -42,10 +42,12 @@ Lotus::Model.configure do
       entity     NSDocument
       repository DocumentRepository
       attribute :id,   Integer
-      attribute :author, String
       attribute :title, String
       attribute :identifier, String
       attribute :author_identifier, String
+      attribute :author_id, Integer
+      attribute :author, String
+      attribute :author_credentials, JSON
       attribute :tags, String
       attribute :type, String
       attribute :area, String
@@ -57,7 +59,8 @@ Lotus::Model.configure do
       attribute :compiled_and_rendered_content, String
       attribute :render_options, JSON
       attribute :parent_id, Integer
-      attribute :author_id, Integer
+      attribute :parent_ref, JSON
+      attribute :root_ref, JSON
       attribute :author_identifier, String
       attribute :index_in_parent, Integer
       attribute :root_document_id, Integer

@@ -14,7 +14,7 @@ module NSDocument::Presentation
   ############################################################
 
   def parent_document_title
-    p = parent
+    p = parent_document
     p ? p.title : '-'
   end
 
@@ -61,7 +61,7 @@ module NSDocument::Presentation
   # be modified by the choice of the option
   # passed to the method.  The default 'simple_string'
   # option gives a numbered list of titles.
-  def table_of_contents(hash)
+    def table_of_contents_as_string(hash)
     option = hash[:format] || 'simple_string'
     current_document = hash[:current_document]
     if current_document
@@ -82,7 +82,7 @@ module NSDocument::Presentation
           toc.each_with_index do |item, index|
             output << "<li><a href='/document/#{item['id']}'>#{item['title']}</a>\n"
             if noa_id and item['id'] == noa_id
-              output << "<ul>\n" << noa.table_of_contents(format: 'html', current_document: nil) << "</ul>"
+              output << "<ul>\n" << noa.table_of_contents_as_string(format: 'html', current_document: nil) << "</ul>"
             end
           end
           output << "</ul>\n\n"
@@ -102,7 +102,8 @@ end
   # viewed can be highlighted.``
   #
   def master_table_of_contents(active_id, target='reader')
-    self.update_table_of_contents(force: true) if toc_is_dirty
+    puts "ENTER: master_table_of_contents".magenta
+   #  self.update_table_of_contents(force: true) if toc_is_dirty
     
     if toc.length == 0
       output = ''
@@ -113,11 +114,11 @@ end
       ancestral_ids = active_document.ancestor_ids << active_document.id
       target == 'editor'? output = "<ul class='toc2'>\n" : output = "<ul class='toc'>\n"
 
-      toc.each do |item|
+      self.table_of_contents.each do |item|
 
         # Compute list item:
-        doc_id = item['id']
-        doc_title = item['title']
+        doc_id = item.id
+        doc_title = item.title
         if target == 'editor'
           doc_link = "href='/editor/document/#{doc_id}'>#{doc_title}</a>"
         else
@@ -125,8 +126,8 @@ end
         end
         class_str = "class = '"
 
-        if item['subdocs']
-          if ancestral_ids.include? item['id']
+        if item.has_subdocs
+          if ancestral_ids.include? item.id
             class_str << 'subdocs-open '
           else
             class_str << 'subdocs-yes '
@@ -134,17 +135,16 @@ end
         else
           class_str << 'subdocs-no '
         end
-
         doc_id == active_id ? class_str << 'active' : class_str << 'inactive'
 
         output << "<li #{class_str} '><a #{doc_link}</a>\n"
         # Fixme: need to make udpate_table_of_contents lazy
         # Fixme: Updating the toc will need to be done elswhere - or big performance hit
         # Fixme: pehaps call 'update_table_of_contents' in the update controller
-        doc = DocumentRepository.find item['id']
+        doc = DocumentRepository.find item.id
         # doc.update_table_of_contents
 
-        if doc.toc.length > 0 and ancestral_ids.include? doc.id
+        if doc.table_of_contents.length > 0 and ancestral_ids.include? doc.id
             #(doc.id == active_document.parent_id) or (doc.id == active_document.id)
           output << "<ul>\n" << doc.master_table_of_contents(active_id, target) << "</ul>"
         end
@@ -193,7 +193,7 @@ end
     str = "<strong>Map</strong>\n"
     str << "<ul>\n"
     str << "<li>Top: #{self.root_link}</li>\n"
-    str << "<li>Up: #{self.parent_link}</li>\n"  if self.parent and self.parent != self.root_document
+    str << "<li>Up: #{self.parent_link}</li>\n"  if self.parent_document and self.parent_document != self.root_document
     str << "<li>Prev: #{self.previous_link}</li>\n"  if self.previous_document
     str << "<li>Next: #{self.next_link}</li>\n"  if self.next_document
     str << "</ul>\n\n"
@@ -230,12 +230,17 @@ end
 
   # Return link to the root document
   def root_link(hash = {})
-    root_document.link(hash)
+    #Fixme
+    if root_document
+      root_document.link(hash)
+    else
+      self.title
+    end
   end
 
   # HTML link to parent document
   def parent_link(hash = {})
-    p = self.parent
+    p = self.parent_document
     p ? p.link(hash) : ''
   end
 
@@ -245,6 +250,7 @@ end
   # = link text (or image)
   # if the link is not valid
   def previous_link(hash = {})
+    puts "PREVIOUS LINK".red
     alt_title =  hash[:alt_title] || ''
     p = self.previous_document
     p ? p.link(hash) : alt_title

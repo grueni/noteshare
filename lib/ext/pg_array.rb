@@ -19,15 +19,13 @@ class PGIntArray < Lotus::Model::Coercer
 end
 
 
-# Sequel.extension :pg_jsonb_ops
-=begin
 class PGJsonb < Lotus::Model::Coercer
   def self.dump(value)
-    ::Sequel.pg_jsonb(value)
+    Sequel.pg_jsonb(value)
   end
 
   def self.load(value)
-    ::Kernel.Hash(value) unless value.nil?
+    JSON.parse(value) unless value.nil?
   end
 end
-=end
+

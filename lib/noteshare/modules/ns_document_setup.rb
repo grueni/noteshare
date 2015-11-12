@@ -43,12 +43,12 @@ include NSDocument::Interface
     @subsection.render_options[:format] = 'adoc-latex'
     @subsubsection.render_options[:format] = 'adoc-latex'
 
-    DocumentRepository.persist @article
-    DocumentRepository.persist @section1
-    DocumentRepository.persist @section2
-    DocumentRepository.persist @section3
-    DocumentRepository.persist @subsection
-    DocumentRepository.persist @subsubsection
+    DocumentRepository.update @article
+    DocumentRepository.update @section1
+    DocumentRepository.update @section2
+    DocumentRepository.update @section3
+    DocumentRepository.update @subsection
+    DocumentRepository.update @subsubsection
 
     @section1.insert(0,@article)
     @section2.insert(1,@article)
@@ -57,9 +57,9 @@ include NSDocument::Interface
     @subsubsection.add_to(@subsection)
 
     DocumentRepository.all.each do |document|
-      document.update_table_of_contents
-      document.update_content
-      document.compile_with_render
+      # document.update_table_of_contents
+      # document.update_content
+      # document.compile_with_render
     end
 
     DocumentRepository.all.count

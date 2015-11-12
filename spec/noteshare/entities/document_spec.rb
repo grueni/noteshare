@@ -1,7 +1,5 @@
 require 'spec_helper'
 
-require 'spec_helper'
-
 require 'json'
 
 describe NSDocument do
@@ -15,7 +13,7 @@ describe NSDocument do
     @section = DocumentRepository.create(NSDocument.new(title: 'S1. Uncertainty Principle', author: 'Jared Foo-Bar', subdoc_refs: []))
     @section2 = DocumentRepository.create(NSDocument.new(title: 'S2. Wave-Particle Duality', author: 'Jared Foo-Bar', subdoc_refs: []))
     @section3 = DocumentRepository.create(NSDocument.new(title: 'S3. Matrix Mechanics', author: 'Jared Foo-Bar', subdoc_refs: []))
-    @subsection =  DocumentRepository.create(NSDocument.new(title: "SS. de Broglie's idea", author: 'Jared Foo-Bar', subdoc_refs: []))
+    @subsection =  DocumentRepository.create(NSDocument.new(title: "SS. de Broglie", author: 'Jared Foo-Bar', subdoc_refs: []))
 
     @article.content = 'Quantum phenomena are weird!'
     @section.content = 'The Uncertainty Principle invalidates the notion of trajectory'
@@ -41,7 +39,7 @@ describe NSDocument do
     @section1 = DocumentRepository.find_one_by_title'S1. Uncertainty Principle'
     @section2 = DocumentRepository.find_one_by_title  'S2. Wave-Particle Duality'
     @section3 = DocumentRepository.find_one_by_title  'S3. Matrix Mechanics'
-    @subsection = DocumentRepository.find_one_by_title  "SS. de Broglie's idea"
+    @subsection = DocumentRepository.find_one_by_title  "SS. de Broglie"
 
   end
 
