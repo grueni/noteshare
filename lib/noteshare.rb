@@ -44,6 +44,8 @@ Lotus::Model.configure do
       attribute :id,   Integer
       attribute :author, String
       attribute :title, String
+      attribute :identifier, String
+      attribute :author_identifier, String
       attribute :tags, String
       attribute :type, String
       attribute :area, String
@@ -56,6 +58,7 @@ Lotus::Model.configure do
       attribute :render_options, JSON
       attribute :parent_id, Integer
       attribute :author_id, Integer
+      attribute :author_identifier, String
       attribute :index_in_parent, Integer
       attribute :root_document_id, Integer
       attribute :visibility, Integer
@@ -80,6 +83,7 @@ Lotus::Model.configure do
       attribute :id, Integer
       attribute :first_name, String
       attribute :last_name, String
+      attribute :identifier, String
       attribute :email, String
       attribute :screen_name, String
       attribute :level, Integer

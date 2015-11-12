@@ -1,6 +1,6 @@
 class User
   include Lotus::Entity
-  attributes :id, :first_name, :last_name, :email, :screen_name, :level, :password, :meta, :password_confirmation
+  attributes :id, :first_name, :last_name, :identifier, :email, :screen_name, :level, :password, :meta, :password_confirmation
 
   # http://hawkins.io/2012/07/rack_from_the_beginning/
   # https://blog.engineyard.com/2015/understanding-rack-apps-and-middleware
@@ -23,10 +23,22 @@ class User
     return true
   end
 
+  def full_name
+    "#{first_name} #{last_name}"
+  end
+
+  def set_identifier
+    self.identifier = Noteshare::Identifier.new().string
+  end
+
+  def set_identifier!
+    self.identifier = Noteshare::Identifier.new().string
+  end
+
   # Return the id of the node associate
   # to te user if  it exists.
   def node_id
-    dict_lookup('node')\
+    dict_lookup('node')
   end
 
   def dict_set(new_dict)

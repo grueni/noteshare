@@ -134,3 +134,6 @@ http://ruby.awsblog.com/post/Tx354Y6VTZ421PJ/-Downloading-Objects-from-Amazon-sp
 http://jasonseifer.com/2010/04/06/rake-tutorial[Rack Tutorial]
 https://ruby.awsblog.com/post/Tx1K43Z7KXHM5D5/Uploading-Files-to-Amazon-S3[Upload Files to S3]
 http://www.rubyinside.com/simple-file-upload-to-amazon-s3-from-ruby-313.html[Simple file upload to S3]
+http://stackoverflow.com/questions/20724470/cors-issue-getting-error-no-access-control-allow-origin-header-is-present-w
+https://www.designedbyaturtle.co.uk/2013/direct-upload-to-s3-with-a-little-help-from-jquery/
+https://aws.amazon.com/articles/1434

@@ -61,7 +61,7 @@ class NSDocument
   require_relative '../modules/ns_document_presentation'
 
   include Lotus::Entity
-  attributes :id, :author, :title, :tags, :type, :area, :meta,
+  attributes :id, :author, :author_identifier, :title, :identifier, :tags, :type, :area, :meta,
     :created_at, :modified_at, :content, :rendered_content, :compiled_and_rendered_content, :render_options,
     :parent_id, :author_id, :index_in_parent, :root_document_id, :visibility,
     :subdoc_refs,  :doc_refs, :toc, :content_dirty, :compiled_dirty, :toc_dirty
@@ -87,6 +87,29 @@ class NSDocument
 
     # @toc_dirty ||= true
 
+  end
+
+  def set_identifier
+    self.identifier = Noteshare::Identifier.new().string
+  end
+
+  def set_identifier!
+    set_identifier
+    DocumentRepository.update self
+    self.identifier
+  end
+
+  def set_author_identifier
+    author_obj = UserRepository.find self.author_id
+    if author_obj
+      self.author_identifier = author_obj.identifier
+    end
+  end
+
+  def set_author_identifier!
+    set_author_identifier
+    DocumentRepository.update self
+    self.author_identifier
   end
 
   ###################################################
@@ -590,6 +613,7 @@ class NSDocument
         puts "No upddate of toc for section #{section.title}".green
       end
       hash['title'] = section.title
+      hash['identifier'] = section.identifier
       value << hash
       puts hash.to_s.blue
       DocumentRepository.update section
