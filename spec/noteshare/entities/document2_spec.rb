@@ -40,7 +40,7 @@ describe NSDocument do
     @section1 = DocumentRepository.find_one_by_title'S1. Uncertainty Principle'
     @section2 = DocumentRepository.find_one_by_title  'S2. Wave-Particle Duality'
     @section3 = DocumentRepository.find_one_by_title  'S3. Matrix Mechanics'
-    @subsection = DocumentRepository.find_one_by_title  "SS. de Broglie's idea"
+    @subsection = DocumentRepository.find_one_by_title  "SS. de Broglia"
 
 
   end
