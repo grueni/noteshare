@@ -19,6 +19,13 @@ namespace :t do
     exec cmd
   end
 
+
+  desc "Run tests on NSDocument entity"
+  task :toc do
+    cmd = 'ruby -I"Lib:spec" spec/noteshare/entities/toc_spec.rb'
+    exec cmd
+  end
+
   desc "Run tests on NSDocument entity"
   task :doc1 do
     cmd = 'ruby -I"Lib:spec" spec/noteshare/entities/document_spec.rb'

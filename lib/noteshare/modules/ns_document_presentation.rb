@@ -61,7 +61,7 @@ module NSDocument::Presentation
   # be modified by the choice of the option
   # passed to the method.  The default 'simple_string'
   # option gives a numbered list of titles.
-  def table_of_contents(hash)
+    def table_of_contents(hash)
     option = hash[:format] || 'simple_string'
     current_document = hash[:current_document]
     if current_document
