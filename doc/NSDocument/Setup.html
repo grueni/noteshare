@@ -148,7 +148,7 @@
       <div class="method_details first">
   <h3 class="signature first" id="seed_db-class_method">
   
-    + (<tt>Object</tt>) <strong>seed_db</strong> 
+    + (<tt><span class='object_link'><a href="../Noteshare/Tools/Object.html" title="Noteshare::Tools::Object (class)">Object</a></span></tt>) <strong>seed_db</strong> 
   
 
   
@@ -160,7 +160,6 @@
       <pre class="lines">
 
 
-10
 11
 12
 13
@@ -216,18 +215,19 @@
 63
 64
 65
-66</pre>
+66
+67</pre>
     </td>
     <td>
-      <pre class="code"><span class="info file"># File 'lib/noteshare/modules/ns_document_setup.rb', line 10</span>
+      <pre class="code"><span class="info file"># File 'lib/noteshare/modules/ns_document_setup.rb', line 11</span>
 
 <span class='kw'>def</span> <span class='kw'>self</span><span class='period'>.</span><span class='id identifier rubyid_seed_db'>seed_db</span>
 
   <span class='const'>SettingsRepository</span><span class='period'>.</span><span class='id identifier rubyid_clear'>clear</span>
-  <span class='const'>UsersRepository</span><span class='period'>.</span><span class='id identifier rubyid_clear'>clear</span>
+  <span class='const'>UserRepository</span><span class='period'>.</span><span class='id identifier rubyid_clear'>clear</span>
   <span class='const'>DocumentRepository</span><span class='period'>.</span><span class='id identifier rubyid_clear'>clear</span>
 
-  <span class='const'>UsersRepository</span><span class='period'>.</span><span class='id identifier rubyid_create'>create</span><span class='lparen'>(</span><span class='const'>Users</span><span class='period'>.</span><span class='id identifier rubyid_new'>new</span><span class='lparen'>(</span><span class='label'>first_name:</span> <span class='tstring'><span class='tstring_beg'>&#39;</span><span class='tstring_content'>Jason</span><span class='tstring_end'>&#39;</span></span><span class='comma'>,</span> <span class='label'>last_name:</span> <span class='tstring'><span class='tstring_beg'>&#39;</span><span class='tstring_content'>Foo-Bar</span><span class='tstring_end'>&#39;</span></span><span class='rparen'>)</span><span class='rparen'>)</span>
+  <span class='const'>UserRepository</span><span class='period'>.</span><span class='id identifier rubyid_create'>create</span><span class='lparen'>(</span><span class='const'>User</span><span class='period'>.</span><span class='id identifier rubyid_new'>new</span><span class='lparen'>(</span><span class='label'>first_name:</span> <span class='tstring'><span class='tstring_beg'>&#39;</span><span class='tstring_content'>Jason</span><span class='tstring_end'>&#39;</span></span><span class='comma'>,</span> <span class='label'>last_name:</span> <span class='tstring'><span class='tstring_beg'>&#39;</span><span class='tstring_content'>Foo-Bar</span><span class='tstring_end'>&#39;</span></span><span class='rparen'>)</span><span class='rparen'>)</span>
   <span class='const'>SettingsRepository</span><span class='period'>.</span><span class='id identifier rubyid_create'>create</span><span class='lparen'>(</span><span class='const'>Settings</span><span class='period'>.</span><span class='id identifier rubyid_new'>new</span><span class='lparen'>(</span><span class='label'>owner:</span> <span class='id identifier rubyid_current_user_full_name'>current_user_full_name</span><span class='rparen'>)</span><span class='rparen'>)</span>
 
 
@@ -256,12 +256,12 @@
   <span class='ivar'>@subsection</span><span class='period'>.</span><span class='id identifier rubyid_render_options'>render_options</span><span class='lbracket'>[</span><span class='symbol'>:format</span><span class='rbracket'>]</span> <span class='op'>=</span> <span class='tstring'><span class='tstring_beg'>&#39;</span><span class='tstring_content'>adoc-latex</span><span class='tstring_end'>&#39;</span></span>
   <span class='ivar'>@subsubsection</span><span class='period'>.</span><span class='id identifier rubyid_render_options'>render_options</span><span class='lbracket'>[</span><span class='symbol'>:format</span><span class='rbracket'>]</span> <span class='op'>=</span> <span class='tstring'><span class='tstring_beg'>&#39;</span><span class='tstring_content'>adoc-latex</span><span class='tstring_end'>&#39;</span></span>
 
-  <span class='const'>DocumentRepository</span><span class='period'>.</span><span class='id identifier rubyid_persist'>persist</span> <span class='ivar'>@article</span>
-  <span class='const'>DocumentRepository</span><span class='period'>.</span><span class='id identifier rubyid_persist'>persist</span> <span class='ivar'>@section1</span>
-  <span class='const'>DocumentRepository</span><span class='period'>.</span><span class='id identifier rubyid_persist'>persist</span> <span class='ivar'>@section2</span>
-  <span class='const'>DocumentRepository</span><span class='period'>.</span><span class='id identifier rubyid_persist'>persist</span> <span class='ivar'>@section3</span>
-  <span class='const'>DocumentRepository</span><span class='period'>.</span><span class='id identifier rubyid_persist'>persist</span> <span class='ivar'>@subsection</span>
-  <span class='const'>DocumentRepository</span><span class='period'>.</span><span class='id identifier rubyid_persist'>persist</span> <span class='ivar'>@subsubsection</span>
+  <span class='const'>DocumentRepository</span><span class='period'>.</span><span class='id identifier rubyid_update'>update</span> <span class='ivar'>@article</span>
+  <span class='const'>DocumentRepository</span><span class='period'>.</span><span class='id identifier rubyid_update'>update</span> <span class='ivar'>@section1</span>
+  <span class='const'>DocumentRepository</span><span class='period'>.</span><span class='id identifier rubyid_update'>update</span> <span class='ivar'>@section2</span>
+  <span class='const'>DocumentRepository</span><span class='period'>.</span><span class='id identifier rubyid_update'>update</span> <span class='ivar'>@section3</span>
+  <span class='const'>DocumentRepository</span><span class='period'>.</span><span class='id identifier rubyid_update'>update</span> <span class='ivar'>@subsection</span>
+  <span class='const'>DocumentRepository</span><span class='period'>.</span><span class='id identifier rubyid_update'>update</span> <span class='ivar'>@subsubsection</span>
 
   <span class='ivar'>@section1</span><span class='period'>.</span><span class='id identifier rubyid_insert'>insert</span><span class='lparen'>(</span><span class='int'>0</span><span class='comma'>,</span><span class='ivar'>@article</span><span class='rparen'>)</span>
   <span class='ivar'>@section2</span><span class='period'>.</span><span class='id identifier rubyid_insert'>insert</span><span class='lparen'>(</span><span class='int'>1</span><span class='comma'>,</span><span class='ivar'>@article</span><span class='rparen'>)</span>
@@ -270,10 +270,10 @@
   <span class='ivar'>@subsubsection</span><span class='period'>.</span><span class='id identifier rubyid_add_to'>add_to</span><span class='lparen'>(</span><span class='ivar'>@subsection</span><span class='rparen'>)</span>
 
   <span class='const'>DocumentRepository</span><span class='period'>.</span><span class='id identifier rubyid_all'>all</span><span class='period'>.</span><span class='id identifier rubyid_each'>each</span> <span class='kw'>do</span> <span class='op'>|</span><span class='id identifier rubyid_document'>document</span><span class='op'>|</span>
-    <span class='id identifier rubyid_document'>document</span><span class='period'>.</span><span class='id identifier rubyid_update_table_of_contents'>update_table_of_contents</span>
-    <span class='id identifier rubyid_document'>document</span><span class='period'>.</span><span class='id identifier rubyid_update_content'>update_content</span>
-    <span class='id identifier rubyid_document'>document</span><span class='period'>.</span><span class='id identifier rubyid_compile_with_render'>compile_with_render</span>
-  <span class='kw'>end</span>
+    <span class='comment'># document.update_table_of_contents
+</span>    <span class='comment'># document.update_content
+</span>    <span class='comment'># document.compile_with_render
+</span>  <span class='kw'>end</span>
 
   <span class='const'>DocumentRepository</span><span class='period'>.</span><span class='id identifier rubyid_all'>all</span><span class='period'>.</span><span class='id identifier rubyid_count'>count</span>
 
@@ -288,7 +288,7 @@
 </div>
 
     <div id="footer">
-  Generated on Tue Nov  3 08:44:55 2015 by
+  Generated on Mon Nov 16 14:26:48 2015 by
   <a href="http://yardoc.org" title="Yay! A Ruby Documentation Tool" target="_parent">yard</a>
   0.8.7.6 (ruby-2.2.3).
 </div>

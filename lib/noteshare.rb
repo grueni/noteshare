@@ -28,7 +28,7 @@ Lotus::Model.configure do
   ##
   # Database mapping
   #
-  # Intended for specifying application wide mappings.
+  # Intended for specifying applica1ion wide mappings.
   #
   # You can specify mapping file to load with:
   #
@@ -101,6 +101,7 @@ Lotus::Model.configure do
       repository NSNodeRepository
       attribute :id, Integer
       attribute :owner_id, Integer
+      attribute :identifier, String
       attribute :name, String
       attribute :type, String
       attribute :meta, JSON

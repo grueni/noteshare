@@ -199,7 +199,7 @@
       <div class="method_details first">
   <h3 class="signature first" id="associated_lessons-instance_method">
   
-    - (<tt>Object</tt>) <strong>associated_lessons</strong> 
+    - (<tt><span class='object_link'><a href="Noteshare/Tools/Object.html" title="Noteshare::Tools::Object (class)">Object</a></span></tt>) <strong>associated_lessons</strong> 
   
 
   
@@ -229,7 +229,7 @@
       <div class="method_details ">
   <h3 class="signature " id="create_master_document-instance_method">
   
-    - (<tt>Object</tt>) <strong>create_master_document</strong>(author_name = &#39;James Carlson&#39;) 
+    - (<tt><span class='object_link'><a href="Noteshare/Tools/Object.html" title="Noteshare::Tools::Object (class)">Object</a></span></tt>) <strong>create_master_document</strong>(author_name = &#39;James Carlson&#39;) 
   
 
   
@@ -275,7 +275,11 @@
 42
 43
 44
-45</pre>
+45
+46
+47
+48
+49</pre>
     </td>
     <td>
       <pre class="code"><span class="info file"># File 'lib/noteshare/entities/course.rb', line 22</span>
@@ -283,6 +287,7 @@
 <span class='kw'>def</span> <span class='id identifier rubyid_create_master_document'>create_master_document</span><span class='lparen'>(</span><span class='id identifier rubyid_author_name'>author_name</span> <span class='op'>=</span> <span class='tstring'><span class='tstring_beg'>&#39;</span><span class='tstring_content'>James Carlson</span><span class='tstring_end'>&#39;</span></span><span class='rparen'>)</span>
 
   <span class='id identifier rubyid_master'>master</span> <span class='op'>=</span> <span class='kw'>self</span><span class='period'>.</span><span class='id identifier rubyid_to_document'>to_document</span><span class='lparen'>(</span><span class='id identifier rubyid_author_name'>author_name</span><span class='rparen'>)</span>
+  <span class='id identifier rubyid_master'>master</span><span class='period'>.</span><span class='id identifier rubyid_content'>content</span> <span class='op'>||=</span> <span class='tstring'><span class='tstring_beg'>&#39;</span><span class='tstring_end'>&#39;</span></span>
   <span class='id identifier rubyid_lessons'>lessons</span> <span class='op'>=</span> <span class='kw'>self</span><span class='period'>.</span><span class='id identifier rubyid_associated_lessons'>associated_lessons</span>
   <span class='id identifier rubyid_lesson_count'>lesson_count</span> <span class='op'>=</span> <span class='id identifier rubyid_lessons'>lessons</span><span class='period'>.</span><span class='id identifier rubyid_count'>count</span>
 
@@ -291,17 +296,20 @@
 
   <span class='id identifier rubyid_lessons'>lessons</span><span class='period'>.</span><span class='id identifier rubyid_all'>all</span><span class='period'>.</span><span class='id identifier rubyid_each'>each</span> <span class='kw'>do</span> <span class='op'>|</span><span class='id identifier rubyid_lesson'>lesson</span><span class='op'>|</span>
     <span class='id identifier rubyid_section'>section</span> <span class='op'>=</span> <span class='id identifier rubyid_lesson'>lesson</span><span class='period'>.</span><span class='id identifier rubyid_to_document'>to_document</span><span class='lparen'>(</span><span class='id identifier rubyid_author_name'>author_name</span><span class='rparen'>)</span>
-    <span class='id identifier rubyid_delta'>delta</span> <span class='op'>=</span>  <span class='id identifier rubyid_section'>section</span><span class='period'>.</span><span class='id identifier rubyid_asciidoc_level'>asciidoc_level</span> <span class='op'>-</span> <span class='id identifier rubyid_stack'>stack</span><span class='period'>.</span><span class='id identifier rubyid_last'>last</span><span class='period'>.</span><span class='id identifier rubyid_asciidoc_level'>asciidoc_level</span>
-    <span class='kw'>if</span> <span class='id identifier rubyid_delta'>delta</span> <span class='op'>&gt;</span> <span class='int'>0</span>
+    <span class='id identifier rubyid_stack'>stack</span> <span class='op'>==</span> <span class='lbracket'>[</span><span class='rbracket'>]</span> <span class='op'>?</span>  <span class='id identifier rubyid_delta'>delta</span> <span class='op'>=</span> <span class='int'>2</span> <span class='op'>:</span> <span class='id identifier rubyid_delta'>delta</span> <span class='op'>=</span>  <span class='id identifier rubyid_section'>section</span><span class='period'>.</span><span class='id identifier rubyid_asciidoc_level'>asciidoc_level</span> <span class='op'>-</span> <span class='id identifier rubyid_stack'>stack</span><span class='period'>.</span><span class='id identifier rubyid_last'>last</span><span class='period'>.</span><span class='id identifier rubyid_asciidoc_level'>asciidoc_level</span>
+    <span class='kw'>if</span> <span class='id identifier rubyid_delta'>delta</span> <span class='op'>&gt;=</span> <span class='int'>2</span>
       <span class='id identifier rubyid_stack'>stack</span><span class='period'>.</span><span class='id identifier rubyid_push'>push</span><span class='lparen'>(</span><span class='id identifier rubyid_last_node'>last_node</span><span class='rparen'>)</span>
-    <span class='kw'>elsif</span> <span class='id identifier rubyid_delta'>delta</span> <span class='op'>&lt;</span> <span class='int'>0</span>
-      <span class='id identifier rubyid_stack'>stack</span><span class='period'>.</span><span class='id identifier rubyid_pop'>pop</span>
+      <span class='id identifier rubyid_puts'>puts</span> <span class='tstring'><span class='tstring_beg'>&quot;</span><span class='tstring_content'>push </span><span class='embexpr_beg'>#{</span><span class='id identifier rubyid_last_node'>last_node</span><span class='period'>.</span><span class='id identifier rubyid_title'>title</span><span class='embexpr_end'>}</span><span class='tstring_end'>&quot;</span></span><span class='period'>.</span><span class='id identifier rubyid_magenta'>magenta</span>
+    <span class='kw'>elsif</span> <span class='id identifier rubyid_delta'>delta</span> <span class='op'>&lt;=</span> <span class='int'>0</span>
+      <span class='id identifier rubyid_x'>x</span> <span class='op'>=</span> <span class='id identifier rubyid_stack'>stack</span><span class='period'>.</span><span class='id identifier rubyid_pop'>pop</span>
+      <span class='id identifier rubyid_puts'>puts</span> <span class='tstring'><span class='tstring_beg'>&quot;</span><span class='tstring_content'>pop </span><span class='embexpr_beg'>#{</span><span class='id identifier rubyid_x'>x</span><span class='period'>.</span><span class='id identifier rubyid_title'>title</span><span class='embexpr_end'>}</span><span class='tstring_end'>&quot;</span></span><span class='period'>.</span><span class='id identifier rubyid_magenta'>magenta</span>
     <span class='kw'>end</span>
-    <span class='id identifier rubyid_section'>section</span><span class='period'>.</span><span class='id identifier rubyid_add_to'>add_to</span><span class='lparen'>(</span><span class='id identifier rubyid_free_node_list'>free_node_list</span><span class='period'>.</span><span class='id identifier rubyid_last'>last</span><span class='rparen'>)</span>
+    <span class='id identifier rubyid_section'>section</span><span class='period'>.</span><span class='id identifier rubyid_add_to'>add_to</span><span class='lparen'>(</span><span class='id identifier rubyid_stack'>stack</span><span class='period'>.</span><span class='id identifier rubyid_last'>last</span><span class='rparen'>)</span>
+    <span class='id identifier rubyid_puts'>puts</span> <span class='tstring'><span class='tstring_beg'>&quot;</span><span class='embexpr_beg'>#{</span><span class='id identifier rubyid_section'>section</span><span class='period'>.</span><span class='id identifier rubyid_title'>title</span><span class='embexpr_end'>}</span><span class='tstring_content'> =&gt; </span><span class='embexpr_beg'>#{</span><span class='id identifier rubyid_stack'>stack</span><span class='period'>.</span><span class='id identifier rubyid_last'>last</span><span class='period'>.</span><span class='id identifier rubyid_title'>title</span><span class='embexpr_end'>}</span><span class='tstring_end'>&quot;</span></span><span class='period'>.</span><span class='id identifier rubyid_blue'>blue</span>
     <span class='id identifier rubyid_last_node'>last_node</span> <span class='op'>=</span> <span class='id identifier rubyid_section'>section</span>
   <span class='kw'>end</span>
 
-  <span class='id identifier rubyid_master'>master</span><span class='period'>.</span><span class='id identifier rubyid_update_table_of_contents'>update_table_of_contents</span>
+  <span class='id identifier rubyid_master'>master</span><span class='period'>.</span><span class='id identifier rubyid_update_table_of_contents'>update_table_of_contents</span><span class='lparen'>(</span><span class='label'>force:</span> <span class='kw'>true</span><span class='rparen'>)</span>
   <span class='id identifier rubyid_lesson_count'>lesson_count</span>
 <span class='kw'>end</span></pre>
     </td>
@@ -312,7 +320,7 @@
       <div class="method_details ">
   <h3 class="signature " id="to_document-instance_method">
   
-    - (<tt>Object</tt>) <strong>to_document</strong>(author_name = &#39;James Carlson&#39;) 
+    - (<tt><span class='object_link'><a href="Noteshare/Tools/Object.html" title="Noteshare::Tools::Object (class)">Object</a></span></tt>) <strong>to_document</strong>(author_name = &#39;James Carlson&#39;) 
   
 
   
@@ -360,7 +368,7 @@
 </div>
 
     <div id="footer">
-  Generated on Tue Nov  3 08:44:55 2015 by
+  Generated on Mon Nov 16 14:26:49 2015 by
   <a href="http://yardoc.org" title="Yay! A Ruby Documentation Tool" target="_parent">yard</a>
   0.8.7.6 (ruby-2.2.3).
 </div>

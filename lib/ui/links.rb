@@ -73,13 +73,12 @@ module UI
     end
 
     def current_user_node_link(session)
+      #Fixme: simplify
       user = current_user(session)
-      if user
-        image_link('images/home_white.png', "/node/user/#{user.node_id}")
-        # link_to "#{user.screen_name.capitalize}", "/node/user/#{user.node_id}"
-      else
-        puts "No current user".red
-      end
+      return '' if user == nil
+       #  node = NSNodeRepository.for_owner_id(user.id)
+      # return '' if node == nil
+      image_link('images/home_white.png', "/node/user/#{user.id}")
     end
 
 
@@ -106,21 +105,17 @@ module UI
     def editor_link(session)
       return '' if session == nil
       _id = session['current_document_id']
+      # puts "In editor link, session['current_document_id'] = #{session['current_document_id']} ".magenta
       return '' if _id == nil
-      current_document = DocumentRepository.find session[_id]
-      return link_to 'Editor', "editor/document/#{current_document.id}" if current_document
-      return ''
-      return ''
-      # link_to 'Editor', "/editor/document/#{current_document.id}"
+      link_to 'Editor', "/editor/document/#{_id}"
     end
+
 
     def reader_link(session)
       return '' if session == nil
       _id = session['current_document_id']
       return '' if _id == nil
-      current_document = DocumentRepository.find session[_id]
-      return link_to 'Reader', "/document/#{current_document.id}" if current_document
-      return ''
+      return link_to 'Reader', "/document/#{_id}"
     end
 
     def new_document_link

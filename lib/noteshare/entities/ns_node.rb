@@ -1,8 +1,23 @@
 class NSNode
   include Lotus::Entity
-  attributes :id, :owner_id, :name, :type, :meta, :docs, :children
+      attributes :id, :owner_id, :identifier,  :name, :type, :meta, :docs, :children
 
   require 'json'
+
+
+  def self.create_node_with_screen_name(screen_name)
+    user = UserRepository.find_one_by_screen_name(screen_name)
+    if user
+      NSNodeRepository.create(NSNode.new(owner_id: user.id, owner_identifier: user.identifier, name: user.screen_name))
+    end
+  end
+
+  def owner_name
+    return if owner_id == nil
+    owner = UserRepository.find(owner_id)
+    return if owner == nil
+    owner.full_name if owner
+  end
 
 
   # update_docs_for_owner docs: replace current list with list of ids
@@ -16,7 +31,11 @@ class NSNode
 
   # Retrieve the document list: unpack
   def documents
-    JSON.parse self.docs
+    if docs
+      JSON.parse docs
+    else
+      []
+      end
   end
 
   # Return an HTML list of links to documents

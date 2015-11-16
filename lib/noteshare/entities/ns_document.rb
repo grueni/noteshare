@@ -214,8 +214,8 @@ class NSDocument
     # that were shifted to the right
     # puts "Shifting ..."
     # puts "parent_document.subdoc_refs.tail(k+1): #{parent_document.subdoc_refs.tail(k)}"
-    parent_document.toc.tail(k).each do |id|
-      doc = DocumentRepository.find id
+    TOC.new(parent_document).table.tail(k).each do |item|
+      doc = DocumentRepository.find item.id
       doc.index_in_parent = doc.index_in_parent + 1
       DocumentRepository.update(doc )
     end
@@ -567,14 +567,13 @@ class NSDocument
   # represent the id's of the sections of
   # *doc*.
   def compile_aux
-    if subdoc_refs == []
-       puts "IF, in #{self.title} (#{self.id}), subdoc list lnegth = #{self.subdoc_refs.count}".blue
+    table = table_of_contents
+    if table == []
       return content
     else
       text = content + "\n\n" || ''
-      puts "ELSE, in #{self.title} (#{self.id}), subdoc list lnegth = #{self.subdoc_refs.count}".red
-      subdoc_refs.each do |id|
-        section = DocumentRepository.find(id)
+      table.each do |item|
+        section = DocumentRepository.find(item.id)
         text  << section.compile_aux << "\n\n"
       end
       return text
@@ -585,6 +584,12 @@ class NSDocument
     texmacros + compile_aux
   end
 
+
+  def render_lazily
+    if content_dirty
+      render
+    end
+  end
 
 
   # NSDocument#render is the sole connection between class NSDocument and
@@ -605,8 +610,16 @@ class NSDocument
 
     renderer = Render.new(self.compile, render_option )
     self.rendered_content = renderer.convert
+    self.content_dirty = false
     DocumentRepository.update(self)
 
+  end
+
+
+  def compile_with_render_lazily(option={})
+    if compiled_dirty
+      compile_with_render(option)
+    end
   end
 
   # Compile the receiver, render it, and store the
@@ -624,22 +637,11 @@ class NSDocument
         render_option = {}
     end
 
-
-    dirty = self.compiled_dirty
-    dirty = true if dirty.nil?
-
-    if dirty
-      puts "compile_with_render (dirty): id = #{self.id}, title = #{self.title}".magenta
-      renderer = Render.new(self.compile, render_option )
-      compiled_content = self.compile
-      self.compiled_and_rendered_content = renderer.convert
-      self.compiled_dirty = false
-      DocumentRepository.update(self)
-    else
-      puts "compile_with_render (clean): id = #{self.id}, title = #{self.title}".blue
-    end
-
-
+    renderer = Render.new(self.compile, render_option )
+    compiled_content = self.compile
+    self.compiled_and_rendered_content = renderer.convert
+    self.compiled_dirty = false
+    DocumentRepository.update(self)
     if option[:export] == 'yes'
       file_name = self.title.normalize
       path = "outgoing/#{file_name}.adoc"
@@ -716,8 +718,8 @@ class NSDocument
   # creates this structure from scratch, then stores
   # it as jsonb in the toc field of the database
   def update_table_of_contents(arg = {force: false})
-
-
+#Fixme
+=begin
     puts "arg = #{arg.to_s}".red
 
     dirty =  self.root_document.toc_dirty || arg[:force]
@@ -756,6 +758,7 @@ class NSDocument
     self.root_document.toc_dirty = false
     DocumentRepository.persist(self)
     value
+=end
   end
 
   def update_toc_at_root

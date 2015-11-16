@@ -107,7 +107,7 @@ describe NSDocument do
   it 'can ask subdocument to reference its parent' do
 
     @section.add_to(@article)
-    @section.parent.title.must_equal @article.title
+    @section.parent_document.title.must_equal @article.title
 
   end
 

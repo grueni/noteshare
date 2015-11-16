@@ -45,9 +45,9 @@ html
         ul id='navlist'
           - if current_user(session)
             li
-             == editor_link(session)
-          li
-            == reader_link(session)
+              == editor_link(session)
+            li
+              == reader_link(session)
           li
             == documents_link
 

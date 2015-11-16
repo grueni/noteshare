@@ -13,6 +13,12 @@ task spec: :test
 
 namespace :t do
 
+  desc "Run current tests"
+  task :x do
+    cmd = 'ruby -I"Lib:spec" spec/noteshare/repositories/node_repository_spec.rb'
+    exec cmd
+  end
+
   desc "Run tests on Render class"
   task :render do
     cmd = 'ruby -I"Lib:spec" spec/noteshare/modules/render_spec.rb'
