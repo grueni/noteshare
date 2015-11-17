@@ -32,11 +32,24 @@ $(document).ready(function(){
 
     $('#Yak').click(yak);
 
-    $('input[name=select_tool_panel]:checked') {
+    $('#select_tool_panel').change(function() {
+        $('#tools_panel').show();
+        $('#toc_panel').hide();
 
-        console.log('TOOL PANEL CHECKED')
+    });
 
+
+    $('#select_toc_panel').change(function() {
+        $('#tools_panel').hide();
+        $('#toc_panel').show();
+    });
+
+    $.setup_editor = function() {
+        $('#tools_panel').hide();
+        $('#toc_panel').show();
     }
+
+    $.setup_editor();
 
 
     $('.openblock.click').find('.content').hide()
