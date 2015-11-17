@@ -40,16 +40,25 @@ class Image
 
   def object_name(size='original')
     old_name = self.file_name
+    return if old_name == nil
     name_parts = old_name.split('/')
     file_name = name_parts[-1]
     base_name, extension = file_name.split('.')
     new_name = "#{base_name}-#{size}.#{extension}"
-    puts "OJECT: #{new_name} "
+    puts "OBJECT: #{old_name}  =>  ".magenta
     "vschool/noteshare_images/#{new_name}"
   end
 
   def url(size='original')
     "http://s3.amazonaws.com/#{self.object_name}"
+  end
+
+  def safe_url
+    if object_name
+      url
+    else
+      '#'
+    end
   end
 
 
