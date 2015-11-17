@@ -5,6 +5,7 @@ module Web
   module Views
     class ApplicationLayout
       include Web::Layout
+      # include Web::Assets::Helpers
       require_relative '../../../lib/ui/links'
       include UI::Links
       include UI::Forms

@@ -1,9 +1,30 @@
 h5 Tools
 
 
-.div class='plainlink lightlink'
+.div class='plainlink lightlink' style='margin-top:1em;'
   == new_document_link
   | &nbsp;&nbsp;
+  == new_section_link(document)
+
+.div class='plainlink lightlink' style='margin-top:1em;'
+  == delete_document_link(document)
+  | &nbsp; &nbsp;
+  == delete_section_link(document)
+
+.div class='plainlink lightlink' style='margin-top:1em;'
+  == publish_document_link(document)
+  | &nbsp; &nbsp;
+  == publish_section_link(document)
+
+.div class='plainlink lightlink' style='margin-top:1em;'
   == settings_link(document)
   | &nbsp; &nbsp;
+  == check_in_out_link(document)
+
+.div class='plainlink lightlink' style='margin-top:1em;'
   == export_link(document)
+
+.div class='plainlink lightlink' style='margin-top:1em;'
+  == share_document_link(document)
+  | &nbsp; &nbsp;
+  == edit_toc_link(document)

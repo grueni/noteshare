@@ -119,7 +119,44 @@ module UI
     end
 
     def new_document_link
-        html.tag(:a, 'New', href: '/editor/new')
+        html.tag(:a, 'New document', href: '/editor/new')
+    end
+
+    def new_section_link(document)
+      html.tag(:a, 'New section', href: '#')
+    end
+
+
+    def delete_document_link(document)
+      html.tag(:a, 'Delete document', href: '#')
+    end
+
+    def delete_section_link(document)
+      html.tag(:a, 'Delete section', href: '#')
+    end
+
+    def publish_document_link(document)
+      html.tag(:a, 'Publish document', href: '#')
+    end
+
+    def publish_section_link(document)
+      html.tag(:a, 'Publish section', href: '#')
+    end
+
+    def check_in_out_link(document)
+      html.tag(:a, 'Check in/out', href: '#')
+    end
+
+    def share_document_link(document)
+      html.tag(:a, 'Share', href: '#')
+    end
+
+    def edit_toc_link(document)
+      html.tag(:a, 'Edit TOC', href: '#')
+    end
+
+    def image_manager_link
+      html.tag(:a, 'Images', href: '/image_manager/list')
     end
 
 
@@ -156,6 +193,12 @@ module UI
       form_for :search, '/search' do
         label 'Search for:'
         text_field :search, {style: 'inline-display;'}
+      end
+
+      def basic_search_form
+        form_for :search, '/search' do
+          text_field :search, id: 'basic_search_form'
+        end
       end
 
     end

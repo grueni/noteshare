@@ -1,5 +1,6 @@
 require 'lotus/helpers'
 require_relative 'views/forms'
+# require 'lotus/assets'
 
 module Web
   class Application < Lotus::Application
