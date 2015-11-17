@@ -16,6 +16,11 @@ class User
   end
 
 
+  def credentials
+    { id: id, first_name: first_name, last_name: last_name, identifier: identifier  }
+  end
+
+
 
   def set_password(new_password)
     self.password = BCrypt::Password.create(new_password)

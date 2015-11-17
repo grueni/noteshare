@@ -32,6 +32,13 @@ $(document).ready(function(){
 
     $('#Yak').click(yak);
 
+    $('input[name=select_tool_panel]:checked') {
+
+        console.log('TOOL PANEL CHECKED')
+
+    }
+
+
     $('.openblock.click').find('.content').hide()
 
     $('.openblock.click').click(function() {

@@ -3,13 +3,23 @@
   button id='update_source_button' style='background: green; color:white; position: absolute; bottom:10px; left:40px;z-index:100;'   Update
   /== render partial: 'document/edit_pane', locals: {}
   .col.tools style='background-color:#444; color: white;'
-    p.plainlink.lightlink style = 'font-size:larger; padding-top:0.4em;margin-bottom:0;' == document.root_link(prefix: 'editor')
-    p style = 'margin-top:0.05em;' == "by #{document.author}"
     - if document.doc_refs
-       .toc.plainlink.lightlink == document.associated_document_map('editor')
-    h5 style = 'margin-bottom:0;' Table of Contents
-    .toc
-      == document.root_document.master_table_of_contents(document.id, 'editor')
+    .div style='position:absolute; top:20px; left:20px;'
+      .span
+        input type="radio" name="radio" id="select_toc_panel" class="radio"
+        label for="select_toc_panel" TOC
+    .div style='position:absolute; top:20px; left:100px;'
+      .span
+        input type="radio" name="radio" id="select_tool_panel" class="radio"
+        label for="select_tool_panel" Tools
+    .div style='position:absolute; top:50px; left:20px;'
+      p.plainlink.lightlink style = 'font-size:larger; padding-top:0.4em;margin-bottom:0;' == document.root_link(prefix: 'editor')
+      p style = 'margin-top:0.05em;' == "by #{document.author}"
+      h5 style = 'margin-bottom:0;' Table of Contents
+      .toc.plainlink.lightlink == document.associated_document_map('editor')
+      .toc
+        == render partial: 'document/tool_panel', locals: { }
+        == document.root_document.master_table_of_contents(document.id, 'editor')
   .col.source
     == form
 
