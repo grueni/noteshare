@@ -121,12 +121,12 @@ module Editor
       # Specify sources for assets
       # The directory `public/` is added by default
       #
-      # assets << [ '../web/public/' ]
+      assets << [ '../editor/public/images/' ]
 
       # Enabling serving assets
       # Defaults to false
       #
-      # serve_assets true
+      serve_assets true
 
       ##
       # SECURITY
