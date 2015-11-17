@@ -22,6 +22,33 @@ class Array
     self[0, k+1]
   end
 
+
+
+  # [10, 11, 12, 13]].random_indices(2)
+  #=> 0, 2 (for example)
+  def random_indices(number_of_indices)
+    output = []
+    count = 0
+    while output.count < number_of_indices and count < 2*number_of_indices do
+      j = SecureRandom.random_number(self.count)
+      if !output.include? j
+        output << j
+      end
+      count += 1
+    end
+    return output
+  end
+
+  def random_sublist(size)
+
+    output = []
+    indices = random_indices(size)
+    indices.each do |index|
+      output << self[index]
+    end
+    return output
+
+  end
 end
 
 class String

@@ -156,7 +156,7 @@ module UI
     end
 
     def image_manager_link
-      html.tag(:a, 'Images', href: '/image_manager/list')
+      html.tag(:a, 'Images', href: '/image_manager/search')
     end
 
 

@@ -577,3 +577,21 @@ p.compact {
     width:180px;
 }
 
+
+.image td {
+
+    height:40px;
+}
+
+
+
+.image_table    tr:nth-child(even) {background: #111; border-white; color: white;}
+
+.image_table     tr:nth-child(odd) {background: #111; border-white; color: white; }
+
+
+
+
+.image_table   a { color: white;}
+
+.image_table   td, th { color: white;}
