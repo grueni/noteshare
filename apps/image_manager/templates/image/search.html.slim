@@ -15,8 +15,8 @@
           tbody
             - images.each do |image|
               tr
-                td[width='150px']== image_link image.url,  image.url
-                td== link_to image.title, image.url
+                td[width='150px']== image_link image.url,  "/image_manager/show/#{image.id}"
+                td== link_to image.title, "/image_manager/show/#{image.id}"
                 td= image.id
                 td= image.tags
 

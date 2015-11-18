@@ -1,0 +1,19 @@
+.row.inset.image_editor
+  .col style='left:0; width:50%'
+    == image_link image.url,  image.url
+    /== html.img(src: image.url)
+
+  .col style='left:50%; width: 50%'
+    .div style='max-width:300px; margin-left:2em;'
+      .edit_form
+        form[name="edit_image" action="update"]
+          label[name="tags"]
+          input[type="text" name="tags" value="#{image.tags}"]
+          label[name="source"]
+          input[type="text" name="source" value="#{image.source}"]
+          input[type="submit" name="update" style="background:green"]
+
+
+
+
+

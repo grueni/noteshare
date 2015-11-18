@@ -1,3 +1,4 @@
+get '/show/:id', to: 'image#show'
 get '/search', to: 'image#search'
 get '/list', to: 'image#list'
 get '/new', to: 'image#new'
