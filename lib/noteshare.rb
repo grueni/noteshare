@@ -116,7 +116,7 @@ Lotus::Model.configure do
       attribute :owner_id, Integer, as: :owner
       attribute :title, String
       attribute :file_name, String, as: :data_file_name
-      attribute :type, String, as: :data_content_type
+      attribute :mime_type, String, as: :data_content_type
       attribute :created_at, DateTime
       attribute :modified_at, DateTime, as: :updated_at
       attribute :public, Boolean

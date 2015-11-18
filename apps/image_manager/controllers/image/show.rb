@@ -6,6 +6,7 @@ module ImageManager::Controllers::Image
 
     def call(params)
       @image = ImageRepository.find params[:id]
+      session[:current_image_id] = params[:id]
     end
 
   end
