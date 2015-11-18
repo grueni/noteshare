@@ -123,7 +123,7 @@ module UI
     end
 
     def new_section_link(document)
-      html.tag(:a, 'New section', href: '#')
+      html.tag(:a, 'New section', href: "/editor/new_section/#{document.id}")
     end
 
 
