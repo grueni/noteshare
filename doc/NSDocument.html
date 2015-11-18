@@ -91,7 +91,7 @@
   
     
       <dt class="r2">Includes:</dt>
-      <dd class="r2">Lotus::Entity, <span class='object_link'><a href="NSDocument/Presentation.html" title="NSDocument::Presentation (module)">Presentation</a></span>, <span class='object_link'><a href="NSDocument/Setup.html" title="NSDocument::Setup (module)">Setup</a></span></dd>
+      <dd class="r2">Lotus::Entity, <span class='object_link'><a href="NSDocument/Presentation.html" title="NSDocument::Presentation (module)">Presentation</a></span>, <span class='object_link'><a href="NSDocument/Setup.html" title="NSDocument::Setup (module)">Setup</a></span>, <span class='object_link'><a href="Noteshare.html" title="Noteshare (module)">Noteshare</a></span>, <span class='object_link'><a href="Noteshare/Tools.html" title="Noteshare::Tools (module)">Noteshare::Tools</a></span></dd>
       
     
   
@@ -183,6 +183,37 @@ index_in_parent, previous and next.</p>
 
   
     <h2>
+      Class Method Summary
+      <small>(<a href="#" class="summary_toggle">collapse</a>)</small>
+    </h2>
+
+    <ul class="summary">
+      
+        <li class="public ">
+  <span class="summary_signature">
+    
+      <a href="#create-class_method" title="create (class method)">+ (Object) <strong>create</strong>(hash) </a>
+    
+
+    
+  </span>
+  
+  
+  
+  
+  
+  
+  
+
+  
+    <span class="summary_desc"><div class='inline'></div></span>
+  
+</li>
+
+      
+    </ul>
+  
+    <h2>
       Instance Method Summary
       <small>(<a href="#" class="summary_toggle">collapse</a>)</small>
     </h2>
@@ -209,6 +240,28 @@ index_in_parent, previous and next.</p>
     <span class="summary_desc"><div class='inline'>
 <p>@section.add_to(@article) makes @section the last subdocument of @article.</p>
 </div></span>
+  
+</li>
+
+      
+        <li class="public ">
+  <span class="summary_signature">
+    
+      <a href="#ancestor_ids-instance_method" title="#ancestor_ids (instance method)">- (Object) <strong>ancestor_ids</strong> </a>
+    
+
+    
+  </span>
+  
+  
+  
+  
+  
+  
+  
+
+  
+    <span class="summary_desc"><div class='inline'></div></span>
   
 </li>
 
@@ -339,7 +392,97 @@ self.compiled_and_rendered_content.</p>
         <li class="public ">
   <span class="summary_signature">
     
+      <a href="#compile_with_render_lazily-instance_method" title="#compile_with_render_lazily (instance method)">- (Object) <strong>compile_with_render_lazily</strong>(option = {}) </a>
+    
+
+    
+  </span>
+  
+  
+  
+  
+  
+  
+  
+
+  
+    <span class="summary_desc"><div class='inline'></div></span>
+  
+</li>
+
+      
+        <li class="public ">
+  <span class="summary_signature">
+    
+      <a href="#display-instance_method" title="#display (instance method)">- (Object) <strong>display</strong>(label, args) </a>
+    
+
+    
+  </span>
+  
+  
+  
+  
+  
+  
+  
+
+  
+    <span class="summary_desc"><div class='inline'></div></span>
+  
+</li>
+
+      
+        <li class="public ">
+  <span class="summary_signature">
+    
       <a href="#export_html-instance_method" title="#export_html (instance method)">- (Object) <strong>export_html</strong>(format) </a>
+    
+
+    
+  </span>
+  
+  
+  
+  
+  
+  
+  
+
+  
+    <span class="summary_desc"><div class='inline'></div></span>
+  
+</li>
+
+      
+        <li class="public ">
+  <span class="summary_signature">
+    
+      <a href="#find_root_document-instance_method" title="#find_root_document (instance method)">- (Object) <strong>find_root_document</strong> </a>
+    
+
+    
+  </span>
+  
+  
+  
+  
+  
+  
+  
+
+  
+    <span class="summary_desc"><div class='inline'>
+<p>Find the root document by finding the parent of the parent of …</p>
+</div></span>
+  
+</li>
+
+      
+        <li class="public ">
+  <span class="summary_signature">
+    
+      <a href="#get_author_credentials-instance_method" title="#get_author_credentials (instance method)">- (Object) <strong>get_author_credentials</strong> </a>
     
 
     
@@ -402,8 +545,7 @@ self.compiled_and_rendered_content.</p>
 
   
     <span class="summary_desc"><div class='inline'>
-<p>When initializing an NSDocument, ensure that certain fields have a standard
-non-nil value.</p>
+<p>A new instance of NSDocument.</p>
 </div></span>
   
 </li>
@@ -429,6 +571,28 @@ non-nil value.</p>
     <span class="summary_desc"><div class='inline'>
 <p>@section(k, @article) makes @section the k-th subdocument of @article.</p>
 </div></span>
+  
+</li>
+
+      
+        <li class="public ">
+  <span class="summary_signature">
+    
+      <a href="#is_root_document%3F-instance_method" title="#is_root_document? (instance method)">- (Boolean) <strong>is_root_document?</strong> </a>
+    
+
+    
+  </span>
+  
+  
+  
+  
+  
+  
+  
+
+  
+    <span class="summary_desc"><div class='inline'></div></span>
   
 </li>
 
@@ -499,31 +663,7 @@ non-nil value.</p>
 
   
     <span class="summary_desc"><div class='inline'>
-<p>Return next NSDocument.</p>
-</div></span>
-  
-</li>
-
-      
-        <li class="public ">
-  <span class="summary_signature">
-    
-      <a href="#next_id-instance_method" title="#next_id (instance method)">- (Object) <strong>next_id</strong> </a>
-    
-
-    
-  </span>
-  
-  
-  
-  
-  
-  
-  
-
-  
-    <span class="summary_desc"><div class='inline'>
-<p>Assume that receiver is subdocument k of parent.</p>
+<p>Return previous NSDocument.</p>
 </div></span>
   
 </li>
@@ -554,7 +694,29 @@ non-nil value.</p>
         <li class="public ">
   <span class="summary_signature">
     
-      <a href="#parent-instance_method" title="#parent (instance method)">- (Object) <strong>parent</strong> </a>
+      <a href="#next_toc_item-instance_method" title="#next_toc_item (instance method)">- (Object) <strong>next_toc_item</strong> </a>
+    
+
+    
+  </span>
+  
+  
+  
+  
+  
+  
+  
+
+  
+    <span class="summary_desc"><div class='inline'></div></span>
+  
+</li>
+
+      
+        <li class="public ">
+  <span class="summary_signature">
+    
+      <a href="#parent_document-instance_method" title="#parent_document (instance method)">- (Object) <strong>parent_document</strong> </a>
     
 
     
@@ -578,6 +740,52 @@ non-nil value.</p>
         <li class="public ">
   <span class="summary_signature">
     
+      <a href="#parent_item-instance_method" title="#parent_item (instance method)">- (Object) <strong>parent_item</strong> </a>
+    
+
+    
+  </span>
+  
+  
+  
+  
+  
+  
+  
+
+  
+    <span class="summary_desc"><div class='inline'>
+<p>SECTION??.</p>
+</div></span>
+  
+</li>
+
+      
+        <li class="public ">
+  <span class="summary_signature">
+    
+      <a href="#parent_title-instance_method" title="#parent_title (instance method)">- (Object) <strong>parent_title</strong> </a>
+    
+
+    
+  </span>
+  
+  
+  
+  
+  
+  
+  
+
+  
+    <span class="summary_desc"><div class='inline'></div></span>
+  
+</li>
+
+      
+        <li class="public ">
+  <span class="summary_signature">
+    
       <a href="#previous_document-instance_method" title="#previous_document (instance method)">- (Object) <strong>previous_document</strong> </a>
     
 
@@ -593,7 +801,7 @@ non-nil value.</p>
 
   
     <span class="summary_desc"><div class='inline'>
-<p>Return previous NSDocument.</p>
+<p>Return next NSDocument.</p>
 </div></span>
   
 </li>
@@ -602,7 +810,7 @@ non-nil value.</p>
         <li class="public ">
   <span class="summary_signature">
     
-      <a href="#previous_id-instance_method" title="#previous_id (instance method)">- (Object) <strong>previous_id</strong> </a>
+      <a href="#previous_toc_item-instance_method" title="#previous_toc_item (instance method)">- (Object) <strong>previous_toc_item</strong> </a>
     
 
     
@@ -616,9 +824,29 @@ non-nil value.</p>
   
 
   
-    <span class="summary_desc"><div class='inline'>
-<p>Assume that receiver is subdocument k of parent.</p>
-</div></span>
+    <span class="summary_desc"><div class='inline'></div></span>
+  
+</li>
+
+      
+        <li class="public ">
+  <span class="summary_signature">
+    
+      <a href="#ref-instance_method" title="#ref (instance method)">- (Object) <strong>ref</strong> </a>
+    
+
+    
+  </span>
+  
+  
+  
+  
+  
+  
+  
+
+  
+    <span class="summary_desc"><div class='inline'></div></span>
   
 </li>
 
@@ -675,6 +903,28 @@ module Render.</p>
         <li class="public ">
   <span class="summary_signature">
     
+      <a href="#render_lazily-instance_method" title="#render_lazily (instance method)">- (Object) <strong>render_lazily</strong> </a>
+    
+
+    
+  </span>
+  
+  
+  
+  
+  
+  
+  
+
+  
+    <span class="summary_desc"><div class='inline'></div></span>
+  
+</li>
+
+      
+        <li class="public ">
+  <span class="summary_signature">
+    
       <a href="#root_document-instance_method" title="#root_document (instance method)">- (Object) <strong>root_document</strong> </a>
     
 
@@ -693,6 +943,138 @@ module Render.</p>
 <p>The root_document is what you get by following parent_document links to
 their source.</p>
 </div></span>
+  
+</li>
+
+      
+        <li class="public ">
+  <span class="summary_signature">
+    
+      <a href="#root_item-instance_method" title="#root_item (instance method)">- (Object) <strong>root_item</strong> </a>
+    
+
+    
+  </span>
+  
+  
+  
+  
+  
+  
+  
+
+  
+    <span class="summary_desc"><div class='inline'></div></span>
+  
+</li>
+
+      
+        <li class="public ">
+  <span class="summary_signature">
+    
+      <a href="#set_author_credentials-instance_method" title="#set_author_credentials (instance method)">- (Object) <strong>set_author_credentials</strong>(credentials) </a>
+    
+
+    
+  </span>
+  
+  
+  
+  
+  
+  
+  
+
+  
+    <span class="summary_desc"><div class='inline'></div></span>
+  
+</li>
+
+      
+        <li class="public ">
+  <span class="summary_signature">
+    
+      <a href="#set_author_identifier-instance_method" title="#set_author_identifier (instance method)">- (Object) <strong>set_author_identifier</strong> </a>
+    
+
+    
+  </span>
+  
+  
+  
+  
+  
+  
+  
+
+  
+    <span class="summary_desc"><div class='inline'></div></span>
+  
+</li>
+
+      
+        <li class="public ">
+  <span class="summary_signature">
+    
+      <a href="#set_author_identifier%21-instance_method" title="#set_author_identifier! (instance method)">- (Object) <strong>set_author_identifier!</strong> </a>
+    
+
+    
+  </span>
+  
+  
+  
+  
+  
+  
+  
+
+  
+    <span class="summary_desc"><div class='inline'></div></span>
+  
+</li>
+
+      
+        <li class="public ">
+  <span class="summary_signature">
+    
+      <a href="#set_identifier-instance_method" title="#set_identifier (instance method)">- (Object) <strong>set_identifier</strong> </a>
+    
+
+    
+  </span>
+  
+  
+  
+  
+  
+  
+  
+
+  
+    <span class="summary_desc"><div class='inline'></div></span>
+  
+</li>
+
+      
+        <li class="public ">
+  <span class="summary_signature">
+    
+      <a href="#set_identifier%21-instance_method" title="#set_identifier! (instance method)">- (Object) <strong>set_identifier!</strong> </a>
+    
+
+    
+  </span>
+  
+  
+  
+  
+  
+  
+  
+
+  
+    <span class="summary_desc"><div class='inline'></div></span>
   
 </li>
 
@@ -750,6 +1132,94 @@ link.</p>
         <li class="public ">
   <span class="summary_signature">
     
+      <a href="#set_root_document-instance_method" title="#set_root_document (instance method)">- (Object) <strong>set_root_document</strong> </a>
+    
+
+    
+  </span>
+  
+  
+  
+  
+  
+  
+  
+
+  
+    <span class="summary_desc"><div class='inline'></div></span>
+  
+</li>
+
+      
+        <li class="public ">
+  <span class="summary_signature">
+    
+      <a href="#set_root_document%21-instance_method" title="#set_root_document! (instance method)">- (Object) <strong>set_root_document!</strong> </a>
+    
+
+    
+  </span>
+  
+  
+  
+  
+  
+  
+  
+
+  
+    <span class="summary_desc"><div class='inline'></div></span>
+  
+</li>
+
+      
+        <li class="public ">
+  <span class="summary_signature">
+    
+      <a href="#set_toc_clean-instance_method" title="#set_toc_clean (instance method)">- (Object) <strong>set_toc_clean</strong> </a>
+    
+
+    
+  </span>
+  
+  
+  
+  
+  
+  
+  
+
+  
+    <span class="summary_desc"><div class='inline'></div></span>
+  
+</li>
+
+      
+        <li class="public ">
+  <span class="summary_signature">
+    
+      <a href="#set_toc_dirty-instance_method" title="#set_toc_dirty (instance method)">- (Object) <strong>set_toc_dirty</strong> </a>
+    
+
+    
+  </span>
+  
+  
+  
+  
+  
+  
+  
+
+  
+    <span class="summary_desc"><div class='inline'></div></span>
+  
+</li>
+
+      
+        <li class="public ">
+  <span class="summary_signature">
+    
       <a href="#status-instance_method" title="#status (instance method)">- (Object) <strong>status</strong> </a>
     
 
@@ -798,7 +1268,75 @@ link.</p>
         <li class="public ">
   <span class="summary_signature">
     
+      <a href="#table_of_contents-instance_method" title="#table_of_contents (instance method)">- (Object) <strong>table_of_contents</strong> </a>
+    
+
+    
+  </span>
+  
+  
+  
+  
+  
+  
+  
+
+  
+    <span class="summary_desc"><div class='inline'>
+<p>Return TOC object corresponding to the toc field in the database.</p>
+</div></span>
+  
+</li>
+
+      
+        <li class="public ">
+  <span class="summary_signature">
+    
       <a href="#texmacros-instance_method" title="#texmacros (instance method)">- (Object) <strong>texmacros</strong> </a>
+    
+
+    
+  </span>
+  
+  
+  
+  
+  
+  
+  
+
+  
+    <span class="summary_desc"><div class='inline'></div></span>
+  
+</li>
+
+      
+        <li class="public ">
+  <span class="summary_signature">
+    
+      <a href="#toc_is_dirty-instance_method" title="#toc_is_dirty (instance method)">- (Object) <strong>toc_is_dirty</strong> </a>
+    
+
+    
+  </span>
+  
+  
+  
+  
+  
+  
+  
+
+  
+    <span class="summary_desc"><div class='inline'></div></span>
+  
+</li>
+
+      
+        <li class="public ">
+  <span class="summary_signature">
+    
+      <a href="#toc_message-instance_method" title="#toc_message (instance method)">- (Object) <strong>toc_message</strong> </a>
     
 
     
@@ -869,7 +1407,7 @@ subdocuments.</p>
         <li class="public ">
   <span class="summary_signature">
     
-      <a href="#update_table_of_contents-instance_method" title="#update_table_of_contents (instance method)">- (Object) <strong>update_table_of_contents</strong> </a>
+      <a href="#update_table_of_contents-instance_method" title="#update_table_of_contents (instance method)">- (Object) <strong>update_table_of_contents</strong>(arg = {force: false}) </a>
     
 
     
@@ -884,8 +1422,8 @@ subdocuments.</p>
 
   
     <span class="summary_desc"><div class='inline'>
-<p>A table of contents is a list of lists, where the sublists are of the form
-[id, title].</p>
+<p>A table of contents is an array of hashes, where the key-value pairs are
+like.</p>
 </div></span>
   
 </li>
@@ -894,7 +1432,7 @@ subdocuments.</p>
         <li class="public ">
   <span class="summary_signature">
     
-      <a href="#update_table_of_contents_at_root-instance_method" title="#update_table_of_contents_at_root (instance method)">- (Object) <strong>update_table_of_contents_at_root</strong> </a>
+      <a href="#update_toc_at_root-instance_method" title="#update_toc_at_root (instance method)">- (Object) <strong>update_toc_at_root</strong> </a>
     
 
     
@@ -925,6 +1463,23 @@ subdocuments.</p>
   
   
   
+  
+  
+  
+  
+  
+  
+  <h3 class="inherited">Methods included from <span class='object_link'><a href="Noteshare/Tools.html" title="Noteshare::Tools (module)">Noteshare::Tools</a></span></h3>
+  <p class="inherited"><span class='object_link'><a href="Noteshare/Tools.html#symbolize_keys-class_method" title="Noteshare::Tools.symbolize_keys (method)">symbolize_keys</a></span></p>
+
+  
+  
+  
+  
+  
+  
+  
+  
   <h3 class="inherited">Methods included from <span class='object_link'><a href="NSDocument/Setup.html" title="NSDocument::Setup (module)">Setup</a></span></h3>
   <p class="inherited"><span class='object_link'><a href="NSDocument/Setup.html#seed_db-class_method" title="NSDocument::Setup.seed_db (method)">seed_db</a></span></p>
 
@@ -937,7 +1492,7 @@ subdocuments.</p>
   
   
   <h3 class="inherited">Methods included from <span class='object_link'><a href="NSDocument/Presentation.html" title="NSDocument::Presentation (module)">Presentation</a></span></h3>
-  <p class="inherited"><span class='object_link'><a href="NSDocument/Presentation.html#associate_link-instance_method" title="NSDocument::Presentation#associate_link (method)">#associate_link</a></span>, <span class='object_link'><a href="NSDocument/Presentation.html#associated_document_map-instance_method" title="NSDocument::Presentation#associated_document_map (method)">#associated_document_map</a></span>, <span class='object_link'><a href="NSDocument/Presentation.html#document_map-instance_method" title="NSDocument::Presentation#document_map (method)">#document_map</a></span>, <span class='object_link'><a href="NSDocument/Presentation.html#link-instance_method" title="NSDocument::Presentation#link (method)">#link</a></span>, <span class='object_link'><a href="NSDocument/Presentation.html#master_table_of_contents-instance_method" title="NSDocument::Presentation#master_table_of_contents (method)">#master_table_of_contents</a></span>, <span class='object_link'><a href="NSDocument/Presentation.html#next_document_title-instance_method" title="NSDocument::Presentation#next_document_title (method)">#next_document_title</a></span>, <span class='object_link'><a href="NSDocument/Presentation.html#next_link-instance_method" title="NSDocument::Presentation#next_link (method)">#next_link</a></span>, <span class='object_link'><a href="NSDocument/Presentation.html#parent_document_title-instance_method" title="NSDocument::Presentation#parent_document_title (method)">#parent_document_title</a></span>, <span class='object_link'><a href="NSDocument/Presentation.html#parent_link-instance_method" title="NSDocument::Presentation#parent_link (method)">#parent_link</a></span>, <span class='object_link'><a href="NSDocument/Presentation.html#previous_document_title-instance_method" title="NSDocument::Presentation#previous_document_title (method)">#previous_document_title</a></span>, <span class='object_link'><a href="NSDocument/Presentation.html#previous_link-instance_method" title="NSDocument::Presentation#previous_link (method)">#previous_link</a></span>, <span class='object_link'><a href="NSDocument/Presentation.html#root_link-instance_method" title="NSDocument::Presentation#root_link (method)">#root_link</a></span>, <span class='object_link'><a href="NSDocument/Presentation.html#subdocument_titles-instance_method" title="NSDocument::Presentation#subdocument_titles (method)">#subdocument_titles</a></span>, <span class='object_link'><a href="NSDocument/Presentation.html#table_of_contents-instance_method" title="NSDocument::Presentation#table_of_contents (method)">#table_of_contents</a></span>, <span class='object_link'><a href="NSDocument/Presentation.html#url-instance_method" title="NSDocument::Presentation#url (method)">#url</a></span></p>
+  <p class="inherited"><span class='object_link'><a href="NSDocument/Presentation.html#associate_link-instance_method" title="NSDocument::Presentation#associate_link (method)">#associate_link</a></span>, <span class='object_link'><a href="NSDocument/Presentation.html#associated_document_map-instance_method" title="NSDocument::Presentation#associated_document_map (method)">#associated_document_map</a></span>, <span class='object_link'><a href="NSDocument/Presentation.html#document_map-instance_method" title="NSDocument::Presentation#document_map (method)">#document_map</a></span>, <span class='object_link'><a href="NSDocument/Presentation.html#link-instance_method" title="NSDocument::Presentation#link (method)">#link</a></span>, <span class='object_link'><a href="NSDocument/Presentation.html#master_table_of_contents-instance_method" title="NSDocument::Presentation#master_table_of_contents (method)">#master_table_of_contents</a></span>, <span class='object_link'><a href="NSDocument/Presentation.html#next_document_title-instance_method" title="NSDocument::Presentation#next_document_title (method)">#next_document_title</a></span>, <span class='object_link'><a href="NSDocument/Presentation.html#next_link-instance_method" title="NSDocument::Presentation#next_link (method)">#next_link</a></span>, <span class='object_link'><a href="NSDocument/Presentation.html#parent_document_title-instance_method" title="NSDocument::Presentation#parent_document_title (method)">#parent_document_title</a></span>, <span class='object_link'><a href="NSDocument/Presentation.html#parent_link-instance_method" title="NSDocument::Presentation#parent_link (method)">#parent_link</a></span>, <span class='object_link'><a href="NSDocument/Presentation.html#previous_document_title-instance_method" title="NSDocument::Presentation#previous_document_title (method)">#previous_document_title</a></span>, <span class='object_link'><a href="NSDocument/Presentation.html#previous_link-instance_method" title="NSDocument::Presentation#previous_link (method)">#previous_link</a></span>, <span class='object_link'><a href="NSDocument/Presentation.html#root_link-instance_method" title="NSDocument::Presentation#root_link (method)">#root_link</a></span>, <span class='object_link'><a href="NSDocument/Presentation.html#subdocument_titles-instance_method" title="NSDocument::Presentation#subdocument_titles (method)">#subdocument_titles</a></span>, <span class='object_link'><a href="NSDocument/Presentation.html#table_of_contents_as_string-instance_method" title="NSDocument::Presentation#table_of_contents_as_string (method)">#table_of_contents_as_string</a></span>, <span class='object_link'><a href="NSDocument/Presentation.html#url-instance_method" title="NSDocument::Presentation#url (method)">#url</a></span></p>
 
   <div id="constructor_details" class="method_details_list">
   <h2>Constructor Details</h2>
@@ -954,8 +1509,7 @@ subdocuments.</p>
 </h3><div class="docstring">
   <div class="discussion">
     
-<p>When initializing an NSDocument, ensure that certain fields have a standard
-non-nil value</p>
+<p>Returns a new instance of NSDocument</p>
 
 
   </div>
@@ -969,24 +1523,28 @@ non-nil value</p>
       <pre class="lines">
 
 
-74
-75
-76
-77
-78
-79
-80
-81
-82
-83
-84</pre>
+86
+87
+88
+89
+90
+91
+92
+93
+94
+95
+96
+97
+98
+99</pre>
     </td>
     <td>
-      <pre class="code"><span class="info file"># File 'lib/noteshare/entities/ns_document.rb', line 74</span>
+      <pre class="code"><span class="info file"># File 'lib/noteshare/entities/ns_document.rb', line 86</span>
 
 <span class='kw'>def</span> <span class='id identifier rubyid_initialize'>initialize</span><span class='lparen'>(</span><span class='id identifier rubyid_hash'>hash</span><span class='rparen'>)</span>
 
   <span class='id identifier rubyid_hash'>hash</span><span class='period'>.</span><span class='id identifier rubyid_each'>each</span> <span class='lbrace'>{</span> <span class='op'>|</span><span class='id identifier rubyid_name'>name</span><span class='comma'>,</span> <span class='id identifier rubyid_value'>value</span><span class='op'>|</span> <span class='id identifier rubyid_instance_variable_set'>instance_variable_set</span><span class='lparen'>(</span><span class='tstring'><span class='tstring_beg'>&quot;</span><span class='tstring_content'>@</span><span class='embexpr_beg'>#{</span><span class='id identifier rubyid_name'>name</span><span class='embexpr_end'>}</span><span class='tstring_end'>&quot;</span></span><span class='comma'>,</span> <span class='id identifier rubyid_value'>value</span><span class='rparen'>)</span> <span class='rbrace'>}</span>
+
   <span class='ivar'>@subdoc_refs</span> <span class='op'>=</span> <span class='lbracket'>[</span><span class='rbracket'>]</span> <span class='kw'>if</span> <span class='ivar'>@subdoc_refs</span><span class='period'>.</span><span class='id identifier rubyid_nil?'>nil?</span>
   <span class='ivar'>@toc</span> <span class='op'>||=</span> <span class='lbracket'>[</span><span class='rbracket'>]</span>
   <span class='ivar'>@doc_refs</span> <span class='op'>=</span> <span class='lbrace'>{</span><span class='rbrace'>}</span> <span class='kw'>if</span> <span class='ivar'>@doc_refs</span><span class='period'>.</span><span class='id identifier rubyid_nil?'>nil?</span>
@@ -994,6 +1552,8 @@ non-nil value</p>
   <span class='ivar'>@root_document_id</span> <span class='op'>||=</span> <span class='int'>0</span>
   <span class='ivar'>@parent_id</span> <span class='op'>||=</span> <span class='int'>0</span>
 
+  <span class='comment'># @toc_dirty ||= true
+</span>
 <span class='kw'>end</span></pre>
     </td>
   </tr>
@@ -1003,6 +1563,56 @@ non-nil value</p>
 </div>
 
 
+  <div id="class_method_details" class="method_details_list">
+    <h2>Class Method Details</h2>
+
+    
+      <div class="method_details first">
+  <h3 class="signature first" id="create-class_method">
+  
+    + (<tt><span class='object_link'><a href="Noteshare/Tools/Object.html" title="Noteshare::Tools::Object (class)">Object</a></span></tt>) <strong>create</strong>(hash) 
+  
+
+  
+
+  
+</h3><table class="source_code">
+  <tr>
+    <td>
+      <pre class="lines">
+
+
+122
+123
+124
+125
+126
+127
+128
+129
+130
+131</pre>
+    </td>
+    <td>
+      <pre class="code"><span class="info file"># File 'lib/noteshare/entities/ns_document.rb', line 122</span>
+
+<span class='kw'>def</span> <span class='kw'>self</span><span class='period'>.</span><span class='id identifier rubyid_create'>create</span><span class='lparen'>(</span><span class='id identifier rubyid_hash'>hash</span><span class='rparen'>)</span>
+  <span class='id identifier rubyid_doc'>doc</span> <span class='op'>=</span> <span class='const'>NSDocument</span><span class='period'>.</span><span class='id identifier rubyid_new'>new</span><span class='lparen'>(</span><span class='id identifier rubyid_hash'>hash</span><span class='rparen'>)</span>
+  <span class='id identifier rubyid_credentials'>credentials</span> <span class='op'>=</span> <span class='const'>Tools</span><span class='period'>.</span><span class='id identifier rubyid_symbolize_keys'>symbolize_keys</span><span class='lparen'>(</span><span class='id identifier rubyid_hash'>hash</span><span class='lbracket'>[</span><span class='symbol'>:author_credentials</span><span class='rbracket'>]</span><span class='rparen'>)</span>
+  <span class='ivar'>@author</span> <span class='op'>=</span> <span class='id identifier rubyid_credentials'>credentials</span><span class='lbracket'>[</span><span class='symbol'>:first_name</span><span class='rbracket'>]</span> <span class='op'>+</span> <span class='tstring'><span class='tstring_beg'>&#39;</span><span class='tstring_content'> </span><span class='tstring_end'>&#39;</span></span> <span class='op'>+</span> <span class='id identifier rubyid_credentials'>credentials</span><span class='lbracket'>[</span><span class='symbol'>:last_name</span><span class='rbracket'>]</span>
+  <span class='id identifier rubyid_doc'>doc</span><span class='period'>.</span><span class='id identifier rubyid_identifier'>identifier</span> <span class='op'>=</span> <span class='const'>Noteshare</span><span class='op'>::</span><span class='const'>Identifier</span><span class='period'>.</span><span class='id identifier rubyid_new'>new</span><span class='lparen'>(</span><span class='rparen'>)</span><span class='period'>.</span><span class='id identifier rubyid_string'>string</span>
+  <span class='id identifier rubyid_doc'>doc</span><span class='period'>.</span><span class='id identifier rubyid_root_id'>root_id</span> <span class='op'>=</span> <span class='int'>0</span>
+  <span class='id identifier rubyid_doc'>doc</span><span class='period'>.</span><span class='id identifier rubyid_root_ref'>root_ref</span> <span class='op'>=</span> <span class='lbrace'>{</span> <span class='tstring'><span class='tstring_beg'>&#39;</span><span class='tstring_content'>id</span><span class='label_end'>&#39;:</span> <span class='int'>0</span><span class='comma'>,</span> <span class='label'>title:</span> <span class='tstring'><span class='tstring_beg'>&#39;</span><span class='tstring_end'>&#39;</span></span><span class='rbrace'>}</span>
+  <span class='comment'># Fixme and what about parent_id, parent_ref
+</span>  <span class='const'>DocumentRepository</span><span class='period'>.</span><span class='id identifier rubyid_create'>create</span> <span class='id identifier rubyid_doc'>doc</span>
+<span class='kw'>end</span></pre>
+    </td>
+  </tr>
+</table>
+</div>
+    
+  </div>
+
   <div id="instance_method_details" class="method_details_list">
     <h2>Instance Method Details</h2>
 
@@ -1010,7 +1620,7 @@ non-nil value</p>
       <div class="method_details first">
   <h3 class="signature first" id="add_to-instance_method">
   
-    - (<tt>Object</tt>) <strong>add_to</strong>(parent_document) 
+    - (<tt><span class='object_link'><a href="Noteshare/Tools/Object.html" title="Noteshare::Tools::Object (class)">Object</a></span></tt>) <strong>add_to</strong>(parent_document) 
   
 
   
@@ -1033,17 +1643,61 @@ non-nil value</p>
       <pre class="lines">
 
 
-164
-165
-166
-167</pre>
+249
+250
+251
+252
+253</pre>
     </td>
     <td>
-      <pre class="code"><span class="info file"># File 'lib/noteshare/entities/ns_document.rb', line 164</span>
+      <pre class="code"><span class="info file"># File 'lib/noteshare/entities/ns_document.rb', line 249</span>
 
 <span class='kw'>def</span> <span class='id identifier rubyid_add_to'>add_to</span><span class='lparen'>(</span><span class='id identifier rubyid_parent_document'>parent_document</span><span class='rparen'>)</span>
-  <span class='id identifier rubyid_n'>n</span> <span class='op'>=</span> <span class='id identifier rubyid_parent_document'>parent_document</span><span class='period'>.</span><span class='id identifier rubyid_subdoc_refs'>subdoc_refs</span><span class='period'>.</span><span class='id identifier rubyid_length'>length</span>
-  <span class='id identifier rubyid_insert'>insert</span><span class='lparen'>(</span><span class='id identifier rubyid_n'>n</span><span class='comma'>,</span> <span class='id identifier rubyid_parent_document'>parent_document</span><span class='rparen'>)</span>
+  <span class='id identifier rubyid_puts'>puts</span> <span class='tstring'><span class='tstring_beg'>&quot;</span><span class='tstring_content'>ADD: </span><span class='embexpr_beg'>#{</span><span class='kw'>self</span><span class='period'>.</span><span class='id identifier rubyid_title'>title</span><span class='embexpr_end'>}</span><span class='tstring_content'> TO: </span><span class='embexpr_beg'>#{</span><span class='id identifier rubyid_parent_document'>parent_document</span><span class='period'>.</span><span class='id identifier rubyid_title'>title</span><span class='embexpr_end'>}</span><span class='tstring_end'>&quot;</span></span><span class='period'>.</span><span class='id identifier rubyid_green'>green</span>
+  <span class='id identifier rubyid_new_index'>new_index</span> <span class='op'>=</span> <span class='id identifier rubyid_parent_document'>parent_document</span><span class='period'>.</span><span class='id identifier rubyid_toc'>toc</span><span class='period'>.</span><span class='id identifier rubyid_length'>length</span>
+  <span class='id identifier rubyid_insert'>insert</span><span class='lparen'>(</span><span class='id identifier rubyid_new_index'>new_index</span><span class='comma'>,</span> <span class='id identifier rubyid_parent_document'>parent_document</span><span class='rparen'>)</span>
+<span class='kw'>end</span></pre>
+    </td>
+  </tr>
+</table>
+</div>
+    
+      <div class="method_details ">
+  <h3 class="signature " id="ancestor_ids-instance_method">
+  
+    - (<tt><span class='object_link'><a href="Noteshare/Tools/Object.html" title="Noteshare::Tools::Object (class)">Object</a></span></tt>) <strong>ancestor_ids</strong> 
+  
+
+  
+
+  
+</h3><table class="source_code">
+  <tr>
+    <td>
+      <pre class="lines">
+
+
+405
+406
+407
+408
+409
+410
+411
+412
+413</pre>
+    </td>
+    <td>
+      <pre class="code"><span class="info file"># File 'lib/noteshare/entities/ns_document.rb', line 405</span>
+
+<span class='kw'>def</span> <span class='id identifier rubyid_ancestor_ids'>ancestor_ids</span>
+  <span class='id identifier rubyid_cursor'>cursor</span> <span class='op'>=</span> <span class='kw'>self</span>
+  <span class='id identifier rubyid_list'>list</span> <span class='op'>=</span> <span class='lbracket'>[</span><span class='rbracket'>]</span>
+  <span class='kw'>while</span> <span class='id identifier rubyid_cursor'>cursor</span><span class='period'>.</span><span class='id identifier rubyid_parent_document'>parent_document</span> <span class='op'>!=</span> <span class='kw'>nil</span>
+    <span class='id identifier rubyid_list'>list</span> <span class='op'>&lt;&lt;</span> <span class='id identifier rubyid_cursor'>cursor</span><span class='period'>.</span><span class='id identifier rubyid_parent_document'>parent_document</span><span class='period'>.</span><span class='id identifier rubyid_id'>id</span>
+    <span class='id identifier rubyid_cursor'>cursor</span> <span class='op'>=</span> <span class='id identifier rubyid_cursor'>cursor</span><span class='period'>.</span><span class='id identifier rubyid_parent_document'>parent_document</span>
+  <span class='kw'>end</span>
+  <span class='id identifier rubyid_list'>list</span>
 <span class='kw'>end</span></pre>
     </td>
   </tr>
@@ -1053,7 +1707,7 @@ non-nil value</p>
       <div class="method_details ">
   <h3 class="signature " id="associate_as-instance_method">
   
-    - (<tt>Object</tt>) <strong>associate_as</strong>(type, doc) 
+    - (<tt><span class='object_link'><a href="Noteshare/Tools/Object.html" title="Noteshare::Tools::Object (class)">Object</a></span></tt>) <strong>associate_as</strong>(type, doc) 
   
 
   
@@ -1078,15 +1732,15 @@ non-nil value</p>
       <pre class="lines">
 
 
-335
-336
-337
-338
-339
-340</pre>
+503
+504
+505
+506
+507
+508</pre>
     </td>
     <td>
-      <pre class="code"><span class="info file"># File 'lib/noteshare/entities/ns_document.rb', line 335</span>
+      <pre class="code"><span class="info file"># File 'lib/noteshare/entities/ns_document.rb', line 503</span>
 
 <span class='kw'>def</span> <span class='id identifier rubyid_associate_as'>associate_as</span><span class='lparen'>(</span><span class='id identifier rubyid_type'>type</span><span class='comma'>,</span> <span class='id identifier rubyid_doc'>doc</span><span class='rparen'>)</span>
   <span class='id identifier rubyid_doc'>doc</span><span class='period'>.</span><span class='id identifier rubyid_doc_refs'>doc_refs</span><span class='lbracket'>[</span><span class='id identifier rubyid_type'>type</span><span class='rbracket'>]</span> <span class='op'>=</span> <span class='kw'>self</span><span class='period'>.</span><span class='id identifier rubyid_id'>id</span>
@@ -1102,7 +1756,7 @@ non-nil value</p>
       <div class="method_details ">
   <h3 class="signature " id="associated_document-instance_method">
   
-    - (<tt>Object</tt>) <strong>associated_document</strong>(type) 
+    - (<tt><span class='object_link'><a href="Noteshare/Tools/Object.html" title="Noteshare::Tools::Object (class)">Object</a></span></tt>) <strong>associated_document</strong>(type) 
   
 
   
@@ -1126,12 +1780,12 @@ to</p>
       <pre class="lines">
 
 
-345
-346
-347</pre>
+513
+514
+515</pre>
     </td>
     <td>
-      <pre class="code"><span class="info file"># File 'lib/noteshare/entities/ns_document.rb', line 345</span>
+      <pre class="code"><span class="info file"># File 'lib/noteshare/entities/ns_document.rb', line 513</span>
 
 <span class='kw'>def</span> <span class='id identifier rubyid_associated_document'>associated_document</span><span class='lparen'>(</span><span class='id identifier rubyid_type'>type</span><span class='rparen'>)</span>
   <span class='const'>DocumentRepository</span><span class='period'>.</span><span class='id identifier rubyid_find'>find</span><span class='lparen'>(</span><span class='kw'>self</span><span class='period'>.</span><span class='id identifier rubyid_doc_refs'>doc_refs</span><span class='lbracket'>[</span><span class='id identifier rubyid_type'>type</span><span class='rbracket'>]</span><span class='rparen'>)</span>
@@ -1144,7 +1798,7 @@ to</p>
       <div class="method_details ">
   <h3 class="signature " id="compile-instance_method">
   
-    - (<tt>Object</tt>) <strong>compile</strong> 
+    - (<tt><span class='object_link'><a href="Noteshare/Tools/Object.html" title="Noteshare::Tools::Object (class)">Object</a></span></tt>) <strong>compile</strong> 
   
 
   
@@ -1156,12 +1810,12 @@ to</p>
       <pre class="lines">
 
 
-414
-415
-416</pre>
+583
+584
+585</pre>
     </td>
     <td>
-      <pre class="code"><span class="info file"># File 'lib/noteshare/entities/ns_document.rb', line 414</span>
+      <pre class="code"><span class="info file"># File 'lib/noteshare/entities/ns_document.rb', line 583</span>
 
 <span class='kw'>def</span> <span class='id identifier rubyid_compile'>compile</span>
   <span class='id identifier rubyid_texmacros'>texmacros</span> <span class='op'>+</span> <span class='id identifier rubyid_compile_aux'>compile_aux</span>
@@ -1174,7 +1828,7 @@ to</p>
       <div class="method_details ">
   <h3 class="signature " id="compile_aux-instance_method">
   
-    - (<tt>Object</tt>) <strong>compile_aux</strong> 
+    - (<tt><span class='object_link'><a href="Noteshare/Tools/Object.html" title="Noteshare::Tools::Object (class)">Object</a></span></tt>) <strong>compile_aux</strong> 
   
 
   
@@ -1201,29 +1855,31 @@ of <strong>doc</strong>.</p>
       <pre class="lines">
 
 
-401
-402
-403
-404
-405
-406
-407
-408
-409
-410
-411
-412</pre>
+569
+570
+571
+572
+573
+574
+575
+576
+577
+578
+579
+580
+581</pre>
     </td>
     <td>
-      <pre class="code"><span class="info file"># File 'lib/noteshare/entities/ns_document.rb', line 401</span>
+      <pre class="code"><span class="info file"># File 'lib/noteshare/entities/ns_document.rb', line 569</span>
 
 <span class='kw'>def</span> <span class='id identifier rubyid_compile_aux'>compile_aux</span>
-  <span class='kw'>if</span> <span class='id identifier rubyid_subdoc_refs'>subdoc_refs</span> <span class='op'>==</span> <span class='lbracket'>[</span><span class='rbracket'>]</span>
+  <span class='id identifier rubyid_table'>table</span> <span class='op'>=</span> <span class='id identifier rubyid_table_of_contents'>table_of_contents</span>
+  <span class='kw'>if</span> <span class='id identifier rubyid_table'>table</span> <span class='op'>==</span> <span class='lbracket'>[</span><span class='rbracket'>]</span>
     <span class='kw'>return</span> <span class='id identifier rubyid_content'>content</span>
   <span class='kw'>else</span>
     <span class='id identifier rubyid_text'>text</span> <span class='op'>=</span> <span class='id identifier rubyid_content'>content</span> <span class='op'>+</span> <span class='tstring'><span class='tstring_beg'>&quot;</span><span class='tstring_content'>\n\n</span><span class='tstring_end'>&quot;</span></span> <span class='op'>||</span> <span class='tstring'><span class='tstring_beg'>&#39;</span><span class='tstring_end'>&#39;</span></span>
-    <span class='id identifier rubyid_subdoc_refs'>subdoc_refs</span><span class='period'>.</span><span class='id identifier rubyid_each'>each</span> <span class='kw'>do</span> <span class='op'>|</span><span class='id identifier rubyid_id'>id</span><span class='op'>|</span>
-      <span class='id identifier rubyid_section'>section</span> <span class='op'>=</span> <span class='const'>DocumentRepository</span><span class='period'>.</span><span class='id identifier rubyid_find'>find</span><span class='lparen'>(</span><span class='id identifier rubyid_id'>id</span><span class='rparen'>)</span>
+    <span class='id identifier rubyid_table'>table</span><span class='period'>.</span><span class='id identifier rubyid_each'>each</span> <span class='kw'>do</span> <span class='op'>|</span><span class='id identifier rubyid_item'>item</span><span class='op'>|</span>
+      <span class='id identifier rubyid_section'>section</span> <span class='op'>=</span> <span class='const'>DocumentRepository</span><span class='period'>.</span><span class='id identifier rubyid_find'>find</span><span class='lparen'>(</span><span class='id identifier rubyid_item'>item</span><span class='period'>.</span><span class='id identifier rubyid_id'>id</span><span class='rparen'>)</span>
       <span class='id identifier rubyid_text'>text</span>  <span class='op'>&lt;&lt;</span> <span class='id identifier rubyid_section'>section</span><span class='period'>.</span><span class='id identifier rubyid_compile_aux'>compile_aux</span> <span class='op'>&lt;&lt;</span> <span class='tstring'><span class='tstring_beg'>&quot;</span><span class='tstring_content'>\n\n</span><span class='tstring_end'>&quot;</span></span>
     <span class='kw'>end</span>
     <span class='kw'>return</span> <span class='id identifier rubyid_text'>text</span>
@@ -1237,7 +1893,7 @@ of <strong>doc</strong>.</p>
       <div class="method_details ">
   <h3 class="signature " id="compile_with_render-instance_method">
   
-    - (<tt>Object</tt>) <strong>compile_with_render</strong>(option = {}) 
+    - (<tt><span class='object_link'><a href="Noteshare/Tools/Object.html" title="Noteshare::Tools::Object (class)">Object</a></span></tt>) <strong>compile_with_render</strong>(option = {}) 
   
 
   
@@ -1261,47 +1917,36 @@ self.compiled_and_rendered_content</p>
       <pre class="lines">
 
 
-495
-496
-497
-498
-499
-500
-501
-502
-503
-504
-505
-506
-507
-508
-509
-510
-511
-512
-513
-514
-515
-516
-517
-518
-519
-520
-521
-522
-523
-524
-525
-526
-527
-528
-529
-530
-531
-532</pre>
+627
+628
+629
+630
+631
+632
+633
+634
+635
+636
+637
+638
+639
+640
+641
+642
+643
+644
+645
+646
+647
+648
+649
+650
+651
+652
+653</pre>
     </td>
     <td>
-      <pre class="code"><span class="info file"># File 'lib/noteshare/entities/ns_document.rb', line 495</span>
+      <pre class="code"><span class="info file"># File 'lib/noteshare/entities/ns_document.rb', line 627</span>
 
 <span class='kw'>def</span> <span class='id identifier rubyid_compile_with_render'>compile_with_render</span><span class='lparen'>(</span><span class='id identifier rubyid_option'>option</span><span class='op'>=</span><span class='lbrace'>{</span><span class='rbrace'>}</span><span class='rparen'>)</span>
   <span class='id identifier rubyid_puts'>puts</span> <span class='tstring'><span class='tstring_beg'>&quot;</span><span class='tstring_content'>compile_with_render, id = </span><span class='embexpr_beg'>#{</span><span class='kw'>self</span><span class='period'>.</span><span class='id identifier rubyid_id'>id</span><span class='embexpr_end'>}</span><span class='tstring_content'>, title = </span><span class='embexpr_beg'>#{</span><span class='kw'>self</span><span class='period'>.</span><span class='id identifier rubyid_title'>title</span><span class='embexpr_end'>}</span><span class='tstring_end'>&quot;</span></span><span class='period'>.</span><span class='id identifier rubyid_yellow'>yellow</span>
@@ -1316,29 +1961,18 @@ self.compiled_and_rendered_content</p>
       <span class='id identifier rubyid_render_option'>render_option</span> <span class='op'>=</span> <span class='lbrace'>{</span><span class='rbrace'>}</span>
   <span class='kw'>end</span>
 
+  <span class='id identifier rubyid_renderer'>renderer</span> <span class='op'>=</span> <span class='const'>Render</span><span class='period'>.</span><span class='id identifier rubyid_new'>new</span><span class='lparen'>(</span><span class='kw'>self</span><span class='period'>.</span><span class='id identifier rubyid_compile'>compile</span><span class='comma'>,</span> <span class='id identifier rubyid_render_option'>render_option</span> <span class='rparen'>)</span>
+  <span class='id identifier rubyid_compiled_content'>compiled_content</span> <span class='op'>=</span> <span class='kw'>self</span><span class='period'>.</span><span class='id identifier rubyid_compile'>compile</span>
+  <span class='kw'>self</span><span class='period'>.</span><span class='id identifier rubyid_compiled_and_rendered_content'>compiled_and_rendered_content</span> <span class='op'>=</span> <span class='id identifier rubyid_renderer'>renderer</span><span class='period'>.</span><span class='id identifier rubyid_convert'>convert</span>
+  <span class='kw'>self</span><span class='period'>.</span><span class='id identifier rubyid_compiled_dirty'>compiled_dirty</span> <span class='op'>=</span> <span class='kw'>false</span>
+  <span class='const'>DocumentRepository</span><span class='period'>.</span><span class='id identifier rubyid_update'>update</span><span class='lparen'>(</span><span class='kw'>self</span><span class='rparen'>)</span>
+  <span class='kw'>if</span> <span class='id identifier rubyid_option'>option</span><span class='lbracket'>[</span><span class='symbol'>:export</span><span class='rbracket'>]</span> <span class='op'>==</span> <span class='tstring'><span class='tstring_beg'>&#39;</span><span class='tstring_content'>yes</span><span class='tstring_end'>&#39;</span></span>
+    <span class='id identifier rubyid_file_name'>file_name</span> <span class='op'>=</span> <span class='kw'>self</span><span class='period'>.</span><span class='id identifier rubyid_title'>title</span><span class='period'>.</span><span class='id identifier rubyid_normalize'>normalize</span>
+    <span class='id identifier rubyid_path'>path</span> <span class='op'>=</span> <span class='tstring'><span class='tstring_beg'>&quot;</span><span class='tstring_content'>outgoing/</span><span class='embexpr_beg'>#{</span><span class='id identifier rubyid_file_name'>file_name</span><span class='embexpr_end'>}</span><span class='tstring_content'>.adoc</span><span class='tstring_end'>&quot;</span></span>
 
-  <span class='id identifier rubyid_dirty'>dirty</span> <span class='op'>=</span> <span class='kw'>self</span><span class='period'>.</span><span class='id identifier rubyid_compiled_dirty'>compiled_dirty</span>
-  <span class='id identifier rubyid_dirty'>dirty</span> <span class='op'>=</span> <span class='kw'>true</span> <span class='kw'>if</span> <span class='id identifier rubyid_dirty'>dirty</span><span class='period'>.</span><span class='id identifier rubyid_nil?'>nil?</span>
-
-  <span class='kw'>if</span> <span class='id identifier rubyid_dirty'>dirty</span>
-    <span class='id identifier rubyid_puts'>puts</span> <span class='tstring'><span class='tstring_beg'>&quot;</span><span class='tstring_content'>compile_with_render (dirty): id = </span><span class='embexpr_beg'>#{</span><span class='kw'>self</span><span class='period'>.</span><span class='id identifier rubyid_id'>id</span><span class='embexpr_end'>}</span><span class='tstring_content'>, title = </span><span class='embexpr_beg'>#{</span><span class='kw'>self</span><span class='period'>.</span><span class='id identifier rubyid_title'>title</span><span class='embexpr_end'>}</span><span class='tstring_end'>&quot;</span></span><span class='period'>.</span><span class='id identifier rubyid_magenta'>magenta</span>
-    <span class='id identifier rubyid_renderer'>renderer</span> <span class='op'>=</span> <span class='const'>Render</span><span class='period'>.</span><span class='id identifier rubyid_new'>new</span><span class='lparen'>(</span><span class='kw'>self</span><span class='period'>.</span><span class='id identifier rubyid_compile'>compile</span><span class='comma'>,</span> <span class='id identifier rubyid_render_option'>render_option</span> <span class='rparen'>)</span>
-    <span class='id identifier rubyid_compiled_content'>compiled_content</span> <span class='op'>=</span> <span class='kw'>self</span><span class='period'>.</span><span class='id identifier rubyid_compile'>compile</span>
-    <span class='kw'>self</span><span class='period'>.</span><span class='id identifier rubyid_compiled_and_rendered_content'>compiled_and_rendered_content</span> <span class='op'>=</span> <span class='id identifier rubyid_renderer'>renderer</span><span class='period'>.</span><span class='id identifier rubyid_convert'>convert</span>
-    <span class='kw'>self</span><span class='period'>.</span><span class='id identifier rubyid_compiled_dirty'>compiled_dirty</span> <span class='op'>=</span> <span class='kw'>false</span>
-    <span class='const'>DocumentRepository</span><span class='period'>.</span><span class='id identifier rubyid_update'>update</span><span class='lparen'>(</span><span class='kw'>self</span><span class='rparen'>)</span>
-  <span class='kw'>else</span>
-    <span class='id identifier rubyid_puts'>puts</span> <span class='tstring'><span class='tstring_beg'>&quot;</span><span class='tstring_content'>compile_with_render (clean): id = </span><span class='embexpr_beg'>#{</span><span class='kw'>self</span><span class='period'>.</span><span class='id identifier rubyid_id'>id</span><span class='embexpr_end'>}</span><span class='tstring_content'>, title = </span><span class='embexpr_beg'>#{</span><span class='kw'>self</span><span class='period'>.</span><span class='id identifier rubyid_title'>title</span><span class='embexpr_end'>}</span><span class='tstring_end'>&quot;</span></span><span class='period'>.</span><span class='id identifier rubyid_blue'>blue</span>
+    <span class='const'>IO</span><span class='period'>.</span><span class='id identifier rubyid_write'>write</span><span class='lparen'>(</span><span class='id identifier rubyid_path'>path</span><span class='comma'>,</span> <span class='id identifier rubyid_compiled_content'>compiled_content</span><span class='rparen'>)</span>
+    <span class='id identifier rubyid_export_html'>export_html</span><span class='lparen'>(</span><span class='id identifier rubyid_format'>format</span><span class='rparen'>)</span>
   <span class='kw'>end</span>
-
-
- <span class='kw'>if</span> <span class='id identifier rubyid_option'>option</span><span class='lbracket'>[</span><span class='symbol'>:export</span><span class='rbracket'>]</span> <span class='op'>==</span> <span class='tstring'><span class='tstring_beg'>&#39;</span><span class='tstring_content'>yes</span><span class='tstring_end'>&#39;</span></span>
-   <span class='id identifier rubyid_file_name'>file_name</span> <span class='op'>=</span> <span class='kw'>self</span><span class='period'>.</span><span class='id identifier rubyid_title'>title</span><span class='period'>.</span><span class='id identifier rubyid_normalize'>normalize</span>
-   <span class='id identifier rubyid_path'>path</span> <span class='op'>=</span> <span class='tstring'><span class='tstring_beg'>&quot;</span><span class='tstring_content'>outgoing/</span><span class='embexpr_beg'>#{</span><span class='id identifier rubyid_file_name'>file_name</span><span class='embexpr_end'>}</span><span class='tstring_content'>.adoc</span><span class='tstring_end'>&quot;</span></span>
-
-   <span class='const'>IO</span><span class='period'>.</span><span class='id identifier rubyid_write'>write</span><span class='lparen'>(</span><span class='id identifier rubyid_path'>path</span><span class='comma'>,</span> <span class='id identifier rubyid_compiled_content'>compiled_content</span><span class='rparen'>)</span>
-   <span class='id identifier rubyid_export_html'>export_html</span><span class='lparen'>(</span><span class='id identifier rubyid_format'>format</span><span class='rparen'>)</span>
- <span class='kw'>end</span>
 
 <span class='kw'>end</span></pre>
     </td>
@@ -1347,9 +1981,9 @@ self.compiled_and_rendered_content</p>
 </div>
     
       <div class="method_details ">
-  <h3 class="signature " id="export_html-instance_method">
+  <h3 class="signature " id="compile_with_render_lazily-instance_method">
   
-    - (<tt>Object</tt>) <strong>export_html</strong>(format) 
+    - (<tt><span class='object_link'><a href="Noteshare/Tools/Object.html" title="Noteshare::Tools::Object (class)">Object</a></span></tt>) <strong>compile_with_render_lazily</strong>(option = {}) 
   
 
   
@@ -1361,26 +1995,112 @@ self.compiled_and_rendered_content</p>
       <pre class="lines">
 
 
-534
-535
-536
-537
-538
-539
-540
-541
-542
-543
-544
-545
-546
-547
-548
-549
-550</pre>
+619
+620
+621
+622
+623</pre>
     </td>
     <td>
-      <pre class="code"><span class="info file"># File 'lib/noteshare/entities/ns_document.rb', line 534</span>
+      <pre class="code"><span class="info file"># File 'lib/noteshare/entities/ns_document.rb', line 619</span>
+
+<span class='kw'>def</span> <span class='id identifier rubyid_compile_with_render_lazily'>compile_with_render_lazily</span><span class='lparen'>(</span><span class='id identifier rubyid_option'>option</span><span class='op'>=</span><span class='lbrace'>{</span><span class='rbrace'>}</span><span class='rparen'>)</span>
+  <span class='kw'>if</span> <span class='id identifier rubyid_compiled_dirty'>compiled_dirty</span>
+    <span class='id identifier rubyid_compile_with_render'>compile_with_render</span><span class='lparen'>(</span><span class='id identifier rubyid_option'>option</span><span class='rparen'>)</span>
+  <span class='kw'>end</span>
+<span class='kw'>end</span></pre>
+    </td>
+  </tr>
+</table>
+</div>
+    
+      <div class="method_details ">
+  <h3 class="signature " id="display-instance_method">
+  
+    - (<tt><span class='object_link'><a href="Noteshare/Tools/Object.html" title="Noteshare::Tools::Object (class)">Object</a></span></tt>) <strong>display</strong>(label, args) 
+  
+
+  
+
+  
+</h3><table class="source_code">
+  <tr>
+    <td>
+      <pre class="lines">
+
+
+101
+102
+103
+104
+105
+106
+107
+108
+109
+110
+111
+112
+113
+114</pre>
+    </td>
+    <td>
+      <pre class="code"><span class="info file"># File 'lib/noteshare/entities/ns_document.rb', line 101</span>
+
+<span class='kw'>def</span> <span class='id identifier rubyid_display'>display</span><span class='lparen'>(</span><span class='id identifier rubyid_label'>label</span><span class='comma'>,</span> <span class='id identifier rubyid_args'>args</span><span class='rparen'>)</span>
+
+  <span class='id identifier rubyid_puts'>puts</span>
+  <span class='id identifier rubyid_puts'>puts</span> <span class='id identifier rubyid_label'>label</span><span class='period'>.</span><span class='id identifier rubyid_red'>red</span>
+  <span class='id identifier rubyid_args'>args</span><span class='period'>.</span><span class='id identifier rubyid_each'>each</span> <span class='kw'>do</span> <span class='op'>|</span><span class='id identifier rubyid_field'>field</span><span class='op'>|</span>
+    <span class='kw'>begin</span>
+      <span class='id identifier rubyid_puts'>puts</span> <span class='tstring'><span class='tstring_beg'>&quot;</span><span class='embexpr_beg'>#{</span><span class='id identifier rubyid_field'>field</span><span class='period'>.</span><span class='id identifier rubyid_to_s'>to_s</span><span class='embexpr_end'>}</span><span class='tstring_content'>: </span><span class='embexpr_beg'>#{</span><span class='kw'>self</span><span class='period'>.</span><span class='id identifier rubyid_send'>send</span><span class='lparen'>(</span><span class='id identifier rubyid_field'>field</span><span class='rparen'>)</span><span class='embexpr_end'>}</span><span class='tstring_end'>&quot;</span></span>
+    <span class='kw'>rescue</span>
+      <span class='id identifier rubyid_puts'>puts</span> <span class='tstring'><span class='tstring_beg'>&quot;</span><span class='embexpr_beg'>#{</span><span class='id identifier rubyid_field'>field</span><span class='period'>.</span><span class='id identifier rubyid_to_s'>to_s</span><span class='embexpr_end'>}</span><span class='tstring_content'>: ERROR</span><span class='tstring_end'>&quot;</span></span><span class='period'>.</span><span class='id identifier rubyid_red'>red</span>
+    <span class='kw'>end</span>
+  <span class='kw'>end</span>
+  <span class='id identifier rubyid_puts'>puts</span>
+
+<span class='kw'>end</span></pre>
+    </td>
+  </tr>
+</table>
+</div>
+    
+      <div class="method_details ">
+  <h3 class="signature " id="export_html-instance_method">
+  
+    - (<tt><span class='object_link'><a href="Noteshare/Tools/Object.html" title="Noteshare::Tools::Object (class)">Object</a></span></tt>) <strong>export_html</strong>(format) 
+  
+
+  
+
+  
+</h3><table class="source_code">
+  <tr>
+    <td>
+      <pre class="lines">
+
+
+655
+656
+657
+658
+659
+660
+661
+662
+663
+664
+665
+666
+667
+668
+669
+670
+671</pre>
+    </td>
+    <td>
+      <pre class="code"><span class="info file"># File 'lib/noteshare/entities/ns_document.rb', line 655</span>
 
 <span class='kw'>def</span> <span class='id identifier rubyid_export_html'>export_html</span><span class='lparen'>(</span><span class='id identifier rubyid_format'>format</span><span class='rparen'>)</span>
 
@@ -1405,9 +2125,90 @@ self.compiled_and_rendered_content</p>
 </div>
     
       <div class="method_details ">
+  <h3 class="signature " id="find_root_document-instance_method">
+  
+    - (<tt><span class='object_link'><a href="Noteshare/Tools/Object.html" title="Noteshare::Tools::Object (class)">Object</a></span></tt>) <strong>find_root_document</strong> 
+  
+
+  
+
+  
+</h3><div class="docstring">
+  <div class="discussion">
+    
+<p>Find the root document by finding the parent of the parent of …</p>
+
+
+  </div>
+</div>
+<div class="tags">
+  
+
+</div><table class="source_code">
+  <tr>
+    <td>
+      <pre class="lines">
+
+
+451
+452
+453
+454
+455
+456
+457</pre>
+    </td>
+    <td>
+      <pre class="code"><span class="info file"># File 'lib/noteshare/entities/ns_document.rb', line 451</span>
+
+<span class='kw'>def</span> <span class='id identifier rubyid_find_root_document'>find_root_document</span>
+  <span class='id identifier rubyid_cursor'>cursor</span> <span class='op'>=</span> <span class='kw'>self</span>
+  <span class='kw'>while</span> <span class='id identifier rubyid_cursor'>cursor</span><span class='period'>.</span><span class='id identifier rubyid_parent_document'>parent_document</span>
+    <span class='id identifier rubyid_cursor'>cursor</span> <span class='op'>=</span> <span class='id identifier rubyid_cursor'>cursor</span><span class='period'>.</span><span class='id identifier rubyid_parent_document'>parent_document</span>
+  <span class='kw'>end</span>
+  <span class='id identifier rubyid_cursor'>cursor</span>
+<span class='kw'>end</span></pre>
+    </td>
+  </tr>
+</table>
+</div>
+    
+      <div class="method_details ">
+  <h3 class="signature " id="get_author_credentials-instance_method">
+  
+    - (<tt><span class='object_link'><a href="Noteshare/Tools/Object.html" title="Noteshare::Tools::Object (class)">Object</a></span></tt>) <strong>get_author_credentials</strong> 
+  
+
+  
+
+  
+</h3><table class="source_code">
+  <tr>
+    <td>
+      <pre class="lines">
+
+
+140
+141
+142
+143</pre>
+    </td>
+    <td>
+      <pre class="code"><span class="info file"># File 'lib/noteshare/entities/ns_document.rb', line 140</span>
+
+<span class='kw'>def</span> <span class='id identifier rubyid_get_author_credentials'>get_author_credentials</span>
+  <span class='id identifier rubyid_puts'>puts</span> <span class='tstring'><span class='tstring_beg'>&quot;</span><span class='embexpr_beg'>#{</span><span class='kw'>self</span><span class='period'>.</span><span class='id identifier rubyid_author_credentials'>author_credentials</span><span class='period'>.</span><span class='id identifier rubyid_to_s'>to_s</span><span class='embexpr_end'>}</span><span class='tstring_content'>.magenta</span><span class='tstring_end'>&quot;</span></span>
+  <span class='const'>JSON</span><span class='period'>.</span><span class='id identifier rubyid_parse'>parse</span><span class='lparen'>(</span><span class='kw'>self</span><span class='period'>.</span><span class='id identifier rubyid_author_credentials'>author_credentials</span><span class='rparen'>)</span>
+<span class='kw'>end</span></pre>
+    </td>
+  </tr>
+</table>
+</div>
+    
+      <div class="method_details ">
   <h3 class="signature " id="info-instance_method">
   
-    - (<tt>Object</tt>) <strong>info</strong> 
+    - (<tt><span class='object_link'><a href="Noteshare/Tools/Object.html" title="Noteshare::Tools::Object (class)">Object</a></span></tt>) <strong>info</strong> 
   
 
   
@@ -1430,12 +2231,12 @@ self.compiled_and_rendered_content</p>
       <pre class="lines">
 
 
-234
-235
-236</pre>
+302
+303
+304</pre>
     </td>
     <td>
-      <pre class="code"><span class="info file"># File 'lib/noteshare/entities/ns_document.rb', line 234</span>
+      <pre class="code"><span class="info file"># File 'lib/noteshare/entities/ns_document.rb', line 302</span>
 
 <span class='kw'>def</span> <span class='id identifier rubyid_info'>info</span>
   <span class='tstring'><span class='tstring_beg'>&quot;</span><span class='embexpr_beg'>#{</span><span class='kw'>self</span><span class='period'>.</span><span class='id identifier rubyid_title'>title</span><span class='embexpr_end'>}</span><span class='tstring_content'>:: id: </span><span class='embexpr_beg'>#{</span><span class='kw'>self</span><span class='period'>.</span><span class='id identifier rubyid_id'>id</span><span class='embexpr_end'>}</span><span class='tstring_end'>&quot;</span></span>
@@ -1448,7 +2249,7 @@ self.compiled_and_rendered_content</p>
       <div class="method_details ">
   <h3 class="signature " id="insert-instance_method">
   
-    - (<tt>Object</tt>) <strong>insert</strong>(k, parent_document) 
+    - (<tt><span class='object_link'><a href="Noteshare/Tools/Object.html" title="Noteshare::Tools::Object (class)">Object</a></span></tt>) <strong>insert</strong>(k, parent_document) 
   
 
   
@@ -1474,505 +2275,6 @@ next and previous links</p>
       <pre class="lines">
 
 
-97
-98
-99
-100
-101
-102
-103
-104
-105
-106
-107
-108
-109
-110
-111
-112
-113
-114
-115
-116
-117
-118
-119
-120
-121
-122
-123
-124
-125
-126
-127
-128
-129
-130
-131
-132
-133
-134
-135
-136
-137
-138
-139
-140
-141
-142
-143</pre>
-    </td>
-    <td>
-      <pre class="code"><span class="info file"># File 'lib/noteshare/entities/ns_document.rb', line 97</span>
-
-<span class='kw'>def</span> <span class='id identifier rubyid_insert'>insert</span><span class='lparen'>(</span><span class='id identifier rubyid_k'>k</span><span class='comma'>,</span> <span class='id identifier rubyid_parent_document'>parent_document</span><span class='rparen'>)</span>
-
-  <span class='comment'># puts &quot;Insert #{self.id} (#{self.title}) at k = #{k}&quot;
-</span>
-  <span class='comment'># Insert the id o the current document (receiver)
-</span>  <span class='comment'># in the subdoc_refs table of the parent document.
-</span>  <span class='comment'># Not the index of the id and copy that index
-</span>  <span class='comment'># into self.index_in_parent.  Thus, at the
-</span>  <span class='comment'># the end of these operatiopations, the parent
-</span>  <span class='comment'># refernces the child (the subdocument),
-</span>  <span class='comment'># and vice vrsa.
-</span>  <span class='id identifier rubyid_index'>index</span> <span class='op'>=</span> <span class='id identifier rubyid_parent_document'>parent_document</span><span class='period'>.</span><span class='id identifier rubyid_subdoc_refs'>subdoc_refs</span> <span class='op'>||</span> <span class='lbracket'>[</span><span class='rbracket'>]</span>
-  <span class='id identifier rubyid_index'>index</span><span class='period'>.</span><span class='id identifier rubyid_insert'>insert</span><span class='lparen'>(</span><span class='id identifier rubyid_k'>k</span><span class='comma'>,</span> <span class='kw'>self</span><span class='period'>.</span><span class='id identifier rubyid_id'>id</span><span class='rparen'>)</span>
-  <span class='id identifier rubyid_parent_document'>parent_document</span><span class='period'>.</span><span class='id identifier rubyid_subdoc_refs'>subdoc_refs</span> <span class='op'>=</span> <span class='id identifier rubyid_index'>index</span>
-  <span class='kw'>self</span><span class='period'>.</span><span class='id identifier rubyid_index_in_parent'>index_in_parent</span> <span class='op'>=</span>  <span class='id identifier rubyid_k'>k</span>
-
-
-  <span class='comment'># Set the parent_id and root_document_id
-</span>  <span class='kw'>self</span><span class='period'>.</span><span class='id identifier rubyid_parent_id'>parent_id</span> <span class='op'>=</span> <span class='id identifier rubyid_parent_document'>parent_document</span><span class='period'>.</span><span class='id identifier rubyid_id'>id</span>
-  <span class='kw'>if</span> <span class='id identifier rubyid_parent_document'>parent_document</span><span class='period'>.</span><span class='id identifier rubyid_root_document_id'>root_document_id</span> <span class='op'>==</span> <span class='int'>0</span>
-    <span class='kw'>self</span><span class='period'>.</span><span class='id identifier rubyid_root_document_id'>root_document_id</span> <span class='op'>=</span> <span class='id identifier rubyid_parent_document'>parent_document</span><span class='period'>.</span><span class='id identifier rubyid_id'>id</span>
-  <span class='kw'>else</span>
-    <span class='kw'>self</span><span class='period'>.</span><span class='id identifier rubyid_root_document_id'>root_document_id</span> <span class='op'>=</span> <span class='id identifier rubyid_parent_document'>parent_document</span><span class='period'>.</span><span class='id identifier rubyid_root_document_id'>root_document_id</span>
-  <span class='kw'>end</span>
-
-  <span class='comment'># Inherit the render_option from the root document
-</span>  <span class='id identifier rubyid_root_doc'>root_doc</span> <span class='op'>=</span> <span class='const'>DocumentRepository</span><span class='period'>.</span><span class='id identifier rubyid_find'>find</span> <span class='id identifier rubyid_root_document_id'>root_document_id</span>
-  <span class='kw'>if</span> <span class='id identifier rubyid_root_doc'>root_doc</span> <span class='kw'>and</span> <span class='id identifier rubyid_root_doc'>root_doc</span> <span class='op'>!=</span> <span class='kw'>self</span>
-    <span class='kw'>self</span><span class='period'>.</span><span class='id identifier rubyid_render_options'>render_options</span> <span class='op'>=</span> <span class='id identifier rubyid_root_doc'>root_doc</span><span class='period'>.</span><span class='id identifier rubyid_render_options'>render_options</span>
-  <span class='kw'>end</span>
-
-  <span class='comment'># update index_in_parent for subdocuments
-</span>  <span class='comment'># that were shifted to the right
-</span>  <span class='comment'># puts &quot;Shifting ...&quot;
-</span>  <span class='comment'># puts &quot;parent_document.subdoc_refs.tail(k+1): #{parent_document.subdoc_refs.tail(k)}&quot;
-</span>  <span class='id identifier rubyid_parent_document'>parent_document</span><span class='period'>.</span><span class='id identifier rubyid_subdoc_refs'>subdoc_refs</span><span class='period'>.</span><span class='id identifier rubyid_tail'>tail</span><span class='lparen'>(</span><span class='id identifier rubyid_k'>k</span><span class='rparen'>)</span><span class='period'>.</span><span class='id identifier rubyid_each'>each</span> <span class='kw'>do</span> <span class='op'>|</span><span class='id identifier rubyid_id'>id</span><span class='op'>|</span>
-    <span class='id identifier rubyid_doc'>doc</span> <span class='op'>=</span> <span class='const'>DocumentRepository</span><span class='period'>.</span><span class='id identifier rubyid_find'>find</span> <span class='id identifier rubyid_id'>id</span>
-    <span class='id identifier rubyid_doc'>doc</span><span class='period'>.</span><span class='id identifier rubyid_index_in_parent'>index_in_parent</span> <span class='op'>=</span> <span class='id identifier rubyid_doc'>doc</span><span class='period'>.</span><span class='id identifier rubyid_index_in_parent'>index_in_parent</span> <span class='op'>+</span> <span class='int'>1</span>
-    <span class='const'>DocumentRepository</span><span class='period'>.</span><span class='id identifier rubyid_persist'>persist</span><span class='lparen'>(</span><span class='id identifier rubyid_doc'>doc</span> <span class='rparen'>)</span>
-  <span class='kw'>end</span>
-
-  <span class='const'>DocumentRepository</span><span class='period'>.</span><span class='id identifier rubyid_persist'>persist</span><span class='lparen'>(</span><span class='kw'>self</span><span class='rparen'>)</span>
-  <span class='const'>DocumentRepository</span><span class='period'>.</span><span class='id identifier rubyid_persist'>persist</span><span class='lparen'>(</span><span class='id identifier rubyid_parent_document'>parent_document</span><span class='rparen'>)</span>
-
-  <span class='id identifier rubyid_update_neighbors'>update_neighbors</span>
-
-<span class='kw'>end</span></pre>
-    </td>
-  </tr>
-</table>
-</div>
-    
-      <div class="method_details ">
-  <h3 class="signature " id="level-instance_method">
-  
-    - (<tt>Object</tt>) <strong>level</strong> 
-  
-
-  
-
-  
-</h3><div class="docstring">
-  <div class="discussion">
-    
-<p>The level is the length of path from the root to the give node (self)</p>
-
-
-  </div>
-</div>
-<div class="tags">
-  
-
-</div><table class="source_code">
-  <tr>
-    <td>
-      <pre class="lines">
-
-
-315
-316
-317
-318
-319
-320
-321
-322
-323</pre>
-    </td>
-    <td>
-      <pre class="code"><span class="info file"># File 'lib/noteshare/entities/ns_document.rb', line 315</span>
-
-<span class='kw'>def</span> <span class='id identifier rubyid_level'>level</span>
-  <span class='id identifier rubyid_length'>length</span> <span class='op'>=</span> <span class='int'>0</span>
-  <span class='id identifier rubyid_cursor'>cursor</span> <span class='op'>=</span> <span class='kw'>self</span>
-  <span class='kw'>while</span> <span class='id identifier rubyid_cursor'>cursor</span><span class='period'>.</span><span class='id identifier rubyid_parent'>parent</span>
-    <span class='id identifier rubyid_length'>length</span> <span class='op'>+=</span> <span class='int'>1</span>
-    <span class='id identifier rubyid_cursor'>cursor</span> <span class='op'>=</span> <span class='id identifier rubyid_cursor'>cursor</span><span class='period'>.</span><span class='id identifier rubyid_parent'>parent</span>
-  <span class='kw'>end</span>
-  <span class='id identifier rubyid_length'>length</span>
-<span class='kw'>end</span></pre>
-    </td>
-  </tr>
-</table>
-</div>
-    
-      <div class="method_details ">
-  <h3 class="signature " id="move_to-instance_method">
-  
-    - (<tt>Object</tt>) <strong>move_to</strong>(new_position) 
-  
-
-  
-
-  
-</h3><div class="docstring">
-  <div class="discussion">
-    
-<p>@foo.move_to(7) moves @foo in its parent document to position 7.
-Subdocuments that were in position 7 and up are moved up.</p>
-
-
-  </div>
-</div>
-<div class="tags">
-  
-
-</div><table class="source_code">
-  <tr>
-    <td>
-      <pre class="lines">
-
-
-208
-209
-210
-211</pre>
-    </td>
-    <td>
-      <pre class="code"><span class="info file"># File 'lib/noteshare/entities/ns_document.rb', line 208</span>
-
-<span class='kw'>def</span> <span class='id identifier rubyid_move_to'>move_to</span><span class='lparen'>(</span><span class='id identifier rubyid_new_position'>new_position</span><span class='rparen'>)</span>
-  <span class='id identifier rubyid_remove_from_parent'>remove_from_parent</span>
-  <span class='id identifier rubyid_insert'>insert</span><span class='lparen'>(</span><span class='id identifier rubyid_new_position'>new_position</span><span class='comma'>,</span> <span class='id identifier rubyid_parent'>parent</span><span class='rparen'>)</span>
-<span class='kw'>end</span></pre>
-    </td>
-  </tr>
-</table>
-</div>
-    
-      <div class="method_details ">
-  <h3 class="signature " id="next_document-instance_method">
-  
-    - (<tt>Object</tt>) <strong>next_document</strong> 
-  
-
-  
-
-  
-</h3><div class="docstring">
-  <div class="discussion">
-    
-<p>Return next NSDocument.  That is, if @foo, @bar, and @baz are subcocuments
-in order of @article, then @bar.next_document = @baz</p>
-
-
-  </div>
-</div>
-<div class="tags">
-  
-
-</div><table class="source_code">
-  <tr>
-    <td>
-      <pre class="lines">
-
-
-245
-246
-247</pre>
-    </td>
-    <td>
-      <pre class="code"><span class="info file"># File 'lib/noteshare/entities/ns_document.rb', line 245</span>
-
-<span class='kw'>def</span> <span class='id identifier rubyid_next_document'>next_document</span>
-  <span class='const'>DocumentRepository</span><span class='period'>.</span><span class='id identifier rubyid_find'>find</span> <span class='id identifier rubyid_next_id'>next_id</span>
-<span class='kw'>end</span></pre>
-    </td>
-  </tr>
-</table>
-</div>
-    
-      <div class="method_details ">
-  <h3 class="signature " id="next_id-instance_method">
-  
-    - (<tt>Object</tt>) <strong>next_id</strong> 
-  
-
-  
-
-  
-</h3><div class="docstring">
-  <div class="discussion">
-    
-<p>Assume that receiver is subdocument k of parent. Return the id of
-subdocuemnt k + 1 or nil</p>
-
-
-  </div>
-</div>
-<div class="tags">
-  
-
-</div><table class="source_code">
-  <tr>
-    <td>
-      <pre class="lines">
-
-
-225
-226
-227
-228
-229
-230
-231</pre>
-    </td>
-    <td>
-      <pre class="code"><span class="info file"># File 'lib/noteshare/entities/ns_document.rb', line 225</span>
-
-<span class='kw'>def</span> <span class='id identifier rubyid_next_id'>next_id</span>
-  <span class='id identifier rubyid_p'>p</span> <span class='op'>=</span> <span class='id identifier rubyid_parent'>parent</span>
-  <span class='kw'>return</span> <span class='kw'>nil</span> <span class='kw'>if</span> <span class='id identifier rubyid_p'>p</span> <span class='op'>==</span> <span class='kw'>nil</span>
-  <span class='kw'>return</span> <span class='kw'>nil</span> <span class='kw'>if</span> <span class='id identifier rubyid_index_in_parent'>index_in_parent</span> <span class='op'>==</span> <span class='kw'>nil</span>
-  <span class='kw'>return</span> <span class='kw'>nil</span> <span class='kw'>if</span> <span class='id identifier rubyid_index_in_parent'>index_in_parent</span><span class='op'>+</span><span class='int'>1</span> <span class='op'>&gt;</span> <span class='id identifier rubyid_p'>p</span><span class='period'>.</span><span class='id identifier rubyid_subdoc_refs'>subdoc_refs</span><span class='period'>.</span><span class='id identifier rubyid_length'>length</span>
-  <span class='id identifier rubyid_p'>p</span><span class='period'>.</span><span class='id identifier rubyid_subdoc_refs'>subdoc_refs</span><span class='lbracket'>[</span><span class='id identifier rubyid_index_in_parent'>index_in_parent</span><span class='op'>+</span><span class='int'>1</span><span class='rbracket'>]</span>
-<span class='kw'>end</span></pre>
-    </td>
-  </tr>
-</table>
-</div>
-    
-      <div class="method_details ">
-  <h3 class="signature " id="next_oldest_ancestor-instance_method">
-  
-    - (<tt>Object</tt>) <strong>next_oldest_ancestor</strong> 
-  
-
-  
-
-  
-</h3><table class="source_code">
-  <tr>
-    <td>
-      <pre class="lines">
-
-
-283
-284
-285
-286
-287
-288
-289
-290</pre>
-    </td>
-    <td>
-      <pre class="code"><span class="info file"># File 'lib/noteshare/entities/ns_document.rb', line 283</span>
-
-<span class='kw'>def</span> <span class='id identifier rubyid_next_oldest_ancestor'>next_oldest_ancestor</span>
-  <span class='id identifier rubyid_noa'>noa</span> <span class='op'>=</span> <span class='kw'>self</span>
-  <span class='kw'>return</span> <span class='kw'>self</span> <span class='kw'>if</span> <span class='id identifier rubyid_noa'>noa</span> <span class='op'>==</span> <span class='id identifier rubyid_root_document'>root_document</span>
-  <span class='kw'>while</span> <span class='id identifier rubyid_noa'>noa</span><span class='period'>.</span><span class='id identifier rubyid_parent'>parent</span> <span class='op'>!=</span> <span class='id identifier rubyid_root_document'>root_document</span>
-    <span class='id identifier rubyid_noa'>noa</span> <span class='op'>=</span> <span class='id identifier rubyid_noa'>noa</span><span class='period'>.</span><span class='id identifier rubyid_parent'>parent</span>
-  <span class='kw'>end</span>
-  <span class='id identifier rubyid_noa'>noa</span>
-<span class='kw'>end</span></pre>
-    </td>
-  </tr>
-</table>
-</div>
-    
-      <div class="method_details ">
-  <h3 class="signature " id="parent-instance_method">
-  
-    - (<tt>Object</tt>) <strong>parent</strong> 
-  
-
-  
-
-  
-</h3><div class="docstring">
-  <div class="discussion">
-    
-<p><strong>doc.parent</strong> returns nil or the parent object</p>
-
-
-  </div>
-</div>
-<div class="tags">
-  
-
-</div><table class="source_code">
-  <tr>
-    <td>
-      <pre class="lines">
-
-
-277
-278
-279
-280
-281</pre>
-    </td>
-    <td>
-      <pre class="code"><span class="info file"># File 'lib/noteshare/entities/ns_document.rb', line 277</span>
-
-<span class='kw'>def</span> <span class='id identifier rubyid_parent'>parent</span>
-  <span class='kw'>if</span> <span class='id identifier rubyid_parent_id'>parent_id</span> <span class='kw'>and</span> <span class='id identifier rubyid_parent_id'>parent_id</span> <span class='op'>&gt;</span> <span class='int'>0</span>
-    <span class='const'>DocumentRepository</span><span class='period'>.</span><span class='id identifier rubyid_find'>find</span><span class='lparen'>(</span><span class='id identifier rubyid_parent_id'>parent_id</span><span class='rparen'>)</span>
-  <span class='kw'>end</span>
-<span class='kw'>end</span></pre>
-    </td>
-  </tr>
-</table>
-</div>
-    
-      <div class="method_details ">
-  <h3 class="signature " id="previous_document-instance_method">
-  
-    - (<tt>Object</tt>) <strong>previous_document</strong> 
-  
-
-  
-
-  
-</h3><div class="docstring">
-  <div class="discussion">
-    
-<p>Return previous NSDocument.  That is, if @foo, @bar, and @baz are
-subcocuments in order of @article, then @bar.previous_document = @foo</p>
-
-
-  </div>
-</div>
-<div class="tags">
-  
-
-</div><table class="source_code">
-  <tr>
-    <td>
-      <pre class="lines">
-
-
-252
-253
-254</pre>
-    </td>
-    <td>
-      <pre class="code"><span class="info file"># File 'lib/noteshare/entities/ns_document.rb', line 252</span>
-
-<span class='kw'>def</span> <span class='id identifier rubyid_previous_document'>previous_document</span>
-  <span class='const'>DocumentRepository</span><span class='period'>.</span><span class='id identifier rubyid_find'>find</span> <span class='id identifier rubyid_previous_id'>previous_id</span>
-<span class='kw'>end</span></pre>
-    </td>
-  </tr>
-</table>
-</div>
-    
-      <div class="method_details ">
-  <h3 class="signature " id="previous_id-instance_method">
-  
-    - (<tt>Object</tt>) <strong>previous_id</strong> 
-  
-
-  
-
-  
-</h3><div class="docstring">
-  <div class="discussion">
-    
-<p>Assume that receiver is subdocument k of parent. Return the id of
-subdocument k - 1 or nil</p>
-
-
-  </div>
-</div>
-<div class="tags">
-  
-
-</div><table class="source_code">
-  <tr>
-    <td>
-      <pre class="lines">
-
-
-215
-216
-217
-218
-219
-220
-221</pre>
-    </td>
-    <td>
-      <pre class="code"><span class="info file"># File 'lib/noteshare/entities/ns_document.rb', line 215</span>
-
-<span class='kw'>def</span> <span class='id identifier rubyid_previous_id'>previous_id</span>
-  <span class='id identifier rubyid_p'>p</span> <span class='op'>=</span> <span class='id identifier rubyid_parent'>parent</span>
-  <span class='kw'>return</span> <span class='kw'>nil</span> <span class='kw'>if</span> <span class='id identifier rubyid_p'>p</span> <span class='op'>==</span> <span class='kw'>nil</span>
-  <span class='kw'>return</span> <span class='kw'>nil</span> <span class='kw'>if</span> <span class='id identifier rubyid_index_in_parent'>index_in_parent</span> <span class='op'>==</span> <span class='kw'>nil</span>
-  <span class='kw'>return</span> <span class='kw'>nil</span> <span class='kw'>if</span> <span class='id identifier rubyid_index_in_parent'>index_in_parent</span><span class='op'>-</span><span class='int'>1</span> <span class='op'>&lt;</span> <span class='int'>0</span>
-  <span class='kw'>return</span> <span class='id identifier rubyid_p'>p</span><span class='period'>.</span><span class='id identifier rubyid_subdoc_refs'>subdoc_refs</span><span class='lbracket'>[</span><span class='id identifier rubyid_index_in_parent'>index_in_parent</span><span class='op'>-</span><span class='int'>1</span><span class='rbracket'>]</span>
-<span class='kw'>end</span></pre>
-    </td>
-  </tr>
-</table>
-</div>
-    
-      <div class="method_details ">
-  <h3 class="signature " id="remove_from_parent-instance_method">
-  
-    - (<tt>Object</tt>) <strong>remove_from_parent</strong> 
-  
-
-  
-
-  
-</h3><div class="docstring">
-  <div class="discussion">
-    
-<p>It oes not delete @foo. Fixme: it is intended tht a document have at most
-one parent. However, this is not yet enforced.</p>
-
-
-  </div>
-</div>
-<div class="tags">
-  
-
-</div><table class="source_code">
-  <tr>
-    <td>
-      <pre class="lines">
-
-
-176
-177
-178
 179
 180
 181
@@ -1996,14 +2298,674 @@ one parent. However, this is not yet enforced.</p>
 199
 200
 201
-202</pre>
+202
+203
+204
+205
+206
+207
+208
+209
+210
+211
+212
+213
+214
+215
+216
+217
+218
+219
+220
+221
+222
+223
+224
+225
+226
+227
+228</pre>
     </td>
     <td>
-      <pre class="code"><span class="info file"># File 'lib/noteshare/entities/ns_document.rb', line 176</span>
+      <pre class="code"><span class="info file"># File 'lib/noteshare/entities/ns_document.rb', line 179</span>
+
+<span class='kw'>def</span> <span class='id identifier rubyid_insert'>insert</span><span class='lparen'>(</span><span class='id identifier rubyid_k'>k</span><span class='comma'>,</span> <span class='id identifier rubyid_parent_document'>parent_document</span><span class='rparen'>)</span>
+
+  <span class='comment'># puts &quot;Insert #{self.id} (#{self.title}) at k = #{k}&quot;
+</span>
+  <span class='comment'># Insert the TOCItem of the current document (receiver)
+</span>  <span class='comment'># in the toc array of the parent document.
+</span>  <span class='comment'># Note the index of the TOCItem and copy that index
+</span>  <span class='comment'># into self.index_in_parent.  Thus, at the
+</span>  <span class='comment'># the end of these operations, the parent
+</span>  <span class='comment'># references the child (the subdocument),
+</span>  <span class='comment'># and vice versa.
+</span>  <span class='id identifier rubyid_parent_toc'>parent_toc</span> <span class='op'>=</span> <span class='const'>TOC</span><span class='period'>.</span><span class='id identifier rubyid_new'>new</span><span class='lparen'>(</span><span class='id identifier rubyid_parent_document'>parent_document</span><span class='rparen'>)</span>
+  <span class='id identifier rubyid_new_toc_item'>new_toc_item</span> <span class='op'>=</span> <span class='const'>TOCItem</span><span class='period'>.</span><span class='id identifier rubyid_new'>new</span><span class='lparen'>(</span><span class='kw'>self</span><span class='period'>.</span><span class='id identifier rubyid_id'>id</span><span class='comma'>,</span> <span class='kw'>self</span><span class='period'>.</span><span class='id identifier rubyid_title'>title</span><span class='comma'>,</span> <span class='kw'>self</span><span class='period'>.</span><span class='id identifier rubyid_identifier'>identifier</span><span class='comma'>,</span> <span class='kw'>false</span><span class='rparen'>)</span>
+  <span class='id identifier rubyid_parent_toc'>parent_toc</span><span class='period'>.</span><span class='id identifier rubyid_insert'>insert</span><span class='lparen'>(</span><span class='id identifier rubyid_k'>k</span><span class='comma'>,</span> <span class='id identifier rubyid_new_toc_item'>new_toc_item</span><span class='rparen'>)</span>
+  <span class='id identifier rubyid_parent_toc'>parent_toc</span><span class='period'>.</span><span class='id identifier rubyid_save!'>save!</span>
+  <span class='kw'>self</span><span class='period'>.</span><span class='id identifier rubyid_index_in_parent'>index_in_parent</span> <span class='op'>=</span>  <span class='id identifier rubyid_k'>k</span>
+  <span class='kw'>self</span><span class='period'>.</span><span class='id identifier rubyid_parent_ref'>parent_ref</span> <span class='op'>=</span> <span class='lbrace'>{</span><span class='label'>id:</span> <span class='id identifier rubyid_parent_document'>parent_document</span><span class='period'>.</span><span class='id identifier rubyid_id'>id</span><span class='comma'>,</span> <span class='label'>title:</span> <span class='id identifier rubyid_parent_document'>parent_document</span><span class='period'>.</span><span class='id identifier rubyid_title'>title</span><span class='comma'>,</span> <span class='label'>identifier:</span> <span class='id identifier rubyid_parent_document'>parent_document</span><span class='period'>.</span><span class='id identifier rubyid_identifier'>identifier</span><span class='comma'>,</span> <span class='label'>has_subdocs:</span><span class='kw'>true</span> <span class='rbrace'>}</span>
+  <span class='kw'>self</span><span class='period'>.</span><span class='id identifier rubyid_parent_id'>parent_id</span> <span class='op'>=</span> <span class='id identifier rubyid_parent_document'>parent_document</span><span class='period'>.</span><span class='id identifier rubyid_id'>id</span>
+  <span class='id identifier rubyid_puts'>puts</span> <span class='tstring'><span class='tstring_beg'>&quot;</span><span class='tstring_content'>IN INSERT: parent_document.id = </span><span class='embexpr_beg'>#{</span><span class='id identifier rubyid_parent_document'>parent_document</span><span class='period'>.</span><span class='id identifier rubyid_id'>id</span><span class='embexpr_end'>}</span><span class='tstring_end'>&quot;</span></span><span class='period'>.</span><span class='id identifier rubyid_magenta'>magenta</span>
+  <span class='id identifier rubyid_puts'>puts</span> <span class='tstring'><span class='tstring_beg'>&quot;</span><span class='tstring_content'>IN INSERT: self.parent_id = </span><span class='embexpr_beg'>#{</span><span class='kw'>self</span><span class='period'>.</span><span class='id identifier rubyid_parent_id'>parent_id</span><span class='embexpr_end'>}</span><span class='tstring_end'>&quot;</span></span><span class='period'>.</span><span class='id identifier rubyid_red'>red</span>
+
+  <span class='id identifier rubyid_root_doc'>root_doc</span> <span class='op'>=</span> <span class='id identifier rubyid_find_root_document'>find_root_document</span>
+  <span class='kw'>if</span> <span class='id identifier rubyid_root_doc'>root_doc</span>
+    <span class='kw'>self</span><span class='period'>.</span><span class='id identifier rubyid_root_document_id'>root_document_id</span> <span class='op'>=</span> <span class='id identifier rubyid_root_doc'>root_doc</span><span class='period'>.</span><span class='id identifier rubyid_id'>id</span>
+    <span class='kw'>self</span><span class='period'>.</span><span class='id identifier rubyid_root_ref'>root_ref</span> <span class='op'>=</span> <span class='lbrace'>{</span><span class='label'>id:</span> <span class='id identifier rubyid_root_doc'>root_doc</span><span class='period'>.</span><span class='id identifier rubyid_id'>id</span><span class='comma'>,</span> <span class='label'>title:</span> <span class='id identifier rubyid_root_doc'>root_doc</span><span class='period'>.</span><span class='id identifier rubyid_title'>title</span><span class='comma'>,</span> <span class='label'>identifier:</span> <span class='id identifier rubyid_root_doc'>root_doc</span><span class='period'>.</span><span class='id identifier rubyid_identifier'>identifier</span><span class='comma'>,</span> <span class='label'>has_subdocs:</span><span class='kw'>true</span> <span class='rbrace'>}</span>
+  <span class='kw'>else</span>
+    <span class='kw'>self</span><span class='period'>.</span><span class='id identifier rubyid_root_ref'>root_ref</span> <span class='op'>=</span> <span class='lbrace'>{</span><span class='label'>id:</span> <span class='int'>0</span><span class='comma'>,</span> <span class='label'>title:</span> <span class='tstring'><span class='tstring_beg'>&#39;</span><span class='tstring_end'>&#39;</span></span><span class='comma'>,</span> <span class='label'>identifier:</span> <span class='tstring'><span class='tstring_beg'>&#39;</span><span class='tstring_end'>&#39;</span></span><span class='comma'>,</span> <span class='label'>has_subdocs:</span><span class='kw'>false</span> <span class='rbrace'>}</span>
+  <span class='kw'>end</span>
+
+    <span class='comment'># Inherit the render_option from the root document
+</span>  <span class='kw'>if</span> <span class='id identifier rubyid_root_doc'>root_doc</span> <span class='kw'>and</span> <span class='id identifier rubyid_root_doc'>root_doc</span> <span class='op'>!=</span> <span class='kw'>self</span>
+    <span class='kw'>self</span><span class='period'>.</span><span class='id identifier rubyid_render_options'>render_options</span> <span class='op'>=</span> <span class='id identifier rubyid_root_doc'>root_doc</span><span class='period'>.</span><span class='id identifier rubyid_render_options'>render_options</span>
+  <span class='kw'>end</span>
+
+  <span class='comment'># update index_in_parent for subdocuments
+</span>  <span class='comment'># that were shifted to the right
+</span>  <span class='comment'># puts &quot;Shifting ...&quot;
+</span>  <span class='comment'># puts &quot;parent_document.subdoc_refs.tail(k+1): #{parent_document.subdoc_refs.tail(k)}&quot;
+</span>  <span class='const'>TOC</span><span class='period'>.</span><span class='id identifier rubyid_new'>new</span><span class='lparen'>(</span><span class='id identifier rubyid_parent_document'>parent_document</span><span class='rparen'>)</span><span class='period'>.</span><span class='id identifier rubyid_table'>table</span><span class='period'>.</span><span class='id identifier rubyid_tail'>tail</span><span class='lparen'>(</span><span class='id identifier rubyid_k'>k</span><span class='rparen'>)</span><span class='period'>.</span><span class='id identifier rubyid_each'>each</span> <span class='kw'>do</span> <span class='op'>|</span><span class='id identifier rubyid_item'>item</span><span class='op'>|</span>
+    <span class='id identifier rubyid_doc'>doc</span> <span class='op'>=</span> <span class='const'>DocumentRepository</span><span class='period'>.</span><span class='id identifier rubyid_find'>find</span> <span class='id identifier rubyid_item'>item</span><span class='period'>.</span><span class='id identifier rubyid_id'>id</span>
+    <span class='id identifier rubyid_doc'>doc</span><span class='period'>.</span><span class='id identifier rubyid_index_in_parent'>index_in_parent</span> <span class='op'>=</span> <span class='id identifier rubyid_doc'>doc</span><span class='period'>.</span><span class='id identifier rubyid_index_in_parent'>index_in_parent</span> <span class='op'>+</span> <span class='int'>1</span>
+    <span class='const'>DocumentRepository</span><span class='period'>.</span><span class='id identifier rubyid_update'>update</span><span class='lparen'>(</span><span class='id identifier rubyid_doc'>doc</span> <span class='rparen'>)</span>
+  <span class='kw'>end</span>
+
+  <span class='const'>DocumentRepository</span><span class='period'>.</span><span class='id identifier rubyid_update'>update</span><span class='lparen'>(</span><span class='kw'>self</span><span class='rparen'>)</span>
+  <span class='const'>DocumentRepository</span><span class='period'>.</span><span class='id identifier rubyid_update'>update</span><span class='lparen'>(</span><span class='id identifier rubyid_parent_document'>parent_document</span><span class='rparen'>)</span>
+
+  <span class='comment'># update_neighbors
+</span>
+<span class='kw'>end</span></pre>
+    </td>
+  </tr>
+</table>
+</div>
+    
+      <div class="method_details ">
+  <h3 class="signature " id="is_root_document?-instance_method">
+  
+    - (<tt>Boolean</tt>) <strong>is_root_document?</strong> 
+  
+
+  
+
+  
+</h3><div class="docstring">
+  <div class="discussion">
+    
+
+  </div>
+</div>
+<div class="tags">
+  
+<p class="tag_title">Returns:</p>
+<ul class="return">
+  
+    <li>
+      
+      
+        <span class='type'>(<tt>Boolean</tt>)</span>
+      
+      
+      
+    </li>
+  
+</ul>
+
+</div><table class="source_code">
+  <tr>
+    <td>
+      <pre class="lines">
+
+
+477
+478
+479</pre>
+    </td>
+    <td>
+      <pre class="code"><span class="info file"># File 'lib/noteshare/entities/ns_document.rb', line 477</span>
+
+<span class='kw'>def</span> <span class='id identifier rubyid_is_root_document?'>is_root_document?</span>
+  <span class='kw'>self</span> <span class='op'>==</span> <span class='id identifier rubyid_find_root_document'>find_root_document</span>
+<span class='kw'>end</span></pre>
+    </td>
+  </tr>
+</table>
+</div>
+    
+      <div class="method_details ">
+  <h3 class="signature " id="level-instance_method">
+  
+    - (<tt><span class='object_link'><a href="Noteshare/Tools/Object.html" title="Noteshare::Tools::Object (class)">Object</a></span></tt>) <strong>level</strong> 
+  
+
+  
+
+  
+</h3><div class="docstring">
+  <div class="discussion">
+    
+<p>The level is the length of path from the root to the give node (self)</p>
+
+
+  </div>
+</div>
+<div class="tags">
+  
+
+</div><table class="source_code">
+  <tr>
+    <td>
+      <pre class="lines">
+
+
+483
+484
+485
+486
+487
+488
+489
+490
+491</pre>
+    </td>
+    <td>
+      <pre class="code"><span class="info file"># File 'lib/noteshare/entities/ns_document.rb', line 483</span>
+
+<span class='kw'>def</span> <span class='id identifier rubyid_level'>level</span>
+  <span class='id identifier rubyid_length'>length</span> <span class='op'>=</span> <span class='int'>0</span>
+  <span class='id identifier rubyid_cursor'>cursor</span> <span class='op'>=</span> <span class='kw'>self</span>
+  <span class='kw'>while</span> <span class='id identifier rubyid_cursor'>cursor</span><span class='period'>.</span><span class='id identifier rubyid_parent_document'>parent_document</span>
+    <span class='id identifier rubyid_length'>length</span> <span class='op'>+=</span> <span class='int'>1</span>
+    <span class='id identifier rubyid_cursor'>cursor</span> <span class='op'>=</span> <span class='id identifier rubyid_cursor'>cursor</span><span class='period'>.</span><span class='id identifier rubyid_parent_document'>parent_document</span>
+  <span class='kw'>end</span>
+  <span class='id identifier rubyid_length'>length</span>
+<span class='kw'>end</span></pre>
+    </td>
+  </tr>
+</table>
+</div>
+    
+      <div class="method_details ">
+  <h3 class="signature " id="move_to-instance_method">
+  
+    - (<tt><span class='object_link'><a href="Noteshare/Tools/Object.html" title="Noteshare::Tools::Object (class)">Object</a></span></tt>) <strong>move_to</strong>(new_position) 
+  
+
+  
+
+  
+</h3><div class="docstring">
+  <div class="discussion">
+    
+<p>@foo.move_to(7) moves @foo in its parent document to position 7.
+Subdocuments that were in position 7 and up are moved up.</p>
+
+
+  </div>
+</div>
+<div class="tags">
+  
+
+</div><table class="source_code">
+  <tr>
+    <td>
+      <pre class="lines">
+
+
+294
+295
+296
+297</pre>
+    </td>
+    <td>
+      <pre class="code"><span class="info file"># File 'lib/noteshare/entities/ns_document.rb', line 294</span>
+
+<span class='kw'>def</span> <span class='id identifier rubyid_move_to'>move_to</span><span class='lparen'>(</span><span class='id identifier rubyid_new_position'>new_position</span><span class='rparen'>)</span>
+  <span class='id identifier rubyid_remove_from_parent'>remove_from_parent</span>
+  <span class='id identifier rubyid_insert'>insert</span><span class='lparen'>(</span><span class='id identifier rubyid_new_position'>new_position</span><span class='comma'>,</span> <span class='id identifier rubyid_parent'>parent</span><span class='rparen'>)</span>
+<span class='kw'>end</span></pre>
+    </td>
+  </tr>
+</table>
+</div>
+    
+      <div class="method_details ">
+  <h3 class="signature " id="next_document-instance_method">
+  
+    - (<tt><span class='object_link'><a href="Noteshare/Tools/Object.html" title="Noteshare::Tools::Object (class)">Object</a></span></tt>) <strong>next_document</strong> 
+  
+
+  
+
+  
+</h3><div class="docstring">
+  <div class="discussion">
+    
+<p>Return previous NSDocument.  That is, if @foo, @bar, and @baz are
+subcocuments in order of @article, then @bar.previous_document = @foo</p>
+
+
+  </div>
+</div>
+<div class="tags">
+  
+
+</div><table class="source_code">
+  <tr>
+    <td>
+      <pre class="lines">
+
+
+359
+360
+361
+362
+363
+364</pre>
+    </td>
+    <td>
+      <pre class="code"><span class="info file"># File 'lib/noteshare/entities/ns_document.rb', line 359</span>
+
+<span class='kw'>def</span> <span class='id identifier rubyid_next_document'>next_document</span>
+  <span class='kw'>return</span> <span class='kw'>if</span> <span class='id identifier rubyid_parent_document'>parent_document</span> <span class='op'>==</span> <span class='kw'>nil</span>
+  <span class='id identifier rubyid_table'>table</span> <span class='op'>=</span> <span class='const'>TOC</span><span class='period'>.</span><span class='id identifier rubyid_new'>new</span><span class='lparen'>(</span><span class='id identifier rubyid_parent_document'>parent_document</span><span class='rparen'>)</span><span class='period'>.</span><span class='id identifier rubyid_table'>table</span>
+  <span class='id identifier rubyid_index_in_parent'>index_in_parent</span> <span class='op'>&amp;&amp;</span> <span class='id identifier rubyid_index_in_parent'>index_in_parent</span> <span class='op'>+</span> <span class='int'>1</span> <span class='op'>&lt;</span> <span class='id identifier rubyid_table'>table</span><span class='period'>.</span><span class='id identifier rubyid_count'>count</span> <span class='op'>?</span>  <span class='id identifier rubyid__id'>_id</span> <span class='op'>=</span> <span class='id identifier rubyid_table'>table</span><span class='lbracket'>[</span><span class='id identifier rubyid_index_in_parent'>index_in_parent</span><span class='op'>+</span><span class='int'>1</span><span class='rbracket'>]</span><span class='period'>.</span><span class='id identifier rubyid_id'>id</span> <span class='op'>:</span> <span class='kw'>return</span>
+  <span class='const'>DocumentRepository</span><span class='period'>.</span><span class='id identifier rubyid_find'>find</span><span class='lparen'>(</span><span class='id identifier rubyid__id'>_id</span><span class='rparen'>)</span> <span class='kw'>if</span> <span class='id identifier rubyid__id'>_id</span>
+<span class='kw'>end</span></pre>
+    </td>
+  </tr>
+</table>
+</div>
+    
+      <div class="method_details ">
+  <h3 class="signature " id="next_oldest_ancestor-instance_method">
+  
+    - (<tt><span class='object_link'><a href="Noteshare/Tools/Object.html" title="Noteshare::Tools::Object (class)">Object</a></span></tt>) <strong>next_oldest_ancestor</strong> 
+  
+
+  
+
+  
+</h3><table class="source_code">
+  <tr>
+    <td>
+      <pre class="lines">
+
+
+415
+416
+417
+418
+419
+420
+421
+422</pre>
+    </td>
+    <td>
+      <pre class="code"><span class="info file"># File 'lib/noteshare/entities/ns_document.rb', line 415</span>
+
+<span class='kw'>def</span> <span class='id identifier rubyid_next_oldest_ancestor'>next_oldest_ancestor</span>
+  <span class='id identifier rubyid_noa'>noa</span> <span class='op'>=</span> <span class='kw'>self</span>
+  <span class='kw'>return</span> <span class='kw'>self</span> <span class='kw'>if</span> <span class='id identifier rubyid_noa'>noa</span> <span class='op'>==</span> <span class='id identifier rubyid_root_document'>root_document</span>
+  <span class='kw'>while</span> <span class='id identifier rubyid_noa'>noa</span><span class='period'>.</span><span class='id identifier rubyid_parent_document'>parent_document</span> <span class='op'>!=</span> <span class='id identifier rubyid_root_document'>root_document</span>
+    <span class='id identifier rubyid_noa'>noa</span> <span class='op'>=</span> <span class='id identifier rubyid_noa'>noa</span><span class='period'>.</span><span class='id identifier rubyid_parent_document'>parent_document</span>
+  <span class='kw'>end</span>
+  <span class='id identifier rubyid_noa'>noa</span>
+<span class='kw'>end</span></pre>
+    </td>
+  </tr>
+</table>
+</div>
+    
+      <div class="method_details ">
+  <h3 class="signature " id="next_toc_item-instance_method">
+  
+    - (<tt><span class='object_link'><a href="Noteshare/Tools/Object.html" title="Noteshare::Tools::Object (class)">Object</a></span></tt>) <strong>next_toc_item</strong> 
+  
+
+  
+
+  
+</h3><table class="source_code">
+  <tr>
+    <td>
+      <pre class="lines">
+
+
+339
+340
+341
+342
+343
+344</pre>
+    </td>
+    <td>
+      <pre class="code"><span class="info file"># File 'lib/noteshare/entities/ns_document.rb', line 339</span>
+
+<span class='kw'>def</span> <span class='id identifier rubyid_next_toc_item'>next_toc_item</span>
+  <span class='kw'>return</span> <span class='kw'>if</span> <span class='id identifier rubyid_parent_document'>parent_document</span> <span class='op'>==</span> <span class='kw'>nil</span>
+  <span class='id identifier rubyid_table'>table</span> <span class='op'>=</span> <span class='const'>TOC</span><span class='period'>.</span><span class='id identifier rubyid_new'>new</span><span class='lparen'>(</span><span class='id identifier rubyid_parent_document'>parent_document</span><span class='rparen'>)</span><span class='period'>.</span><span class='id identifier rubyid_table'>table</span>
+  <span class='id identifier rubyid_index_of_next_toc_item'>index_of_next_toc_item</span> <span class='op'>=</span> <span class='id identifier rubyid_index_in_parent'>index_in_parent</span> <span class='op'>+</span> <span class='int'>1</span>
+  <span class='kw'>return</span> <span class='id identifier rubyid_table'>table</span><span class='lbracket'>[</span><span class='id identifier rubyid_index_of_next_toc_item'>index_of_next_toc_item</span><span class='rbracket'>]</span> <span class='kw'>if</span> <span class='id identifier rubyid_index_of_next_toc_item'>index_of_next_toc_item</span> <span class='op'>&lt;</span> <span class='id identifier rubyid_table'>table</span><span class='period'>.</span><span class='id identifier rubyid_count'>count</span>
+<span class='kw'>end</span></pre>
+    </td>
+  </tr>
+</table>
+</div>
+    
+      <div class="method_details ">
+  <h3 class="signature " id="parent_document-instance_method">
+  
+    - (<tt><span class='object_link'><a href="Noteshare/Tools/Object.html" title="Noteshare::Tools::Object (class)">Object</a></span></tt>) <strong>parent_document</strong> 
+  
+
+  
+
+  
+</h3><div class="docstring">
+  <div class="discussion">
+    
+<p><strong>doc.parent</strong> returns nil or the parent object</p>
+
+
+  </div>
+</div>
+<div class="tags">
+  
+
+</div><table class="source_code">
+  <tr>
+    <td>
+      <pre class="lines">
+
+
+387
+388
+389
+390
+391
+392
+393</pre>
+    </td>
+    <td>
+      <pre class="code"><span class="info file"># File 'lib/noteshare/entities/ns_document.rb', line 387</span>
+
+<span class='kw'>def</span> <span class='id identifier rubyid_parent_document'>parent_document</span>
+  <span class='id identifier rubyid_pi'>pi</span> <span class='op'>=</span>  <span class='id identifier rubyid_parent_item'>parent_item</span>
+  <span class='kw'>return</span> <span class='kw'>if</span> <span class='id identifier rubyid_pi'>pi</span> <span class='op'>==</span> <span class='kw'>nil</span>
+  <span class='id identifier rubyid_pi_id'>pi_id</span> <span class='op'>=</span> <span class='id identifier rubyid_pi'>pi</span><span class='period'>.</span><span class='id identifier rubyid_id'>id</span>
+  <span class='kw'>return</span> <span class='kw'>if</span> <span class='id identifier rubyid_pi_id'>pi_id</span> <span class='op'>==</span> <span class='kw'>nil</span>
+  <span class='const'>DocumentRepository</span><span class='period'>.</span><span class='id identifier rubyid_find'>find</span><span class='lparen'>(</span><span class='id identifier rubyid_pi_id'>pi_id</span><span class='rparen'>)</span>
+<span class='kw'>end</span></pre>
+    </td>
+  </tr>
+</table>
+</div>
+    
+      <div class="method_details ">
+  <h3 class="signature " id="parent_item-instance_method">
+  
+    - (<tt><span class='object_link'><a href="Noteshare/Tools/Object.html" title="Noteshare::Tools::Object (class)">Object</a></span></tt>) <strong>parent_item</strong> 
+  
+
+  
+
+  
+</h3><div class="docstring">
+  <div class="discussion">
+    
+<p>SECTION??</p>
+
+<p>N</p>
+
+
+  </div>
+</div>
+<div class="tags">
+  
+
+</div><table class="source_code">
+  <tr>
+    <td>
+      <pre class="lines">
+
+
+319
+320
+321
+322
+323
+324</pre>
+    </td>
+    <td>
+      <pre class="code"><span class="info file"># File 'lib/noteshare/entities/ns_document.rb', line 319</span>
+
+<span class='kw'>def</span> <span class='id identifier rubyid_parent_item'>parent_item</span>
+  <span class='kw'>return</span> <span class='kw'>if</span> <span class='id identifier rubyid_parent_ref'>parent_ref</span> <span class='op'>==</span> <span class='kw'>nil</span>
+  <span class='comment'># TOCItem.new( parent_ref[&#39;id&#39;], parent_ref[&#39;title&#39;], parent_ref[&#39;identifier&#39;], parent_ref[&#39;has_subdocs&#39;] )
+</span>  <span class='comment'># TOCItem.new( parent_ref[:id], parent_ref[:title], parent_ref[:identifier], parent_ref[:has_subdocs] )
+</span>  <span class='const'>TOCItem</span><span class='period'>.</span><span class='id identifier rubyid_from_hash'>from_hash</span><span class='lparen'>(</span><span class='id identifier rubyid_parent_ref'>parent_ref</span><span class='rparen'>)</span>
+<span class='kw'>end</span></pre>
+    </td>
+  </tr>
+</table>
+</div>
+    
+      <div class="method_details ">
+  <h3 class="signature " id="parent_title-instance_method">
+  
+    - (<tt><span class='object_link'><a href="Noteshare/Tools/Object.html" title="Noteshare::Tools::Object (class)">Object</a></span></tt>) <strong>parent_title</strong> 
+  
+
+  
+
+  
+</h3><table class="source_code">
+  <tr>
+    <td>
+      <pre class="lines">
+
+
+396
+397
+398
+399
+400
+401
+402</pre>
+    </td>
+    <td>
+      <pre class="code"><span class="info file"># File 'lib/noteshare/entities/ns_document.rb', line 396</span>
+
+<span class='kw'>def</span> <span class='id identifier rubyid_parent_title'>parent_title</span>
+  <span class='kw'>if</span> <span class='id identifier rubyid_parent_document'>parent_document</span>
+    <span class='id identifier rubyid_parent_document'>parent_document</span><span class='period'>.</span><span class='id identifier rubyid_title'>title</span>
+  <span class='kw'>else</span>
+    <span class='tstring'><span class='tstring_beg'>&#39;</span><span class='tstring_end'>&#39;</span></span>
+  <span class='kw'>end</span>
+<span class='kw'>end</span></pre>
+    </td>
+  </tr>
+</table>
+</div>
+    
+      <div class="method_details ">
+  <h3 class="signature " id="previous_document-instance_method">
+  
+    - (<tt><span class='object_link'><a href="Noteshare/Tools/Object.html" title="Noteshare::Tools::Object (class)">Object</a></span></tt>) <strong>previous_document</strong> 
+  
+
+  
+
+  
+</h3><div class="docstring">
+  <div class="discussion">
+    
+<p>Return next NSDocument.  That is, if @foo, @bar, and @baz are subcocuments
+in order of @article, then @bar.next_document = @baz</p>
+
+
+  </div>
+</div>
+<div class="tags">
+  
+
+</div><table class="source_code">
+  <tr>
+    <td>
+      <pre class="lines">
+
+
+349
+350
+351
+352
+353
+354</pre>
+    </td>
+    <td>
+      <pre class="code"><span class="info file"># File 'lib/noteshare/entities/ns_document.rb', line 349</span>
+
+<span class='kw'>def</span> <span class='id identifier rubyid_previous_document'>previous_document</span>
+  <span class='kw'>return</span> <span class='kw'>if</span> <span class='id identifier rubyid_parent_document'>parent_document</span> <span class='op'>==</span> <span class='kw'>nil</span>
+  <span class='id identifier rubyid_table'>table</span> <span class='op'>=</span> <span class='const'>TOC</span><span class='period'>.</span><span class='id identifier rubyid_new'>new</span><span class='lparen'>(</span><span class='id identifier rubyid_parent_document'>parent_document</span><span class='rparen'>)</span><span class='period'>.</span><span class='id identifier rubyid_table'>table</span>
+  <span class='id identifier rubyid_index_in_parent'>index_in_parent</span> <span class='op'>?</span>  <span class='id identifier rubyid__id'>_id</span> <span class='op'>=</span> <span class='id identifier rubyid_table'>table</span><span class='lbracket'>[</span><span class='id identifier rubyid_index_in_parent'>index_in_parent</span><span class='op'>-</span><span class='int'>1</span><span class='rbracket'>]</span><span class='period'>.</span><span class='id identifier rubyid_id'>id</span> <span class='op'>:</span> <span class='kw'>return</span>
+  <span class='const'>DocumentRepository</span><span class='period'>.</span><span class='id identifier rubyid_find'>find</span><span class='lparen'>(</span><span class='id identifier rubyid__id'>_id</span><span class='rparen'>)</span> <span class='kw'>if</span> <span class='id identifier rubyid__id'>_id</span>
+<span class='kw'>end</span></pre>
+    </td>
+  </tr>
+</table>
+</div>
+    
+      <div class="method_details ">
+  <h3 class="signature " id="previous_toc_item-instance_method">
+  
+    - (<tt><span class='object_link'><a href="Noteshare/Tools/Object.html" title="Noteshare::Tools::Object (class)">Object</a></span></tt>) <strong>previous_toc_item</strong> 
+  
+
+  
+
+  
+</h3><table class="source_code">
+  <tr>
+    <td>
+      <pre class="lines">
+
+
+333
+334
+335
+336
+337</pre>
+    </td>
+    <td>
+      <pre class="code"><span class="info file"># File 'lib/noteshare/entities/ns_document.rb', line 333</span>
+
+<span class='kw'>def</span> <span class='id identifier rubyid_previous_toc_item'>previous_toc_item</span>
+  <span class='id identifier rubyid_table'>table</span> <span class='op'>=</span> <span class='const'>TOC</span><span class='period'>.</span><span class='id identifier rubyid_new'>new</span><span class='lparen'>(</span><span class='id identifier rubyid_parent_document'>parent_document</span><span class='rparen'>)</span><span class='period'>.</span><span class='id identifier rubyid_table'>table</span>
+  <span class='id identifier rubyid_index_of_previous_toc_item'>index_of_previous_toc_item</span> <span class='op'>=</span> <span class='id identifier rubyid_index_in_parent'>index_in_parent</span> <span class='op'>-</span> <span class='int'>1</span>
+  <span class='kw'>return</span> <span class='id identifier rubyid_table'>table</span><span class='lbracket'>[</span><span class='id identifier rubyid_index_of_previous_toc_item'>index_of_previous_toc_item</span><span class='rbracket'>]</span> <span class='kw'>if</span> <span class='id identifier rubyid_index_of_previous_toc_item'>index_of_previous_toc_item</span> <span class='op'>&gt;</span> <span class='op'>-</span><span class='int'>1</span>
+<span class='kw'>end</span></pre>
+    </td>
+  </tr>
+</table>
+</div>
+    
+      <div class="method_details ">
+  <h3 class="signature " id="ref-instance_method">
+  
+    - (<tt><span class='object_link'><a href="Noteshare/Tools/Object.html" title="Noteshare::Tools::Object (class)">Object</a></span></tt>) <strong>ref</strong> 
+  
+
+  
+
+  
+</h3><table class="source_code">
+  <tr>
+    <td>
+      <pre class="lines">
+
+
+459
+460
+461</pre>
+    </td>
+    <td>
+      <pre class="code"><span class="info file"># File 'lib/noteshare/entities/ns_document.rb', line 459</span>
+
+<span class='kw'>def</span> <span class='id identifier rubyid_ref'>ref</span>
+  <span class='const'>TOCItem</span><span class='period'>.</span><span class='id identifier rubyid_new'>new</span><span class='lparen'>(</span> <span class='kw'>self</span><span class='period'>.</span><span class='id identifier rubyid_id'>id</span><span class='comma'>,</span> <span class='kw'>self</span><span class='period'>.</span><span class='id identifier rubyid_title'>title</span><span class='comma'>,</span> <span class='kw'>self</span><span class='period'>.</span><span class='id identifier rubyid_identifier'>identifier</span> <span class='rparen'>)</span>
+<span class='kw'>end</span></pre>
+    </td>
+  </tr>
+</table>
+</div>
+    
+      <div class="method_details ">
+  <h3 class="signature " id="remove_from_parent-instance_method">
+  
+    - (<tt><span class='object_link'><a href="Noteshare/Tools/Object.html" title="Noteshare::Tools::Object (class)">Object</a></span></tt>) <strong>remove_from_parent</strong> 
+  
+
+  
+
+  
+</h3><div class="docstring">
+  <div class="discussion">
+    
+<p>It oes not delete @foo. Fixme: it is intended tht a document have at most
+one parent. However, this is not yet enforced.</p>
+
+
+  </div>
+</div>
+<div class="tags">
+  
+
+</div><table class="source_code">
+  <tr>
+    <td>
+      <pre class="lines">
+
+
+262
+263
+264
+265
+266
+267
+268
+269
+270
+271
+272
+273
+274
+275
+276
+277
+278
+279
+280
+281
+282
+283
+284
+285
+286
+287
+288</pre>
+    </td>
+    <td>
+      <pre class="code"><span class="info file"># File 'lib/noteshare/entities/ns_document.rb', line 262</span>
 
 <span class='kw'>def</span> <span class='id identifier rubyid_remove_from_parent'>remove_from_parent</span>
   <span class='id identifier rubyid_k'>k</span> <span class='op'>=</span> <span class='id identifier rubyid_index_in_parent'>index_in_parent</span>
-  <span class='id identifier rubyid_p'>p</span> <span class='op'>=</span> <span class='id identifier rubyid_parent'>parent</span>
+  <span class='id identifier rubyid_p'>p</span> <span class='op'>=</span> <span class='id identifier rubyid_parent_document'>parent_document</span>
   <span class='id identifier rubyid_pd'>pd</span> <span class='op'>=</span> <span class='id identifier rubyid_previous_document'>previous_document</span>
   <span class='id identifier rubyid_nd_id'>nd_id</span> <span class='op'>=</span> <span class='id identifier rubyid_next_document'>next_document</span><span class='period'>.</span><span class='id identifier rubyid_id'>id</span>
   <span class='id identifier rubyid_p'>p</span><span class='period'>.</span><span class='id identifier rubyid_subdoc_refs'>subdoc_refs</span><span class='period'>.</span><span class='id identifier rubyid_delete_at'>delete_at</span><span class='lparen'>(</span><span class='id identifier rubyid_k'>k</span><span class='rparen'>)</span>
@@ -2036,7 +2998,7 @@ one parent. However, this is not yet enforced.</p>
       <div class="method_details ">
   <h3 class="signature " id="render-instance_method">
   
-    - (<tt>Object</tt>) <strong>render</strong> 
+    - (<tt><span class='object_link'><a href="Noteshare/Tools/Object.html" title="Noteshare::Tools::Object (class)">Object</a></span></tt>) <strong>render</strong> 
   
 
   
@@ -2061,27 +3023,28 @@ Asciidoctor.convert to self.content with the provided options.</p>
       <pre class="lines">
 
 
-474
-475
-476
-477
-478
-479
-480
-481
-482
-483
-484
-485
-486
-487
-488
-489
-490
-491</pre>
+598
+599
+600
+601
+602
+603
+604
+605
+606
+607
+608
+609
+610
+611
+612
+613
+614
+615
+616</pre>
     </td>
     <td>
-      <pre class="code"><span class="info file"># File 'lib/noteshare/entities/ns_document.rb', line 474</span>
+      <pre class="code"><span class="info file"># File 'lib/noteshare/entities/ns_document.rb', line 598</span>
 
 <span class='kw'>def</span> <span class='id identifier rubyid_render'>render</span>
 
@@ -2098,6 +3061,7 @@ Asciidoctor.convert to self.content with the provided options.</p>
 
   <span class='id identifier rubyid_renderer'>renderer</span> <span class='op'>=</span> <span class='const'>Render</span><span class='period'>.</span><span class='id identifier rubyid_new'>new</span><span class='lparen'>(</span><span class='kw'>self</span><span class='period'>.</span><span class='id identifier rubyid_compile'>compile</span><span class='comma'>,</span> <span class='id identifier rubyid_render_option'>render_option</span> <span class='rparen'>)</span>
   <span class='kw'>self</span><span class='period'>.</span><span class='id identifier rubyid_rendered_content'>rendered_content</span> <span class='op'>=</span> <span class='id identifier rubyid_renderer'>renderer</span><span class='period'>.</span><span class='id identifier rubyid_convert'>convert</span>
+  <span class='kw'>self</span><span class='period'>.</span><span class='id identifier rubyid_content_dirty'>content_dirty</span> <span class='op'>=</span> <span class='kw'>false</span>
   <span class='const'>DocumentRepository</span><span class='period'>.</span><span class='id identifier rubyid_update'>update</span><span class='lparen'>(</span><span class='kw'>self</span><span class='rparen'>)</span>
 
 <span class='kw'>end</span></pre>
@@ -2107,9 +3071,43 @@ Asciidoctor.convert to self.content with the provided options.</p>
 </div>
     
       <div class="method_details ">
+  <h3 class="signature " id="render_lazily-instance_method">
+  
+    - (<tt><span class='object_link'><a href="Noteshare/Tools/Object.html" title="Noteshare::Tools::Object (class)">Object</a></span></tt>) <strong>render_lazily</strong> 
+  
+
+  
+
+  
+</h3><table class="source_code">
+  <tr>
+    <td>
+      <pre class="lines">
+
+
+588
+589
+590
+591
+592</pre>
+    </td>
+    <td>
+      <pre class="code"><span class="info file"># File 'lib/noteshare/entities/ns_document.rb', line 588</span>
+
+<span class='kw'>def</span> <span class='id identifier rubyid_render_lazily'>render_lazily</span>
+  <span class='kw'>if</span> <span class='id identifier rubyid_content_dirty'>content_dirty</span>
+    <span class='id identifier rubyid_render'>render</span>
+  <span class='kw'>end</span>
+<span class='kw'>end</span></pre>
+    </td>
+  </tr>
+</table>
+</div>
+    
+      <div class="method_details ">
   <h3 class="signature " id="root_document-instance_method">
   
-    - (<tt>Object</tt>) <strong>root_document</strong> 
+    - (<tt><span class='object_link'><a href="Noteshare/Tools/Object.html" title="Noteshare::Tools::Object (class)">Object</a></span></tt>) <strong>root_document</strong> 
   
 
   
@@ -2134,23 +3132,223 @@ document. Otherwise, the root_document_id is the id of the root_documment.</p>
       <pre class="lines">
 
 
-305
-306
-307
-308
-309
-310
-311</pre>
+440
+441
+442
+443
+444
+445
+446</pre>
     </td>
     <td>
-      <pre class="code"><span class="info file"># File 'lib/noteshare/entities/ns_document.rb', line 305</span>
+      <pre class="code"><span class="info file"># File 'lib/noteshare/entities/ns_document.rb', line 440</span>
 
 <span class='kw'>def</span> <span class='id identifier rubyid_root_document'>root_document</span>
-  <span class='kw'>if</span> <span class='id identifier rubyid_root_document_id'>root_document_id</span> <span class='op'>==</span> <span class='int'>0</span>
-    <span class='kw'>return</span> <span class='kw'>self</span>
-  <span class='kw'>else</span>
-    <span class='const'>DocumentRepository</span><span class='period'>.</span><span class='id identifier rubyid_find'>find</span><span class='lparen'>(</span><span class='id identifier rubyid_root_document_id'>root_document_id</span><span class='rparen'>)</span>
+  <span class='id identifier rubyid_ri'>ri</span> <span class='op'>=</span>  <span class='id identifier rubyid_root_item'>root_item</span>
+  <span class='kw'>return</span> <span class='kw'>self</span> <span class='kw'>if</span> <span class='id identifier rubyid_ri'>ri</span> <span class='op'>==</span> <span class='kw'>nil</span> <span class='comment'># i.e, if it is a root document
+</span>  <span class='id identifier rubyid_ri_id'>ri_id</span> <span class='op'>=</span> <span class='id identifier rubyid_ri'>ri</span><span class='period'>.</span><span class='id identifier rubyid_id'>id</span>
+  <span class='kw'>return</span> <span class='kw'>if</span> <span class='id identifier rubyid_ri_id'>ri_id</span> <span class='op'>==</span> <span class='kw'>nil</span>
+  <span class='const'>DocumentRepository</span><span class='period'>.</span><span class='id identifier rubyid_find'>find</span><span class='lparen'>(</span><span class='id identifier rubyid_ri_id'>ri_id</span><span class='rparen'>)</span>
+<span class='kw'>end</span></pre>
+    </td>
+  </tr>
+</table>
+</div>
+    
+      <div class="method_details ">
+  <h3 class="signature " id="root_item-instance_method">
+  
+    - (<tt><span class='object_link'><a href="Noteshare/Tools/Object.html" title="Noteshare::Tools::Object (class)">Object</a></span></tt>) <strong>root_item</strong> 
+  
+
+  
+
+  
+</h3><table class="source_code">
+  <tr>
+    <td>
+      <pre class="lines">
+
+
+326
+327
+328
+329
+330
+331</pre>
+    </td>
+    <td>
+      <pre class="code"><span class="info file"># File 'lib/noteshare/entities/ns_document.rb', line 326</span>
+
+<span class='kw'>def</span> <span class='id identifier rubyid_root_item'>root_item</span>
+  <span class='kw'>return</span> <span class='kw'>if</span> <span class='id identifier rubyid_root_ref'>root_ref</span> <span class='op'>==</span> <span class='kw'>nil</span>
+  <span class='comment'># TOCItem.new( root_ref[&#39;id&#39;], root_ref[&#39;title&#39;], root_ref[&#39;identifier&#39;], root_ref[&#39;has_subdocs&#39;] )
+</span>  <span class='comment'>#TOCItem.new( root_ref[:id], root_ref[:title], root_ref[:identifier], root_ref[:has_subdocs] )
+</span>  <span class='const'>TOCItem</span><span class='period'>.</span><span class='id identifier rubyid_from_hash'>from_hash</span><span class='lparen'>(</span><span class='id identifier rubyid_root_ref'>root_ref</span><span class='rparen'>)</span>
+<span class='kw'>end</span></pre>
+    </td>
+  </tr>
+</table>
+</div>
+    
+      <div class="method_details ">
+  <h3 class="signature " id="set_author_credentials-instance_method">
+  
+    - (<tt><span class='object_link'><a href="Noteshare/Tools/Object.html" title="Noteshare::Tools::Object (class)">Object</a></span></tt>) <strong>set_author_credentials</strong>(credentials) 
+  
+
+  
+
+  
+</h3><table class="source_code">
+  <tr>
+    <td>
+      <pre class="lines">
+
+
+136
+137
+138</pre>
+    </td>
+    <td>
+      <pre class="code"><span class="info file"># File 'lib/noteshare/entities/ns_document.rb', line 136</span>
+
+<span class='kw'>def</span> <span class='id identifier rubyid_set_author_credentials'>set_author_credentials</span><span class='lparen'>(</span><span class='id identifier rubyid_credentials'>credentials</span><span class='rparen'>)</span>
+  <span class='kw'>self</span><span class='period'>.</span><span class='id identifier rubyid_author_credentials'>author_credentials</span> <span class='op'>=</span> <span class='const'>JSON</span><span class='period'>.</span><span class='id identifier rubyid_generate'>generate</span><span class='lparen'>(</span><span class='id identifier rubyid_credentials'>credentials</span><span class='rparen'>)</span>
+<span class='kw'>end</span></pre>
+    </td>
+  </tr>
+</table>
+</div>
+    
+      <div class="method_details ">
+  <h3 class="signature " id="set_author_identifier-instance_method">
+  
+    - (<tt><span class='object_link'><a href="Noteshare/Tools/Object.html" title="Noteshare::Tools::Object (class)">Object</a></span></tt>) <strong>set_author_identifier</strong> 
+  
+
+  
+
+  
+</h3><table class="source_code">
+  <tr>
+    <td>
+      <pre class="lines">
+
+
+155
+156
+157
+158
+159
+160</pre>
+    </td>
+    <td>
+      <pre class="code"><span class="info file"># File 'lib/noteshare/entities/ns_document.rb', line 155</span>
+
+<span class='kw'>def</span> <span class='id identifier rubyid_set_author_identifier'>set_author_identifier</span>
+  <span class='id identifier rubyid_author_obj'>author_obj</span> <span class='op'>=</span> <span class='const'>UserRepository</span><span class='period'>.</span><span class='id identifier rubyid_find'>find</span> <span class='kw'>self</span><span class='period'>.</span><span class='id identifier rubyid_author_id'>author_id</span>
+  <span class='kw'>if</span> <span class='id identifier rubyid_author_obj'>author_obj</span>
+    <span class='kw'>self</span><span class='period'>.</span><span class='id identifier rubyid_author_identifier'>author_identifier</span> <span class='op'>=</span> <span class='id identifier rubyid_author_obj'>author_obj</span><span class='period'>.</span><span class='id identifier rubyid_identifier'>identifier</span>
   <span class='kw'>end</span>
+<span class='kw'>end</span></pre>
+    </td>
+  </tr>
+</table>
+</div>
+    
+      <div class="method_details ">
+  <h3 class="signature " id="set_author_identifier!-instance_method">
+  
+    - (<tt><span class='object_link'><a href="Noteshare/Tools/Object.html" title="Noteshare::Tools::Object (class)">Object</a></span></tt>) <strong>set_author_identifier!</strong> 
+  
+
+  
+
+  
+</h3><table class="source_code">
+  <tr>
+    <td>
+      <pre class="lines">
+
+
+162
+163
+164
+165
+166</pre>
+    </td>
+    <td>
+      <pre class="code"><span class="info file"># File 'lib/noteshare/entities/ns_document.rb', line 162</span>
+
+<span class='kw'>def</span> <span class='id identifier rubyid_set_author_identifier!'>set_author_identifier!</span>
+  <span class='id identifier rubyid_set_author_identifier'>set_author_identifier</span>
+  <span class='const'>DocumentRepository</span><span class='period'>.</span><span class='id identifier rubyid_update'>update</span> <span class='kw'>self</span>
+  <span class='kw'>self</span><span class='period'>.</span><span class='id identifier rubyid_author_identifier'>author_identifier</span>
+<span class='kw'>end</span></pre>
+    </td>
+  </tr>
+</table>
+</div>
+    
+      <div class="method_details ">
+  <h3 class="signature " id="set_identifier-instance_method">
+  
+    - (<tt><span class='object_link'><a href="Noteshare/Tools/Object.html" title="Noteshare::Tools::Object (class)">Object</a></span></tt>) <strong>set_identifier</strong> 
+  
+
+  
+
+  
+</h3><table class="source_code">
+  <tr>
+    <td>
+      <pre class="lines">
+
+
+145
+146
+147</pre>
+    </td>
+    <td>
+      <pre class="code"><span class="info file"># File 'lib/noteshare/entities/ns_document.rb', line 145</span>
+
+<span class='kw'>def</span> <span class='id identifier rubyid_set_identifier'>set_identifier</span>
+  <span class='kw'>self</span><span class='period'>.</span><span class='id identifier rubyid_identifier'>identifier</span> <span class='op'>=</span> <span class='const'>Noteshare</span><span class='op'>::</span><span class='const'>Identifier</span><span class='period'>.</span><span class='id identifier rubyid_new'>new</span><span class='lparen'>(</span><span class='rparen'>)</span><span class='period'>.</span><span class='id identifier rubyid_string'>string</span>
+<span class='kw'>end</span></pre>
+    </td>
+  </tr>
+</table>
+</div>
+    
+      <div class="method_details ">
+  <h3 class="signature " id="set_identifier!-instance_method">
+  
+    - (<tt><span class='object_link'><a href="Noteshare/Tools/Object.html" title="Noteshare::Tools::Object (class)">Object</a></span></tt>) <strong>set_identifier!</strong> 
+  
+
+  
+
+  
+</h3><table class="source_code">
+  <tr>
+    <td>
+      <pre class="lines">
+
+
+149
+150
+151
+152
+153</pre>
+    </td>
+    <td>
+      <pre class="code"><span class="info file"># File 'lib/noteshare/entities/ns_document.rb', line 149</span>
+
+<span class='kw'>def</span> <span class='id identifier rubyid_set_identifier!'>set_identifier!</span>
+  <span class='id identifier rubyid_set_identifier'>set_identifier</span>
+  <span class='const'>DocumentRepository</span><span class='period'>.</span><span class='id identifier rubyid_update'>update</span> <span class='kw'>self</span>
+  <span class='kw'>self</span><span class='period'>.</span><span class='id identifier rubyid_identifier'>identifier</span>
 <span class='kw'>end</span></pre>
     </td>
   </tr>
@@ -2160,7 +3358,7 @@ document. Otherwise, the root_document_id is the id of the root_documment.</p>
       <div class="method_details ">
   <h3 class="signature " id="set_next_doc-instance_method">
   
-    - (<tt>Object</tt>) <strong>set_next_doc</strong> 
+    - (<tt><span class='object_link'><a href="Noteshare/Tools/Object.html" title="Noteshare::Tools::Object (class)">Object</a></span></tt>) <strong>set_next_doc</strong> 
   
 
   
@@ -2185,13 +3383,13 @@ after the call @foo.set_next_doc,</p>
       <pre class="lines">
 
 
-271
-272
-273
-274</pre>
+381
+382
+383
+384</pre>
     </td>
     <td>
-      <pre class="code"><span class="info file"># File 'lib/noteshare/entities/ns_document.rb', line 271</span>
+      <pre class="code"><span class="info file"># File 'lib/noteshare/entities/ns_document.rb', line 381</span>
 
 <span class='kw'>def</span> <span class='id identifier rubyid_set_next_doc'>set_next_doc</span>
   <span class='kw'>self</span><span class='period'>.</span><span class='id identifier rubyid_doc_refs'>doc_refs</span><span class='lbracket'>[</span><span class='tstring'><span class='tstring_beg'>&#39;</span><span class='tstring_content'>next</span><span class='tstring_end'>&#39;</span></span><span class='rbracket'>]</span> <span class='op'>=</span> <span class='id identifier rubyid_next_id'>next_id</span>
@@ -2205,7 +3403,7 @@ after the call @foo.set_next_doc,</p>
       <div class="method_details ">
   <h3 class="signature " id="set_previous_doc-instance_method">
   
-    - (<tt>Object</tt>) <strong>set_previous_doc</strong> 
+    - (<tt><span class='object_link'><a href="Noteshare/Tools/Object.html" title="Noteshare::Tools::Object (class)">Object</a></span></tt>) <strong>set_previous_doc</strong> 
   
 
   
@@ -2230,13 +3428,13 @@ after the call @bar.set_previous_doc,</p>
       <pre class="lines">
 
 
-261
-262
-263
-264</pre>
+371
+372
+373
+374</pre>
     </td>
     <td>
-      <pre class="code"><span class="info file"># File 'lib/noteshare/entities/ns_document.rb', line 261</span>
+      <pre class="code"><span class="info file"># File 'lib/noteshare/entities/ns_document.rb', line 371</span>
 
 <span class='kw'>def</span> <span class='id identifier rubyid_set_previous_doc'>set_previous_doc</span>
   <span class='kw'>self</span><span class='period'>.</span><span class='id identifier rubyid_doc_refs'>doc_refs</span><span class='lbracket'>[</span><span class='tstring'><span class='tstring_beg'>&#39;</span><span class='tstring_content'>previous</span><span class='tstring_end'>&#39;</span></span><span class='rbracket'>]</span> <span class='op'>=</span> <span class='id identifier rubyid_previous_id'>previous_id</span>
@@ -2248,9 +3446,145 @@ after the call @bar.set_previous_doc,</p>
 </div>
     
       <div class="method_details ">
+  <h3 class="signature " id="set_root_document-instance_method">
+  
+    - (<tt><span class='object_link'><a href="Noteshare/Tools/Object.html" title="Noteshare::Tools::Object (class)">Object</a></span></tt>) <strong>set_root_document</strong> 
+  
+
+  
+
+  
+</h3><table class="source_code">
+  <tr>
+    <td>
+      <pre class="lines">
+
+
+463
+464
+465
+466
+467
+468
+469
+470</pre>
+    </td>
+    <td>
+      <pre class="code"><span class="info file"># File 'lib/noteshare/entities/ns_document.rb', line 463</span>
+
+<span class='kw'>def</span> <span class='id identifier rubyid_set_root_document'>set_root_document</span>
+  <span class='id identifier rubyid_rd'>rd</span> <span class='op'>=</span> <span class='id identifier rubyid_find_root_document'>find_root_document</span>
+  <span class='comment'># Need the follwing for DocumentRepository.root_documents
+</span>  <span class='comment'># Fixme: index root_document_id
+</span>  <span class='id identifier rubyid_rd'>rd</span><span class='period'>.</span><span class='id identifier rubyid_root_document_id'>root_document_id</span> <span class='op'>=</span> <span class='int'>0</span>
+  <span class='kw'>self</span><span class='period'>.</span><span class='id identifier rubyid_root_document_id'>root_document_id</span> <span class='op'>=</span> <span class='id identifier rubyid_rd'>rd</span><span class='period'>.</span><span class='id identifier rubyid_id'>id</span>
+  <span class='kw'>self</span><span class='period'>.</span><span class='id identifier rubyid_root_ref'>root_ref</span> <span class='op'>=</span> <span class='lbrace'>{</span> <span class='label'>id:</span> <span class='id identifier rubyid_rd'>rd</span><span class='period'>.</span><span class='id identifier rubyid_id'>id</span><span class='comma'>,</span> <span class='label'>title:</span> <span class='id identifier rubyid_rd'>rd</span><span class='period'>.</span><span class='id identifier rubyid_title'>title</span><span class='comma'>,</span> <span class='label'>identifier:</span> <span class='id identifier rubyid_rd'>rd</span><span class='period'>.</span><span class='id identifier rubyid_identifier'>identifier</span><span class='rbrace'>}</span>
+<span class='kw'>end</span></pre>
+    </td>
+  </tr>
+</table>
+</div>
+    
+      <div class="method_details ">
+  <h3 class="signature " id="set_root_document!-instance_method">
+  
+    - (<tt><span class='object_link'><a href="Noteshare/Tools/Object.html" title="Noteshare::Tools::Object (class)">Object</a></span></tt>) <strong>set_root_document!</strong> 
+  
+
+  
+
+  
+</h3><table class="source_code">
+  <tr>
+    <td>
+      <pre class="lines">
+
+
+472
+473
+474
+475</pre>
+    </td>
+    <td>
+      <pre class="code"><span class="info file"># File 'lib/noteshare/entities/ns_document.rb', line 472</span>
+
+<span class='kw'>def</span> <span class='id identifier rubyid_set_root_document!'>set_root_document!</span>
+  <span class='id identifier rubyid_set_root_document'>set_root_document</span>
+  <span class='const'>DocumentRepository</span><span class='period'>.</span><span class='id identifier rubyid_update'>update</span> <span class='kw'>self</span>
+<span class='kw'>end</span></pre>
+    </td>
+  </tr>
+</table>
+</div>
+    
+      <div class="method_details ">
+  <h3 class="signature " id="set_toc_clean-instance_method">
+  
+    - (<tt><span class='object_link'><a href="Noteshare/Tools/Object.html" title="Noteshare::Tools::Object (class)">Object</a></span></tt>) <strong>set_toc_clean</strong> 
+  
+
+  
+
+  
+</h3><table class="source_code">
+  <tr>
+    <td>
+      <pre class="lines">
+
+
+686
+687
+688
+689</pre>
+    </td>
+    <td>
+      <pre class="code"><span class="info file"># File 'lib/noteshare/entities/ns_document.rb', line 686</span>
+
+<span class='kw'>def</span> <span class='id identifier rubyid_set_toc_clean'>set_toc_clean</span>
+  <span class='kw'>self</span><span class='period'>.</span><span class='id identifier rubyid_toc_dirty'>toc_dirty</span> <span class='op'>=</span> <span class='kw'>false</span>
+  <span class='kw'>self</span><span class='period'>.</span><span class='id identifier rubyid_root_document'>root_document</span><span class='period'>.</span><span class='id identifier rubyid_toc_dirty'>toc_dirty</span> <span class='op'>=</span> <span class='kw'>false</span>
+<span class='kw'>end</span></pre>
+    </td>
+  </tr>
+</table>
+</div>
+    
+      <div class="method_details ">
+  <h3 class="signature " id="set_toc_dirty-instance_method">
+  
+    - (<tt><span class='object_link'><a href="Noteshare/Tools/Object.html" title="Noteshare::Tools::Object (class)">Object</a></span></tt>) <strong>set_toc_dirty</strong> 
+  
+
+  
+
+  
+</h3><table class="source_code">
+  <tr>
+    <td>
+      <pre class="lines">
+
+
+681
+682
+683
+684</pre>
+    </td>
+    <td>
+      <pre class="code"><span class="info file"># File 'lib/noteshare/entities/ns_document.rb', line 681</span>
+
+<span class='kw'>def</span> <span class='id identifier rubyid_set_toc_dirty'>set_toc_dirty</span>
+  <span class='kw'>self</span><span class='period'>.</span><span class='id identifier rubyid_toc_dirty'>toc_dirty</span> <span class='op'>=</span> <span class='kw'>true</span>
+  <span class='kw'>self</span><span class='period'>.</span><span class='id identifier rubyid_root_document'>root_document</span><span class='period'>.</span><span class='id identifier rubyid_toc_dirty'>toc_dirty</span> <span class='op'>=</span> <span class='kw'>true</span>
+<span class='kw'>end</span></pre>
+    </td>
+  </tr>
+</table>
+</div>
+    
+      <div class="method_details ">
   <h3 class="signature " id="status-instance_method">
   
-    - (<tt>Object</tt>) <strong>status</strong> 
+    - (<tt><span class='object_link'><a href="Noteshare/Tools/Object.html" title="Noteshare::Tools::Object (class)">Object</a></span></tt>) <strong>status</strong> 
   
 
   
@@ -2273,15 +3607,15 @@ after the call @bar.set_previous_doc,</p>
       <pre class="lines">
 
 
-239
-240
-241</pre>
+307
+308
+309</pre>
     </td>
     <td>
-      <pre class="code"><span class="info file"># File 'lib/noteshare/entities/ns_document.rb', line 239</span>
+      <pre class="code"><span class="info file"># File 'lib/noteshare/entities/ns_document.rb', line 307</span>
 
 <span class='kw'>def</span> <span class='id identifier rubyid_status'>status</span>
-  <span class='tstring'><span class='tstring_beg'>&quot;</span><span class='embexpr_beg'>#{</span><span class='kw'>self</span><span class='period'>.</span><span class='id identifier rubyid_title'>title</span><span class='embexpr_end'>}</span><span class='tstring_content'>:: id: </span><span class='embexpr_beg'>#{</span><span class='kw'>self</span><span class='period'>.</span><span class='id identifier rubyid_id'>id</span><span class='embexpr_end'>}</span><span class='tstring_content'>, parent: </span><span class='embexpr_beg'>#{</span><span class='kw'>self</span><span class='period'>.</span><span class='id identifier rubyid_parent'>parent</span><span class='period'>.</span><span class='id identifier rubyid_id'>id</span> <span class='embexpr_end'>}</span><span class='tstring_content'>, back: </span><span class='embexpr_beg'>#{</span><span class='kw'>self</span><span class='period'>.</span><span class='id identifier rubyid_doc_refs'>doc_refs</span><span class='lbracket'>[</span><span class='tstring'><span class='tstring_beg'>&#39;</span><span class='tstring_content'>previous</span><span class='tstring_end'>&#39;</span></span><span class='rbracket'>]</span><span class='embexpr_end'>}</span><span class='tstring_content'>, next: </span><span class='embexpr_beg'>#{</span><span class='ivar'>@self</span><span class='period'>.</span><span class='id identifier rubyid_doc_refs'>doc_refs</span><span class='lbracket'>[</span><span class='tstring'><span class='tstring_beg'>&#39;</span><span class='tstring_content'>next</span><span class='tstring_end'>&#39;</span></span><span class='rbracket'>]</span><span class='embexpr_end'>}</span><span class='tstring_end'>&quot;</span></span>
+  <span class='tstring'><span class='tstring_beg'>&quot;</span><span class='embexpr_beg'>#{</span><span class='kw'>self</span><span class='period'>.</span><span class='id identifier rubyid_title'>title</span><span class='embexpr_end'>}</span><span class='tstring_content'>:: id: </span><span class='embexpr_beg'>#{</span><span class='kw'>self</span><span class='period'>.</span><span class='id identifier rubyid_id'>id</span><span class='embexpr_end'>}</span><span class='tstring_content'>, parent_document: </span><span class='embexpr_beg'>#{</span><span class='kw'>self</span><span class='period'>.</span><span class='id identifier rubyid_parent'>parent</span><span class='period'>.</span><span class='id identifier rubyid_id'>id</span> <span class='embexpr_end'>}</span><span class='tstring_content'>, back: </span><span class='embexpr_beg'>#{</span><span class='kw'>self</span><span class='period'>.</span><span class='id identifier rubyid_doc_refs'>doc_refs</span><span class='lbracket'>[</span><span class='tstring'><span class='tstring_beg'>&#39;</span><span class='tstring_content'>previous</span><span class='tstring_end'>&#39;</span></span><span class='rbracket'>]</span><span class='embexpr_end'>}</span><span class='tstring_content'>, next: </span><span class='embexpr_beg'>#{</span><span class='ivar'>@self</span><span class='period'>.</span><span class='id identifier rubyid_doc_refs'>doc_refs</span><span class='lbracket'>[</span><span class='tstring'><span class='tstring_beg'>&#39;</span><span class='tstring_content'>next</span><span class='tstring_end'>&#39;</span></span><span class='rbracket'>]</span><span class='embexpr_end'>}</span><span class='tstring_end'>&quot;</span></span>
 <span class='kw'>end</span></pre>
     </td>
   </tr>
@@ -2291,7 +3625,7 @@ after the call @bar.set_previous_doc,</p>
       <div class="method_details ">
   <h3 class="signature " id="subdocument-instance_method">
   
-    - (<tt>Object</tt>) <strong>subdocument</strong>(k) 
+    - (<tt><span class='object_link'><a href="Noteshare/Tools/Object.html" title="Noteshare::Tools::Object (class)">Object</a></span></tt>) <strong>subdocument</strong>(k) 
   
 
   
@@ -2314,15 +3648,62 @@ after the call @bar.set_previous_doc,</p>
       <pre class="lines">
 
 
-295
-296
-297</pre>
+427
+428
+429
+430
+431
+432</pre>
     </td>
     <td>
-      <pre class="code"><span class="info file"># File 'lib/noteshare/entities/ns_document.rb', line 295</span>
+      <pre class="code"><span class="info file"># File 'lib/noteshare/entities/ns_document.rb', line 427</span>
 
 <span class='kw'>def</span> <span class='id identifier rubyid_subdocument'>subdocument</span><span class='lparen'>(</span><span class='id identifier rubyid_k'>k</span><span class='rparen'>)</span>
-  <span class='const'>DocumentRepository</span><span class='period'>.</span><span class='id identifier rubyid_find'>find</span><span class='lparen'>(</span><span class='id identifier rubyid_subdoc_refs'>subdoc_refs</span><span class='lbracket'>[</span><span class='id identifier rubyid_k'>k</span><span class='rbracket'>]</span><span class='rparen'>)</span>
+  <span class='id identifier rubyid__id'>_id</span> <span class='op'>=</span> <span class='id identifier rubyid_table_of_contents'>table_of_contents</span><span class='lbracket'>[</span><span class='id identifier rubyid_k'>k</span><span class='rbracket'>]</span><span class='period'>.</span><span class='id identifier rubyid_id'>id</span>
+  <span class='kw'>if</span> <span class='id identifier rubyid__id'>_id</span>
+    <span class='const'>DocumentRepository</span><span class='period'>.</span><span class='id identifier rubyid_find'>find</span><span class='lparen'>(</span><span class='id identifier rubyid__id'>_id</span><span class='rparen'>)</span>
+  <span class='kw'>end</span>
+<span class='kw'>end</span></pre>
+    </td>
+  </tr>
+</table>
+</div>
+    
+      <div class="method_details ">
+  <h3 class="signature " id="table_of_contents-instance_method">
+  
+    - (<tt><span class='object_link'><a href="Noteshare/Tools/Object.html" title="Noteshare::Tools::Object (class)">Object</a></span></tt>) <strong>table_of_contents</strong> 
+  
+
+  
+
+  
+</h3><div class="docstring">
+  <div class="discussion">
+    
+<p>Return TOC object corresponding to the toc field in the database</p>
+
+
+  </div>
+</div>
+<div class="tags">
+  
+
+</div><table class="source_code">
+  <tr>
+    <td>
+      <pre class="lines">
+
+
+118
+119
+120</pre>
+    </td>
+    <td>
+      <pre class="code"><span class="info file"># File 'lib/noteshare/entities/ns_document.rb', line 118</span>
+
+<span class='kw'>def</span> <span class='id identifier rubyid_table_of_contents'>table_of_contents</span>
+  <span class='const'>TOC</span><span class='period'>.</span><span class='id identifier rubyid_new'>new</span><span class='lparen'>(</span><span class='kw'>self</span><span class='rparen'>)</span><span class='period'>.</span><span class='id identifier rubyid_table'>table</span>
 <span class='kw'>end</span></pre>
     </td>
   </tr>
@@ -2332,7 +3713,7 @@ after the call @bar.set_previous_doc,</p>
       <div class="method_details ">
   <h3 class="signature " id="texmacros-instance_method">
   
-    - (<tt>Object</tt>) <strong>texmacros</strong> 
+    - (<tt><span class='object_link'><a href="Noteshare/Tools/Object.html" title="Noteshare::Tools::Object (class)">Object</a></span></tt>) <strong>texmacros</strong> 
   
 
   
@@ -2344,20 +3725,20 @@ after the call @bar.set_previous_doc,</p>
       <pre class="lines">
 
 
-382
-383
-384
-385
-386
-387
-388
-389
-390
-391
-392</pre>
+550
+551
+552
+553
+554
+555
+556
+557
+558
+559
+560</pre>
     </td>
     <td>
-      <pre class="code"><span class="info file"># File 'lib/noteshare/entities/ns_document.rb', line 382</span>
+      <pre class="code"><span class="info file"># File 'lib/noteshare/entities/ns_document.rb', line 550</span>
 
 <span class='kw'>def</span> <span class='id identifier rubyid_texmacros'>texmacros</span>
   <span class='id identifier rubyid_rd'>rd</span> <span class='op'>=</span> <span class='id identifier rubyid_root_document'>root_document</span>
@@ -2376,9 +3757,89 @@ after the call @bar.set_previous_doc,</p>
 </div>
     
       <div class="method_details ">
+  <h3 class="signature " id="toc_is_dirty-instance_method">
+  
+    - (<tt><span class='object_link'><a href="Noteshare/Tools/Object.html" title="Noteshare::Tools::Object (class)">Object</a></span></tt>) <strong>toc_is_dirty</strong> 
+  
+
+  
+
+  
+</h3><table class="source_code">
+  <tr>
+    <td>
+      <pre class="lines">
+
+
+691
+692
+693</pre>
+    </td>
+    <td>
+      <pre class="code"><span class="info file"># File 'lib/noteshare/entities/ns_document.rb', line 691</span>
+
+<span class='kw'>def</span> <span class='id identifier rubyid_toc_is_dirty'>toc_is_dirty</span>
+  <span class='kw'>self</span><span class='period'>.</span><span class='id identifier rubyid_root_document'>root_document</span><span class='period'>.</span><span class='id identifier rubyid_toc_dirty'>toc_dirty</span>
+<span class='kw'>end</span></pre>
+    </td>
+  </tr>
+</table>
+</div>
+    
+      <div class="method_details ">
+  <h3 class="signature " id="toc_message-instance_method">
+  
+    - (<tt><span class='object_link'><a href="Noteshare/Tools/Object.html" title="Noteshare::Tools::Object (class)">Object</a></span></tt>) <strong>toc_message</strong> 
+  
+
+  
+
+  
+</h3><table class="source_code">
+  <tr>
+    <td>
+      <pre class="lines">
+
+
+696
+697
+698
+699
+700
+701
+702
+703
+704
+705
+706
+707
+708</pre>
+    </td>
+    <td>
+      <pre class="code"><span class="info file"># File 'lib/noteshare/entities/ns_document.rb', line 696</span>
+
+<span class='kw'>def</span> <span class='id identifier rubyid_toc_message'>toc_message</span>
+  <span class='id identifier rubyid_puts'>puts</span> <span class='tstring'><span class='tstring_beg'>&quot;</span><span class='tstring_content'>UPDATE TABLE OF CONNTENTS -- BOSS, I AM WORKING!</span><span class='tstring_end'>&quot;</span></span><span class='period'>.</span><span class='id identifier rubyid_magenta'>magenta</span>
+  <span class='kw'>case</span> <span class='kw'>self</span><span class='period'>.</span><span class='id identifier rubyid_toc_dirty'>toc_dirty</span>
+    <span class='kw'>when</span> <span class='kw'>nil</span>
+      <span class='id identifier rubyid_puts'>puts</span> <span class='tstring'><span class='tstring_beg'>&quot;</span><span class='tstring_content'>update_table_of_contents, id = </span><span class='embexpr_beg'>#{</span><span class='kw'>self</span><span class='period'>.</span><span class='id identifier rubyid_id'>id</span><span class='embexpr_end'>}</span><span class='tstring_content'>, title = </span><span class='embexpr_beg'>#{</span><span class='kw'>self</span><span class='period'>.</span><span class='id identifier rubyid_title'>title</span><span class='embexpr_end'>}</span><span class='tstring_content'>, dirty = </span><span class='embexpr_beg'>#{</span><span class='kw'>self</span><span class='period'>.</span><span class='id identifier rubyid_toc_dirty'>toc_dirty</span><span class='embexpr_end'>}</span><span class='tstring_end'>&quot;</span></span><span class='period'>.</span><span class='id identifier rubyid_red'>red</span>
+    <span class='kw'>when</span> <span class='kw'>true</span>
+      <span class='id identifier rubyid_puts'>puts</span> <span class='tstring'><span class='tstring_beg'>&quot;</span><span class='tstring_content'>update_table_of_contents, id = </span><span class='embexpr_beg'>#{</span><span class='kw'>self</span><span class='period'>.</span><span class='id identifier rubyid_id'>id</span><span class='embexpr_end'>}</span><span class='tstring_content'>, title = </span><span class='embexpr_beg'>#{</span><span class='kw'>self</span><span class='period'>.</span><span class='id identifier rubyid_title'>title</span><span class='embexpr_end'>}</span><span class='tstring_content'>, dirty = </span><span class='embexpr_beg'>#{</span><span class='kw'>self</span><span class='period'>.</span><span class='id identifier rubyid_toc_dirty'>toc_dirty</span><span class='embexpr_end'>}</span><span class='tstring_end'>&quot;</span></span><span class='period'>.</span><span class='id identifier rubyid_yellow'>yellow</span>
+    <span class='kw'>when</span> <span class='kw'>false</span>
+      <span class='id identifier rubyid_puts'>puts</span> <span class='tstring'><span class='tstring_beg'>&quot;</span><span class='tstring_content'>update_table_of_contents, id = </span><span class='embexpr_beg'>#{</span><span class='kw'>self</span><span class='period'>.</span><span class='id identifier rubyid_id'>id</span><span class='embexpr_end'>}</span><span class='tstring_content'>, title = </span><span class='embexpr_beg'>#{</span><span class='kw'>self</span><span class='period'>.</span><span class='id identifier rubyid_title'>title</span><span class='embexpr_end'>}</span><span class='tstring_content'>, dirty = </span><span class='embexpr_beg'>#{</span><span class='kw'>self</span><span class='period'>.</span><span class='id identifier rubyid_toc_dirty'>toc_dirty</span><span class='embexpr_end'>}</span><span class='tstring_end'>&quot;</span></span><span class='period'>.</span><span class='id identifier rubyid_cyan'>cyan</span>
+    <span class='kw'>else</span>
+      <span class='id identifier rubyid_puts'>puts</span> <span class='tstring'><span class='tstring_beg'>&quot;</span><span class='tstring_content'>update_table_of_contents, id = </span><span class='embexpr_beg'>#{</span><span class='kw'>self</span><span class='period'>.</span><span class='id identifier rubyid_id'>id</span><span class='embexpr_end'>}</span><span class='tstring_content'>, title = </span><span class='embexpr_beg'>#{</span><span class='kw'>self</span><span class='period'>.</span><span class='id identifier rubyid_title'>title</span><span class='embexpr_end'>}</span><span class='tstring_content'>, dirty = </span><span class='embexpr_beg'>#{</span><span class='kw'>self</span><span class='period'>.</span><span class='id identifier rubyid_toc_dirty'>toc_dirty</span><span class='embexpr_end'>}</span><span class='tstring_end'>&quot;</span></span><span class='period'>.</span><span class='id identifier rubyid_magenta'>magenta</span>
+  <span class='kw'>end</span>
+<span class='kw'>end</span></pre>
+    </td>
+  </tr>
+</table>
+</div>
+    
+      <div class="method_details ">
   <h3 class="signature " id="update_content-instance_method">
   
-    - (<tt>Object</tt>) <strong>update_content</strong>(input = nil) 
+    - (<tt><span class='object_link'><a href="Noteshare/Tools/Object.html" title="Noteshare::Tools::Object (class)">Object</a></span></tt>) <strong>update_content</strong>(input = nil) 
   
 
   
@@ -2402,31 +3863,31 @@ Otherwise, Replace #content by str, render it and save itl. .</p>
       <pre class="lines">
 
 
-359
-360
-361
-362
-363
-364
-365
-366
-367
-368
-369
-370
-371
-372
-373
-374
-375
-376
-377
-378
-379
-380</pre>
+527
+528
+529
+530
+531
+532
+533
+534
+535
+536
+537
+538
+539
+540
+541
+542
+543
+544
+545
+546
+547
+548</pre>
     </td>
     <td>
-      <pre class="code"><span class="info file"># File 'lib/noteshare/entities/ns_document.rb', line 359</span>
+      <pre class="code"><span class="info file"># File 'lib/noteshare/entities/ns_document.rb', line 527</span>
 
 <span class='kw'>def</span> <span class='id identifier rubyid_update_content'>update_content</span><span class='lparen'>(</span><span class='id identifier rubyid_input'>input</span><span class='op'>=</span><span class='kw'>nil</span><span class='rparen'>)</span>
 
@@ -2458,7 +3919,7 @@ Otherwise, Replace #content by str, render it and save itl. .</p>
       <div class="method_details ">
   <h3 class="signature " id="update_neighbors-instance_method">
   
-    - (<tt>Object</tt>) <strong>update_neighbors</strong> 
+    - (<tt><span class='object_link'><a href="Noteshare/Tools/Object.html" title="Noteshare::Tools::Object (class)">Object</a></span></tt>) <strong>update_neighbors</strong> 
   
 
   
@@ -2482,21 +3943,21 @@ subdocuments.</p>
       <pre class="lines">
 
 
-148
-149
-150
-151
-152
-153
-154
-155
-156
-157
-158
-159</pre>
+233
+234
+235
+236
+237
+238
+239
+240
+241
+242
+243
+244</pre>
     </td>
     <td>
-      <pre class="code"><span class="info file"># File 'lib/noteshare/entities/ns_document.rb', line 148</span>
+      <pre class="code"><span class="info file"># File 'lib/noteshare/entities/ns_document.rb', line 233</span>
 
 <span class='kw'>def</span> <span class='id identifier rubyid_update_neighbors'>update_neighbors</span>
   <span class='kw'>self</span><span class='period'>.</span><span class='id identifier rubyid_set_previous_doc'>set_previous_doc</span>
@@ -2518,7 +3979,7 @@ subdocuments.</p>
       <div class="method_details ">
   <h3 class="signature " id="update_table_of_contents-instance_method">
   
-    - (<tt>Object</tt>) <strong>update_table_of_contents</strong> 
+    - (<tt><span class='object_link'><a href="Noteshare/Tools/Object.html" title="Noteshare::Tools::Object (class)">Object</a></span></tt>) <strong>update_table_of_contents</strong>(arg = {force: false}) 
   
 
   
@@ -2527,8 +3988,15 @@ subdocuments.</p>
 </h3><div class="docstring">
   <div class="discussion">
     
-<p>A table of contents is a list of lists, where the sublists are of the form
-[id, title].  #update_table_of_contents creates this list from scratch,
+<p>A table of contents is an array of hashes, where the key-value pairs are
+like</p>
+
+<pre class="code ruby"><code class="ruby"><span class='id identifier rubyid_hash'>hash</span><span class='lbracket'>[</span><span class='tstring'><span class='tstring_beg'>&#39;</span><span class='tstring_content'>id</span><span class='tstring_end'>&#39;</span></span><span class='rbracket'>]</span> <span class='op'>=</span> <span class='int'>23</span>
+<span class='id identifier rubyid_hash'>hash</span><span class='lbracket'>[</span><span class='tstring'><span class='tstring_beg'>&#39;</span><span class='tstring_content'>title</span><span class='tstring_end'>&#39;</span></span><span class='rbracket'>]</span> <span class='op'>=</span> <span class='tstring'><span class='tstring_beg'>&#39;</span><span class='tstring_content'>Long Journey</span><span class='tstring_end'>&#39;</span></span>
+<span class='id identifier rubyid_hash'>hash</span><span class='lbracket'>[</span><span class='tstring'><span class='tstring_beg'>&#39;</span><span class='tstring_content'>subdocs</span><span class='tstring_end'>&#39;</span></span><span class='rbracket'>]</span> <span class='op'>=</span> <span class='kw'>true</span>
+</code></pre>
+
+<p>The metnod  #update_table_of_contents creates this structure from scratch,
 then stores it as jsonb in the toc field of the database</p>
 
 
@@ -2543,90 +4011,92 @@ then stores it as jsonb in the toc field of the database</p>
       <pre class="lines">
 
 
-425
-426
-427
-428
-429
-430
-431
-432
-433
-434
-435
-436
-437
-438
-439
-440
-441
-442
-443
-444
-445
-446
-447
-448
-449
-450
-451
-452
-453
-454
-455
-456
-457
-458
-459
-460
-461
-462
-463
-464
-465</pre>
+720
+721
+722
+723
+724
+725
+726
+727
+728
+729
+730
+731
+732
+733
+734
+735
+736
+737
+738
+739
+740
+741
+742
+743
+744
+745
+746
+747
+748
+749
+750
+751
+752
+753
+754
+755
+756
+757
+758
+759
+760
+761</pre>
     </td>
     <td>
-      <pre class="code"><span class="info file"># File 'lib/noteshare/entities/ns_document.rb', line 425</span>
+      <pre class="code"><span class="info file"># File 'lib/noteshare/entities/ns_document.rb', line 720</span>
 
-<span class='kw'>def</span> <span class='id identifier rubyid_update_table_of_contents'>update_table_of_contents</span>
+<span class='kw'>def</span> <span class='id identifier rubyid_update_table_of_contents'>update_table_of_contents</span><span class='lparen'>(</span><span class='id identifier rubyid_arg'>arg</span> <span class='op'>=</span> <span class='lbrace'>{</span><span class='label'>force:</span> <span class='kw'>false</span><span class='rbrace'>}</span><span class='rparen'>)</span>
 
-  <span class='kw'>case</span> <span class='kw'>self</span><span class='period'>.</span><span class='id identifier rubyid_toc_dirty'>toc_dirty</span>
-    <span class='kw'>when</span> <span class='kw'>nil</span>
-      <span class='id identifier rubyid_puts'>puts</span> <span class='tstring'><span class='tstring_beg'>&quot;</span><span class='tstring_content'>update_table_of_contents, id = </span><span class='embexpr_beg'>#{</span><span class='kw'>self</span><span class='period'>.</span><span class='id identifier rubyid_id'>id</span><span class='embexpr_end'>}</span><span class='tstring_content'>, title = </span><span class='embexpr_beg'>#{</span><span class='kw'>self</span><span class='period'>.</span><span class='id identifier rubyid_title'>title</span><span class='embexpr_end'>}</span><span class='tstring_content'>, dirty = </span><span class='embexpr_beg'>#{</span><span class='kw'>self</span><span class='period'>.</span><span class='id identifier rubyid_toc_dirty'>toc_dirty</span><span class='embexpr_end'>}</span><span class='tstring_end'>&quot;</span></span><span class='period'>.</span><span class='id identifier rubyid_red'>red</span>
-    <span class='kw'>when</span> <span class='kw'>true</span>
-      <span class='id identifier rubyid_puts'>puts</span> <span class='tstring'><span class='tstring_beg'>&quot;</span><span class='tstring_content'>update_table_of_contents, id = </span><span class='embexpr_beg'>#{</span><span class='kw'>self</span><span class='period'>.</span><span class='id identifier rubyid_id'>id</span><span class='embexpr_end'>}</span><span class='tstring_content'>, title = </span><span class='embexpr_beg'>#{</span><span class='kw'>self</span><span class='period'>.</span><span class='id identifier rubyid_title'>title</span><span class='embexpr_end'>}</span><span class='tstring_content'>, dirty = </span><span class='embexpr_beg'>#{</span><span class='kw'>self</span><span class='period'>.</span><span class='id identifier rubyid_toc_dirty'>toc_dirty</span><span class='embexpr_end'>}</span><span class='tstring_end'>&quot;</span></span><span class='period'>.</span><span class='id identifier rubyid_yellow'>yellow</span>
-    <span class='kw'>when</span> <span class='kw'>false</span>
-      <span class='id identifier rubyid_puts'>puts</span> <span class='tstring'><span class='tstring_beg'>&quot;</span><span class='tstring_content'>update_table_of_contents, id = </span><span class='embexpr_beg'>#{</span><span class='kw'>self</span><span class='period'>.</span><span class='id identifier rubyid_id'>id</span><span class='embexpr_end'>}</span><span class='tstring_content'>, title = </span><span class='embexpr_beg'>#{</span><span class='kw'>self</span><span class='period'>.</span><span class='id identifier rubyid_title'>title</span><span class='embexpr_end'>}</span><span class='tstring_content'>, dirty = </span><span class='embexpr_beg'>#{</span><span class='kw'>self</span><span class='period'>.</span><span class='id identifier rubyid_toc_dirty'>toc_dirty</span><span class='embexpr_end'>}</span><span class='tstring_end'>&quot;</span></span><span class='period'>.</span><span class='id identifier rubyid_cyan'>cyan</span>
+
+  <span class='id identifier rubyid_puts'>puts</span> <span class='tstring'><span class='tstring_beg'>&quot;</span><span class='tstring_content'>arg = </span><span class='embexpr_beg'>#{</span><span class='id identifier rubyid_arg'>arg</span><span class='period'>.</span><span class='id identifier rubyid_to_s'>to_s</span><span class='embexpr_end'>}</span><span class='tstring_end'>&quot;</span></span><span class='period'>.</span><span class='id identifier rubyid_red'>red</span>
+
+  <span class='id identifier rubyid_dirty'>dirty</span> <span class='op'>=</span>  <span class='kw'>self</span><span class='period'>.</span><span class='id identifier rubyid_root_document'>root_document</span><span class='period'>.</span><span class='id identifier rubyid_toc_dirty'>toc_dirty</span> <span class='op'>||</span> <span class='id identifier rubyid_arg'>arg</span><span class='lbracket'>[</span><span class='symbol'>:force</span><span class='rbracket'>]</span>
+
+  <span class='kw'>if</span> <span class='id identifier rubyid_dirty'>dirty</span> <span class='op'>==</span> <span class='kw'>false</span>
+    <span class='id identifier rubyid_puts'>puts</span> <span class='tstring'><span class='tstring_beg'>&quot;</span><span class='tstring_content'>BOSS, no update for the table of contents is needed</span><span class='tstring_end'>&quot;</span></span><span class='period'>.</span><span class='id identifier rubyid_blue'>blue</span>
+    <span class='kw'>return</span>
+  <span class='kw'>end</span>
+
+  <span class='id identifier rubyid_toc_message'>toc_message</span>
+
+  <span class='id identifier rubyid_value'>value</span> <span class='op'>=</span> <span class='lbracket'>[</span><span class='rbracket'>]</span>
+  <span class='id identifier rubyid_toc'>toc</span><span class='period'>.</span><span class='id identifier rubyid_each'>each</span> <span class='kw'>do</span> <span class='op'>|</span><span class='id identifier rubyid_id'>id</span><span class='op'>|</span>
+    <span class='id identifier rubyid_hash'>hash</span> <span class='op'>=</span> <span class='lbrace'>{</span><span class='rbrace'>}</span>
+    <span class='id identifier rubyid_hash'>hash</span><span class='lbracket'>[</span><span class='tstring'><span class='tstring_beg'>&#39;</span><span class='tstring_content'>id</span><span class='tstring_end'>&#39;</span></span><span class='rbracket'>]</span> <span class='op'>=</span> <span class='id identifier rubyid_id'>id</span>
+    <span class='id identifier rubyid_section'>section</span> <span class='op'>=</span> <span class='const'>DocumentRepository</span><span class='period'>.</span><span class='id identifier rubyid_find'>find</span><span class='lparen'>(</span><span class='id identifier rubyid_id'>id</span><span class='rparen'>)</span>
+    <span class='id identifier rubyid_section'>section</span><span class='period'>.</span><span class='id identifier rubyid_toc_dirty'>toc_dirty</span> <span class='op'>=</span> <span class='kw'>false</span>
+    <span class='kw'>if</span> <span class='id identifier rubyid_section'>section</span><span class='period'>.</span><span class='id identifier rubyid_subdoc_refs'>subdoc_refs</span> <span class='op'>!=</span> <span class='lbracket'>[</span><span class='rbracket'>]</span>
+      <span class='id identifier rubyid_hash'>hash</span><span class='lbracket'>[</span><span class='tstring'><span class='tstring_beg'>&#39;</span><span class='tstring_content'>subdocs</span><span class='tstring_end'>&#39;</span></span><span class='rbracket'>]</span> <span class='op'>=</span> <span class='kw'>true</span>
+      <span class='id identifier rubyid_puts'>puts</span> <span class='tstring'><span class='tstring_beg'>&quot;</span><span class='tstring_content'>I will now upddate toc for section </span><span class='embexpr_beg'>#{</span><span class='id identifier rubyid_section'>section</span><span class='period'>.</span><span class='id identifier rubyid_title'>title</span><span class='embexpr_end'>}</span><span class='tstring_content'> with hash = </span><span class='embexpr_beg'>#{</span><span class='id identifier rubyid_arg'>arg</span><span class='embexpr_end'>}</span><span class='tstring_end'>&quot;</span></span><span class='period'>.</span><span class='id identifier rubyid_yellow'>yellow</span>
+      <span class='id identifier rubyid_section'>section</span><span class='period'>.</span><span class='id identifier rubyid_update_table_of_contents'>update_table_of_contents</span><span class='lparen'>(</span><span class='id identifier rubyid_arg'>arg</span><span class='rparen'>)</span>
     <span class='kw'>else</span>
-      <span class='id identifier rubyid_puts'>puts</span> <span class='tstring'><span class='tstring_beg'>&quot;</span><span class='tstring_content'>update_table_of_contents, id = </span><span class='embexpr_beg'>#{</span><span class='kw'>self</span><span class='period'>.</span><span class='id identifier rubyid_id'>id</span><span class='embexpr_end'>}</span><span class='tstring_content'>, title = </span><span class='embexpr_beg'>#{</span><span class='kw'>self</span><span class='period'>.</span><span class='id identifier rubyid_title'>title</span><span class='embexpr_end'>}</span><span class='tstring_content'>, dirty = </span><span class='embexpr_beg'>#{</span><span class='kw'>self</span><span class='period'>.</span><span class='id identifier rubyid_toc_dirty'>toc_dirty</span><span class='embexpr_end'>}</span><span class='tstring_end'>&quot;</span></span><span class='period'>.</span><span class='id identifier rubyid_magenta'>magenta</span>
-  <span class='kw'>end</span>
-
-  <span class='id identifier rubyid_dirty'>dirty</span> <span class='op'>=</span> <span class='kw'>self</span><span class='period'>.</span><span class='id identifier rubyid_toc_dirty'>toc_dirty</span>
-  <span class='id identifier rubyid_dirty'>dirty</span> <span class='op'>=</span> <span class='kw'>true</span> <span class='kw'>if</span> <span class='id identifier rubyid_dirty'>dirty</span><span class='period'>.</span><span class='id identifier rubyid_nil?'>nil?</span>
-
-  <span class='kw'>if</span> <span class='id identifier rubyid_dirty'>dirty</span>
-    <span class='id identifier rubyid_value'>value</span> <span class='op'>=</span> <span class='lbracket'>[</span><span class='rbracket'>]</span>
-    <span class='id identifier rubyid_subdoc_refs'>subdoc_refs</span><span class='period'>.</span><span class='id identifier rubyid_each'>each</span> <span class='kw'>do</span> <span class='op'>|</span><span class='id identifier rubyid_id'>id</span><span class='op'>|</span>
-      <span class='kw'>begin</span>
-        <span class='id identifier rubyid_hash'>hash</span> <span class='op'>=</span> <span class='lbrace'>{</span><span class='rbrace'>}</span>
-        <span class='id identifier rubyid_hash'>hash</span><span class='lbracket'>[</span><span class='tstring'><span class='tstring_beg'>&#39;</span><span class='tstring_content'>id</span><span class='tstring_end'>&#39;</span></span><span class='rbracket'>]</span> <span class='op'>=</span> <span class='id identifier rubyid_id'>id</span>
-        <span class='id identifier rubyid_section'>section</span> <span class='op'>=</span> <span class='const'>DocumentRepository</span><span class='period'>.</span><span class='id identifier rubyid_find'>find</span><span class='lparen'>(</span><span class='id identifier rubyid_id'>id</span><span class='rparen'>)</span>
-        <span class='id identifier rubyid_section'>section</span><span class='period'>.</span><span class='id identifier rubyid_toc_dirty'>toc_dirty</span> <span class='op'>=</span> <span class='kw'>false</span>
-        <span class='id identifier rubyid_hash'>hash</span><span class='lbracket'>[</span><span class='tstring'><span class='tstring_beg'>&#39;</span><span class='tstring_content'>title</span><span class='tstring_end'>&#39;</span></span><span class='rbracket'>]</span> <span class='op'>=</span> <span class='id identifier rubyid_section'>section</span><span class='period'>.</span><span class='id identifier rubyid_title'>title</span>
-        <span class='id identifier rubyid_value'>value</span> <span class='op'>&lt;&lt;</span> <span class='id identifier rubyid_hash'>hash</span>
-        <span class='const'>DocumentRepository</span><span class='period'>.</span><span class='id identifier rubyid_update'>update</span> <span class='id identifier rubyid_section'>section</span>
-      <span class='kw'>rescue</span>
-        <span class='id identifier rubyid_puts'>puts</span> <span class='tstring'><span class='tstring_beg'>&quot;</span><span class='tstring_content'>bad id </span><span class='embexpr_beg'>#{</span><span class='id identifier rubyid_id'>id</span><span class='embexpr_end'>}</span><span class='tstring_content'> in update_table_of_contents</span><span class='tstring_end'>&quot;</span></span><span class='period'>.</span><span class='id identifier rubyid_red'>red</span>
-      <span class='kw'>end</span>
-
+      <span class='id identifier rubyid_hash'>hash</span><span class='lbracket'>[</span><span class='tstring'><span class='tstring_beg'>&#39;</span><span class='tstring_content'>subdocs</span><span class='tstring_end'>&#39;</span></span><span class='rbracket'>]</span> <span class='op'>=</span> <span class='kw'>false</span>
+      <span class='id identifier rubyid_puts'>puts</span> <span class='tstring'><span class='tstring_beg'>&quot;</span><span class='tstring_content'>No upddate of toc for section </span><span class='embexpr_beg'>#{</span><span class='id identifier rubyid_section'>section</span><span class='period'>.</span><span class='id identifier rubyid_title'>title</span><span class='embexpr_end'>}</span><span class='tstring_end'>&quot;</span></span><span class='period'>.</span><span class='id identifier rubyid_green'>green</span>
     <span class='kw'>end</span>
-    <span class='kw'>self</span><span class='period'>.</span><span class='id identifier rubyid_toc'>toc</span> <span class='op'>=</span> <span class='id identifier rubyid_value'>value</span>
-    <span class='kw'>self</span><span class='period'>.</span><span class='id identifier rubyid_toc_dirty'>toc_dirty</span> <span class='op'>=</span> <span class='kw'>false</span>
-    <span class='id identifier rubyid_puts'>puts</span> <span class='tstring'><span class='tstring_beg'>&quot;</span><span class='tstring_content'>I set toc_dirty = </span><span class='embexpr_beg'>#{</span><span class='kw'>self</span><span class='period'>.</span><span class='id identifier rubyid_toc_dirty'>toc_dirty</span><span class='embexpr_end'>}</span><span class='tstring_content'>  for id = </span><span class='embexpr_beg'>#{</span><span class='kw'>self</span><span class='period'>.</span><span class='id identifier rubyid_id'>id</span><span class='embexpr_end'>}</span><span class='tstring_content'>, title = </span><span class='embexpr_beg'>#{</span><span class='kw'>self</span><span class='period'>.</span><span class='id identifier rubyid_title'>title</span><span class='embexpr_end'>}</span><span class='tstring_end'>&quot;</span></span><span class='period'>.</span><span class='id identifier rubyid_magenta'>magenta</span>
-    <span class='const'>DocumentRepository</span><span class='period'>.</span><span class='id identifier rubyid_persist'>persist</span><span class='lparen'>(</span><span class='kw'>self</span><span class='rparen'>)</span>
-  <span class='kw'>else</span>
-    <span class='id identifier rubyid_value'>value</span> <span class='op'>=</span> <span class='kw'>self</span><span class='period'>.</span><span class='id identifier rubyid_toc'>toc</span>
+    <span class='id identifier rubyid_hash'>hash</span><span class='lbracket'>[</span><span class='tstring'><span class='tstring_beg'>&#39;</span><span class='tstring_content'>title</span><span class='tstring_end'>&#39;</span></span><span class='rbracket'>]</span> <span class='op'>=</span> <span class='id identifier rubyid_section'>section</span><span class='period'>.</span><span class='id identifier rubyid_title'>title</span>
+    <span class='id identifier rubyid_hash'>hash</span><span class='lbracket'>[</span><span class='tstring'><span class='tstring_beg'>&#39;</span><span class='tstring_content'>identifier</span><span class='tstring_end'>&#39;</span></span><span class='rbracket'>]</span> <span class='op'>=</span> <span class='id identifier rubyid_section'>section</span><span class='period'>.</span><span class='id identifier rubyid_identifier'>identifier</span>
+    <span class='id identifier rubyid_value'>value</span> <span class='op'>&lt;&lt;</span> <span class='id identifier rubyid_hash'>hash</span>
+    <span class='id identifier rubyid_puts'>puts</span> <span class='id identifier rubyid_hash'>hash</span><span class='period'>.</span><span class='id identifier rubyid_to_s'>to_s</span><span class='period'>.</span><span class='id identifier rubyid_blue'>blue</span>
+    <span class='const'>DocumentRepository</span><span class='period'>.</span><span class='id identifier rubyid_update'>update</span> <span class='id identifier rubyid_section'>section</span>
   <span class='kw'>end</span>
+
+  <span class='kw'>self</span><span class='period'>.</span><span class='id identifier rubyid_toc'>toc</span> <span class='op'>=</span> <span class='id identifier rubyid_value'>value</span>
+  <span class='kw'>self</span><span class='period'>.</span><span class='id identifier rubyid_toc_dirty'>toc_dirty</span> <span class='op'>=</span> <span class='kw'>false</span>
+  <span class='id identifier rubyid_puts'>puts</span> <span class='tstring'><span class='tstring_beg'>&quot;</span><span class='tstring_content'>I set toc_dirty = </span><span class='embexpr_beg'>#{</span><span class='kw'>self</span><span class='period'>.</span><span class='id identifier rubyid_toc_dirty'>toc_dirty</span><span class='embexpr_end'>}</span><span class='tstring_content'>  for id = </span><span class='embexpr_beg'>#{</span><span class='kw'>self</span><span class='period'>.</span><span class='id identifier rubyid_id'>id</span><span class='embexpr_end'>}</span><span class='tstring_content'>, title = </span><span class='embexpr_beg'>#{</span><span class='kw'>self</span><span class='period'>.</span><span class='id identifier rubyid_title'>title</span><span class='embexpr_end'>}</span><span class='tstring_end'>&quot;</span></span><span class='period'>.</span><span class='id identifier rubyid_magenta'>magenta</span>
+  <span class='kw'>self</span><span class='period'>.</span><span class='id identifier rubyid_root_document'>root_document</span><span class='period'>.</span><span class='id identifier rubyid_toc_dirty'>toc_dirty</span> <span class='op'>=</span> <span class='kw'>false</span>
+  <span class='const'>DocumentRepository</span><span class='period'>.</span><span class='id identifier rubyid_persist'>persist</span><span class='lparen'>(</span><span class='kw'>self</span><span class='rparen'>)</span>
   <span class='id identifier rubyid_value'>value</span>
 <span class='kw'>end</span></pre>
     </td>
@@ -2635,9 +4105,9 @@ then stores it as jsonb in the toc field of the database</p>
 </div>
     
       <div class="method_details ">
-  <h3 class="signature " id="update_table_of_contents_at_root-instance_method">
+  <h3 class="signature " id="update_toc_at_root-instance_method">
   
-    - (<tt>Object</tt>) <strong>update_table_of_contents_at_root</strong> 
+    - (<tt><span class='object_link'><a href="Noteshare/Tools/Object.html" title="Noteshare::Tools::Object (class)">Object</a></span></tt>) <strong>update_toc_at_root</strong> 
   
 
   
@@ -2649,14 +4119,14 @@ then stores it as jsonb in the toc field of the database</p>
       <pre class="lines">
 
 
-467
-468
-469</pre>
+763
+764
+765</pre>
     </td>
     <td>
-      <pre class="code"><span class="info file"># File 'lib/noteshare/entities/ns_document.rb', line 467</span>
+      <pre class="code"><span class="info file"># File 'lib/noteshare/entities/ns_document.rb', line 763</span>
 
-<span class='kw'>def</span> <span class='id identifier rubyid_update_table_of_contents_at_root'>update_table_of_contents_at_root</span>
+<span class='kw'>def</span> <span class='id identifier rubyid_update_toc_at_root'>update_toc_at_root</span>
   <span class='id identifier rubyid_root_document'>root_document</span><span class='period'>.</span><span class='id identifier rubyid_update_table_of_contents'>update_table_of_contents</span>
 <span class='kw'>end</span></pre>
     </td>
@@ -2669,7 +4139,7 @@ then stores it as jsonb in the toc field of the database</p>
 </div>
 
     <div id="footer">
-  Generated on Tue Nov  3 08:44:56 2015 by
+  Generated on Mon Nov 16 14:26:49 2015 by
   <a href="http://yardoc.org" title="Yay! A Ruby Documentation Tool" target="_parent">yard</a>
   0.8.7.6 (ruby-2.2.3).
 </div>

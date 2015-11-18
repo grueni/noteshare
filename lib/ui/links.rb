@@ -73,13 +73,12 @@ module UI
     end
 
     def current_user_node_link(session)
+      #Fixme: simplify
       user = current_user(session)
-      if user
-        image_link('images/home_white.png', "/node/user/#{user.node_id}")
-        # link_to "#{user.screen_name.capitalize}", "/node/user/#{user.node_id}"
-      else
-        puts "No current user".red
-      end
+      return '' if user == nil
+       #  node = NSNodeRepository.for_owner_id(user.id)
+      # return '' if node == nil
+      image_link('images/home_white.png', "/node/user/#{user.id}")
     end
 
 
@@ -104,26 +103,63 @@ module UI
     end
 
     def editor_link(session)
-      if session['current_document_id']
-        current_document = DocumentRepository.find session[:current_document_id]
-        link_to 'Editor', "/editor/document/#{current_document.id}"
-      else
-        ''
-      end
+      return '' if session == nil
+      _id = session['current_document_id']
+      # puts "In editor link, session['current_document_id'] = #{session['current_document_id']} ".magenta
+      return '' if _id == nil
+      link_to 'Editor', "/editor/document/#{_id}"
+    end
+
+
+    def reader_link(session)
+      return '' if session == nil
+      _id = session['current_document_id']
+      return '' if _id == nil
+      return link_to 'Reader', "/document/#{_id}"
     end
 
     def new_document_link
-        html.tag(:a, 'New', href: '/editor/new')
+        html.tag(:a, 'New document', href: '/editor/new')
     end
 
-    def reader_link(session)
-      if session['current_document_id']
-        current_document = DocumentRepository.find session[:current_document_id]
-        link_to 'Reader', "/document/#{current_document.id}"
-      else
-        ''
-      end
+    def new_section_link(document)
+      html.tag(:a, 'New section', href: '#')
     end
+
+
+    def delete_document_link(document)
+      html.tag(:a, 'Delete document', href: '#')
+    end
+
+    def delete_section_link(document)
+      html.tag(:a, 'Delete section', href: '#')
+    end
+
+    def publish_document_link(document)
+      html.tag(:a, 'Publish document', href: '#')
+    end
+
+    def publish_section_link(document)
+      html.tag(:a, 'Publish section', href: '#')
+    end
+
+    def check_in_out_link(document)
+      html.tag(:a, 'Check in/out', href: '#')
+    end
+
+    def share_document_link(document)
+      html.tag(:a, 'Share', href: '#')
+    end
+
+    def edit_toc_link(document)
+      html.tag(:a, 'Edit TOC', href: '#')
+    end
+
+    def image_manager_link
+      html.tag(:a, 'Images', href: '/image_manager/search')
+    end
+
+
 
     def current_document_link(session)
       if session['current_document_id']
@@ -157,6 +193,12 @@ module UI
       form_for :search, '/search' do
         label 'Search for:'
         text_field :search, {style: 'inline-display;'}
+      end
+
+      def basic_search_form
+        form_for :search, '/search' do
+          text_field :search, id: 'basic_search_form'
+        end
       end
 
     end

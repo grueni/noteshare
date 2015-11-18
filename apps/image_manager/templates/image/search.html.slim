@@ -1,0 +1,25 @@
+.row.inset
+  .col style='margin-bottom:2em;'
+    .row
+
+      .images style='max-height:550px; overflow-y:scroll;'
+        table style=('top:140px; margin-left:auto; margin-right:auto;') class='image_table'
+          thead
+            tr
+              th Image
+              th Title
+              th ID
+              th Tags
+
+
+          tbody
+            - images.each do |image|
+              tr
+                td[width='150px']== image_link image.url,  image.url
+                td== link_to image.title, image.url
+                td= image.id
+                td= image.tags
+
+
+
+

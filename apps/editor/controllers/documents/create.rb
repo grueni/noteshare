@@ -12,7 +12,7 @@ module Editor::Controllers::Documents
       doc_params = params[:document]
       parent_id = doc_params['parent_id']
       title = doc_params['title']
-      author = current_user_full_name
+      author_credentials = current_user(session).credentials
 
       begin
         option = doc_params['options'].hash_value
@@ -23,7 +23,8 @@ module Editor::Controllers::Documents
 
       puts "DOC_PARAMS['options']: #{doc_params['options']}"
 
-      @document = DocumentRepository.create(NSDocument.new(title: title, author: author))
+      @document = DocumentRepository.create(NSDocument.new(title: title, author_credentials: author_credentials))
+      @document.author = current_user(session).full_name
 
       @document.content = prepare_content(@document, doc_params['content'])
       @document.update_content

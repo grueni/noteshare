@@ -10,7 +10,11 @@ module Web::Controllers::Documents
     def call(params)
       @document = DocumentRepository.find(params['id'])
       session[:current_document_id] = @document.id
-      @document.update_content
+      if @document.is_root_document?
+        @document.compile_with_render
+      else
+        @document.update_content
+      end
     end
 
   end

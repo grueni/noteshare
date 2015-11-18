@@ -1,3 +1,4 @@
+=begin
 require 'spec_helper'
 require_relative '../../../../apps/image_manager/views/new_image/new'
 
@@ -11,3 +12,4 @@ describe ImageManager::Views::NewImage::Accept do
     view.foo.must_equal exposures.fetch(:foo)
   end
 end
+=end

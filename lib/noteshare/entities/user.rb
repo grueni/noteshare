@@ -16,6 +16,11 @@ class User
   end
 
 
+  def credentials
+    { id: id, first_name: first_name, last_name: last_name, identifier: identifier  }
+  end
+
+
 
   def set_password(new_password)
     self.password = BCrypt::Password.create(new_password)
@@ -62,6 +67,12 @@ class User
     metadata = JSON.parse self.meta
     dict = metadata['dict'] || { }
     dict[key]
+  end
+
+  def self.list
+    UserRepository.all.each do |u|
+      puts "#{u.id}: #{u.first_name} #{u.last_name} (#{u.screen_name}) -- #{u.email}"
+    end; nil
   end
 
 

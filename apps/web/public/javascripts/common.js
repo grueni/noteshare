@@ -32,6 +32,26 @@ $(document).ready(function(){
 
     $('#Yak').click(yak);
 
+    $('#select_tool_panel').change(function() {
+        $('#tools_panel').show();
+        $('#toc_panel').hide();
+
+    });
+
+
+    $('#select_toc_panel').change(function() {
+        $('#tools_panel').hide();
+        $('#toc_panel').show();
+    });
+
+    $.setup_editor = function() {
+        $('#tools_panel').hide();
+        $('#toc_panel').show();
+    }
+
+    $.setup_editor();
+
+
     $('.openblock.click').find('.content').hide()
 
     $('.openblock.click').click(function() {

@@ -11,7 +11,10 @@
           .toc2== document.root_document.master_table_of_contents(document.id)
         .col.middle style = 'left: 30%; width: 70%; padding-bottom:6em;padding-top:2em;'
           h5== document.root_document.title
-          == document.rendered_content
+          -if document.is_root_document?
+            == document.compiled_and_rendered_content
+          -else
+            == document.rendered_content
   - else
     p.placeholder Documents not found.
 

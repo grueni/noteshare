@@ -1,4 +1,7 @@
 require_relative '../../ext/core'
+require_relative '../../../lib/noteshare/modules/tools'
+require_relative '../modules/toc_item'
+
 # require_relative '../modules/render'
 
 
@@ -61,23 +64,29 @@ class NSDocument
   require_relative '../modules/ns_document_presentation'
 
   include Lotus::Entity
-  attributes :id, :author, :author_identifier, :title, :identifier, :tags, :type, :area, :meta,
+  attributes :id, :author_id, :author, :author_identifier, :author_credentials, :title, :identifier, :tags, :type, :area, :meta,
     :created_at, :modified_at, :content, :rendered_content, :compiled_and_rendered_content, :render_options,
-    :parent_id, :author_id, :index_in_parent, :root_document_id, :visibility,
+    :parent_ref, :root_ref, :parent_id, :index_in_parent, :root_document_id, :visibility,
     :subdoc_refs,  :doc_refs, :toc, :content_dirty, :compiled_dirty, :toc_dirty
 
 
   include NSDocument::Presentation
-
-
   include NSDocument::Setup
+  include Noteshare::Tools
+  include Noteshare
 
 
   # When initializing an NSDocument, ensure that certain fields
   # have a standard non-nil value
+  # The hash should follow this model
+  #
+  #  {title: 'Introduction to Chemistry', author_credentials{ id: 0, first_name: 'Linus', last_name: 'Pauling', identifier: 'abcd1234'}}
+
+
   def initialize(hash)
 
     hash.each { |name, value| instance_variable_set("@#{name}", value) }
+
     @subdoc_refs = [] if @subdoc_refs.nil?
     @toc ||= []
     @doc_refs = {} if @doc_refs.nil?
@@ -87,6 +96,50 @@ class NSDocument
 
     # @toc_dirty ||= true
 
+  end
+
+  def display(label, args)
+
+    puts
+    puts label.red
+    args.each do |field|
+      begin
+        puts "#{field.to_s}: #{self.send(field)}"
+      rescue
+        puts "#{field.to_s}: ERROR".red
+      end
+    end
+    puts
+
+  end
+
+  # Return TOC object corresponding to the toc
+  # field in the database
+  def table_of_contents
+    TOC.new(self).table
+  end
+
+  def self.create(hash)
+    doc = NSDocument.new(hash)
+    credentials = Tools.symbolize_keys(hash[:author_credentials])
+    @author = credentials[:first_name] + ' ' + credentials[:last_name]
+    doc.identifier = Noteshare::Identifier.new().string
+    doc.root_id = 0
+    doc.root_ref = { 'id': 0, title: ''}
+    # Fixme and what about parent_id, parent_ref
+    DocumentRepository.create doc
+  end
+
+
+
+
+  def set_author_credentials(credentials)
+    self.author_credentials = JSON.generate(credentials)
+  end
+
+  def get_author_credentials
+    puts "#{self.author_credentials.to_s}.magenta"
+    JSON.parse(self.author_credentials)
   end
 
   def set_identifier
@@ -122,34 +175,37 @@ class NSDocument
   # of @article.  The subdocuments that were in position
   # k and above are shifted to the right.  This method
   # updates all links: parent, index_in_parent,
-  # amd the relevant next and previous links
+  # amd the relevant next and previous links                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                            
   def insert(k, parent_document)
 
     # puts "Insert #{self.id} (#{self.title}) at k = #{k}"
 
-    # Insert the id o the current document (receiver)
-    # in the subdoc_refs table of the parent document.
-    # Not the index of the id and copy that index
+    # Insert the TOCItem of the current document (receiver)
+    # in the toc array of the parent document.
+    # Note the index of the TOCItem and copy that index
     # into self.index_in_parent.  Thus, at the
-    # the end of these operatiopations, the parent
-    # refernces the child (the subdocument),
-    # and vice vrsa.
-    index = parent_document.subdoc_refs || []
-    index.insert(k, self.id)
-    parent_document.subdoc_refs = index
+    # the end of these operations, the parent
+    # references the child (the subdocument),
+    # and vice versa.
+    parent_toc = TOC.new(parent_document)
+    new_toc_item = TOCItem.new(self.id, self.title, self.identifier, false)
+    parent_toc.insert(k, new_toc_item)
+    parent_toc.save!
     self.index_in_parent =  k
-
-
-    # Set the parent_id and root_document_id
+    self.parent_ref = {id: parent_document.id, title: parent_document.title, identifier: parent_document.identifier, has_subdocs:true }
     self.parent_id = parent_document.id
-    if parent_document.root_document_id == 0
-      self.root_document_id = parent_document.id
+    puts "IN INSERT: parent_document.id = #{parent_document.id}".magenta
+    puts "IN INSERT: self.parent_id = #{self.parent_id}".red
+
+    root_doc = find_root_document
+    if root_doc
+      self.root_document_id = root_doc.id
+      self.root_ref = {id: root_doc.id, title: root_doc.title, identifier: root_doc.identifier, has_subdocs:true }
     else
-      self.root_document_id = parent_document.root_document_id
+      self.root_ref = {id: 0, title: '', identifier: '', has_subdocs:false }
     end
 
-    # Inherit the render_option from the root document
-    root_doc = DocumentRepository.find root_document_id
+      # Inherit the render_option from the root document
     if root_doc and root_doc != self
       self.render_options = root_doc.render_options
     end
@@ -158,16 +214,16 @@ class NSDocument
     # that were shifted to the right
     # puts "Shifting ..."
     # puts "parent_document.subdoc_refs.tail(k+1): #{parent_document.subdoc_refs.tail(k)}"
-    parent_document.subdoc_refs.tail(k).each do |id|
-      doc = DocumentRepository.find id
+    TOC.new(parent_document).table.tail(k).each do |item|
+      doc = DocumentRepository.find item.id
       doc.index_in_parent = doc.index_in_parent + 1
-      DocumentRepository.persist(doc )
+      DocumentRepository.update(doc )
     end
 
-    DocumentRepository.persist(self)
-    DocumentRepository.persist(parent_document)
+    DocumentRepository.update(self)
+    DocumentRepository.update(parent_document)
 
-    update_neighbors
+    # update_neighbors
 
   end
 
@@ -191,8 +247,9 @@ class NSDocument
   # @section.add_to(@article) makes @section
   # the last subdocument of @article
   def add_to(parent_document)
-    n = parent_document.subdoc_refs.length
-    insert(n, parent_document)
+    puts "ADD: #{self.title} TO: #{parent_document.title}".green
+    new_index = parent_document.toc.length
+    insert(new_index, parent_document)
   end
 
 
@@ -204,7 +261,7 @@ class NSDocument
   # However, this is not yet enforced.
   def remove_from_parent
     k = index_in_parent
-    p = parent
+    p = parent_document
     pd = previous_document
     nd_id = next_document.id
     p.subdoc_refs.delete_at(k)
@@ -239,25 +296,7 @@ class NSDocument
     insert(new_position, parent)
   end
 
-  # Assume that receiver is subdocument k of parent.
-  # Return the id of subdocument k - 1 or nil
-  def previous_id
-    p = parent
-    return nil if p == nil
-    return nil if index_in_parent == nil
-    return nil if index_in_parent-1 < 0
-    return p.subdoc_refs[index_in_parent-1]
-  end
 
-  # Assume that receiver is subdocument k of parent.
-  # Return the id of subdocuemnt k + 1 or nil
-  def next_id
-    p = parent
-    return nil if p == nil
-    return nil if index_in_parent == nil
-    return nil if index_in_parent+1 > p.subdoc_refs.length
-    p.subdoc_refs[index_in_parent+1]
-  end
 
   # Return title and id of NSDocument
   def info
@@ -266,20 +305,62 @@ class NSDocument
 
   # Return title, id, an ids of previous and next documents
   def status
-    "#{self.title}:: id: #{self.id}, parent: #{self.parent.id }, back: #{self.doc_refs['previous']}, next: #{@self.doc_refs['next']}"
+    "#{self.title}:: id: #{self.id}, parent_document: #{self.parent.id }, back: #{self.doc_refs['previous']}, next: #{@self.doc_refs['next']}"
   end
+
+
+
+  #########################################
+  #
+  #     SECTION??
+  #
+  #########################################N
+
+  def parent_item
+    return if parent_ref == nil
+    # TOCItem.new( parent_ref['id'], parent_ref['title'], parent_ref['identifier'], parent_ref['has_subdocs'] )
+    # TOCItem.new( parent_ref[:id], parent_ref[:title], parent_ref[:identifier], parent_ref[:has_subdocs] )
+    TOCItem.from_hash(parent_ref)
+  end
+
+  def root_item
+    return if root_ref == nil
+    # TOCItem.new( root_ref['id'], root_ref['title'], root_ref['identifier'], root_ref['has_subdocs'] )
+    #TOCItem.new( root_ref[:id], root_ref[:title], root_ref[:identifier], root_ref[:has_subdocs] )
+    TOCItem.from_hash(root_ref)
+  end
+
+  def previous_toc_item
+    table = TOC.new(parent_document).table
+    index_of_previous_toc_item = index_in_parent - 1
+    return table[index_of_previous_toc_item] if index_of_previous_toc_item > -1
+  end
+
+  def next_toc_item
+    return if parent_document == nil
+    table = TOC.new(parent_document).table
+    index_of_next_toc_item = index_in_parent + 1
+    return table[index_of_next_toc_item] if index_of_next_toc_item < table.count
+  end
+
 
   # Return next NSDocument.  That is, if @foo, @bar, and @baz
   # are subcocuments in order of @article, then @bar.next_document = @baz
-  def next_document
-    DocumentRepository.find next_id
+  def previous_document
+    return if parent_document == nil
+    table = TOC.new(parent_document).table
+    index_in_parent ?  _id = table[index_in_parent-1].id : return
+    DocumentRepository.find(_id) if _id
   end
 
 
   # Return previous NSDocument.  That is, if @foo, @bar, and @baz
   # are subcocuments in order of @article, then @bar.previous_document = @foo
-  def previous_document
-    DocumentRepository.find previous_id
+  def next_document
+    return if parent_document == nil
+    table = TOC.new(parent_document).table
+    index_in_parent && index_in_parent + 1 < table.count ?  _id = table[index_in_parent+1].id : return
+    DocumentRepository.find(_id) if _id
   end
 
   # Use the information in self.parent.subdoc_refs
@@ -303,18 +384,30 @@ class NSDocument
   end
 
   # *doc.parent* returns nil or the parent object
-  def parent
-    if parent_id and parent_id > 0
-      DocumentRepository.find(parent_id)
+  def parent_document
+    pi =  parent_item
+    return if pi == nil
+    pi_id = pi.id
+    return if pi_id == nil
+    DocumentRepository.find(pi_id)
+  end
+
+
+  def parent_title
+    if parent_document
+      parent_document.title
+    else
+      ''
     end
   end
+
 
   def ancestor_ids
     cursor = self
     list = []
-    while cursor.parent != nil
-      list << cursor.parent.id
-      cursor = cursor.parent
+    while cursor.parent_document != nil
+      list << cursor.parent_document.id
+      cursor = cursor.parent_document
     end
     list
   end
@@ -322,8 +415,8 @@ class NSDocument
   def next_oldest_ancestor
     noa = self
     return self if noa == root_document
-    while noa.parent != root_document
-      noa = noa.parent
+    while noa.parent_document != root_document
+      noa = noa.parent_document
     end
     noa
   end
@@ -332,7 +425,10 @@ class NSDocument
   # *doc.subdocment(k)* returns the k-th
   # subdocument of *doc*
   def subdocument(k)
-    DocumentRepository.find(subdoc_refs[k])
+    _id = table_of_contents[k].id
+    if _id
+      DocumentRepository.find(_id)
+    end
   end
 
   # The root_document is what you get by
@@ -342,11 +438,44 @@ class NSDocument
   # Otherwise, the root_document_id is the
   # id of the root_documment.
   def root_document
-    if root_document_id == 0
-      return self
-    else
-      DocumentRepository.find(root_document_id)
+    ri =  root_item
+    return self if ri == nil # i.e, if it is a root document
+    ri_id = ri.id
+    return if ri_id == nil
+    DocumentRepository.find(ri_id)
+  end
+
+
+  # Find the root document by finding
+  # the parent of the parent of ...
+  def find_root_document
+    cursor = self
+    while cursor.parent_document
+      cursor = cursor.parent_document
     end
+    cursor
+  end
+
+  def ref
+    TOCItem.new( self.id, self.title, self.identifier )
+  end
+
+  def set_root_document
+    rd = find_root_document
+    # Need the follwing for DocumentRepository.root_documents
+    # Fixme: index root_document_id
+    rd.root_document_id = 0
+    self.root_document_id = rd.id
+    self.root_ref = { id: rd.id, title: rd.title, identifier: rd.identifier}
+  end
+
+  def set_root_document!
+    set_root_document
+    DocumentRepository.update self
+  end
+
+  def is_root_document?
+    self == find_root_document
   end
 
   # The level is the length of path from the root
@@ -354,9 +483,9 @@ class NSDocument
   def level
     length = 0
     cursor = self
-    while cursor.parent
+    while cursor.parent_document
       length += 1
-      cursor = cursor.parent
+      cursor = cursor.parent_document
     end
     length
   end
@@ -438,12 +567,13 @@ class NSDocument
   # represent the id's of the sections of
   # *doc*.
   def compile_aux
-    if subdoc_refs == []
+    table = table_of_contents
+    if table == []
       return content
     else
       text = content + "\n\n" || ''
-      subdoc_refs.each do |id|
-        section = DocumentRepository.find(id)
+      table.each do |item|
+        section = DocumentRepository.find(item.id)
         text  << section.compile_aux << "\n\n"
       end
       return text
@@ -454,6 +584,12 @@ class NSDocument
     texmacros + compile_aux
   end
 
+
+  def render_lazily
+    if content_dirty
+      render
+    end
+  end
 
 
   # NSDocument#render is the sole connection between class NSDocument and
@@ -474,8 +610,16 @@ class NSDocument
 
     renderer = Render.new(self.compile, render_option )
     self.rendered_content = renderer.convert
+    self.content_dirty = false
     DocumentRepository.update(self)
 
+  end
+
+
+  def compile_with_render_lazily(option={})
+    if compiled_dirty
+      compile_with_render(option)
+    end
   end
 
   # Compile the receiver, render it, and store the
@@ -493,22 +637,11 @@ class NSDocument
         render_option = {}
     end
 
-
-    dirty = self.compiled_dirty
-    dirty = true if dirty.nil?
-
-    if dirty
-      puts "compile_with_render (dirty): id = #{self.id}, title = #{self.title}".magenta
-      renderer = Render.new(self.compile, render_option )
-      compiled_content = self.compile
-      self.compiled_and_rendered_content = renderer.convert
-      self.compiled_dirty = false
-      DocumentRepository.update(self)
-    else
-      puts "compile_with_render (clean): id = #{self.id}, title = #{self.title}".blue
-    end
-
-
+    renderer = Render.new(self.compile, render_option )
+    compiled_content = self.compile
+    self.compiled_and_rendered_content = renderer.convert
+    self.compiled_dirty = false
+    DocumentRepository.update(self)
     if option[:export] == 'yes'
       file_name = self.title.normalize
       path = "outgoing/#{file_name}.adoc"
@@ -585,8 +718,8 @@ class NSDocument
   # creates this structure from scratch, then stores
   # it as jsonb in the toc field of the database
   def update_table_of_contents(arg = {force: false})
-
-
+#Fixme
+=begin
     puts "arg = #{arg.to_s}".red
 
     dirty =  self.root_document.toc_dirty || arg[:force]
@@ -599,7 +732,7 @@ class NSDocument
     toc_message
 
     value = []
-    subdoc_refs.each do |id|
+    toc.each do |id|
       hash = {}
       hash['id'] = id
       section = DocumentRepository.find(id)
@@ -625,14 +758,48 @@ class NSDocument
     self.root_document.toc_dirty = false
     DocumentRepository.persist(self)
     value
+=end
   end
 
-  def update_table_of_contents_at_root
+  def update_toc_at_root
     root_document.update_table_of_contents
   end
 
+  private
+  # Assume that receiver is subdocument k of parent_document.
+  # Return the id of subdocument k - 1 or nil
+  def previous_id
+    p = parent_document
+    puts "IN: previous_id, parentof #{self.title} (#{self.id})  = #{parent_title} (#{parent_id})".magenta
+    return nil if p == nil
+    return nil if index_in_parent == nil
+    return nil if index_in_parent-1 < 0
+    table = TOC.new(p).table
+                                                                         S
+    puts "  -- and index_in_parent = #{index_in_parent}".cyan
+    puts "  -- toc_item: #{table[index_in_parent]}".red
+    puts "  -- previous toc_item: #{table[index_in_parent-1]}".red
+    puts "Class: #{table[index_in_parent-1].class.name}"
+    return table[index_in_parent-1].id
+  end
+
+  # Assume that receiver is subdocument k of parent.
+  # Return the id of subdocuemnt k + 1 or nil
+  def next_id
+    p = parent_document
+    puts "IN: next_id, parent = #{parent_document.title} (#{parent_document.id})".magenta
+    return nil if p == nil
+    return nil if index_in_parent == nil
+    return nil if index_in_parent+1 > p.subdoc_refs.length
+    table = TOC.new(p).table
 
 
+    puts "  -- and index_in_parent = #{index_in_parent}".cyan
+    puts "  -- toc_item: #{table[index_in_parent]}".red
+    puts "  -- next toc_item: #{table[index_in_parent+1]}".red
+    puts "Class: #{table[index_in_parent+1].class.name}"
+    return toc[index_in_parent+1].id
+  end
 
 
 

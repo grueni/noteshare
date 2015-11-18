@@ -10,7 +10,10 @@ module Node::Controllers::User
     def call(params)
       puts "Node, User, Show: ".red
       puts "params[:id] = #{params[:id]}".cyan
-      @current_node = NSNodeRepository.find params[:id]
+      user_id = params[:id]
+      @current_node = NSNodeRepository.for_owner_id user_id
+
+
       puts "Node name = #{@current_node.name}".blue
 
       if session[:current_document_id]
@@ -18,6 +21,8 @@ module Node::Controllers::User
       end
 
       @documents  = self.documents
+
+      puts "EXIT: node show controller".magenta
 
     end
 

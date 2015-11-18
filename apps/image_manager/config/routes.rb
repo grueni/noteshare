@@ -1,3 +1,5 @@
+get '/search', to: 'image#search'
+get '/list', to: 'image#list'
 get '/new', to: 'image#new'
 post '/upload', to: 'image#upload'
 # Configure your routes here
