@@ -3,13 +3,7 @@ module Editor::Controllers::Document
     include Editor::Action
 
     def call(params)
-      puts "JSON update firing".red
-      id = params['id'].to_i
-      puts "ID = #{params['id']}".magenta
-      # puts "jsonupdate, session = #{session.inspect}".magenta  if ENV[LOG_THIS]
-      puts "------------------------------".blue
-      #Fixme: is this the way to proceed?
-      session[:current_document_id] = id
+      id = session[:current_document_id]
       @document = DocumentRepository.find(id)
       @document.content_dirty = true
       @document.update_content params['source']
