@@ -4,16 +4,28 @@
     /== html.img(src: image.url)
 
   .col style='left:50%; width: 50%'
-    .div style='max-width:300px; margin-left:2em;'
+    .div style='max-width:400px; margin-left:2em;'
       .edit_form
         form[name="edit_image" action="update"]
-          label[name="tags"]
+
+          label[name="title" value="Title"] Title
+          input[type="text" name="title" value="#{image.title}"]
+
+          label[name="tags"] Tags
           input[type="text" name="tags" value="#{image.tags}"]
-          label[name="source"]
+
+          label[name="source"] Source
           input[type="text" name="source" value="#{image.source}"]
+
+          br
+          br
           input[type="submit" name="update" style="background:green"]
 
 
 
 
+      .div
+        br
+        br
 
+        p== "#{image.url}"

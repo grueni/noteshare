@@ -8,6 +8,7 @@ module ImageManager::Controllers::Image
       current_image = ImageRepository.find session[:current_image_id]
       puts "TITLE: #{current_image.title}".red
 
+      current_image.title = params['title']
       current_image.tags = params['tags']
       current_image.source = params['source']
       ImageRepository.update current_image
