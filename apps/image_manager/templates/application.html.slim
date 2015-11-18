@@ -29,7 +29,13 @@ html
 
       .navbar_right_item
         ul id='navlist'
-        
+          - if current_user(session)
+            li
+              == editor_link(session)
+            li
+              == reader_link(session)
+            li
+              == image_manager_link
           li
             == documents_link
 
