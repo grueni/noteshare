@@ -1,3 +1,4 @@
+get '/document', to: 'document#new_section'
 post '/json_update/:id', to: 'document#json_update'
 get '/export/:id', to: 'document#export'
 
