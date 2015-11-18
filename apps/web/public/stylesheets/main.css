@@ -585,9 +585,16 @@ p.compact {
 
 
 
-.image_table    tr:nth-child(even) {background: #111; border-white; color: white;}
+.image_table  tr:nth-child(even) {
+    background: #333;
+    color: white;
+}
 
-.image_table     tr:nth-child(odd) {background: #111; border-white; color: white; }
+
+.image_table  tr:nth-child(odd) {
+    background: #333;
+    color: white;
+}
 
 
 
