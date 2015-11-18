@@ -578,16 +578,15 @@ p.compact {
 }
 
 
-.image td {
+.image table {
 
-    height:40px;
+    border: none;
 }
-
-
 
 .image_table  tr:nth-child(even) {
     background: #333;
     color: white;
+    border: none;
 }
 
 
@@ -597,8 +596,12 @@ p.compact {
 }
 
 
-
-
 .image_table   a { color: white;}
 
-.image_table   td, th { color: white;}
+.image_table   td {
+
+    color: white;
+    height:40px;
+}
+
+.image_table   th { color: white;}

@@ -13,10 +13,10 @@ class ImageRepository
   def self.search3(key, limit: 8)
     if key == nil
       puts "1".magenta
-      @images = ImageRepository.all.random_sublist(6)
+      @images = ImageRepository.all.random_sublist(16)
     elsif key == ''
       puts "2".magenta
-      @images = ImageRepository.all.random_sublist(6)
+      @images = ImageRepository.all.random_sublist(16)
     else
       puts "3".magenta
       @images = self.search(key, limit: 8)
