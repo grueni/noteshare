@@ -26,8 +26,8 @@ module UI
       "<a href='#{link}'><img src='images/#{image}'></a>"
     end
 
-    def image_link(image_path, url)
-      link_to html.img(src: image_path), url
+    def image_link(image_path, url, title='')
+      link_to html.img(src: image_path, title: title), url
     end
 
     #####################################################
@@ -69,7 +69,7 @@ module UI
 
 
     def home_link
-      image_link('images/earth.png', '/')
+      image_link('/images/earth.png', '/')
     end
 
     def current_user_node_link(session)
@@ -78,7 +78,7 @@ module UI
       return '' if user == nil
        #  node = NSNodeRepository.for_owner_id(user.id)
       # return '' if node == nil
-      image_link('images/home_white.png', "/node/user/#{user.id}")
+      image_link('/images/home_white.png', "/node/user/#{user.id}")
     end
 
 
@@ -99,7 +99,8 @@ module UI
     end
 
     def export_link(document)
-      link_to 'Export', "/editor/export/#{document.id}"
+      # link_to 'Export', "/editor/export/#{document.id}"
+      image_link '/images/export.png', "/editor/export/#{document.id}"
     end
 
     def editor_link(session)
@@ -119,40 +120,46 @@ module UI
     end
 
     def new_document_link
-        html.tag(:a, 'New document', href: '/editor/new')
+        # html.tag(:a, 'New document', href: '/editor/new')
+      image_link'/images/new_document.png', '/editor/new', 'new_document'
     end
 
     def new_section_link(document)
-      html.tag(:a, 'New section', href: "/editor/new_section/#{document.id}")
+      #   html.tag(:a, 'New section', href: "/editor/new_section/#{document.id}")
+      image_link '/images/new_section.png', "/editor/new_section/#{document.id}", 'new section'
     end
 
 
     def delete_document_link(document)
-      html.tag(:a, 'Delete document', href: '#')
+      # html.tag(:a, 'Delete document', href: '#')
+      image_link('/images/delete_document.png', "#", 'delete document')
     end
 
     def delete_section_link(document)
-      html.tag(:a, 'Delete section', href: '#')
+      # html.tag(:a, 'Delete section', href: '#')
+      image_link('/images/delete_section.png', "#", 'delete section')
     end
 
     def publish_document_link(document)
-      html.tag(:a, 'Publish document', href: '#')
+      image_link('/images/publish_document.png', "#", 'publish document')
     end
 
     def publish_section_link(document)
-      html.tag(:a, 'Publish section', href: '#')
+      image_link('/images/publish_section.png', "#", 'publish section')
     end
 
     def check_in_out_link(document)
-      html.tag(:a, 'Check in/out', href: '#')
+      # html.tag(:a, 'Check in/out', href: '#')
+      image_link('/images/check_in_out.png', '#', 'check document out')
     end
 
     def share_document_link(document)
-      html.tag(:a, 'Share', href: '#')
+     #  html.tag(:a, 'Share', href: '#')
+      image_link('/images/share.png', '#', 'share document')
     end
 
     def edit_toc_link(document)
-      html.tag(:a, 'Edit TOC', href: '#')
+      image_link('/images/edit_toc.png', '#', 'rearrange table of contents')
     end
 
     def image_manager_link
@@ -178,7 +185,13 @@ module UI
     #####################################################
 
     def settings_link(document)
-      link_to "Settings", "/editor/document/options/#{document.id}"
+      # link_to "Settings", "/editor/document/options/#{document.id}"
+      image_link '/images/document_settings.png', "/editor/document/options/#{document.id}", 'document settings'
+    end
+
+    def section_settings_link(document)
+      # link_to "Settings", "/editor/document/options/#{document.id}"
+      image_link '/images/section_settings.png', "#", 'section settings'
     end
 
 

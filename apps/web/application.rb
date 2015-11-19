@@ -128,6 +128,8 @@ module Web
       #   'vendor/javascripts'
       # ]
 
+      assets << [ 'public/images' ]
+
       # Enabling serving assets
       # Defaults to false
       #
