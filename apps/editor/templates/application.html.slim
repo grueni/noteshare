@@ -47,8 +47,15 @@ html
           == document.next_link(prefix: '/editor', title: "<img src='/images/arrowright_light_gray.png', width=24px>", alt_title: "<img src='/images/arrowright_gray.png', width=24px>")
       .navbar_right_item
         ul id='navlist'
-          li == reader_link(session)
-          li == documents_link
+          - if current_user(session)
+            li
+              == editor_link(session)
+            li
+              == reader_link(session)
+            li
+              == image_manager_link
+          li
+            == documents_link
 
     .row
       == yield
