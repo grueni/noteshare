@@ -120,9 +120,7 @@ module ImageManager
       # Specify sources for assets
       # The directory `public/` is added by default
       #
-      # assets << [
-      #   'vendor/javascripts'
-      # ]
+      assets << [ '../web/public/images']
 
       # Enabling serving assets
       # Defaults to false

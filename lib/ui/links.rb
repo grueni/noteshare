@@ -69,7 +69,7 @@ module UI
 
 
     def home_link
-      image_link('images/earth.png', '/')
+      image_link('earth.png', '/')
     end
 
     def current_user_node_link(session)
@@ -78,7 +78,7 @@ module UI
       return '' if user == nil
        #  node = NSNodeRepository.for_owner_id(user.id)
       # return '' if node == nil
-      image_link('images/home_white.png', "/node/user/#{user.id}")
+      image_link('home_white.png', "/node/user/#{user.id}")
     end
 
 
@@ -124,6 +124,7 @@ module UI
 
     def new_section_link(document)
       html.tag(:a, 'New section', href: "/editor/new_section/#{document.id}")
+      #  image_link 'new_section.png', "/editor/new_section/#{document.id}"
     end
 
 
