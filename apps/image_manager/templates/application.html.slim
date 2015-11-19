@@ -20,7 +20,7 @@ html
         .navbar_left_item
           == home_link
           | &nbsp;&nbsp;&nbsp;
-          /== current_user_node_link(session)
+          == current_user_node_link(session)
           | &nbsp; &nbsp; &nbsp; &nbsp;
           form[name="search" action="search"]
             input[type="text" name="search" id="basic_search_form"]

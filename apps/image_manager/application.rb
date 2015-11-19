@@ -123,6 +123,8 @@ module ImageManager
       # assets << [
       #   'vendor/javascripts'
       # ]
+  
+      assets << [ '../web/public/' ]
 
       # Enabling serving assets
       # Defaults to false
