@@ -125,7 +125,7 @@ class NSDocument
     @author = credentials[:first_name] + ' ' + credentials[:last_name]
     doc.identifier = Noteshare::Identifier.new().string
     doc.root_id = 0
-    doc.root_ref = { 'id': 0, title: ''}
+    doc.root_ref = { 'id'=> 0, title => ''}
     # Fixme and what about parent_id, parent_ref
     DocumentRepository.create doc
   end
