@@ -25,7 +25,8 @@ module SessionManager::Views::User
         label :password_confirmation
         text_field :password_confirmation, {type: 'password'}
 
-        submit 'Create account', {id: 'create_uer_button', style: 'margin-top:1em'}
+        submit 'Create account', {id: 'create_uer_button', class: 'green top_margin2;'}
+
 
       end
     end
