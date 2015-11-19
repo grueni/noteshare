@@ -122,6 +122,8 @@ module ImageManager
       #
       assets << [ '../web/public/images']
 
+      assets << [ '../web/public/' ]
+
       # Enabling serving assets
       # Defaults to false
       #
