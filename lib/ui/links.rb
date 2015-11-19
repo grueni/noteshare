@@ -41,7 +41,7 @@ module UI
     end
 
     def signup_link
-      link_to 'No account?  click here', '/session_manager/new_user'
+      link_to 'Sign up', '/session_manager/new_user'
     end
 
     def signout_link

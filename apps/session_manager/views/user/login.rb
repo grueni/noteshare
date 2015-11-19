@@ -11,7 +11,7 @@ module SessionManager::Views::User
         text_field :email
 
         label :password
-        text_field :password
+        text_field :password, {type: 'password'}
 
         submit 'Log in', {id: 'login_button', style: 'margin-top:1em'}
 

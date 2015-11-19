@@ -3,7 +3,7 @@
   .col.inset_left.inset_top
     h3 Noteshare
     div
-      .ns_card style='min-height:400px'
+      .ns_card style='min-height:400px; width:250px'
         - if current_user(session)
           p.compact == welcome_link(session)
           br
@@ -14,3 +14,6 @@
           p.compact == signup_link
         br
         p.compact == link_to 'About', '/about'
+
+        span style='color:#F5574F;position:absolute; bottom:1em;left:2.5em;' ❤
+        i style='color:#F5574F;position:absolute; bottom:1em; left:4.0em;' Share the knowledge!

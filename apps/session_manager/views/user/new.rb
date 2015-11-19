@@ -20,10 +20,10 @@ module SessionManager::Views::User
         text_field :email
 
         label :password
-        text_field :password
+        text_field :password, {type: 'password'}
 
         label :password_confirmation
-        text_field :password_confirmation
+        text_field :password_confirmation, {type: 'password'}
 
         submit 'Create account', {id: 'create_uer_button', style: 'margin-top:1em'}
 
