@@ -8,7 +8,11 @@ module Editor::Controllers::Document
       @document.content_dirty = true
       @document.update_content params['source']
       @document.synchronize_title
-      self.body = @document.rendered_content
+      if @document.is_root_document?
+        self.body = @document.compiled_and_rendered_content
+      else
+        self.body = @document.rendered_content
+      end
     end
 
 
