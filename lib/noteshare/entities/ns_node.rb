@@ -6,7 +6,8 @@ class NSNode
 
 
   def self.create_for_user(user)
-      NSNodeRepository.create(NSNode.new(owner_id: user.id, owner_identifier: user.identifier, name: user.screen_name))
+     node =  NSNodeRepository.create(NSNode.new(owner_id: user.id, owner_identifier: user.identifier, name: user.screen_name))
+     user.set_node(node.id)
   end
 
   def owner_name
