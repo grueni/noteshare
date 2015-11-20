@@ -8,20 +8,13 @@ module SessionManager::Controllers::User
 
     expose :user
 
-    # https://discuss.lotusrb.org/t/problem-after-updating-to-0-4-0/99
     def call(params)
       puts "SessionManager, AUTHENTICATE".magenta
       session[:user_id] = nil
       authenticator = UserAuthentication.new(params[:user]['email'], params[:user]['password'])
       user = authenticator.login(session)
       params[:user]['authenticated']  = (user != nil)
-
-      if user
-        user_node_id = user.node_id
-        if user_node_id
-          redirect_to "/node/user/#{user_node_id}"
-        end
-      end
+      redirect_to  "/node/user/#{user.id}"
     end
 
 
