@@ -2,8 +2,13 @@ class Course
   include Lotus::Entity
   attributes :id, :title, :author, :author_id, :tags, :area, :created_at, :modified_at, :content
 
-  def to_document(author_name = 'James Carlson')
-    doc = DocumentRepository.create(NSDocument.new(title: self.title, author: author_name))
+
+  # Create an NSDcoument from a Noteshare document
+  def to_document(screen_name)
+    user = UserRepository.find_one_by_screen_name(screen_name)
+    return if user == nil
+
+    doc = NSDocument.create(title: self.title, author_credentials: user.credentials)
     doc.author_id = self.author_id
     doc.tags = self.tags
     doc.area = self.area
@@ -11,6 +16,7 @@ class Course
     doc.modified_at =  self.modified_at
     doc.content = self.content
     DocumentRepository.update(doc)
+
     return doc
   end
 
@@ -19,9 +25,9 @@ class Course
   end
 
   # Add all of the lessons associated to a given course
-  def create_master_document(author_name = 'James Carlson')
+  def create_master_document(screen_name)
 
-    master = self.to_document(author_name)
+    master = self.to_document(screen_name)
     master.content ||= ''
     lessons = self.associated_lessons
     lesson_count = lessons.count
@@ -30,7 +36,7 @@ class Course
     last_node = master
 
     lessons.all.each do |lesson|
-      section = lesson.to_document(author_name)
+      section = lesson.to_document(screen_name)
       stack == [] ?  delta = 2 : delta =  section.asciidoc_level - stack.last.asciidoc_level
       if delta >= 2
         stack.push(last_node)
