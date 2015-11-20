@@ -119,19 +119,34 @@ class NSDocument
     TOC.new(self).table
   end
 
+  # Create a document given a hash.
+  # The hash must define both the title and the author credentials,
+  # as in the example below;
+  #
+  #   @author_credentials = { id: 0, first_name: 'Linus', last_name: 'Pauling', identifier: 'abcd1234'}
+  #
+  #   @article = NSDocument.create(title: 'A. Quantum Mechanics', author_credentials: @author_credentials)
+  #
+  # The hash may contain any other valid keys.
+  #
+  # NOTES: a document is recognized as a root document if its root_id
+  # is zero.  If a document has no parent, its parent_id is nil
+  # All documents begin life as root documents with no parent.
+  #
   def self.create(hash)
     doc = NSDocument.new(hash)
     credentials = Tools.symbolize_keys(hash[:author_credentials])
     @author = credentials[:first_name] + ' ' + credentials[:last_name]
     doc.identifier = Noteshare::Identifier.new().string
-    doc.root_id = 0
-    doc.root_ref = { 'id'=> 0, title => ''}
+    doc.root_ref = { 'id'=> 0, 'title' => ''}
     # Fixme and what about parent_id, parent_ref
     DocumentRepository.create doc
   end
 
 
-
+  def set_author_by_id(author_id)
+    root_document
+  end
 
   def set_author_credentials(credentials)
     self.author_credentials = JSON.generate(credentials)
