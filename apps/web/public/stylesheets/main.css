@@ -41,6 +41,11 @@ td.clear_style {
     text-decoration: none;
 }
 
+.lightlink {
+
+    color: white;
+}
+
 .lightlink a {
 
     color: white;
