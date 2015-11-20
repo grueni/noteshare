@@ -16,6 +16,19 @@ class User
   end
 
 
+  def self.create(user_params)
+    new_user = User.new(user_params)
+    if new_user.password == new_user.password_confirmation
+      new_user.password = BCrypt::Password.create(new_user.password)
+      new_user.password_confirmation = ''
+      new_user.set_identifier
+      UserRepository.create new_user
+    end
+
+  end
+
+
+
   def credentials
     { id: id, first_name: first_name, last_name: last_name, identifier: identifier  }
   end

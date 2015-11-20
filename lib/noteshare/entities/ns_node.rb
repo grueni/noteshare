@@ -5,11 +5,8 @@ class NSNode
   require 'json'
 
 
-  def self.create_node_with_screen_name(screen_name)
-    user = UserRepository.find_one_by_screen_name(screen_name)
-    if user
+  def self.create_for_user(user)
       NSNodeRepository.create(NSNode.new(owner_id: user.id, owner_identifier: user.identifier, name: user.screen_name))
-    end
   end
 
   def owner_name

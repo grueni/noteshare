@@ -6,19 +6,15 @@ module SessionManager::Controllers::User
     include SessionManager::Action
 
     def call(params)
-      puts "controller SessionManager, create new user".magenta
-      # data = params[:user]
-      new_user = User.new(params[:user])
-      if new_user.password == new_user.password_confirmation
-        new_user.password = BCrypt::Password.create(new_user.password)
-        new_user.password_confirmation = ''
-        new_user.set_identifier
-        UserRepository.create new_user
+      new_user = User.create(params[:user])
+      if new_user
+        NSNode.create_for_user(new_user)
+        redirect_to  "/node/user/#{new_user.id}"
+      else
+        redirect_to '/'
       end
-
-
-      redirect_to '/admin/users'
     end
 
   end
 end
+
