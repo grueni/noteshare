@@ -62,37 +62,55 @@ module NSDocument::Presentation
   # passed to the method.  The default 'simple_string'
   # option gives a numbered list of titles.
     def table_of_contents_as_string(hash)
-    option = hash[:format] || 'simple_string'
-    current_document = hash[:current_document]
-    if current_document
-      noa = current_document.next_oldest_ancestor
-      noa_id = noa.id if noa
-    end
-    output = ''
-    case option
-      when 'simple_string'
-        toc.each_with_index do |item, index|
-          output << "#{index + 1}. #{item['title']}" << "\n"
-        end
-      when 'html'
-         if toc.length == 0
-          output = ''
-        else
-          output << "<ul>\n"
+      option = hash[:format] || 'simple_string'
+      current_document = hash[:current_document]
+      if current_document
+        noa = current_document.next_oldest_ancestor
+        noa_id = noa.id if noa
+      end
+      output = ''
+      case option
+        when 'simple_string'
           toc.each_with_index do |item, index|
-            output << "<li><a href='/document/#{item['id']}'>#{item['title']}</a>\n"
-            if noa_id and item['id'] == noa_id
-              output << "<ul>\n" << noa.table_of_contents_as_string(format: 'html', current_document: nil) << "</ul>"
-            end
+            output << "#{index + 1}. #{item['title']}" << "\n"
           end
-          output << "</ul>\n\n"
-        end
-      else
-        output = toc.to_s
+        when 'html'
+           if toc.length == 0
+            output = ''
+          else
+            output << "<ul>\n"
+            toc.each_with_index do |item, index|
+              output << "<li><a href='/document/#{item['id']}'>#{item['title']}</a>\n"
+              if noa_id and item['id'] == noa_id
+                output << "<ul>\n" << noa.table_of_contents_as_string(format: 'html', current_document: nil) << "</ul>"
+              end
+            end
+            output << "</ul>\n\n"
+          end
+        else
+          output = toc.to_s
+      end
+      output
     end
-    output
-end
 
+  def root_document_title
+  root = root_document || self
+    if root
+      root.title
+    else
+      ''
+    end
+  end
+
+  def root_table_of_contents(active_id, target='reader')
+    puts "self.title: #{self.title}".red
+    root = root_document || self
+    if root
+      root.master_table_of_contents(active_id, target)
+    else
+      ''
+    end
+  end
 
   # If active_id matches the id of an item
   # in the table of contents, that item is
