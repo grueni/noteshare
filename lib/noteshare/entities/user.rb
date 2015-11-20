@@ -82,7 +82,7 @@ class User
   end
 
   def set_node(id_of_node)
-    dict_update({'node': id_of_node})
+    dict_update({'node'=> id_of_node})
   end
 
   def dict_set(new_dict)
