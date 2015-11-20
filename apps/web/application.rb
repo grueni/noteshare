@@ -1,5 +1,6 @@
 require 'lotus/helpers'
 require_relative 'views/forms'
+require_relative 'views/menus'
 # require 'lotus/assets'
 
 module Web
@@ -210,6 +211,7 @@ module Web
       view.prepare do
         include Lotus::Helpers
         include Web::Views::Forms
+        include Web::Views::Menus
       end
     end
 

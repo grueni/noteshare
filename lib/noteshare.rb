@@ -84,6 +84,7 @@ Lotus::Model.configure do
       entity User
       repository UserRepository
       attribute :id, Integer
+      attribute :admin, Boolean
       attribute :first_name, String
       attribute :last_name, String
       attribute :identifier, String

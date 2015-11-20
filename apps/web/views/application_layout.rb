@@ -18,10 +18,6 @@ module Web
         end
       end
 
-      def left_menu
-        ''
-      end
-
     end
   end
 end

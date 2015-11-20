@@ -1,6 +1,6 @@
 class User
   include Lotus::Entity
-  attributes :id, :first_name, :last_name, :identifier, :email, :screen_name, :level, :password, :meta, :password_confirmation
+  attributes :id, :admin, :first_name, :last_name, :identifier, :email, :screen_name, :level, :password, :meta, :password_confirmation
 
   # http://hawkins.io/2012/07/rack_from_the_beginning/
   # https://blog.engineyard.com/2015/understanding-rack-apps-and-middleware
@@ -15,6 +15,41 @@ class User
 
   end
 
+
+  def self.create(user_params)
+    new_user = User.new(user_params)
+    if new_user.password == new_user.password_confirmation
+      new_user.password = BCrypt::Password.create(new_user.password)
+      new_user.password_confirmation = ''
+      new_user.set_identifier
+      UserRepository.create new_user
+    end
+
+  end
+
+  def delete_node
+    node = NSNodeRepository.find node_id
+    if node
+      NSNodeRepository.delete node
+    end
+  end
+
+  # Delete the user with given id
+  # and also all dependent structures,
+  # for now just the associated node
+  def self.delete_with_dependents(id)
+    user = UserRepository.find id
+    return if user == nil
+    user.delete_node
+    UserRepository.delete user
+  end
+
+  def login(password, session)
+    auth = UserAuthentication.new(self.email, password)
+    auth.authenticate
+    authorized_user = auth.login(session)
+    authorized_user
+  end
 
   def credentials
     { id: id, first_name: first_name, last_name: last_name, identifier: identifier  }
@@ -40,10 +75,14 @@ class User
     self.identifier = Noteshare::Identifier.new().string
   end
 
-  # Return the id of the node associate
+  # Return the id of the node associated
   # to te user if  it exists.
   def node_id
     dict_lookup('node')
+  end
+
+  def set_node(id_of_node)
+    dict_update({'node': id_of_node})
   end
 
   def dict_set(new_dict)
