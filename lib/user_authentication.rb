@@ -28,7 +28,6 @@ class UserAuthentication
       puts "  -- user id is #{@user.id}".green
       # puts "  -- session is #{session.inspect}".blue  if ENV[LOG_THIS]
       session[:user_id] = @user.id
-      puts "  -- NOW session is #{session.inspect}".cyan
       return @user
     end
   end
