@@ -88,7 +88,9 @@ module UI
     #
     #####################################################
 
-
+    def admin_link
+      link_to 'Admin', '/admin'
+    end
 
     def document_link(document)
       link_to document.title, "/document/#{document.id}"

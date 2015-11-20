@@ -48,6 +48,9 @@ html
               == image_manager_link
           li
             == documents_link
+          - if current_user_is_admin?(session)
+            li
+              == admin_link
 
 
 

@@ -24,10 +24,9 @@ class UserAuthentication
 
   def login(session)
     if authenticate
-      puts "in login, authenticate  is successful".magenta
-      puts "  -- user id is #{@user.id}".green
-      # puts "  -- session is #{session.inspect}".blue  if ENV[LOG_THIS]
       session[:user_id] = @user.id
+      session[:current_document_id] = nil
+      session[:current_image_id] = nil
       return @user
     end
   end
@@ -43,6 +42,12 @@ module SessionTools
 
   def current_user(session)
     UserRepository.find session[:user_id]
+  end
+
+  def current_user_is_admin?(session)
+    user = UserRepository.find session[:user_id]
+    return false if user == nil
+    return user.admin
   end
 
 end
