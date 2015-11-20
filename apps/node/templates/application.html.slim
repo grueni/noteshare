@@ -20,7 +20,7 @@ html
         | &nbsp; &nbsp;
         == basic_search_form
       .navbar_middle_item
-        
+
 
       .navbar_right_item
         ul id='navlist'
@@ -33,6 +33,9 @@ html
               == image_manager_link
           li
             == documents_link
+          - if current_user_is_admin?(session)
+            li
+              == admin_link
 
 
 

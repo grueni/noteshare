@@ -75,6 +75,8 @@ class User
     self.identifier = Noteshare::Identifier.new().string
   end
 
+  ##############################
+
   # Return the id of the node associated
   # to te user if  it exists.
   def node_id
@@ -84,6 +86,19 @@ class User
   def set_node(id_of_node)
     dict_update({'node'=> id_of_node})
   end
+
+  def remember_current_document_id(session)
+    cid = session['current_document_id']
+    puts "In remember_current_document_id, cid = #{cid}"
+    dict_update({'current_document_id'=> cid})
+  end
+
+  def recall_current_document_id(session)
+    session['current_document_id'] = dict_lookup('current_document_id')
+  end
+
+
+  ##############################
 
   def dict_set(new_dict)
     metadata = JSON.parse self.meta

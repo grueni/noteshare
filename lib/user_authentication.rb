@@ -25,7 +25,7 @@ class UserAuthentication
   def login(session)
     if authenticate
       session[:user_id] = @user.id
-      session[:current_document_id] = nil
+      session[:current_document_id] = @user.recall_current_document_id(session)
       session[:current_image_id] = nil
       return @user
     end
@@ -37,7 +37,12 @@ end
 module SessionTools
 
   def logout(user, session)
-    session[user.id] = nil
+    puts "LOGOUT".red
+    user.remember_current_document_id(session)
+    UserRepository.update user
+    session[:current_document_id] = nil
+    session[:current_image_id] = nil
+    session[:user_id] = nil
   end
 
   def current_user(session)
