@@ -1,3 +1,4 @@
+get '/documents', to: 'documents#list'
 get '/', to: 'home#index'
 get '/users', to: 'users#list'
 # Configure your routes here

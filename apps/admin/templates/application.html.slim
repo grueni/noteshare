@@ -13,10 +13,27 @@ html
     .nav
       .navbar_left_item
         == home_link
+        | &nbsp;&nbsp;&nbsp;
+        == current_user_node_link(session)
+        | &nbsp; &nbsp; &nbsp; &nbsp;
+        /== basic_search_form
+
       .navbar_middle_item
-        | Middle
+
       .navbar_right_item
-        | Right
+        ul id='navlist'
+          - if current_user(session)
+            li
+              == editor_link(session)
+            li
+              == reader_link(session)
+            li
+              == image_manager_link
+          li
+            == documents_link
+          - if current_user_is_admin?(session)
+            li
+              == admin_link
     .row
       == yield
 

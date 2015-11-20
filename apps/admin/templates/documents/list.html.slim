@@ -1,0 +1,16 @@
+.row.inset
+  h4 Documents
+  .col
+    /== search_form
+  - if documents
+    .row.s8 style = ' margin-top:10 px; padding-left:1em; padding-right:1em;  '
+      .col style = ''
+        table style='border=0; border-color: #444; border-collapse;'
+
+          tbody
+            - documents.each do |document|
+              tr.clear_style
+                td== document.id
+                td.lightlink == document.link
+                td== document.author
+                td== document.author_id

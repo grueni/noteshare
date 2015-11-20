@@ -75,6 +75,8 @@ module Admin
       #
       # sessions :cookie, secret: ENV['ADMIN_SESSIONS_SECRET']
 
+      sessions :cookie, secret: ENV['WEB_SESSIONS_SECRET']
+
       # Configure Rack middleware for this application
       #
       # middleware.use Rack::Protection
