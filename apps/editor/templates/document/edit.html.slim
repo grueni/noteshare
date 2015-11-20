@@ -20,7 +20,7 @@
       h5 style = 'margin-bottom:0;' Table of Contents
       .toc.plainlink.lightlink == document.associated_document_map('editor')
       .toc
-        == document.root_document.master_table_of_contents(document.id, 'editor')
+        == document.root_table_of_contents(document.id, 'editor')
     .div style='position:absolute; top:50px; left:20px;' id='tools_panel'
       .toc
         == render partial: 'document/tool_panel', locals: { }
