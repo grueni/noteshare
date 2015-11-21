@@ -21,18 +21,19 @@ describe NSDocument do
 
     DocumentRepository.persist @article
 
+    @user = User.create(first_name:'Jared', last_name: 'Foo-Bar')
 
 
+    @article1 = NSDocument.create(title: 'Quantum Mechanics', author_credentials: @user.credentials)
 
-    @article1 = DocumentRepository.create(NSDocument.new(title: 'Quantum Mechanics', author: 'Jared. Foo-Bar'))
-    @section1 = DocumentRepository.create(NSDocument.new(title: 'Uncertainty Principle', author: 'Jared Foo-Bar', subdoc_refs: []))
-    @section2 = DocumentRepository.create(NSDocument.new(title: 'Wave-Particle Duality', author: 'Jared Foo-Bar', subdoc_refs: []))
-    @section3 = DocumentRepository.create(NSDocument.new(title: 'Matrix Mechanics', author: 'Jared Foo-Bar', subdoc_refs: []))
-    @subsection1 =  DocumentRepository.create(NSDocument.new(title: "de Broglie's idea", author: 'Jared Foo-Bar', subdoc_refs: []))
-    @subsection2 =  DocumentRepository.create(NSDocument.new(title: "Fourier Integrals", author: 'Jared Foo-Bar', subdoc_refs: []))
+    @section1 = NSDocument.create(title: 'Uncertainty Principle', author_credentials: @user.credentials)
+    @section2 = NSDocument.create(title: 'Wave-Particle Duality', author_credentials: @user.credentials)
+    @section3 = NSDocument.create(title: 'Matrix Mechanics', author_credentials: @user.credentials)
+    @subsection1 =  NSDocument.create(title: "de Broglie's idea", author_credentials: @user.credentials)
+    @subsection2 =  NSDocument.create(title: "Fourier Integrals", author_credentials: @user.credentials)
 
-    @subsubsection1 =  DocumentRepository.create(NSDocument.new(title: "Foo!", author: 'Jared Foo-Bar', subdoc_refs: []))
-    @subsubsection2 =  DocumentRepository.create(NSDocument.new(title: "Baz", author: 'Jared Foo-Bar', subdoc_refs: []))
+    @subsubsection1 =  NSDocument.create(title: "Foo!", author_credentials: @user.credentials)
+    @subsubsection2 =  NSDocument.create(title: "Baz", author_credentials: @user.credentials)
 
 
     @article1.content = 'Quantum phenomena are weird!'
@@ -123,8 +124,8 @@ describe NSDocument do
 
     @section1.parent_item.identifier.must_equal @article1.identifier
 
-    @section1.display('@section1', [:id, :title, :root_document_id, :root_ref, :root_item, :parent_id, :parent_ref, :parent_item, :toc])
-    @article1.display('@section1', [:id, :title, :root_document_id, :root_ref, :root_item, :parent_id, :parent_ref, :parent_item, :toc])
+    @section1.display('@section1', [:id, :title, :identifier, :root_document_id, :root_ref, :root_item, :parent_id, :parent_ref, :parent_item, :toc])
+    @article1.display('@section1', [:id, :title, :identifier, :root_document_id, :root_ref, :root_item, :parent_id, :parent_ref, :parent_item, :toc])
 
 
     puts "For #{@section1.title} @section1.parent_item = #{ @section1.parent_item}".red
@@ -133,6 +134,7 @@ describe NSDocument do
     @section1.root_item.title.must_equal(@article1.title)
     @section1.level.must_equal(1)
     @section1.ancestor_ids.must_equal([@article1.id])
+    # assert @section1.toc[0].identifier != nil
 
 
   end

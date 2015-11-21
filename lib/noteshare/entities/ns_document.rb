@@ -144,8 +144,6 @@ class NSDocument
     doc.author = doc.author_credentials[:first_name] + ' ' + doc.author_credentials[:last_name]
     doc.identifier = Noteshare::Identifier.new().string
     doc.root_ref = { 'id'=> 0, 'title' => ''}
-    puts "   doc: #{doc.identifier}".cyan
-    puts "   doc: #{doc.author_credentials}".cyan
     DocumentRepository.create doc
   end
 
@@ -733,19 +731,6 @@ class NSDocument
   end
 
 
-  def toc_message
-    puts "UPDATE TABLE OF CONNTENTS -- BOSS, I AM WORKING!".magenta
-    case self.toc_dirty
-      when nil
-        puts "update_table_of_contents, id = #{self.id}, title = #{self.title}, dirty = #{self.toc_dirty}".red
-      when true
-        puts "update_table_of_contents, id = #{self.id}, title = #{self.title}, dirty = #{self.toc_dirty}".yellow
-      when false
-        puts "update_table_of_contents, id = #{self.id}, title = #{self.title}, dirty = #{self.toc_dirty}".cyan
-      else
-        puts "update_table_of_contents, id = #{self.id}, title = #{self.title}, dirty = #{self.toc_dirty}".magenta
-    end
-  end
 
   # A table of contents is an array of hashes,
   # where the key-value pairs are like
@@ -758,47 +743,7 @@ class NSDocument
   # creates this structure from scratch, then stores
   # it as jsonb in the toc field of the database
   def update_table_of_contents(arg = {force: false})
-#Fixme
-=begin
-    puts "arg = #{arg.to_s}".red
 
-    dirty =  self.root_document.toc_dirty || arg[:force]
-
-    if dirty == false
-      puts "BOSS, no update for the table of contents is needed".blue
-      return
-    end
-
-    toc_message
-
-    value = []
-    toc.each do |id|
-      hash = {}
-      hash['id'] = id
-      section = DocumentRepository.find(id)
-      section.toc_dirty = false
-      if section.subdoc_refs != []
-        hash['subdocs'] = true
-        puts "I will now upddate toc for section #{section.title} with hash = #{arg}".yellow
-        section.update_table_of_contents(arg)
-      else
-        hash['subdocs'] = false
-        puts "No upddate of toc for section #{section.title}".green
-      end
-      hash['title'] = section.title
-      hash['identifier'] = section.identifier
-      value << hash
-      puts hash.to_s.blue
-      DocumentRepository.update section
-    end
-
-    self.toc = value
-    self.toc_dirty = false
-    puts "I set toc_dirty = #{self.toc_dirty}  for id = #{self.id}, title = #{self.title}".magenta
-    self.root_document.toc_dirty = false
-    DocumentRepository.persist(self)
-    value
-=end
   end
 
   def update_toc_at_root
