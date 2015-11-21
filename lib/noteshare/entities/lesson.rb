@@ -3,8 +3,10 @@ class Lesson
   attributes :id, :title, :content, :author_id, :course_id, :created_at, :modified_at,
              :tags, :area, :sequence
 
-  def to_document(author_name = 'James Carlson')
-    doc = DocumentRepository.create(NSDocument.new(title: self.title, author: author_name))
+  def to_document(screen_name)
+    user = UserRepository.find_one_by_screen_name(screen_name)
+    return if user == nil
+    doc = NSDocument.create(title: self.title, author_credentials: user.credentials)
     doc.author_id = self.author_id
     doc.tags = self.tags
     doc.area = self.area
@@ -16,6 +18,4 @@ class Lesson
   end
 
 end
-
-
 

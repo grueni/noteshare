@@ -321,7 +321,7 @@ EOF
   it 'can add recall associated documents ass' do
 
     notes = DocumentRepository.create(NSDocument.new(title: 'Tables', author: 'Jared. Foo-Bar'))
-    notes.associate_as('notes', @article)
+    notes.associate_to(@article, 'notes')
     puts "@article.doc_refs: #{@article.doc_refs}"
     @article.associated_document('notes').must_equal notes
 

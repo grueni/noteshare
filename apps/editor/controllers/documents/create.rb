@@ -36,7 +36,7 @@ module Editor::Controllers::Documents
           @document.add_to(@parent_doc)
           @parent_doc.update_table_of_contents
         else
-          @document.associate_as(associated_doc_type, @parent_doc)
+          @document.associate_to(@parent_doc, associated_doc_type,)
         end
       end
 

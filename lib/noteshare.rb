@@ -142,6 +142,7 @@ Lotus::Model.configure do
       attribute :created_at, DateTime
       attribute :modified_at, DateTime, as: :updated_at
       attribute :content, String, as: :description
+      attribute :course_attributes, String
 
     end
 

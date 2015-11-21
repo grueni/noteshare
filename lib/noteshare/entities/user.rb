@@ -123,6 +123,8 @@ class User
     dict[key]
   end
 
+  ##############################
+
   def self.list
     UserRepository.all.each do |u|
       puts "#{u.id}: #{u.first_name} #{u.last_name} (#{u.screen_name}) -- #{u.email}"

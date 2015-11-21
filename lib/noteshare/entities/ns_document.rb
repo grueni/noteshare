@@ -113,6 +113,11 @@ class NSDocument
 
   end
 
+  def self.info(id)
+    doc = DocumentRepository.find(id)
+    doc.display('Document', [:title, :identifier, :author_credentials, :parent_ref, :root_ref, :toc])
+  end
+
   # Return TOC object corresponding to the toc
   # field in the database
   def table_of_contents
@@ -135,11 +140,12 @@ class NSDocument
   #
   def self.create(hash)
     doc = NSDocument.new(hash)
-    credentials = Tools.symbolize_keys(hash[:author_credentials])
-    @author = credentials[:first_name] + ' ' + credentials[:last_name]
+    doc.author_credentials = Tools.symbolize_keys(hash[:author_credentials])
+    doc.author = doc.author_credentials[:first_name] + ' ' + doc.author_credentials[:last_name]
     doc.identifier = Noteshare::Identifier.new().string
     doc.root_ref = { 'id'=> 0, 'title' => ''}
-    # Fixme and what about parent_id, parent_ref
+    puts "   doc: #{doc.identifier}".cyan
+    puts "   doc: #{doc.author_credentials}".cyan
     DocumentRepository.create doc
   end
 
@@ -512,10 +518,10 @@ class NSDocument
   #
   ###################################################
 
-  # @foo.associate('summary', @bar)
-  # associats @foo to @bar as a 'summary'.
-  # It can be retrieved as @foo.associatd_document('summary')
-  def associate_as(type, doc)
+  # @foo.associate_to(@bar, 'summary',)
+  # associates @foo to @bar as a 'summary'.
+  # It can be retrieved as @foo.associated_document('summary')
+  def associate_to(doc, type)
     doc.doc_refs[type] = self.id
     self.parent_id = doc.id
     self.root_document_id = doc.id
@@ -539,7 +545,12 @@ class NSDocument
   # and save it in rendered_content.  Otherwise,
   # Replace #content by str, render it
   # and save itl. .
-  def update_content(input=nil)
+  def update_content(input=cvdnil)
+
+    render_by_identity = dict_lookup('render') == 'identity'
+    if render_by_identity
+      rendered_content =  content
+    end
 
     dirty = self.content_dirty
     dirty = true if dirty.nil?
@@ -780,6 +791,72 @@ class NSDocument
     root_document.update_table_of_contents
   end
 
+  ##################################
+
+  def dict_set(new_dict)
+    if meta
+      metadata = JSON.parse self.meta
+    else
+      metadata = {}
+    end
+    metadata['dict'] = new_dict
+    self.meta = JSON.generate metadata
+    puts self.class.name.green
+    DocumentRepository.update self
+    new_dict
+  end
+
+
+  # Example: @foo.dict_update 'children': 5
+  def dict_update(entry)
+    metadata = JSON.parse self.meta
+    dict = metadata['dict'] || { }
+    dict[entry.keys[0]] = entry.values[0]
+    metadata['dict'] = dict
+    self.meta = JSON.generate metadata
+    DocumentRepository.update self
+    entry
+  end
+
+  def dict_lookup(key)
+    return nil if meta == nil
+    metadata = JSON.parse self.meta
+    dict = metadata['dict'] || { }
+    dict[key]
+  end
+
+  def dict_list
+    if meta == nil
+      puts 'empty'
+      return ''
+    end
+    metadata = JSON.parse self.meta
+    dict = metadata['dict'] || { }
+    dict.each do |key, value|
+      puts "#{key} => #{value}"
+    end
+  end
+
+  def dict_delete(key)
+    metadata = JSON.parse self.meta
+    dict = metadata['dict'] || { }
+    dict[key] = nil
+    metadata['dict'] = dict
+    self.meta = JSON.generate metadata
+    DocumentRepository.update self
+    key
+  end
+
+  def dict_clear
+    metadata = JSON.parse self.meta
+    metadata['dict'] = {}
+    self.meta = JSON.generate metadata
+    DocumentRepository.update self
+    key
+  end
+
+  ##################################
+
   private
   # Assume that receiver is subdocument k of parent_document.
   # Return the id of subdocument k - 1 or nil
@@ -815,6 +892,8 @@ class NSDocument
     puts "Class: #{table[index_in_parent+1].class.name}"
     return toc[index_in_parent+1].id
   end
+
+
 
 
 

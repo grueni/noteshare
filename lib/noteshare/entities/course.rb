@@ -1,7 +1,10 @@
+require_relative '../../../lib/noteshare/modules/text_parse'
+
 class Course
   include Lotus::Entity
-  attributes :id, :title, :author, :author_id, :tags, :area, :created_at, :modified_at, :content
+  attributes :id, :title, :author, :author_id, :tags, :area, :created_at, :modified_at, :content, :course_attributes
 
+  include TextParse
 
   # Create an NSDcoument from a Noteshare document
   def to_document(screen_name)
@@ -20,6 +23,10 @@ class Course
     return doc
   end
 
+  def tex_macros
+    grab text: course_attributes, ad_prefix: 'doc', ad_suffix: 'texmacros'
+  end
+
   def associated_lessons
     LessonRepository.select_for_course(self.id)
   end
@@ -31,6 +38,14 @@ class Course
     master.content ||= ''
     lessons = self.associated_lessons
     lesson_count = lessons.count
+
+    _tex_macros = tex_macros
+    if _tex_macros
+      tex_macro_document =  NSDocument.create(title: 'Tex Macros', author_credentials: master.author_credentials)
+      tex_macro_document.content = "\\(" + _tex_macros + "\\)"
+      DocumentRepository.update tex_macro_document
+      tex_macro_document.associate_to(master, 'texmacros')
+    end
 
     stack = []
     last_node = master
@@ -46,7 +61,9 @@ class Course
         puts "pop #{x.title}".magenta
       end
       section.add_to(stack.last)
-      puts "#{section.title} => #{stack.last.title}".blue
+      puts "#{section.title} => #{stack.last.title}".red
+      puts "   --- #{section.identifier}".blue
+      puts "   --- #{section.author_credentials}".blue
       last_node = section
     end
 
