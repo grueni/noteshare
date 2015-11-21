@@ -730,6 +730,30 @@ class NSDocument
     self.root_document.toc_dirty
   end
 
+  # return the TOC item with given id
+  def toc_item(id)
+    target = nil
+    self.toc.each do |item|
+      if item[:id] == id
+        target = item
+        break
+      end
+    end
+    target
+  end
+
+  # return the TOC item with given id
+  def toc_item_change_title(id, new_title)
+    target = nil
+    self.toc.each do |item|
+      if item[:id] == id
+        item[:title] = new_title
+        target = item
+        break
+      end
+    end
+    target
+  end
 
 
   # A table of contents is an array of hashes,

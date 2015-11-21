@@ -176,6 +176,47 @@ describe NSDocument do
 
   end
 
+  it 'can return a TOC item given an id' do
+
+    @section1.add_to(@article1)
+    @section2.add_to(@article1)
+    @section3.add_to(@article1)
+    @subsection1.add_to(@section2)
+    @subsection2.add_to(@section2)
+
+    puts "ITEM 1 #{@article1.toc_item(@section1.id)}".red
+    puts "ITEM 2 #{@article1.toc_item(@section2.id)}".red
+    puts "ITEM 3 #{@article1.toc_item(@section3.id)}".red
+    puts "SUB ITEM 1 #{@article1.toc_item(@subsection1.id)}".red
+
+    item = @article1.toc_item(@section2.id)
+    item[:title].must_equal(@section2.title)
+
+  end
+
+  it 'can change the the title of a TOC item given an id' do
+
+    @section1.add_to(@article1)
+    @section2.add_to(@article1)
+    @section3.add_to(@article1)
+    @subsection1.add_to(@section2)
+    @subsection2.add_to(@section2)
+
+    puts
+    puts "ITEM 2, original: #{@article1.toc_item(@section2.id)}".red
+
+    item = @article1.toc_item_change_title(@section2.id, 'Foo')
+
+    puts "changed item: #{item}".magenta
+    puts "NOW TOC IS: #{@article1.toc}".cyan
+
+    item[:title].must_equal('Foo')
+
+    item2 = @article1.toc_item(@section2.id)
+    item2[:title].must_equal('Foo')
+
+  end
+
 
 =begin
 
