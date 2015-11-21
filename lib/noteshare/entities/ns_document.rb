@@ -549,7 +549,7 @@ class NSDocument
 
     render_by_identity = dict_lookup('render') == 'identity'
     if render_by_identity
-      rendered_content =  content
+      self.rendered_content =  content
     end
 
     dirty = self.content_dirty
