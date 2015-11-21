@@ -7,7 +7,7 @@ module Editor::Controllers::Document
       @document = DocumentRepository.find(id)
       @document.content_dirty = true
       @document.update_content params['source']
-      @document.synchronize_title
+      @document.synchronize_title unless @document.dict_lookup('synchronize_title') == 'no'
       if @document.is_root_document?
         self.body = @document.compiled_and_rendered_content
       else
