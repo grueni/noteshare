@@ -3,8 +3,12 @@
 # 2015-11-10T12:54:09.371257+00:00 app[web.1]: /app/lib/noteshare/modules/ns_document_asciidoc.rb:1:in `<top (required)>': uninitialized constant NSDocument (NameError)
 
 require_relative '..//entities/ns_document'
+require_relative '../modules/toc'
+
 
 module NSDocument::Asciidoc
+
+  include Noteshare
 
   def prepare_content(document, new_content)
 
@@ -71,11 +75,9 @@ module NSDocument::Asciidoc
     new_title = title_from_content
     if new_title and old_title != new_title
       self.title = new_title
-      t1 = Time.now
-      self.root_document.toc_dirty = true
-      self.root_document.update_table_of_contents(force: true)
-      t2 = Time.now
-      puts "Elapsed time: #{t2 - t1}".magenta
+      toc  = TOC.new(parent_document)
+      toc.change_title(self.id, new_title)
+      toc.save!
       DocumentRepository.update self
     end
   end
