@@ -40,7 +40,7 @@ class NSNode
   # Retrieve the document list: unpack
   def documents
     if docs
-      JSON.parse docs
+      ObjectItemList.decode(self.docs)
     else
       []
       end
@@ -48,10 +48,10 @@ class NSNode
 
   # Return an HTML list of links to documents
   def documents_as_list
-    list = documents
+    list = documents.table
     output = "<ul>\n"
-    list.each do |id, title|
-      output << "<li> <a href='/document/#{id}'>#{title}</a></li>\n"
+    list.each do |item|
+      output << "<li> <a href='/document/#{item.id}'>#{item.title}</a></li>\n"
     end
     output << "</ul>\n"
     output
