@@ -2,18 +2,14 @@
 .row.inset
   h4 Documents
   .col
-    /== search_form
-- if documents
-  .row.s8 style = ' margin-top:10 px; padding-left:1em; padding-right:1em;'
-    .col style = ''
-      .div style='margin-left:15px; height:400px; overflow-y:scroll; padding-bottom:3em;'
-        table style='border=0; border-color: #444; border-collapse;'
-          tbody
-            - documents.each do |document|
-              tr.clear_style
-                td.lightlink == document.link
-                td== document.author
-
-
-
-
+  /== search_form
+  - if documents
+    .row.s8 style = ' margin-top:10 px; padding-left:1em; padding-right:1em;'
+      .col style = ''
+        .div style='margin-left:15px; height:400px; overflow-y:scroll; padding-bottom:3em;'
+          table style='border=0; border-color: #444; border-collapse;'
+            tbody
+              - documents.each do |document|
+                tr.clear_style
+                  td.lightlink == document.link
+                  td== document.author
