@@ -9,8 +9,7 @@ module Editor::Controllers::Document
      puts "ID: #{params[:id]}".red
       # self.body = 'OK'
       @document = DocumentRepository.find params[:id]
-      hash = { export: 'yes'}
-      @document.compile_with_render hash
+      @document.export
       redirect_to "/document/#{params[:id]}"
     end
 

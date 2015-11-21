@@ -22,6 +22,11 @@ class Render
     Asciidoctor.convert(@source, @options)
   end
 
+  def export_asciidoc
+    @options = @options.merge({verbose:0})
+    rewrite_urls
+  end
+
   def rewrite_urls(option={destination: 'web'})
 
     rewrite_media_urls('image', option)
@@ -50,7 +55,6 @@ class Render
       puts "URL: #{iii.url.magenta}".magenta
       new_tag = "#{tag}::#{iii.url}[#{attributes}]"
       @source = @source.sub(old_tag, new_tag)
-      puts @source.cyan
     end
 
   end

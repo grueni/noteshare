@@ -24,5 +24,5 @@ module Editor::Controllers::Document
       redirect_to "/editor/document/#{id}"
     end
 
-  end``
+  end
 end

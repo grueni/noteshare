@@ -545,7 +545,7 @@ class NSDocument
   # and save it in rendered_content.  Otherwise,
   # Replace #content by str, render it
   # and save itl. .
-  def update_content(input=cvdnil)
+  def update_content(input=nil)
 
     render_by_identity = dict_lookup('render') == 'identity'
     if render_by_identity
@@ -574,13 +574,15 @@ class NSDocument
   end
 
   def texmacros
-    rd = root_document
+    rd = root_document || self
     if rd and rd.doc_refs['texmacros']
       macro_text = rd.associated_document('texmacros').content
       macro_text = macro_text.gsub(/^=*= .*$/,'')
       macro_text = "\n\n[env.texmacro]\n--\n#{macro_text}\n--\n\n"
+      puts macro_text.magenta
       macro_text
     else
+      puts 'NO MACROS'.magenta
       ''
     end
   end
@@ -648,10 +650,8 @@ class NSDocument
     end
   end
 
-  # Compile the receiver, render it, and store the
-  # rendered text in self.compiled_and_rendered_content
-  def compile_with_render(option={})
-    puts "compile_with_render, id = #{self.id}, title = #{self.title}".yellow
+
+  def get_render_option
     format = self.render_options['format']
 
     case format
@@ -663,18 +663,31 @@ class NSDocument
         render_option = {}
     end
 
-    renderer = Render.new(self.compile, render_option )
-    compiled_content = self.compile
+  end
+
+  # Compile the receiver, render it, and store the
+  # rendered text in self.compiled_and_rendered_content
+  def compile_with_render(option={})
+
+    renderer = Render.new(self.compile, get_render_option )
     self.compiled_and_rendered_content = renderer.convert
     self.compiled_dirty = false
     DocumentRepository.update(self)
-    if option[:export] == 'yes'
-      file_name = self.title.normalize
-      path = "outgoing/#{file_name}.adoc"
 
-      IO.write(path, compiled_content)
-      export_html(format)
-    end
+  end
+
+  def export
+    header = '= ' << title << "\n"
+    header << author << "\n"
+    header << ":numbered:" << "\n"
+    header << ":toc2:" << "\n\n\n"
+
+    renderer = Render.new(header + texmacros + self.compile, get_render_option )
+    renderer.rewrite_urls
+    file_name = self.title.normalize
+    path = "outgoing/#{file_name}.adoc"
+    IO.write(path, renderer.source)
+    export_html(get_render_option)
 
   end
 
@@ -682,6 +695,7 @@ class NSDocument
 
     file_name = self.title.normalize
     path = "outgoing/#{file_name}.adoc"
+    format = self.render_options['format']
 
     case format
       when 'adoc'
@@ -689,7 +703,7 @@ class NSDocument
       when 'adoc-latex'
         cmd = "asciidoctor-latex -b html #{path}"
       else
-        cmd =  "asciidoctor #{path}c"
+        cmd =  "asciidoctor #{path}"
     end
 
     system cmd

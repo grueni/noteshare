@@ -16,9 +16,9 @@
           label for="select_tool_panel" Tools
     .div style='position:absolute; top:50px; left:20px;' id='toc_panel'
       p.plainlink.lightlink style = 'font-size:larger; padding-top:0.4em;margin-bottom:0;' == document.root_link(prefix: '/editor')
-      p style = 'margin-top:0.05em;' == "by #{document.author}"
-      h5 style = 'margin-bottom:0;' Table of Contents
-      .toc.plainlink.lightlink == document.associated_document_map('editor')
+      /p style = 'margin-top:0.05em;' == "by #{document.author}"
+
+      .toc.plainlink.lightlink == document.root_associated_document_map('editor')
       .toc
         == document.root_table_of_contents(document.id, 'editor')
     .div style='position:absolute; top:50px; left:20px;' id='tools_panel'

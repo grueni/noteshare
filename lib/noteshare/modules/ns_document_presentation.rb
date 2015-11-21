@@ -180,6 +180,10 @@ module NSDocument::Presentation
   #
   ############################################################
 
+  def root_associated_document_map(target='reader')
+    root = root_document || self
+    root.associated_document_map(target)
+  end
 
 
   def associated_document_map(target='reader')
