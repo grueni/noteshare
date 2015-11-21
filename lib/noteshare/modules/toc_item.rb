@@ -33,6 +33,12 @@ module Noteshare
       self.from_hash(hash)
     end
 
+    def display
+      out = ""
+      out << "id: " << id.to_s << ", "
+      out << "title: " << title << "\n"
+    end
+
   end
 
 end
