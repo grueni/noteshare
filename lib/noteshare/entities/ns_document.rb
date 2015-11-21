@@ -211,6 +211,7 @@ class NSDocument
     # references the child (the subdocument),
     # and vice versa.
     parent_toc = TOC.new(parent_document)
+    puts parent_toc.display.red
     new_toc_item = TOCItem.new(self.id, self.title, self.identifier, false)
     parent_toc.insert(k, new_toc_item)
     parent_toc.save!

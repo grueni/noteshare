@@ -35,6 +35,13 @@ module Noteshare
       end
     end
 
+    def display
+      str = "\n-------\nTABLE:\n"
+      @table.each do |item|
+        str << item.display
+      end
+      str << "-------\n#{@table.count}\n"
+    end
 
     def table
       @table
@@ -64,6 +71,10 @@ module Noteshare
         end
       end
       target
+    end
+
+    def get_title(id)
+      get(id).title
     end
 
     def change_title(id, new_title)
