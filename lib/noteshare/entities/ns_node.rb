@@ -1,7 +1,13 @@
+
+
+
+
 class NSNode
+
   include Lotus::Entity
       attributes :id, :owner_id, :identifier,  :name, :type, :meta, :docs, :children
 
+  include Noteshare
   require 'json'
 
 
@@ -22,8 +28,12 @@ class NSNode
   # and title root documents belonging to the owner of the node
   def update_docs_for_owner
     dd = DocumentRepository.root_documents_for_user self.owner_id
-    doc_data = dd.map{ |doc| [doc.id, doc.title]}
-    self.docs  = JSON.generate doc_data
+    puts "docs: #{dd.count}"
+    hash_array = dd.map{ |doc| {id: doc.id, title: doc.title } }
+    puts hash_array.to_s
+    object_item_list = ObjectItemList.new(hash_array)
+    puts object_item_list.display
+    self.docs  = object_item_list.encode
     NSNodeRepository.update self
   end
 

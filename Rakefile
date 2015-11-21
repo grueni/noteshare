@@ -57,6 +57,12 @@ namespace :t do
     exec cmd
   end
 
+  desc "Run tests on ObjectItem and ObjectItemList classes"
+  task :obj do
+    cmd = 'ruby -I"Lib:spec" spec/noteshare/classes/object_item_spec.rb'
+    exec cmd
+  end
+
   desc "Run tests on User entity"
   task :user do
     cmd = 'ruby -I"Lib:spec" spec/noteshare/entities/user_spec.rb'
