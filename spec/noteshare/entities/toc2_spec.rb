@@ -10,6 +10,7 @@ describe NSDocument do
 
   before do
 
+    @hash = [{:id=>13246, :title=>"Uncertainty Principle", :identifier=>"317b135f3f878783f1c5", :has_subdocs=>nil}, {:id=>13247, :title=>"Wave-Particle Duality", :identifier=>"8dc3ce7a44896036ffc0", :has_subdocs=>nil}, {:id=>13248, :title=>"Matrix Mechanics", :identifier=>"feede6092947af59e148", :has_subdocs=>false}]
 
     DocumentRepository.clear
 
@@ -52,73 +53,25 @@ describe NSDocument do
     DocumentRepository.update @subsubsection1
     DocumentRepository.update @subsubsection2
 
-  end
-
-=begin
-
-  it 'can initialize an instance from a toc_array and access the data therein' do
-
-    t = TOC.new(@article)
-    t.table[0].id.must_equal @toc_array[0]['id']
-    puts "(1)"
-    puts t.table
-    puts "---------------"
-
+    @section1.add_to(@article1)
+    @section2.add_to(@article1)
+    @section3.add_to(@article1)
+    @subsection1.add_to(@section2)
+    @subsection2.add_to(@section2)
 
 
   end
-
-
-
-  it 'can make changes to its data and read them back' do
-
-    t = TOC.new(@article)
-    t.table[0].id = 777
-    t.table[0].id.must_equal 777
-
-  end
-
-
-  it 'can make changes to its data, persist them, and read them back' do
-
-    article2 = DocumentRepository.find @article.id
-
-    article2.title.must_equal @article.title
-    t2 = TOC.new(article2)
-    t2.table[0].id.must_equal 2
-    t2.table[0].id = 777
-
-    t2.save!
-
-    puts "(2)"
-    puts t2.table
-    puts "---------------"
-
-    article3 = DocumentRepository.find @article.id
-    t3 = TOC.new(article3)
-    t3.table[0].id.must_equal 777
-
-  end
-=end
 
 
 
 
   it 'sets the correct parent_item and root_item fields for a document added to another' do
 
-    table = TOC.new(@article1).table
-    table.must_equal ([])
-
-
-    @section1.add_to(@article1)
-
-    table1 = TOC.new(@article1).table
 
     DocumentRepository.update @article1
 
     table2 = TOC.new(@article1).table
 
-    table2.must_equal(table1)
     table2[0].id.must_equal(@section1.id)
     table2[0].title.must_equal(@section1.title)
 
@@ -147,12 +100,6 @@ describe NSDocument do
 
     # @article.update_table_of_contents
 
-    @section1.add_to(@article1)
-    @section2.add_to(@article1)
-    @section3.add_to(@article1)
-    @subsection1.add_to(@section2)
-    @subsection2.add_to(@section2)
-
 
     table = TOC.new(@article1).table
     table.count.must_equal(3)
@@ -160,9 +107,7 @@ describe NSDocument do
 
     DocumentRepository.update @article1
 
-
     article2 = DocumentRepository.find @article1.id
-    article2_table = TOC.new(article2).table
 
     @section1.previous_toc_item.must_equal(nil)
     @section1.next_toc_item.title.must_equal(@section2.title)
@@ -175,16 +120,9 @@ describe NSDocument do
 
     DocumentRepository.update @article1
 
-
   end
 
   it 'can return a TOC item given an id' do
-
-    @section1.add_to(@article1)
-    @section2.add_to(@article1)
-    @section3.add_to(@article1)
-    @subsection1.add_to(@section2)
-    @subsection2.add_to(@section2)
 
 
     puts "ITEM 1 #{@article1.toc_item(@section1.id)}".red
@@ -197,25 +135,16 @@ describe NSDocument do
 
   end
 
-  it 'can return a TOC item given an id (20' do
+  it 'can return a TOC item given an id (2)' do
 
-    @section1.add_to(@article1)
-    @section2.add_to(@article1)
-    @section3.add_to(@article1)
-    @subsection1.add_to(@section2)
-    @subsection2.add_to(@section2)
-
-
-
+    toc = TOC.new(@article1)
+    item =toc.get(@section2.id)
+    puts "ITEMMMM: #{item}".red
+    puts @article1.toc.to_s
+    puts '----------------------'
   end
 
   it 'can change the the title of a TOC item given an id' do
-
-    @section1.add_to(@article1)
-    @section2.add_to(@article1)
-    @section3.add_to(@article1)
-    @subsection1.add_to(@section2)
-    @subsection2.add_to(@section2)
 
     puts
     puts "ITEM 2, original: #{@article1.toc_item(@section2.id)}".red
@@ -232,54 +161,9 @@ describe NSDocument do
 
   end
 
-
-=begin
-
-
- it 'can update its table of contents mtoc' do
-
-    # @article.update_table_of_contents
-
-    @section1.add_to(@article1)
-    @section2.add_to(@article1)
-    # @section3.add_to(@article1)
-    # @subsection1.add_to(@section2)
-    # @subsection2.add_to(@section2)
-
-    puts "TOC for article:"
-    puts @article1.toc
-
-    puts "TOC for first section:"
-    puts @section1.toc
-
-    puts "\n\nTOC for second section:"
-    puts @section2.toc
-
-    flat_toc = @article1.toc.flatten
-
-    flat_toc[0].title.must_equal 'Uncertainty Principle'
-    # flat_toc[1].title.must_equal 'Wave-Particle Duality'
-    # flat_toc[5].must_equal 'Matrix Mechanics'
-
+  it 'can intitialize itself from hash' do
 
   end
-
-  it 'can construct a master table of contents' do
-
-    @article.update_table_of_contents
-    puts @article.master_table_of_contents
-
-  end
-
-  it 'can compute the level of a subdocument xxx' do
-
-    @article.level.must_equal 0
-    @section1.level.must_equal 1
-    @subsection1.level.must_equal 2
-
-  end
-
-=end
 
 end
 

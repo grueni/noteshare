@@ -52,11 +52,19 @@ class NSDocument
   #
   #     CONTENTS
   #
-  #     1. REQUIRE, INCLUDE, AND INITIALIZE
+  #     1. REQUIRE, INCLUDE, INITIALIZE AND DISPLAY
   #     2. MANAGE SUBDOCUMENTS
   #     3. ASSOCIATED DOCUMENTS
   #     4. UPDATE, COMPILE & RENDER
   #     5. TABLE OF CONTENTS
+  #
+  ###################################################
+
+
+
+  ###################################################
+  #
+  #     1. REQUIRE, INCLUDE, INITIALIZE AND DISPLAY
   #
   ###################################################
 
@@ -118,11 +126,7 @@ class NSDocument
     doc.display('Document', [:title, :identifier, :author_credentials, :parent_ref, :root_ref, :toc])
   end
 
-  # Return TOC object corresponding to the toc
-  # field in the database
-  def table_of_contents
-    TOC.new(self).table
-  end
+
 
   # Create a document given a hash.
   # The hash must define both the title and the author credentials,
@@ -213,8 +217,6 @@ class NSDocument
     self.index_in_parent =  k
     self.parent_ref = {id: parent_document.id, title: parent_document.title, identifier: parent_document.identifier, has_subdocs:true }
     self.parent_id = parent_document.id
-    puts "IN INSERT: parent_document.id = #{parent_document.id}".magenta
-    puts "IN INSERT: self.parent_id = #{self.parent_id}".red
 
     root_doc = find_root_document
     if root_doc
@@ -266,7 +268,6 @@ class NSDocument
   # @section.add_to(@article) makes @section
   # the last subdocument of @article
   def add_to(parent_document)
-    puts "ADD: #{self.title} TO: #{parent_document.title}".green
     new_index = parent_document.toc.length
     insert(new_index, parent_document)
   end
@@ -714,6 +715,12 @@ class NSDocument
   #  TABLE OF CONTENTS
   #
   #########################################################
+
+  # Return TOC object corresponding to the toc
+  # field in the database
+  def table_of_contents
+    TOC.new(self).table
+  end
 
 
   def set_toc_dirty
