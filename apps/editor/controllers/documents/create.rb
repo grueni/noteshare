@@ -23,7 +23,7 @@ module Editor::Controllers::Documents
 
       puts "DOC_PARAMS['options']: #{doc_params['options']}"
 
-      @document = DocumentRepository.create(NSDocument.new(title: title, author_credentials: author_credentials))
+      @document = NSDocument.create(title: title, author_credentials: author_credentials)
       @document.author = current_user(session).full_name
 
       @document.content = prepare_content(@document, doc_params['content'])

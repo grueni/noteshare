@@ -75,10 +75,12 @@ module NSDocument::Asciidoc
     new_title = title_from_content
     if new_title and old_title != new_title
       self.title = new_title
-      toc  = TOC.new(parent_document)
-      toc.change_title(self.id, new_title)
-      toc.save!
-      DocumentRepository.update self
+      if parent_document
+        toc  = TOC.new(parent_document)
+        toc.change_title(self.id, new_title)
+        toc.save!
+        DocumentRepository.update self
+      end
     end
   end
 

@@ -10,6 +10,8 @@ module Editor::Controllers::Document
       @document = DocumentRepository.find params[:id]
       @parent_document = @document.parent_document
 
+      puts "In controller, newSection, document = #{document.title}"
+
 
     end
 

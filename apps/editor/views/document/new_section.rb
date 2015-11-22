@@ -11,12 +11,11 @@ module Editor::Views::Document
         text_field :options
 
         label :content
-        text_area :content, {style: 'height:200px;'}
+        text_area :content
 
         hidden_field :parent_id, value: params[:id]
 
-        submit 'Create', {style: 'margin-top:1em;'}
-        # button_to 'Cancel', "/documents/#{params[:id]}"
+        submit 'Create'
       end
     end
 

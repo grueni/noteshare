@@ -49,10 +49,39 @@ module SessionTools
     UserRepository.find session[:user_id]
   end
 
+  def current_user_id(session)
+    if current_user
+      return current_user.id
+    else
+      return nil
+    end
+  end
+
   def current_user_is_admin?(session)
     user = UserRepository.find session[:user_id]
     return false if user == nil
     return user.admin
   end
+
+end
+
+class Permission
+
+  def initialize(user, action, object)
+    @user = user
+    @action = action
+    @object = object
+  end
+
+  def can
+    case @action
+      when :delete
+        return @object.creator_id == @user.id
+      else
+        return false
+    end
+  end
+
+
 
 end
