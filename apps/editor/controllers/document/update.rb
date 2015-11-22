@@ -8,7 +8,8 @@ module Editor::Controllers::Document
     expose :document
 
     def call(params)
-      puts ">> Editor update".red
+
+      puts "controller Editor update".red
 
       document_packet = params['document']
       id = document_packet['document_id'].to_i

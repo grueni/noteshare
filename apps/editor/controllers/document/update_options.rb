@@ -7,6 +7,7 @@ module Editor::Controllers::Document
     expose :document
 
     def process_options(document, option)
+      puts "controller Editor update".red
       puts "IN PROCESS_OPTIONS, options = #{option}".red
       dirty = false
       hash = option.hash_value

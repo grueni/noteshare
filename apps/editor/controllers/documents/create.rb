@@ -8,7 +8,7 @@ module Editor::Controllers::Documents
     expose :document
 
     def call(params)
-
+      puts "controller create".red
       doc_params = params[:document]
       parent_id = doc_params['parent_id']
       title = doc_params['title']
@@ -34,7 +34,6 @@ module Editor::Controllers::Documents
         @parent_doc = DocumentRepository.find parent_id.to_i
         if associated_doc_type == ''
           @document.add_to(@parent_doc)
-          @parent_doc.update_table_of_contents
         else
           @document.associate_to(@parent_doc, associated_doc_type,)
         end
