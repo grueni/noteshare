@@ -1,4 +1,4 @@
-require_relative '..//entities/ns_document'
+require_relative '../entities/ns_document'
 
 
 module NSDocument::Interface
