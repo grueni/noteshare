@@ -9,8 +9,15 @@ module Editor::Controllers::Document
       @document.update_content params['source']
       @document.synchronize_title unless @document.dict_lookup('synchronize_title') == 'no'
       if @document.is_root_document?
-        self.body = @document.compiled_and_rendered_content
+        if @document.toc == []
+          puts "making:endered_content (R)".magenta
+          self.body = @document.rendered_content
+        else
+          puts "making:compiled_and_rendered_content".magenta
+          self.body = @document.compiled_and_rendered_content
+        end
       else
+        puts "making:endered_content".red
         self.body = @document.rendered_content
       end
     end

@@ -1,3 +1,4 @@
+get '/delete_document/:id', to: 'document#delete_document'
 post '/create_new_section', to: 'document#create_new_section'
 get '/new_section/:id', to: 'document#new_section'
 post '/json_update/:ipd', to: 'document#json_update'

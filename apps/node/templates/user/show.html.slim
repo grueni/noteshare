@@ -1,6 +1,6 @@
-.row
+.row.inset_top
 
-  .col.inset_left.inset_top
+  .col.inset_left
     h3 == title(current_node)
     div
       .ns_card
@@ -9,3 +9,9 @@
 
         h4 Documents
         == current_node.documents_as_list
+
+
+  .col style='left:30%'
+    h3 Tools
+    .ns_card
+      == new_document_link

@@ -97,6 +97,19 @@ td.clear_style {
     color: #fff;
 }
 
+.ns_card textarea {
+
+    background-color: rgba(5,5,5,0.67);
+    margin-top:0.5em;
+    height:200px;
+}
+
+.ns_card button {
+
+    background-color: lightseagreen;
+    margin-top:1em
+}
+
 /***
 
     STRUCTURE: body, row, col, etc.

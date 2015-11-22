@@ -3,8 +3,13 @@ module Editor::Views::Documents
     include Editor::View
 
     def form_title
-      if params[:id]
-        parent_doc = DocumentRepository.find params[:id]
+      parent_doc = DocumentRepository.find params[:id]
+      if parent_doc == nil
+        puts "in form_title, parent_doc is nil"
+      else
+        puts "in form_title, parent_doc is #{parent_doc.title}"
+      end
+      if parent_doc
         "Add document to #{parent_doc.title}"
       else
         "Add new document"

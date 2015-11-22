@@ -123,7 +123,7 @@ class NSDocument
 
   def self.info(id)
     doc = DocumentRepository.find(id)
-    doc.display('Document', [:title, :identifier, :author_credentials, :parent_ref, :root_ref, :toc])
+    doc.display('Document', [:title, :identifier, :author_credentials, :parent_ref, :root_ref, :render_options, :toc])
   end
 
 
@@ -146,9 +146,14 @@ class NSDocument
     doc = NSDocument.new(hash)
     doc.author_credentials = Tools.symbolize_keys(hash[:author_credentials])
     doc.author = doc.author_credentials[:first_name] + ' ' + doc.author_credentials[:last_name]
+    doc.author_id =doc.author_credentials[:id]
     doc.identifier = Noteshare::Identifier.new().string
     doc.root_ref = { 'id'=> 0, 'title' => ''}
     DocumentRepository.create doc
+  end
+
+  def creator_id
+    get_author_credentials.id
   end
 
 
@@ -523,7 +528,9 @@ class NSDocument
   # It can be retrieved as @foo.associated_document('summary')
   def associate_to(doc, type)
     doc.doc_refs[type] = self.id
+    self.type = type
     self.parent_id = doc.id
+    self.parent_ref = {id: doc.id, title: doc.title, identifier: doc.identifier, has_subdocs:false }
     self.root_document_id = doc.id
     DocumentRepository.update(doc)
   end
