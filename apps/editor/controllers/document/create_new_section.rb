@@ -29,6 +29,9 @@ module Editor::Controllers::Document
         new_document.associate_to(current_document, associated_doc_type,)
       end
 
+      node = NodeRepository.find current_user.node_id
+      node.update_docs_for_owner
+
       redirect_to "/document/#{new_document.id}"
 
     end
