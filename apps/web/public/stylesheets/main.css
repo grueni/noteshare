@@ -76,7 +76,7 @@ td.clear_style {
 
 .ns_card {
 
-    background-color: #444;
+    background-color: rgba(10,10,10,0.67);
     padding-left: 2em;
     padding-right: 2em;
     padding-top:2em;
@@ -621,3 +621,5 @@ p.compact {
 
     margin-top:2em;
 }
+
+.ns_highlight { color: #ef3030; }
