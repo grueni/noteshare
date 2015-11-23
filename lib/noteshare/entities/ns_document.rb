@@ -580,7 +580,8 @@ class NSDocument
 
 
   def update_content_from(str)
-    renderer = Render.new(texmacros + str)
+    tm = texmacros || ''
+    renderer = Render.new(tm + str)
     self.rendered_content = renderer.convert
   end
 
