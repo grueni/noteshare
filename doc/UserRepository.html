@@ -143,7 +143,51 @@
         <li class="public ">
   <span class="summary_signature">
     
+      <a href="#find_by_screen_name-class_method" title="find_by_screen_name (class method)">+ (Object) <strong>find_by_screen_name</strong>(name) </a>
+    
+
+    
+  </span>
+  
+  
+  
+  
+  
+  
+  
+
+  
+    <span class="summary_desc"><div class='inline'></div></span>
+  
+</li>
+
+      
+        <li class="public ">
+  <span class="summary_signature">
+    
       <a href="#find_one_by_email-class_method" title="find_one_by_email (class method)">+ (Object) <strong>find_one_by_email</strong>(email) </a>
+    
+
+    
+  </span>
+  
+  
+  
+  
+  
+  
+  
+
+  
+    <span class="summary_desc"><div class='inline'></div></span>
+  
+</li>
+
+      
+        <li class="public ">
+  <span class="summary_signature">
+    
+      <a href="#find_one_by_screen_name-class_method" title="find_one_by_screen_name (class method)">+ (Object) <strong>find_one_by_screen_name</strong>(name) </a>
     
 
     
@@ -207,6 +251,40 @@
 </div>
     
       <div class="method_details ">
+  <h3 class="signature " id="find_by_screen_name-class_method">
+  
+    + (<tt><span class='object_link'><a href="Noteshare/Tools/Object.html" title="Noteshare::Tools::Object (class)">Object</a></span></tt>) <strong>find_by_screen_name</strong>(name) 
+  
+
+  
+
+  
+</h3><table class="source_code">
+  <tr>
+    <td>
+      <pre class="lines">
+
+
+17
+18
+19
+20
+21</pre>
+    </td>
+    <td>
+      <pre class="code"><span class="info file"># File 'lib/noteshare/repositories/user_repository.rb', line 17</span>
+
+<span class='kw'>def</span> <span class='kw'>self</span><span class='period'>.</span><span class='id identifier rubyid_find_by_screen_name'>find_by_screen_name</span><span class='lparen'>(</span><span class='id identifier rubyid_name'>name</span><span class='rparen'>)</span>
+  <span class='id identifier rubyid_query'>query</span> <span class='kw'>do</span>
+    <span class='id identifier rubyid_where'>where</span><span class='lparen'>(</span><span class='label'>screen_name:</span> <span class='id identifier rubyid_name'>name</span><span class='rparen'>)</span>
+  <span class='kw'>end</span>
+<span class='kw'>end</span></pre>
+    </td>
+  </tr>
+</table>
+</div>
+    
+      <div class="method_details ">
   <h3 class="signature " id="find_one_by_email-class_method">
   
     + (<tt><span class='object_link'><a href="Noteshare/Tools/Object.html" title="Noteshare::Tools::Object (class)">Object</a></span></tt>) <strong>find_one_by_email</strong>(email) 
@@ -238,12 +316,44 @@
 </table>
 </div>
     
+      <div class="method_details ">
+  <h3 class="signature " id="find_one_by_screen_name-class_method">
+  
+    + (<tt><span class='object_link'><a href="Noteshare/Tools/Object.html" title="Noteshare::Tools::Object (class)">Object</a></span></tt>) <strong>find_one_by_screen_name</strong>(name) 
+  
+
+  
+
+  
+</h3><table class="source_code">
+  <tr>
+    <td>
+      <pre class="lines">
+
+
+23
+24
+25
+26</pre>
+    </td>
+    <td>
+      <pre class="code"><span class="info file"># File 'lib/noteshare/repositories/user_repository.rb', line 23</span>
+
+<span class='kw'>def</span> <span class='kw'>self</span><span class='period'>.</span><span class='id identifier rubyid_find_one_by_screen_name'>find_one_by_screen_name</span><span class='lparen'>(</span><span class='id identifier rubyid_name'>name</span><span class='rparen'>)</span>
+  <span class='id identifier rubyid_result'>result</span> <span class='op'>=</span> <span class='kw'>self</span><span class='period'>.</span><span class='id identifier rubyid_find_by_screen_name'>find_by_screen_name</span><span class='lparen'>(</span><span class='id identifier rubyid_name'>name</span><span class='rparen'>)</span>
+  <span class='kw'>return</span> <span class='id identifier rubyid_result'>result</span><span class='period'>.</span><span class='id identifier rubyid_first'>first</span> <span class='kw'>if</span> <span class='id identifier rubyid_result'>result</span>
+<span class='kw'>end</span></pre>
+    </td>
+  </tr>
+</table>
+</div>
+    
   </div>
 
 </div>
 
     <div id="footer">
-  Generated on Mon Nov 16 14:26:49 2015 by
+  Generated on Mon Nov 23 06:08:42 2015 by
   <a href="http://yardoc.org" title="Yay! A Ruby Documentation Tool" target="_parent">yard</a>
   0.8.7.6 (ruby-2.2.3).
 </div>

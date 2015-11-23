@@ -5,13 +5,19 @@ describe User do
 
   before do
     UserRepository.clear
-    @jared = UserRepository.create(User.new(first_name: 'Jared', last_name: 'Foo-Bar'))
+    @jared = User.create(first_name: 'Jared', last_name: 'Foo-Bar', screen_name: 'jayfoo', password: 'foobar123', password_confirmation: 'foobar123')
   end
 
 
   it 'can create and find a user' do
 
-    assert UserRepository.first.first_name.must_equal 'Jared'
+    user =  UserRepository.first
+    assert user.first_name.must_equal 'Jared'
+    assert user.last_name.must_equal 'Foo-Bar'
+    assert user.id > 0
+    assert user.identifier.length == 20
+    puts user.id
+    puts user.identifier
 
   end
 

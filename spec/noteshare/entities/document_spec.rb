@@ -9,11 +9,15 @@ describe NSDocument do
     DocumentRepository.clear
 
 
-    @article = DocumentRepository.create(NSDocument.new(title: 'A. Quantum Mechanics', author: 'Jared. Foo-Bar'))
-    @section = DocumentRepository.create(NSDocument.new(title: 'S1. Uncertainty Principle', author: 'Jared Foo-Bar', subdoc_refs: []))
-    @section2 = DocumentRepository.create(NSDocument.new(title: 'S2. Wave-Particle Duality', author: 'Jared Foo-Bar', subdoc_refs: []))
-    @section3 = DocumentRepository.create(NSDocument.new(title: 'S3. Matrix Mechanics', author: 'Jared Foo-Bar', subdoc_refs: []))
-    @subsection =  DocumentRepository.create(NSDocument.new(title: "SS. de Broglie", author: 'Jared Foo-Bar', subdoc_refs: []))
+    @user = User.create(first_name: 'Jared', last_name: 'Foo-Bar', screen_name: 'jayfoo', password: 'foobar123', password_confirmation: 'foobar123')
+
+
+    @article = NSDocument.create(title: 'Quantum Mechanics', author_credentials: @user.credentials)
+    @section = NSDocument.create(title: 'Uncertainty Principle', author_credentials: @user.credentials)
+    @section2 = NSDocument.create(title: 'Wave-Particle Duality', author_credentials: @user.credentials)
+    @section3 = NSDocument.create(title: 'Matrix Mechanics', author_credentials: @user.credentials)
+    @subsection =  NSDocument.create(title: "de Broglie's idea", author_credentials: @user.credentials)
+
 
     @article.content = 'Quantum phenomena are weird!'
     @section.content = 'The Uncertainty Principle invalidates the notion of trajectory'

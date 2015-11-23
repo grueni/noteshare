@@ -141,6 +141,52 @@
         <li class="public ">
   <span class="summary_signature">
     
+      <a href="#random_indices-instance_method" title="#random_indices (instance method)">- (Object) <strong>random_indices</strong>(number_of_indices) </a>
+    
+
+    
+  </span>
+  
+  
+  
+  
+  
+  
+  
+
+  
+    <span class="summary_desc"><div class='inline'>
+<p>[10, 11, 12, 13]].random_indices(2) =&gt; 0, 2 (for example).</p>
+</div></span>
+  
+</li>
+
+      
+        <li class="public ">
+  <span class="summary_signature">
+    
+      <a href="#random_sublist-instance_method" title="#random_sublist (instance method)">- (Object) <strong>random_sublist</strong>(size) </a>
+    
+
+    
+  </span>
+  
+  
+  
+  
+  
+  
+  
+
+  
+    <span class="summary_desc"><div class='inline'></div></span>
+  
+</li>
+
+      
+        <li class="public ">
+  <span class="summary_signature">
+    
       <a href="#tail-instance_method" title="#tail (instance method)">- (Object) <strong>tail</strong>(k) </a>
     
 
@@ -221,6 +267,111 @@ that foo = foo.head(k) + foo.tail(k)</p>
 </div>
     
       <div class="method_details ">
+  <h3 class="signature " id="random_indices-instance_method">
+  
+    - (<tt><span class='object_link'><a href="Noteshare/Tools/Object.html" title="Noteshare::Tools::Object (class)">Object</a></span></tt>) <strong>random_indices</strong>(number_of_indices) 
+  
+
+  
+
+  
+</h3><div class="docstring">
+  <div class="discussion">
+    
+<p>[10, 11, 12, 13]].random_indices(2)</p>
+
+<h1 id="label-3E+0-2C+2+-28for+example-29">&gt; 0, 2 (for example)</h1>
+
+
+  </div>
+</div>
+<div class="tags">
+  
+
+</div><table class="source_code">
+  <tr>
+    <td>
+      <pre class="lines">
+
+
+29
+30
+31
+32
+33
+34
+35
+36
+37
+38
+39
+40</pre>
+    </td>
+    <td>
+      <pre class="code"><span class="info file"># File 'lib/ext/core.rb', line 29</span>
+
+<span class='kw'>def</span> <span class='id identifier rubyid_random_indices'>random_indices</span><span class='lparen'>(</span><span class='id identifier rubyid_number_of_indices'>number_of_indices</span><span class='rparen'>)</span>
+  <span class='id identifier rubyid_output'>output</span> <span class='op'>=</span> <span class='lbracket'>[</span><span class='rbracket'>]</span>
+  <span class='id identifier rubyid_count'>count</span> <span class='op'>=</span> <span class='int'>0</span>
+  <span class='kw'>while</span> <span class='id identifier rubyid_output'>output</span><span class='period'>.</span><span class='id identifier rubyid_count'>count</span> <span class='op'>&lt;</span> <span class='id identifier rubyid_number_of_indices'>number_of_indices</span> <span class='kw'>and</span> <span class='id identifier rubyid_count'>count</span> <span class='op'>&lt;</span> <span class='int'>2</span><span class='op'>*</span><span class='id identifier rubyid_number_of_indices'>number_of_indices</span> <span class='kw'>do</span>
+    <span class='id identifier rubyid_j'>j</span> <span class='op'>=</span> <span class='const'>SecureRandom</span><span class='period'>.</span><span class='id identifier rubyid_random_number'>random_number</span><span class='lparen'>(</span><span class='kw'>self</span><span class='period'>.</span><span class='id identifier rubyid_count'>count</span><span class='rparen'>)</span>
+    <span class='kw'>if</span> <span class='op'>!</span><span class='id identifier rubyid_output'>output</span><span class='period'>.</span><span class='id identifier rubyid_include?'>include?</span> <span class='id identifier rubyid_j'>j</span>
+      <span class='id identifier rubyid_output'>output</span> <span class='op'>&lt;&lt;</span> <span class='id identifier rubyid_j'>j</span>
+    <span class='kw'>end</span>
+    <span class='id identifier rubyid_count'>count</span> <span class='op'>+=</span> <span class='int'>1</span>
+  <span class='kw'>end</span>
+  <span class='kw'>return</span> <span class='id identifier rubyid_output'>output</span>
+<span class='kw'>end</span></pre>
+    </td>
+  </tr>
+</table>
+</div>
+    
+      <div class="method_details ">
+  <h3 class="signature " id="random_sublist-instance_method">
+  
+    - (<tt><span class='object_link'><a href="Noteshare/Tools/Object.html" title="Noteshare::Tools::Object (class)">Object</a></span></tt>) <strong>random_sublist</strong>(size) 
+  
+
+  
+
+  
+</h3><table class="source_code">
+  <tr>
+    <td>
+      <pre class="lines">
+
+
+42
+43
+44
+45
+46
+47
+48
+49
+50
+51</pre>
+    </td>
+    <td>
+      <pre class="code"><span class="info file"># File 'lib/ext/core.rb', line 42</span>
+
+<span class='kw'>def</span> <span class='id identifier rubyid_random_sublist'>random_sublist</span><span class='lparen'>(</span><span class='id identifier rubyid_size'>size</span><span class='rparen'>)</span>
+
+  <span class='id identifier rubyid_output'>output</span> <span class='op'>=</span> <span class='lbracket'>[</span><span class='rbracket'>]</span>
+  <span class='id identifier rubyid_indices'>indices</span> <span class='op'>=</span> <span class='id identifier rubyid_random_indices'>random_indices</span><span class='lparen'>(</span><span class='id identifier rubyid_size'>size</span><span class='rparen'>)</span>
+  <span class='id identifier rubyid_indices'>indices</span><span class='period'>.</span><span class='id identifier rubyid_each'>each</span> <span class='kw'>do</span> <span class='op'>|</span><span class='id identifier rubyid_index'>index</span><span class='op'>|</span>
+    <span class='id identifier rubyid_output'>output</span> <span class='op'>&lt;&lt;</span> <span class='kw'>self</span><span class='lbracket'>[</span><span class='id identifier rubyid_index'>index</span><span class='rbracket'>]</span>
+  <span class='kw'>end</span>
+  <span class='kw'>return</span> <span class='id identifier rubyid_output'>output</span>
+
+<span class='kw'>end</span></pre>
+    </td>
+  </tr>
+</table>
+</div>
+    
+      <div class="method_details ">
   <h3 class="signature " id="tail-instance_method">
   
     - (<tt><span class='object_link'><a href="Noteshare/Tools/Object.html" title="Noteshare::Tools::Object (class)">Object</a></span></tt>) <strong>tail</strong>(k) 
@@ -274,7 +425,7 @@ that foo = foo.head(k) + foo.tail(k)</p>
 </div>
 
     <div id="footer">
-  Generated on Mon Nov 16 14:26:48 2015 by
+  Generated on Mon Nov 23 06:08:41 2015 by
   <a href="http://yardoc.org" title="Yay! A Ruby Documentation Tool" target="_parent">yard</a>
   0.8.7.6 (ruby-2.2.3).
 </div>

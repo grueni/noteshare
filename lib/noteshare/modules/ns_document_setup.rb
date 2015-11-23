@@ -14,8 +14,8 @@ include NSDocument::Interface
     UserRepository.clear
     DocumentRepository.clear
 
-    UserRepository.create(User.new(first_name: 'Jason', last_name: 'Foo-Bar'))
-    SettingsRepository.create(Settings.new(owner: current_user_full_name))
+    @user = User.create(first_name: 'Jared', last_name: 'Foo-Bar', screen_name: 'jayfoo', password: 'foobar123', password_confirmation: 'foobar123')
+    SettingsRepository.create(Settings.new(owner: @user.full_name))
 
 
     @article = DocumentRepository.create(NSDocument.new(title: 'Quantum Mechanics', author: current_user_full_name))

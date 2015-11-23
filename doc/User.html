@@ -112,11 +112,133 @@
 
   
     <h2>
+      Class Method Summary
+      <small>(<a href="#" class="summary_toggle">collapse</a>)</small>
+    </h2>
+
+    <ul class="summary">
+      
+        <li class="public ">
+  <span class="summary_signature">
+    
+      <a href="#create-class_method" title="create (class method)">+ (Object) <strong>create</strong>(user_params) </a>
+    
+
+    
+  </span>
+  
+  
+  
+  
+  
+  
+  
+
+  
+    <span class="summary_desc"><div class='inline'></div></span>
+  
+</li>
+
+      
+        <li class="public ">
+  <span class="summary_signature">
+    
+      <a href="#delete_with_dependents-class_method" title="delete_with_dependents (class method)">+ (Object) <strong>delete_with_dependents</strong>(id) </a>
+    
+
+    
+  </span>
+  
+  
+  
+  
+  
+  
+  
+
+  
+    <span class="summary_desc"><div class='inline'>
+<p>Delete the user with given id and also all dependent structures, for now
+just the associated node.</p>
+</div></span>
+  
+</li>
+
+      
+        <li class="public ">
+  <span class="summary_signature">
+    
+      <a href="#list-class_method" title="list (class method)">+ (Object) <strong>list</strong> </a>
+    
+
+    
+  </span>
+  
+  
+  
+  
+  
+  
+  
+
+  
+    <span class="summary_desc"><div class='inline'></div></span>
+  
+</li>
+
+      
+    </ul>
+  
+    <h2>
       Instance Method Summary
       <small>(<a href="#" class="summary_toggle">collapse</a>)</small>
     </h2>
 
     <ul class="summary">
+      
+        <li class="public ">
+  <span class="summary_signature">
+    
+      <a href="#credentials-instance_method" title="#credentials (instance method)">- (Object) <strong>credentials</strong> </a>
+    
+
+    
+  </span>
+  
+  
+  
+  
+  
+  
+  
+
+  
+    <span class="summary_desc"><div class='inline'></div></span>
+  
+</li>
+
+      
+        <li class="public ">
+  <span class="summary_signature">
+    
+      <a href="#delete_node-instance_method" title="#delete_node (instance method)">- (Object) <strong>delete_node</strong> </a>
+    
+
+    
+  </span>
+  
+  
+  
+  
+  
+  
+  
+
+  
+    <span class="summary_desc"><div class='inline'></div></span>
+  
+</li>
+
       
         <li class="public ">
   <span class="summary_signature">
@@ -240,6 +362,28 @@ Rack::Session::Cookie::Identity.new }).</p>
         <li class="public ">
   <span class="summary_signature">
     
+      <a href="#login-instance_method" title="#login (instance method)">- (Object) <strong>login</strong>(password, session) </a>
+    
+
+    
+  </span>
+  
+  
+  
+  
+  
+  
+  
+
+  
+    <span class="summary_desc"><div class='inline'></div></span>
+  
+</li>
+
+      
+        <li class="public ">
+  <span class="summary_signature">
+    
       <a href="#node_id-instance_method" title="#node_id (instance method)">- (Object) <strong>node_id</strong> </a>
     
 
@@ -255,8 +399,52 @@ Rack::Session::Cookie::Identity.new }).</p>
 
   
     <span class="summary_desc"><div class='inline'>
-<p>Return the id of the node associate to te user if  it exists.</p>
+<p>Return the id of the node associated to te user if  it exists.</p>
 </div></span>
+  
+</li>
+
+      
+        <li class="public ">
+  <span class="summary_signature">
+    
+      <a href="#recall_current_document_id-instance_method" title="#recall_current_document_id (instance method)">- (Object) <strong>recall_current_document_id</strong>(session) </a>
+    
+
+    
+  </span>
+  
+  
+  
+  
+  
+  
+  
+
+  
+    <span class="summary_desc"><div class='inline'></div></span>
+  
+</li>
+
+      
+        <li class="public ">
+  <span class="summary_signature">
+    
+      <a href="#remember_current_document_id-instance_method" title="#remember_current_document_id (instance method)">- (Object) <strong>remember_current_document_id</strong>(session) </a>
+    
+
+    
+  </span>
+  
+  
+  
+  
+  
+  
+  
+
+  
+    <span class="summary_desc"><div class='inline'></div></span>
   
 </li>
 
@@ -287,6 +475,28 @@ Rack::Session::Cookie::Identity.new }).</p>
   <span class="summary_signature">
     
       <a href="#set_identifier%21-instance_method" title="#set_identifier! (instance method)">- (Object) <strong>set_identifier!</strong> </a>
+    
+
+    
+  </span>
+  
+  
+  
+  
+  
+  
+  
+
+  
+    <span class="summary_desc"><div class='inline'></div></span>
+  
+</li>
+
+      
+        <li class="public ">
+  <span class="summary_signature">
+    
+      <a href="#set_node-instance_method" title="#set_node (instance method)">- (Object) <strong>set_node</strong>(id_of_node) </a>
     
 
     
@@ -391,12 +601,210 @@ session = Rack::Session::Cookie.new(self,
 </div>
 
 
+  <div id="class_method_details" class="method_details_list">
+    <h2>Class Method Details</h2>
+
+    
+      <div class="method_details first">
+  <h3 class="signature first" id="create-class_method">
+  
+    + (<tt><span class='object_link'><a href="Noteshare/Tools/Object.html" title="Noteshare::Tools::Object (class)">Object</a></span></tt>) <strong>create</strong>(user_params) 
+  
+
+  
+
+  
+</h3><table class="source_code">
+  <tr>
+    <td>
+      <pre class="lines">
+
+
+19
+20
+21
+22
+23
+24
+25
+26
+27
+28</pre>
+    </td>
+    <td>
+      <pre class="code"><span class="info file"># File 'lib/noteshare/entities/user.rb', line 19</span>
+
+<span class='kw'>def</span> <span class='kw'>self</span><span class='period'>.</span><span class='id identifier rubyid_create'>create</span><span class='lparen'>(</span><span class='id identifier rubyid_user_params'>user_params</span><span class='rparen'>)</span>
+  <span class='id identifier rubyid_new_user'>new_user</span> <span class='op'>=</span> <span class='const'>User</span><span class='period'>.</span><span class='id identifier rubyid_new'>new</span><span class='lparen'>(</span><span class='id identifier rubyid_user_params'>user_params</span><span class='rparen'>)</span>
+  <span class='kw'>if</span> <span class='id identifier rubyid_new_user'>new_user</span><span class='period'>.</span><span class='id identifier rubyid_password'>password</span> <span class='op'>==</span> <span class='id identifier rubyid_new_user'>new_user</span><span class='period'>.</span><span class='id identifier rubyid_password_confirmation'>password_confirmation</span>
+    <span class='id identifier rubyid_new_user'>new_user</span><span class='period'>.</span><span class='id identifier rubyid_password'>password</span> <span class='op'>=</span> <span class='const'>BCrypt</span><span class='op'>::</span><span class='const'>Password</span><span class='period'>.</span><span class='id identifier rubyid_create'>create</span><span class='lparen'>(</span><span class='id identifier rubyid_new_user'>new_user</span><span class='period'>.</span><span class='id identifier rubyid_password'>password</span><span class='rparen'>)</span>
+    <span class='id identifier rubyid_new_user'>new_user</span><span class='period'>.</span><span class='id identifier rubyid_password_confirmation'>password_confirmation</span> <span class='op'>=</span> <span class='tstring'><span class='tstring_beg'>&#39;</span><span class='tstring_end'>&#39;</span></span>
+    <span class='id identifier rubyid_new_user'>new_user</span><span class='period'>.</span><span class='id identifier rubyid_set_identifier'>set_identifier</span>
+    <span class='const'>UserRepository</span><span class='period'>.</span><span class='id identifier rubyid_create'>create</span> <span class='id identifier rubyid_new_user'>new_user</span>
+  <span class='kw'>end</span>
+
+<span class='kw'>end</span></pre>
+    </td>
+  </tr>
+</table>
+</div>
+    
+      <div class="method_details ">
+  <h3 class="signature " id="delete_with_dependents-class_method">
+  
+    + (<tt><span class='object_link'><a href="Noteshare/Tools/Object.html" title="Noteshare::Tools::Object (class)">Object</a></span></tt>) <strong>delete_with_dependents</strong>(id) 
+  
+
+  
+
+  
+</h3><div class="docstring">
+  <div class="discussion">
+    
+<p>Delete the user with given id and also all dependent structures, for now
+just the associated node</p>
+
+
+  </div>
+</div>
+<div class="tags">
+  
+
+</div><table class="source_code">
+  <tr>
+    <td>
+      <pre class="lines">
+
+
+40
+41
+42
+43
+44
+45</pre>
+    </td>
+    <td>
+      <pre class="code"><span class="info file"># File 'lib/noteshare/entities/user.rb', line 40</span>
+
+<span class='kw'>def</span> <span class='kw'>self</span><span class='period'>.</span><span class='id identifier rubyid_delete_with_dependents'>delete_with_dependents</span><span class='lparen'>(</span><span class='id identifier rubyid_id'>id</span><span class='rparen'>)</span>
+  <span class='id identifier rubyid_user'>user</span> <span class='op'>=</span> <span class='const'>UserRepository</span><span class='period'>.</span><span class='id identifier rubyid_find'>find</span> <span class='id identifier rubyid_id'>id</span>
+  <span class='kw'>return</span> <span class='kw'>if</span> <span class='id identifier rubyid_user'>user</span> <span class='op'>==</span> <span class='kw'>nil</span>
+  <span class='id identifier rubyid_user'>user</span><span class='period'>.</span><span class='id identifier rubyid_delete_node'>delete_node</span>
+  <span class='const'>UserRepository</span><span class='period'>.</span><span class='id identifier rubyid_delete'>delete</span> <span class='id identifier rubyid_user'>user</span>
+<span class='kw'>end</span></pre>
+    </td>
+  </tr>
+</table>
+</div>
+    
+      <div class="method_details ">
+  <h3 class="signature " id="list-class_method">
+  
+    + (<tt><span class='object_link'><a href="Noteshare/Tools/Object.html" title="Noteshare::Tools::Object (class)">Object</a></span></tt>) <strong>list</strong> 
+  
+
+  
+
+  
+</h3><table class="source_code">
+  <tr>
+    <td>
+      <pre class="lines">
+
+
+128
+129
+130
+131
+132</pre>
+    </td>
+    <td>
+      <pre class="code"><span class="info file"># File 'lib/noteshare/entities/user.rb', line 128</span>
+
+<span class='kw'>def</span> <span class='kw'>self</span><span class='period'>.</span><span class='id identifier rubyid_list'>list</span>
+  <span class='const'>UserRepository</span><span class='period'>.</span><span class='id identifier rubyid_all'>all</span><span class='period'>.</span><span class='id identifier rubyid_each'>each</span> <span class='kw'>do</span> <span class='op'>|</span><span class='id identifier rubyid_u'>u</span><span class='op'>|</span>
+    <span class='id identifier rubyid_puts'>puts</span> <span class='tstring'><span class='tstring_beg'>&quot;</span><span class='embexpr_beg'>#{</span><span class='id identifier rubyid_u'>u</span><span class='period'>.</span><span class='id identifier rubyid_id'>id</span><span class='embexpr_end'>}</span><span class='tstring_content'>: </span><span class='embexpr_beg'>#{</span><span class='id identifier rubyid_u'>u</span><span class='period'>.</span><span class='id identifier rubyid_first_name'>first_name</span><span class='embexpr_end'>}</span><span class='tstring_content'> </span><span class='embexpr_beg'>#{</span><span class='id identifier rubyid_u'>u</span><span class='period'>.</span><span class='id identifier rubyid_last_name'>last_name</span><span class='embexpr_end'>}</span><span class='tstring_content'> (</span><span class='embexpr_beg'>#{</span><span class='id identifier rubyid_u'>u</span><span class='period'>.</span><span class='id identifier rubyid_screen_name'>screen_name</span><span class='embexpr_end'>}</span><span class='tstring_content'>) -- </span><span class='embexpr_beg'>#{</span><span class='id identifier rubyid_u'>u</span><span class='period'>.</span><span class='id identifier rubyid_email'>email</span><span class='embexpr_end'>}</span><span class='tstring_end'>&quot;</span></span>
+  <span class='kw'>end</span><span class='semicolon'>;</span> <span class='kw'>nil</span>
+<span class='kw'>end</span></pre>
+    </td>
+  </tr>
+</table>
+</div>
+    
+  </div>
+
   <div id="instance_method_details" class="method_details_list">
     <h2>Instance Method Details</h2>
 
     
       <div class="method_details first">
-  <h3 class="signature first" id="dict_lookup-instance_method">
+  <h3 class="signature first" id="credentials-instance_method">
+  
+    - (<tt><span class='object_link'><a href="Noteshare/Tools/Object.html" title="Noteshare::Tools::Object (class)">Object</a></span></tt>) <strong>credentials</strong> 
+  
+
+  
+
+  
+</h3><table class="source_code">
+  <tr>
+    <td>
+      <pre class="lines">
+
+
+54
+55
+56</pre>
+    </td>
+    <td>
+      <pre class="code"><span class="info file"># File 'lib/noteshare/entities/user.rb', line 54</span>
+
+<span class='kw'>def</span> <span class='id identifier rubyid_credentials'>credentials</span>
+  <span class='lbrace'>{</span> <span class='label'>id:</span> <span class='id identifier rubyid_id'>id</span><span class='comma'>,</span> <span class='label'>first_name:</span> <span class='id identifier rubyid_first_name'>first_name</span><span class='comma'>,</span> <span class='label'>last_name:</span> <span class='id identifier rubyid_last_name'>last_name</span><span class='comma'>,</span> <span class='label'>identifier:</span> <span class='id identifier rubyid_identifier'>identifier</span>  <span class='rbrace'>}</span>
+<span class='kw'>end</span></pre>
+    </td>
+  </tr>
+</table>
+</div>
+    
+      <div class="method_details ">
+  <h3 class="signature " id="delete_node-instance_method">
+  
+    - (<tt><span class='object_link'><a href="Noteshare/Tools/Object.html" title="Noteshare::Tools::Object (class)">Object</a></span></tt>) <strong>delete_node</strong> 
+  
+
+  
+
+  
+</h3><table class="source_code">
+  <tr>
+    <td>
+      <pre class="lines">
+
+
+30
+31
+32
+33
+34
+35</pre>
+    </td>
+    <td>
+      <pre class="code"><span class="info file"># File 'lib/noteshare/entities/user.rb', line 30</span>
+
+<span class='kw'>def</span> <span class='id identifier rubyid_delete_node'>delete_node</span>
+  <span class='id identifier rubyid_node'>node</span> <span class='op'>=</span> <span class='const'>NSNodeRepository</span><span class='period'>.</span><span class='id identifier rubyid_find'>find</span> <span class='id identifier rubyid_node_id'>node_id</span>
+  <span class='kw'>if</span> <span class='id identifier rubyid_node'>node</span>
+    <span class='const'>NSNodeRepository</span><span class='period'>.</span><span class='id identifier rubyid_delete'>delete</span> <span class='id identifier rubyid_node'>node</span>
+  <span class='kw'>end</span>
+<span class='kw'>end</span></pre>
+    </td>
+  </tr>
+</table>
+</div>
+    
+      <div class="method_details ">
+  <h3 class="signature " id="dict_lookup-instance_method">
   
     - (<tt><span class='object_link'><a href="Noteshare/Tools/Object.html" title="Noteshare::Tools::Object (class)">Object</a></span></tt>) <strong>dict_lookup</strong>(key) 
   
@@ -410,14 +818,14 @@ session = Rack::Session::Cookie.new(self,
       <pre class="lines">
 
 
-61
-62
-63
-64
-65</pre>
+120
+121
+122
+123
+124</pre>
     </td>
     <td>
-      <pre class="code"><span class="info file"># File 'lib/noteshare/entities/user.rb', line 61</span>
+      <pre class="code"><span class="info file"># File 'lib/noteshare/entities/user.rb', line 120</span>
 
 <span class='kw'>def</span> <span class='id identifier rubyid_dict_lookup'>dict_lookup</span><span class='lparen'>(</span><span class='id identifier rubyid_key'>key</span><span class='rparen'>)</span>
   <span class='id identifier rubyid_metadata'>metadata</span> <span class='op'>=</span> <span class='const'>JSON</span><span class='period'>.</span><span class='id identifier rubyid_parse'>parse</span> <span class='kw'>self</span><span class='period'>.</span><span class='id identifier rubyid_meta'>meta</span>
@@ -444,16 +852,16 @@ session = Rack::Session::Cookie.new(self,
       <pre class="lines">
 
 
-44
-45
-46
-47
-48
-49
-50</pre>
+103
+104
+105
+106
+107
+108
+109</pre>
     </td>
     <td>
-      <pre class="code"><span class="info file"># File 'lib/noteshare/entities/user.rb', line 44</span>
+      <pre class="code"><span class="info file"># File 'lib/noteshare/entities/user.rb', line 103</span>
 
 <span class='kw'>def</span> <span class='id identifier rubyid_dict_set'>dict_set</span><span class='lparen'>(</span><span class='id identifier rubyid_new_dict'>new_dict</span><span class='rparen'>)</span>
   <span class='id identifier rubyid_metadata'>metadata</span> <span class='op'>=</span> <span class='const'>JSON</span><span class='period'>.</span><span class='id identifier rubyid_parse'>parse</span> <span class='kw'>self</span><span class='period'>.</span><span class='id identifier rubyid_meta'>meta</span>
@@ -482,17 +890,17 @@ session = Rack::Session::Cookie.new(self,
       <pre class="lines">
 
 
-52
-53
-54
-55
-56
-57
-58
-59</pre>
+111
+112
+113
+114
+115
+116
+117
+118</pre>
     </td>
     <td>
-      <pre class="code"><span class="info file"># File 'lib/noteshare/entities/user.rb', line 52</span>
+      <pre class="code"><span class="info file"># File 'lib/noteshare/entities/user.rb', line 111</span>
 
 <span class='kw'>def</span> <span class='id identifier rubyid_dict_update'>dict_update</span><span class='lparen'>(</span><span class='id identifier rubyid_entry'>entry</span><span class='rparen'>)</span>
   <span class='id identifier rubyid_metadata'>metadata</span> <span class='op'>=</span> <span class='const'>JSON</span><span class='period'>.</span><span class='id identifier rubyid_parse'>parse</span> <span class='kw'>self</span><span class='period'>.</span><span class='id identifier rubyid_meta'>meta</span>
@@ -522,15 +930,51 @@ session = Rack::Session::Cookie.new(self,
       <pre class="lines">
 
 
-26
-27
-28</pre>
+66
+67
+68</pre>
     </td>
     <td>
-      <pre class="code"><span class="info file"># File 'lib/noteshare/entities/user.rb', line 26</span>
+      <pre class="code"><span class="info file"># File 'lib/noteshare/entities/user.rb', line 66</span>
 
 <span class='kw'>def</span> <span class='id identifier rubyid_full_name'>full_name</span>
   <span class='tstring'><span class='tstring_beg'>&quot;</span><span class='embexpr_beg'>#{</span><span class='id identifier rubyid_first_name'>first_name</span><span class='embexpr_end'>}</span><span class='tstring_content'> </span><span class='embexpr_beg'>#{</span><span class='id identifier rubyid_last_name'>last_name</span><span class='embexpr_end'>}</span><span class='tstring_end'>&quot;</span></span>
+<span class='kw'>end</span></pre>
+    </td>
+  </tr>
+</table>
+</div>
+    
+      <div class="method_details ">
+  <h3 class="signature " id="login-instance_method">
+  
+    - (<tt><span class='object_link'><a href="Noteshare/Tools/Object.html" title="Noteshare::Tools::Object (class)">Object</a></span></tt>) <strong>login</strong>(password, session) 
+  
+
+  
+
+  
+</h3><table class="source_code">
+  <tr>
+    <td>
+      <pre class="lines">
+
+
+47
+48
+49
+50
+51
+52</pre>
+    </td>
+    <td>
+      <pre class="code"><span class="info file"># File 'lib/noteshare/entities/user.rb', line 47</span>
+
+<span class='kw'>def</span> <span class='id identifier rubyid_login'>login</span><span class='lparen'>(</span><span class='id identifier rubyid_password'>password</span><span class='comma'>,</span> <span class='id identifier rubyid_session'>session</span><span class='rparen'>)</span>
+  <span class='id identifier rubyid_auth'>auth</span> <span class='op'>=</span> <span class='const'>UserAuthentication</span><span class='period'>.</span><span class='id identifier rubyid_new'>new</span><span class='lparen'>(</span><span class='kw'>self</span><span class='period'>.</span><span class='id identifier rubyid_email'>email</span><span class='comma'>,</span> <span class='id identifier rubyid_password'>password</span><span class='rparen'>)</span>
+  <span class='id identifier rubyid_auth'>auth</span><span class='period'>.</span><span class='id identifier rubyid_authenticate'>authenticate</span>
+  <span class='id identifier rubyid_authorized_user'>authorized_user</span> <span class='op'>=</span> <span class='id identifier rubyid_auth'>auth</span><span class='period'>.</span><span class='id identifier rubyid_login'>login</span><span class='lparen'>(</span><span class='id identifier rubyid_session'>session</span><span class='rparen'>)</span>
+  <span class='id identifier rubyid_authorized_user'>authorized_user</span>
 <span class='kw'>end</span></pre>
     </td>
   </tr>
@@ -549,7 +993,7 @@ session = Rack::Session::Cookie.new(self,
 </h3><div class="docstring">
   <div class="discussion">
     
-<p>Return the id of the node associate to te user if  it exists.</p>
+<p>Return the id of the node associated to te user if  it exists.</p>
 
 
   </div>
@@ -563,15 +1007,79 @@ session = Rack::Session::Cookie.new(self,
       <pre class="lines">
 
 
-40
-41
-42</pre>
+82
+83
+84</pre>
     </td>
     <td>
-      <pre class="code"><span class="info file"># File 'lib/noteshare/entities/user.rb', line 40</span>
+      <pre class="code"><span class="info file"># File 'lib/noteshare/entities/user.rb', line 82</span>
 
 <span class='kw'>def</span> <span class='id identifier rubyid_node_id'>node_id</span>
   <span class='id identifier rubyid_dict_lookup'>dict_lookup</span><span class='lparen'>(</span><span class='tstring'><span class='tstring_beg'>&#39;</span><span class='tstring_content'>node</span><span class='tstring_end'>&#39;</span></span><span class='rparen'>)</span>
+<span class='kw'>end</span></pre>
+    </td>
+  </tr>
+</table>
+</div>
+    
+      <div class="method_details ">
+  <h3 class="signature " id="recall_current_document_id-instance_method">
+  
+    - (<tt><span class='object_link'><a href="Noteshare/Tools/Object.html" title="Noteshare::Tools::Object (class)">Object</a></span></tt>) <strong>recall_current_document_id</strong>(session) 
+  
+
+  
+
+  
+</h3><table class="source_code">
+  <tr>
+    <td>
+      <pre class="lines">
+
+
+96
+97
+98</pre>
+    </td>
+    <td>
+      <pre class="code"><span class="info file"># File 'lib/noteshare/entities/user.rb', line 96</span>
+
+<span class='kw'>def</span> <span class='id identifier rubyid_recall_current_document_id'>recall_current_document_id</span><span class='lparen'>(</span><span class='id identifier rubyid_session'>session</span><span class='rparen'>)</span>
+  <span class='id identifier rubyid_session'>session</span><span class='lbracket'>[</span><span class='tstring'><span class='tstring_beg'>&#39;</span><span class='tstring_content'>current_document_id</span><span class='tstring_end'>&#39;</span></span><span class='rbracket'>]</span> <span class='op'>=</span> <span class='id identifier rubyid_dict_lookup'>dict_lookup</span><span class='lparen'>(</span><span class='tstring'><span class='tstring_beg'>&#39;</span><span class='tstring_content'>current_document_id</span><span class='tstring_end'>&#39;</span></span><span class='rparen'>)</span>
+<span class='kw'>end</span></pre>
+    </td>
+  </tr>
+</table>
+</div>
+    
+      <div class="method_details ">
+  <h3 class="signature " id="remember_current_document_id-instance_method">
+  
+    - (<tt><span class='object_link'><a href="Noteshare/Tools/Object.html" title="Noteshare::Tools::Object (class)">Object</a></span></tt>) <strong>remember_current_document_id</strong>(session) 
+  
+
+  
+
+  
+</h3><table class="source_code">
+  <tr>
+    <td>
+      <pre class="lines">
+
+
+90
+91
+92
+93
+94</pre>
+    </td>
+    <td>
+      <pre class="code"><span class="info file"># File 'lib/noteshare/entities/user.rb', line 90</span>
+
+<span class='kw'>def</span> <span class='id identifier rubyid_remember_current_document_id'>remember_current_document_id</span><span class='lparen'>(</span><span class='id identifier rubyid_session'>session</span><span class='rparen'>)</span>
+  <span class='id identifier rubyid_cid'>cid</span> <span class='op'>=</span> <span class='id identifier rubyid_session'>session</span><span class='lbracket'>[</span><span class='tstring'><span class='tstring_beg'>&#39;</span><span class='tstring_content'>current_document_id</span><span class='tstring_end'>&#39;</span></span><span class='rbracket'>]</span>
+  <span class='id identifier rubyid_puts'>puts</span> <span class='tstring'><span class='tstring_beg'>&quot;</span><span class='tstring_content'>In remember_current_document_id, cid = </span><span class='embexpr_beg'>#{</span><span class='id identifier rubyid_cid'>cid</span><span class='embexpr_end'>}</span><span class='tstring_end'>&quot;</span></span>
+  <span class='id identifier rubyid_dict_update'>dict_update</span><span class='lparen'>(</span><span class='lbrace'>{</span><span class='tstring'><span class='tstring_beg'>&#39;</span><span class='tstring_content'>current_document_id</span><span class='tstring_end'>&#39;</span></span><span class='op'>=&gt;</span> <span class='id identifier rubyid_cid'>cid</span><span class='rbrace'>}</span><span class='rparen'>)</span>
 <span class='kw'>end</span></pre>
     </td>
   </tr>
@@ -593,12 +1101,12 @@ session = Rack::Session::Cookie.new(self,
       <pre class="lines">
 
 
-30
-31
-32</pre>
+70
+71
+72</pre>
     </td>
     <td>
-      <pre class="code"><span class="info file"># File 'lib/noteshare/entities/user.rb', line 30</span>
+      <pre class="code"><span class="info file"># File 'lib/noteshare/entities/user.rb', line 70</span>
 
 <span class='kw'>def</span> <span class='id identifier rubyid_set_identifier'>set_identifier</span>
   <span class='kw'>self</span><span class='period'>.</span><span class='id identifier rubyid_identifier'>identifier</span> <span class='op'>=</span> <span class='const'>Noteshare</span><span class='op'>::</span><span class='const'>Identifier</span><span class='period'>.</span><span class='id identifier rubyid_new'>new</span><span class='lparen'>(</span><span class='rparen'>)</span><span class='period'>.</span><span class='id identifier rubyid_string'>string</span>
@@ -623,15 +1131,45 @@ session = Rack::Session::Cookie.new(self,
       <pre class="lines">
 
 
-34
-35
-36</pre>
+74
+75
+76</pre>
     </td>
     <td>
-      <pre class="code"><span class="info file"># File 'lib/noteshare/entities/user.rb', line 34</span>
+      <pre class="code"><span class="info file"># File 'lib/noteshare/entities/user.rb', line 74</span>
 
 <span class='kw'>def</span> <span class='id identifier rubyid_set_identifier!'>set_identifier!</span>
   <span class='kw'>self</span><span class='period'>.</span><span class='id identifier rubyid_identifier'>identifier</span> <span class='op'>=</span> <span class='const'>Noteshare</span><span class='op'>::</span><span class='const'>Identifier</span><span class='period'>.</span><span class='id identifier rubyid_new'>new</span><span class='lparen'>(</span><span class='rparen'>)</span><span class='period'>.</span><span class='id identifier rubyid_string'>string</span>
+<span class='kw'>end</span></pre>
+    </td>
+  </tr>
+</table>
+</div>
+    
+      <div class="method_details ">
+  <h3 class="signature " id="set_node-instance_method">
+  
+    - (<tt><span class='object_link'><a href="Noteshare/Tools/Object.html" title="Noteshare::Tools::Object (class)">Object</a></span></tt>) <strong>set_node</strong>(id_of_node) 
+  
+
+  
+
+  
+</h3><table class="source_code">
+  <tr>
+    <td>
+      <pre class="lines">
+
+
+86
+87
+88</pre>
+    </td>
+    <td>
+      <pre class="code"><span class="info file"># File 'lib/noteshare/entities/user.rb', line 86</span>
+
+<span class='kw'>def</span> <span class='id identifier rubyid_set_node'>set_node</span><span class='lparen'>(</span><span class='id identifier rubyid_id_of_node'>id_of_node</span><span class='rparen'>)</span>
+  <span class='id identifier rubyid_dict_update'>dict_update</span><span class='lparen'>(</span><span class='lbrace'>{</span><span class='tstring'><span class='tstring_beg'>&#39;</span><span class='tstring_content'>node</span><span class='tstring_end'>&#39;</span></span><span class='op'>=&gt;</span> <span class='id identifier rubyid_id_of_node'>id_of_node</span><span class='rbrace'>}</span><span class='rparen'>)</span>
 <span class='kw'>end</span></pre>
     </td>
   </tr>
@@ -653,14 +1191,14 @@ session = Rack::Session::Cookie.new(self,
       <pre class="lines">
 
 
-20
-21
-22
-23
-24</pre>
+60
+61
+62
+63
+64</pre>
     </td>
     <td>
-      <pre class="code"><span class="info file"># File 'lib/noteshare/entities/user.rb', line 20</span>
+      <pre class="code"><span class="info file"># File 'lib/noteshare/entities/user.rb', line 60</span>
 
 <span class='kw'>def</span> <span class='id identifier rubyid_set_password'>set_password</span><span class='lparen'>(</span><span class='id identifier rubyid_new_password'>new_password</span><span class='rparen'>)</span>
   <span class='kw'>self</span><span class='period'>.</span><span class='id identifier rubyid_password'>password</span> <span class='op'>=</span> <span class='const'>BCrypt</span><span class='op'>::</span><span class='const'>Password</span><span class='period'>.</span><span class='id identifier rubyid_create'>create</span><span class='lparen'>(</span><span class='id identifier rubyid_new_password'>new_password</span><span class='rparen'>)</span>
@@ -677,7 +1215,7 @@ session = Rack::Session::Cookie.new(self,
 </div>
 
     <div id="footer">
-  Generated on Mon Nov 16 14:26:49 2015 by
+  Generated on Mon Nov 23 06:08:41 2015 by
   <a href="http://yardoc.org" title="Yay! A Ruby Documentation Tool" target="_parent">yard</a>
   0.8.7.6 (ruby-2.2.3).
 </div>

@@ -106,6 +106,11 @@ class NSDocument
 
   end
 
+  # Display the fields of the reeiver
+  # specified by arts.  'label' gives
+  # the heading.
+  #
+  # Example: document.display('Test document', [:id, :title])
   def display(label, args)
 
     puts
@@ -121,6 +126,7 @@ class NSDocument
 
   end
 
+  # A convencience method for #display
   def self.info(id)
     doc = DocumentRepository.find(id)
     doc.display('Document', [:title, :identifier, :author_credentials, :parent_ref, :root_ref, :render_options, :toc])
@@ -142,31 +148,37 @@ class NSDocument
   # is zero.  If a document has no parent, its parent_id is nil
   # All documents begin life as root documents with no parent.
   #
-  def self.create(hash)
+   def self.create(hash)
     doc = NSDocument.new(hash)
-    doc.author_credentials = Tools.symbolize_keys(hash[:author_credentials])
-    doc.author = doc.author_credentials[:first_name] + ' ' + doc.author_credentials[:last_name]
-    doc.author_id =doc.author_credentials[:id]
+    doc.title = hash[:title]
+    doc.set_author_credentials(hash[:author_credentials])
     doc.identifier = Noteshare::Identifier.new().string
     doc.root_ref = { 'id'=> 0, 'title' => ''}
     DocumentRepository.create doc
   end
 
+
+  # Return the author id from the author credentials
   def creator_id
     get_author_credentials.id
   end
 
 
-  def set_author_by_id(author_id)
-    root_document
-  end
-
+  # Typical credential:
+  #
+  #  "id"=>91, "last_name"=>"Foo-Bar", "first_name"=>"Jason", "identifier"=>"35e...48"}
+  #
+  # Make all changes to author info via this method to keep data consistent
   def set_author_credentials(credentials)
     self.author_credentials = JSON.generate(credentials)
+    first_name = credentials[:first_name]
+    last_name = credentials[:last_name]
+    author_id = credentials[:id]
+    self.author_id = author_id
+    self.author = first_name + " " + last_name
   end
 
   def get_author_credentials
-    puts "#{self.author_credentials.to_s}.magenta"
     JSON.parse(self.author_credentials)
   end
 
@@ -271,8 +283,8 @@ class NSDocument
   end
 
 
-  # @section.add_to(@article) makes @section
-  # the last subdocument of @article
+  # section.add_to(article) makes section
+  # the last subdocument of article
   def add_to(parent_document)
     new_index = parent_document.toc.length
     insert(new_index, parent_document)
@@ -416,6 +428,11 @@ class NSDocument
     pi_id = pi.id
     return if pi_id == nil
     DocumentRepository.find(pi_id)
+  end
+
+  def set_parent_document(parent)
+    self.parent_id = parent.id
+    self.parent_ref =  {"id"=>parent.id, "title"=>parent.title, "identifier"=>parent.identifier}
   end
 
 

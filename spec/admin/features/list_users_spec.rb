@@ -5,7 +5,7 @@ require 'features_helper'
 describe 'List users' do
   it 'displays the userse' do
 
-    UserRepository.create(User.new(first_name: 'Jared', last_name: 'Foo-Bar'))
+    User.create(first_name: 'Jared', last_name: 'Foo-Bar', screen_name: 'jayfoo', password: 'foobar123', password_confirmation: 'foobar123')
 
     visit '/admin/users'
 

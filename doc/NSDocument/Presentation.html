@@ -409,6 +409,52 @@ is valid and arg2 = link text (or image) if the link is not valid.</p>
         <li class="public ">
   <span class="summary_signature">
     
+      <a href="#root_associated_document_map-instance_method" title="#root_associated_document_map (instance method)">- (Object) <strong>root_associated_document_map</strong>(target = &#39;reader&#39;) </a>
+    
+
+    
+  </span>
+  
+  
+  
+  
+  
+  
+  
+
+  
+    <span class="summary_desc"><div class='inline'>
+<p>ASSOCIATED DOCUMENTS.</p>
+</div></span>
+  
+</li>
+
+      
+        <li class="public ">
+  <span class="summary_signature">
+    
+      <a href="#root_document_title-instance_method" title="#root_document_title (instance method)">- (Object) <strong>root_document_title</strong> </a>
+    
+
+    
+  </span>
+  
+  
+  
+  
+  
+  
+  
+
+  
+    <span class="summary_desc"><div class='inline'></div></span>
+  
+</li>
+
+      
+        <li class="public ">
+  <span class="summary_signature">
+    
       <a href="#root_link-instance_method" title="#root_link (instance method)">- (Object) <strong>root_link</strong>(hash = {}) </a>
     
 
@@ -426,6 +472,28 @@ is valid and arg2 = link text (or image) if the link is not valid.</p>
     <span class="summary_desc"><div class='inline'>
 <p>Return link to the root document.</p>
 </div></span>
+  
+</li>
+
+      
+        <li class="public ">
+  <span class="summary_signature">
+    
+      <a href="#root_table_of_contents-instance_method" title="#root_table_of_contents (instance method)">- (Object) <strong>root_table_of_contents</strong>(active_id, target = &#39;reader&#39;) </a>
+    
+
+    
+  </span>
+  
+  
+  
+  
+  
+  
+  
+
+  
+    <span class="summary_desc"><div class='inline'></div></span>
   
 </li>
 
@@ -527,17 +595,17 @@ sections of <strong>document</strong>.</p>
       <pre class="lines">
 
 
-271
-272
-273
-274
-275
-276
-277
-278</pre>
+293
+294
+295
+296
+297
+298
+299
+300</pre>
     </td>
     <td>
-      <pre class="code"><span class="info file"># File 'lib/noteshare/modules/ns_document_presentation.rb', line 271</span>
+      <pre class="code"><span class="info file"># File 'lib/noteshare/modules/ns_document_presentation.rb', line 293</span>
 
 <span class='kw'>def</span> <span class='id identifier rubyid_associate_link'>associate_link</span><span class='lparen'>(</span><span class='id identifier rubyid_type'>type</span><span class='comma'>,</span> <span class='id identifier rubyid_prefix'>prefix</span><span class='op'>=</span><span class='tstring'><span class='tstring_beg'>&#39;</span><span class='tstring_end'>&#39;</span></span><span class='rparen'>)</span>
   <span class='kw'>if</span> <span class='id identifier rubyid_prefix'>prefix</span> <span class='op'>==</span> <span class='tstring'><span class='tstring_beg'>&#39;</span><span class='tstring_end'>&#39;</span></span>
@@ -567,29 +635,29 @@ sections of <strong>document</strong>.</p>
       <pre class="lines">
 
 
-167
-168
-169
-170
-171
-172
-173
-174
-175
-176
-177
-178
-179
-180
-181
-182
-183
-184
-185
-186</pre>
+189
+190
+191
+192
+193
+194
+195
+196
+197
+198
+199
+200
+201
+202
+203
+204
+205
+206
+207
+208</pre>
     </td>
     <td>
-      <pre class="code"><span class="info file"># File 'lib/noteshare/modules/ns_document_presentation.rb', line 167</span>
+      <pre class="code"><span class="info file"># File 'lib/noteshare/modules/ns_document_presentation.rb', line 189</span>
 
 <span class='kw'>def</span> <span class='id identifier rubyid_associated_document_map'>associated_document_map</span><span class='lparen'>(</span><span class='id identifier rubyid_target'>target</span><span class='op'>=</span><span class='tstring'><span class='tstring_beg'>&#39;</span><span class='tstring_content'>reader</span><span class='tstring_end'>&#39;</span></span><span class='rparen'>)</span>
   <span class='id identifier rubyid_hash'>hash</span> <span class='op'>=</span> <span class='kw'>self</span><span class='period'>.</span><span class='id identifier rubyid_doc_refs'>doc_refs</span>
@@ -643,18 +711,18 @@ previous and next documents if they are present.</p>
       <pre class="lines">
 
 
-192
-193
-194
-195
-196
-197
-198
-199
-200</pre>
+214
+215
+216
+217
+218
+219
+220
+221
+222</pre>
     </td>
     <td>
-      <pre class="code"><span class="info file"># File 'lib/noteshare/modules/ns_document_presentation.rb', line 192</span>
+      <pre class="code"><span class="info file"># File 'lib/noteshare/modules/ns_document_presentation.rb', line 214</span>
 
 <span class='kw'>def</span> <span class='id identifier rubyid_document_map'>document_map</span>
   <span class='id identifier rubyid_str'>str</span> <span class='op'>=</span> <span class='tstring'><span class='tstring_beg'>&quot;</span><span class='tstring_content'>&lt;strong&gt;Map&lt;/strong&gt;\n</span><span class='tstring_end'>&quot;</span></span>
@@ -696,18 +764,18 @@ previous and next documents if they are present.</p>
       <pre class="lines">
 
 
-221
-222
-223
-224
-225
-226
-227
-228
-229</pre>
+243
+244
+245
+246
+247
+248
+249
+250
+251</pre>
     </td>
     <td>
-      <pre class="code"><span class="info file"># File 'lib/noteshare/modules/ns_document_presentation.rb', line 221</span>
+      <pre class="code"><span class="info file"># File 'lib/noteshare/modules/ns_document_presentation.rb', line 243</span>
 
 <span class='kw'>def</span> <span class='id identifier rubyid_link'>link</span><span class='lparen'>(</span><span class='id identifier rubyid_hash'>hash</span> <span class='op'>=</span> <span class='lbrace'>{</span><span class='rbrace'>}</span><span class='rparen'>)</span>
   <span class='id identifier rubyid_title'>title</span> <span class='op'>=</span> <span class='id identifier rubyid_hash'>hash</span><span class='lbracket'>[</span><span class='symbol'>:title</span><span class='rbracket'>]</span>
@@ -752,24 +820,6 @@ currently viewed can be highlighted.“</p>
       <pre class="lines">
 
 
-104
-105
-106
-107
-108
-109
-110
-111
-112
-113
-114
-115
-116
-117
-118
-119
-120
-121
 122
 123
 124
@@ -804,10 +854,28 @@ currently viewed can be highlighted.“</p>
 153
 154
 155
-156</pre>
+156
+157
+158
+159
+160
+161
+162
+163
+164
+165
+166
+167
+168
+169
+170
+171
+172
+173
+174</pre>
     </td>
     <td>
-      <pre class="code"><span class="info file"># File 'lib/noteshare/modules/ns_document_presentation.rb', line 104</span>
+      <pre class="code"><span class="info file"># File 'lib/noteshare/modules/ns_document_presentation.rb', line 122</span>
 
 <span class='kw'>def</span> <span class='id identifier rubyid_master_table_of_contents'>master_table_of_contents</span><span class='lparen'>(</span><span class='id identifier rubyid_active_id'>active_id</span><span class='comma'>,</span> <span class='id identifier rubyid_target'>target</span><span class='op'>=</span><span class='tstring'><span class='tstring_beg'>&#39;</span><span class='tstring_content'>reader</span><span class='tstring_end'>&#39;</span></span><span class='rparen'>)</span>
   <span class='id identifier rubyid_puts'>puts</span> <span class='tstring'><span class='tstring_beg'>&quot;</span><span class='tstring_content'>ENTER: master_table_of_contents</span><span class='tstring_end'>&quot;</span></span><span class='period'>.</span><span class='id identifier rubyid_magenta'>magenta</span>
@@ -941,14 +1009,14 @@ valid and arg2</p>
       <pre class="lines">
 
 
-264
-265
-266
-267
-268</pre>
+286
+287
+288
+289
+290</pre>
     </td>
     <td>
-      <pre class="code"><span class="info file"># File 'lib/noteshare/modules/ns_document_presentation.rb', line 264</span>
+      <pre class="code"><span class="info file"># File 'lib/noteshare/modules/ns_document_presentation.rb', line 286</span>
 
 <span class='kw'>def</span> <span class='id identifier rubyid_next_link'>next_link</span><span class='lparen'>(</span><span class='id identifier rubyid_hash'>hash</span> <span class='op'>=</span> <span class='lbrace'>{</span><span class='rbrace'>}</span><span class='rparen'>)</span>
   <span class='id identifier rubyid_alt_title'>alt_title</span> <span class='op'>=</span>  <span class='id identifier rubyid_hash'>hash</span><span class='lbracket'>[</span><span class='symbol'>:alt_title</span><span class='rbracket'>]</span> <span class='op'>||</span> <span class='tstring'><span class='tstring_beg'>&#39;</span><span class='tstring_end'>&#39;</span></span>
@@ -1029,13 +1097,13 @@ valid and arg2</p>
       <pre class="lines">
 
 
-242
-243
-244
-245</pre>
+264
+265
+266
+267</pre>
     </td>
     <td>
-      <pre class="code"><span class="info file"># File 'lib/noteshare/modules/ns_document_presentation.rb', line 242</span>
+      <pre class="code"><span class="info file"># File 'lib/noteshare/modules/ns_document_presentation.rb', line 264</span>
 
 <span class='kw'>def</span> <span class='id identifier rubyid_parent_link'>parent_link</span><span class='lparen'>(</span><span class='id identifier rubyid_hash'>hash</span> <span class='op'>=</span> <span class='lbrace'>{</span><span class='rbrace'>}</span><span class='rparen'>)</span>
   <span class='id identifier rubyid_p'>p</span> <span class='op'>=</span> <span class='kw'>self</span><span class='period'>.</span><span class='id identifier rubyid_parent_document'>parent_document</span>
@@ -1120,21 +1188,104 @@ is valid and arg2</p>
       <pre class="lines">
 
 
-252
-253
-254
-255
-256
-257</pre>
+274
+275
+276
+277
+278
+279</pre>
     </td>
     <td>
-      <pre class="code"><span class="info file"># File 'lib/noteshare/modules/ns_document_presentation.rb', line 252</span>
+      <pre class="code"><span class="info file"># File 'lib/noteshare/modules/ns_document_presentation.rb', line 274</span>
 
 <span class='kw'>def</span> <span class='id identifier rubyid_previous_link'>previous_link</span><span class='lparen'>(</span><span class='id identifier rubyid_hash'>hash</span> <span class='op'>=</span> <span class='lbrace'>{</span><span class='rbrace'>}</span><span class='rparen'>)</span>
   <span class='id identifier rubyid_puts'>puts</span> <span class='tstring'><span class='tstring_beg'>&quot;</span><span class='tstring_content'>PREVIOUS LINK</span><span class='tstring_end'>&quot;</span></span><span class='period'>.</span><span class='id identifier rubyid_red'>red</span>
   <span class='id identifier rubyid_alt_title'>alt_title</span> <span class='op'>=</span>  <span class='id identifier rubyid_hash'>hash</span><span class='lbracket'>[</span><span class='symbol'>:alt_title</span><span class='rbracket'>]</span> <span class='op'>||</span> <span class='tstring'><span class='tstring_beg'>&#39;</span><span class='tstring_end'>&#39;</span></span>
   <span class='id identifier rubyid_p'>p</span> <span class='op'>=</span> <span class='kw'>self</span><span class='period'>.</span><span class='id identifier rubyid_previous_document'>previous_document</span>
   <span class='id identifier rubyid_p'>p</span> <span class='op'>?</span> <span class='id identifier rubyid_p'>p</span><span class='period'>.</span><span class='id identifier rubyid_link'>link</span><span class='lparen'>(</span><span class='id identifier rubyid_hash'>hash</span><span class='rparen'>)</span> <span class='op'>:</span> <span class='id identifier rubyid_alt_title'>alt_title</span>
+<span class='kw'>end</span></pre>
+    </td>
+  </tr>
+</table>
+</div>
+    
+      <div class="method_details ">
+  <h3 class="signature " id="root_associated_document_map-instance_method">
+  
+    - (<tt><span class='object_link'><a href="../Noteshare/Tools/Object.html" title="Noteshare::Tools::Object (class)">Object</a></span></tt>) <strong>root_associated_document_map</strong>(target = &#39;reader&#39;) 
+  
+
+  
+
+  
+</h3><div class="docstring">
+  <div class="discussion">
+    
+<p>ASSOCIATED DOCUMENTS</p>
+
+
+  </div>
+</div>
+<div class="tags">
+  
+
+</div><table class="source_code">
+  <tr>
+    <td>
+      <pre class="lines">
+
+
+183
+184
+185
+186</pre>
+    </td>
+    <td>
+      <pre class="code"><span class="info file"># File 'lib/noteshare/modules/ns_document_presentation.rb', line 183</span>
+
+<span class='kw'>def</span> <span class='id identifier rubyid_root_associated_document_map'>root_associated_document_map</span><span class='lparen'>(</span><span class='id identifier rubyid_target'>target</span><span class='op'>=</span><span class='tstring'><span class='tstring_beg'>&#39;</span><span class='tstring_content'>reader</span><span class='tstring_end'>&#39;</span></span><span class='rparen'>)</span>
+  <span class='id identifier rubyid_root'>root</span> <span class='op'>=</span> <span class='id identifier rubyid_root_document'>root_document</span> <span class='op'>||</span> <span class='kw'>self</span>
+  <span class='id identifier rubyid_root'>root</span><span class='period'>.</span><span class='id identifier rubyid_associated_document_map'>associated_document_map</span><span class='lparen'>(</span><span class='id identifier rubyid_target'>target</span><span class='rparen'>)</span>
+<span class='kw'>end</span></pre>
+    </td>
+  </tr>
+</table>
+</div>
+    
+      <div class="method_details ">
+  <h3 class="signature " id="root_document_title-instance_method">
+  
+    - (<tt><span class='object_link'><a href="../Noteshare/Tools/Object.html" title="Noteshare::Tools::Object (class)">Object</a></span></tt>) <strong>root_document_title</strong> 
+  
+
+  
+
+  
+</h3><table class="source_code">
+  <tr>
+    <td>
+      <pre class="lines">
+
+
+96
+97
+98
+99
+100
+101
+102
+103</pre>
+    </td>
+    <td>
+      <pre class="code"><span class="info file"># File 'lib/noteshare/modules/ns_document_presentation.rb', line 96</span>
+
+<span class='kw'>def</span> <span class='id identifier rubyid_root_document_title'>root_document_title</span>
+<span class='id identifier rubyid_root'>root</span> <span class='op'>=</span> <span class='id identifier rubyid_root_document'>root_document</span> <span class='op'>||</span> <span class='kw'>self</span>
+  <span class='kw'>if</span> <span class='id identifier rubyid_root'>root</span>
+    <span class='id identifier rubyid_root'>root</span><span class='period'>.</span><span class='id identifier rubyid_title'>title</span>
+  <span class='kw'>else</span>
+    <span class='tstring'><span class='tstring_beg'>&#39;</span><span class='tstring_end'>&#39;</span></span>
+  <span class='kw'>end</span>
 <span class='kw'>end</span></pre>
     </td>
   </tr>
@@ -1167,17 +1318,17 @@ is valid and arg2</p>
       <pre class="lines">
 
 
-232
-233
-234
-235
-236
-237
-238
-239</pre>
+254
+255
+256
+257
+258
+259
+260
+261</pre>
     </td>
     <td>
-      <pre class="code"><span class="info file"># File 'lib/noteshare/modules/ns_document_presentation.rb', line 232</span>
+      <pre class="code"><span class="info file"># File 'lib/noteshare/modules/ns_document_presentation.rb', line 254</span>
 
 <span class='kw'>def</span> <span class='id identifier rubyid_root_link'>root_link</span><span class='lparen'>(</span><span class='id identifier rubyid_hash'>hash</span> <span class='op'>=</span> <span class='lbrace'>{</span><span class='rbrace'>}</span><span class='rparen'>)</span>
   <span class='comment'>#Fixme
@@ -1185,6 +1336,48 @@ is valid and arg2</p>
     <span class='id identifier rubyid_root_document'>root_document</span><span class='period'>.</span><span class='id identifier rubyid_link'>link</span><span class='lparen'>(</span><span class='id identifier rubyid_hash'>hash</span><span class='rparen'>)</span>
   <span class='kw'>else</span>
     <span class='kw'>self</span><span class='period'>.</span><span class='id identifier rubyid_title'>title</span>
+  <span class='kw'>end</span>
+<span class='kw'>end</span></pre>
+    </td>
+  </tr>
+</table>
+</div>
+    
+      <div class="method_details ">
+  <h3 class="signature " id="root_table_of_contents-instance_method">
+  
+    - (<tt><span class='object_link'><a href="../Noteshare/Tools/Object.html" title="Noteshare::Tools::Object (class)">Object</a></span></tt>) <strong>root_table_of_contents</strong>(active_id, target = &#39;reader&#39;) 
+  
+
+  
+
+  
+</h3><table class="source_code">
+  <tr>
+    <td>
+      <pre class="lines">
+
+
+105
+106
+107
+108
+109
+110
+111
+112
+113</pre>
+    </td>
+    <td>
+      <pre class="code"><span class="info file"># File 'lib/noteshare/modules/ns_document_presentation.rb', line 105</span>
+
+<span class='kw'>def</span> <span class='id identifier rubyid_root_table_of_contents'>root_table_of_contents</span><span class='lparen'>(</span><span class='id identifier rubyid_active_id'>active_id</span><span class='comma'>,</span> <span class='id identifier rubyid_target'>target</span><span class='op'>=</span><span class='tstring'><span class='tstring_beg'>&#39;</span><span class='tstring_content'>reader</span><span class='tstring_end'>&#39;</span></span><span class='rparen'>)</span>
+  <span class='id identifier rubyid_puts'>puts</span> <span class='tstring'><span class='tstring_beg'>&quot;</span><span class='tstring_content'>self.title: </span><span class='embexpr_beg'>#{</span><span class='kw'>self</span><span class='period'>.</span><span class='id identifier rubyid_title'>title</span><span class='embexpr_end'>}</span><span class='tstring_end'>&quot;</span></span><span class='period'>.</span><span class='id identifier rubyid_red'>red</span>
+  <span class='id identifier rubyid_root'>root</span> <span class='op'>=</span> <span class='id identifier rubyid_root_document'>root_document</span> <span class='op'>||</span> <span class='kw'>self</span>
+  <span class='kw'>if</span> <span class='id identifier rubyid_root'>root</span>
+    <span class='id identifier rubyid_root'>root</span><span class='period'>.</span><span class='id identifier rubyid_master_table_of_contents'>master_table_of_contents</span><span class='lparen'>(</span><span class='id identifier rubyid_active_id'>active_id</span><span class='comma'>,</span> <span class='id identifier rubyid_target'>target</span><span class='rparen'>)</span>
+  <span class='kw'>else</span>
+    <span class='tstring'><span class='tstring_beg'>&#39;</span><span class='tstring_end'>&#39;</span></span>
   <span class='kw'>end</span>
 <span class='kw'>end</span></pre>
     </td>
@@ -1324,35 +1517,35 @@ The default &#39;simple_string&#39; option gives a numbered list of titles.</p>
       <pre class="code"><span class="info file"># File 'lib/noteshare/modules/ns_document_presentation.rb', line 64</span>
 
 <span class='kw'>def</span> <span class='id identifier rubyid_table_of_contents_as_string'>table_of_contents_as_string</span><span class='lparen'>(</span><span class='id identifier rubyid_hash'>hash</span><span class='rparen'>)</span>
-    <span class='id identifier rubyid_option'>option</span> <span class='op'>=</span> <span class='id identifier rubyid_hash'>hash</span><span class='lbracket'>[</span><span class='symbol'>:format</span><span class='rbracket'>]</span> <span class='op'>||</span> <span class='tstring'><span class='tstring_beg'>&#39;</span><span class='tstring_content'>simple_string</span><span class='tstring_end'>&#39;</span></span>
-    <span class='id identifier rubyid_current_document'>current_document</span> <span class='op'>=</span> <span class='id identifier rubyid_hash'>hash</span><span class='lbracket'>[</span><span class='symbol'>:current_document</span><span class='rbracket'>]</span>
-    <span class='kw'>if</span> <span class='id identifier rubyid_current_document'>current_document</span>
-      <span class='id identifier rubyid_noa'>noa</span> <span class='op'>=</span> <span class='id identifier rubyid_current_document'>current_document</span><span class='period'>.</span><span class='id identifier rubyid_next_oldest_ancestor'>next_oldest_ancestor</span>
-      <span class='id identifier rubyid_noa_id'>noa_id</span> <span class='op'>=</span> <span class='id identifier rubyid_noa'>noa</span><span class='period'>.</span><span class='id identifier rubyid_id'>id</span> <span class='kw'>if</span> <span class='id identifier rubyid_noa'>noa</span>
-    <span class='kw'>end</span>
-    <span class='id identifier rubyid_output'>output</span> <span class='op'>=</span> <span class='tstring'><span class='tstring_beg'>&#39;</span><span class='tstring_end'>&#39;</span></span>
-    <span class='kw'>case</span> <span class='id identifier rubyid_option'>option</span>
-      <span class='kw'>when</span> <span class='tstring'><span class='tstring_beg'>&#39;</span><span class='tstring_content'>simple_string</span><span class='tstring_end'>&#39;</span></span>
-        <span class='id identifier rubyid_toc'>toc</span><span class='period'>.</span><span class='id identifier rubyid_each_with_index'>each_with_index</span> <span class='kw'>do</span> <span class='op'>|</span><span class='id identifier rubyid_item'>item</span><span class='comma'>,</span> <span class='id identifier rubyid_index'>index</span><span class='op'>|</span>
-          <span class='id identifier rubyid_output'>output</span> <span class='op'>&lt;&lt;</span> <span class='tstring'><span class='tstring_beg'>&quot;</span><span class='embexpr_beg'>#{</span><span class='id identifier rubyid_index'>index</span> <span class='op'>+</span> <span class='int'>1</span><span class='embexpr_end'>}</span><span class='tstring_content'>. </span><span class='embexpr_beg'>#{</span><span class='id identifier rubyid_item'>item</span><span class='lbracket'>[</span><span class='tstring'><span class='tstring_beg'>&#39;</span><span class='tstring_content'>title</span><span class='tstring_end'>&#39;</span></span><span class='rbracket'>]</span><span class='embexpr_end'>}</span><span class='tstring_end'>&quot;</span></span> <span class='op'>&lt;&lt;</span> <span class='tstring'><span class='tstring_beg'>&quot;</span><span class='tstring_content'>\n</span><span class='tstring_end'>&quot;</span></span>
-        <span class='kw'>end</span>
-      <span class='kw'>when</span> <span class='tstring'><span class='tstring_beg'>&#39;</span><span class='tstring_content'>html</span><span class='tstring_end'>&#39;</span></span>
-         <span class='kw'>if</span> <span class='id identifier rubyid_toc'>toc</span><span class='period'>.</span><span class='id identifier rubyid_length'>length</span> <span class='op'>==</span> <span class='int'>0</span>
-          <span class='id identifier rubyid_output'>output</span> <span class='op'>=</span> <span class='tstring'><span class='tstring_beg'>&#39;</span><span class='tstring_end'>&#39;</span></span>
-        <span class='kw'>else</span>
-          <span class='id identifier rubyid_output'>output</span> <span class='op'>&lt;&lt;</span> <span class='tstring'><span class='tstring_beg'>&quot;</span><span class='tstring_content'>&lt;ul&gt;\n</span><span class='tstring_end'>&quot;</span></span>
-          <span class='id identifier rubyid_toc'>toc</span><span class='period'>.</span><span class='id identifier rubyid_each_with_index'>each_with_index</span> <span class='kw'>do</span> <span class='op'>|</span><span class='id identifier rubyid_item'>item</span><span class='comma'>,</span> <span class='id identifier rubyid_index'>index</span><span class='op'>|</span>
-            <span class='id identifier rubyid_output'>output</span> <span class='op'>&lt;&lt;</span> <span class='tstring'><span class='tstring_beg'>&quot;</span><span class='tstring_content'>&lt;li&gt;&lt;a href=&#39;/document/</span><span class='embexpr_beg'>#{</span><span class='id identifier rubyid_item'>item</span><span class='lbracket'>[</span><span class='tstring'><span class='tstring_beg'>&#39;</span><span class='tstring_content'>id</span><span class='tstring_end'>&#39;</span></span><span class='rbracket'>]</span><span class='embexpr_end'>}</span><span class='tstring_content'>&#39;&gt;</span><span class='embexpr_beg'>#{</span><span class='id identifier rubyid_item'>item</span><span class='lbracket'>[</span><span class='tstring'><span class='tstring_beg'>&#39;</span><span class='tstring_content'>title</span><span class='tstring_end'>&#39;</span></span><span class='rbracket'>]</span><span class='embexpr_end'>}</span><span class='tstring_content'>&lt;/a&gt;\n</span><span class='tstring_end'>&quot;</span></span>
-            <span class='kw'>if</span> <span class='id identifier rubyid_noa_id'>noa_id</span> <span class='kw'>and</span> <span class='id identifier rubyid_item'>item</span><span class='lbracket'>[</span><span class='tstring'><span class='tstring_beg'>&#39;</span><span class='tstring_content'>id</span><span class='tstring_end'>&#39;</span></span><span class='rbracket'>]</span> <span class='op'>==</span> <span class='id identifier rubyid_noa_id'>noa_id</span>
-              <span class='id identifier rubyid_output'>output</span> <span class='op'>&lt;&lt;</span> <span class='tstring'><span class='tstring_beg'>&quot;</span><span class='tstring_content'>&lt;ul&gt;\n</span><span class='tstring_end'>&quot;</span></span> <span class='op'>&lt;&lt;</span> <span class='id identifier rubyid_noa'>noa</span><span class='period'>.</span><span class='id identifier rubyid_table_of_contents_as_string'>table_of_contents_as_string</span><span class='lparen'>(</span><span class='label'>format:</span> <span class='tstring'><span class='tstring_beg'>&#39;</span><span class='tstring_content'>html</span><span class='tstring_end'>&#39;</span></span><span class='comma'>,</span> <span class='label'>current_document:</span> <span class='kw'>nil</span><span class='rparen'>)</span> <span class='op'>&lt;&lt;</span> <span class='tstring'><span class='tstring_beg'>&quot;</span><span class='tstring_content'>&lt;/ul&gt;</span><span class='tstring_end'>&quot;</span></span>
-            <span class='kw'>end</span>
-          <span class='kw'>end</span>
-          <span class='id identifier rubyid_output'>output</span> <span class='op'>&lt;&lt;</span> <span class='tstring'><span class='tstring_beg'>&quot;</span><span class='tstring_content'>&lt;/ul&gt;\n\n</span><span class='tstring_end'>&quot;</span></span>
-        <span class='kw'>end</span>
+  <span class='id identifier rubyid_option'>option</span> <span class='op'>=</span> <span class='id identifier rubyid_hash'>hash</span><span class='lbracket'>[</span><span class='symbol'>:format</span><span class='rbracket'>]</span> <span class='op'>||</span> <span class='tstring'><span class='tstring_beg'>&#39;</span><span class='tstring_content'>simple_string</span><span class='tstring_end'>&#39;</span></span>
+  <span class='id identifier rubyid_current_document'>current_document</span> <span class='op'>=</span> <span class='id identifier rubyid_hash'>hash</span><span class='lbracket'>[</span><span class='symbol'>:current_document</span><span class='rbracket'>]</span>
+  <span class='kw'>if</span> <span class='id identifier rubyid_current_document'>current_document</span>
+    <span class='id identifier rubyid_noa'>noa</span> <span class='op'>=</span> <span class='id identifier rubyid_current_document'>current_document</span><span class='period'>.</span><span class='id identifier rubyid_next_oldest_ancestor'>next_oldest_ancestor</span>
+    <span class='id identifier rubyid_noa_id'>noa_id</span> <span class='op'>=</span> <span class='id identifier rubyid_noa'>noa</span><span class='period'>.</span><span class='id identifier rubyid_id'>id</span> <span class='kw'>if</span> <span class='id identifier rubyid_noa'>noa</span>
+  <span class='kw'>end</span>
+  <span class='id identifier rubyid_output'>output</span> <span class='op'>=</span> <span class='tstring'><span class='tstring_beg'>&#39;</span><span class='tstring_end'>&#39;</span></span>
+  <span class='kw'>case</span> <span class='id identifier rubyid_option'>option</span>
+    <span class='kw'>when</span> <span class='tstring'><span class='tstring_beg'>&#39;</span><span class='tstring_content'>simple_string</span><span class='tstring_end'>&#39;</span></span>
+      <span class='id identifier rubyid_toc'>toc</span><span class='period'>.</span><span class='id identifier rubyid_each_with_index'>each_with_index</span> <span class='kw'>do</span> <span class='op'>|</span><span class='id identifier rubyid_item'>item</span><span class='comma'>,</span> <span class='id identifier rubyid_index'>index</span><span class='op'>|</span>
+        <span class='id identifier rubyid_output'>output</span> <span class='op'>&lt;&lt;</span> <span class='tstring'><span class='tstring_beg'>&quot;</span><span class='embexpr_beg'>#{</span><span class='id identifier rubyid_index'>index</span> <span class='op'>+</span> <span class='int'>1</span><span class='embexpr_end'>}</span><span class='tstring_content'>. </span><span class='embexpr_beg'>#{</span><span class='id identifier rubyid_item'>item</span><span class='lbracket'>[</span><span class='tstring'><span class='tstring_beg'>&#39;</span><span class='tstring_content'>title</span><span class='tstring_end'>&#39;</span></span><span class='rbracket'>]</span><span class='embexpr_end'>}</span><span class='tstring_end'>&quot;</span></span> <span class='op'>&lt;&lt;</span> <span class='tstring'><span class='tstring_beg'>&quot;</span><span class='tstring_content'>\n</span><span class='tstring_end'>&quot;</span></span>
+      <span class='kw'>end</span>
+    <span class='kw'>when</span> <span class='tstring'><span class='tstring_beg'>&#39;</span><span class='tstring_content'>html</span><span class='tstring_end'>&#39;</span></span>
+       <span class='kw'>if</span> <span class='id identifier rubyid_toc'>toc</span><span class='period'>.</span><span class='id identifier rubyid_length'>length</span> <span class='op'>==</span> <span class='int'>0</span>
+        <span class='id identifier rubyid_output'>output</span> <span class='op'>=</span> <span class='tstring'><span class='tstring_beg'>&#39;</span><span class='tstring_end'>&#39;</span></span>
       <span class='kw'>else</span>
-        <span class='id identifier rubyid_output'>output</span> <span class='op'>=</span> <span class='id identifier rubyid_toc'>toc</span><span class='period'>.</span><span class='id identifier rubyid_to_s'>to_s</span>
-    <span class='kw'>end</span>
-    <span class='id identifier rubyid_output'>output</span>
+        <span class='id identifier rubyid_output'>output</span> <span class='op'>&lt;&lt;</span> <span class='tstring'><span class='tstring_beg'>&quot;</span><span class='tstring_content'>&lt;ul&gt;\n</span><span class='tstring_end'>&quot;</span></span>
+        <span class='id identifier rubyid_toc'>toc</span><span class='period'>.</span><span class='id identifier rubyid_each_with_index'>each_with_index</span> <span class='kw'>do</span> <span class='op'>|</span><span class='id identifier rubyid_item'>item</span><span class='comma'>,</span> <span class='id identifier rubyid_index'>index</span><span class='op'>|</span>
+          <span class='id identifier rubyid_output'>output</span> <span class='op'>&lt;&lt;</span> <span class='tstring'><span class='tstring_beg'>&quot;</span><span class='tstring_content'>&lt;li&gt;&lt;a href=&#39;/document/</span><span class='embexpr_beg'>#{</span><span class='id identifier rubyid_item'>item</span><span class='lbracket'>[</span><span class='tstring'><span class='tstring_beg'>&#39;</span><span class='tstring_content'>id</span><span class='tstring_end'>&#39;</span></span><span class='rbracket'>]</span><span class='embexpr_end'>}</span><span class='tstring_content'>&#39;&gt;</span><span class='embexpr_beg'>#{</span><span class='id identifier rubyid_item'>item</span><span class='lbracket'>[</span><span class='tstring'><span class='tstring_beg'>&#39;</span><span class='tstring_content'>title</span><span class='tstring_end'>&#39;</span></span><span class='rbracket'>]</span><span class='embexpr_end'>}</span><span class='tstring_content'>&lt;/a&gt;\n</span><span class='tstring_end'>&quot;</span></span>
+          <span class='kw'>if</span> <span class='id identifier rubyid_noa_id'>noa_id</span> <span class='kw'>and</span> <span class='id identifier rubyid_item'>item</span><span class='lbracket'>[</span><span class='tstring'><span class='tstring_beg'>&#39;</span><span class='tstring_content'>id</span><span class='tstring_end'>&#39;</span></span><span class='rbracket'>]</span> <span class='op'>==</span> <span class='id identifier rubyid_noa_id'>noa_id</span>
+            <span class='id identifier rubyid_output'>output</span> <span class='op'>&lt;&lt;</span> <span class='tstring'><span class='tstring_beg'>&quot;</span><span class='tstring_content'>&lt;ul&gt;\n</span><span class='tstring_end'>&quot;</span></span> <span class='op'>&lt;&lt;</span> <span class='id identifier rubyid_noa'>noa</span><span class='period'>.</span><span class='id identifier rubyid_table_of_contents_as_string'>table_of_contents_as_string</span><span class='lparen'>(</span><span class='label'>format:</span> <span class='tstring'><span class='tstring_beg'>&#39;</span><span class='tstring_content'>html</span><span class='tstring_end'>&#39;</span></span><span class='comma'>,</span> <span class='label'>current_document:</span> <span class='kw'>nil</span><span class='rparen'>)</span> <span class='op'>&lt;&lt;</span> <span class='tstring'><span class='tstring_beg'>&quot;</span><span class='tstring_content'>&lt;/ul&gt;</span><span class='tstring_end'>&quot;</span></span>
+          <span class='kw'>end</span>
+        <span class='kw'>end</span>
+        <span class='id identifier rubyid_output'>output</span> <span class='op'>&lt;&lt;</span> <span class='tstring'><span class='tstring_beg'>&quot;</span><span class='tstring_content'>&lt;/ul&gt;\n\n</span><span class='tstring_end'>&quot;</span></span>
+      <span class='kw'>end</span>
+    <span class='kw'>else</span>
+      <span class='id identifier rubyid_output'>output</span> <span class='op'>=</span> <span class='id identifier rubyid_toc'>toc</span><span class='period'>.</span><span class='id identifier rubyid_to_s'>to_s</span>
+  <span class='kw'>end</span>
+  <span class='id identifier rubyid_output'>output</span>
 <span class='kw'>end</span></pre>
     </td>
   </tr>
@@ -1385,19 +1578,19 @@ The default &#39;simple_string&#39; option gives a numbered list of titles.</p>
       <pre class="lines">
 
 
-209
-210
-211
-212
-213
-214
-215
-216
-217
-218</pre>
+231
+232
+233
+234
+235
+236
+237
+238
+239
+240</pre>
     </td>
     <td>
-      <pre class="code"><span class="info file"># File 'lib/noteshare/modules/ns_document_presentation.rb', line 209</span>
+      <pre class="code"><span class="info file"># File 'lib/noteshare/modules/ns_document_presentation.rb', line 231</span>
 
 <span class='kw'>def</span> <span class='id identifier rubyid_url'>url</span><span class='lparen'>(</span><span class='id identifier rubyid_prefix'>prefix</span><span class='op'>=</span><span class='tstring'><span class='tstring_beg'>&#39;</span><span class='tstring_end'>&#39;</span></span><span class='rparen'>)</span>
   <span class='kw'>if</span> <span class='id identifier rubyid_prefix'>prefix</span> <span class='op'>==</span> <span class='tstring'><span class='tstring_beg'>&#39;</span><span class='tstring_end'>&#39;</span></span>
@@ -1419,7 +1612,7 @@ The default &#39;simple_string&#39; option gives a numbered list of titles.</p>
 </div>
 
     <div id="footer">
-  Generated on Mon Nov 16 14:26:48 2015 by
+  Generated on Mon Nov 23 06:08:41 2015 by
   <a href="http://yardoc.org" title="Yay! A Ruby Documentation Tool" target="_parent">yard</a>
   0.8.7.6 (ruby-2.2.3).
 </div>
