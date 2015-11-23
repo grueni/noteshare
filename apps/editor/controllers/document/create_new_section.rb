@@ -20,6 +20,9 @@ module Editor::Controllers::Document
 
       if options
         option_hash = options.hash_value || {}
+        puts "option_hash: #{option_hash}".magenta
+      else
+        option_hash = {}
       end
 
       associated_doc_type = option_hash['associate_as'] || ''
