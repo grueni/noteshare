@@ -132,7 +132,9 @@ class NSDocument
     doc.display('Document', [:title, :identifier, :author_credentials, :parent_ref, :root_ref, :render_options, :toc])
   end
 
-
+  def info
+    self.display('Document', [:title, :identifier, :author, :author_id, :author_credentials, :parent_id, :parent_ref, :root_document_id, :root_ref, :render_options, :toc])
+  end
 
   # Create a document given a hash.
   # The hash must define both the title and the author credentials,
@@ -228,7 +230,6 @@ class NSDocument
     # references the child (the subdocument),
     # and vice versa.
     parent_toc = TOC.new(parent_document)
-    puts parent_toc.display.red
     new_toc_item = TOCItem.new(self.id, self.title, self.identifier, false)
     parent_toc.insert(k, new_toc_item)
     parent_toc.save!
@@ -335,12 +336,6 @@ class NSDocument
   end
 
 
-
-  # Return title and id of NSDocument
-  def info
-    "#{self.title}:: id: #{self.id}"
-  end
-
   # Return title, id, an ids of previous and next documents
   def status
     "#{self.title}:: id: #{self.id}, parent_document: #{self.parent.id }, back: #{self.doc_refs['previous']}, next: #{@self.doc_refs['next']}"
@@ -421,6 +416,10 @@ class NSDocument
     DocumentRepository.persist(self)
   end
 
+  ##################
+  # PARENT DOCUMENT
+  ##################
+
   # *doc.parent* returns nil or the parent object
   def parent_document
     pi =  parent_item
@@ -430,7 +429,7 @@ class NSDocument
     DocumentRepository.find(pi_id)
   end
 
-  def set_parent_document(parent)
+  def set_parent_document_to(parent)
     self.parent_id = parent.id
     self.parent_ref =  {"id"=>parent.id, "title"=>parent.title, "identifier"=>parent.identifier}
   end
@@ -445,34 +444,9 @@ class NSDocument
   end
 
 
-  def ancestor_ids
-    cursor = self
-    list = []
-    while cursor.parent_document != nil
-      list << cursor.parent_document.id
-      cursor = cursor.parent_document
-    end
-    list
-  end
-
-  def next_oldest_ancestor
-    noa = self
-    return self if noa == root_document
-    while noa.parent_document != root_document
-      noa = noa.parent_document
-    end
-    noa
-  end
-
-
-  # *doc.subdocment(k)* returns the k-th
-  # subdocument of *doc*
-  def subdocument(k)
-    _id = table_of_contents[k].id
-    if _id
-      DocumentRepository.find(_id)
-    end
-  end
+  ##################
+  # ROOT DOCUMENT
+  ##################
 
   # The root_document is what you get by
   # following parent_document links to their
@@ -503,23 +477,62 @@ class NSDocument
     TOCItem.new( self.id, self.title, self.identifier )
   end
 
-  def set_root_document
+  def set_root_document_to(root)
+    self.root_document_id = root.id
+    self.root_ref = { id: root.id, title: root.title, identifier: root.identifier}
+  end
+
+  def set_root_document_to_default
     rd = find_root_document
     # Need the follwing for DocumentRepository.root_documents
     # Fixme: index root_document_id
-    rd.root_document_id = 0
-    self.root_document_id = rd.id
-    self.root_ref = { id: rd.id, title: rd.title, identifier: rd.identifier}
+    if rd
+      rd.root_document_id = 0
+      self.root_document_id = rd.id
+      self.root_ref = { id: rd.id, title: rd.title, identifier: rd.identifier}
+    end
   end
 
-  def set_root_document!
-    set_root_document
-    DocumentRepository.update self
-  end
+
 
   def is_root_document?
     self == find_root_document
   end
+
+  ##################
+  # ANCESTORS
+  ##################
+
+  def ancestor_ids
+    cursor = self
+    list = []
+    while cursor.parent_document != nil
+      list << cursor.parent_document.id
+      cursor = cursor.parent_document
+    end
+    list
+  end
+
+  def next_oldest_ancestor
+    noa = self
+    return self if noa == root_document
+    while noa.parent_document != root_document
+      noa = noa.parent_document
+    end
+    noa
+  end
+
+
+  # *doc.subdocment(k)* returns the k-th
+  # subdocument of *doc*
+  def subdocument(k)
+    _id = table_of_contents[k].id
+    if _id
+      DocumentRepository.find(_id)
+    end
+  end
+
+
 
   # The level is the length of path from the root
   # to the give node (self)
@@ -543,13 +556,13 @@ class NSDocument
   # @foo.associate_to(@bar, 'summary',)
   # associates @foo to @bar as a 'summary'.
   # It can be retrieved as @foo.associated_document('summary')
-  def associate_to(doc, type)
-    doc.doc_refs[type] = self.id
+  def associate_to(parent, type)
+    parent.doc_refs[type] = self.id
     self.type = type
-    self.parent_id = doc.id
-    self.parent_ref = {id: doc.id, title: doc.title, identifier: doc.identifier, has_subdocs:false }
-    self.root_document_id = doc.id
-    DocumentRepository.update(doc)
+    self.set_parent_document_to(parent)
+    self.set_root_document_to(parent)
+    DocumentRepository.update(parent)
+    DocumentRepository.update(self)
   end
 
   # @foo.associatd_document('summary')
@@ -606,11 +619,7 @@ class NSDocument
       macro_text = rd.associated_document('texmacros').content
       macro_text = macro_text.gsub(/^=*= .*$/,'')
       macro_text = "\n\n[env.texmacro]\n--\n#{macro_text}\n--\n\n"
-      puts macro_text.magenta
       macro_text
-    else
-      puts 'NO MACROS'.magenta
-      ''
     end
   end
 
@@ -636,7 +645,8 @@ class NSDocument
   end
 
   def compile
-    texmacros + compile_aux
+    tm = texmacros  || ''
+    tm + compile_aux
   end
 
 

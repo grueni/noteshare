@@ -138,3 +138,6 @@ http://stackoverflow.com/questions/20724470/cors-issue-getting-error-no-access-c
 https://www.designedbyaturtle.co.uk/2013/direct-upload-to-s3-with-a-little-help-from-jquery/
 https://aws.amazon.com/articles/1434
 heroku pg:psql --app nslab DATABASE
+http://danwin.com/2013/03/ruby-minitest-cheat-sheet/
+http://blog.teamtreehouse.com/short-introduction-minitest
+ff

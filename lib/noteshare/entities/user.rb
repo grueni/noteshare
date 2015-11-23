@@ -1,5 +1,8 @@
+require_relative '../modules/display'
+
 class User
   include Lotus::Entity
+  include Noteshare::Display
   attributes :id, :admin, :first_name, :last_name, :identifier, :email, :screen_name, :level, :password, :meta, :password_confirmation
 
   # http://hawkins.io/2012/07/rack_from_the_beginning/
@@ -15,6 +18,9 @@ class User
 
   end
 
+  def info(title='User:')
+    display(title, [:id, :first_name, :last_name, :screen_name, :email, :identifier ])
+  end
 
   def self.create(user_params)
     new_user = User.new(user_params)

@@ -10,7 +10,7 @@ describe NSDocument do
 
 
     @user = User.create(first_name: 'Jared', last_name: 'Foo-Bar', screen_name: 'jayfoo', password: 'foobar123', password_confirmation: 'foobar123')
-
+    UserRepository.create(@user)
 
     @article = NSDocument.create(title: 'Quantum Mechanics', author_credentials: @user.credentials)
     @section = NSDocument.create(title: 'Uncertainty Principle', author_credentials: @user.credentials)
@@ -29,11 +29,6 @@ describe NSDocument do
     DocumentRepository.persist @section2
     DocumentRepository.persist @section3
     DocumentRepository.persist @subsection
-
-    puts '**********************************'
-    puts @section2.subdocument_titles :header
-    puts @section2.subdoc_refs
-    puts '**********************************'
 
   end
 
@@ -55,44 +50,14 @@ describe NSDocument do
   it 'can accept insertions of new subdocuments aii' do
 
 
-=begin
-    puts @section.info
-    puts @section2.info
-    puts @section3.info
-=end
-
     @section.insert(0,@article)
     @section2.insert(1,@article)
     @section3.insert(1, @article)
-
-=begin
-
-    puts @section.status
-    puts @section2.status
-    puts @section3.status
-
-    puts
-    puts @article.subdocument(0).status
-    puts @article.subdocument(1).status
-    puts @article.subdocument(2).status
-
-=end
 
     @article.subdocument(0).title.must_equal @section.title
     @article.subdocument(1).title.must_equal @section3.title
     @article.subdocument(2).title.must_equal @section2.title
 
-=begin
-    puts "@article.subdocument(9.doc_refs['next'] #{@article.subdocument(0).doc_refs['next']}"
-
-    puts  "@article.subdocument(2).previous_document.title: #{@article.subdocument(2).previous_document.title}"
-    puts "@article.subdocument(0).index_in_parent: #{@article.subdocument(0).index_in_parent}"
-    puts "@article.subdocument(1).index_in_parent: #{@article.subdocument(1).index_in_parent}"
-    puts "@article.subdocument(2).index_in_parent: #{@article.subdocument(2).index_in_parent}"
-
-    # @article.subdocument(0).doc_refs['next'].must_equal @article.subdocument(1).id
-
-=end
 
     left = @article.subdocument(0)
     middle = @article.subdocument(1)
@@ -151,15 +116,7 @@ describe NSDocument do
     @section2.add_to(@article)
     @subsection.add_to(@section2)
 
-    puts '*2*********************************'
-    puts @section2.subdocument_titles :header
-    puts @section2.subdoc_refs
-    puts '*2*********************************'
-
-    puts "@section2: #{@section2.content}"
-    puts "@subsection: #{ @subsection.content}"
     compiled =  @article.compile
-    puts "compiled: #{compiled}"
 
     compiled.must_include @section2.content
     compiled.must_include @subsection.content
@@ -175,16 +132,6 @@ describe NSDocument do
       @section2.add_to(@article)
       @subsection.add_to(@section2)
 
-    puts '*2*********************************'
-    puts @section2.subdocument_titles :header
-    puts @section2.subdoc_refs
-    puts '*2*********************************'
-
-
-    puts '*3*********************************'
-    puts @section2.subdocument_titles :header
-    puts @section2.subdoc_refs
-    puts '*3*********************************'
 
     compiled =  @article.compile
 
@@ -202,6 +149,29 @@ describe NSDocument do
     element = @article.doc_refs
     hash2 = JSON.parse element
     hash2['texmacros'].must_equal 555
+  end
+
+  it 'can associate one document to another' do
+
+
+    @section.associate_to(@article, 'summary')
+    assert @article.associated_document('summary') == @section
+
+    assert @article.get_author_credentials['id'] == @user.id
+    assert @article.get_author_credentials['first_name'] == @user.first_name
+    assert @article.get_author_credentials['last_name' ] == @user.last_name
+    @article.get_author_credentials['identifier'].must_equal(@user.identifier)
+
+    @section.parent_id.must_equal(@article.id)
+    @section.parent_item.title.must_equal(@article.title)
+    @section.parent_item.id.must_equal(@article.id)
+    @section.parent_item.identifier.must_equal(@article.identifier)
+
+    @section.root_document_id.must_equal(@article.id)
+    @section.root_item.title.must_equal(@article.title)
+    @section.root_item.id.must_equal(@article.id)
+    @section.root_item.identifier.must_equal(@article.identifier)
+
   end
 
 end
