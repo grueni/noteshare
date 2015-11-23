@@ -156,6 +156,7 @@ describe NSDocument do
 
     @section.associate_to(@article, 'summary')
     assert @article.associated_document('summary') == @section
+    assert @section.type == 'associated:summary'
 
     assert @article.get_author_credentials['id'] == @user.id
     assert @article.get_author_credentials['first_name'] == @user.first_name

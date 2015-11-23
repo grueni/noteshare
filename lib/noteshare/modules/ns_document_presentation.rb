@@ -186,8 +186,17 @@ module NSDocument::Presentation
   end
 
 
+
+
   def associated_document_map(target='reader')
-    hash = self.doc_refs
+
+    if self.type =~ /associated:/
+      document = self.parent_document
+    else
+      document = self
+    end
+
+    hash = document.doc_refs
     keys = hash.keys
     if keys
       keys.delete "previous"
@@ -252,11 +261,14 @@ module NSDocument::Presentation
 
   # Return link to the root document
   def root_link(hash = {})
-    #Fixme
-    if root_document
+    if self.type =~ /associated:/
       root_document.link(hash)
     else
-      self.title
+      if root_document
+        root_document.link(hash)
+      else
+        self.title
+      end
     end
   end
 

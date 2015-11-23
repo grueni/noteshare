@@ -558,7 +558,7 @@ class NSDocument
   # It can be retrieved as @foo.associated_document('summary')
   def associate_to(parent, type)
     parent.doc_refs[type] = self.id
-    self.type = type
+    self.type = 'associated:' + type
     self.set_parent_document_to(parent)
     self.set_root_document_to(parent)
     DocumentRepository.update(parent)
