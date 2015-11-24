@@ -82,8 +82,8 @@ td.clear_style {
     padding-top:2em;
     padding-bottom:1em;
 
-    color: #fff;
-    max-width:400px;
+    color: #eee;
+
 }
 
 .ns_card h4, h5   {
@@ -110,6 +110,33 @@ td.clear_style {
     margin-top:1em
 }
 
+.ns_card tr:nth-child(even)  {
+
+    background-color: rgba(50,50,50,0.67);
+    color: #fff;
+}
+
+.ns_card table {
+
+    border: none;
+}
+
+.ns_card tr:nth-child(odd)  {
+
+    background-color: rgba(10,10,10,0.67);
+    color: #fff;
+}
+
+.ns_card td  {
+
+    color: #eee;
+}
+
+.ns_card th  {
+
+    background-color: rgba(10,10,10,0.67);
+    color: #eee;
+}
 /***
 
     STRUCTURE: body, row, col, etc.

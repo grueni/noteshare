@@ -202,7 +202,7 @@ module NSDocument::Presentation
       keys.delete "previous"
       keys.delete "next"
       map = "<ul>\n"
-      keys.each do |key|
+      keys.sort.each do |key|
         if target == 'editor'
           map << "<li>" << "#{self.associate_link(key, 'editor')}</li>\n"
         else

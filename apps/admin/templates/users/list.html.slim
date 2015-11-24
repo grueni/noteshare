@@ -1,25 +1,23 @@
 .row.inset
-  .col style='margin-bottom:2em; height:90%;'
+  .col style='margin-bottom:2em; width=50%; height:90%;'
 
-    - if users.any?
-      .users
-        table style=('top:140px; margin-left:auto; margin-right:auto;')
-          thead
+    .users.ns_card style='top: 160px; width: 700px; margin-left:auto; margin-right:auto;'
+      == admin_link 
+      table.ns_card style='margin-top;-20px; width: 500px; margin-left:auto; margin-right:auto;'
+        thead
+          tr
+            th ID
+            th Name
+            th Screen Name
+            th Email
+            th Node ID
+
+        tbody
+          - users.each do |user|
             tr
-              th ID
-              th Name
-              th Screen Name
-              th Email
-
-          tbody
-            - users.each do |user|
-              tr
-                td= user.id
-                td= "#{user.first_name} #{user.last_name}"
-                td= user.screen_name
-                td= user.email
-
-    - else
-      p.placeholder There are no users yet.
-
+              td= user.id
+              td= "#{user.first_name} #{user.last_name}"
+              td= user.screen_name
+              td= user.email
+              td= user.node_id
 
