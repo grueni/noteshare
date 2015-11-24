@@ -1,3 +1,4 @@
+get '/prepare_to_delete_document/:id', to: 'document#prepare_to_delete'
 post '/create_new_associated_document', to: 'document#create_new_associated_document'
 get '/new_associated_document/:id', to: 'document#new_associated_document'
 
