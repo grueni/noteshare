@@ -22,6 +22,8 @@ module Editor::Controllers::Document
 
       new_document.add_to(current_document)
 
+
+
       redirect_to "/document/#{new_document.id}"
 
     end
