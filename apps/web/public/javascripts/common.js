@@ -38,6 +38,8 @@ $(document).ready(function(){
 
     });
 
+    
+
 
     $('#select_toc_panel').change(function() {
         $('#tools_panel').hide();

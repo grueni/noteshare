@@ -131,6 +131,11 @@ module UI
       image_link '/images/new_section.png', "/editor/new_section/#{document.id}", 'new section'
     end
 
+    def new_associated_document_link(document)
+      #   html.tag(:a, 'New section', href: "/editor/new_section/#{document.id}")
+      image_link '/images/site.png', "/editor/new_associated_document/#{document.id}", 'new section'
+    end
+
 
     def delete_document_link(document)
       # html.tag(:a, 'Delete document', href: '#')
