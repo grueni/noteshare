@@ -11,6 +11,10 @@ class NSNode
   require 'json'
 
 
+  def self.lookup_by_name(node_name)
+    NSNodeRepository.where(name: node_name).first
+  end
+
   def self.create_for_user(user)
      node =  NSNodeRepository.create(NSNode.new(owner_id: user.id, owner_identifier: user.identifier, name: user.screen_name))
      user.set_node(node.id)

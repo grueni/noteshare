@@ -3,13 +3,21 @@ module Web::Controllers::Home
   class Index
     include Web::Action
 
+    def subdomain_prefix
+      request.host.split('.')[0]
+    end
+
     def call(params)
 
-      puts params.env.inspect.to_s.blue
-      puts 'HTTP_HOST: '+ params.env['HTTP_HOST'].inspect.to_s.red
-      puts "REQUEST_PATH: " + params.env["REQUEST_PATH"].inspect.to_s.red
-      puts "HTTP_REFERER: " + params.env["HTTP_REFERER"].inspect.to_s.red
 
+      prefix = subdomain_prefix
+      puts prefix
+      if prefix
+        node = NSNodeRepository.find_one_by_name(prefix)
+        if node
+          redirect_to "/node/#{node.id}"
+        end
+      end
 
     end
   end

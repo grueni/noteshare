@@ -142,3 +142,4 @@ http://danwin.com/2013/03/ruby-minitest-cheat-sheet/
 http://blog.teamtreehouse.com/short-introduction-minitest
 ff
 http://html5doctor.com/storing-data-the-simple-html5-way-and-a-few-tricks-you-might-not-have-known/[Javascript Persistent]
+http://lucaguidi.com/2015/11/24/json-api-apps-with-lotus.html[Lotus and JSON API]
