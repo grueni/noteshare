@@ -3,7 +3,7 @@ module Editor::Controllers::Document
     include Editor::Action
 
     def call(params)
-      puts 'controller: CreateNewSection'.red
+      puts 'controller: CreateNewAssociatedDocument'.red
 
       document_packet = params['document']
       title = document_packet['title']

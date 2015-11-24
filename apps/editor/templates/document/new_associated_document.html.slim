@@ -1,11 +1,7 @@
 
 .col.inset.left_medium
   .ns_card
-    - if parent_document
-      h3  New section for #{parent_document.title}
-    - else
-    h3 style='margin-top:0;' New associated document
-    h4 for #{document.title}
+    h4 style='margin-top:0;' New associated document  for #{document.title}
 
-    == new_section_form
+    == new_associated_document_form
 
