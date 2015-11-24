@@ -1,4 +1,4 @@
-get '/prepare_to_delete_document/:id', to: 'document#prepare_to_delete'
+
 post '/create_new_associated_document', to: 'document#create_new_associated_document'
 get '/new_associated_document/:id', to: 'document#new_associated_document'
 
@@ -7,7 +7,9 @@ get '/new_section/:id', to: 'document#new_section'
 
 post '/json_update/:ipd', to: 'document#json_update'
 get '/export/:id', to: 'document#export'
-get '/delete_document/:id', to: 'document#delete_document'
+
+get '/prepare_to_delete_document/:id', to: 'document#prepare_to_delete'
+post '/delete_document/:id', to: 'document#delete_document'
 
 
 # Configure your routes here

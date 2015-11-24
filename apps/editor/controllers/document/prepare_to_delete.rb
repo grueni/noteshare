@@ -5,6 +5,7 @@ module Editor::Controllers::Document
     expose :document
 
     def call(params)
+      puts "controller: PrepareToDelete".red
       @document = DocumentRepository.find params[:id]
     end
   end

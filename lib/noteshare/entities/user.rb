@@ -89,6 +89,11 @@ class User
     dict_lookup('node')
   end
 
+  def node
+    id =self.node_id
+    NSNodeRepository.find id if id
+  end
+
   def set_node(id_of_node)
     dict_update({'node'=> id_of_node})
   end

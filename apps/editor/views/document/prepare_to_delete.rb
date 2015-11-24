@@ -3,10 +3,12 @@ module Editor::Views::Document
     include Editor::View
 
     def form
-      puts ">> form OPTIONS".red
-      form_for :document, '/editor/update_options' do
+      puts "form PrepareToDelete".red
+      form_for :document, "/editor/delete_document/#{document.id}" do
         label :destroy
         text_field :destroy
+
+        hidden_field :document_id, value: document.id
 
         submit 'Destroy', {style: 'margin-top:1em;'}
         # button_to 'Cancel', "/documents/#{params[:id]}"

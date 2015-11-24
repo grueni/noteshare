@@ -4,19 +4,31 @@ module Editor::Controllers::Document
 
     def call(params)
 
-      puts "delete doc with id:".red
+      user = current_user(session)
+
+      puts "controller: DeleteDocuments".red
       puts params[:id].red
+      puts "CONTROL:".green
+      puts params['document']['destroy']
+
+      control =  params['document']['destroy']
       @document = DocumentRepository.find params[:id]
-      if Permission.new(current_user(session), :delete,  @document)
-        DocumentRepository.delete @document
-        message = "#{@document.title} has been deleted."
+
+      if control == 'destroy'
+        if Permission.new(user, :delete,  @document)
+          DocumentRepository.delete @document
+          node = user.node
+          node.update_docs_for_owner
+          message = "#{@document.title} has been deleted."
+        else
+          message= "Sorry, you do not have permission to delete this document."
+        end
       else
-        message= "Sorry, you do not have permission to delete this document."
+        message = 'Cancelled'
       end
 
       message  <<  "  <br><a href='/node/user/#{current_user(session).id}'>Back to Noteshare</a>"
 
-      self.body = message
       self.body = message
     end
   end
