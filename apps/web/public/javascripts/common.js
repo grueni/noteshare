@@ -51,12 +51,18 @@ $(document).ready(function() {
         if (localStorage.editor_tools == 'hide') {
             $('#tools_panel').hide();
             $('#toc_panel').show();
+            $('input:radio[id=select_tool_panel]').prop('checked', false);
+            $('input:radio[id=select_toc_panel]').prop('checked', true);
         } else if (localStorage.editor_tools == 'show') {
             $('#tools_panel').show();
             $('#toc_panel').hide();
+            $('input:radio[id=select_tool_panel]').prop('checked', true);
+            $('input:radio[id=select_toc_panel]').prop('checked', false);
         } else {
             $('#tools_panel').hide();
             $('#toc_panel').show();
+            $('input:radio[id=select_tool_panel]').prop('checked', false);
+            $('input:radio[id=select_toc_panel]').prop('checked', true);
         }
     }
 
