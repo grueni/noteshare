@@ -61,4 +61,12 @@ class NSNode
     output
   end
 
+
+  def self.from_http(request)
+    prefix = request.host.split('.')[0]
+    if prefix
+      NSNodeRepository.find_one_by_name(prefix)
+    end
+  end
+
 end
