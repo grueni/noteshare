@@ -636,3 +636,11 @@ p.compact {
 }
 
 .ns_highlight { color: #ef3030; }
+
+
+.ns_radio {
+
+    color: red;
+    backgrond-color:blue;
+    display: inline;
+}
