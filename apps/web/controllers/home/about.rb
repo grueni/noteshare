@@ -3,6 +3,7 @@ module Web::Controllers::Home
     include Web::Action
 
     def call(params)
+      puts params.env.inspect
     end
   end
 end

@@ -82,6 +82,7 @@ td.clear_style {
     padding-top:2em;
     padding-bottom:1em;
 
+    width:inherit;
     color: #eee;
 
 }
