@@ -141,3 +141,4 @@ heroku pg:psql --app nslab DATABASE
 http://danwin.com/2013/03/ruby-minitest-cheat-sheet/
 http://blog.teamtreehouse.com/short-introduction-minitest
 ff
+http://html5doctor.com/storing-data-the-simple-html5-way-and-a-few-tricks-you-might-not-have-known/[Javascript Persistent]

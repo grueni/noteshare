@@ -267,7 +267,7 @@ module NSDocument::Presentation
       if root_document
         root_document.link(hash)
       else
-        self.title
+        self.link(hash)
       end
     end
   end

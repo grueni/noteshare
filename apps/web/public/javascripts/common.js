@@ -27,41 +27,38 @@ function csrfToken() {
 
 
 
-$(document).ready(function(){
+$(document).ready(function() {
 
 
     $('#Yak').click(yak);
 
-    $('#select_tool_panel').change(function() {
+    $('#select_tool_panel').change(function () {
         $('#tools_panel').show();
         $('#toc_panel').hide();
-
+        localStorage.editor_tools = 'show'
+        console.log('choose show, localStorage.editor_tools = ' + localStorage.editor_tools)
     });
 
-
-
-
-    $('#select_toc_panel').change(function() {
+    $('#select_toc_panel').change(function () {
         $('#tools_panel').hide();
         $('#toc_panel').show();
+        localStorage.editor_tools = 'hide'
+        console.log('choose hide, localStorage.editor_tools = ' + localStorage.editor_tools)
     });
 
-    $.setup_editor = function() {
-        $('#tools_panel').hide();
-        $('#toc_panel').show();
+    $.setup_editor = function () {
+        console.log('setup_editor, localStorage.editor_tools = ' + localStorage.editor_tools)
+        if (localStorage.editor_tools == 'hide') {
+            $('#tools_panel').hide();
+            $('#toc_panel').show();
+        } else if (localStorage.editor_tools == 'show') {
+            $('#tools_panel').show();
+            $('#toc_panel').hide();
+        } else {
+            $('#tools_panel').hide();
+            $('#toc_panel').show();
+        }
     }
 
     $.setup_editor();
-
-
-    $('.openblock.click').find('.content').hide()
-
-    $('.openblock.click').click(function() {
-
-        $(this).find('.content').slideToggle('200');
-    });
-
 });
-
-
-
