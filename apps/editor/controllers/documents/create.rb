@@ -8,7 +8,7 @@ module Editor::Controllers::Documents
     expose :document
 
     def call(params)
-      puts "controller create".red
+      puts "controller create!!!".red
       doc_params = params[:document]
       parent_id = doc_params['parent_id']
       title = doc_params['title']
