@@ -129,6 +129,14 @@ class User
     dict[key]
   end
 
+  def dict_display
+    metadata = JSON.parse self.meta
+    dict = metadata['dict'] || { }
+    dict.each do |key, value|
+      puts "#{key} =. #[value}"
+    end
+  end
+
   ##############################
 
   def self.list
