@@ -4,9 +4,15 @@
     /== search_form
   - if documents
     .row.s8 style = ' margin-top:10 px; padding-left:1em; padding-right:1em;  '
-      .col style = ''
+      .col.ns_card
         table style='border=0; border-color: #444; border-collapse;'
-
+          thead
+            tr
+              th id
+              th title
+              th author
+              th id
+              th visibility
           tbody
             - documents.each do |document|
               tr.clear_style
@@ -14,3 +20,4 @@
                 td.lightlink == document.link
                 td== document.author
                 td== document.author_id
+                td== document.visibility

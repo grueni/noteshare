@@ -111,20 +111,22 @@ td.clear_style {
     margin-top:1em
 }
 
-.ns_card tr:nth-child(even)  {
-
-    background-color: rgba(50,50,50,0.67);
-    color: #fff;
-}
-
 .ns_card table {
 
     border: none;
 }
 
+.ns_card tr:nth-child(even)  {
+
+    background-color: rgba(50,50,50,0.87);
+    color: #fff;
+}
+
+
+
 .ns_card tr:nth-child(odd)  {
 
-    background-color: rgba(10,10,10,0.67);
+    background-color: rgba(10,10,10,0.87);
     color: #fff;
 }
 

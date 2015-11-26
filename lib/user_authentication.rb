@@ -67,6 +67,10 @@ end
 
 class Permission
 
+  # Visiblity of document is 0 = private (user only)
+  # 1 = group, 1, 2, 3 =
+  # private (user on)
+
   def initialize(user, action, object)
     @user = user
     @action = action

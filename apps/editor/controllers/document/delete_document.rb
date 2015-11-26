@@ -6,6 +6,8 @@ module Editor::Controllers::Document
 
       user = current_user(session)
 
+      puts "user: #{user.full_name}".red
+
       puts "controller: DeleteDocuments".red
       puts params[:id].red
       puts "CONTROL:".green
@@ -18,6 +20,7 @@ module Editor::Controllers::Document
         if Permission.new(user, :delete,  @document)
           DocumentRepository.delete @document
           node = user.node
+          puts "node: #{node.name}".red
           node.update_docs_for_owner
           message = "#{@document.title} has been deleted."
         else

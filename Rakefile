@@ -13,6 +13,12 @@ task spec: :test
 
 namespace :t do
 
+  desc "Run test on ACL"
+  task :acl do
+    cmd = 'ruby -I"Lib:spec" spec/acl_spec.rb'
+    exec cmd
+  end
+
   desc "Run current tests"
   task :x do
     cmd = 'ruby -I"Lib:spec" spec/noteshare/repositories/node_repository_spec.rb'

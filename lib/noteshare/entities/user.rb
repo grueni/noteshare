@@ -90,7 +90,7 @@ class User
   end
 
   def node
-    id =self.node_id
+    id = self.dict_lookup('node')
     NSNodeRepository.find id if id
   end
 
@@ -113,7 +113,7 @@ class User
 
   def dict_set(new_dict)
     metadata = JSON.parse self.meta
-    metadata[:dict] = new_dict
+    metadata['dict'] = new_dict
     self.meta = JSON.generate metadata
     puts self.class.name.green
     UserRepository.update self
@@ -121,9 +121,18 @@ class User
 
   def dict_update(entry)
     metadata = JSON.parse self.meta
-    dict = metadata[:dict] || { }
+    dict = metadata['dict'] || { }
     dict[entry.keys[0]] = entry.values[0]
-    metadata[:dict] = dict
+    metadata['dict'] = dict
+    self.meta = JSON.generate metadata
+    UserRepository.update self
+  end
+
+  def dict_remove(key)
+    metadata = JSON.parse self.meta
+    dict = metadata['dict'] || { }
+    dict.delete(key)
+    metadata['dict'] = dict
     self.meta = JSON.generate metadata
     UserRepository.update self
   end
