@@ -21,6 +21,11 @@ describe User do
 
   end
 
+  it 'can create a user from scratch' do
+    user = User.create(first_name: 'John', last_name: 'Smith', password: 'yoyo1234', password_confirmation:  'yoyo1234')
+    user.first_name.must_equal('John')
+  end
+
   it 'can set, update and read the dict a user' do
 
     data = { node: 23 }

@@ -73,17 +73,31 @@ class Permission
 
   def initialize(user, action, object)
     @user = user
-    @action = action
     @object = object
+    action_code_map = { read: 'r', update: 'w', create: 'w', delete: 'w'}
+    @action_code = action_code_map[action]
   end
 
+
+
   def can
-    case @action
-      when :delete
-        return @object.creator_id == @user.id
-      else
-        return false
+    if @action_code == 'r' and @user == nil
+      return @object.is_world_readable
     end
+
+    return true if @user.admin
+
+    return true if @user.id == @object.creator_id
+
+    acl = @object.get_acl
+
+    return true if acl.get_user[@user.screen_name] =~ /#{@action_code}/
+
+    @user.groups.each do |group|
+      return true if acl.get_group(group) =~/#{@action_code}/
+    end
+
+    return false
   end
 
 

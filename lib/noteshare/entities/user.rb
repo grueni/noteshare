@@ -33,6 +33,7 @@ class User
 
   end
 
+
   def delete_node
     node = NSNodeRepository.find node_id
     if node

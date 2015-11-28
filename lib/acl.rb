@@ -41,6 +41,12 @@ class ACL
     return acl
   end
 
+  def self.create_with_permissions(u, g, w)
+    acl = ACL.new()
+    acl.set(u,g,w)
+    return acl
+  end
+
   def lookup(key)
     @hash[key]
   end
@@ -50,7 +56,7 @@ class ACL
   end
 
 
-  def get_user(user)
+  def get_user(user='')
     @hash['user:'+user]
   end
 
@@ -59,7 +65,7 @@ class ACL
   end
 
 
-  def get_group(group)
+  def get_group(group='')
     @hash['group:'+group]
   end
 
@@ -79,6 +85,21 @@ class ACL
   def delete_group(group)
     @hash['group:'+group] = nil
   end
+
+  def set(u,g,w)
+    set_user('', u)
+    set_group('', g)
+    set_world(w)
+  end
+
+  def to_json
+   hash.to_json
+  end
+
+  def self.parse(str)
+    ACL.init_from_hash JSON.parse(str)
+  end
+
 
 end
 

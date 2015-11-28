@@ -71,6 +71,8 @@ Lotus::Model.configure do
       attribute :content_dirty, Boolean
       attribute :compiled_dirty, Boolean
       attribute :toc_dirty, Boolean
+      attribute :acl, JSON
+      attribute :groups_json, JSON
     end
 
     collection :settings do

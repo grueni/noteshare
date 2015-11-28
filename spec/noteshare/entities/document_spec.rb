@@ -175,4 +175,55 @@ describe NSDocument do
 
   end
 
+
+  it 'can set and et permissions' do
+
+
+    @article.set_permissions('rw', 'r', '-' )
+    @article.get_user_permission.must_equal('rw')
+    @article.get_group_permission.must_equal('r')
+    @article.get_world_permission.must_equal('-')
+
+  end
+
+
+
+  it 'can apply a method to all subdocuments' do
+
+    @section.add_to(@article)
+    # @section2.add_to(@article)
+    # @section3.add_to(@article)
+
+    @article.apply_to_tree(:set_permissions, ['rw', 'r', 'r'])
+    @article.get_acl.get_user.must_equal('rw')
+    @section = @section.reload
+    @section.get_acl.get_user.must_equal('rw')
+
+
+  end
+
+
+
+  it 'can apply a method to all subdocuments and associated documents to whataver depth' do
+
+    @section.add_to(@article)
+    @subsection.add_to(@section)
+    @section2.associate_to(@section,'summary')
+    @section3.associate_to(@section2, 'notes')
+
+    @article.apply_to_tree(:set_visibility, [666])
+    @article.visibility.must_equal(666)
+
+    @subsection = @subsection.reload
+    @subsection.visibility.must_equal(666)
+
+    @section2 = @section2.reload
+    @section2.visibility.must_equal(666)
+
+    @section3 = @section2.reload
+    @section3.visibility.must_equal(666)
+
+
+  end
+
 end

@@ -1,6 +1,7 @@
 require_relative '../../ext/core'
 require_relative '../../../lib/noteshare/modules/tools'
 require_relative '../modules/toc_item'
+require_relative '../../../lib/acl'
 
 # require_relative '../modules/render'
 
@@ -75,7 +76,7 @@ class NSDocument
   attributes :id, :author_id, :author, :author_identifier, :author_credentials, :title, :identifier, :tags, :type, :area, :meta,
     :created_at, :modified_at, :content, :rendered_content, :compiled_and_rendered_content, :render_options,
     :parent_ref, :root_ref, :parent_id, :index_in_parent, :root_document_id, :visibility,
-    :subdoc_refs,  :doc_refs, :toc, :content_dirty, :compiled_dirty, :toc_dirty
+    :subdoc_refs,  :doc_refs, :toc, :content_dirty, :compiled_dirty, :toc_dirty, :acl, :groups_json
 
 
   include NSDocument::Presentation
@@ -205,6 +206,12 @@ class NSDocument
     set_author_identifier
     DocumentRepository.update self
     self.author_identifier
+  end
+
+  # User for uniform interface to the
+  # permissions class
+  def creator_id
+    author_id
   end
 
   ###################################################
@@ -884,6 +891,124 @@ class NSDocument
     key
   end
 
+
+  ###########  ACL  ##########
+
+  def set_acl(acl)
+    self.acl = acl.to_json
+    DocumentRepository.update self
+  end
+
+
+  def set_acl!(acl)
+    self.set_acl(acl)
+    DocumentRepository.update self
+  end
+
+  def get_acl
+    ACL.parse(self.acl)
+  end
+
+  def get_user_permission(user='')
+    get_acl.get_user(user)
+  end
+
+  def get_group_permission(group='')
+    get_acl.get_group(group)
+  end
+
+  def get_world_permission
+    get_acl.get_world
+  end
+
+  def set_permissions(u, g, w)
+    puts "setting permissions for #{self.title} to #{u}, #{g}, #{w}".red
+    a = ACL.create_with_permissions(u, g, w)
+    self.acl =  a.to_json
+    DocumentRepository.update self
+  end
+
+
+
+  ###################################
+
+
+  def set_visibility(x)
+    self.visibility = x
+  end
+
+  # Apply a method with args to
+  # a document, and all subdocuments
+  # and associated documents
+  def apply_to_tree(message, args)
+    self.send(message, *args)
+    DocumentRepository.update self
+    table = TOC.new(self).table
+    table.each do |item|
+      doc = DocumentRepository.find item.id
+      doc.apply_to_tree(message, args)
+    end
+    doc_refs.each do |title, id|
+      doc = DocumentRepository.find id
+      doc.apply_to_tree(message, args)
+    end
+  end
+
+  # Apply a method with args to
+  # a document, and all subdocuments
+  # and associated documents
+  def apply_to_tree1(message, args)
+    self.send(message, *args)
+    table = TOC.new(self).table
+    table.each do |item|
+      doc = DocumentRepository.find item.id
+      doc.send(message, *args)
+      puts "#{doc.title}: #{message}".red
+      DocumentRepository.update doc
+    end
+    doc_refs.each do |title, id|
+      doc = DocumentRepository.find id
+      doc.send(message, *args)
+      puts "#{doc.title}: #{message}".red
+      DocumentRepository.update doc
+    end
+  end
+
+  # Reload object from database
+  def reload
+    DocumentRepository.find  self.id
+  end
+
+
+  ########## GROUPS   #############
+
+  def groups
+    data = groups_json || "[]"
+    JSON.parse(data)
+  end
+
+  def set_groups(array)
+    self.groups_json = array.to_json
+    DocumentRepository.update self
+  end
+
+  def add_group(group)
+    _groups = self.groups
+    if (_groups.include? group) == false
+      _groups << group
+      self.set_groups _groups
+    end
+  end
+
+  def delete_group(group)
+    _groups = self.groups
+    if (_groups.include? group)
+      _groups.delete group
+      self.set_groups _groups
+    end
+  end
+
+
   ##################################
 
   private
@@ -896,7 +1021,7 @@ class NSDocument
     return nil if index_in_parent == nil
     return nil if index_in_parent-1 < 0
     table = TOC.new(p).table
-                                                                         S
+
     puts "  -- and index_in_parent = #{index_in_parent}".cyan
     puts "  -- toc_item: #{table[index_in_parent]}".red
     puts "  -- previous toc_item: #{table[index_in_parent-1]}".red
@@ -921,9 +1046,6 @@ class NSDocument
     puts "Class: #{table[index_in_parent+1].class.name}"
     return toc[index_in_parent+1].id
   end
-
-
-
 
 
 end
