@@ -112,6 +112,14 @@ Lotus::Model.configure do
       attribute :children, JSON
     end
 
+    collection :ns_groups do
+      entity Groups
+      repository GroupsRepository
+      attribute :id, Integer
+      attribute :owner_id, Integer
+      attribute :name, String
+    end
+
     collection :images do
       entity Image
       repository ImageRepository
