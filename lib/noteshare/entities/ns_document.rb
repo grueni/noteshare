@@ -84,6 +84,7 @@ class NSDocument
   include NSDocument::Setup
   include Noteshare::Tools
   include Noteshare
+  include Noteshare::Groups
 
 
   # When initializing an NSDocument, ensure that certain fields

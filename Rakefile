@@ -25,6 +25,12 @@ namespace :t do
     exec cmd
   end
 
+  desc "Run tests ond Group module which adds functionality to NSDocument"
+  task :mgroup do
+    cmd = 'ruby -I"Lib:spec" spec/noteshare/modules/group_spec.rb'
+    exec cmd
+  end
+
   desc "Run tests on Render class"
   task :render do
     cmd = 'ruby -I"Lib:spec" spec/noteshare/modules/render_spec.rb'
