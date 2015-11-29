@@ -1,8 +1,8 @@
 require 'spec_helper'
 require_relative '../../../../apps/editor/controllers/document/delete_document'
 
-describe Editor::Controllers::Document::DeleteRootDocument do
-  let(:action) { Editor::Controllers::Document::DeleteRootDocument.new }
+describe Editor::Controllers::Document::DeleteDocument do
+  let(:action) { Editor::Controllers::Document::DeleteDocument.new }
   let(:params) { Hash[] }
 
   it "is successful" do
