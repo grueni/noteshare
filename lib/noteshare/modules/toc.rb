@@ -70,11 +70,16 @@ module Noteshare
     end
 
     def delete_by_id(id)
-       k = get_index(id)
-       delete(k)
+         k = index_by_id(id)
+         delete(k)
     end
 
-    def get_index(id)
+    def delete_by_identifier(identifier)
+      k = index_by_identifier(identifier)
+      delete(k)
+    end
+
+    def index_by_id(id)
       index_of_id = -1
       table.each_with_index do |item, index|
         if item.id == id
@@ -83,6 +88,17 @@ module Noteshare
         end
       end
       index_of_id
+    end
+
+    def index_by_identifier(identifier)
+      index_of_identifier = -1
+      table.each_with_index do |item, index|
+        if item.identifier == identifier
+          index_of_identifier = index
+          break
+        end
+      end
+      index_of_identifier
     end
 
     # Return the toc item with given id
