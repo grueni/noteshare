@@ -61,6 +61,30 @@ module Noteshare
       @table.insert(k, toc_item)
     end
 
+    def append(toc_item)
+      @table << toc_item
+    end
+
+    def delete(k)
+      @table.delete_at(k)
+    end
+
+    def delete_by_id(id)
+       k = get_index(id)
+       delete(k)
+    end
+
+    def get_index(id)
+      index_of_id = -1
+      table.each_with_index do |item, index|
+        if item.id == id
+          index_of_id = index
+          break
+        end
+      end
+      index_of_id
+    end
+
     # Return the toc item with given id
     def get(id)
       target = nil

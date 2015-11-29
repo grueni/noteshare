@@ -51,11 +51,7 @@ namespace :t do
   end
 
 
-  desc "Run tests on TOC"
-  task :toc do
-    cmd = 'ruby -I"Lib:spec" spec/noteshare/entities/toc_spec.rb'
-    exec cmd
-  end
+
 
   desc "Run tests on TOC (2)"
   task :toc2 do
@@ -63,11 +59,13 @@ namespace :t do
     exec cmd
   end
 
-  desc "Run tests on TOC (2) class"
-  task :toc2 do
-    cmd = 'ruby -I"Lib:spec" spec/noteshare/modules/toc_spec.rb'
+
+  desc "Run tests on TOC"
+  task :toc do
+    cmd = 'ruby -I"Lib:spec" spec/noteshare/entities/toc_spec.rb'
     exec cmd
   end
+
 
   desc "Run tests on ObjectItem and ObjectItemList classes"
   task :obj do
