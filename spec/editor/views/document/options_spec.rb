@@ -3,7 +3,7 @@ require_relative '../../../../apps/editor/views/document/options'
 
 describe Editor::Views::Document::Options do
   let(:exposures) { Hash[foo: 'bar'] }
-  let(:template)  { Lotus::View::Template.new('apps/editor/templates/document/options.html.haml') }
+  let(:template)  { Lotus::View::Template.new('apps/editor/templates/document/options.html.slim') }
   let(:view)      { Editor::Views::Document::Options.new(template, exposures) }
   let(:rendered)  { view.render }
 

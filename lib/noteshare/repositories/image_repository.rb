@@ -1,6 +1,17 @@
 class ImageRepository
   include Lotus::Repository
 
+  # Find all objects with a gvien title
+  def self.find_by_title(title)
+    query do
+      where(title: title)
+    end
+  end
+
+  def self.find_one_by_title(title)
+    find_by_title(title).first
+  end
+
   def self.basic_search(key, limit: 8)
     fetch("SELECT id FROM images WHERE title ILIKE '%#{key}%' OR tags ILIKE '%#{key}%';")
   end

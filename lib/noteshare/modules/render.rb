@@ -41,20 +41,29 @@ class Render
     rxParts = /#{tag}:+(.*?)\[(.*)\]/
     scanner = @source.scan(rxTag)
     count = 0
+    puts "scanner.count: #{scanner.count}".magenta
     scanner.each do |tag_scan|
       count += 1
       puts "\n\n\nSCAN (#{count})\n".magenta
       old_tag = tag_scan[0]
       puts  "old_tag: #{old_tag}".red
       part = old_tag.match rxParts
+      puts "part: #{part}".red
       id = part[1]
       attributes = part[2]
       puts "id: #{id}".magenta
       puts "attributes: #{attributes}"
       iii = ImageRepository.find id
+      if iii
+      puts "Found:".green
+      puts iii.title
+      puts "-----------"
       puts "URL: #{iii.url.magenta}".magenta
       new_tag = "#{tag}::#{iii.url}[#{attributes}]"
       @source = @source.sub(old_tag, new_tag)
+      else
+        puts "Image #{id} not found".red
+      end
     end
 
   end
