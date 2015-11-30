@@ -10,12 +10,14 @@ describe NSDocument do
 
     DocumentRepository.clear
 
-    @article = DocumentRepository.create(NSDocument.new(title: 'A. Quantum Mechanics', author: 'Jared. Foo-Bar'))
-    @section1 = DocumentRepository.create(NSDocument.new(title: 'S1. Uncertainty Principle', author: 'Jared Foo-Bar', subdoc_refs: []))
-    @section2 = DocumentRepository.create(NSDocument.new(title: 'S2. Wave-Particle Duality', author: 'Jared Foo-Bar', subdoc_refs: []))
-    @section3 = DocumentRepository.create(NSDocument.new(title: 'S3. Matrix Mechanics', author: 'Jared Foo-Bar', subdoc_refs: []))
-    @subsection =  DocumentRepository.create(NSDocument.new(title: "SS. de Broglie's idea", author: 'Jared Foo-Bar', subdoc_refs: []))
-    @subsubsection =  DocumentRepository.create(NSDocument.new(title: "Yo!", author: 'Jared Foo-Bar', subdoc_refs: []))
+    @author = User.create(first_name: 'Jared', last_name: 'Foo-Bar', screen_name: 'jayfoo', password: 'foobar123', password_confirmation: 'foobar123')
+
+    @article = NSDocument.create(title: 'A. Quantum Mechanics', author_credentials: @author.credentials)
+    @section1 = NSDocument.create(title: 'S1. Uncertainty Principle', author_credentials: @author.credentials)
+    @section2 = NSDocument.create(title: 'S2. Wave-Particle Duality', author_credentials: @author.credentials)
+    @section3 = NSDocument.create(title: 'S3. Matrix Mechanics', author_credentials: @author.credentials)
+    @subsection =  NSDocument.create(title: "SS. de Broglie's idea", author_credentials: @author.credentials )
+    @subsubsection =  NSDocument.create(title: "Yo!", author_credentials: @author.credentials)
 
 
     @article.content = 'Quantum phenomena are weird!'
@@ -131,6 +133,20 @@ describe NSDocument do
 
   #### NEXT AND PREVIOUS
 
+  it 'can find the index of a document in its parent idxidx' do
+
+    @section1.insert(0,@article)
+    @section2.insert(1,@article)
+    @section3.insert(2,@article)
+
+    puts  "TEST".magenta
+    puts "@section1.get_index_in_parent: #{@section1.get_index_in_parent}".red
+    puts "@section2.get_index_in_parent: #{@section2.get_index_in_parent}".red
+    puts "@section3.get_index_in_parent: #{@section3.get_index_in_parent}".red
+    puts  "=====================================".magenta
+
+  end
+
 
   it 'can computes the next id nxx' do
 
@@ -150,6 +166,8 @@ describe NSDocument do
     @section1.insert(0,@article)
     @section2.insert(1,@article)
     @section3.insert(2,@article)
+
+    puts @article.toc
 
     @section1.previous_document_id.must_equal nil
     @section2.previous_document_id.must_equal @section1.id
@@ -307,6 +325,9 @@ EOF
     @subsection.add_to(@section2)
     @subsubsection.add_to(@subsection)
 
+    puts "XXX: ".red
+    puts @article.info
+    puts "=================".red
     @article.root_document.must_equal @article
     @section1.root_document.must_equal @article
     @subsection.root_document.must_equal @article
