@@ -48,13 +48,13 @@ class Image
     "vschool/noteshare_images/#{new_name}"
   end
 
-  def url3(size='original')
+  def url(size='original')
     "http://s3.amazonaws.com/#{self.object_name}"
   end
 
   def safe_url
     if object_name
-      url2
+      url
     else
       '#'
     end
