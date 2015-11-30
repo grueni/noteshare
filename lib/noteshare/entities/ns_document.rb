@@ -653,7 +653,7 @@ class NSDocument
   def compile_aux
     table = table_of_contents
     if table == []
-      return content
+      return content || ''
     else
       text = content + "\n\n" || ''
       table.each do |item|
@@ -666,7 +666,8 @@ class NSDocument
 
   def compile
     tm = texmacros  || ''
-    tm + compile_aux
+    result = tm + compile_aux
+    result
   end
 
 
@@ -725,7 +726,6 @@ class NSDocument
   # Compile the receiver, render it, and store the
   # rendered text in self.compiled_and_rendered_content
   def compile_with_render(option={})
-
     renderer = Render.new(self.compile, get_render_option )
     self.compiled_and_rendered_content = renderer.convert
     self.compiled_dirty = false

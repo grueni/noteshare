@@ -7,6 +7,7 @@ describe 'Show document' do
     DocumentRepository.clear
     @user = User.create(first_name: 'Curtis', last_name: 'Corto', screen_name: 'cc', password:'foobar123', password_confirmation:'foobar123')
     @document = NSDocument.create(title: 'Compendium Vitae', author_credentials: @user.credentials)
+    @document.content = ""
     puts "#{@document.title}".red
   end
 

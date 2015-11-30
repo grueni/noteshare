@@ -6,7 +6,7 @@ describe 'Documents' do
     DocumentRepository.clear
   end
 =begin
-  it 'can create a new document' do
+ it 'can create a new document' do
     visit '/documents/new'
 
     within 'form#document-form' do
@@ -17,7 +17,7 @@ describe 'Documents' do
     end
 
     current_path.must_equal('/documents')
-    assert page.has_content?('New document')
+    assert page.has_content?('New section')
   end
 =end
 end
