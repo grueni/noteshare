@@ -39,7 +39,7 @@ class Image
 =end
 
   def object_name(size='original')
-    old_name = self.file_name
+    old_name = self.file_name || 'null.jpg'
     return if old_name == nil
     name_parts = old_name.split('/')
     file_name = name_parts[-1]

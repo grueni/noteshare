@@ -26,6 +26,10 @@ describe Course do
     LessonRepository.update @lesson2
     LessonRepository.update @lesson3
 
+    UserRepository.clear
+    @user = User.create(first_name: 'John', last_name: 'Doe', screen_name: 'jd', password: 'foo12345', password_confirmation: 'foo12345')
+
+
   end
 
   it 'can create and persist a course object' do
@@ -41,7 +45,7 @@ describe Course do
     course = Course.new(title: 'Introductory Magick')
     course.created_at = DateTime.now
     course.modified_at = DateTime.now
-    doc = course.to_document
+    doc = course.to_document @user.screen_name
     doc.title.must_equal course.title
 
     warn "doc.id = #{doc.id}".red if $VERBOOSE
@@ -63,22 +67,23 @@ describe Course do
 
   it 'can create a master document (doc + sections) from a course' do
 
-    master = @course.create_master_document
-    puts "master.subdoc = #{master.subdoc_refs}".red
+    master = @course.create_master_document @user.screen_name
+
+    puts "CHECK (3) master title: #{master.title}".red
+
     master.title.must_equal(@course.title)
-    master.subdoc_refs.length.must_equal(3)
 
     master.subdocument(0).title.must_equal(@lesson1.title)
     master.subdocument(1).title.must_equal(@lesson2.title)
     master.subdocument(2).title.must_equal(@lesson3.title)
     master.subdocument(0).next_document_title.must_equal(@lesson2.title)
     # Fixme:
-    master.subdocument(1).previous_document_title.must_equal(@lesson0.title)
+    master.subdocument(1).previous_document_title.must_equal(@lesson1.title)
 
-    toc = master.toc
-    toc[0]['title'].must_equal(@lesson1.title)
-    toc[1]['title'].must_equal(@lesson2.title)
-    toc[2]['title'].must_equal(@lesson3.title)
+    table = TOC.new(master).table
+    table[0].title.must_equal(@lesson1.title)
+    table[1].title.must_equal(@lesson2.title)
+    table[2].title.must_equal(@lesson3.title)
 
   end
 

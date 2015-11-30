@@ -24,12 +24,13 @@ class Render
 
   def export_asciidoc
     @options = @options.merge({verbose:0})
-    rewrite_urls
+    # rewrite_urls
+    rewrite_media_urls('image', @options)
   end
 
   def rewrite_urls(option={destination: 'web'})
 
-    rewrite_media_urls('image', option)
+    # rewrite_media_urls('image', option)
     # @source = self.rewrite_media_urls('video', option)
     # @source = self.rewrite_media_urls('audio', option)
 
@@ -49,6 +50,8 @@ class Render
       puts  "old_tag: #{old_tag}".red
       part = old_tag.match rxParts
       puts "part: #{part}".red
+      puts "part[1]: #{part[1]}".cyan
+      puts "part[2]: #{part[2]}".cyan
       id = part[1]
       attributes = part[2]
       puts "id: #{id}".magenta

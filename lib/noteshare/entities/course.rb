@@ -35,6 +35,7 @@ class Course
   def create_master_document(screen_name)
 
     master = self.to_document(screen_name)
+    puts "CHECK master title: #{master.title}".red
     master.content ||= ''
     lessons = self.associated_lessons
     lesson_count = lessons.count
@@ -66,9 +67,9 @@ class Course
       puts "   --- #{section.author_credentials}".blue
       last_node = section
     end
-
+    puts "CHECK (2) master title: #{master.title}".red
     # master.update_table_of_contents(force: true)
-    lesson_count
+    return master
   end
 
 

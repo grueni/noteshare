@@ -88,11 +88,11 @@ module TextParse
     def get_ad_element2(text, tag_prefix, tag_suffix)
 
       # if Rails.env =='development' or Rails.env =='test'
-      if Rails.env =='test'
-        end_string = "\n(.*?)\n\n"
-      else
+      # if Rails.env =='test'
+      #   end_string = "\n(.*?)\n\n"
+      # else
         end_string = "\r\n(.*?)\r\n\r\n"
-      end
+      # end
 
       if tag_suffix
         regex_string = "\\[#{tag_prefix}\\.#{tag_suffix}\\]#{end_string}"
