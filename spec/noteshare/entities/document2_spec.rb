@@ -111,15 +111,13 @@ describe NSDocument do
     @section2.add_to(@article)
     @section3.add_to(@article)
 
-    @article.subdocument_titles.must_equal ["S1. Uncertainty Principle", "S2. Wave-Particle Duality", "S3. Matrix Mechanics"]
-
     @article.subdocument(0).title.must_equal @section1.title
     @section1.parent_id.must_equal @article.id
 
     @section1.index_in_parent.must_equal 0
     @section2.index_in_parent.must_equal 1
 
-    @section1.parent.title.must_equal @article.title
+    @section1.parent_document.title.must_equal @article.title
 
   end
 
@@ -140,9 +138,9 @@ describe NSDocument do
     @section2.insert(1,@article)
     @section3.insert(2,@article)
 
-    @section1.next_id.must_equal @section2.id
-    @section2.next_id.must_equal @section3.id
-    @section3.next_id.must_equal nil
+    @section1.next_document_id.must_equal @section2.id
+    @section2.next_document_id.must_equal @section3.id
+    @section3.next_document_id.must_equal nil
 
 
   end
@@ -153,9 +151,9 @@ describe NSDocument do
     @section2.insert(1,@article)
     @section3.insert(2,@article)
 
-    @section1.previous_id.must_equal nil
-    @section2.previous_id.must_equal @section1.id
-    @section3.previous_id.must_equal @section2.id
+    @section1.previous_document_id.must_equal nil
+    @section2.previous_document_id.must_equal @section1.id
+    @section3.previous_document_id.must_equal @section2.id
 
   end
 
@@ -166,8 +164,8 @@ describe NSDocument do
     @section2.insert(1,@article)
     @section3.insert(2,@article)
 
-    @section1.next_document.id.must_equal @section2.id
-    @section2.next_document.id.must_equal @section3.id
+    @section1.next_document_id.must_equal @section2.id
+    @section2.next_document_id.must_equal @section3.id
 
   end
 
@@ -258,11 +256,8 @@ EOF
     @section3.add_to(@article)
     @section2.remove_from_parent
 
-    p = @section2.parent
+    p = @section2.parent_document
 
-    p.subdoc_refs.length.must_equal 2
-    p.subdoc_refs.must_equal [ @section1.id,  @section3.id]
-    
     p.subdocument(0).next_document.title.must_equal p.subdocument(1).title
     p.subdocument(1).previous_document.title.must_equal p.subdocument(0).title
 
@@ -270,6 +265,7 @@ EOF
 
   it 'can move a subdocument from one position to another mmm' do
 
+    puts "MMM".magenta
     article_id = @article.id
     @section1.add_to(@article)
     @section2.add_to(@article)
@@ -279,6 +275,7 @@ EOF
     puts
 
     @section1.move_to(2)
+    #Fixme
 
     @article = DocumentRepository.find article_id
 

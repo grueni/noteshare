@@ -8,8 +8,13 @@ describe Web::Controllers::Documents::Index do
 
   before do
     DocumentRepository.clear
+    @user = User.create(first_name: 'Kent', last_name: 'Beck', screen_name: 'kbeck', password:'foobar123', password_confirmation:'foobar123')
+    @document = NSDocument.create(title: 'TDD', author_credentials: @user.credentials)
+  end
 
-    @document = DocumentRepository.create(NSDocument.new(title: 'TDD', author: 'Kent Beck'))
+  it 'has a valid document for testing' do
+    doc = DocumentRepository.find_by_title('TDD').first
+    doc.title.must_equal('TDD')
   end
 
   it "is successful" do

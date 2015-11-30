@@ -33,12 +33,14 @@ module NSDocument::Presentation
   # *doc.subdocument_titles* returns a list of the
   # titles of the sections of *document*.
   def subdocument_titles(option=:simple)
+    #Fixme: bad implementation
     list = []
     if [:header].include? option
       list << self.title.upcase
     end
-    subdoc_refs.each do |id|
-      section = DocumentRepository.find(id)
+    toc = TOC.new(self)
+    toc.table.each do |item|
+      section = DocumentRepository.find(item.id)
       if [:header, :simple].include? option
         item = section.title
       elsif option == :verbose

@@ -5,7 +5,9 @@
     expose :documents
 
     def call(params)
-      @documents = DocumentRepository.root_documents.sort_by { |item| item.title }
+      # @documents = DocumentRepository.root_documents.sort_by { |item| item.title }
+      @documents = DocumentRepository.all
+      puts "COUNT: #{@documents.count}".magenta
       puts "ROOT DOCUMENTS: #{@documents.count}".red
     end
 

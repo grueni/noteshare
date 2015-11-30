@@ -341,7 +341,7 @@ class NSDocument
   # are moved up.
   def move_to(new_position)
     remove_from_parent
-    insert(new_position, parent)
+    insert(new_position, parent_document)
   end
 
 
@@ -403,6 +403,16 @@ class NSDocument
     table = TOC.new(parent_document).table
     index_in_parent && index_in_parent + 1 < table.count ?  _id = table[index_in_parent+1].id : return
     DocumentRepository.find(_id) if _id
+  end
+
+  def next_document_id
+    doc = next_document
+    doc.id if doc
+  end
+
+  def previous_document_id
+    doc = previous_document
+    doc.id if doc
   end
 
   # Use the information in self.parent.subdoc_refs
