@@ -28,7 +28,7 @@ describe Render do
 </div>
 <div class="imageblock">
 <div class="content">
-<img src="http://s3.amazonaws.com/vschool/noteshare_images/Joordens_Trinil_engravedshell-640x907-original-original.jpg" alt="Joordens Trinil engravedshell 640x907 original original" width="200">
+<img src="http://s3.amazonaws.com/vschool/noteshare_images/Joordens_Trinil_engravedshell-640x907-original.jpg" alt="Joordens Trinil engravedshell 640x907 original" width="200">
 </div>
 </div>
 <div class="paragraph">
@@ -37,6 +37,7 @@ describe Render do
 EOF
 
    rendered_text = Render.new(@text).convert
+   puts rendered_text.magenta
    rendered_text.strip.must_equal(expected_text.strip)
 
  end

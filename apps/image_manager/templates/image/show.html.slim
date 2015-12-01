@@ -1,10 +1,11 @@
 .row.inset.image_editor
   .col style='left:0; width:50%'
-    == image_link image.url,  image.url
+    == image_link image.url2,  image.url2
     /== html.img(src: image.url)
 
   .col style='left:50%; width: 50%'
     .div style='max-width:400px; margin-left:2em;'
+      p== "Image ID: #{image.id}"
       .edit_form
         form[name="edit_image" action="update"]
 
@@ -28,4 +29,4 @@
         br
         br
 
-        p== "#{image.url}"
+        p== "#{image.url2}"

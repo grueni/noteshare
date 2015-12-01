@@ -1,5 +1,5 @@
 .row.inset
-  .col style='margin-bottom:2em; color:white;'
+  .col style='margin-bottom:2em; color:white;width:60%'
     .row
       - if images.count == 1
         p 1 image
@@ -18,11 +18,13 @@
           tbody
             - images.each do |image|
               tr
-                td[width='150px']== image_link image.url,  "/image_manager/show/#{image.id}"
+                td[width='150px']== image_link image.url2,  "/image_manager/show/#{image.id}"
                 td== link_to image.title, "/image_manager/show/#{image.id}"
                 td= image.id
                 td= image.tags
 
+  .col style='margin-bottom:2em; color:white;left: 70%; width:40%'
 
-
+    - if current_user(session)
+      p== link_to 'UPLOAD', '/uploader/image', class:'plainlink lightlink '
 

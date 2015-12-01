@@ -7,7 +7,7 @@ module Uploader::Controllers::Image
     include Noteshare::AWS
     include Noteshare::Util
 
-    expose :message, :title, :tags, :filename
+    expose :url, :image, :message
 
     def call(params)
       puts "Call  uploader, file".magenta
@@ -15,14 +15,24 @@ module Uploader::Controllers::Image
       @title =  params['title']
       @tags =  params['tags']
       @filename = params['datafile']['filename']
-      @tmpfile = params['datafile']['tempfile'].inspect.match(/Tempfile:(.*)>/)[1]
+      @tempfile = params['datafile']['tempfile'].inspect.match(/Tempfile:(.*)>/)[1]
 
-      puts title.cyan
-      puts tags.cyan
-      puts filename.cyan
-      puts tmpfile.cyan
+      puts @title.cyan
+      puts @tags.cyan
+      puts @filename.cyan
+      puts @tempfile.cyan
 
-      @message = Noteshare::AWS.upload(@filename, @tmpfile, 'noteshare_images' )
+      @url = Noteshare::AWS.upload(@filename, @tempfile, 'noteshare_images' )
+
+      if @url
+        raw_image = Image.new(title: @title, file_name: @filename, url: @url, tags: @tags)
+        @image = ImageRepository.create raw_image
+        @message = "Image upload successful (id: #{@image.id})"
+      else
+        @message = "Image upload failed"
+      end
+
+
       # @message = Noteshare::Util.read(filename, tmpfile )
     end
 
