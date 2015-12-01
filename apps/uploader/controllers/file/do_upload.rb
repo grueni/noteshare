@@ -3,21 +3,29 @@ module Uploader::Controllers::File
     require_relative '../../../../lib/aws'
     include Uploader::Action
     include Noteshare::AWS
+    include Noteshare::Util
 
-    expose :message
+    expose :image_id, :title, :filename, :url, :tags
 
     def call(params)
       puts "Call  uploader, file".magenta
 
-      meta =  params['textline'].to_s.cyan
-      filename = params['datafile']['filename']
+      @title =  params['title']
+      @tags = params['tags']
+      @filename = params['datafile']['filename']
       tmpfile = params['datafile']['tempfile'].inspect.match(/Tempfile:(.*)>/)[1]
 
-      puts meta.cyan
-      puts filename.cyan
+      puts @title.cyan
+      puts @tags.cyan
+      puts @filename.cyan
       puts tmpfile.cyan
 
-      @message = Noteshare::AWS.upload(filename, tmpfile, 'test' )
+      @url = Noteshare::AWS.upload(@filename, tmpfile, 'test' )
+
+      image = Image.new(title: @title, file_name: @filename, tags: @tags, url: @url)
+      saved_image = Image.repository.create image
+      @image_id = saved_image.id
+
     end
 
     private
