@@ -15,7 +15,7 @@ describe 'Show document' do
     doc = DocumentRepository.find_by_title('Compendium Vitae').first
     doc.title.must_equal('Compendium Vitae')
   end
-  
+
 
   it 'can visit the page and see the document' do
 
