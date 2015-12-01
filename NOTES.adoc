@@ -147,3 +147,4 @@ http://chriskottom.com/blog/2014/12/command-line-flags-for-minitest-in-the-raw/[
 http://metaskills.net/2015/02/08/customizing-rake-tasks-in-rails-41-and-higher/[rake test]
 http://www.fozworks.com/blog/2007/04/16/rake-task-to-run-a-custom-group-of-tests/[Custom rake tests]
 http://www.rubydoc.info/github/jnicklas/capybara[Capybara]
+https://github.com/redpen-cc/redpen/pull/514[Red Pen Asciidoc Parser Project]
