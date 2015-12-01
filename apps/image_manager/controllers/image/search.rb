@@ -6,6 +6,7 @@ module ImageManager::Controllers::Image
 
     def call(params)
       key1 = params['search']
+      puts "image search key = #{key1}".red
       @images = ImageRepository.search3(key1)
       puts "N = #{@images.count} documents images".magenta
     end

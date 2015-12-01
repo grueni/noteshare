@@ -36,25 +36,25 @@ class Render
   end
 
   def rewrite_media_urls(tag, option)
-    puts "CALLED: rewrite_media_urls".red
+
     rxTag = /(#{tag}:+.*?\])/
     rxParts = /#{tag}:+(.*?)\[(.*)\]/
     scanner = @source.scan(rxTag)
     count = 0
+
     scanner.each do |tag_scan|
       count += 1
-      puts "\n\n\nSCAN (#{count})\n".magenta
       old_tag = tag_scan[0]
-      puts  "old_tag: #{old_tag}".red
       part = old_tag.match rxParts
       id = part[1]
       attributes = part[2]
-      puts "id: #{id}".magenta
-      puts "attributes: #{attributes}"
       iii = ImageRepository.find id
-      puts "URL: #{iii.url.magenta}".magenta
-      new_tag = "#{tag}::#{iii.url}[#{attributes}]"
-      @source = @source.sub(old_tag, new_tag)
+      if iii
+        new_tag = "#{tag}::#{iii.url}[#{attributes}]"
+        @source = @source.sub(old_tag, new_tag)
+      else
+        puts "Image #{id} not found".red
+      end
     end
 
   end

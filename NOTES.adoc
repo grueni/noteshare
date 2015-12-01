@@ -143,3 +143,8 @@ http://blog.teamtreehouse.com/short-introduction-minitest
 ff
 http://html5doctor.com/storing-data-the-simple-html5-way-and-a-few-tricks-you-might-not-have-known/[Javascript Persistent]
 http://lucaguidi.com/2015/11/24/json-api-apps-with-lotus.html[Lotus and JSON API]
+http://chriskottom.com/blog/2014/12/command-line-flags-for-minitest-in-the-raw/[Minitest]
+http://metaskills.net/2015/02/08/customizing-rake-tasks-in-rails-41-and-higher/[rake test]
+http://www.fozworks.com/blog/2007/04/16/rake-task-to-run-a-custom-group-of-tests/[Custom rake tests]
+http://www.rubydoc.info/github/jnicklas/capybara[Capybara]
+https://github.com/redpen-cc/redpen/pull/514[Red Pen Asciidoc Parser Project]

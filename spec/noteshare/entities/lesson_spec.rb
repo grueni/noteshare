@@ -26,11 +26,13 @@ describe Lesson do
   end
 
   it 'can create and persist corresponding document object' do
+    UserRepository.clear
+    user = User.create(first_name: 'John', last_name: 'Doe', screen_name: 'jd', password: 'foo12345', password_confirmation: 'foo12345')
 
     lesson = Lesson.new(title: 'Introductory Magick')
     lesson.created_at = DateTime.now
     lesson.modified_at = DateTime.now
-    doc = lesson.to_document
+    doc = lesson.to_document(user.screen_name)
     doc.title.must_equal lesson.title
 
     warn "doc.id = #{doc.id}".red if $VERBOOSE

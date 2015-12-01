@@ -52,6 +52,7 @@ class NSNode
 
   # Return an HTML list of links to documents
   def documents_as_list
+    return '' if documents == nil or documents == []
     list = documents.table
     output = "<ul>\n"
     list.each do |item|

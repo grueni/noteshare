@@ -366,7 +366,8 @@ class NSDocument
   end
 
   def root_item
-    return if root_ref == nil
+    # return if root_ref == nil
+    return if root_document_id == 0
     # TOCItem.new( root_ref['id'], root_ref['title'], root_ref['identifier'], root_ref['has_subdocs'] )
     #TOCItem.new( root_ref[:id], root_ref[:title], root_ref[:identifier], root_ref[:has_subdocs] )
     TOCItem.from_hash(root_ref)
@@ -385,24 +386,63 @@ class NSDocument
     return table[index_of_next_toc_item] if index_of_next_toc_item < table.count
   end
 
+  def get_index_in_parent
+    return if parent_document == nil
+    table = TOC.new(parent_document).table
+    table.each_with_index do |item, index|
+      if self.identifier == item.identifier
+        return index
+      end
+    end
+  end
 
   # Return next NSDocument.  That is, if @foo, @bar, and @baz
   # are subcocuments in order of @article, then @bar.next_document = @baz
-  def previous_document
+  def previous_document_old
     return if parent_document == nil
     table = TOC.new(parent_document).table
     index_in_parent ?  _id = table[index_in_parent-1].id : return
     DocumentRepository.find(_id) if _id
   end
 
+  def next_document
+    return if parent_document == nil
+    table = TOC.new(parent_document).table
+    found_index = nil
+    table.each_with_index do |item, index|
+      if self.identifier == item.identifier
+        found_index = index
+      end
+    end
+    return if found_index == nil
+    return if found_index > table.count - 2
+    _id = table[found_index + 1].id
+    return  DocumentRepository.find(_id)
+  end
+
 
   # Return previous NSDocument.  That is, if @foo, @bar, and @baz
   # are subcocuments in order of @article, then @bar.previous_document = @foo
-  def next_document
+  def next_document_old
     return if parent_document == nil
     table = TOC.new(parent_document).table
     index_in_parent && index_in_parent + 1 < table.count ?  _id = table[index_in_parent+1].id : return
     DocumentRepository.find(_id) if _id
+  end
+
+  def previous_document
+    return if parent_document == nil
+    table = TOC.new(parent_document).table
+    found_index = nil
+    table.each_with_index do |item, index|
+      if self.identifier == item.identifier
+        found_index = index
+      end
+    end
+    return if found_index == nil
+    return if found_index == 0
+    _id = table[found_index - 1].id
+    return  DocumentRepository.find(_id)
   end
 
   def next_document_id
@@ -653,7 +693,7 @@ class NSDocument
   def compile_aux
     table = table_of_contents
     if table == []
-      return content
+      return content || ''
     else
       text = content + "\n\n" || ''
       table.each do |item|
@@ -666,7 +706,8 @@ class NSDocument
 
   def compile
     tm = texmacros  || ''
-    tm + compile_aux
+    result = tm + compile_aux
+    result
   end
 
 
@@ -725,7 +766,6 @@ class NSDocument
   # Compile the receiver, render it, and store the
   # rendered text in self.compiled_and_rendered_content
   def compile_with_render(option={})
-
     renderer = Render.new(self.compile, get_render_option )
     self.compiled_and_rendered_content = renderer.convert
     self.compiled_dirty = false

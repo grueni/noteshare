@@ -5,6 +5,9 @@ describe 'Create User' do
 
   before do
 
+    UserRepository.clear
+    User.create(first_name: 'Jared', last_name: 'Foo-Bar', screen_name: 'jayfoo', password: 'foobar123', password_confirmation: 'foobar123')
+
   end
 
   it 'can bring up a form for a user record' do
@@ -26,14 +29,12 @@ describe 'Create User' do
       click_button 'Create account'
      end
 
-    current_path.must_equal('/new_user')
-    # assert page.has_content?('Password')
-  end
+    user = UserRepository.last
+    current_path.must_equal("/user/#{user.id}")       ###????
 
-  it 'shows a user' do
-    visit '/admin/users'
-    user = UserRepository.first
-    assert page.has_content?(user.last_name)
+    visit "/node/users/#{user.id}"
+    assert page.has_content?(user.screen_name), "Go to user's node page"
+
   end
 
 end

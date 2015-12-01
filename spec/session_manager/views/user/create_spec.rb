@@ -3,7 +3,7 @@ require_relative '../../../../apps/session_manager/views/user/create'
 
 describe SessionManager::Views::User::Create do
   let(:exposures) { Hash[foo: 'bar'] }
-  let(:template)  { Lotus::View::Template.new('apps/session_manager/templates/user/create.html.haml') }
+  let(:template)  { Lotus::View::Template.new('apps/session_manager/templates/user/create.html.slim') }
   let(:view)      { SessionManager::Views::User::Create.new(template, exposures) }
   let(:rendered)  { view.render }
 

@@ -68,8 +68,6 @@ describe TOC do
     # @subsection.add_to(@section2)
     @section3.add_to(@article)
 
-    puts @article.suboc_refs
-
     compiled_text = @article.compile
 
     puts "\n\n++++++++++++++++++++++++++++++++++".red

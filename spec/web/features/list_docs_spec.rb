@@ -14,7 +14,7 @@ describe 'List Docs' do
     visit '/documents'
     assert page.has_content?('OS Z')
     assert page.has_content?('Electromagnetic Theory')
-    skip page.has_css?('.document', count: 2), "Expected to find 2 books"
+    # skip page.has_css?('.document', count: 2), "Expected to find 2 books"
   end
 
 end

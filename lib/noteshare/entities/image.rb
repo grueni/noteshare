@@ -7,7 +7,7 @@ class Image
   attributes :id, :title, :file_name, :mime_type, :created_at, :modified_at, :owner_id, :public, :doc_ids, :tags, :meta, :url, :identifier, :source
 
 
-=begin
+
   def self.upload(local_file)
 
   # http://ruby.awsblog.com/post/Tx354Y6VTZ421PJ/-Downloading-Objects-from-Amazon-span-class-matches-S3-span-using-the-AWS-SDK-fo
@@ -36,10 +36,9 @@ class Image
     message << "Elapsed: #{t2-t1}\n"
   end
 
-=end
 
   def object_name(size='original')
-    old_name = self.file_name
+    old_name = self.file_name || 'null.jpg'
     return if old_name == nil
     name_parts = old_name.split('/')
     file_name = name_parts[-1]

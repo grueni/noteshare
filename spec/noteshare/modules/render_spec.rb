@@ -1,7 +1,16 @@
-require 'spec_helper'
+  require 'spec_helper'
 
 describe Render do
 
+  before do
+
+    ImageRepository.clear
+    image = Image.new(title: 'Shell', file_name: 'Joordens_Trinil_engravedshell-640x907-original.jpg', url: 's3.amazonaws.com/vschool/noteshare_images/Joordens_Trinil_engravedshell-640x907-original.jpg')
+    ImageRepository.create image
+    @image = ImageRepository.find_one_by_title('Shell')
+    @text = "This ia an image:\n\nimage::#{@image.id}[width=200] \n\nLa di dah!"
+
+  end
 
 
  it 'renders the source given to it' do
@@ -11,15 +20,24 @@ describe Render do
 
  end
 
- it 'rewrites media urlst' do
+ it 'rewrites media urls' do
 
-   r = Render.new("This ia an image:\n\nimage::403[width=200] \n\nLa di dah!")
-   out = r.convert
-   puts out
-   expected_tag = '<img src="http://s3.amazonaws.com/vschool/noteshare_images/Joordens_Trinil_engravedshell-640x907-original.jpg" alt="Joordens Trinil engravedshell 640x907 original" width="200">'
-   r.convert.must_include(expected_tag)
+   expected_text =<<EOF
+<div class="paragraph">
+<p>This ia an image:</p>
+</div>
+<div class="imageblock">
+<div class="content">
+<img src="http://s3.amazonaws.com/vschool/noteshare_images/Joordens_Trinil_engravedshell-640x907-original-original.jpg" alt="Joordens Trinil engravedshell 640x907 original original" width="200">
+</div>
+</div>
+<div class="paragraph">
+<p>La di dah!</p>
+</div>
+EOF
 
-   r.delete
+   rendered_text = Render.new(@text).convert
+   rendered_text.strip.must_equal(expected_text.strip)
 
  end
 

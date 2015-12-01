@@ -1,7 +1,7 @@
 doctype html
 html
   head
-    title Noteshare Reader
+    title Noteshare Images
     link href='http://cdnjs.cloudflare.com/ajax/libs/font-awesome/3.2.1/css/font-awesome.min.css' rel='stylesheet' /
     link href="/stylesheets/materialize.css" rel="stylesheet" type="text/css" /
     link href="/stylesheets/asciidoctor.css" rel="stylesheet" type="text/css" /
@@ -22,7 +22,7 @@ html
           | &nbsp;&nbsp;&nbsp;
           == current_user_node_link(session)
           | &nbsp; &nbsp; &nbsp; &nbsp;
-          form[name="search" action="search"]
+          form[name="search" action="/image_manager/search"]
             input[type="text" name="search" id="basic_search_form"]
 
       .navbar_middle_item

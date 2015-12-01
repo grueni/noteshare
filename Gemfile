@@ -16,8 +16,6 @@ gem 'pg'
 
 #   gem 'sequel'
 
-
-gem 'haml'
 gem 'slim'
 
 gem 'bcrypt'
