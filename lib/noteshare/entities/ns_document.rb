@@ -398,50 +398,26 @@ class NSDocument
 
   # Return next NSDocument.  That is, if @foo, @bar, and @baz
   # are subcocuments in order of @article, then @bar.next_document = @baz
-  def previous_document_old
-    return if parent_document == nil
-    table = TOC.new(parent_document).table
-    index_in_parent ?  _id = table[index_in_parent-1].id : return
-    DocumentRepository.find(_id) if _id
-  end
-
   def next_document
     return if parent_document == nil
-    table = TOC.new(parent_document).table
-    found_index = nil
-    table.each_with_index do |item, index|
-      if self.identifier == item.identifier
-        found_index = index
-      end
-    end
+    _toc = TOC.new(parent_document)
+    found_index = _toc.index_by_identifier(self.identifier)
     return if found_index == nil
-    return if found_index > table.count - 2
-    _id = table[found_index + 1].id
+    return if found_index > _toc.table.count - 2
+    _id = _toc.table[found_index + 1].id
     return  DocumentRepository.find(_id)
   end
 
 
   # Return previous NSDocument.  That is, if @foo, @bar, and @baz
   # are subcocuments in order of @article, then @bar.previous_document = @foo
-  def next_document_old
-    return if parent_document == nil
-    table = TOC.new(parent_document).table
-    index_in_parent && index_in_parent + 1 < table.count ?  _id = table[index_in_parent+1].id : return
-    DocumentRepository.find(_id) if _id
-  end
-
   def previous_document
     return if parent_document == nil
-    table = TOC.new(parent_document).table
-    found_index = nil
-    table.each_with_index do |item, index|
-      if self.identifier == item.identifier
-        found_index = index
-      end
-    end
+    _toc = TOC.new(parent_document)
+    found_index = _toc.index_by_identifier(self.identifier)
     return if found_index == nil
     return if found_index == 0
-    _id = table[found_index - 1].id
+    _id = _toc.table[found_index - 1].id
     return  DocumentRepository.find(_id)
   end
 
