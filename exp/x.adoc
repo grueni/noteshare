@@ -1,0 +1,82 @@
+== Documents
+
+=== Attributes
+
+==== Metadata
+
+ id:: Unique integer identifier managed by the database
+
+title:: A string
+
+identifier:: A 10-place hexadecimal code, intended to be unique.
+
+tags:: A string with comma-separated elements used in searching.
+
+type:: I have forgotten what this string is for.
+
+area:: Subject matter area, e.g., physics, poetry
+
+meta:: metadata in JSON format
+
+created_at, modified_at:: Date-time information
+
+==== Content
+
+content:: Document content, usually in Asciidoc format.
+
+rendered_content:: content rendered as HTML
+
+compiled_and_rendered_content::
+
+render_options:: 
+    :parent_ref, :root_ref, :parent_id, :index_in_paren
+
+
+content_dirty::
+
+compiled_dirty:: 
+
+toc_dirty:: blah blah
+
+
+
+
+==== Author package
+
+author_id:: Integer foreign key to the user database
+
+author:: Author full name.  Redundant, but useful in searches
+
+author_identifier:: A 10-place hexadecimal string that uniquely identifies a document.  This is needed because if a document is
+taken out of the database, e.g., in a user's computer, then brought back in, there needs to be a way of linking documents that does not depend on the database's id mechanism.  _Question: should the *id* be done away with and the identifier used as a key? :
+
+author_credentials:: A struct with fields x, y, z
+
+==== Structure
+
+root_document_id:: The `id` of the root document of the current 
+document.  A root document has `id` = 0.
+
+parent_ref:: a struct pointing to the parent document
+
+root_ref:: a struct pointing to the root document.
+
+parent_id:: id of parent
+
+index_in_parent:: index of current document in the toc of its parent.
+
+visibility:: deprecated
+subdoc_refs:: deprecated in favor of `toc`.
+
+toc:: Table of contents.  Refers to all subdocuments
+
+doc_refs:: An array of hashes `{ title => id }` which defines
+the set of associated documents.
+
+
+
+==== Other
+
+acl:: Access control list
+
+groups_json:: Membership in groups

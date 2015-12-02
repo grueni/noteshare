@@ -1,0 +1,2 @@
+Asciidoctor.load str, :sourcemap
+a = Asciidoctor.load str, {sourcemap: true}
