@@ -974,7 +974,6 @@ class NSDocument
   end
 
   def set_permissions(u, g, w)
-    puts "setting permissions for #{self.title} to #{u}, #{g}, #{w}".red
     a = ACL.create_with_permissions(u, g, w)
     self.acl =  a.to_json
     DocumentRepository.update self
