@@ -50,102 +50,21 @@ describe NSDocument do
 
   #### INITALIZATION, SETTING ATTRIBUTES, AND PERSISTENCE ####
 
-  it 'can be initialised with attributes, with defaults set iii' do
-    document = NSDocument.new(title: 'Quantum Mechanics', author: 'J.L Foo-Bar')
-    document.title.must_equal 'Quantum Mechanics'
-    empty_hash = {}
-    document.doc_refs.must_equal empty_hash
-    document.subdoc_refs.must_equal []
-  end
-
-  it 'can save data and later retrieve it by title ttt' do
-    doc = DocumentRepository.first
-    title = doc.title
-    doc2 = DocumentRepository.find_one_by_title(title)
-    doc2.title.must_equal title
-  end
-
-  it 'persists subdoc_refs pppe' do
-    title =  'A. Quantum Mechanics'
-    title2 = 'Ladidah!'
-    doc = DocumentRepository.find_one_by_title(title)
-    doc.subdoc_refs = [1,2,3]
-    doc.title = title2
-    DocumentRepository.update doc
-    doc2 = DocumentRepository.find_one_by_title(title2)
-    doc2.title.must_equal title2
-    doc2.subdoc_refs.must_equal [1,2,3]
-
-    doc.subdoc_refs = [4,5,6]
-    doc.title = 'Foo'
-    DocumentRepository.update doc
-    doc2 = DocumentRepository.find_one_by_title('Foo')
-    doc2.subdoc_refs.must_equal [4,5,6]
-
-  end
 
 
-  it 'can modify subdoc_refs and later recall the same' do
-    title =  'A. Quantum Mechanics'
-    title2 = 'Ladidah!'
-    doc = DocumentRepository.find_one_by_title(title)
-    doc.subdoc_refs = [1,2,3]
-    doc.title = title2
-    DocumentRepository.update doc
-    doc2 = DocumentRepository.find_one_by_title(title2)
-    doc2.title.must_equal title2
-    doc2.subdoc_refs.must_equal [1,2,3]
-  end
 
-  it 'can set the doc_refs hash at will xdr' do
 
-    @article.doc_refs = {}
-    @article.doc_refs['foo'] = 'bar'
-    @article.doc_refs['foo'].must_equal 'bar'
-
-  end
 
   #### MANAGING SUBDOCUMENTS ####
 
-  it 'can add subdocuments to a document, setting up refs from parent to child and vice versa sdd1' do
 
-    @section1.add_to(@article)
-    @section2.add_to(@article)
-    @section3.add_to(@article)
 
-    @article.subdocument(0).title.must_equal @section1.title
-    @section1.parent_id.must_equal @article.id
 
-    @section1.index_in_parent.must_equal 0
-    @section2.index_in_parent.must_equal 1
-
-    @section1.parent_document.title.must_equal @article.title
-
-  end
-
-  it 'can form a list of subdocument titles sdt' do
-    @section1.add_to(@article)
-    @section2.add_to(@article)
-    @article.subdocument_titles.must_equal ['S1. Uncertainty Principle', 'S2. Wave-Particle Duality']
-
-  end
 
 
   #### NEXT AND PREVIOUS
 
-  it 'can find the index of a document in its parent idxidx' do
 
-    @section1.insert(0,@article)
-    @section2.insert(1,@article)
-    @section3.insert(2,@article)
-
-    puts  "TEST".magenta
-    puts "@section1.get_index_in_parent: #{@section1.get_index_in_parent}".red
-    puts "@section2.get_index_in_parent: #{@section2.get_index_in_parent}".red
-    puts "@section3.get_index_in_parent: #{@section3.get_index_in_parent}".red
-    puts  "=====================================".magenta
-
-  end
 
 
   it 'can computes the next id nxx' do

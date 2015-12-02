@@ -13,29 +13,60 @@ describe NSDocument do
     UserRepository.create(@user)
 
     @article = NSDocument.create(title: 'Quantum Mechanics', author_credentials: @user.credentials)
-    @section = NSDocument.create(title: 'Uncertainty Principle', author_credentials: @user.credentials)
+    @section1 = NSDocument.create(title: 'Uncertainty Principle', author_credentials: @user.credentials)
     @section2 = NSDocument.create(title: 'Wave-Particle Duality', author_credentials: @user.credentials)
     @section3 = NSDocument.create(title: 'Matrix Mechanics', author_credentials: @user.credentials)
     @subsection =  NSDocument.create(title: "de Broglie's idea", author_credentials: @user.credentials)
 
 
     @article.content = 'Quantum phenomena are weird!'
-    @section.content = 'The Uncertainty Principle invalidates the notion of trajectory'
+    @section1.content = 'The Uncertainty Principle invalidates the notion of trajectory'
     @section2.content = 'It is, like, _so_ weird!'
     @subsection.content = 'He was a count.'
 
     DocumentRepository.persist @article
-    DocumentRepository.persist @section
+    DocumentRepository.persist @section1
     DocumentRepository.persist @section2
     DocumentRepository.persist @section3
     DocumentRepository.persist @subsection
 
   end
 
-  it 'can find single documents by title' do
 
-    article = DocumentRepository.find_one_by_title 'Quantum Mechanics'
-    article.title.must_equal 'Quantum Mechanics'
+  describe 'initialization' do
+
+    it 'can be initialised with attributes, with defaults set' do
+      document = NSDocument.new(title: 'Quantum Mechanics', author: 'J.L Foo-Bar')
+      document.title.must_equal 'Quantum Mechanics'
+      empty_hash = {}
+      document.doc_refs.must_equal empty_hash
+      document.subdoc_refs.must_equal []
+    end
+
+    it 'can save data and later retrieve it by title' do
+      doc = DocumentRepository.first
+      title = doc.title
+      doc2 = DocumentRepository.find_one_by_title(title)
+      doc2.title.must_equal title
+
+      article = DocumentRepository.find_one_by_title 'Quantum Mechanics'
+      article.title.must_equal 'Quantum Mechanics'
+
+    end
+
+  end
+
+  describe 'subdoc_refs (to deprecate)' do
+
+    it 'persists subdoc_refs pppe' do
+      title =  'Quantum Mechanics'
+      doc = DocumentRepository.find_one_by_title(title)
+      doc.subdoc_refs = [1,2,3]
+      DocumentRepository.update doc
+      doc2 = DocumentRepository.find_one_by_title(title)
+      doc2.title.must_equal title
+      doc2.subdoc_refs.must_equal [1,2,3]
+    end
 
   end
 
@@ -45,11 +76,11 @@ describe NSDocument do
     it 'can be done by making insertions' do
 
 
-      @section.insert(0,@article)
+      @section1.insert(0,@article)
       @section2.insert(1,@article)
       @section3.insert(1, @article)
 
-      @article.subdocument(0).title.must_equal @section.title
+      @article.subdocument(0).title.must_equal @section1.title
       @article.subdocument(1).title.must_equal @section3.title
       @article.subdocument(2).title.must_equal @section2.title
 
@@ -57,7 +88,7 @@ describe NSDocument do
 
     it 'constructs a TOC to manage navigation to previous and next documents' do
 
-      @section.insert(0,@article)
+      @section1.insert(0,@article)
       @section2.insert(1,@article)
       @section3.insert(1, @article)
 
@@ -77,12 +108,76 @@ describe NSDocument do
 
     end
 
-    it 'creates the correct referneces to the parent document' do
+    it 'creates the correct references to the parent document' do
 
-      @section.add_to(@article)
-      @section.parent_document.title.must_equal @article.title
+      @section1.add_to(@article)
+      @section2.add_to(@article)
+      @section3.add_to(@article)
+
+      @section1.parent_document.title.must_equal @article.title
+      @article.subdocument(0).title.must_equal @section1.title
+      @section1.parent_id.must_equal @article.id
+
+      @section1.index_in_parent.must_equal 0
+      @section2.index_in_parent.must_equal 1
+
+      @section1.parent_document.title.must_equal @article.title
 
     end
+
+    it 'can form a list of subdocument titles' do
+      @section1.add_to(@article)
+      @section2.add_to(@article)
+      @article.subdocument_titles.must_equal ['Uncertainty Principle', 'Wave-Particle Duality']
+
+    end
+
+
+  end
+
+  describe 'references to the parent and root document' do
+
+    it 'are set up by the "insert" method' do
+
+      @section1.insert(0,@article)
+      @section2.insert(1,@article)
+      @section3.insert(2,@article)
+
+    end
+
+
+  end
+
+  describe 'references' do
+
+
+    it 'to the next document are set up by the insert method' do
+
+      @section1.insert(0,@article)
+      @section2.insert(1,@article)
+      @section3.insert(2,@article)
+
+      @section1.next_document_id.must_equal @section2.id
+      @section2.next_document_id.must_equal @section3.id
+      @section3.next_document_id.must_equal nil
+
+
+    end
+
+    it 'to the previous document are set up by the insert method' do
+
+      @section1.insert(0,@article)
+      @section2.insert(1,@article)
+      @section3.insert(2,@article)
+
+      puts @article.toc
+
+      @section1.previous_document_id.must_equal nil
+      @section2.previous_document_id.must_equal @section1.id
+      @section3.previous_document_id.must_equal @section2.id
+
+    end
+
 
 
   end
@@ -90,14 +185,14 @@ describe NSDocument do
   describe 'compilation' do
 
     it 'iterates over subdocuments' do
-      @section.add_to(@article)
+      @section1.add_to(@article)
       compiled_text = @article.compile
       compiled_text.must_include @article.content
-      compiled_text.must_include @section.content
+      compiled_text.must_include @section1.content
     end
 
     it 'descends to arbitrarily deep levels using recursion' do
-      @section.add_to(@article)
+      @section1.add_to(@article)
       @section2.add_to(@article)
       @subsection.add_to(@section2)
 
@@ -108,7 +203,7 @@ describe NSDocument do
       compiled_text2.must_include @subsection.content
 
       compiled_text.must_include @article.content
-      compiled_text.must_include @section.content
+      compiled_text.must_include @section1.content
       compiled_text.must_include @section2.content
       compiled_text.must_include @subsection.content
 
@@ -142,26 +237,34 @@ describe NSDocument do
 
      end
 
+     it 'can be via a hash' do
+
+       @article.doc_refs = {}
+       @article.doc_refs['foo'] = 'bar'
+       @article.doc_refs['foo'].must_equal 'bar'
+
+     end
+
      it 'can be defined by the "associate_to" method' do
 
-       @section.associate_to(@article, 'summary')
-       assert @article.associated_document('summary') == @section
-       assert @section.type == 'associated:summary'
+       @section1.associate_to(@article, 'summary')
+       assert @article.associated_document('summary') == @section1
+       assert @section1.type == 'associated:summary'
 
        assert @article.get_author_credentials['id'] == @user.id
        assert @article.get_author_credentials['first_name'] == @user.first_name
        assert @article.get_author_credentials['last_name' ] == @user.last_name
        @article.get_author_credentials['identifier'].must_equal(@user.identifier)
 
-       @section.parent_id.must_equal(@article.id)
-       @section.parent_item.title.must_equal(@article.title)
-       @section.parent_item.id.must_equal(@article.id)
-       @section.parent_item.identifier.must_equal(@article.identifier)
+       @section1.parent_id.must_equal(@article.id)
+       @section1.parent_item.title.must_equal(@article.title)
+       @section1.parent_item.id.must_equal(@article.id)
+       @section1.parent_item.identifier.must_equal(@article.identifier)
 
-       @section.root_document_id.must_equal(@article.id)
-       @section.root_item.title.must_equal(@article.title)
-       @section.root_item.id.must_equal(@article.id)
-       @section.root_item.identifier.must_equal(@article.identifier)
+       @section1.root_document_id.must_equal(@article.id)
+       @section1.root_item.title.must_equal(@article.title)
+       @section1.root_item.id.must_equal(@article.id)
+       @section1.root_item.identifier.must_equal(@article.identifier)
 
      end
 
@@ -187,23 +290,23 @@ describe NSDocument do
 
     it 'can be done using the "apply_to_tree" method' do
 
-      @section.add_to(@article)
+      @section1.add_to(@article)
       # @section2.add_to(@article)
       # @section3.add_to(@article)
 
       @article.apply_to_tree(:set_permissions, ['rw', 'r', 'r'])
       @article.get_acl.get_user.must_equal('rw')
-      @section = @section.reload
-      @section.get_acl.get_user.must_equal('rw')
+      @section1 = @section1.reload
+      @section1.get_acl.get_user.must_equal('rw')
 
 
     end
 
     it 'works on subdocuments and associated documents to arbitrary depth' do
 
-      @section.add_to(@article)
-      @subsection.add_to(@section)
-      @section2.associate_to(@section,'summary')
+      @section1.add_to(@article)
+      @subsection.add_to(@section1)
+      @section2.associate_to(@section1,'summary')
       @section3.associate_to(@section2, 'notes')
 
       @article.apply_to_tree(:set_visibility, [666])
