@@ -17,18 +17,21 @@ describe NSDocument do
     @section2 = NSDocument.create(title: 'Wave-Particle Duality', author_credentials: @user.credentials)
     @section3 = NSDocument.create(title: 'Matrix Mechanics', author_credentials: @user.credentials)
     @subsection =  NSDocument.create(title: "de Broglie's idea", author_credentials: @user.credentials)
+    @subsubsection =  NSDocument.create(title: "Wild idea", author_credentials: @user.credentials)
 
 
     @article.content = 'Quantum phenomena are weird!'
     @section1.content = 'The Uncertainty Principle invalidates the notion of trajectory'
     @section2.content = 'It is, like, _so_ weird!'
     @subsection.content = 'He was a count.'
+    @subsubsection.content = 'This is crazy!'
 
-    DocumentRepository.persist @article
-    DocumentRepository.persist @section1
-    DocumentRepository.persist @section2
-    DocumentRepository.persist @section3
-    DocumentRepository.persist @subsection
+    DocumentRepository.update @article
+    DocumentRepository.update @section1
+    DocumentRepository.update @section2
+    DocumentRepository.update @section3
+    DocumentRepository.update @subsection
+    DocumentRepository.update @subsubsection
 
   end
 
@@ -133,6 +136,9 @@ describe NSDocument do
     end
 
 
+
+
+
   end
 
   describe 'references to the parent and root document' do
@@ -144,6 +150,70 @@ describe NSDocument do
       @section3.insert(2,@article)
 
     end
+
+    it 'manages the root_document pointer' do
+
+      @section1.add_to(@article)
+      @section2.add_to(@article)
+      @section3.add_to(@article)
+      @subsection.add_to(@section2)
+      @subsubsection.add_to(@subsection)
+
+      @article.root_document_id.must_equal 0
+      @section1.root_document_id.must_equal @article.id
+      @subsection.root_document_id.must_equal @article.id
+      @subsubsection.root_document_id.must_equal @article.id
+
+    end
+
+    it 'can find the root document of any document' do
+
+      @section1.add_to(@article)
+      @section2.add_to(@article)
+      @section3.add_to(@article)
+      @subsection.add_to(@section2)
+      @subsubsection.add_to(@subsection)
+
+
+      @article.root_document.must_equal @article
+      @section1.root_document.must_equal @article
+      @subsection.root_document.must_equal @article
+      @subsubsection.root_document.must_equal @article
+
+
+    end
+
+    it 'can find the next oldest ancestor noa' do
+
+      @section1.add_to(@article)
+      @section2.add_to(@article)
+      @section3.add_to(@article)
+      @subsection.add_to(@section2)
+      @subsubsection.add_to(@subsection)
+
+      @section2.next_oldest_ancestor.must_equal @section2
+      @subsection.next_oldest_ancestor.must_equal @section2
+      @subsubsection.next_oldest_ancestor.must_equal @section2
+
+    end
+
+    it 'can compute the level of a document' do
+
+      @section1.content = 'Foo'
+      @section1.asciidoc_level.must_equal(0)
+
+      @section1.content = '= Foo'
+      @section1.asciidoc_level.must_equal(0)
+
+      @section1.content = '== Foo'
+      @section1.asciidoc_level.must_equal(1)
+
+      @section1.content = '=== Foo'
+      @section1.asciidoc_level.must_equal(2)
+
+    end
+
+
 
 
   end
@@ -178,11 +248,56 @@ describe NSDocument do
 
     end
 
+  end
 
+
+  describe 'deleting and moving subdocuments' do
+
+    it 'can delete a subdocument ddd' do
+
+      @section1.add_to(@article)
+      @section2.add_to(@article)
+      @section3.add_to(@article)
+      @section2.remove_from_parent
+
+      p = @section2.parent_document
+
+      p.subdocument(0).next_document.title.must_equal p.subdocument(1).title
+      p.subdocument(1).previous_document.title.must_equal p.subdocument(0).title
+
+    end
+
+    it 'can move a subdocument from one position to another mmm' do
+
+      puts "MMM".magenta
+      article_id = @article.id
+      @section1.add_to(@article)
+      @section2.add_to(@article)
+      @section3.add_to(@article)
+
+
+      @section1.move_to(2)
+      #Fixme
+
+      @article = DocumentRepository.find article_id
+
+
+    end
 
   end
 
   describe 'compilation' do
+
+
+    it 'can compile a simple document' do
+
+      @user = User.create(first_name: 'Curtis', last_name: 'Corto', screen_name: 'cc', password:'foobar123', password_confirmation:'foobar123')
+      @document = NSDocument.create(title: 'Compendium Vitae', author_credentials: @user.credentials)
+      @document.content = ""
+      @document.compile
+
+    end
+
 
     it 'iterates over subdocuments' do
       @section1.add_to(@article)
@@ -217,6 +332,39 @@ describe NSDocument do
 
       compiled.must_include @section2.content
       compiled.must_include @subsection.content
+
+    end
+
+
+    it 'descends to arbitrarily deep levels using recursion (third test)' do
+
+      @section1.add_to(@article)
+      @section2.add_to(@article)
+      @section3.add_to(@article)
+      @subsection.add_to(@section2)
+      @subsubsection.add_to(@subsection)
+
+
+
+      text = <<EOF
+Quantum phenomena are weird!
+
+The Uncertainty Principle invalidates the notion of trajectory
+
+It is, like, _so_ weird!
+
+He was a count.
+
+Yay!
+
+
+
+
+
+Its all about the eigenvalues
+EOF
+
+      assert @article.compile =~ /crazy/
 
     end
 
@@ -320,6 +468,56 @@ describe NSDocument do
 
       @section3 = @section2.reload
       @section3.visibility.must_equal(666)
+
+
+    end
+
+
+  end
+
+  describe 'rendering' do
+
+    it 'can render its content rcc' do
+
+      puts "CONTENT:\n#{@section2.content}"
+      @section2.render
+
+      puts
+      puts "RENDERED CONTENT:\n#{@section2.rendered_content}"
+
+      @section2.rendered_content.must_include '<em>so</em>'
+
+    end
+
+    it 'can render mathematical content rmm' do
+
+      @section2.content = "He said that $a^2 + b^2 = c^2$. *Wow!*\n[env.theorem]\n--\nThere are infinitely many primes.\n--\n\n"
+      @section2.render_options['format'] = 'adoc-latex'
+      @section2.render
+
+      puts @section2.rendered_content
+
+      asciidoc_content = "<div class=\"paragraph\">\n<p>He said that \\(a^2 + b^2 = c^2\\). <strong>Wow!</strong></p>\n</div>\n<div class=\"openblock theorem\">\n<div class=\"title\">Theorem 1.</div><div class=\"content\">\n<div class='click_oblique'>\nThere are infinitely many primes.\n</div>\n</div>\n</div>"
+      @section2.rendered_content.must_equal asciidoc_content
+
+    end
+
+    it 'sets render_options to { format => adoc} by default roo' do
+
+      hash = { 'format' => 'adoc'}
+      @article.render_options.must_equal hash
+
+
+
+    end
+
+    it 'can change and persist render_options ro2' do
+
+      @article.render_options['foo'] = 'bar'
+      @article.render_options['foo'].must_equal 'bar'
+      DocumentRepository.persist(@article)
+      @foo = DocumentRepository.find(@article.id)
+      @foo.render_options['foo'].must_equal 'bar'
 
 
     end
