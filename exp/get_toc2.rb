@@ -1,25 +1,33 @@
-require 'asciidoctor'
+                                                                                                                                                                                                                                                                                  require 'asciidoctor'
 str = IO.read(ARGV[0])
 a = Asciidoctor.load str, {sourcemap: true}
 b = a.blocks
 
-def spacing(block)
-  "  "*block.level
+@level = 0
+@previous_level = 0
+
+def spacing(block, offset=0)
+  "  "*(block.level + offset)
 end
 
 def toc_entry(block)
-  "<li><a href='\##{block.id}'>#{block.title}</a></li>" if block.title
+  @level = block.level
+  if @level - @previous_level > 0
+    prefix = "#{spacing(block,-1)}ul\n"
+  else
+    prefix = ''
+  end
+  @previous_level = @level
+  "#{prefix}#{spacing(block)}li a href '\##{block.id}', #{block.title}"
 end
 
 def list(block_array)
-  puts "<ul>"
   block_array.each do |block|
-    puts toc_entry(block)
+    puts toc_entry(block) if block.title
     if block.blocks
       list(block.blocks)
     end
   end
-  puts "</ul>"
 end
 =begin
 b.each do |block|
