@@ -1,0 +1,23 @@
+== Introduction
+
+This is just a _test_.
+
+== Materials
+
+They are easily found in the kitchen.
+
+=== Powders
+
+Sugar, salt.
+
+Flower, oatmeal
+
+=== Animal products
+
+Meat, eggs
+
+Milk, cheese
+
+== Methods
+
+I will describe them presently.

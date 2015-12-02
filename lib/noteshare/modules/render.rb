@@ -50,7 +50,7 @@ class Render
       attributes = part[2]
       iii = ImageRepository.find id
       if iii
-        new_tag = "#{tag}::#{iii.url}[#{attributes}]"
+        new_tag = "#{tag}::#{iii.url2}[#{attributes}]"
         @source = @source.sub(old_tag, new_tag)
       else
         puts "Image #{id} not found".red
