@@ -465,8 +465,13 @@ class NSDocument
   end
 
   def set_parent_document_to(parent)
-    self.parent_id = parent.id
-    self.parent_ref =  {"id"=>parent.id, "title"=>parent.title, "identifier"=>parent.identifier}
+    if nil
+      self.parent_id = 0
+      self.parent_ref = nil
+    else
+      self.parent_id = parent.id
+      self.parent_ref =  {"id"=>parent.id, "title"=>parent.title, "identifier"=>parent.identifier}
+    end
   end
 
 
@@ -505,7 +510,6 @@ class NSDocument
     while cursor.parent_document
       cursor = cursor.parent_document
     end
-    cursor
   end
 
   def ref
@@ -513,8 +517,14 @@ class NSDocument
   end
 
   def set_root_document_to(root)
-    self.root_document_id = root.id
-    self.root_ref = { id: root.id, title: root.title, identifier: root.identifier}
+    if root == nil
+      self.root_document_id = 0
+      self.root_ref = nil
+    else
+      self.root_document_id = root.id
+      self.root_ref = { id: root.id, title: root.title, identifier: root.identifier}
+    end
+
   end
 
   def set_root_document_to_default
@@ -600,11 +610,28 @@ class NSDocument
     DocumentRepository.update(self)
   end
 
+  # The method below assumes that a document
+  # is the associate of at most one other
+  # document.  This should be enforced (#fixme)
+  def disassociate
+    _parent = parent_document
+    _type = self.type.sub('associated:', '')
+    _parent.doc_refs.delete(_type)
+    self.set_parent_document_to(nil)
+    self.set_root_document_to(nil)
+    DocumentRepository.update(_parent)
+    DocumentRepository.update(self)
+  end
+
   # @foo.associatd_document('summary')
   # retrieve the document associated to
   # @foo which is of type 'summary'
   def associated_document(type)
     DocumentRepository.find(self.doc_refs[type])
+  end
+
+  def is_associated_document
+    type =~ /associated:/
   end
 
   ###################################################

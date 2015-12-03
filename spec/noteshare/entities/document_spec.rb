@@ -73,6 +73,8 @@ describe NSDocument do
 
   end
 
+  #########################################################################
+
   describe 'building a root document' do
 
 
@@ -135,11 +137,11 @@ describe NSDocument do
 
     end
 
-
-
-
-
   end
+
+
+  #########################################################################
+
 
   describe 'references to the parent and root document' do
 
@@ -218,6 +220,9 @@ describe NSDocument do
 
   end
 
+
+  #########################################################################
+
   describe 'references' do
 
 
@@ -250,6 +255,8 @@ describe NSDocument do
 
   end
 
+
+  #########################################################################
 
   describe 'deleting and moving subdocuments' do
 
@@ -285,6 +292,8 @@ describe NSDocument do
     end
 
   end
+
+  #########################################################################
 
   describe 'compilation' do
 
@@ -371,8 +380,10 @@ EOF
 
   end
 
+  #########################################################################
 
-   describe 'associated documents' do
+
+  describe 'associated documents' do
 
      it 'can be defined directly by setting the doc_refs hash' do
 
@@ -418,7 +429,9 @@ EOF
 
    end
 
-   describe 'permissions' do
+  #########################################################################
+
+  describe 'permissions' do
 
      it 'can be set using the "set_permissions" method' do
 
@@ -432,7 +445,7 @@ EOF
 
    end
 
-
+  #########################################################################
 
   describe 'application of method to the document tree' do
 
@@ -474,6 +487,9 @@ EOF
 
 
   end
+
+
+  #########################################################################
 
   describe 'rendering' do
 
