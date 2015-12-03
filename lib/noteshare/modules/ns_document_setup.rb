@@ -6,7 +6,7 @@ include NSDocument::Interface
 
 
 # Seed data for the database for NSDocument
-  module NSDocument::Setup
+  module Noteshare::Setup
 
     def self.seed_db
 

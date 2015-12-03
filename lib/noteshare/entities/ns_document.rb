@@ -81,7 +81,7 @@ class NSDocument
     :subdoc_refs,  :toc, :doc_refs, :content_dirty, :compiled_dirty, :toc_dirty, :acl, :groups_json
 
 
-  include NSDocument::Setup
+  include Noteshare::Setup
   include Noteshare::Tools
   include Noteshare
   include Noteshare::Groups
