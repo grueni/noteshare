@@ -18,7 +18,7 @@ def toc_entry(block)
     prefix = ''
   end
   @previous_level = @level
-  "#{prefix}#{spacing(block)}li a href '\##{block.id}', #{block.title}"
+  "#{prefix}#{spacing(block)}li: a[href='\##{block.id}'] #{block.title}"
 end
 
 def list(block_array)

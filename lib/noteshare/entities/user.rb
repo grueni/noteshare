@@ -3,7 +3,8 @@ require_relative '../modules/display'
 class User
   include Lotus::Entity
   include Noteshare::Display
-  attributes :id, :admin, :first_name, :last_name, :identifier, :email, :screen_name, :level, :password, :meta, :password_confirmation
+  attributes :id, :admin, :first_name, :last_name, :identifier, :email, :screen_name,
+             :level, :password, :meta, :password_confirmation
 
   # http://hawkins.io/2012/07/rack_from_the_beginning/
   # https://blog.engineyard.com/2015/understanding-rack-apps-and-middleware
@@ -129,6 +130,17 @@ class User
     UserRepository.update self
   end
 
+  def dict_update_from_hash(hash)
+    metadata = JSON.parse self.meta
+    dict = metadata['dict'] || { }
+    hash.each do |key, value|
+      dict[key] = value
+    end
+    metadata['dict'] = dict
+    self.meta = JSON.generate metadata
+    UserRepository.update self
+  end
+
   def dict_remove(key)
     metadata = JSON.parse self.meta
     dict = metadata['dict'] || { }
@@ -144,12 +156,30 @@ class User
     dict[key]
   end
 
-  def dict_display
+  def editable_keys
+    %w(render_with)
+  end
+
+  def dict_to_s(filter=[])
     metadata = JSON.parse self.meta
     dict = metadata['dict'] || { }
+    output = ''
     dict.each do |key, value|
-      puts "#{key} =. #[value}"
+      if filter.include? key
+        output << "#{key} = #{value}" << "\n"
+        filter.delete(key)
+      end
     end
+    filter.each do |key|
+      output << "#{key} = " << "\n"
+    end
+    output
+  end
+
+
+
+  def dict_display
+    puts dict_to_s
   end
 
   ##############################

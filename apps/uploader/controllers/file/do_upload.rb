@@ -1,6 +1,6 @@
 module Uploader::Controllers::File
   class DoUpload
-    require_relative '../../../../lib/aws'
+       require_relative '../../../../lib/aws'
     include Uploader::Action
     include Noteshare::AWS
     include Noteshare::Util

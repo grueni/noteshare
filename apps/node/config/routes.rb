@@ -1,3 +1,4 @@
+get '/settings', to: 'settings#edit'
 get '/:id', to: 'public#show'
 get '/admin', to: 'admin#list'
 get '/user/:id', to: 'user#show'
