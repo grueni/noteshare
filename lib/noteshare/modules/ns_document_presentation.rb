@@ -1,7 +1,9 @@
-require_relative '../entities/ns_document'
+
 
 # Provide presentation methods to NSDocument
 module NSDocument::Presentation
+
+  require_relative '../entities/ns_document'
 
   #Fixme: these parameters should be extracted from 'request.env'
   SERVER_NAME = 'localhost'
