@@ -1222,10 +1222,29 @@ class NSDocument
     root.associated_document_map(target)
   end
 
-
-
+  # Remove stale keys
+  # Fixme: this will become obsolete
+  # when things are working better
+  def heal_associated_docs
+    puts "keys (1): #{self.doc_refs.count}".red
+    bad_keys = []
+    self.doc_refs do |key, value|
+      if DocumentRepository.find key == nil
+        bad_keys << key
+      end
+    end
+    bad_keys.each do |key|
+      self.doc_refs.delete(key)
+    end
+    puts "keys (2): #{self.doc_refs.count}".red
+    DocumentRepository.update self
+  end
 
   def associated_document_map(target='reader')
+
+    puts "associated_document_map".red
+
+    heal_associated_docs
 
     if self.type =~ /associated:/
       document = self.parent_document
@@ -1340,6 +1359,7 @@ class NSDocument
 
 
   def associate_link(type, prefix='')
+    puts "TYPE: #{type}".red
     if prefix == ''
       "<a href='/document/#{self.doc_refs[type]}'>#{type.capitalize}</a>"
     else
