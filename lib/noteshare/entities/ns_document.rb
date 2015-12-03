@@ -81,7 +81,6 @@ class NSDocument
     :subdoc_refs,  :toc, :doc_refs, :content_dirty, :compiled_dirty, :toc_dirty, :acl, :groups_json
 
 
-  include NSDocument::Presentation
   include NSDocument::Setup
   include Noteshare::Tools
   include Noteshare
@@ -1010,43 +1009,6 @@ class NSDocument
 
 
 
-  ##################################
-
-  private
-  # Assume that receiver is subdocument k of parent_document.
-  # Return the id of subdocument k - 1 or nil
-  def previous_id
-    p = parent_document
-    puts "IN: previous_id, parentof #{self.title} (#{self.id})  = #{parent_title} (#{parent_id})".magenta
-    return nil if p == nil
-    return nil if index_in_parent == nil
-    return nil if index_in_parent-1 < 0
-    table = TOC.new(p).table
-
-    puts "  -- and index_in_parent = #{index_in_parent}".cyan
-    puts "  -- toc_item: #{table[index_in_parent]}".red
-    puts "  -- previous toc_item: #{table[index_in_parent-1]}".red
-    puts "Class: #{table[index_in_parent-1].class.name}"
-    return table[index_in_parent-1].id
-  end
-
-  # Assume that receiver is subdocument k of parent.
-  # Return the id of subdocuemnt k + 1 or nil
-  def next_id
-    p = parent_document
-    puts "IN: next_id, parent = #{parent_document.title} (#{parent_document.id})".magenta
-    return nil if p == nil
-    return nil if index_in_parent == nil
-    return nil if index_in_parent+1 > p.subdoc_refs.length
-    table = TOC.new(p).table
-
-
-    puts "  -- and index_in_parent = #{index_in_parent}".cyan
-    puts "  -- toc_item: #{table[index_in_parent]}".red
-    puts "  -- next toc_item: #{table[index_in_parent+1]}".red
-    puts "Class: #{table[index_in_parent+1].class.name}"
-    return toc[index_in_parent+1].id
-  end
 
   ################
 
@@ -1356,6 +1318,43 @@ class NSDocument
 
   end
 
+  ##################################
+
+  private
+  # Assume that receiver is subdocument k of parent_document.
+  # Return the id of subdocument k - 1 or nil
+  def previous_id
+    p = parent_document
+    puts "IN: previous_id, parentof #{self.title} (#{self.id})  = #{parent_title} (#{parent_id})".magenta
+    return nil if p == nil
+    return nil if index_in_parent == nil
+    return nil if index_in_parent-1 < 0
+    table = TOC.new(p).table
+
+    puts "  -- and index_in_parent = #{index_in_parent}".cyan
+    puts "  -- toc_item: #{table[index_in_parent]}".red
+    puts "  -- previous toc_item: #{table[index_in_parent-1]}".red
+    puts "Class: #{table[index_in_parent-1].class.name}"
+    return table[index_in_parent-1].id
+  end
+
+  # Assume that receiver is subdocument k of parent.
+  # Return the id of subdocuemnt k + 1 or nil
+  def next_id
+    p = parent_document
+    puts "IN: next_id, parent = #{parent_document.title} (#{parent_document.id})".magenta
+    return nil if p == nil
+    return nil if index_in_parent == nil
+    return nil if index_in_parent+1 > p.subdoc_refs.length
+    table = TOC.new(p).table
+
+
+    puts "  -- and index_in_parent = #{index_in_parent}".cyan
+    puts "  -- toc_item: #{table[index_in_parent]}".red
+    puts "  -- next toc_item: #{table[index_in_parent+1]}".red
+    puts "Class: #{table[index_in_parent+1].class.name}"
+    return toc[index_in_parent+1].id
+  end
 
 
 end
