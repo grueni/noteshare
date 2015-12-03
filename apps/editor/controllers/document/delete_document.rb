@@ -18,7 +18,7 @@ module Editor::Controllers::Document
 
       if control == 'destroy'
         if Permission.new(user, :delete,  @document)
-          DocumentRepository.delete @document
+          @document.delete
           node = user.node
           node.update_docs_for_owner
           message = "#{@document.title} has been deleted."

@@ -5,7 +5,7 @@ module Node::Controllers::Admin
     expose :nodes
 
     def call(paramm)
-
+      puts "call: controller Node, Admin, List".red
       @nodes = NSNodeRepository.all
 
     end

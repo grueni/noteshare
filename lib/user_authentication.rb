@@ -63,7 +63,14 @@ module SessionTools
     return user.admin
   end
 
-end
+  def current_user_full_name
+    # SettingsRepository.first.owner
+    user = UserRepository.first
+    "#{user.first_name} #{user.last_name}"
+  end
+
+
+  end
 
 class Permission
 

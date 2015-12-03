@@ -2,7 +2,6 @@
 module Editor::Controllers::Documents
   class Create
     include Editor::Action
-    include NSDocument::Interface
     include NSDocument::Asciidoc
 
     def get_format(author)

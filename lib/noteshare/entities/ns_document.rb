@@ -4,6 +4,7 @@ require_relative '../modules/toc_item'
 require_relative '../../../lib/acl'
 require_relative '../modules/groups'
 
+
 # require_relative '../modules/render'
 
 
@@ -71,17 +72,16 @@ class NSDocument
   ###################################################
 
   require_relative '../modules/ns_document_setup'
-  require_relative '../modules/ns_document_presentation'
+
 
   include Lotus::Entity
   attributes :id, :author_id, :author, :author_identifier, :author_credentials, :title, :identifier, :tags, :type, :area, :meta,
     :created_at, :modified_at, :content, :rendered_content, :compiled_and_rendered_content, :render_options,
     :parent_ref, :root_ref, :parent_id, :index_in_parent, :root_document_id, :visibility,
-    :subdoc_refs,  :doc_refs, :toc, :content_dirty, :compiled_dirty, :toc_dirty, :acl, :groups_json
+    :subdoc_refs,  :toc, :doc_refs, :content_dirty, :compiled_dirty, :toc_dirty, :acl, :groups_json
 
 
-  include NSDocument::Presentation
-  include NSDocument::Setup
+  # include Noteshare::Setup
   include Noteshare::Tools
   include Noteshare
   include Noteshare::Groups
@@ -300,40 +300,38 @@ class NSDocument
     insert(new_index, parent_document)
   end
 
+  def delete_subdocument
+    puts "delete_subdocument".red
+    self.remove_from_parent
+    # DocumentRepository.delete self
+  end
 
+  def delete_associated_document
+    puts "delete_associated_document".red
+    disassociate
+    DocumentRepository.delete self
+  end
+
+  def delete
+    if is_associated_document?
+      delete_associated_document
+    else
+      delete_subdocument
+    end
+  end
 
   # @foo.remove_from_parent removes
   # @foo as a subdocument of its parent.
   # It oes not delete @foo.
-  # Fixme: it is intended tht a document have at most one parent.
+  # Fixme: it is intended that a document have at most one parent.
   # However, this is not yet enforced.
   def remove_from_parent
-    k = index_in_parent
     p = parent_document
-    pd = previous_document
-    nd_id = next_document.id
-    p.subdoc_refs.delete_at(k)
-    DocumentRepository.persist(p)
-
-    # update index_in_parent for subdocuments
-    # that were shifted to the left
-    # puts "Shifting ..."
-    # puts "parent_document.subdoc_refs.tail(k+1): #{parent_document.subdoc_refs.tail(k)}"
-    p.subdoc_refs.tail(k-1).each do |id|
-      doc = DocumentRepository.find id
-      doc.index_in_parent = doc.index_in_parent - 1
-      DocumentRepository.persist(doc )
-    end
-
-    if pd
-      pd.set_next_doc
-    end
-
-    nd =  DocumentRepository.find nd_id
-    if nd
-      nd.set_previous_doc
-    end
+    _toc = TOC.new(p)
+    _toc.delete_by_identifier(self.identifier)
+    DocumentRepository.update(p)
   end
+
 
   # @foo.move_to(7) moves @foo in its
   # parent document to position 7.
@@ -398,50 +396,26 @@ class NSDocument
 
   # Return next NSDocument.  That is, if @foo, @bar, and @baz
   # are subcocuments in order of @article, then @bar.next_document = @baz
-  def previous_document_old
-    return if parent_document == nil
-    table = TOC.new(parent_document).table
-    index_in_parent ?  _id = table[index_in_parent-1].id : return
-    DocumentRepository.find(_id) if _id
-  end
-
   def next_document
     return if parent_document == nil
-    table = TOC.new(parent_document).table
-    found_index = nil
-    table.each_with_index do |item, index|
-      if self.identifier == item.identifier
-        found_index = index
-      end
-    end
+    _toc = TOC.new(parent_document)
+    found_index = _toc.index_by_identifier(self.identifier)
     return if found_index == nil
-    return if found_index > table.count - 2
-    _id = table[found_index + 1].id
+    return if found_index > _toc.table.count - 2
+    _id = _toc.table[found_index + 1].id
     return  DocumentRepository.find(_id)
   end
 
 
   # Return previous NSDocument.  That is, if @foo, @bar, and @baz
   # are subcocuments in order of @article, then @bar.previous_document = @foo
-  def next_document_old
-    return if parent_document == nil
-    table = TOC.new(parent_document).table
-    index_in_parent && index_in_parent + 1 < table.count ?  _id = table[index_in_parent+1].id : return
-    DocumentRepository.find(_id) if _id
-  end
-
   def previous_document
     return if parent_document == nil
-    table = TOC.new(parent_document).table
-    found_index = nil
-    table.each_with_index do |item, index|
-      if self.identifier == item.identifier
-        found_index = index
-      end
-    end
+    _toc = TOC.new(parent_document)
+    found_index = _toc.index_by_identifier(self.identifier)
     return if found_index == nil
     return if found_index == 0
-    _id = table[found_index - 1].id
+    _id = _toc.table[found_index - 1].id
     return  DocumentRepository.find(_id)
   end
 
@@ -624,11 +598,43 @@ class NSDocument
     DocumentRepository.update(self)
   end
 
+  # The method below assumes that a document
+  # is the associate of at most one other
+  # document.  This should be enforced (#fixme)
+  def disassociate
+    _parent = parent_document
+    _type = self.type.sub('associated:', '')
+    puts "_type: #{_type}".red
+    puts "class of _parent.doc_refs = #{_parent.doc_refs.class.name}".red
+    puts _parent.doc_refs.to_s
+    _parent.doc_refs.delete(_type)
+    puts _parent.doc_refs.to_s
+    self.parent_id = 0
+    self.parent_ref =  nil
+    self.root_document_id = 0
+    self.root_ref = nil
+    DocumentRepository.update(_parent)
+    DocumentRepository.update(self)
+  end
+
   # @foo.associatd_document('summary')
   # retrieve the document associated to
   # @foo which is of type 'summary'
   def associated_document(type)
     DocumentRepository.find(self.doc_refs[type])
+  end
+
+  # return hash of associates of a given document
+  def associates
+    self.doc_refs
+  end
+
+  def is_associated_document?
+    if type =~ /associated:/
+      return true
+    else
+      return false
+    end
   end
 
   ###################################################
@@ -974,7 +980,6 @@ class NSDocument
   end
 
   def set_permissions(u, g, w)
-    puts "setting permissions for #{self.title} to #{u}, #{g}, #{w}".red
     a = ACL.create_with_permissions(u, g, w)
     self.acl =  a.to_json
     DocumentRepository.update self
@@ -1033,6 +1038,335 @@ class NSDocument
 
 
 
+
+
+  ################
+
+  ############################################################
+  #
+  #   TITLES
+  #
+  ############################################################
+
+  def parent_document_title
+    p = parent_document
+    p ? p.title : '-'
+  end
+
+  # Return previous document title or '-'
+  def previous_document_title
+    p = previous_document
+    p ? p.title : '-'
+  end
+
+  # Return next document title or '-'
+  def next_document_title
+    p = next_document
+    p ? p.title : '-'
+  end
+
+  # *doc.subdocument_titles* returns a list of the
+  # titles of the sections of *document*.
+  def subdocument_titles(option=:simple)
+    #Fixme: bad implementation
+    list = []
+    if [:header].include? option
+      list << self.title.upcase
+    end
+    toc = TOC.new(self)
+    toc.table.each do |item|
+      section = DocumentRepository.find(item.id)
+      if [:header, :simple].include? option
+        item = section.title
+      elsif option == :verbose
+        item = "#{section.id}, #{section.title}. back: #{section.previous_document_title}, forward: #{section.next_document_title}"
+      end
+      list << item
+    end
+    list
+  end
+
+
+  ############################################################
+  #
+  #   TABLE OF CONTENTS & MAP
+  #
+  ############################################################
+
+  # Return a string representing the table of
+  # contents.  The format of the string can
+  # be modified by the choice of the option
+  # passed to the method.  The default 'simple_string'
+  # option gives a numbered list of titles.
+  def table_of_contents_as_string(hash)
+    option = hash[:format] || 'simple_string'
+    current_document = hash[:current_document]
+    if current_document
+      noa = current_document.next_oldest_ancestor
+      noa_id = noa.id if noa
+    end
+    output = ''
+    case option
+      when 'simple_string'
+        toc.each_with_index do |item, index|
+          output << "#{index + 1}. #{item['title']}" << "\n"
+        end
+      when 'html'
+        if toc.length == 0
+          output = ''
+        else
+          output << "<ul>\n"
+          toc.each_with_index do |item, index|
+            output << "<li><a href='/document/#{item['id']}'>#{item['title']}</a>\n"
+            if noa_id and item['id'] == noa_id
+              output << "<ul>\n" << noa.table_of_contents_as_string(format: 'html', current_document: nil) << "</ul>"
+            end
+          end
+          output << "</ul>\n\n"
+        end
+      else
+        output = toc.to_s
+    end
+    output
+  end
+
+  def root_document_title
+    root = root_document || self
+    if root
+      root.title
+    else
+      ''
+    end
+  end
+
+  def root_table_of_contents(active_id, target='reader')
+    puts "self.title: #{self.title}".red
+    root = root_document || self
+    if root
+      root.master_table_of_contents(active_id, target)
+    else
+      ''
+    end
+  end
+
+  # If active_id matches the id of an item
+  # in the table of contents, that item is
+  # marked with the css 'active'.  Otherwise
+  # it is marked 'inactive'.  This way the
+  # TOC entry for the document being currently
+  # viewed can be highlighted.``
+  #
+  def master_table_of_contents(active_id, target='reader')
+    puts "ENTER: master_table_of_contents".magenta
+    #  self.update_table_of_contents(force: true) if toc_is_dirty
+
+    if toc.length == 0
+      output = ''
+    else
+
+      active_document = DocumentRepository.find(active_id) if active_id > 0
+      # Gett "long" ancestor chain: ancestors plust the given active id:
+      ancestral_ids = active_document.ancestor_ids << active_document.id
+      target == 'editor'? output = "<ul class='toc2'>\n" : output = "<ul class='toc'>\n"
+
+      self.table_of_contents.each do |item|
+
+        # Compute list item:
+        doc_id = item.id
+        doc_title = item.title
+        if target == 'editor'
+          doc_link = "href='/editor/document/#{doc_id}'>#{doc_title}</a>"
+        else
+          doc_link = "href='/document/#{doc_id}'>#{doc_title}</a>"
+        end
+        class_str = "class = '"
+
+        if item.has_subdocs
+          if ancestral_ids.include? item.id
+            class_str << 'subdocs-open '
+          else
+            class_str << 'subdocs-yes '
+          end
+        else
+          class_str << 'subdocs-no '
+        end
+        doc_id == active_id ? class_str << 'active' : class_str << 'inactive'
+
+        output << "<li #{class_str} '><a #{doc_link}</a>\n"
+        # Fixme: need to make udpate_table_of_contents lazy
+        # Fixme: Updating the toc will need to be done elswhere - or big performance hit
+        # Fixme: pehaps call 'update_table_of_contents' in the update controller
+        doc = DocumentRepository.find item.id
+        # doc.update_table_of_contents
+
+        if doc.table_of_contents.length > 0 and ancestral_ids.include? doc.id
+          #(doc.id == active_document.parent_id) or (doc.id == active_document.id)
+          output << "<ul>\n" << doc.master_table_of_contents(active_id, target) << "</ul>"
+        end
+
+      end
+      output << "</ul>\n\n"
+    end
+    output
+  end
+
+
+  ############################################################
+  #
+  #   ASSOCIATED DOCUMENTS
+  #
+  ############################################################
+
+  def root_associated_document_map(target='reader')
+    root = root_document || self
+    root.associated_document_map(target)
+  end
+
+  # Remove stale keys
+  # Fixme: this will become obsolete
+  # when things are working better
+  def heal_associated_docs
+    puts "keys (1): #{self.doc_refs.count}".red
+    bad_keys = []
+    self.doc_refs do |key, value|
+      if DocumentRepository.find key == nil
+        bad_keys << key
+      end
+    end
+    bad_keys.each do |key|
+      self.doc_refs.delete(key)
+    end
+    puts "keys (2): #{self.doc_refs.count}".red
+    DocumentRepository.update self
+  end
+
+  def associated_document_map(target='reader')
+
+    puts "associated_document_map".red
+
+    heal_associated_docs
+
+    if self.type =~ /associated:/
+      document = self.parent_document
+    else
+      document = self
+    end
+
+    hash = document.doc_refs
+    keys = hash.keys
+    if keys
+      keys.delete "previous"
+      keys.delete "next"
+      map = "<ul>\n"
+      keys.sort.each do |key|
+        if target == 'editor'
+          map << "<li>" << "#{self.associate_link(key, 'editor')}</li>\n"
+        else
+          map << "<li>" << "#{self.associate_link(key)}</li>\n"
+        end
+      end
+      map << "</ul>\n"
+    else
+      map = ''
+    end
+    map
+  end
+
+
+
+  # Return html text with links to the root and parent documents
+  # as well as previous and next documents if they are present.
+  def document_map
+    str = "<strong>Map</strong>\n"
+    str << "<ul>\n"
+    str << "<li>Top: #{self.root_link}</li>\n"
+    str << "<li>Up: #{self.parent_link}</li>\n"  if self.parent_document and self.parent_document != self.root_document
+    str << "<li>Prev: #{self.previous_link}</li>\n"  if self.previous_document
+    str << "<li>Next: #{self.next_link}</li>\n"  if self.next_document
+    str << "</ul>\n\n"
+  end
+
+  ############################################################
+  #
+  #   URLS & LINKS
+  #
+  ############################################################
+
+  # Return URL of document
+  def url(prefix='')
+    if prefix == ''
+      #"http:/document/#{self.id}"
+      "/document/#{self.id}"
+    else
+      #"http://#{prefix}/document/#{self.id}"
+      "#{prefix}/document/#{self.id}"
+    end
+
+  end
+
+  # Return html link to document
+  def link(hash = {})
+    title = hash[:title]
+    prefix = hash[:prefix] || ''
+    if title
+      "<a href=#{self.url(prefix)}>#{title}</a>"
+    else
+      "<a href=#{self.url(prefix)}>#{self.title}</a>"
+    end
+  end
+
+  # Return link to the root document
+  def root_link(hash = {})
+    if self.type =~ /associated:/
+      root_document.link(hash)
+    else
+      if root_document
+        root_document.link(hash)
+      else
+        self.link(hash)
+      end
+    end
+  end
+
+  # HTML link to parent document
+  def parent_link(hash = {})
+    p = self.parent_document
+    p ? p.link(hash) : ''
+  end
+
+  # HTML link to previous document
+  # with arg1 = link text (or image)
+  # if the link is valid and arg2
+  # = link text (or image)
+  # if the link is not valid
+  def previous_link(hash = {})
+    puts "PREVIOUS LINK".red
+    alt_title =  hash[:alt_title] || ''
+    p = self.previous_document
+    p ? p.link(hash) : alt_title
+  end
+
+  # HTML link to next document
+  # with arg1 = link text (or image)
+  # if the link is valid and arg2
+  # = link text (or image)
+  # if the link is not valid
+  def next_link(hash = {})
+    alt_title =  hash[:alt_title] || ''
+    n = self.next_document
+    n ? n.link(hash) : alt_title
+  end
+
+
+  def associate_link(type, prefix='')
+    puts "TYPE: #{type}".red
+    if prefix == ''
+      "<a href='/document/#{self.doc_refs[type]}'>#{type.capitalize}</a>"
+    else
+      "<a href='/#{prefix}/document/#{self.doc_refs[type]}'>#{type.capitalize}</a>"
+    end
+
+  end
 
   ##################################
 

@@ -3,10 +3,12 @@ module Web::Controllers::Home
   class Index
     include Web::Action
 
+    expose :message
 
     def call(params)
 
-      if node = NSNode.from_http(request)
+      node = NSNode.from_http(request)
+      if node
         redirect_to "/node/#{node.id}"
       end
 
