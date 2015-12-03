@@ -5,7 +5,7 @@ module SessionManager::Views::Settings
     def form
       puts ">> form NEW USER".red
 
-      form_for :user_settings, '/session_manager/settings_update', class: 'user_setup_form' do
+      form_for :user_settings, '/session_manager/update_settings', class: 'user_setup_form' do
 
         label :user_settings
         text_area :settings_as_text, unpacked_user_settings

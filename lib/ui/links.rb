@@ -191,6 +191,11 @@ module UI
     #
     #####################################################
 
+
+    def user_settings_link
+      image_link '/images/gears.png', '/session_manager/settings', 'user settings'
+    end
+
     def settings_link(document)
       # link_to "Settings", "/editor/document/options/#{document.id}"
       image_link '/images/document_settings.png', "/editor/document/options/#{document.id}", 'document settings'
