@@ -3,6 +3,8 @@ require_relative '../../../lib/noteshare/modules/tools'
 require_relative '../modules/toc_item'
 require_relative '../../../lib/acl'
 require_relative '../modules/groups'
+require_relative '../modules/ns_document_presentation'
+
 
 # require_relative '../modules/render'
 
@@ -71,7 +73,7 @@ class NSDocument
   ###################################################
 
   require_relative '../modules/ns_document_setup'
-  require_relative '../modules/ns_document_presentation'
+
 
   include Lotus::Entity
   attributes :id, :author_id, :author, :author_identifier, :author_credentials, :title, :identifier, :tags, :type, :area, :meta,
