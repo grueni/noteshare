@@ -150,6 +150,13 @@ describe NSDocument do
       @section1.insert(0,@article)
       @section2.insert(1,@article)
       @section3.insert(2,@article)
+      @subsection.insert(0, @section3)
+      @subsection.insert(0, @subsection)
+
+      @article.root_document_id.must_equal 0
+      @section1.root_document_id.must_equal @article.id
+      skip @subsection.root_document_id.must_equal @article.id
+      skip @subsubsection.root_document_id.must_equal @article.id
 
     end
 
@@ -258,21 +265,50 @@ describe NSDocument do
 
   #########################################################################
 
-  describe 'deleting and moving subdocuments' do
+  describe 'deletions: ' do
 
-    it 'can delete a subdocument ddd' do
+    it 'subdocuments can detached from their parent' do
 
       @section1.add_to(@article)
       @section2.add_to(@article)
       @section3.add_to(@article)
+
       @section2.remove_from_parent
 
-      p = @section2.parent_document
+      p = @section1.parent_document
 
       p.subdocument(0).next_document.title.must_equal p.subdocument(1).title
       p.subdocument(1).previous_document.title.must_equal p.subdocument(0).title
 
     end
+
+    it 'subocuments can be deleted, with associated structures cleaned up'  do
+
+      @section1.add_to(@article)
+      @section2.add_to(@article)
+      @section3.add_to(@article)
+
+      p = @section1.parent_document
+
+      puts p.subdocument(0).title.cyan
+      puts p.subdocument(1).title.cyan
+      puts p.subdocument(2).title.cyan
+
+      @section2.delete
+
+      puts
+      p = p.reload
+      puts p.subdocument(0).title.red
+      puts p.subdocument(1).title.red
+
+      p.subdocument(0).next_document.title.must_equal p.subdocument(1).title
+      p.subdocument(1).previous_document.title.must_equal p.subdocument(0).title
+
+    end
+
+  end
+
+  describe 'moves: ' do
 
     it 'can move a subdocument from one position to another mmm' do
 
@@ -426,6 +462,20 @@ EOF
        @section1.root_item.identifier.must_equal(@article.identifier)
 
      end
+
+    it 'can be added and deleted, cleaning up after themselves' do
+      @section1.associate_to(@article, 'summary')
+      @section1.disassociate
+      @article = @article.reload
+      @article.associates.must_equal({})
+    end
+
+    it 'can be recognized' do
+      @section1.associate_to(@article, 'summary')
+      @section1.is_associated_document?.must_equal(true)
+      @article.is_associated_document?.must_equal(false)
+
+    end
 
    end
 

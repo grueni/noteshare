@@ -300,40 +300,38 @@ class NSDocument
     insert(new_index, parent_document)
   end
 
+  def delete_subdocument
+    puts "delete_subdocument".red
+    self.remove_from_parent
+    # DocumentRepository.delete self
+  end
 
+  def delete_associated_document
+    puts "delete_associated_document".red
+    disassociate
+    DocumentRepository.delete self
+  end
+
+  def delete
+    if is_associated_document?
+      delete_associated_document
+    else
+      delete_subdocument
+    end
+  end
 
   # @foo.remove_from_parent removes
   # @foo as a subdocument of its parent.
   # It oes not delete @foo.
-  # Fixme: it is intended tht a document have at most one parent.
+  # Fixme: it is intended that a document have at most one parent.
   # However, this is not yet enforced.
   def remove_from_parent
-    k = index_in_parent
     p = parent_document
-    pd = previous_document
-    nd_id = next_document.id
-    p.subdoc_refs.delete_at(k)
-    DocumentRepository.persist(p)
-
-    # update index_in_parent for subdocuments
-    # that were shifted to the left
-    # puts "Shifting ..."
-    # puts "parent_document.subdoc_refs.tail(k+1): #{parent_document.subdoc_refs.tail(k)}"
-    p.subdoc_refs.tail(k-1).each do |id|
-      doc = DocumentRepository.find id
-      doc.index_in_parent = doc.index_in_parent - 1
-      DocumentRepository.persist(doc )
-    end
-
-    if pd
-      pd.set_next_doc
-    end
-
-    nd =  DocumentRepository.find nd_id
-    if nd
-      nd.set_previous_doc
-    end
+    _toc = TOC.new(p)
+    _toc.delete_by_identifier(self.identifier)
+    DocumentRepository.update(p)
   end
+
 
   # @foo.move_to(7) moves @foo in its
   # parent document to position 7.
@@ -465,13 +463,8 @@ class NSDocument
   end
 
   def set_parent_document_to(parent)
-    if nil
-      self.parent_id = 0
-      self.parent_ref = nil
-    else
-      self.parent_id = parent.id
-      self.parent_ref =  {"id"=>parent.id, "title"=>parent.title, "identifier"=>parent.identifier}
-    end
+    self.parent_id = parent.id
+    self.parent_ref =  {"id"=>parent.id, "title"=>parent.title, "identifier"=>parent.identifier}
   end
 
 
@@ -510,6 +503,7 @@ class NSDocument
     while cursor.parent_document
       cursor = cursor.parent_document
     end
+    cursor
   end
 
   def ref
@@ -517,14 +511,8 @@ class NSDocument
   end
 
   def set_root_document_to(root)
-    if root == nil
-      self.root_document_id = 0
-      self.root_ref = nil
-    else
-      self.root_document_id = root.id
-      self.root_ref = { id: root.id, title: root.title, identifier: root.identifier}
-    end
-
+    self.root_document_id = root.id
+    self.root_ref = { id: root.id, title: root.title, identifier: root.identifier}
   end
 
   def set_root_document_to_default
@@ -616,9 +604,15 @@ class NSDocument
   def disassociate
     _parent = parent_document
     _type = self.type.sub('associated:', '')
+    puts "_type: #{_type}".red
+    puts "class of _parent.doc_refs = #{_parent.doc_refs.class.name}".red
+    puts _parent.doc_refs.to_s
     _parent.doc_refs.delete(_type)
-    self.set_parent_document_to(nil)
-    self.set_root_document_to(nil)
+    puts _parent.doc_refs.to_s
+    self.parent_id = 0
+    self.parent_ref =  nil
+    self.root_document_id = 0
+    self.root_ref = nil
     DocumentRepository.update(_parent)
     DocumentRepository.update(self)
   end
@@ -630,8 +624,17 @@ class NSDocument
     DocumentRepository.find(self.doc_refs[type])
   end
 
-  def is_associated_document
-    type =~ /associated:/
+  # return hash of associates of a given document
+  def associates
+    self.doc_refs
+  end
+
+  def is_associated_document?
+    if type =~ /associated:/
+      return true
+    else
+      return false
+    end
   end
 
   ###################################################
