@@ -151,3 +151,4 @@ https://github.com/redpen-cc/redpen/pull/514[Red Pen Asciidoc Parser Project]
 https://github.com/Mogztter/asciidoctor-fast-live-reload[Guillaume's project]
 http://stackoverflow.com/questions/16917476/what-assertion-functions-are-there-in-minitest-spec[Minitest assertions]
 http://elegantbrew.tumblr.com/post/36238889587/reading-minitest-wrap-up[Elegant brew on minitest]
+heroku pg:psql --app nslab DATABASE

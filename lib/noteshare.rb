@@ -95,14 +95,13 @@ Lotus::Model.configure do
       attribute :level, Integer
       attribute :password, String
       attribute :meta, JSON
-      attribute :password_confirmation, String
     end
 
 
     collection :nodes do
       entity NSNode
       repository NSNodeRepository
-      attribute :id, Integer
+     attribute :id, Integer
       attribute :owner_id, Integer
       attribute :identifier, String
       attribute :name, String

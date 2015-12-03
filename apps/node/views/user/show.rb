@@ -3,12 +3,20 @@ module Node::Views::User
     include Node::View
 
     def title(node)
-      "Node #{node.name}"
+      if node
+        "Node #{node.name}"
+      else
+        "No node set up"
+      end
     end
 
     def owner_line(node)
-      user = UserRepository.find(node.owner_id)
-      "This is #{user.screen_name}'s node" if user
+      if node
+        user = UserRepository.find(node.owner_id)
+        "This is #{user.screen_name}'s node" if user
+      else
+        ""
+      end
     end
 
 =begin

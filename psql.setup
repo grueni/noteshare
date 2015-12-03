@@ -1,20 +1,25 @@
 DROP TABLE documents;
 CREATE TABLE documents(
    id serial,
-   author text,
    title text,
+   identifier text,
+   author_identifier text,
+   author_id integer,
+   author text,
+   author_credentials jsonb,
    tags text,
    type text,
    area text,
    meta jsonb,
    created_at timestamp with time zone,
-   modified_at  timestamp with time zone,
+   modified_at timestamp with time zone,
    content text,
    rendered_content text,
    compiled_and_rendered_content text,
    render_options jsonb,
    parent_id integer,
-   author_id integer,
+   parent_ref jsonb,
+   root_ref jsonb,
    index_in_parent integer,
    root_document_id integer,
    visibility integer,
@@ -24,6 +29,9 @@ CREATE TABLE documents(
    content_dirty boolean,
    compiled_dirty boolean,
    toc_dirty boolean,
+   acl jsonb,
+   groups_json jsonb
+
    PRIMARY KEY( id )
 );
 
@@ -41,16 +49,36 @@ CREATE TABLE users(
   PRIMARY KEY( id )
 );
 
-DROP TABLE ns_nodes;
-CREATE TABLE ns_nodes(
-  id serial,
+DROP TABLE image;
+CREATE TABLE image(
+  id integer,
+  owner_id ,
+  title text,
+  file_name ,
+  mime_type ,
+  created_at timestamp with time zone,
+  modified_at ,
+  public boolean,
+  meta jsonb,
+  doc_ids integer[],
+  tags text,
+  identifier text,
+  url text,
+  source text,
+PRIMARY KEY(id)
+);
+
+DROP TABLE ns_node;
+CREATE TABLE ns_node(
+  id integer,
   owner_id integer,
+  identifier text,
   name text,
   type text,
   meta jsonb,
-  docs integer[],
-  children integer[],
-  PRIMARY KEY( id )
+  docs jsonb,
+  children jsonb,
+PRIMARY KEY(id)
 );
 
 DROP TABLE settings;
