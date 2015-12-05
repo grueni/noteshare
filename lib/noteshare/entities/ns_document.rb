@@ -302,8 +302,10 @@ class NSDocument
 
   def delete_subdocument
     puts "delete_subdocument".red
-    self.remove_from_parent
-    # DocumentRepository.delete self
+    if parent_document
+      self.remove_from_parent
+    end
+    DocumentRepository.delete self
   end
 
   def delete_associated_document
