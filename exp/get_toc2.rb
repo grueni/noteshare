@@ -1,39 +1,29 @@
                                                                                                                                                                                                                                                                                   require 'asciidoctor'
 str = IO.read(ARGV[0])
-a = Asciidoctor.load str, {sourcemap: true}
-b = a.blocks
+doc = Asciidoctor.load str, {sourcemap: true}
 
 @level = 0
 @previous_level = 0
 
-def spacing(block, offset=0)
-  "  "*(block.level + offset)
+def spacing(section, offset=0)
+  "  "*(section.level + offset)
 end
 
-def toc_entry(block)
-  @level = block.level
-  if @level - @previous_level > 0
-    prefix = "#{spacing(block,-1)}ul\n"
-  else
-    prefix = ''
+def toc_entry(section)
+  "a[href='\##{section.id}'] #{section.title}"
+end
+
+
+sections = doc.find_by context: :section
+
+sections.each do |section|
+  @level = section.level
+  if @level > @previous_level
+    puts "#{spacing(section,-1)}ul"
+    @previous_level = @level
   end
-  @previous_level = @level
-  "#{prefix}#{spacing(block)}li: a[href='\##{block.id}'] #{block.title}"
-end
-
-def list(block_array)
-  block_array.each do |block|
-    puts toc_entry(block) if block.title
-    if block.blocks
-      list(block.blocks)
-    end
+  if @level < @previous_level
+    puts
   end
+  puts "#{spacing(section)}li #{toc_entry(section)}"
 end
-=begin
-b.each do |block|
-  puts block.title
-end
-=end
-
-
-list(b)
