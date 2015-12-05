@@ -1,25 +1,12 @@
 require 'asciidoctor'
 str = IO.read(ARGV[0])
-a = Asciidoctor.load str, {sourcemap: true}
-b = a.blocks
+doc = Asciidoctor.load str, {sourcemap: true}
 
-def spacing(block)
-  "  "*block.level
+def spacing(section)
+  "  "*section.level
 end
 
-def list(block_array)
-  block_array.each do |block|
-    puts "#{spacing(block)}#{block.title}" if block.title
-    if block.blocks
-      list(block.blocks)
-    end
-  end
+sections = doc.find_by context: :section
+sections.each do |section|
+  puts "#{spacing(section)}#{section.title}"
 end
-=begin
-b.each do |block|
-  puts block.title
-end
-=end
-
-
-list(b)
