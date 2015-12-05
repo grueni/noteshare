@@ -4,6 +4,8 @@ module Editor::Controllers::Document
 
     def call(params)
 
+      puts "controller; class DeleteDocument".magenta
+
       user = current_user(session)
 
       puts "user: #{user.full_name}".red
@@ -11,7 +13,7 @@ module Editor::Controllers::Document
       puts "controller: DeleteDocuments".red
       puts params[:id].red
       puts "CONTROL:".green
-      puts params['document']['destroy']
+      puts params['document']['destroy'].cyan
 
       control =  params['document']['destroy']
       @document = DocumentRepository.find params[:id]
