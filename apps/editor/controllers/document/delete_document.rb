@@ -4,13 +4,13 @@ module Editor::Controllers::Document
 
     def call(params)
 
-      puts "controller; class DeleteDocument".magenta
+      puts "controller; DeleteDocument".magenta
 
       user = current_user(session)
-
-      puts "user: #{user.full_name}".red
-
-      puts "controller: DeleteDocuments".red
+      puts 'After current_user(session)'.cyan
+      puts "user: #{user.full_name}".magenta
+      puts 'After user.full_name})'.cyan
+      
       puts params[:id].red
       puts "CONTROL:".green
       puts params['document']['destroy'].cyan
