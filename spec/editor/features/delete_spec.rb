@@ -7,14 +7,15 @@ describe 'Delete document' do
 
     UserRepository.clear
     DocumentRepository.clear
-    # sessions :cookie, secret: ENV['WEB_SESSIONS_SECRET']
-    #session[:foo] = 'bar'
-    password = 'foobar12345'
 
-    @user = User.create(first_name: 'Jared', last_name: 'Foo-Bar', screen_name: 'jayfoo',
+    session = {}
+
+    password = 'foobar12345'
+    user = User.create(first_name: 'Jared', last_name: 'Foo-Bar', screen_name: 'jayfoo',
                          password: password, password_confirmation: password)
-   # authenticator = UserAuthentication.new(@user.email, password)
-   # @user2 = authenticator.login(session)
+    authenticator = UserAuthentication.new(user.email, password)
+    @user = authenticator.login(session)
+
     @document = NSDocument.create(title: 'Test', author_credentials: @user.credentials)
 
   end
