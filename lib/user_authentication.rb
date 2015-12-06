@@ -12,6 +12,8 @@
 
 class UserAuthentication
 
+  # include Lotus::Web::Action
+
   def initialize(email, password)
     @email = email
     @password = password
