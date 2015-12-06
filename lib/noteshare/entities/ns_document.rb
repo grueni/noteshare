@@ -887,6 +887,39 @@ class NSDocument
     root_document.update_table_of_contents
   end
 
+
+
+  def internal_table_of_contents
+
+    puts "!".red
+    doc = Asciidoctor.load self.content, {sourcemap: true}
+    puts "2".red
+    @level = 0
+    @previous_level = 0
+
+    def spacing(section, offset=0)
+      "  "*(section.level + offset)
+    end
+
+    def toc_entry(section)
+      "a[href='\##{section.id}'] #{section.title}"
+    end
+
+
+    sections = doc.find_by context: :section
+
+    toc_string = ''
+    sections.each do |section|
+      toc_string << section.level << "\n"
+      if @level > @previous_level
+        toc_string << "#{spacing(section,-1)}ul" << "\n"
+        @previous_level = @level
+      end
+      toc_string << "#{spacing(section)}li #{toc_entry(section)}" << "\n"
+    end
+    toc_string
+  end
+
   ##################################
 
   def dict_set(new_dict)
@@ -1195,6 +1228,11 @@ class NSDocument
         doc_id == active_id ? class_str << 'active' : class_str << 'inactive'
 
         output << "<li #{class_str} '><a #{doc_link}</a>\n"
+
+
+        # output << internal_table_of_contents  #???
+
+
         # Fixme: need to make udpate_table_of_contents lazy
         # Fixme: Updating the toc will need to be done elswhere - or big performance hit
         # Fixme: pehaps call 'update_table_of_contents' in the update controller
