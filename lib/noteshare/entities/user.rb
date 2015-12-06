@@ -1,8 +1,11 @@
 require_relative '../modules/display'
+require_relative '../modules/dict'
 
 class User
   include Lotus::Entity
   include Noteshare::Display
+  include Noteshare::Dict
+
   attributes :id, :admin, :first_name, :last_name, :identifier, :email, :screen_name,
              :level, :password, :meta, :password_confirmation
 
@@ -112,74 +115,7 @@ class User
 
   ##############################
 
-  def dict_set(new_dict)
-    metadata = JSON.parse self.meta
-    metadata['dict'] = new_dict
-    self.meta = JSON.generate metadata
-    puts self.class.name.green
-    UserRepository.update self
-  end
 
-  def dict_update(entry)
-    metadata = JSON.parse self.meta
-    dict = metadata['dict'] || { }
-    dict[entry.keys[0]] = entry.values[0]
-    metadata['dict'] = dict
-    self.meta = JSON.generate metadata
-    UserRepository.update self
-  end
-
-  def dict_update_from_hash(hash)
-    metadata = JSON.parse self.meta
-    dict = metadata['dict'] || { }
-    hash.each do |key, value|
-      dict[key] = value
-    end
-    metadata['dict'] = dict
-    self.meta = JSON.generate metadata
-    UserRepository.update self
-  end
-
-  def dict_remove(key)
-    metadata = JSON.parse self.meta
-    dict = metadata['dict'] || { }
-    dict.delete(key)
-    metadata['dict'] = dict
-    self.meta = JSON.generate metadata
-    UserRepository.update self
-  end
-
-  def dict_lookup(key)
-    metadata = JSON.parse self.meta
-    dict = metadata['dict'] || { }
-    dict[key]
-  end
-
-  def editable_keys
-    %w(render_with)
-  end
-
-  def dict_to_s(filter=[])
-    metadata = JSON.parse self.meta
-    dict = metadata['dict'] || { }
-    output = ''
-    dict.each do |key, value|
-      if filter.include? key
-        output << "#{key} = #{value}" << "\n"
-        filter.delete(key)
-      end
-    end
-    filter.each do |key|
-      output << "#{key} = " << "\n"
-    end
-    output
-  end
-
-
-
-  def dict_display
-    puts dict_to_s
-  end
 
   ##############################
 

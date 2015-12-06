@@ -37,7 +37,7 @@ describe User do
 
   end
 
-  it 'can update the dict of a user in nil ases' do
+  it 'can update the dict of a user in nil cases' do
 
     @jared.dict_update(node: 66)
     @jared.dict_lookup('node').must_equal(66)

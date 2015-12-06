@@ -10,7 +10,7 @@ module Editor::Controllers::Document
       puts 'After current_user(session)'.cyan
       puts "user: #{user.full_name}".magenta
       puts 'After user.full_name})'.cyan
-      
+
       puts params[:id].red
       puts "CONTROL:".green
       puts params['document']['destroy'].cyan
