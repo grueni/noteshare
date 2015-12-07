@@ -2,7 +2,7 @@
   .div id='source_text_data' data-source-text="#{document.content}"
   button id='update_source_button' class='green' style='position: absolute; bottom:10px; left:40px;z-index:100;'   Update
   /== render partial: 'document/edit_pane', locals: {}
-  .col.tools style='background-color:#444; color: white;'
+  .col.tools style='background-color:#444; color: white; margin-top:-40px;'
     - if document.doc_refs
     .div
       form name='edit_panel_selector'
@@ -24,10 +24,10 @@
     .div style='position:absolute; top:50px; left:20px;' id='tools_panel'
       .toc
         == render partial: 'document/tool_panel', locals: { }
-  .col.source
+  .col.source style='margin-top:-40px;'
     == form
 
-  .col.rendered id='rendered_content'
+  .col.rendered id='rendered_content'  style='margin-top:-40px;'
     - if document.is_root_document?
       == document.compiled_and_rendered_content
     - else

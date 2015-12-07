@@ -6,16 +6,18 @@ describe 'Delete document' do
   before do
 
     UserRepository.clear
+    NSNodeRepository.clear
     DocumentRepository.clear
 
-    password = 'foobar12345'
-    user = User.create(first_name: 'Jared', last_name: 'Foo-Bar', screen_name: 'jayfoo',
-                         password: password, password_confirmation: password)
+    @user = User.create(first_name: 'Jared', last_name: 'Foo-Bar', email: 'jayfoo@bar.com',
+                        screen_name: 'jayfoo', password: 'foobar123', password_confirmation: 'foobar123')
 
-    @document = NSDocument.create(title: 'Test', author_credentials: user.credentials)
 
-    authenticator = UserAuthentication.new(user.email, password)
-    @user = authenticator.login(session)
+    NSNode.create_for_user(@user)
+
+
+    @document = NSDocument.create(title: 'Test', author_credentials: @user.credentials)
+
 
 
 
@@ -39,7 +41,22 @@ describe 'Delete document' do
 
   end
 
-  it 'can delete a document' do
+  it 'can delete a document (xxx)' do
+
+    visit '/session_manager/login'
+
+    within 'form#user-form' do
+      fill_in 'Email',  with: 'jayfoo@bar.com'
+      fill_in 'Password', with: 'foobar123'
+
+      click_button 'Log in'
+    end
+
+    current_path.must_equal("/user/#{@user.id}")       ###????
+
+    visit "/node/user/#{@user.id}"
+    assert page.has_content?(@user.screen_name), "Go to user's node page"
+
 
     visit "/editor/prepare_to_delete_document/#{@document.id}"
     current_path.must_equal("/prepare_to_delete_document/#{@document.id}")
@@ -52,9 +69,10 @@ describe 'Delete document' do
 
     current_path.must_equal("/delete_document/#{@document.id}")       ###????
 
-    visit "/delete_document/#{@document.id}"
+    visit "/editor/delete_document/#{@document.id}"
     puts "current path: #{current_path}".red
-    page.body.must_equal("#{@document.title} has been deleted")
+    puts page.body.cyan
+    page.body.must_include("#{@document.title} has been deleted")
 
 
   end

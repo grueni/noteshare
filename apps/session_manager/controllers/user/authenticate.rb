@@ -13,6 +13,11 @@ module SessionManager::Controllers::User
       session[:user_id] = nil
       authenticator = UserAuthentication.new(params[:user]['email'], params[:user]['password'])
       user = authenticator.login(session)
+      if user
+        puts "user authenticated: #{user.full_name}".red
+      else
+        puts "Error: could note authenticate".red
+      end
       params[:user]['authenticated']  = (user != nil)
       redirect_to  "/node/user/#{user.id}"
     end

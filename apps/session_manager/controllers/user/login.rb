@@ -3,7 +3,7 @@ module SessionManager::Controllers::User
     include SessionManager::Action
 
     def call(params)
-      puts "controler SessionManager, Login".magenta
+      puts "controller SessionManager, Login".magenta
 
     end
   end

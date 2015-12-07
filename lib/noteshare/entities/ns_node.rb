@@ -31,14 +31,19 @@ class NSNode
   # update_docs_for_owner docs: replace current list with list of ids
   # and title root documents belonging to the owner of the node
   def update_docs_for_owner
+    puts self.inspect.blue
+    # NSNodeRepository.update self
     dd = DocumentRepository.root_documents_for_user self.owner_id
-    puts "docs: #{dd.count}"
+    puts "P, docs: #{dd.count}".green
     hash_array = dd.map{ |doc| {id: doc.id, title: doc.title } }
-    puts hash_array.to_s
+    puts "Q, #{hash_array.to_s}".green
     object_item_list = ObjectItemList.new(hash_array)
-    puts object_item_list.display
+    puts "R, #{object_item_list.display}".green
     self.docs  = object_item_list.encode
-    NSNodeRepository.update self
+    puts "S".green
+    puts self.inspect.blue
+    # NSNodeRepository.update self
+    puts "T, exit update_docs_for_owner".green
   end
 
   # Retrieve the document list: unpack

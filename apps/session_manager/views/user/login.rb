@@ -3,7 +3,7 @@ module SessionManager::Views::User
     include SessionManager::View
 
     def form
-      puts ">> form NEW USER".red
+      puts ">> form LOGIN".red
 
       form_for :user, '/session_manager/authenticate', class: 'user_setup_form' do
 
