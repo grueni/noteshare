@@ -895,9 +895,6 @@ class NSDocument
     "<a href='\##{section.id}'> #{section.title}</a>"
   end
 
-  def toc_entry1(section)
-    "a[href='\##{section.id}'] #{section.title}"
-  end
 
 
 
@@ -906,6 +903,8 @@ class NSDocument
     doc = Asciidoctor.load self.content, {sourcemap: true}
     @level = 0
     @previous_level = 0
+    ul = "<ul class='inner_toc'>"
+    li = "<li class='inner_toc'>"
 
     sections = doc.find_by context: :section
 
@@ -916,10 +915,10 @@ class NSDocument
         @level = section.level
         puts "#{@level}, #{@previous_level}: #{section.title}".red
         if @level > @previous_level
-          toc_string << "#{spacing(section,-1)}<ul>" << "\n"
+          toc_string << "#{spacing(section,-1)}#{ul}" << "\n"
           stack.push('</ul>')
         end
-        toc_string << "#{spacing(section)}<li> #{toc_entry(section)}" << "</li>\n"
+        toc_string << "#{spacing(section)}#{li} #{toc_entry(section)}" << "</li>\n"
         if @level < @previous_level
           token = stack.pop
           toc_string << "#{spacing(section,-1)}#{token}" << "\n"
@@ -934,30 +933,6 @@ class NSDocument
     toc_string
   end
 
-  def internal_table_of_contents1
-
-    puts "1".red
-    doc = Asciidoctor.load self.content, {sourcemap: true}
-    puts "2".red
-    @level = 0
-    @previous_level = 0
-
-
-    sections = doc.find_by context: :section
-
-    toc_string = ''
-    if sections
-      sections[1..sections.length-1].each do |section|
-        toc_string << section.level << "\n"
-        if @level > @previous_level
-          toc_string << "#{spacing(section,-1)}ul" << "\n"
-          @previous_level = @level
-        end
-        toc_string << "#{spacing(section)}li #{toc_entry1(section)}" << "\n"
-      end
-    end
-    toc_string
-  end
 
   ##################################
 

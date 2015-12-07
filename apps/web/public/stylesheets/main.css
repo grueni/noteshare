@@ -504,8 +504,13 @@ ul.toc {
 
 .toc2 ul {
 
-    padding-left: 0.25em;
+    /* padding-left: 0.25em;
     margin-left: 0.25em;
+    */
+    list-style: none;
+    margin-left: 0;
+    padding-left: 0.50em;
+    text-indent: -1.0em;
 }
 
 
@@ -561,6 +566,28 @@ ul.toc {
 
     text_decoration: none;
     color: white;
+}
+
+.inner_toc  ul {
+
+    list-style: none;
+
+}
+
+.inner_toc li  {
+
+    font-size:15px;
+    color: #eee; /* or whatever color you prefer */
+    margin-left: -0.3em;
+    padding-left:  -0em;
+    text-indent: -0.1em;
+
+}
+
+.inner_toc > li a {
+
+    color: white;
+    text_decoration: none;
 }
 
 
