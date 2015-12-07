@@ -6,9 +6,8 @@ describe Settings do
 
   before do
 
-    SettingsRepository.clear
-
-    @settings = SettingsRepository.create Settings.new( owner: 'Jason Foo-Bar' )
+    # The database is set up to have exactly one entry:
+    @settings = SettingsRepository.first
 
   end
 
@@ -58,10 +57,11 @@ describe Settings do
     it 'can update its image in the database' do
 
       @settings.set_hash 'foo': 1111
-      #  @settings.update
-      # SettingsRepository.update @settings
+      puts @settings.inspect.cyan
+      # @settings.update
+      SettingsRepository.update @settings
       @settings2 = SettingsRepository.first
-      skip @settings2.get_key('foo').must_equal(1111)
+      @settings2.get_key('foo').must_equal(1111)
 
     end
 
