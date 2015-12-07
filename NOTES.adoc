@@ -153,3 +153,4 @@ http://stackoverflow.com/questions/16917476/what-assertion-functions-are-there-i
 http://elegantbrew.tumblr.com/post/36238889587/reading-minitest-wrap-up[Elegant brew on minitest]
 heroku pg:psql --app nslab DATABASE
 http://www.rubydoc.info/gems/asciidoctor/Asciidoctor/AbstractBlock#find_by-instance_method[Asciidoctor parser - sections]
+https://robots.thoughtbot.com/rspec-integration-tests-with-capybara[Integration testing with Capybara]

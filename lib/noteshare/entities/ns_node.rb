@@ -16,8 +16,9 @@ class NSNode
   end
 
   def self.create_for_user(user)
-     node =  NSNodeRepository.create(NSNode.new(owner_id: user.id, owner_identifier: user.identifier, name: user.screen_name))
+     node =  NSNodeRepository.create(NSNode.new(owner_id: user.id, owner_identifier: user.identifier, name: user.screen_name, docs: "[]"))
      user.set_node(node.id)
+     node
   end
 
   def owner_name
@@ -31,19 +32,11 @@ class NSNode
   # update_docs_for_owner docs: replace current list with list of ids
   # and title root documents belonging to the owner of the node
   def update_docs_for_owner
-    puts self.inspect.blue
-    # NSNodeRepository.update self
-    dd = DocumentRepository.root_documents_for_user self.owner_id
-    puts "P, docs: #{dd.count}".green
+    dd = DocumentRepository.root_documents_for_user(self.owner_id)
     hash_array = dd.map{ |doc| {id: doc.id, title: doc.title } }
-    puts "Q, #{hash_array.to_s}".green
     object_item_list = ObjectItemList.new(hash_array)
-    puts "R, #{object_item_list.display}".green
     self.docs  = object_item_list.encode
-    puts "S".green
-    puts self.inspect.blue
-    # NSNodeRepository.update self
-    puts "T, exit update_docs_for_owner".green
+    NSNodeRepository.update self
   end
 
   # Retrieve the document list: unpack

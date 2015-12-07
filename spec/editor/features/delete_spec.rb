@@ -12,21 +12,15 @@ describe 'Delete document' do
     @user = User.create(first_name: 'Jared', last_name: 'Foo-Bar', email: 'jayfoo@bar.com',
                         screen_name: 'jayfoo', password: 'foobar123', password_confirmation: 'foobar123')
 
-
     NSNode.create_for_user(@user)
 
-
     @document = NSDocument.create(title: 'Test', author_credentials: @user.credentials)
-
-
-
 
   end
 
 
-  it 'has a valid document for testing aaa' do
+  it 'has a valid document for testing' do
 
-    # @user.full_name.must_equal('Jared Foo-Bar')
     @document.title.must_equal('Test')
     doc2 = DocumentRepository.find @document.id
     doc2.title.must_equal(@document.title)
@@ -41,7 +35,7 @@ describe 'Delete document' do
 
   end
 
-  it 'can delete a document (xxx)' do
+  it 'can delete a document' do
 
     visit '/session_manager/login'
 
@@ -52,7 +46,7 @@ describe 'Delete document' do
       click_button 'Log in'
     end
 
-    current_path.must_equal("/user/#{@user.id}")       ###????
+    current_path.must_equal("/user/#{@user.id}")
 
     visit "/node/user/#{@user.id}"
     assert page.has_content?(@user.screen_name), "Go to user's node page"
@@ -67,10 +61,8 @@ describe 'Delete document' do
       click_button 'Destroy'
     end
 
-    current_path.must_equal("/delete_document/#{@document.id}")       ###????
+    current_path.must_equal("/delete_document/#{@document.id}")
 
-    visit "/editor/delete_document/#{@document.id}"
-    puts "current path: #{current_path}".red
     puts page.body.cyan
     page.body.must_include("#{@document.title} has been deleted")
 
