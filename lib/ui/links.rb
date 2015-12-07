@@ -58,9 +58,7 @@ module UI
       end
     end
 
-    def admin_link
-      link_to 'Admin', '/admin'
-    end
+
 
     #####################################################
     #
@@ -89,16 +87,25 @@ module UI
     #
     #####################################################
 
-    def admin_link
-      link_to 'Admin', '/admin'
+    def admin_link(active_item='')
+      if active_item == 'admin'
+        return link_to 'Admin', '/admin', class: 'active_item'
+      else
+        return  link_to 'Admin', '/admin'
+      end
     end
 
     def document_link(document)
       link_to document.title, "/document/#{document.id}"
     end
 
-    def documents_link
+    def documents_link(active_item='')
       link_to 'Documents', '/documents'
+      if active_item == 'documents'
+        return link_to 'Documents', "/documents", class: 'active_item'
+      else
+        return  link_to 'Documents', "/documents"
+      end
     end
 
     def export_link(document)
@@ -180,8 +187,13 @@ module UI
       image_link('/images/edit_toc.png', '#', 'rearrange table of contents')
     end
 
-    def image_manager_link
-      html.tag(:a, 'Images', href: '/image_manager/search')
+    def image_manager_link(active_item='')
+      if active_item == 'images'
+        html.tag(:a, 'Images', href: '/image_manager/search', class: 'active_item')
+      else
+        html.tag(:a, 'Images', href: '/image_manager/search')
+      end
+
     end
 
 

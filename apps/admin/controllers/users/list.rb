@@ -5,7 +5,7 @@ module Admin::Controllers::Users
     expose :users, :active_item
 
     def call(params)
-      @active_item = 'editor'
+      @active_item = 'admin'
       puts "admin controller users"
       @users = UserRepository.all
     end

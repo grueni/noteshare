@@ -47,10 +47,10 @@ html
             li
               == image_manager_link
           li
-            == documents_link
+            == documents_link(active_item)
           - if current_user_is_admin?(session)
             li
-              == admin_link
+              == admin_link(active_item)
 
 
 

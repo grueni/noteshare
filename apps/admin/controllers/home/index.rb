@@ -6,7 +6,7 @@ module Admin::Controllers::Home
     expose :active_item
 
     def call(params)
-      @active_item = 'edmin'
+      @active_item = 'admin'
     end
 
   end
