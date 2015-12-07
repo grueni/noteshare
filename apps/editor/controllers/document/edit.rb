@@ -4,8 +4,10 @@ module Editor::Controllers::Document
 
     expose :document
     expose :updated_text
+    expose :active_item
 
     def call(params)
+      @active_item = 'editor'
       session[:current_document_id] = params[:id]
       puts "params[:id] = #{params[:id]}"
       puts "Editor, Document, Edit, session[:current_document_id] = #{session[:current_document_id]}".red

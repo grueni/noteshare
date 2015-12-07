@@ -2,7 +2,10 @@ module Editor::Controllers::Document
   class JsonUpdate
     include Editor::Action
 
+    expose :active_item
+
     def call(params)
+      @active_item = 'editor'
       id = session[:current_document_id]
       @document = DocumentRepository.find(id)
       @document.content_dirty = true

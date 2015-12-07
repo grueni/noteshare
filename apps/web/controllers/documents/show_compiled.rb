@@ -3,8 +3,10 @@ module Web::Controllers::Documents
     include Web::Action
 
     expose :root_document
+    expose :active_item
 
     def call(params)
+      @active_item = ''
       document = DocumentRepository.find(params['id'])
       session[:current_document_id] = document.id
       @root_document = document.root_document

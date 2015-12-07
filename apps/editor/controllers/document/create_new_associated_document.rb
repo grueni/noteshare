@@ -2,7 +2,10 @@ module Editor::Controllers::Document
   class CreateNewAssociatedDocument
     include Editor::Action
 
+    expose :active_item
+
     def call(params)
+      @active_item = 'editor'
       puts 'controller: CreateNewAssociatedDocument'.red
 
       document_packet = params['document']

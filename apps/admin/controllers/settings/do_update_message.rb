@@ -2,8 +2,10 @@ module Admin::Controllers::Settings
   class DoUpdateMessage
     include Admin::Action
 
-    def call(params)
+    expose :active_item
 
+    def call(params)
+      @active_item = 'admin'
       new_message = params['update_settings']['message']
       @settings = SettingsRepository.first
       @settings.set_key('message', new_message)

@@ -2,7 +2,10 @@ module ImageManager::Controllers::Image
   class Upload
     include ImageManager::Action
 
+    expose :active_item
+
     def call(params)
+      @active_item = 'images'
       puts "ImageManager, Image. Upload".red
 =begin
       image_data = params['image']

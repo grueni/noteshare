@@ -4,9 +4,11 @@ module Web::Controllers::Home
     include Web::Action
 
     expose :message
+    expose :active_item
 
     def call(params)
 
+      @active_item = ''
       @settings = SettingsRepository.first
 
       @message = @settings.get_key('message')

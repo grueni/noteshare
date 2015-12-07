@@ -3,10 +3,10 @@ module Node::Controllers::Public
     include Node::Action
 
 
-    expose :node
+    expose :node, :active_item
 
     def call(params)
-
+       @active_item = ''
       puts "controller for Node: Public::Show".red
 
       @node = NSNodeRepository.find params[:id]

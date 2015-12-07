@@ -106,20 +106,30 @@ module UI
       image_link '/images/export.png', "/editor/export/#{document.id}"
     end
 
-    def editor_link(session)
+    def editor_link(session, active_item='')
       return '' if session == nil
       _id = session['current_document_id']
       # puts "In editor link, session['current_document_id'] = #{session['current_document_id']} ".magenta
       return '' if _id == nil
-      link_to 'Editor', "/editor/document/#{_id}"
+      if active_item == 'editor'
+        return link_to 'Editor', "/editor/document/#{_id}", class: 'active_item'
+      else
+        return  link_to 'Editor', "/editor/document/#{_id}"
+      end
+
     end
 
 
-    def reader_link(session)
+    def reader_link(session, active_item='')
       return '' if session == nil
       _id = session['current_document_id']
       return '' if _id == nil
-      return link_to 'Reader', "/document/#{_id}"
+      if active_item == 'reader'
+        return link_to 'Reader', '#', class: 'active_item'
+      else
+        return  link_to 'Reader', "/document/#{_id}"
+      end
+
     end
 
     def new_document_link

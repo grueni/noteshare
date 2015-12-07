@@ -1,8 +1,10 @@
 module ImageManager::Controllers::Image
   class Update
     include ImageManager::Action
+    expose :active_item
 
     def call(params)
+      @active_item = 'images'
       puts "#{session[:current_image_id]}".magenta
       puts "#{params['source']}".cyan
       current_image = ImageRepository.find session[:current_image_id]

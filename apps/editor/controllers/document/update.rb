@@ -5,10 +5,10 @@ module Editor::Controllers::Document
   class Update
     include Editor::Action
 
-    expose :document
+    expose :document, :active_item
 
     def call(params)
-
+      @active_item = 'editor'
       puts "controller Editor update".red
 
       document_packet = params['document']

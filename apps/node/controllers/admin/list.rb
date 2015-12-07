@@ -2,9 +2,10 @@ module Node::Controllers::Admin
   class List
     include Node::Action
 
-    expose :nodes
+    expose :nodes, :active_item
 
     def call(paramm)
+      @active_item = ''
       puts "call: controller Node, Admin, List".red
       @nodes = NSNodeRepository.all
 

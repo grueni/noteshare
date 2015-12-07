@@ -5,9 +5,10 @@ module Uploader::Controllers::File
     include Noteshare::AWS
     include Noteshare::Util
 
-    expose :image_id, :title, :filename, :url, :tags
+    expose :image_id, :title, :filename, :url, :tags, :active_item
 
     def call(params)
+      @active_item = ''
       puts "Call  uploader, file".magenta
 
       @title =  params['title']

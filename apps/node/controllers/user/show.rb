@@ -5,11 +5,11 @@ module Node::Controllers::User
 
     expose :current_node
     expose :documents
-    expose :current_document
+    expose :current_document, :active_item
 
     # Go to the node belonging to the user
     def call(params)
-
+      @active_item = ''
       user_id = params[:id]
       @current_node = NSNodeRepository.for_owner_id user_id
       if @current_node == nil

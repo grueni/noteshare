@@ -5,10 +5,12 @@ module Web::Controllers::Documents
     include Web::Action
 
     expose :document
+    expose :active_item
 
 
     def call(params)
 
+      @active_item = 'reader'
       @document = DocumentRepository.find(params['id'])
       puts @document.is_root_document?
 

@@ -4,7 +4,7 @@ module Editor::Controllers::Document
   class UpdateOptions
     include Editor::Action
 
-    expose :document
+    expose :document, :active_item
 
     def process_options(document, option)
       puts "controller Editor update".red
@@ -53,6 +53,7 @@ module Editor::Controllers::Document
     end
 
     def call(params)
+      @active_item = 'editor'
       puts ">> Editor update options (CONTROLLER)".yellow
 
       document_packet = params.env['rack.request.form_hash']['document']

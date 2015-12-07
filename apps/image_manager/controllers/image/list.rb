@@ -2,9 +2,10 @@ module ImageManager::Controllers::Image
   class List
     include ImageManager::Action
 
-    expose :images
+    expose :images, :active_item
 
     def call(params)
+      @active_item = 'images'
       search_key = params['search']
       if search_key == nil
         @images = ImageRepository.all.random_sublist(12)
