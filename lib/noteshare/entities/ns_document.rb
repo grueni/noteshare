@@ -706,7 +706,9 @@ class NSDocument
       text = content + "\n\n" || ''
       table.each do |item|
         section = DocumentRepository.find(item.id)
-        text  << section.compile_aux << "\n\n"
+          if section != nil
+          text  << section.compile_aux << "\n\n"
+        end
       end
       return text
     end
