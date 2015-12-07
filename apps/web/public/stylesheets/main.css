@@ -159,6 +159,14 @@ body {
 }
 
 
+.main_row {
+
+    position:absolute;
+    left:0;
+    right:0;
+    top: 40px;
+    bottom: 40px;
+}
 
 
 ul {
@@ -174,14 +182,6 @@ ul {
     right:0;
  }
 
- .main_row {
-
-     position:absolute;
-     left:0;
-     right:0;
-     top: 40px;
-     bottom: 40px;
- }
 
  .col{
 
