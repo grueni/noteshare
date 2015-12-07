@@ -710,3 +710,18 @@ p.compact {
     backgrond-color:blue;
     display: inline;
 }
+
+
+/*******   MENU    *********/
+
+.active_item {
+
+    font-weight: 900;
+    background-color: darkred;
+    padding: 0.4em;
+}
+
+.active_item > a {
+
+    text-decoration: underline;
+}
