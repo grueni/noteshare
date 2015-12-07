@@ -17,7 +17,8 @@ module UI
     #  1. SESSION LINKS
     #  2. APPLICATION-WIDE LINKS
     #  3. DOCUMENT LINKS
-    #  4. OTHER LINKS
+    #  4. ADMIN LINKS
+    #  5. OTHER LINKS
     #
     #####################################################
 
@@ -182,12 +183,20 @@ module UI
       end
     end
 
+    #####################################################
+    #
+    #   4. ADMIN LINKS
+    #
+    #####################################################
 
+   def update_message_link
+     link_to 'Edit system message', '/admin/update_message'
+   end
 
 
     #####################################################
     #
-    #   4. OTHER LINKS
+    #   5. OTHER LINKS
     #
     #####################################################
 

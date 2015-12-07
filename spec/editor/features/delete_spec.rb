@@ -8,22 +8,23 @@ describe 'Delete document' do
     UserRepository.clear
     DocumentRepository.clear
 
-    session = {}
-
     password = 'foobar12345'
     user = User.create(first_name: 'Jared', last_name: 'Foo-Bar', screen_name: 'jayfoo',
                          password: password, password_confirmation: password)
+
+    @document = NSDocument.create(title: 'Test', author_credentials: user.credentials)
+
     authenticator = UserAuthentication.new(user.email, password)
     @user = authenticator.login(session)
 
-    @document = NSDocument.create(title: 'Test', author_credentials: @user.credentials)
+
 
   end
 
 
   it 'has a valid document for testing aaa' do
 
-    @user.full_name.must_equal('Jared Foo-Bar')
+    # @user.full_name.must_equal('Jared Foo-Bar')
     @document.title.must_equal('Test')
     doc2 = DocumentRepository.find @document.id
     doc2.title.must_equal(@document.title)

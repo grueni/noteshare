@@ -887,35 +887,74 @@ class NSDocument
     root_document.update_table_of_contents
   end
 
+  def spacing(section, offset=0)
+    "  "*(section.level + offset)
+  end
+
+  def toc_entry(section)
+    "<a href='\##{section.id}'> #{section.title}</a>"
+  end
+
+  def toc_entry1(section)
+    "a[href='\##{section.id}'] #{section.title}"
+  end
+
 
 
   def internal_table_of_contents
 
-    puts "!".red
+    doc = Asciidoctor.load self.content, {sourcemap: true}
+    @level = 0
+    @previous_level = 0
+
+    sections = doc.find_by context: :section
+
+    toc_string = ''
+    stack = []
+    if sections
+      sections[1..sections.length-1].each do |section|
+        @level = section.level
+        puts "#{@level}, #{@previous_level}: #{section.title}".red
+        if @level > @previous_level
+          toc_string << "#{spacing(section,-1)}<ul>" << "\n"
+          stack.push('</ul>')
+        end
+        toc_string << "#{spacing(section)}<li> #{toc_entry(section)}" << "</li>\n"
+        if @level < @previous_level
+          token = stack.pop
+          toc_string << "#{spacing(section,-1)}#{token}" << "\n"
+        end
+        @previous_level = @level
+      end
+      while stack.count > 0
+        token = stack.pop
+        toc_string << token << "\n"
+      end
+    end
+    toc_string
+  end
+
+  def internal_table_of_contents1
+
+    puts "1".red
     doc = Asciidoctor.load self.content, {sourcemap: true}
     puts "2".red
     @level = 0
     @previous_level = 0
 
-    def spacing(section, offset=0)
-      "  "*(section.level + offset)
-    end
-
-    def toc_entry(section)
-      "a[href='\##{section.id}'] #{section.title}"
-    end
-
 
     sections = doc.find_by context: :section
 
     toc_string = ''
-    sections.each do |section|
-      toc_string << section.level << "\n"
-      if @level > @previous_level
-        toc_string << "#{spacing(section,-1)}ul" << "\n"
-        @previous_level = @level
+    if sections
+      sections[1..sections.length-1].each do |section|
+        toc_string << section.level << "\n"
+        if @level > @previous_level
+          toc_string << "#{spacing(section,-1)}ul" << "\n"
+          @previous_level = @level
+        end
+        toc_string << "#{spacing(section)}li #{toc_entry1(section)}" << "\n"
       end
-      toc_string << "#{spacing(section)}li #{toc_entry(section)}" << "\n"
     end
     toc_string
   end
@@ -1229,8 +1268,10 @@ class NSDocument
 
         output << "<li #{class_str} '><a #{doc_link}</a>\n"
 
+        #Fixme - memoize
+        doc = DocumentRepository.find doc_id
 
-        # output << internal_table_of_contents  #???
+        output << doc.internal_table_of_contents
 
 
         # Fixme: need to make udpate_table_of_contents lazy

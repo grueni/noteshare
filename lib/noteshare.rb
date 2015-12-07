@@ -80,6 +80,7 @@ Lotus::Model.configure do
       repository SettingsRepository
       attribute :id,   Integer
       attribute :owner, String
+      attribute :raw_hash, JSON
     end
 
     collection :users do

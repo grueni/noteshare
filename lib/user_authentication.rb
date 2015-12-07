@@ -72,7 +72,7 @@ module SessionTools
   end
 
 
-  end
+end
 
 class Permission
 
