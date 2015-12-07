@@ -889,18 +889,160 @@ class NSDocument
     root_document.update_table_of_contents
   end
 
+
+  ###############
+
+
+
+  ############################################################
+  #
+  #   TABLE OF CONTENTS & MAP
+  #
+  ############################################################
+
+  # Return a string representing the table of
+  # contents.  The format of the string can
+  # be modified by the choice of the option
+  # passed to the method.  The default 'simple_string'
+  # option gives a numbered list of titles.
+  def table_of_contents_as_string(hash)
+    option = hash[:format] || 'simple_string'
+    current_document = hash[:current_document]
+    if current_document
+      noa = current_document.next_oldest_ancestor
+      noa_id = noa.id if noa
+    end
+    output = ''
+    case option
+      when 'simple_string'
+        toc.each_with_index do |item, index|
+          output << "#{index + 1}. #{item['title']}" << "\n"
+        end
+      when 'html'
+        if toc.length == 0
+          output = ''
+        else
+          output << "<ul>\n"
+          toc.each_with_index do |item, index|
+            output << "<li><a href='/document/#{item['id']}'>#{item['title']}</a>\n"
+            if noa_id and item['id'] == noa_id
+              output << "<ul>\n" << noa.table_of_contents_as_string(format: 'html', current_document: nil) << "</ul>"
+            end
+          end
+          output << "</ul>\n\n"
+        end
+      else
+        output = toc.to_s
+    end
+    output
+  end
+
+  def root_document_title
+    root = root_document || self
+    if root
+      root.title
+    else
+      ''
+    end
+  end
+
+  def root_table_of_contents(active_id, target='reader')
+    puts "self.title: #{self.title}".red
+    root = root_document || self
+    if root
+      root.master_table_of_contents(active_id, target)
+    else
+      ''
+    end
+  end
+
+  # If active_id matches the id of an item
+  # in the table of contents, that item is
+  # marked with the css 'active'.  Otherwise
+  # it is marked 'inactive'.  This way the
+  # TOC entry for the document being currently
+  # viewed can be highlighted.``
+  #
+  def master_table_of_contents(active_id, target='reader')
+    puts "ENTER: master_table_of_contents".magenta
+    #  self.update_table_of_contents(force: true) if toc_is_dirty
+
+    if toc.length == 0
+      output = ''
+    else
+
+      active_document = DocumentRepository.find(active_id) if active_id > 0
+      # Gett "long" ancestor chain: ancestors plust the given active id:
+      ancestral_ids = active_document.ancestor_ids << active_document.id
+      target == 'editor'? output = "<ul class='toc2'>\n" : output = "<ul class='toc'>\n"
+
+      self.table_of_contents.each do |item|
+
+        # Compute list item:
+        doc_id = item.id
+        doc_title = item.title
+        if target == 'editor'
+          doc_link = "href='/editor/document/#{doc_id}'>#{doc_title}</a>"
+        else
+          doc_link = "href='/document/#{doc_id}'>#{doc_title}</a>"
+        end
+        class_str = "class = '"
+
+        if item.has_subdocs
+          if ancestral_ids.include? item.id
+            class_str << 'subdocs-open '
+          else
+            class_str << 'subdocs-yes '
+          end
+        else
+          class_str << 'subdocs-no '
+        end
+
+        doc_id == active_id ? class_str << 'active' : class_str << 'inactive'
+
+        output << "<li #{class_str} '><a #{doc_link}</a>\n"
+
+        #Fixme - memoize
+        doc = DocumentRepository.find doc_id
+
+        item.id == active_id ?   option = :internal : option = :external
+        output << doc.internal_table_of_contents(option)
+
+
+        # Fixme: need to make udpate_table_of_contents lazy
+        # Fixme: Updating the toc will need to be done elswhere - or big performance hit
+        # Fixme: pehaps call 'update_table_of_contents' in the update controller
+        doc = DocumentRepository.find item.id
+        # doc.update_table_of_contents
+
+        if doc.table_of_contents.length > 0 and ancestral_ids.include? doc.id
+          #(doc.id == active_document.parent_id) or (doc.id == active_document.id)
+          output << "<ul>\n" << doc.master_table_of_contents(active_id, target) << "</ul>"
+        end
+
+      end
+      output << "</ul>\n\n"
+    end
+    output
+  end
+
   def spacing(section, offset=0)
     "  "*(section.level + offset)
   end
 
-  def toc_entry(section)
-    "<a href='\##{section.id}'> #{section.title}</a>"
+  # option = :internal or :external
+  def toc_entry(doc, section, option)
+    if option == :internal
+      "<a href='\##{section.id}'> #{section.title}</a>"
+    else
+      "<a href='/document/#{doc.id}?#{section.id}'> #{section.title}</a>"
+    end
   end
 
 
 
 
-  def internal_table_of_contents
+  def internal_table_of_contents(option = :internal)
 
     doc = Asciidoctor.load self.content, {sourcemap: true}
     @level = 0
@@ -920,7 +1062,7 @@ class NSDocument
           toc_string << "#{spacing(section,-1)}#{ul}" << "\n"
           stack.push('</ul>')
         end
-        toc_string << "#{spacing(section)}#{li} #{toc_entry(section)}" << "</li>\n"
+        toc_string << "#{spacing(section)}#{li} #{toc_entry(self, section, option)}" << "</li>\n"
         if @level < @previous_level
           token = stack.pop
           toc_string << "#{spacing(section,-1)}#{token}" << "\n"
@@ -1138,135 +1280,7 @@ class NSDocument
   end
 
 
-  ############################################################
-  #
-  #   TABLE OF CONTENTS & MAP
-  #
-  ############################################################
 
-  # Return a string representing the table of
-  # contents.  The format of the string can
-  # be modified by the choice of the option
-  # passed to the method.  The default 'simple_string'
-  # option gives a numbered list of titles.
-  def table_of_contents_as_string(hash)
-    option = hash[:format] || 'simple_string'
-    current_document = hash[:current_document]
-    if current_document
-      noa = current_document.next_oldest_ancestor
-      noa_id = noa.id if noa
-    end
-    output = ''
-    case option
-      when 'simple_string'
-        toc.each_with_index do |item, index|
-          output << "#{index + 1}. #{item['title']}" << "\n"
-        end
-      when 'html'
-        if toc.length == 0
-          output = ''
-        else
-          output << "<ul>\n"
-          toc.each_with_index do |item, index|
-            output << "<li><a href='/document/#{item['id']}'>#{item['title']}</a>\n"
-            if noa_id and item['id'] == noa_id
-              output << "<ul>\n" << noa.table_of_contents_as_string(format: 'html', current_document: nil) << "</ul>"
-            end
-          end
-          output << "</ul>\n\n"
-        end
-      else
-        output = toc.to_s
-    end
-    output
-  end
-
-  def root_document_title
-    root = root_document || self
-    if root
-      root.title
-    else
-      ''
-    end
-  end
-
-  def root_table_of_contents(active_id, target='reader')
-    puts "self.title: #{self.title}".red
-    root = root_document || self
-    if root
-      root.master_table_of_contents(active_id, target)
-    else
-      ''
-    end
-  end
-
-  # If active_id matches the id of an item
-  # in the table of contents, that item is
-  # marked with the css 'active'.  Otherwise
-  # it is marked 'inactive'.  This way the
-  # TOC entry for the document being currently
-  # viewed can be highlighted.``
-  #
-  def master_table_of_contents(active_id, target='reader')
-    puts "ENTER: master_table_of_contents".magenta
-    #  self.update_table_of_contents(force: true) if toc_is_dirty
-
-    if toc.length == 0
-      output = ''
-    else
-
-      active_document = DocumentRepository.find(active_id) if active_id > 0
-      # Gett "long" ancestor chain: ancestors plust the given active id:
-      ancestral_ids = active_document.ancestor_ids << active_document.id
-      target == 'editor'? output = "<ul class='toc2'>\n" : output = "<ul class='toc'>\n"
-
-      self.table_of_contents.each do |item|
-
-        # Compute list item:
-        doc_id = item.id
-        doc_title = item.title
-        if target == 'editor'
-          doc_link = "href='/editor/document/#{doc_id}'>#{doc_title}</a>"
-        else
-          doc_link = "href='/document/#{doc_id}'>#{doc_title}</a>"
-        end
-        class_str = "class = '"
-
-        if item.has_subdocs
-          if ancestral_ids.include? item.id
-            class_str << 'subdocs-open '
-          else
-            class_str << 'subdocs-yes '
-          end
-        else
-          class_str << 'subdocs-no '
-        end
-        doc_id == active_id ? class_str << 'active' : class_str << 'inactive'
-
-        output << "<li #{class_str} '><a #{doc_link}</a>\n"
-
-        #Fixme - memoize
-        doc = DocumentRepository.find doc_id
-
-        output << doc.internal_table_of_contents
-
-
-        # Fixme: need to make udpate_table_of_contents lazy
-        # Fixme: Updating the toc will need to be done elswhere - or big performance hit
-        # Fixme: pehaps call 'update_table_of_contents' in the update controller
-        doc = DocumentRepository.find item.id
-        # doc.update_table_of_contents
-
-        if doc.table_of_contents.length > 0 and ancestral_ids.include? doc.id
-          #(doc.id == active_document.parent_id) or (doc.id == active_document.id)
-          output << "<ul>\n" << doc.master_table_of_contents(active_id, target) << "</ul>"
-        end
-
-      end
-      output << "</ul>\n\n"
-    end
-    output
-  end
 
 
   ############################################################
