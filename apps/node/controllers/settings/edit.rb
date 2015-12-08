@@ -4,7 +4,7 @@ module Node::Controllers::Settings
     expose :active_item
 
     def call(params)
-      @active_item = ''
+      @active_item = 'node'
     end
   end
 end

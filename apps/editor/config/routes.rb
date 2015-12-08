@@ -1,3 +1,4 @@
+get '/test', to: 'test#toc'
 
 post '/create_new_associated_document', to: 'document#create_new_associated_document'
 get '/new_associated_document/:id', to: 'document#new_associated_document'

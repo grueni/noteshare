@@ -76,7 +76,7 @@ class NSDocument
 
   include Lotus::Entity
   attributes :id, :author_id, :author, :author_identifier, :author_credentials, :title, :identifier, :tags, :type, :area, :meta,
-    :created_at, :modified_at, :content, :rendered_content, :compiled_and_rendered_content, :render_options,
+    :created_at, :modified_at, :content, :compiled_content, :rendered_content, :compiled_and_rendered_content, :render_options,
     :parent_ref, :root_ref, :parent_id, :index_in_parent, :root_document_id, :visibility,
     :subdoc_refs,  :toc, :doc_refs, :content_dirty, :compiled_dirty, :toc_dirty, :acl, :groups_json
 
@@ -1007,8 +1007,8 @@ class NSDocument
 
         if doc
 
-          item.id == active_id ?   option = :internal : option = :external
-          output << doc.internal_table_of_contents(option)
+          item.id == active_id ?   item_option = :internal : item_option = :external
+          output << doc.internal_table_of_contents(item_option)
 
 
           # Fixme: need to make udpate_table_of_contents lazy
@@ -1049,7 +1049,14 @@ class NSDocument
 
   def internal_table_of_contents(option = :internal)
 
-    doc = Asciidoctor.load self.content, {sourcemap: true}
+    if option == :root
+      doc = Asciidoctor.load self.compiled_content, {sourcemap: true}
+      puts "ROOT CONTENT LOADED FOR #{self.title}".red
+      puts "COMPILED CONTENT: #{self.title}".cyan
+    else
+      doc = Asciidoctor.load self.content, {sourcemap: true}
+    end
+
     @level = 0
     @previous_level = 0
     ul = "<ul class='inner_toc'>"
@@ -1059,8 +1066,9 @@ class NSDocument
 
     toc_string = ''
     stack = []
+    option == :root ? first_index = 0 : first_index = 1
     if sections
-      sections[1..sections.length-1].each do |section|
+      sections[first_index..sections.length-1].each do |section|
         @level = section.level
         puts "#{@level}, #{@previous_level}: #{section.title}".red
         if @level > @previous_level

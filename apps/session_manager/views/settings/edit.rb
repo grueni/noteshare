@@ -12,6 +12,8 @@ module SessionManager::Views::Settings
 
         submit 'Update settings', {id: 'update_settings_button', class: 'green top_margin2;'}
 
+        submit 'Cancel'  , {id: 'cancel_update_settings_button', class: 'green top_margin2;'}
+
       end
     end
 

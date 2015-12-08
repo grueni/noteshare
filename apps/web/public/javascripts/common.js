@@ -20,14 +20,23 @@ function yak() {
 
 
 
+
+
+
 function csrfToken() {
 
     return $('meta[name=csrf-token]').attr('content');
 }
 
+function getLineNumber(textarea, indicator) {
 
+    indicator.innerHTML = textarea.value.substr(0, textarea.selectionStart).split("\n").length;
+}
 
 $(document).ready(function() {
+
+    $('#document-updated-text').onkeyup="getLineNumber(this, document.getElementById('document-updated-text'))"
+    $('#document-updated-text').onmouseup="getLineNumber(this, document.getElementById('document-updated-text'))"
 
 
     $('#Yak').click(yak);
@@ -67,4 +76,10 @@ $(document).ready(function() {
     }
 
     $.setup_editor();
+
+    /**
+    $(".lined").linedtextarea({
+        selectedLine: 10,
+    });
+     **/
 });

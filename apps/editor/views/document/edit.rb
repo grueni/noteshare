@@ -8,7 +8,7 @@ module Editor::Views::Document
 
       form_for :document, '/editor/update' do
 
-        text_area :updated_text,  document.content, { class: 'lined' }
+        text_area :updated_text,  document.content, { class: 'lined',  style: 'position: absolute; top:0'}
 
         hidden_field :document_id, value: document.id
 

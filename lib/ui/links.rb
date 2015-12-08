@@ -86,11 +86,26 @@ module UI
       end
     end
 
+    def image_manager_link(active_item='')
+      if active_item == 'images'
+        html.tag(:a, 'Images', href: '/image_manager/search', class: 'active_item')
+      else
+        html.tag(:a, 'Images', href: '/image_manager/search')
+      end
 
+    end
+
+
+    def current_document_link(session)
+      if session['current_document_id']
+        current_document = DocumentRepository.find session[:current_document_id]
+        link_to current_document.title, "/document/#{current_document.id}"
+      end
+    end
 
     #####################################################
     #
-    #   3. DOCUMENT LINKS
+    #   3. READER LINKS
     #
     #####################################################
 
@@ -106,14 +121,57 @@ module UI
       link_to document.title, "/document/#{document.id}"
     end
 
+    def compiled_document_link(document, active_item2='')
+      if active_item2 == 'compiled'
+        return link_to 'Compiled', "/compiled/#{document.id}", class: 'active_item2'
+      else
+        return  link_to 'Compiled', "/compiled/#{document.id}", class: 'item2'
+      end
+    end
+
+    def standard_document_link(document, active_item2='')
+      if active_item2 == 'standard'
+        return link_to 'Standard', "/document/#{document.id}", class: 'active_item2'
+      else
+        return  link_to 'Standard', "/document/#{document.id}", class: 'item2'
+      end
+    end
+
     def documents_link(active_item='')
-      link_to 'Documents', '/documents'
+      # link_to 'Documents', '/documents'
       if active_item == 'documents'
         return link_to 'Documents', "/documents", class: 'active_item'
       else
         return  link_to 'Documents', "/documents"
       end
     end
+
+
+    def reader_link(session, active_item='')
+      return '' if session == nil
+      _id = session['current_document_id']
+      return '' if _id == nil
+      if active_item == 'reader'
+        return link_to 'Reader', '#', class: 'active_item'
+      else
+        return  link_to 'Reader', "/document/#{_id}"
+      end
+
+    end
+
+
+    def share_document_link(document)
+      #  html.tag(:a, 'Share', href: '#')
+      image_link('/images/share.png', '#', 'share document')
+    end
+
+
+
+    #####################################################
+    #
+    #   3. EDITOR LINKS
+    #
+    #####################################################
 
     def export_link(document)
       # link_to 'Export', "/editor/export/#{document.id}"
@@ -129,19 +187,6 @@ module UI
         return link_to 'Editor', "/editor/document/#{_id}", class: 'active_item'
       else
         return  link_to 'Editor', "/editor/document/#{_id}"
-      end
-
-    end
-
-
-    def reader_link(session, active_item='')
-      return '' if session == nil
-      _id = session['current_document_id']
-      return '' if _id == nil
-      if active_item == 'reader'
-        return link_to 'Reader', '#', class: 'active_item'
-      else
-        return  link_to 'Reader', "/document/#{_id}"
       end
 
     end
@@ -185,32 +230,12 @@ module UI
       image_link('/images/check_in_out.png', '#', 'check document out')
     end
 
-    def share_document_link(document)
-     #  html.tag(:a, 'Share', href: '#')
-      image_link('/images/share.png', '#', 'share document')
-    end
 
     def edit_toc_link(document)
       image_link('/images/edit_toc.png', '#', 'rearrange table of contents')
     end
 
-    def image_manager_link(active_item='')
-      if active_item == 'images'
-        html.tag(:a, 'Images', href: '/image_manager/search', class: 'active_item')
-      else
-        html.tag(:a, 'Images', href: '/image_manager/search')
-      end
 
-    end
-
-
-
-    def current_document_link(session)
-      if session['current_document_id']
-        current_document = DocumentRepository.find session[:current_document_id]
-        link_to current_document.title, "/document/#{current_document.id}"
-      end
-    end
 
     #####################################################
     #

@@ -9,7 +9,7 @@
 
       # @documents = DocumentRepository.root_documents.sort_by { |item| item.title }
       @documents = DocumentRepository.all
-      @active_item = 'home'
+      @active_item = 'reader'
       puts "COUNT: #{@documents.count}".magenta
       puts "ROOT DOCUMENTS: #{@documents.count}".red
     end

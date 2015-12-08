@@ -55,6 +55,7 @@ Lotus::Model.configure do
       attribute :created_at, DateTime
       attribute :modified_at, DateTime
       attribute :content, String
+      attribute :compiled_content, String
       attribute :rendered_content, String
       attribute :compiled_and_rendered_content, String
       attribute :render_options, JSON

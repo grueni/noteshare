@@ -4,7 +4,7 @@ module Web::Controllers::Documents
     expose :active_item
 
     def call(params)
-      @active_item = ''
+      @active_item = 'reader'
     end
   end
 end

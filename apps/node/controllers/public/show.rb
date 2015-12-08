@@ -6,7 +6,7 @@ module Node::Controllers::Public
     expose :node, :active_item
 
     def call(params)
-       @active_item = ''
+       @active_item = 'node'
       puts "controller for Node: Public::Show".red
 
       @node = NSNodeRepository.find params[:id]

@@ -3,6 +3,15 @@
     .document
       .row
         .col.left style = 'width: 30%;padding-left:2em; background-color:#444;'
+
+          span.plainlink.lightlink== standard_document_link(root_document, active_item2)
+          span.plainlink.lightlink== compiled_document_link(root_document, active_item2)
+          br
+          br
+          h4 Contents
+          .div == "<a href='http://nytimes.com'>New York Times</a>"
+          .div == toc
+
         .col.middle style = 'left: 30%; width: 70%; padding-bottom:6em;padding-top:2em;'
           h5== root_document.title
           == root_document.compiled_and_rendered_content

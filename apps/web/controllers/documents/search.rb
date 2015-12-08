@@ -7,7 +7,7 @@ module Web::Controllers::Documents
     expose :active_item
 
     def call(params)
-      @active_item = ''
+      @active_item = 'reader'
       search_key = params['search']['search']
       puts "SEARCH KEY = #{search_key}"
       @documents = DocumentRepository.root_document_by_title(search_key)

@@ -4,7 +4,7 @@ module Web::Controllers::Documents
   class Show
     include Web::Action
 
-    expose :document,  :active_item
+    expose :document,  :active_item, :active_item2
 
     def call(params)
 
@@ -12,6 +12,7 @@ module Web::Controllers::Documents
       query_string = request.query_string || ''
 
       @active_item = 'reader'
+      @active_item2 = 'standard'
       @document = DocumentRepository.find(document_id)
       session[:current_document_id] = document_id
 

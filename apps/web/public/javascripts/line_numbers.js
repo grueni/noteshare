@@ -106,6 +106,7 @@
                 var clientHeight 	= domTextArea.clientHeight;
                 codeLinesDiv.css( {'margin-top': (-1*scrollTop) + "px"} );
                 lineNo = fillOutLines( codeLinesDiv, scrollTop + clientHeight, lineNo );
+                console.log('line: ' + lineNo);
             });
 
 
@@ -124,3 +125,5 @@
         selectedClass: 'lineselect'
     };
 })(jQuery);
+
+

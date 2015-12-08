@@ -4,7 +4,7 @@ module Web::Controllers::Home
     expose :active_item
 
     def call(params)
-      @active_item = ''
+      @active_item = 'home'
       puts params.env.inspect
     end
   end

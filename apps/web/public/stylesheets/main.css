@@ -725,3 +725,22 @@ p.compact {
 
     text-decoration: underline;
 }
+
+.active_item2 {
+
+    font-weight: 900;
+    background-color: #666;
+    padding: 0.4em;
+}
+
+.item2 {
+
+    color: white;
+    padding: 0.4em;
+}
+
+.active_item2 > a {
+
+    text-decoration: underline;
+
+}
