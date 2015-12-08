@@ -1005,20 +1005,25 @@ class NSDocument
         #Fixme - memoize
         doc = DocumentRepository.find doc_id
 
-        item.id == active_id ?   option = :internal : option = :external
-        output << doc.internal_table_of_contents(option)
+        if doc
+
+          item.id == active_id ?   option = :internal : option = :external
+          output << doc.internal_table_of_contents(option)
 
 
-        # Fixme: need to make udpate_table_of_contents lazy
-        # Fixme: Updating the toc will need to be done elswhere - or big performance hit
-        # Fixme: pehaps call 'update_table_of_contents' in the update controller
-        doc = DocumentRepository.find item.id
-        # doc.update_table_of_contents
+          # Fixme: need to make udpate_table_of_contents lazy
+          # Fixme: Updating the toc will need to be done elswhere - or big performance hit
+          # Fixme: pehaps call 'update_table_of_contents' in the update controller
+          doc = DocumentRepository.find item.id
+          # doc.update_table_of_contents
 
-        if doc.table_of_contents.length > 0 and ancestral_ids.include? doc.id
-          #(doc.id == active_document.parent_id) or (doc.id == active_document.id)
-          output << "<ul>\n" << doc.master_table_of_contents(active_id, target) << "</ul>"
+          if doc.table_of_contents.length > 0 and ancestral_ids.include? doc.id
+            #(doc.id == active_document.parent_id) or (doc.id == active_document.id)
+            output << "<ul>\n" << doc.master_table_of_contents(active_id, target) << "</ul>"
+          end
         end
+
+        
 
       end
       output << "</ul>\n\n"
