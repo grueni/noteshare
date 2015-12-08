@@ -244,6 +244,15 @@ module UI
       image_link '/images/section_settings.png', "#", 'section settings'
     end
 
+    #####################################################
+    #
+    #   6. OTHER
+    #
+    #####################################################
+
+    def right_footer_text
+      "❤ Knowledge"
+    end
 
 
   end

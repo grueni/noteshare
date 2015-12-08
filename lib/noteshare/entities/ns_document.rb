@@ -1023,7 +1023,7 @@ class NSDocument
           end
         end
 
-        
+
 
       end
       output << "</ul>\n\n"
