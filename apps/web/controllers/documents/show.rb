@@ -13,7 +13,7 @@ module Web::Controllers::Documents
 
       @active_item = 'reader'
       @document = DocumentRepository.find(document_id)
-      session[:current_document_id] = @document.id
+      session[:current_document_id] = document_id
 
       if @document.is_root_document?
         @document.compile_with_render
