@@ -9,7 +9,7 @@ module Node::Controllers::User
 
     # Go to the node belonging to the user
     def call(params)
-      @active_item = ''
+      @active_item = 'node'
       user_id = params[:id]
       @current_node = NSNodeRepository.for_owner_id user_id
       if @current_node == nil

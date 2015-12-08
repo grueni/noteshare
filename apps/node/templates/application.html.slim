@@ -16,7 +16,7 @@ html
       .navbar_left_item
         == home_link
         | &nbsp; &nbsp;
-        == current_user_node_link(session)
+        == current_user_node_link(session, active_item)
         | &nbsp; &nbsp;
         == basic_search_form
       .navbar_middle_item

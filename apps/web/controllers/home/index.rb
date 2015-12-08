@@ -8,7 +8,7 @@ module Web::Controllers::Home
 
     def call(params)
 
-      @active_item = ''
+      @active_item = 'home'
       @settings = SettingsRepository.first
 
       @message = @settings.get_key('message')

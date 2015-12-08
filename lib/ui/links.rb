@@ -67,18 +67,25 @@ module UI
     #####################################################
 
 
-    def home_link
-      image_link('/images/earth.png', '/')
+    def home_link(active_item='')
+      if active_item == 'home'
+        image_link('/images/earth_red.png', '/')
+      else
+        image_link('/images/earth.png', '/')
+      end
     end
 
-    def current_user_node_link(session)
-      #Fixme: simplify
+    def current_user_node_link(session, active_item='')
       user = current_user(session)
+      puts "active_item = #{active_item}".red
       return '' if user == nil
-       #  node = NSNodeRepository.for_owner_id(user.id)
-      # return '' if node == nil
-      image_link('/images/home_white.png', "/node/user/#{user.id}")
+      if active_item == 'node'
+        image_link('/images/home_red.png', "/node/user/#{user.id}")
+      else
+        image_link('/images/home_white.png', "/node/user/#{user.id}")
+      end
     end
+
 
 
     #####################################################
@@ -260,4 +267,5 @@ module UI
     end
 
   end
+
 end
