@@ -154,3 +154,8 @@ http://elegantbrew.tumblr.com/post/36238889587/reading-minitest-wrap-up[Elegant 
 heroku pg:psql --app nslab DATABASE
 http://www.rubydoc.info/gems/asciidoctor/Asciidoctor/AbstractBlock#find_by-instance_method[Asciidoctor parser - sections]
 https://robots.thoughtbot.com/rspec-integration-tests-with-capybara[Integration testing with Capybara]
+// http://rectangleworld.com/blog/archives/15[Moving objects with Javascript]
+http://www.webreference.com/programming/javascript/mk/column2/index.html
+https://github.com/bevacqua/dragula#demo[Dragula]
+npm install dragula --save
+http://alan.blog-city.com/jquerylinedtextarea.htm[Jquery line numbers in textarea]
