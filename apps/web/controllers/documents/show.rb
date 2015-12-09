@@ -16,11 +16,7 @@ module Web::Controllers::Documents
       @document = DocumentRepository.find(document_id)
       session[:current_document_id] = document_id
 
-      if @document.is_root_document?
-        @document.compile_with_render
-      else
-        @document.update_content
-      end
+      @document.update_content
 
       if query_string != ''
         redirect_to "/document/#{document_id}\##{query_string}"
