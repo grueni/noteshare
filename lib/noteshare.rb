@@ -170,6 +170,8 @@ Lotus::Model.configure do
       attribute :sequence, Integer
       attribute :created_at, DateTime
       attribute :modified_at, DateTime, as: :updated_at
+      attribute :summary, String, as: :capsule
+      attribute :aside, String, as: :original_aside
 
     end
 

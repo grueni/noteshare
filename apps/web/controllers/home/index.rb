@@ -15,9 +15,9 @@ module Web::Controllers::Home
 
       node = NSNode.from_http(request)
       if node
-        redirect_to "/node/#{node.id}"
+        # redirect_to "/node/#{node.id}"
+        redirect_to "/node/user/#{node.owner_id}"
       end
-
     end
   end
 end
