@@ -32,6 +32,32 @@ test of three
 
 EOF
 
+    @input_3 = <<EOF
+== Introduction
+
+Common sayings, often regarded as
+unimportant, have a huge effect
+on human behavior.
+
+== Example
+
+Before presenting our theory of trans-cultural
+and trans-generational effects of common sayings,
+let us ocnsider
+
+=== Regret
+
+Don't cry over spilled milk
+
+=== Time
+
+A stitch in time saves nine
+
+== Theory
+
+In progress:-)
+EOF
+
     @expected_output_1 = <<EOF
 <ul class='inner_toc'>
   <li class='inner_toc'> <a href='#_one'> One</a></li>
@@ -73,6 +99,19 @@ EOF
       input = ":numbered:\n\n#{":numbered:\n\n" + @input_1}"
       output = Noteshare::AsciidoctorHelper.table_of_contents(input, [:root, :internal, :numbered])
       output.must_equal(@expected_output_2)
+
+    end
+
+    it 'can number the sections 2' do
+
+      input = ":numbered:\n\n#{":numbered:\n\n" + @input_3}"
+      output = Noteshare::AsciidoctorHelper.table_of_contents(input, [:root, :internal, :numbered])
+      puts
+      puts
+      puts output
+      puts
+      puts
+      output.must_equal('')
 
     end
 

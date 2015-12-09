@@ -53,7 +53,6 @@ module Noteshare
         sections[first_index..last_index].each do |section|
 
           @level = section.level
-          puts "#{@level}, #{@previous_level}: #{section.title} -- #{section.sectnum}".red
           if @level > @previous_level
             toc_string << "#{spacing(section,-1)}#{ul}" << "\n"
             stack.push('</ul>')
