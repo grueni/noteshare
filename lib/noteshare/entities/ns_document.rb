@@ -778,11 +778,17 @@ class NSDocument
   # Compile the receiver, render it, and store the
   # rendered text in self.compiled_and_rendered_content
   def compile_with_render(option={})
+    start = Time.now
+
     renderer = Render.new(self.compile, get_render_option )
     self.compiled_and_rendered_content = renderer.convert
     self.compiled_dirty = false
-    DocumentRepository.update(self)
+    value = DocumentRepository.update(self)
 
+    finish = Time.now
+    elapsed = finish - start
+    puts "compile_with_render: elapsed time = #{elapsed}".red
+    return value
   end
 
   def export
@@ -1036,15 +1042,25 @@ class NSDocument
 
   def internal_table_of_contents(hash = {options: [:root, :internal], doc_id: self.id } )
 
+    start = Time.now
+
     options = hash[:options]
 
     # puts "In internal_table_of_contents, options = #{options}".red
 
     if options.include? :root
-      Noteshare::AsciidoctorHelper.table_of_contents(self.compiled_content, hash )
+      result = Noteshare::AsciidoctorHelper.table_of_contents(self.compiled_content, hash )
+      # puts "Content length: #{self.compiled_content.length}".red
     else
-      Noteshare::AsciidoctorHelper.table_of_contents(self.content, hash )
+      result = Noteshare::AsciidoctorHelper.table_of_contents(self.content, hash )
+      # puts "Content length: #{self.compiled_content.length}".red
     end
+
+    finish = Time.now
+    elapsed = finish - start
+    puts "internal_table_of_contents: elapsed time = #{elapsed}".red
+
+    return result
 
   end
 

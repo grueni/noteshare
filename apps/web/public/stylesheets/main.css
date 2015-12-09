@@ -571,6 +571,7 @@ ul.toc {
 .inner_toc  ul {
 
     list-style: none;
+    margin-bottom:0;
 
 }
 
