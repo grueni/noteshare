@@ -17,9 +17,9 @@ module Editor::Controllers::Document
 
       @document = DocumentRepository.find(id)
       @document.update_content new_text
-      if @document.is_root_document?
-        @document.compile_with_render
-      end
+      # if @document.is_root_document?
+      #  @document.compile_with_render
+      # end
       @document.synchronize_title unless @document.dict_lookup('synchronize_title') == 'no'
 
       redirect_to "/editor/document/#{id}"

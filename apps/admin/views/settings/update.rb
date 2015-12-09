@@ -12,6 +12,8 @@ module Admin::Views::Settings
 
         submit 'Update message',  class: "green"
 
+        submit 'Cancel', class: 'green'
+
       end
 
 

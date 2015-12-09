@@ -17,7 +17,9 @@ module Editor::Views::Document
         hidden_field :document_id, style:'color:white;', value: params[:id]
 
         submit 'Update', {style: 'margin-top:1em;'}
-        # button_to 'Cancel', "/documents/#{params[:id]}"
+
+        submit 'Cancel', {style: 'margin-top:1em;'}
+
       end
     end
 

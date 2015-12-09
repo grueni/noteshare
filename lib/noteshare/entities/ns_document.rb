@@ -1037,7 +1037,7 @@ class NSDocument
 
   # option = :internal or :external
   def toc_entry(doc, section, option)
-    if option == :internal
+    if [:internal, :root].include? option
       "<a href='\##{section.id}'> #{section.title}</a>"
     else
       "<a href='/document/#{doc.id}?#{section.id}'> #{section.title}</a>"

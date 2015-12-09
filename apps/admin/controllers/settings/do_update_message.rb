@@ -11,7 +11,8 @@ module Admin::Controllers::Settings
       @settings.set_key('message', new_message)
       SettingsRepository.update @settings
 
-      self.body = 'OK'
+      #  self.body = 'OK'
+      redirect_to "/node/user/#{current_user(session).id}"
 
     end
   end

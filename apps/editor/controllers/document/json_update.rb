@@ -11,6 +11,8 @@ module Editor::Controllers::Document
       @document.content_dirty = true
       @document.update_content params['source']
       @document.synchronize_title unless @document.dict_lookup('synchronize_title') == 'no'
+      self.body = @document.rendered_content
+=begin
       if @document.is_root_document?
         if @document.toc == []
           puts "making:endered_content (R)".magenta
@@ -23,6 +25,7 @@ module Editor::Controllers::Document
         puts "making:endered_content".red
         self.body = @document.rendered_content
       end
+=end
     end
 
 

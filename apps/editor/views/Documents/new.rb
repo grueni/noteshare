@@ -14,6 +14,8 @@ module Editor::Views::Documents
         hidden_field :parent_id, value: params[:id]
 
         submit 'Create', {style: 'margin-top:1em;'}
+
+        submit 'Cancel', {style: 'margin-top:1em;'}
         # button_to 'Cancel', "/documents/#{params[:id]}" 
       end
     end

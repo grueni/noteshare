@@ -121,12 +121,17 @@ module UI
       link_to document.title, "/document/#{document.id}"
     end
 
+
     def compiled_document_link(document, active_item2='')
       if active_item2 == 'compiled'
         return link_to 'Compiled', "/compiled/#{document.id}", class: 'active_item2'
       else
         return  link_to 'Compiled', "/compiled/#{document.id}", class: 'item2'
       end
+    end
+
+    def iconic_compiled_document_link(document)
+      image_link('/images/books8.png', "/compiled/#{document.id}")
     end
 
     def standard_document_link(document, active_item2='')
@@ -138,7 +143,6 @@ module UI
     end
 
     def documents_link(active_item='')
-      # link_to 'Documents', '/documents'
       if active_item == 'documents'
         return link_to 'Documents', "/documents", class: 'active_item'
       else

@@ -14,8 +14,11 @@
         .span
           input type="radio" name="radio" id="select_tool_panel" class="radio"
           label for="select_tool_panel" Tools
+
     .div style='position:absolute; top:50px; left:20px;' id='toc_panel'
-      p.plainlink.lightlink style = 'font-size:larger; padding-top:0.4em;margin-bottom:0;' == document.root_link(prefix: '/editor')
+      p.plainlink.lightlink style = 'font-size:larger; padding-top:0.4em;margin-bottom:0;'
+       == iconic_compiled_document_link(document)
+       span style='margin-left:1em;' == document.root_link(prefix: '/editor')
       /p style = 'margin-top:0.05em;' == "by #{document.author}"
 
       .toc.plainlink.lightlink == document.root_associated_document_map('editor')
@@ -28,8 +31,5 @@
     == form
 
   .col.rendered id='rendered_content'  style='margin-top:-40px;'
-    - if document.is_root_document?
-      == document.compiled_and_rendered_content
-    - else
       == document.rendered_content
 

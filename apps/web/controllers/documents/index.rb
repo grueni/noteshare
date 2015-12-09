@@ -8,8 +8,8 @@
     def call(params)
 
       # @documents = DocumentRepository.root_documents.sort_by { |item| item.title }
-      @documents = DocumentRepository.all
-      @active_item = 'reader'
+      @documents = DocumentRepository.root_documents
+      @active_item = 'documents'
       puts "COUNT: #{@documents.count}".magenta
       puts "ROOT DOCUMENTS: #{@documents.count}".red
     end
