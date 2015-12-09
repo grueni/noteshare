@@ -36,6 +36,11 @@ class User
 
   end
 
+  def change_password(new_password)
+    self.password = BCrypt::Password.create(new_password)
+    UserRepository.update self
+  end
+
 
   def delete_node
     node = NSNodeRepository.find node_id
