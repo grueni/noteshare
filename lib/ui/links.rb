@@ -69,9 +69,9 @@ module UI
 
     def home_link(active_item='')
       if active_item == 'home'
-        image_link('/images/earth_red.png', '/')
+        image_link('/images/earth_green.png', '/')
       else
-        image_link('/images/earth.png', '/')
+        image_link('/images/earth_white.png', '/')
       end
     end
 
@@ -80,7 +80,7 @@ module UI
       puts "active_item = #{active_item}".red
       return '' if user == nil
       if active_item == 'node'
-        image_link('/images/home_red.png', "/node/user/#{user.id}")
+        image_link('/images/home_green.png', "/node/user/#{user.id}")
       else
         image_link('/images/home_white.png', "/node/user/#{user.id}")
       end

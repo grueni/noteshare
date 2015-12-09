@@ -18,7 +18,7 @@ module Editor::Views::Document
         hidden_field :parent_id, value: params[:id]
 
         submit 'Create'
-        
+
       end
     end
 
