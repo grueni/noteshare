@@ -572,6 +572,7 @@ ul.toc {
 
     list-style: none;
     margin-bottom:0;
+    padding-left:1em;
 
 }
 
@@ -588,7 +589,7 @@ ul.toc {
 .inner_toc > li a {
 
     color: white;
-    text_decoration: none;
+    text-decoration: none;
 }
 
 
