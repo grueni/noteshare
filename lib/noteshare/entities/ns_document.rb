@@ -3,6 +3,7 @@ require_relative '../../../lib/noteshare/modules/tools'
 require_relative '../modules/toc_item'
 require_relative '../../../lib/acl'
 require_relative '../modules/groups'
+require_relative '../../../lib/noteshare/modules/asciidoctor_helpers'
 
 
 # require_relative '../modules/render'
@@ -85,6 +86,7 @@ class NSDocument
   include Noteshare::Tools
   include Noteshare
   include Noteshare::Groups
+  include Noteshare::AsciidoctorHelper
 
 
   # When initializing an NSDocument, ensure that certain fields
@@ -1008,7 +1010,7 @@ class NSDocument
         if doc
 
           item.id == active_id ?   item_option = :internal : item_option = :external
-          output << doc.internal_table_of_contents(item_option)
+          output << doc.internal_table_of_contents({options: [item_option], doc_id: doc.id } )
 
 
           # Fixme: need to make udpate_table_of_contents lazy
@@ -1031,63 +1033,19 @@ class NSDocument
     output
   end
 
-  def spacing(section, offset=0)
-    "  "*(section.level + offset)
-  end
 
-  # option = :internal or :external
-  def toc_entry(doc, section, option)
-    if [:internal, :root].include? option
-      "<a href='\##{section.id}'> #{section.title}</a>"
+  def internal_table_of_contents(hash = {options: [:root, :internal], doc_id: self.id } )
+
+    options = hash[:options]
+
+    # puts "In internal_table_of_contents, options = #{options}".red
+
+    if options.include? :root
+      Noteshare::AsciidoctorHelper.table_of_contents(self.compiled_content, hash )
     else
-      "<a href='/document/#{doc.id}?#{section.id}'> #{section.title}</a>"
-    end
-  end
-
-
-
-
-  def internal_table_of_contents(option = :internal)
-
-    if option == :root
-      doc = Asciidoctor.load self.compiled_content, {sourcemap: true}
-      puts "ROOT CONTENT LOADED FOR #{self.title}".red
-      puts "COMPILED CONTENT: #{self.title}".cyan
-    else
-      doc = Asciidoctor.load self.content, {sourcemap: true}
+      Noteshare::AsciidoctorHelper.table_of_contents(self.content, hash )
     end
 
-    @level = 0
-    @previous_level = 0
-    ul = "<ul class='inner_toc'>"
-    li = "<li class='inner_toc'>"
-
-    sections = doc.find_by context: :section
-
-    toc_string = ''
-    stack = []
-    option == :root ? first_index = 0 : first_index = 1
-    if sections
-      sections[first_index..sections.length-1].each do |section|
-        @level = section.level
-        puts "#{@level}, #{@previous_level}: #{section.title}".red
-        if @level > @previous_level
-          toc_string << "#{spacing(section,-1)}#{ul}" << "\n"
-          stack.push('</ul>')
-        end
-        toc_string << "#{spacing(section)}#{li} #{toc_entry(self, section, option)}" << "</li>\n"
-        if @level < @previous_level
-          token = stack.pop
-          toc_string << "#{spacing(section,-1)}#{token}" << "\n"
-        end
-        @previous_level = @level
-      end
-      while stack.count > 0
-        token = stack.pop
-        toc_string << token << "\n"
-      end
-    end
-    toc_string
   end
 
 

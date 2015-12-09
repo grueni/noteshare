@@ -89,7 +89,7 @@ EOF
 
     it 'can parse asciidoctor text and produce a table of contents as HTML' do
 
-      output = Noteshare::AsciidoctorHelper.table_of_contents(@input_1, [:root, :internal])
+      output = Noteshare::AsciidoctorHelper.table_of_contents(@input_1, {options: [:root, :internal]})
       output.must_equal(@expected_output_1)
 
     end
@@ -97,23 +97,11 @@ EOF
     it 'can number the sections' do
 
       input = ":numbered:\n\n#{":numbered:\n\n" + @input_1}"
-      output = Noteshare::AsciidoctorHelper.table_of_contents(input, [:root, :internal, :numbered])
+      output = Noteshare::AsciidoctorHelper.table_of_contents(input, {options: [:root, :internal, :numbered]})
       output.must_equal(@expected_output_2)
 
     end
 
-    it 'can number the sections 2' do
-
-      input = ":numbered:\n\n#{":numbered:\n\n" + @input_3}"
-      output = Noteshare::AsciidoctorHelper.table_of_contents(input, [:root, :internal, :numbered])
-      puts
-      puts
-      puts output
-      puts
-      puts
-      output.must_equal('')
-
-    end
 
   end
 

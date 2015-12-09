@@ -18,7 +18,7 @@ module Web::Controllers::Documents
       @root_document.compiled_content = @root_document.compile
       puts "@root_document.compiled_content: #{@root_document.compiled_content}".cyan
       DocumentRepository.update @root_document
-      @toc = @root_document.internal_table_of_contents(:root)
+      @toc = @root_document.internal_table_of_contents(hash = {options: [:root, :internal] } )
     end
 
   end

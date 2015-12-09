@@ -16,25 +16,31 @@ module Noteshare
     # three lines of the input text.)
 
 
-  def spacing(section, offset=0)
+  def self.spacing(section, offset=0)
       "  "*(section.level + offset)
     end
 
-    def toc_entry(doc, section, options)
+    def self.toc_entry(section, hash )
 
+      options = hash[:options]
+      doc_id = hash[:doc_id]
       options.include?(:numbered) ? prefix = "#{section.sectnum} " : prefix = ''
 
       if options.include? :internal
         "<a href='\##{section.id}'> #{prefix}#{section.title}</a>"
+      elsif options.include? :external
+        # used by noteshare
+        "<a href='/document/#{doc_id}?#{section.id}'> #{prefix}#{section.title}</a>"
       else
-        "<a href='/document/#{doc.id}?#{section.id}'> #{prefix}#{section.title}</a>"
+        "<a href='\##{section.id}'> #{prefix}#{section.title}</a>"
       end
 
     end
 
-    def table_of_contents(text, options = [:root, :internal])
+    def self.table_of_contents(text, hash = { options: [:root, :internal],  doc_id: 0 })
 
-      doc = Asciidoctor.load text, {sourcemap: true, numbered: true}
+      options = hash[:options]
+      doc = Asciidoctor.load text, {sourcemap: true}
 
       @level = 0
       @previous_level = 0
@@ -47,26 +53,31 @@ module Noteshare
       toc_string = ''
       stack = []
       options.include?(:root) ? first_index = 0 : first_index = 1
-      last_index = sections.length-1
 
       if sections
+        last_index = sections.length-1
         sections[first_index..last_index].each do |section|
 
           @level = section.level
           if @level > @previous_level
-            toc_string << "#{spacing(section,-1)}#{ul}" << "\n"
-            stack.push('</ul>')
+            n = @level - @previous_level
+            n.times do
+              toc_string << "#{self.spacing(section,-1)}#{ul}" << "\n"
+              stack.push('</ul>')
+            end
           elsif @level < @previous_level
-            token = stack.pop
-            toc_string << "#{spacing(section,0)}#{token}" << "\n"
+            n = @previous_level - @level
+            n.times do
+              token = stack.pop
+              toc_string << "#{self.spacing(section,0)}#{token}" << "\n"
+            end
           end
-          toc_string << "#{spacing(section)}#{li} #{toc_entry(self, section, options)}" << "</li>\n"
+          toc_string << "#{self.spacing(section)}#{li} #{self.toc_entry(section, hash)}" << "</li>\n"
           @previous_level = @level
         end
 
         while stack.count > 0
           token = stack.pop
-          puts "stack.count: #{stack.count}".red
           toc_string << "  "*stack.count << token << "\n"
         end
 
