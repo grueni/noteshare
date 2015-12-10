@@ -22,11 +22,6 @@ module UI
     #
     #####################################################
 
-
-    def image_link2(image, link)
-      "<a href='#{link}'><img src='images/#{image}'></a>"
-    end
-
     def image_link(image_path, url, title='')
       link_to html.img(src: image_path, title: title), url
     end

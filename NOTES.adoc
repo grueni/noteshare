@@ -159,3 +159,8 @@ http://www.webreference.com/programming/javascript/mk/column2/index.html
 https://github.com/bevacqua/dragula#demo[Dragula]
 npm install dragula --save
 http://alan.blog-city.com/jquerylinedtextarea.htm[Jquery line numbers in textarea]
+http://climber2002.github.io/blog/2015/03/29/customize-devise-to-support-subdomain-authentication/[warden, multitenancy]
+https://gorails.com/forum/structure-guidance-multi-tenancy-authentication-authorization[Multi tenancy authentication]
+http://stackoverflow.com/questions/10402777/share-session-cookies-between-subdomains-in-rails[share session cookies among subdomains] -- IMPORTANT
+http://pothibo.com/2013/07/authentication-with-warden-devise-less/[Good Warden guide]
+https://github.com/radar/guides/tree/master/warden[Good article on Warden]
