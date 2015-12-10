@@ -964,6 +964,55 @@ class NSDocument
     end
   end
 
+
+
+  def toc_item(item, target)
+
+    doc_id = item.id
+    doc_title = item.title
+
+    if target == 'editor'
+      doc_link = "href='/editor/document/#{doc_id}'>#{doc_title}</a>"
+    else
+      doc_link = "href='/document/#{doc_id}'>#{doc_title}</a>"
+    end
+    class_str = "class = '"
+
+    if item.has_subdocs
+      if ancestral_ids.include? item.id
+        class_str << 'subdocs-open '
+      else
+        class_str << 'subdocs-yes '
+      end
+    else
+      class_str << 'subdocs-no '
+    end
+
+    doc_id == active_id ? class_str << 'active' : class_str << 'inactive'
+
+    "<li #{class_str} '><a #{doc_link}</a>\n"
+  end
+
+  def dive(item, output, ancestral_ids)
+    item.id == active_id ?   item_option = :internal : item_option = :external
+    item_option = :inactive if target == 'editor'
+    output << doc.internal_table_of_contents({options: [item_option], doc_id: doc.id } )
+
+
+    # Fixme: need to make udpate_table_of_contents lazy
+    # Fixme: Updating the toc will need to be done elswhere - or big performance hit
+    # Fixme: pehaps call 'update_table_of_contents' in the update controller
+    doc = DocumentRepository.find item.id
+    # doc.update_table_of_contents
+
+    return if doc == nil
+
+    if doc.table_of_contents.length > 0 and ancestral_ids.include? doc.id
+      #(doc.id == active_document.parent_id) or (doc.id == active_document.id)
+      output << "<ul>\n" << doc.master_table_of_contents(active_id, target) << "</ul>"
+    end
+  end
+
   # If active_id matches the id of an item
   # in the table of contents, that item is
   # marked with the css 'active'.  Otherwise
@@ -972,72 +1021,25 @@ class NSDocument
   # viewed can be highlighted.``
   #
   def master_table_of_contents(active_id, target='reader')
-    puts "ENTER: master_table_of_contents".magenta
-    #  self.update_table_of_contents(force: true) if toc_is_dirty
 
     if toc.length == 0
-      output = ''
-    else
-
-      active_document = DocumentRepository.find(active_id) if active_id > 0
-      # Gett "long" ancestor chain: ancestors plust the given active id:
-      ancestral_ids = active_document.ancestor_ids << active_document.id
-      target == 'editor'? output = "<ul class='toc2'>\n" : output = "<ul class='toc'>\n"
-
-      self.table_of_contents.each do |item|
-
-        # Compute list item:
-        doc_id = item.id
-        doc_title = item.title
-        if target == 'editor'
-          doc_link = "href='/editor/document/#{doc_id}'>#{doc_title}</a>"
-        else
-          doc_link = "href='/document/#{doc_id}'>#{doc_title}</a>"
-        end
-        class_str = "class = '"
-
-        if item.has_subdocs
-          if ancestral_ids.include? item.id
-            class_str << 'subdocs-open '
-          else
-            class_str << 'subdocs-yes '
-          end
-        else
-          class_str << 'subdocs-no '
-        end
-
-        doc_id == active_id ? class_str << 'active' : class_str << 'inactive'
-
-        output << "<li #{class_str} '><a #{doc_link}</a>\n"
-
-        #Fixme - memoize
-        doc = DocumentRepository.find doc_id
-
-        if doc
-
-          item.id == active_id ?   item_option = :internal : item_option = :external
-          item_option = :inactive if target == 'editor'
-          output << doc.internal_table_of_contents({options: [item_option], doc_id: doc.id } )
-
-
-          # Fixme: need to make udpate_table_of_contents lazy
-          # Fixme: Updating the toc will need to be done elswhere - or big performance hit
-          # Fixme: pehaps call 'update_table_of_contents' in the update controller
-          doc = DocumentRepository.find item.id
-          # doc.update_table_of_contents
-
-          if doc.table_of_contents.length > 0 and ancestral_ids.include? doc.id
-            #(doc.id == active_document.parent_id) or (doc.id == active_document.id)
-            output << "<ul>\n" << doc.master_table_of_contents(active_id, target) << "</ul>"
-          end
-        end
-
-
-
-      end
-      output << "</ul>\n\n"
+      return ''
     end
-    output
+
+    active_document = DocumentRepository.find(active_id) if active_id > 0
+    # Get "long" ancestor chain: ancestors plus the given active id:
+    ancestral_ids = active_document.ancestor_ids << active_document.id
+    target == 'editor'? output = "<ul class='toc2'>\n" : output = "<ul class='toc'>\n"
+
+    self.table_of_contents.each do |item|
+
+      output << toc_item(item, target)
+      dive(item, output, ancestral_ids)
+
+    end
+
+    output << "</ul>\n\n"
+
   end
 
 
