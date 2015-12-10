@@ -562,6 +562,13 @@ ul.toc {
     text-decoration: none;
 }
 
+.toc2 .null > a {
+
+    color: #ccc;
+    text-decoration: none;
+}
+
+
 .toc2 a {
 
     text_decoration: none;

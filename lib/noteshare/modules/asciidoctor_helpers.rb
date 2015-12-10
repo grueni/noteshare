@@ -21,6 +21,7 @@ module Noteshare
     end
 
     def self.toc_entry(section, hash )
+      puts "#{section.level}: #{section.title}".red
 
       options = hash[:options]
       doc_id = hash[:doc_id]
@@ -31,6 +32,9 @@ module Noteshare
       elsif options.include? :external
         # used by noteshare
         "<a href='/document/#{doc_id}?#{section.id}'> #{prefix}#{section.title}</a>"
+      elsif options.include? :inactive
+        # used by noteshare
+        "<a href='#'> #{prefix}#{section.title}</a>"
       else
         "<a href='\##{section.id}'> #{prefix}#{section.title}</a>"
       end
@@ -41,12 +45,18 @@ module Noteshare
 
       options = hash[:options]
       doc = Asciidoctor.load text, {sourcemap: true}
+      doc_id = hash[:doc_id]
 
       @level = 0
       @previous_level = 0
 
-      ul = "<ul class='inner_toc'>"
-      li = "<li class='inner_toc'>"
+      if options.include? :inactive
+        ul = "<ul class='inner_toc null'>"
+        li = "<li class='inner_toc null'>"
+      else
+        ul = "<ul class='inner_toc'>"
+        li = "<li class='inner_toc'>"
+      end
 
       sections = doc.find_by context: :section
 
@@ -72,7 +82,14 @@ module Noteshare
               toc_string << "#{self.spacing(section,0)}#{token}" << "\n"
             end
           end
-          toc_string << "#{self.spacing(section)}#{li} #{self.toc_entry(section, hash)}" << "</li>\n"
+
+          if section.level == 0
+            toc_string << "<h5><a href='/compiled/#{doc_id}'>#{section.title}</a></h5>" << "\n"
+            puts "section level 0, title = #{section.title}, id = #{doc_id}".magenta
+          else
+            toc_string << "#{self.spacing(section)}#{li} #{self.toc_entry(section, hash)}" << "</li>\n"
+          end
+
           @previous_level = @level
         end
 

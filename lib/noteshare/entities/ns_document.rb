@@ -1016,6 +1016,7 @@ class NSDocument
         if doc
 
           item.id == active_id ?   item_option = :internal : item_option = :external
+          item_option = :inactive if target == 'editor'
           output << doc.internal_table_of_contents({options: [item_option], doc_id: doc.id } )
 
 

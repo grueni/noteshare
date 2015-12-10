@@ -82,6 +82,46 @@ EOF
 </ul>
 EOF
 
+    @expected_output_null_ref = <<EOF
+<ul class='inner_toc null'>
+  <li class='inner_toc null'> <a href='#'> 1. One</a></li>
+  <li class='inner_toc null'> <a href='#'> 2. Two</a></li>
+  <ul class='inner_toc null'>
+    <li class='inner_toc null'> <a href='#'> 2.1. Two.One</a></li>
+    <li class='inner_toc null'> <a href='#'> 2.2. Two.Two</a></li>
+  </ul>
+  <li class='inner_toc null'> <a href='#'> 3. Three</a></li>
+</ul>
+EOF
+
+    @book = <<EOF
+
+
+= A Treatise on Common Sayings
+:numbered:
+
+== One
+
+test of one
+
+== Two
+
+test of two
+
+=== Two.One
+
+test of subsection Two.One
+
+=== Two.Two
+
+test of subsection Two.Two
+
+== Three
+
+test of three
+
+
+EOF
 
   end
 
@@ -99,6 +139,23 @@ EOF
       input = ":numbered:\n\n#{":numbered:\n\n" + @input_1}"
       output = Noteshare::AsciidoctorHelper.table_of_contents(input, {options: [:root, :internal, :numbered]})
       output.must_equal(@expected_output_2)
+
+    end
+
+    it 'can produce a table of contents with inactive references' do
+
+      input = ":numbered:\n\n#{":numbered:\n\n" + @input_1}"
+      output = Noteshare::AsciidoctorHelper.table_of_contents(input, {options: [:root, :inactive, :numbered]})
+      output.must_equal(@expected_output_null_ref)
+
+    end
+
+    it 'can produce a table of contents for a book' do
+
+      input = @book
+      output = Noteshare::AsciidoctorHelper.table_of_contents(input, {options: [:root, :internal]})
+      puts output.cyan
+      output.must_equal('')
 
     end
 
