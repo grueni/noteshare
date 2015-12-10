@@ -976,6 +976,7 @@ class NSDocument
     else
       doc_link = "href='/document/#{doc_id}'>#{doc_title}</a>"
     end
+
     class_str = "class = '"
 
     if item.has_subdocs
@@ -1001,10 +1002,7 @@ class NSDocument
 
     output << doc.internal_table_of_contents({options: [item_option], doc_id: doc.id } )
 
-    # Fixme: need to make udpate_table_of_contents lazy
-    # Fixme: Updating the toc will need to be done elswhere - or big performance hit
-    # Fixme: pehaps call 'update_table_of_contents' in the update controller
-    # doc.update_table_of_contents
+    # Fixme: memoize, make lazy what we can.
 
     return if doc == nil
 
@@ -1050,14 +1048,10 @@ class NSDocument
 
     options = hash[:options]
 
-    # puts "In internal_table_of_contents, options = #{options}".red
-
     if options.include? :root
       result = Noteshare::AsciidoctorHelper.table_of_contents(self.compiled_content, hash )
-      # puts "Content length: #{self.compiled_content.length}".red
     else
       result = Noteshare::AsciidoctorHelper.table_of_contents(self.content, hash )
-      # puts "Content length: #{self.compiled_content.length}".red
     end
 
     finish = Time.now
