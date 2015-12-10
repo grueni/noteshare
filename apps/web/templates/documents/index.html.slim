@@ -11,5 +11,5 @@
             tbody
               - documents.each do |document|
                 tr.clear_style
-                  td.lightlink == document.link
+                  td.lightlink == compiled_root_document_link document
                   td== document.author

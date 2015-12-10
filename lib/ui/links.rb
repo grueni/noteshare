@@ -136,13 +136,11 @@ module UI
     end
 
     def iconic_compiled_document_link(document)
-      session['document_view_mode'] = 'compiled'
       image_link('/images/books8.png', "/compiled/#{document.id}")
     end
 
     def standard_document_link(document, active_item2='')
       if active_item2 == 'standard'
-        session['document_view_mode'] = 'standard'
         return link_to 'Chunked', "/document/#{document.id}", class: 'active_item2'
       else
         return  link_to 'Chunked', "/document/#{document.id}", class: 'item2'
@@ -151,12 +149,12 @@ module UI
 
     def documents_link(active_item='')
       if active_item == 'documents'
-        session['document_view_mode'] = 'compiled'
         return link_to 'Documents', "/documents", class: 'active_item'
       else
         return  link_to 'Documents', "/documents"
       end
     end
+
 
 
     def reader_link(session, active_item='')
