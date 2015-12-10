@@ -2,9 +2,16 @@
   .div id='source_text_data' data-source-text="#{document.content}"
   button id='update_source_button' class='green' style='position: absolute; bottom:4px; left:40px;z-index:100;'   Update
   /== render partial: 'document/edit_pane', locals: {}
-  .col.tools style='background-color:#444; color: white; margin-top:-40px;'
+
+
+.row style='top:40px;left:0; height:45px;width:100%; background-color: #333; color: red;margin-top:-20px;'
+  == render partial: 'document/tool_bar', locals: { }
+
+
+.row style='top:80px;'
+  .col.tools style='top:80px; background-color:#444; color: white; margin-top:-40px;'
     - if document.doc_refs
-    .div
+    /.div
       form name='edit_panel_selector'
       .div style='position:absolute; top:20px; left:20px;'
         .span
@@ -15,7 +22,8 @@
           input type="radio" name="radio" id="select_tool_panel" class="radio"
           label for="select_tool_panel" Tools
 
-    .div style='position:absolute; top:50px; left:20px;' id='toc_panel'
+
+    .div style='position:absolute; top:20px; left:20px;' id='toc_panel'
       p.plainlink.lightlink style = 'font-size:larger; padding-top:0.4em;margin-bottom:0;'
        == iconic_compiled_document_link(document)
        span style='margin-left:1em;' == document.root_link(prefix: '/editor')
@@ -24,12 +32,16 @@
       .toc.plainlink.lightlink == document.root_associated_document_map('editor')
       .toc
         == document.root_table_of_contents(document.id, 'editor')
-    .div style='position:absolute; top:50px; left:20px;' id='tools_panel'
+
+
+    /.div style='position:absolute; top:50px; left:20px;' id='tools_panel'
       .toc
         == render partial: 'document/tool_panel', locals: { }
-  .col.source style='margin-top:-40px;'
+
+
+  .col.source style='top:80px; margin-top:-40px;'
     == form
 
-  .col.rendered id='rendered_content'  style='margin-top:-40px;'
+  .col.rendered id='rendered_content'  style='top:80px; margin-top:-40px;'
       == document.rendered_content
 
