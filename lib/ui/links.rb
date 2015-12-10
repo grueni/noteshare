@@ -64,20 +64,19 @@ module UI
 
     def home_link(active_item='')
       if active_item == 'home'
-        image_link('/images/earth_green.png', '/')
+        link_to html.img(src: '/images/earth_green.png', title: 'system home', style: 'margin-top:-4px'), '/'
       else
-        image_link('/images/earth_white.png', '/')
+        link_to html.img(src: '/images/earth_white.png', title: 'system home', style: 'margin-top:-4px'), '/'
       end
     end
 
     def current_user_node_link(session, active_item='')
       user = current_user(session)
-      puts "active_item = #{active_item}".red
       return '' if user == nil
       if active_item == 'node'
-        image_link('/images/home_green.png', "/node/user/#{user.id}")
+        link_to html.img(src: '/images/home_green.png', title: 'user home', style: 'margin-top:-4px'), "/node/user/#{user.id}"
       else
-        image_link('/images/home_white.png', "/node/user/#{user.id}")
+        link_to html.img(src: '/images/home_white.png', title: 'user home', style: 'margin-top:-4px'), "/node/user/#{user.id}"
       end
     end
 
