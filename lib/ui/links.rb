@@ -172,7 +172,7 @@ module UI
 
     def share_document_link(document)
       #  html.tag(:a, 'Share', href: '#')
-      image_link('/images/share.png', '#', 'share document')
+      image_link('/images/share.png', '#', 'share document #')
     end
 
 
@@ -185,7 +185,7 @@ module UI
 
     def export_link(document)
       # link_to 'Export', "/editor/export/#{document.id}"
-      image_link '/images/export.png', "/editor/export/#{document.id}"
+      image_link '/images/export.png', "/editor/export/#{document.id}", "export document #"
     end
 
     def editor_link(session, active_item='')
@@ -213,7 +213,7 @@ module UI
 
     def new_associated_document_link(document)
       #   html.tag(:a, 'New section', href: "/editor/new_section/#{document.id}")
-      image_link '/images/site.png', "/editor/new_associated_document/#{document.id}", 'new section'
+      image_link '/images/site.png', "/editor/new_associated_document/#{document.id}", 'new associated document'
     end
 
 
@@ -224,25 +224,25 @@ module UI
 
     def delete_section_link(document)
       # html.tag(:a, 'Delete section', href: '#')
-      image_link('/images/delete_section.png', "#", 'delete section')
+      image_link('/images/delete_section.png', "#", 'delete section #')
     end
 
     def publish_document_link(document)
-      image_link('/images/publish_document.png', "#", 'publish document')
+      image_link('/images/publish_document.png', "#", 'publish document #')
     end
 
     def publish_section_link(document)
-      image_link('/images/publish_section.png', "#", 'publish section')
+      image_link('/images/publish_section.png', "#", 'publish section #')
     end
 
     def check_in_out_link(document)
       # html.tag(:a, 'Check in/out', href: '#')
-      image_link('/images/check_in_out.png', '#', 'check document out')
+      image_link('/images/check_in_out.png', '#', 'check document out #')
     end
 
 
     def edit_toc_link(document)
-      image_link('/images/edit_toc.png', '#', 'rearrange table of contents')
+      image_link('/images/edit_toc.png', '#', 'rearrange table of contents #')
     end
 
 
@@ -276,7 +276,7 @@ module UI
 
     def section_settings_link(document)
       # link_to "Settings", "/editor/document/options/#{document.id}"
-      image_link '/images/section_settings.png', "#", 'section settings'
+      image_link '/images/section_settings.png', "#", 'section settings #'
     end
 
     #####################################################
