@@ -164,3 +164,4 @@ https://gorails.com/forum/structure-guidance-multi-tenancy-authentication-author
 http://stackoverflow.com/questions/10402777/share-session-cookies-between-subdomains-in-rails[share session cookies among subdomains] -- IMPORTANT
 http://pothibo.com/2013/07/authentication-with-warden-devise-less/[Good Warden guide]
 https://github.com/radar/guides/tree/master/warden[Good article on Warden]
+https://basecamp.com/open-source[Basecamp open source]
