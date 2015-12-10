@@ -994,15 +994,16 @@ class NSDocument
   end
 
   def dive(item, active_id,  ancestral_ids, target, output)
+
     item.id == active_id ?   item_option = :internal : item_option = :external
     item_option = :inactive if target == 'editor'
-    output << doc.internal_table_of_contents({options: [item_option], doc_id: doc.id } )
+    doc = DocumentRepository.find item.id
 
+    output << doc.internal_table_of_contents({options: [item_option], doc_id: doc.id } )
 
     # Fixme: need to make udpate_table_of_contents lazy
     # Fixme: Updating the toc will need to be done elswhere - or big performance hit
     # Fixme: pehaps call 'update_table_of_contents' in the update controller
-    doc = DocumentRepository.find item.id
     # doc.update_table_of_contents
 
     return if doc == nil
