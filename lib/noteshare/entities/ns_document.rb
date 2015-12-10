@@ -966,7 +966,7 @@ class NSDocument
 
 
 
-  def toc_item(item, target)
+  def toc_item(item, active_id, ancestral_ids, target)
 
     doc_id = item.id
     doc_title = item.title
@@ -993,7 +993,7 @@ class NSDocument
     "<li #{class_str} '><a #{doc_link}</a>\n"
   end
 
-  def dive(item, output, ancestral_ids)
+  def dive(item, active_id,  ancestral_ids, output)
     item.id == active_id ?   item_option = :internal : item_option = :external
     item_option = :inactive if target == 'editor'
     output << doc.internal_table_of_contents({options: [item_option], doc_id: doc.id } )
@@ -1033,8 +1033,8 @@ class NSDocument
 
     self.table_of_contents.each do |item|
 
-      output << toc_item(item, target)
-      dive(item, output, ancestral_ids)
+      output << toc_item(item, active_id, ancestral_ids, target)
+      dive(item, active_id,  ancestral_ids, output)
 
     end
 
