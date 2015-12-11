@@ -1048,11 +1048,10 @@ class NSDocument
 
     options = hash[:options]
 
-    if options.include? :root
-      result = Noteshare::AsciidoctorHelper.table_of_contents(self.compiled_content, hash )
-    else
-      result = Noteshare::AsciidoctorHelper.table_of_contents(self.content, hash )
-    end
+    (options.include? :root) ? source = self.compiled_content : source = self.content
+
+    toc =  Noteshare::AsciidoctorHelper::TableOfContents.new(source, hash)
+    result = toc.table_of_contents
 
     finish = Time.now
     elapsed = finish - start

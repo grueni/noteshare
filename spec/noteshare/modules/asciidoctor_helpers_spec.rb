@@ -129,36 +129,26 @@ EOF
 
     it 'can parse asciidoctor text and produce a table of contents as HTML' do
 
-      output = Noteshare::AsciidoctorHelper.table_of_contents(@input_1, {options: [:root, :internal]})
-      output.must_equal(@expected_output_1)
+      toc =  Noteshare::AsciidoctorHelper::TableOfContents.new(@input_1, {options: [:root, :internal]})
+      toc.table_of_contents.must_equal(@expected_output_1)
 
     end
 
     it 'can number the sections' do
 
       input = ":numbered:\n\n#{":numbered:\n\n" + @input_1}"
-      output = Noteshare::AsciidoctorHelper.table_of_contents(input, {options: [:root, :internal, :numbered]})
-      output.must_equal(@expected_output_2)
+      toc =   Noteshare::AsciidoctorHelper::TableOfContents.new(input, {options: [:root, :internal, :numbered]})
+      toc.table_of_contents.must_equal(@expected_output_2)
 
     end
 
     it 'can produce a table of contents with inactive references' do
 
       input = ":numbered:\n\n#{":numbered:\n\n" + @input_1}"
-      output = Noteshare::AsciidoctorHelper.table_of_contents(input, {options: [:root, :inactive, :numbered]})
-      output.must_equal(@expected_output_null_ref)
+        toc =   Noteshare::AsciidoctorHelper::TableOfContents.new(input, {options: [:root, :inactive, :numbered]})
+      toc.table_of_contents.must_equal(@expected_output_null_ref)
 
     end
-
-    it 'can produce a table of contents for a book' do
-
-      input = @book
-      output = Noteshare::AsciidoctorHelper.table_of_contents(input, {options: [:root, :internal]})
-      puts output.cyan
-      output.must_equal('')
-
-    end
-
 
   end
 
