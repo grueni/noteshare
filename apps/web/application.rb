@@ -76,7 +76,7 @@ module Web
       #
       # See: http://www.rubydoc.info/gems/rack/Rack/Session/Cookie
       #
-      # Uncommnted by JC:
+      # Uncommented by JC:
 
       sessions :cookie, secret: ENV['WEB_SESSIONS_SECRET']
 
