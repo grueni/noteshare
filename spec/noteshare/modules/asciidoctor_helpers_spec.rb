@@ -129,8 +129,8 @@ EOF
 
     it 'can parse asciidoctor text and produce a table of contents as HTML' do
 
-      toc =  Noteshare::AsciidoctorHelper::TableOfContents.new(@input_1, {options: [:root, :internal]})
-      toc.table_of_contents.must_equal(@expected_output_1)
+      output =  Noteshare::AsciidoctorHelper::TableOfContents.new(@input_1).table
+      output.must_equal(@expected_output_1)
 
     end
 
@@ -138,7 +138,7 @@ EOF
 
       input = ":numbered:\n\n#{":numbered:\n\n" + @input_1}"
       toc =   Noteshare::AsciidoctorHelper::TableOfContents.new(input, {options: [:root, :internal, :numbered]})
-      toc.table_of_contents.must_equal(@expected_output_2)
+      toc.table.must_equal(@expected_output_2)
 
     end
 
@@ -146,7 +146,7 @@ EOF
 
       input = ":numbered:\n\n#{":numbered:\n\n" + @input_1}"
         toc =   Noteshare::AsciidoctorHelper::TableOfContents.new(input, {options: [:root, :inactive, :numbered]})
-      toc.table_of_contents.must_equal(@expected_output_null_ref)
+      toc.table.must_equal(@expected_output_null_ref)
 
     end
 

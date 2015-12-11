@@ -1051,7 +1051,7 @@ class NSDocument
     (options.include? :root) ? source = self.compiled_content : source = self.content
 
     toc =  Noteshare::AsciidoctorHelper::TableOfContents.new(source, hash)
-    result = toc.table_of_contents
+    result = toc.table
 
     finish = Time.now
     elapsed = finish - start
