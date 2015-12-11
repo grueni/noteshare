@@ -172,3 +172,8 @@ http://codefol.io/posts/when-should-you-not-use-heroku[when not to use Heroku]
 http://stackoverflow.com/questions/3295083/how-do-i-set-a-cookie-with-a-ruby-rack-middleware-component[setting rack cookies]
 http://chneukirchen.org/repos/rack/lib/rack/session/cookie.rb[excellent code for rack session cookie]
 http://www.rubydoc.info/github/rack/rack/Rack/Session/Cookie[rubydoc rack session cookie]
+http://chneukirchen.org/blog/archive/2007/02/introducing-rack.html[Introducing Rack (Blog Post, EXCELLENT!)]
+http://rack.github.io/[rack @ Github]
+https://github.com/rack/rack/wiki[rack wiki]
+http://rubylearning.com/blog/2013/04/02/whats-rack/[Excellent rack tutoria by Satish Talim 5 stars]
+foo
