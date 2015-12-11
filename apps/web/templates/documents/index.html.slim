@@ -13,3 +13,13 @@
                 tr.clear_style
                   td.lightlink == compiled_root_document_link document
                   td== document.author
+
+  .col style='left:40%'
+    h4 Nodes
+    .ns_card
+      table style='border=0; border-color: #444; border-collapse;'
+        tbody
+        - nodes.each do |node|
+          tr.clear_style
+            td.lightlink== node_link(node)
+            td= node.owner_name

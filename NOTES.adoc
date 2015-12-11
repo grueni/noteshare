@@ -178,3 +178,4 @@ http://chneukirchen.org/blog/archive/2007/02/introducing-rack.html[Introducing R
 http://rack.github.io/[rack @ Github]
 https://github.com/rack/rack/wiki[rack wiki]
 http://rubylearning.com/blog/2013/04/02/whats-rack/[Excellent rack tutoria by Satish Talim 5 stars]
+http://stackoverflow.com/questions/5123325/correct-way-to-share-login-sessions-across-subdomains-in-rails-3[Important SO article on sharing session keys]

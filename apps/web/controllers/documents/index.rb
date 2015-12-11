@@ -2,7 +2,7 @@
   class Index
     include Web::Action
 
-    expose :documents
+    expose :documents, :nodes
     expose :active_item
 
     def call(params)
@@ -12,7 +12,9 @@
       @active_item = 'documents'
       puts "COUNT: #{@documents.count}".magenta
       puts "ROOT DOCUMENTS: #{@documents.count}".red
+      @nodes = NSNodeRepository.all
     end
+
 
   end
 end

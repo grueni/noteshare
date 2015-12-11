@@ -80,6 +80,10 @@ module UI
       end
     end
 
+    def node_link(node)
+      link_to node.name, "/node/#{node.id}"
+    end
+
     def image_manager_link(active_item='')
       if active_item == 'images'
         html.tag(:a, 'Images', href: '/image_manager/search', class: 'active_item')
@@ -143,9 +147,9 @@ module UI
 
     def documents_link(active_item='')
       if active_item == 'documents'
-        return link_to 'Documents', "/documents", class: 'active_item'
+        return link_to 'Search', "/documents", class: 'active_item'
       else
-        return  link_to 'Documents', "/documents"
+        return  link_to 'Search', "/documents"
       end
     end
 

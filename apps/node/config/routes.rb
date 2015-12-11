@@ -1,3 +1,4 @@
+get '/public', to: 'public#list'
 
 get '/settings', to: 'settings#edit'
 get '/admin', to: 'admin#list'

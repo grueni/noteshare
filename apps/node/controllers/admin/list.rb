@@ -8,7 +8,7 @@ module Node::Controllers::Admin
       @active_item = 'admin'
       puts "call: controller Node, Admin, List".red
       @nodes = NSNodeRepository.all
-
     end
+
   end
 end
