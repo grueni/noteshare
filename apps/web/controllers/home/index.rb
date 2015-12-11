@@ -10,7 +10,7 @@ module Web::Controllers::Home
 
       # puts request.inspect.cyan
       # puts request.env
-      puts request.env["rack.session.unpacked_cookie_data"].to_s.cyan
+      # puts request.env["rack.session.unpacked_cookie_data"].to_s.cyan
       puts request.env["rack.session.unpacked_cookie_data"]["domain"].to_s.red
 
 
