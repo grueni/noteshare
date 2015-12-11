@@ -9,6 +9,10 @@ module Web::Controllers::Home
     def call(params)
 
       puts request.inspect.cyan
+      puts request.env
+      puts request.env["rack.session.unpacked_cookie_data"].to_s.cyan
+      puts request.env["rack.session.unpacked_cookie_data"]["domain"].to_s.red
+
 
       @active_item = 'home'
       @settings = SettingsRepository.first
