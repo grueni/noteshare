@@ -6,6 +6,8 @@ require_relative '../modules/groups'
 require_relative '../../../lib/noteshare/modules/asciidoctor_helpers'
 
 
+
+
 # require_relative '../modules/render'
 
 
@@ -161,6 +163,12 @@ class NSDocument
     doc.set_author_credentials(hash[:author_credentials])
     doc.identifier = Noteshare::Identifier.new().string
     doc.root_ref = { 'id'=> 0, 'title' => ''}
+    if !(doc.content =~ /^== .*/)
+      content = doc.content || ''
+      content = "== #{doc.title}\n\n#{content}"
+      doc.content = content
+    end
+
     DocumentRepository.create doc
   end
 
@@ -996,9 +1004,29 @@ class NSDocument
 
   def dive(item, active_id,  ancestral_ids, target, output)
 
+    puts "In dive, item.id = #{item.id}".magenta
+
     item.id == active_id ?   item_option = :internal : item_option = :external
     item_option = :inactive if target == 'editor'
     doc = DocumentRepository.find item.id
+
+    if doc == nil
+      puts "doc is nil!".red
+    else
+      puts "doc is OK: #{doc.title}"
+    end
+
+    if item_option
+      puts "item option: #{item_option}".red
+    else
+      puts "item option is NIL".red
+    end
+
+
+    return output unless doc != nil and doc.id != nil
+    # return output if doc == nil
+    puts "doc ID: #{doc.id}".magenta
+    # return output if doc.id == nil
 
     output << doc.internal_table_of_contents({options: [item_option], doc_id: doc.id } )
 
@@ -1027,7 +1055,12 @@ class NSDocument
 
     active_document = DocumentRepository.find(active_id) if active_id > 0
     # Get "long" ancestor chain: ancestors plus the given active id:
-    ancestral_ids = active_document.ancestor_ids << active_document.id
+    if active_document
+      ancestral_ids = active_document.ancestor_ids << active_document.id
+    else
+      ancestral_ids = []
+    end
+
     target == 'editor'? output = "<ul class='toc2'>\n" : output = "<ul class='toc'>\n"
 
     self.table_of_contents.each do |item|
@@ -1044,9 +1077,14 @@ class NSDocument
 
   def internal_table_of_contents(hash = {options: [:root, :internal], doc_id: self.id } )
 
+    puts "internal_table_of_contents (#{self.id}) #{self.title}".magenta
+
     start = Time.now
 
     options = hash[:options]
+    doc_id = hash[:doc_id]
+
+    puts "doc_id: #{doc_id}".red
 
     (options.include? :root) ? source = self.compiled_content : source = self.content
 

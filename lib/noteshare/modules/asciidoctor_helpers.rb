@@ -124,6 +124,8 @@ module Noteshare
 
          @sections = doc.find_by context: :section
 
+         return '' if @sections == nil
+
          @toc_string = ''
          @ul_stack = []
          @options.include?(:root) ? @first_index = 0 : @first_index = 1
