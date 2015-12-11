@@ -8,6 +8,8 @@ module Web::Controllers::Home
 
     def call(params)
 
+      puts request.inspect.cyan
+
       @active_item = 'home'
       @settings = SettingsRepository.first
 

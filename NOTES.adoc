@@ -165,3 +165,5 @@ http://stackoverflow.com/questions/10402777/share-session-cookies-between-subdom
 http://pothibo.com/2013/07/authentication-with-warden-devise-less/[Good Warden guide]
 https://github.com/radar/guides/tree/master/warden[Good article on Warden]
 https://basecamp.com/open-source[Basecamp open source]
+https://github.com/railsware/rack_session_access[rack session access for testing]
+http://codetunes.com/2009/dynamic-cookie-domains-with-racks-middleware/[Set cookies with rack for domains]
