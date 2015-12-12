@@ -8,56 +8,46 @@ module SessionManager::Controllers::User
 
     expose :user
 
-    def handle_incoming_node
-      @incoming_node = NSNode.from_http(request)
-
-      if @incoming_node
-        puts "Incoming node: #{@incoming_node.name} (id: #{@incoming_node.id}, owner_id: #{@incoming_node.owner_id})".red
+    def handle_login
+      if @user
+        p
+        params[:user]['authenticated']  = true
+        puts "user authenticated: #{@user.full_name}".red
+        puts "at end of 'authenticate', session = #{session.inspect}".cyan
       else
-        puts "No incoming nodo".red
-        redirect_to '/home/' if @incoming_node == nil
+        params[:user]['authenticated']  = false
+        puts "Error: could note authenticate".red
+        redirect_to '/home'
       end
-
     end
 
-    def handle_current_user
-      @cu = current_user(session)
+    def handle_redirect
 
-      if @cu
-        @user_node = NSNodeRepository.for_owner_id cu.id
-        puts "Current user: #{@cu.full_name}".red
-        puts "current user id: #{@cu.id}"
+      puts "Enter handle redirect".red
+      puts "Current user: #{@user.full_name}".red
+      puts "current user id: #{@user.id}"
+      @user_node = NSNodeRepository.for_owner_id @user.id
+      @user_node_name = @user_node.name
+      # redirect_to  "/node/user/#{@user.id}"
+      if ENV['DOMAIN'] == '.localhost'
+        redirect_to "http://#{@user_node_name}#{ENV['DOMAIN']}:2300/node/user/#{@user.id}"
       else
-        puts "No current user".red
-        redirect_to "/node/#{@incoming_node.id}"  if @cu == nil
+        redirect_to "http://#{@user_node_name}#{ENV['DOMAIN']}/node/user/#{@user.id}"
       end
 
     end
 
     def call(params)
+
       puts "SessionManager, AUTHENTICATE".magenta
+
       session[:user_id] = nil
       authenticator = UserAuthentication.new(params[:user]['email'], params[:user]['password'])
-      user = authenticator.login(session)
-      if user
-        puts "user authenticated: #{user.full_name}".red
-      else
-        puts "Error: could note authenticate".red
-      end
-      params[:user]['authenticated']  = (user != nil)
+      @user = authenticator.login(session)
 
+      handle_login
+      handle_redirect
 
-      incoming_node = NSNode.from_http(request)
-      user_node = NSNodeRepository.for_owner_id user.id
-
-      if incoming_node
-        puts "User node: #{user_node.name}".red
-      end
-
-
-      # session['domain'] = '.localhost'
-      puts "at end of 'authenticate', session = #{session.inspect}".cyan
-      redirect_to  "/node/user/#{user.id}"
     end
 
 

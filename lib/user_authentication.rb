@@ -30,6 +30,8 @@ class UserAuthentication
       session[:current_document_id] = @user.recall_current_document_id(session)
       session[:current_image_id] = nil
       return @user
+    else
+      return nil
     end
   end
 
