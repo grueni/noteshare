@@ -75,7 +75,7 @@ module Admin
       #
       # sessions :cookie, secret: ENV['ADMIN_SESSIONS_SECRET']
 
-      sessions :cookie, secret: ENV['WEB_SESSIONS_SECRET']
+      sessions :cookie,  {secret: ENV['WEB_SESSIONS_SECRET'], domain: ENV['DOMAIN'] }
 
       # Configure Rack middleware for this application
       #

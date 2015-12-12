@@ -25,6 +25,9 @@ class UserAuthentication
   end
 
   def login(session)
+    puts "EntUserAuthenticationer#login ".magenta
+    puts session.to_s session.cyan
+
     if authenticate
       session[:user_id] = @user.id
       session[:current_document_id] = @user.recall_current_document_id(session)

@@ -21,7 +21,6 @@ module Web::Controllers::Home
       puts "ENV['DOMAIN'] = #{ENV['DOMAIN']}".red
 
       puts session.inspect
-      session['foo'] = 'bar'
 
       puts session.inspect.blue
       puts request.env["rack.session.unpacked_cookie_data"].to_s.red

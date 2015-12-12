@@ -10,7 +10,6 @@ module SessionManager::Controllers::User
 
     def handle_login
       if @user
-        p
         params[:user]['authenticated']  = true
         puts "user authenticated: #{@user.full_name}".red
         puts "at end of 'authenticate', session = #{session.inspect}".cyan
