@@ -26,7 +26,7 @@ class UserAuthentication
 
   def login(session)
     puts "EntUserAuthenticationer#login ".magenta
-    puts session.to_s session.cyan
+    puts session.to_s.cyan
 
     if authenticate
       session[:user_id] = @user.id
