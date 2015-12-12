@@ -9,6 +9,12 @@ module Web::Controllers::Home
 
       puts 'controler = switchboard'.red
 
+      incoming_node = NSNode.from_http(request)
+      if incoming_node
+        puts "Incoming node: #{incoming_node.name}".red
+      end
+
+
       @active_item = 'home'
       node = NSNode.from_http(request)
 
