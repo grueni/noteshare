@@ -75,7 +75,7 @@ module SessionManager
       #
       # sessions :cookie, secret: ENV['SESSION_MANAGER_SESSIONS_SECRET']
 
-      sessions :cookie, secret: ENV['WEB_SESSIONS_SECRET']
+      sessions :cookie, {secret: ENV['WEB_SESSIONS_SECRET'], domain: ENV['DOMAIN'] }
 
       # Configure Rack middleware for this application
       #
