@@ -19,7 +19,7 @@ module SessionManager::Controllers::User
         puts "Error: could note authenticate".red
       end
       params[:user]['authenticated']  = (user != nil)
-      session['domain'] = '.localhost'
+      # session['domain'] = '.localhost'
       puts "at end of 'authenticate', session = #{session.inspect}".cyan
       redirect_to  "/node/user/#{user.id}"
     end
