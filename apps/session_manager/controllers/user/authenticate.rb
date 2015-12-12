@@ -19,6 +19,16 @@ module SessionManager::Controllers::User
         puts "Error: could note authenticate".red
       end
       params[:user]['authenticated']  = (user != nil)
+
+
+      incoming_node = NSNode.from_http(request)
+      user_node = NSNodeRepository.for_owner_id user.id
+
+      if incoming_node
+        puts "User node: #{user_node.name}".red
+      end
+
+
       # session['domain'] = '.localhost'
       puts "at end of 'authenticate', session = #{session.inspect}".cyan
       redirect_to  "/node/user/#{user.id}"
