@@ -18,6 +18,7 @@ module Web::Controllers::Home
     def call(params)
 
       puts 'controller home, index'.red
+      puts "ENV['DOMAIN'] = #{ENV['DOMAIN']}".red
 
       puts session.inspect
       session['foo'] = 'bar'
