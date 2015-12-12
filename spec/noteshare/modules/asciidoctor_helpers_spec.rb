@@ -4,7 +4,7 @@ require_relative '../../../lib/noteshare/modules/asciidoctor_helpers'
 include Noteshare::AsciidoctorHelper
 include Noteshare::AsciidoctorUtilities
 
-# The tests below are organied into two sections:
+# The tests below are organized into two sections:
 #
 #   (1) FreestandingTableOfContents
 #   (2) TableOfContents
@@ -109,26 +109,26 @@ EOF
     before do
 
       @expected_output_1 = <<EOF
-<ul class='inner_toc'>
-  <li class='inner_toc'> <a href='#_one'> One</a></li>
-  <li class='inner_toc'> <a href='#_two'> Two</a></li>
-  <ul class='inner_toc'>
-    <li class='inner_toc'> <a href='#_two_one'> Two.One</a></li>
-    <li class='inner_toc'> <a href='#_two_two'> Two.Two</a></li>
+<ul class='free_toc'>
+  <li class='free_toc'> <a href='#_one'> One</a></li>
+  <li class='free_toc'> <a href='#_two'> Two</a></li>
+  <ul class='free_toc'>
+    <li class='free_toc'> <a href='#_two_one'> Two.One</a></li>
+    <li class='free_toc'> <a href='#_two_two'> Two.Two</a></li>
   </ul>
-  <li class='inner_toc'> <a href='#_three'> Three</a></li>
+  <li class='free_toc'> <a href='#_three'> Three</a></li>
 </ul>
 EOF
 
       @expected_output_2 = <<EOF
-<ul class='inner_toc'>
-  <li class='inner_toc'> <a href='#_one'> 1. One</a></li>
-  <li class='inner_toc'> <a href='#_two'> 2. Two</a></li>
-  <ul class='inner_toc'>
-    <li class='inner_toc'> <a href='#_two_one'> 2.1. Two.One</a></li>
-    <li class='inner_toc'> <a href='#_two_two'> 2.2. Two.Two</a></li>
+<ul class='free_toc'>
+  <li class='free_toc'> <a href='#_one'> 1. One</a></li>
+  <li class='free_toc'> <a href='#_two'> 2. Two</a></li>
+  <ul class='free_toc'>
+    <li class='free_toc'> <a href='#_two_one'> 2.1. Two.One</a></li>
+    <li class='free_toc'> <a href='#_two_two'> 2.2. Two.Two</a></li>
   </ul>
-  <li class='inner_toc'> <a href='#_three'> 3. Three</a></li>
+  <li class='free_toc'> <a href='#_three'> 3. Three</a></li>
 </ul>
 EOF
 

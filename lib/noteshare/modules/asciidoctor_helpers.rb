@@ -1,6 +1,9 @@
 module Noteshare
 
-  # The tests below are organied into two sections:
+
+  # The code below produces a table of contents
+  # in HTML form given a string of Asciidoctor
+  # text. The code is organied into two sections:
   #
   #   (1) AsciidoctorUtilities
   #   (2) AsciidoctorHelpers
@@ -8,6 +11,32 @@ module Noteshare
   # The first is the TOC class for generic
   # Asciidoctor use.  The second is a subclass
   # used by Noteshare.
+
+  # For the HTML output to be properly and pleasanlty
+  # formatted, suitble CSS is needed.  Listed next
+  # is an example of how this may be done:
+
+  # .free_toc  ul {
+  #
+  #     list-style: none;
+  #     margin-bottom:0;
+  #     padding-left:1em;
+  #
+  # }
+  #
+  # .free_toc li  {
+  #
+  #     font-size:15px;
+  #     margin-left: -0.3em;
+  #     padding-left:  -0em;
+  #     text-indent: -0.1em;
+  #
+  # }
+  #
+  # .free_toc > li a {
+  #
+  #     text-decoration: none;
+  # }
 
   # Fixme: the naming sucks and needs some work.
 
@@ -58,8 +87,8 @@ module Noteshare
        # 'inner_toc' refers to a CSS class that should give
        # proper indentation.
        def setup_list
-         @ul = "<ul class='inner_toc'>"
-         @li = "<li class='inner_toc'>"
+         @ul = "<ul class='free_toc'>"
+         @li = "<li class='free_toc'>"
        end
 
        # Manage the stack that is used to ensure proper
@@ -150,7 +179,7 @@ module Noteshare
     include AsciidoctorUtilities
 
 
-    # TableOfContents#table is a subclass of TOC used by Noteshare.
+    # TableOfContents#table is a subclass of FreestandingTableOfContents used by Noteshare.
     #
     # It produces a table of contents in HTML form
     # given Asciidoc input.  The output can be configured by setting
