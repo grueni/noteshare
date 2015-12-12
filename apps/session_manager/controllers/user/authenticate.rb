@@ -8,6 +8,32 @@ module SessionManager::Controllers::User
 
     expose :user
 
+    def handle_incoming_node
+      @incoming_node = NSNode.from_http(request)
+
+      if @incoming_node
+        puts "Incoming node: #{@incoming_node.name} (id: #{@incoming_node.id}, owner_id: #{@incoming_node.owner_id})".red
+      else
+        puts "No incoming nodo".red
+        redirect_to '/home/' if @incoming_node == nil
+      end
+
+    end
+
+    def handle_current_user
+      @cu = current_user(session)
+
+      if @cu
+        @user_node = NSNodeRepository.for_owner_id cu.id
+        puts "Current user: #{@cu.full_name}".red
+        puts "current user id: #{@cu.id}"
+      else
+        puts "No current user".red
+        redirect_to "/node/#{@incoming_node.id}"  if @cu == nil
+      end
+
+    end
+
     def call(params)
       puts "SessionManager, AUTHENTICATE".magenta
       session[:user_id] = nil
