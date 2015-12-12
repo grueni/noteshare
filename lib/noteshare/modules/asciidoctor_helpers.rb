@@ -8,11 +8,12 @@ module Noteshare
   #   (1) AsciidoctorUtilities
   #   (2) AsciidoctorHelpers
   #
-  # The first is the TOC class for generic
-  # Asciidoctor use.  The second is a subclass
+  # The first contains the TOC class
+  # (FreestandingTableOfContents) for generic
+  # Asciidoctor use.  The second contains a subclass
   # used by Noteshare.
 
-  # For the HTML output to be properly and pleasanlty
+  # For the HTML output to be properly and pleasantly
   # formatted, suitble CSS is needed.  Listed next
   # is an example of how this may be done:
 
@@ -43,13 +44,13 @@ module Noteshare
 
   module AsciidoctorUtilities
 
-    # TOC#table produces a table of contents in HTML form
+    # FreestandingTableOfContents#table produces a table of contents in HTML form
     # given Asciidoc input.  The output can be configured by setting
     # options as described below.
 
     # Example:
     #
-    #       toc = Noteshare::AsciidoctorHelper::TableOfContents.new(source).table
+    #       toc = FreestandingTableOfContents.new(source).table
     #
     # produces a table of contents with default options and stores it in 'toc'
 
