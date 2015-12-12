@@ -1,6 +1,7 @@
 require 'lotus/helpers'
 require_relative '../../apps/web/views/forms'
 
+
 module Node
   class Application < Lotus::Application
     configure do
@@ -75,7 +76,7 @@ module Node
       # See: http://www.rubydoc.info/gems/rack/Rack/Session/Cookie
       #
       # sessions :cookie, secret: ENV['WEB_SESSIONS_SECRET']
-      sessions :cookie, {secret: ENV['WEB_SESSIONS_SECRET'], domain: '.localhost'}
+      sessions :cookie, {secret: ENV['WEB_SESSIONS_SECRET'], domain: ENV['DOMAIN'] }
 
       # Configure Rack middleware for this application
       #

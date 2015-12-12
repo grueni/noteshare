@@ -2,6 +2,8 @@ module Node::Controllers::User
   class Show
     include Node::Action
 
+    # puts 'controller NODE, USER, SHOW'.red
+    # puts request.env["rack.session.unpacked_cookie_data"].to_s.red
 
     expose :current_node
     expose :documents

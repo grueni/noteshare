@@ -78,7 +78,7 @@ module Web
       #
       # Uncommented by JC:
 
-      sessions :cookie, {secret: ENV['WEB_SESSIONS_SECRET'], domain: '.localhost'}
+      sessions :cookie, {secret: ENV['WEB_SESSIONS_SECRET'], domain: ENV['DOMAIN'] }
       # sessions :cookie, secret: ENV['WEB_SESSIONS_SECRET']
 
       # Configure Rack middleware for this application

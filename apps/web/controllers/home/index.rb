@@ -1,29 +1,35 @@
 # apps/web/controllers/home/index.rb
+require 'rack/request'
+
 module Web::Controllers::Home
+
   class Index
     include Web::Action
+    include Lotus::Action::Session
+
+
+    # include Lotus::Action::Session
+
+
 
     expose :message
     expose :active_item
 
     def call(params)
 
-      # puts request.inspect.cyan
-      # puts request.env
-      # puts request.env["rack.session.unpacked_cookie_data"].to_s.cyan
-      puts request.env["rack.session.unpacked_cookie_data"]["domain"].to_s.red
+      puts 'controller home, index'.red
 
+      puts session.inspect
+      session['foo'] = 'bar'
 
-      @active_item = 'home'
+      puts session.inspect.blue
+      puts request.env["rack.session.unpacked_cookie_data"].to_s.red
+
       @settings = SettingsRepository.first
 
       @message = @settings.get_key('message')
 
-      node = NSNode.from_http(request)
-      if node
-        # redirect_to "/node/#{node.id}"
-        redirect_to "/node/user/#{node.owner_id}"
-      end
     end
+    
   end
 end

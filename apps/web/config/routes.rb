@@ -1,8 +1,9 @@
+get '/', to: 'home#switchboard'
 
 get '/about', to: 'home#about'
 
 
-get '/', to: 'home#index'
+get '/home', to: 'home#index'
 
 get '/document/:id', to: 'documents#show'
 get '/compiled/:id', to: 'documents#show_compiled'

@@ -64,9 +64,9 @@ module UI
 
     def home_link(active_item='')
       if active_item == 'home'
-        link_to html.img(src: '/images/earth_green.png', title: 'system home', style: 'margin-top:-4px'), '/'
+        link_to html.img(src: '/images/earth_green.png', title: 'system home', style: 'margin-top:-4px'), '/home'
       else
-        link_to html.img(src: '/images/earth_white.png', title: 'system home', style: 'margin-top:-4px'), '/'
+        link_to html.img(src: '/images/earth_white.png', title: 'system home', style: 'margin-top:-4px'), '/home'
       end
     end
 
@@ -147,9 +147,9 @@ module UI
 
     def documents_link(active_item='')
       if active_item == 'documents'
-        return link_to 'Search', "/documents", class: 'active_item'
+        return link_to 'Directory', "/documents", class: 'active_item'
       else
-        return  link_to 'Search', "/documents"
+        return  link_to 'Directory', "/documents"
       end
     end
 

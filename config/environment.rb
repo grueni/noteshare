@@ -12,6 +12,7 @@ require_relative '../apps/editor/application'
 require_relative '../apps/web/application'
 require_relative '../apps/node/application'
 
+
 Lotus::Container.configure do
   mount Test::Application, at: '/test'
   mount Uploader::Application, at: '/uploader'
