@@ -4,7 +4,8 @@ module SessionManager::Controllers::User
 
     def call(params)
       puts "controller SessionManager, Login".magenta
-      puts "session = #{session.inspect}".red
+      puts "session = #{session.inspect}".cyan
+      puts "ENV['DOMAIN'] = #{ENV['DOMAIN']}".red
 
     end
   end

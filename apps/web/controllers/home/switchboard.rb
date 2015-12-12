@@ -37,6 +37,8 @@ module Web::Controllers::Home
     def call(params)
 
       puts 'controller = switchboard'.red
+      puts "at switchboard, session = #{session.inspect}".cyan
+      puts "ENV['DOMAIN'] = #{ENV['DOMAIN']}"
 
       @active_item = 'home'
 
