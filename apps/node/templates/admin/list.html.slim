@@ -1,24 +1,16 @@
 .row.inset
-  .col style='margin-bottom:2em; height:90%;'
+  .col.s6.m4.l4
 
-
-    .users
-      table style=('top:140px; margin-left:auto; margin-right:auto;')
-        thead
-          tr
-            th ID
-            th Name
-            th Owner Name
-            th Owner ID
-
-
-        tbody
-          - nodes.each do |node|
-            tr
-              td= node.id
-              td= node.name
-              td= node.owner_name
-              td= node.owner_id
+      .ns_card
+        table
+          tbody
+            - nodes.each do |node|
+              tr
+                td= node.id
+                td== node_link(node)
+                td= node.owner_name
+                td= node.owner_id
+                td= node.type
 
 
 

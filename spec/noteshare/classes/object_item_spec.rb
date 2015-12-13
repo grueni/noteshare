@@ -51,5 +51,17 @@ describe ObjectItemList do
     str.must_equal(str2)
   end
 
+  it 'can accept insertions of new elements in any valid position' do
+
+    hash1 = { id: 11, title: 'Hello'}
+    hash2 = { id: 22, title: 'Goodbye' }
+    array = [hash1, hash2]
+    oil = ObjectItemList.new(array)
+    oi = ObjectItem.new(33, 'Shaking hands')
+    oil.insert(1, oi)
+    puts oil
+
+  end
+
 end
 

@@ -1,3 +1,6 @@
+post '/create', to: 'admin#create'
+get '/new', to: 'admin#new'
+
 get '/public', to: 'public#list'
 
 get '/settings', to: 'settings#edit'

@@ -111,6 +111,7 @@ Lotus::Model.configure do
       attribute :meta, JSON
       attribute :docs, JSON
       attribute :children, JSON
+      attribute :tags, String
     end
 
     collection :ns_groups do

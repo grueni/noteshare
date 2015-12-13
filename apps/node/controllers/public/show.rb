@@ -11,6 +11,8 @@ module Node::Controllers::Public
 
       @node = NSNodeRepository.find params[:id]
 
+
+
     end
   end
 end

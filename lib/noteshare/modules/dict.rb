@@ -1,4 +1,15 @@
 module Noteshare
+
+
+  # Module Dict ads methods for decoding, encoding, manipulating,
+  # and storing 'dictionary data' stored in an objects 'meta'
+  # field.  It is assumed that this field is a string representation
+  # of something in JSON format.  Them methods below only affect
+  # the value of `meta['dict']`.
+  #
+  # The methods are such that changes to the receiver are
+  # saved in the corresponding object repository.  Consider, for
+  # example, the method #dict_update(entry), to see how this is done.
   module Dict
 
     def dict_set(new_dict)

@@ -41,7 +41,9 @@ module Noteshare
 
   end
 
-
+  # An ObjectItem is a struct with two
+  # fields: a numerical :id, and :title
+  # string.
   ObjectItem = Struct.new(:id, :title) do
 
     def encode
@@ -81,6 +83,11 @@ module Noteshare
 
   end
 
+
+  # An ObjectItemList manages
+  # an array of ObjectItems.
+  # The latter can be appened,
+  # iserted, deleted, etc.
   class ObjectItemList
 
     attr_reader :obj_item_array
@@ -104,6 +111,7 @@ module Noteshare
     end
 
     def self.decode(str)
+      str = str || '[]'
       ObjectItemList.new(JSON.parse(str))
     end
 
@@ -129,7 +137,16 @@ module Noteshare
       # DocumentRepository.update @document
     end
 
+    def count
+      @table.count
+    end
+
     def insert(k, toc_item)
+      @table.insert(k, toc_item)
+    end
+
+    def append(toc_item)
+      k = @table.count
       @table.insert(k, toc_item)
     end
 

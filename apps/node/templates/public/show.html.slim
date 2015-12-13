@@ -1,3 +1,9 @@
 .row
-  .col.inset
-    h2 == "Node #{node.name}"
+  .col.s12.m6.l6
+    h2 style='margin-left:25px;' == node.url
+    h4 style='margin-left:25px;' Documents
+    /== search_form
+    .col
+      - if node.document_count > 0
+        .ns_card style='margin-left:15px; height:400px; overflow-y:scroll; padding-bottom:3em;'
+          == node.documents_as_list

@@ -5,7 +5,7 @@
 class NSNode
 
   include Lotus::Entity
-      attributes :id, :owner_id, :identifier,  :name, :type, :meta, :docs, :children
+      attributes :id, :owner_id, :identifier,  :name, :type, :meta, :docs, :children, :tags
 
   # include Noteshare
   require 'json'
@@ -13,6 +13,11 @@ class NSNode
 
   def self.lookup_by_name(node_name)
     NSNodeRepository.where(name: node_name).first
+  end
+
+  def self.create(name, owner_id, type, tags)
+    NSNodeRepository.create(NSNode.new(name: name, owner_id: owner_id,
+                                       type: type, tags: tags, identifier: Noteshare::Identifier.new().string))
   end
 
   def self.create_for_user(user)
@@ -28,6 +33,11 @@ class NSNode
     owner.full_name if owner
   end
 
+  def url
+    domain = ENV['DOMAIN'] || '.localhost'
+    "#{self.name}#{domain}"
+  end
+
 
   # update_docs_for_owner docs: replace current list with list of ids
   # and title root documents belonging to the owner of the node
@@ -39,13 +49,12 @@ class NSNode
     NSNodeRepository.update self
   end
 
-  # Retrieve the document list: unpack
-  def documents
-    if docs
-      ObjectItemList.decode(self.docs)
-    else
-      []
-      end
+  def append_doc(id, title)
+    oi = ObjectItem.new(id, title)
+    oil = ObjectItemList.decode self.docs
+    oil.append(oi)
+    self.docs = oil.encode
+    NSNodeRepository.update self
   end
 
   # Return an HTML list of links to documents
@@ -66,6 +75,31 @@ class NSNode
     if prefix
       NSNodeRepository.find_one_by_name(prefix)
     end
+  end
+
+
+  ##########  Manage the doc list ############
+
+  # Retrieve the document list: unpack
+  def documents
+    if docs
+      ObjectItemList.decode(self.docs)
+    else
+      []
+    end
+  end
+
+  def document_count
+    documents.count
+  end
+
+  # Add a document
+  def add_document_by_id(id)
+    doc = DocumentRepository.find id
+    if doc
+      append_doc(id, doc.title)
+    end
+
   end
 
 end
