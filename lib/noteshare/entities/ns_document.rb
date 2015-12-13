@@ -1053,15 +1053,19 @@ class NSDocument
       return ''
     end
 
-    active_document = DocumentRepository.find(active_id) if active_id > 0
-    # Get "long" ancestor chain: ancestors plus the given active id:
+    if active_id > 0
+      active_document = DocumentRepository.find(active_id)
+    else
+      active_document = nil
+    end
+
     if active_document
       ancestral_ids = active_document.ancestor_ids << active_document.id
     else
       ancestral_ids = []
     end
 
-    target == 'editor'? output = "<ul class='toc2'>\n" : output = "<ul class='toc'>\n"
+    target == 'editor'? output = "<ul class='toc2'>\n" : output = "<ul class='toc2'>\n"
 
     self.table_of_contents.each do |item|
 
