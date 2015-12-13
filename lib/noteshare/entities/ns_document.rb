@@ -979,20 +979,13 @@ class NSDocument
     doc_id = item.id
     doc_title = item.title
 
-    if target == 'editor'
-      doc_link = "href='/editor/document/#{doc_id}'>#{doc_title}</a>"
-    else
-      doc_link = "href='/document/#{doc_id}'>#{doc_title}</a>"
-    end
+    target == 'editor' ? prefix = '/editor' : prefix = ''
+    doc_link = "href='#{prefix}/document/#{doc_id}'>#{doc_title}</a>"
 
     class_str = "class = '"
 
-    if item.has_subdocs
-      if ancestral_ids.include? item.id
-        class_str << 'subdocs-open '
-      else
-        class_str << 'subdocs-yes '
-      end
+    if item.has_subdocs  # has_subdocs is field of the struct item
+      (ancestral_ids.include? item.id) ? class_str << 'subdocs-open ' : class_str << 'subdocs-yes '
     else
       class_str << 'subdocs-no '
     end
@@ -1000,44 +993,28 @@ class NSDocument
     doc_id == active_id ? class_str << 'active' : class_str << 'inactive'
 
     "<li #{class_str} '><a #{doc_link}</a>\n"
+
   end
+
 
   def dive(item, active_id,  ancestral_ids, target, output)
 
-    puts "In dive, item.id = #{item.id}".magenta
+    attributes = ['skip_first_item']
+    item.id == active_id ?   attributes << 'internal' : attributes << 'external'
+    attributes << 'inactive' if target == 'editor'
 
-    item.id == active_id ?   item_option = :internal : item_option = :external
-    item_option = :inactive if target == 'editor'
     doc = DocumentRepository.find item.id
+    return '' if doc == nil
 
-    if doc == nil
-      puts "doc is nil!".red
-    else
-      puts "doc is OK: #{doc.title}"
-    end
-
-    if item_option
-      puts "item option: #{item_option}".red
-    else
-      puts "item option is NIL".red
-    end
-
-
-    return output unless doc != nil and doc.id != nil
-    # return output if doc == nil
-    puts "doc ID: #{doc.id}".magenta
-    # return output if doc.id == nil
-
-    output << doc.internal_table_of_contents({options: [item_option], doc_id: doc.id } )
-
+    itoc = doc.internal_table_of_contents(attributes, {doc_id: doc.id} )
+    output << itoc
     # Fixme: memoize, make lazy what we can.
 
-    return if doc == nil
-
     if doc.table_of_contents.length > 0 and ancestral_ids.include? doc.id
-      #(doc.id == active_document.parent_id) or (doc.id == active_document.id)
       output << "<ul>\n" << doc.master_table_of_contents(active_id, target) << "</ul>"
     end
+
+    output
   end
 
   # If active_id matches the id of an item
@@ -1049,19 +1026,25 @@ class NSDocument
   #
   def master_table_of_contents(active_id, target='reader')
 
+    start = Time.now
+
     if toc.length == 0
       return ''
     end
 
-    active_document = DocumentRepository.find(active_id) if active_id > 0
-    # Get "long" ancestor chain: ancestors plus the given active id:
+    if active_id > 0
+      active_document = DocumentRepository.find(active_id)
+    else
+      active_document = nil
+    end
+
     if active_document
       ancestral_ids = active_document.ancestor_ids << active_document.id
     else
       ancestral_ids = []
     end
 
-    target == 'editor'? output = "<ul class='toc2'>\n" : output = "<ul class='toc'>\n"
+    target == 'editor'? output = "<ul class='toc2'>\n" : output = "<ul class='toc2'>\n"
 
     self.table_of_contents.each do |item|
 
@@ -1070,32 +1053,30 @@ class NSDocument
 
     end
 
+    finish = Time.now
+    elapsed = finish - start
+    puts "\nTable Of_Contents: elapsed time = #{elapsed}\n".magenta
+
     output << "</ul>\n\n"
 
   end
 
 
-  def internal_table_of_contents(hash = {options: [:root, :internal], doc_id: self.id } )
-
-    puts "internal_table_of_contents (#{self.id}) #{self.title}".magenta
+  def internal_table_of_contents(attributes, options)
 
     start = Time.now
 
-    options = hash[:options]
-    doc_id = hash[:doc_id]
+    (attributes.include? 'root') ? source = self.compiled_content : source = self.content
 
-    puts "doc_id: #{doc_id}".red
+    toc =  Noteshare::AsciidoctorHelper::TableOfContents.new(source, attributes, options)
 
-    (options.include? :root) ? source = self.compiled_content : source = self.content
-
-    toc =  Noteshare::AsciidoctorHelper::TableOfContents.new(source, hash)
-    result = toc.table
+    result = toc.table || ''
 
     finish = Time.now
     elapsed = finish - start
     puts "internal_table_of_contents: elapsed time = #{elapsed}".red
 
-    return result
+   return result
 
   end
 

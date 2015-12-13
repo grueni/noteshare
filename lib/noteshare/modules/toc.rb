@@ -1,6 +1,7 @@
 require_relative 'toc_item'
 
 module Noteshare
+
   class TOC
 
     attr_reader :toc_array
@@ -129,6 +130,100 @@ module Noteshare
       target
     end
 
+  end
+
+  class OuterTableOfContents
+
+    # exmaples:
+    # options = {active_id: 44}
+    def initialize(document, attributes, options)
+
+      @document = document
+      @attributes = attributes
+      @options = options
+
+      @active_id = @options[:active_id]
+      @active_document = DocumentRepository.find(@active_id)
+      @target = @options[:target] || 'reader'
+
+      @toc = @document.toc
+      @table = TOC.new(document).table
+
+    end
+
+
+    # If active_id matches the id of an item
+    # in the table of contents, that item is
+    # marked with the css 'active'.  Otherwise
+    # it is marked 'inactive'.  This way the
+    # TOC entry for the document being currently
+    # viewed can be highlighted.``
+    #
+    def master_table_of_contents(target='reader')
+
+      start = Time.now
+
+      return '' if @toc.length == 0
+
+      @ancestral_ids = []
+      (@ancestral_ids << @active_document.ancestor_ids << @active_document.id) if @active_document
+
+      @target == 'editor'? output = "<ul class='toc2'>\n" : output = "<ul class='toc2'>\n"
+
+      @table.each do |item|
+
+        output << toc_item(item)
+
+        if item.has_subdocs
+          puts "#{item.title} has subdocs".cyan
+        else
+          puts "#{item.title} ----".cyan
+        end
+
+        dive(item, output)
+
+
+      end
+
+      finish = Time.now
+      elapsed = finish - start
+      puts "\nTable Of_Contents: elapsed time = #{elapsed}\n".magenta
+
+      output << "</ul>\n\n"
+    end
+
+    def toc_item(item)
+
+      "<li>#{item.title}</li>\n"  if @attributes.include? 'dumb'
+
+
+    end
+
+    def dive(item, output)
+
+      puts "IN DiVE: #{item.title}".red
+
+      attributes = @attributes.dup << 'skip_first_item'
+
+      item.id == @active_id ?   attributes << 'internal' : attributes << 'external'
+      attributes << 'inactive' if @target == 'editor'
+
+      doc = DocumentRepository.find item.id
+      return '' if doc == nil
+
+      itoc = doc.internal_table_of_contents(attributes, {doc_id: doc.id} )
+      output << itoc
+      # Fixme: memoize, make lazy what we can.
+
+      if doc.toc.count > 0
+        otc = OuterTableOfContents.new(doc, @attributes, active_id: @active_id)
+        output << "\n" << otc.master_table_of_contents << "\n"
+      end
+
+
+    end
 
   end
+
+
 end

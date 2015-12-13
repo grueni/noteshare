@@ -17,7 +17,6 @@ module Web::Controllers::Documents
       @root_document.compile_with_render({numbered: true, format: 'adoc-latex'})
       @root_document.compiled_content = @root_document.compile
       DocumentRepository.update @root_document
-      # @toc = @root_document.internal_table_of_contents(hash = {options: [:root, :internal] } )
 
     end
 
