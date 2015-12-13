@@ -25,7 +25,7 @@ class UserAuthentication
   end
 
   def login(session)
-    puts "EntUserAuthenticationer#login ".magenta
+    puts "Enter UserAuthenticator # login ".magenta
     puts session.to_s.cyan
 
     if authenticate

@@ -27,8 +27,10 @@ module SessionManager::Controllers::User
       @user_node = NSNodeRepository.for_owner_id @user.id
       @user_node_name = @user_node.name
 
-      if ENV['DOMAIN'] == '.localhost'
-        redirect_to "http://#{@user_node_name}#{ENV['DOMAIN']}:2300/node/user/#{@user.id}"
+      if ENV['DOMAIN'] == nil
+        session[:domain]  = '.login'
+        # redirect_to "http://#{@user_node_name}.localhost:2300/node/user/#{@user.id}"
+        # redirect_to "/node/user/#{@user.id}"
       else
         redirect_to "http://#{@user_node_name}#{ENV['DOMAIN']}/node/user/#{@user.id}"
       end
