@@ -1006,7 +1006,7 @@ class NSDocument
 
     puts "In dive, item.id = #{item.id}".magenta
 
-    item.id == active_id ?   item_option = :internal : item_option = :external
+    item.id == active_id ?   item_option = 'internal' : item_option = 'external'
     item_option = :inactive if target == 'editor'
     doc = DocumentRepository.find item.id
 
@@ -1028,16 +1028,24 @@ class NSDocument
     puts "doc ID: #{doc.id}".magenta
     # return output if doc.id == nil
 
-    output << doc.internal_table_of_contents({options: [item_option], doc_id: doc.id } )
+    puts "AAA".magenta
+    output << doc.internal_table_of_contents([item_option], {doc_id: doc.id} )
+    puts "BBB".magenta
 
     # Fixme: memoize, make lazy what we can.
 
     return if doc == nil
 
+    puts "CCC".magenta
+
     if doc.table_of_contents.length > 0 and ancestral_ids.include? doc.id
+      puts "DDD".magenta
       #(doc.id == active_document.parent_id) or (doc.id == active_document.id)
       output << "<ul>\n" << doc.master_table_of_contents(active_id, target) << "</ul>"
+      puts "EEE".magenta
     end
+    puts "FFF".magenta
+    output
   end
 
   # If active_id matches the id of an item
@@ -1075,27 +1083,21 @@ class NSDocument
   end
 
 
-  def internal_table_of_contents(hash = {options: [:root, :internal], doc_id: self.id } )
-
-    puts "internal_table_of_contents (#{self.id}) #{self.title}".magenta
+  def internal_table_of_contents(_attributes, _options)
 
     start = Time.now
 
-    options = hash[:options]
-    doc_id = hash[:doc_id]
+    (_attributes.include? 'root') ? source = self.compiled_content : _source = self.content
 
-    puts "doc_id: #{doc_id}".red
+    toc =  Noteshare::AsciidoctorHelper::TableOfContents.new(source, _attributes, _options)
 
-    (options.include? :root) ? source = self.compiled_content : source = self.content
-
-    toc =  Noteshare::AsciidoctorHelper::TableOfContents.new(source, hash)
     result = toc.table
 
     finish = Time.now
     elapsed = finish - start
     puts "internal_table_of_contents: elapsed time = #{elapsed}".red
 
-    return result
+   return result || ''
 
   end
 

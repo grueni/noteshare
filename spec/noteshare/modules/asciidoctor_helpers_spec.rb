@@ -76,7 +76,6 @@ EOF
 
 
 = A Treatise on Common Sayings
-:numbered:
 
 == One
 
@@ -137,15 +136,14 @@ EOF
 
     it 'can parse asciidoctor text and produce a table of contents as HTML' do
 
-      output =  Noteshare::AsciidoctorUtilities::FreestandingTableOfContents.new(@input_1).table
+      output =  Noteshare::AsciidoctorUtilities::FreestandingTableOfContents.new(@input_1, ['root', 'internal'], {}).table
       output.must_equal(@expected_output_1)
 
     end
 
     it 'can number the sections' do
 
-      input = ":numbered:\n\n#{":numbered:\n\n" + @input_1}"
-      toc =   Noteshare::AsciidoctorUtilities::FreestandingTableOfContents.new(input, {options: [:root, :internal, :numbered]})
+      toc =   Noteshare::AsciidoctorUtilities::FreestandingTableOfContents.new(@input_1, ['root', 'internal', 'sectnums'], {})
       toc.table.must_equal(@expected_output_2)
 
     end
@@ -200,23 +198,23 @@ EOF
 
     it 'can parse asciidoctor text and produce a table of contents as HTML' do
 
-      output =  Noteshare::AsciidoctorHelper::TableOfContents.new(@input_1).table
+      output =  Noteshare::AsciidoctorHelper::TableOfContents.new(@input_1, ['root', 'internal'], {} ).table
       output.must_equal(@expected_output_1)
 
     end
 
     it 'can number the sections' do
 
-      input = ":numbered:\n\n#{":numbered:\n\n" + @input_1}"
-      toc =   Noteshare::AsciidoctorHelper::TableOfContents.new(input, {options: [:root, :internal, :numbered]})
+      input = "'sectnums'\n\n#{"'sectnums'\n\n" + @input_1}"
+      toc =   Noteshare::AsciidoctorHelper::TableOfContents.new(input, ['root', 'internal', 'sectnums'], {} )
       toc.table.must_equal(@expected_output_2)
 
     end
 
     it 'can produce a table of contents with inactive references' do
 
-      input = ":numbered:\n\n#{":numbered:\n\n" + @input_1}"
-        toc =   Noteshare::AsciidoctorHelper::TableOfContents.new(input, {options: [:root, :inactive, :numbered]})
+      input = @input_1
+      toc =   Noteshare::AsciidoctorHelper::TableOfContents.new(input, ['root', 'inactive', 'sectnums'],{})
       toc.table.must_equal(@expected_output_null_ref)
 
     end

@@ -10,7 +10,7 @@
           br
           h4 Contents
 
-          .toc2 == root_document.internal_table_of_contents({options: [:root, :internal, :numbered], doc_id: root_document.id })
+          .toc2 == root_document.internal_table_of_contents(['root', 'internal', 'numbered'], { doc_id: root_document.id })
 
         .col.middle style = 'left: 30%; width: 70%; padding-bottom:6em;padding-top:2em;'
           h5== root_document.title
