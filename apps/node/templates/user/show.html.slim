@@ -1,6 +1,6 @@
 .row.inset_top
 
-  .col.inset_left
+  .col.s12.m8.l5
     h3 == title(current_node)
     div
       .ns_card
@@ -12,7 +12,7 @@
           == current_node.documents_as_list
 
 
-  .col style='left:30%'
+  .col.m3.offset-m8.l5.offset-l6.hide-on-small-only
     h3 Tools
     .ns_card
       == new_document_link

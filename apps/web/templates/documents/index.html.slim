@@ -1,12 +1,13 @@
 
-.row.inset
-  h4 Documents
-  .col
-  /== search_form
-  - if documents
-    .row.s8 style = ' margin-top:10 px; padding-left:1em; padding-right:1em;'
+.row
+
+  .col.s12.m6.l6
+    h4 Documents
+    /== search_form
+    - if documents
+      /.row.s8 style = ' margin-top:10 px; padding-left:1em; padding-right:1em;'
       .col style = ''
-        .div style='margin-left:15px; height:400px; overflow-y:scroll; padding-bottom:3em;'
+        .ns_card style='margin-left:15px; height:400px; overflow-y:scroll; padding-bottom:3em;'
           table style='border=0; border-color: #444; border-collapse;'
             tbody
               - documents.each do |document|
@@ -14,7 +15,7 @@
                   td.lightlink == compiled_root_document_link document
                   td== document.author
 
-  .col style='left:40%'
+  .col.hide-on-small-only.m6.offset-m6.l6.offset-l6
     h4 Nodes
     .ns_card
       table style='border=0; border-color: #444; border-collapse;'

@@ -29,7 +29,7 @@ module SessionManager::Controllers::User
 
       if ENV['DOMAIN'] == nil
         session[:domain]  = '.login'
-        # redirect_to "http://#{@user_node_name}.localhost:2300/node/user/#{@user.id}"
+        redirect_to "http://#{@user_node_name}.localhost:2300/node/user/#{@user.id}"
         # redirect_to "/node/user/#{@user.id}"
       else
         redirect_to "http://#{@user_node_name}#{ENV['DOMAIN']}/node/user/#{@user.id}"

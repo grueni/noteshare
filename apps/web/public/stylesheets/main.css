@@ -113,12 +113,13 @@ td.clear_style {
 
 .ns_card table {
 
+    background-color: transparent;
     border: none;
 }
 
 .ns_card tr:nth-child(even)  {
 
-    background-color: rgba(50,50,50,0.87);
+    background-color: transparent;
     color: #fff;
 }
 
@@ -126,18 +127,19 @@ td.clear_style {
 
 .ns_card tr:nth-child(odd)  {
 
-    background-color: rgba(10,10,10,0.87);
+    background-color: transparent;
     color: #fff;
 }
 
 .ns_card td  {
 
     color: #eee;
+    background-color: transparent;
 }
 
 .ns_card th  {
 
-    background-color: rgba(10,10,10,0.67);
+    background-color: transparent;
     color: #eee;
 }
 /***
@@ -753,3 +755,5 @@ p.compact {
     text-decoration: underline;
 
 }
+
+/**********  LIST  **********/
