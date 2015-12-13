@@ -67,7 +67,7 @@ module Noteshare
          @text = text
          @attributes = _attributes
          @options = _options
-        # @doc_id = @options[:doc_id]
+         @doc_id = @options[:doc_id]
        end
 
        # To make the HTML code look good for humans
@@ -211,14 +211,12 @@ module Noteshare
 
         @attributes.include?('sectnums') ? prefix = "#{@section.sectnum} " : prefix = ''
 
-        if @attributes.include? 'internal'
+        if @attributes.include? 'inert'
+          "<a href='#'> #{prefix}#{@section.title}</a>"
+        elsif @attributes.include? 'internal'
           "<a href='\##{@section.id}'> #{prefix}#{@section.title}</a>"
         elsif @attributes.include? 'external'
-          # used by noteshare
           "<a href='/document/#{@doc_id}?#{@section.id}'> #{prefix}#{@section.title}</a>"
-        elsif @attributes.include? 'inactive'
-          # used by noteshare
-          "<a href='#'> #{prefix}#{@section.title}</a>"
         else
           "<a href='\##{@section.id}'> #{prefix}#{@section.title}</a>"
         end

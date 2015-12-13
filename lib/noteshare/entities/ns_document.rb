@@ -1001,7 +1001,7 @@ class NSDocument
 
     attributes = ['skip_first_item']
     item.id == active_id ?   attributes << 'internal' : attributes << 'external'
-    attributes << 'inactive' if target == 'editor'
+    attributes << 'inert' if target == 'editor'
 
     doc = DocumentRepository.find item.id
     return '' if doc == nil
