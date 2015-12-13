@@ -1004,7 +1004,7 @@ class NSDocument
 
   def dive(item, active_id,  ancestral_ids, target, output)
 
-    attributes = []
+    attributes = ['skip_first_item']
     item.id == active_id ?   attributes << 'internal' : attributes << 'external'
     attributes << 'inactive' if target == 'editor'
 

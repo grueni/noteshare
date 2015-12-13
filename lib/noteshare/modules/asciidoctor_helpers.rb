@@ -76,11 +76,11 @@ module Noteshare
        end
 
 
-       # Returns the entry in the table of contents for @section
+       # Returns the entry in the table of contents for @section;
+       # Section numbers are displayed if the 'sectnums' attribute
+       # is present.
        def toc_entry
-
          @attributes.include?('sectnums') ? prefix = "#{@section.sectnum} " : prefix = ''
-
          "<a href='\##{@section.id}'> #{prefix}#{@section.title}</a>"
        end
 
@@ -144,7 +144,7 @@ module Noteshare
 
          @toc_string = ''
          @ul_stack = []
-         @attributes.include?('root') ? @first_index = 0 : @first_index = 1
+         @attributes.include?('skip_first_item') ? @first_index = 1 : @first_index = 0
          @last_index = @sections.length-1
 
        end
