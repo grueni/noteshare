@@ -63,10 +63,11 @@ module Noteshare
 
      class FreestandingTableOfContents
 
-       def initialize(text, args={options: [:root, :internal]})
+       def initialize(text, _attributes, _options )
          @text = text
-         @options = args[:options]
-         @doc_id = args[:doc_id]
+         @attributes = _attributes
+         @options = _options
+        # @doc_id = @options[:doc_id]
        end
 
        # To make the HTML code look good for humans
@@ -78,7 +79,7 @@ module Noteshare
        # Returns the entry in the table of contents for @section
        def toc_entry
 
-         @options.include?(:numbered) ? prefix = "#{@section.sectnum} " : prefix = ''
+         @attributes.include?('sectnums') ? prefix = "#{@section.sectnum} " : prefix = ''
 
          "<a href='\##{@section.id}'> #{prefix}#{@section.title}</a>"
        end
@@ -128,7 +129,9 @@ module Noteshare
 
        def setup_table
 
-         doc = Asciidoctor.load @text, {sourcemap: true}
+         source = @text || ''
+
+         doc = Asciidoctor.load source, sourcemap: true, attributes: @attributes
 
          @level = 0
          @previous_level = 0
@@ -141,7 +144,7 @@ module Noteshare
 
          @toc_string = ''
          @ul_stack = []
-         @options.include?(:root) ? @first_index = 0 : @first_index = 1
+         @attributes.include?('root') ? @first_index = 0 : @first_index = 1
          @last_index = @sections.length-1
 
        end
@@ -206,14 +209,14 @@ module Noteshare
       # Returns the entry in the table of contents for @section
       def toc_entry
 
-        @options.include?(:numbered) ? prefix = "#{@section.sectnum} " : prefix = ''
+        @attributes.include?('sectnums') ? prefix = "#{@section.sectnum} " : prefix = ''
 
-        if @options.include? :internal
+        if @attributes.include? 'internal'
           "<a href='\##{@section.id}'> #{prefix}#{@section.title}</a>"
-        elsif @options.include? :external
+        elsif @attributes.include? 'external'
           # used by noteshare
           "<a href='/document/#{@doc_id}?#{@section.id}'> #{prefix}#{@section.title}</a>"
-        elsif @options.include? :inactive
+        elsif @attributes.include? 'inactive'
           # used by noteshare
           "<a href='#'> #{prefix}#{@section.title}</a>"
         else
@@ -230,7 +233,7 @@ module Noteshare
       # inactive in the sense that they do not point to
       # anything.
       def setup_list
-        if @options.include? :inactive
+        if @attributes.include? 'inactive'
           @ul = "<ul class='inner_toc null'>"
           @li = "<li class='inner_toc null'>"
         else
