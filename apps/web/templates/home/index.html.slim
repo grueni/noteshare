@@ -1,7 +1,7 @@
 .row
 
   .col.s5.offset-s1
-    h3 Noteshare
+    h3==  ENV['DOMAIN'].sub(/^\./,'')
     div
       .ns_card style='min-height:400px;'
         - if current_user(session)
