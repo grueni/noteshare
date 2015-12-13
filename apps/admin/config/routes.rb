@@ -1,3 +1,7 @@
+
+get '/course/import', to: 'course#import'
+post '/course/do_import', to: 'course#do_import'
+
 post '/do_update_message', to: 'settings#do_update_message'
 get '/update_message', to: 'settings#update'
 get '/documents', to: 'documents#list'
