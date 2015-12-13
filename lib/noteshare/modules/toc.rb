@@ -1,6 +1,7 @@
 require_relative 'toc_item'
 
 module Noteshare
+
   class TOC
 
     attr_reader :toc_array
@@ -129,6 +130,55 @@ module Noteshare
       target
     end
 
-
   end
+
+  class OuterTableOfContents
+
+    def initialize(document, attributes, active_id)
+
+      @toc = document.toc
+      @table = TOC.new(document).table
+      @active_document = DocumentRepository.find(active_id)
+
+    end
+
+
+    # If active_id matches the id of an item
+    # in the table of contents, that item is
+    # marked with the css 'active'.  Otherwise
+    # it is marked 'inactive'.  This way the
+    # TOC entry for the document being currently
+    # viewed can be highlighted.``
+    #
+    def master_table_of_contents(active_id, target='reader')
+
+      start = Time.now
+
+      return '' if @toc.length == 0
+
+
+      if active_document
+        ancestral_ids = active_document.ancestor_ids << active_document.id
+      else
+        ancestral_ids = []
+      end
+
+      target == 'editor'? output = "<ul class='toc2'>\n" : output = "<ul class='toc2'>\n"
+
+      self.table_of_contents.each do |item|
+
+        output << toc_item(item, active_id, ancestral_ids, target)
+        dive(item, active_id,  ancestral_ids, target, output)
+
+      end
+
+      finish = Time.now
+      elapsed = finish - start
+      puts "\nTable Of_Contents: elapsed time = #{elapsed}\n".magenta
+
+      output << "</ul>\n\n"
+
+
+    end
+
 end

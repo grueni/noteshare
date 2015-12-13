@@ -979,20 +979,13 @@ class NSDocument
     doc_id = item.id
     doc_title = item.title
 
-    if target == 'editor'
-      doc_link = "href='/editor/document/#{doc_id}'>#{doc_title}</a>"
-    else
-      doc_link = "href='/document/#{doc_id}'>#{doc_title}</a>"
-    end
+    target == 'editor' ? prefix = '/editor' : prefix = ''
+    doc_link = "href='#{prefix}/document/#{doc_id}'>#{doc_title}</a>"
 
     class_str = "class = '"
 
-    if item.has_subdocs
-      if ancestral_ids.include? item.id
-        class_str << 'subdocs-open '
-      else
-        class_str << 'subdocs-yes '
-      end
+    if item.has_subdocs  # has_subdocs is field of the struct item
+      (ancestral_ids.include? item.id) ? class_str << 'subdocs-open ' : class_str << 'subdocs-yes '
     else
       class_str << 'subdocs-no '
     end
@@ -1000,7 +993,9 @@ class NSDocument
     doc_id == active_id ? class_str << 'active' : class_str << 'inactive'
 
     "<li #{class_str} '><a #{doc_link}</a>\n"
+
   end
+
 
   def dive(item, active_id,  ancestral_ids, target, output)
 
