@@ -1,3 +1,4 @@
+post '/update_toc/:id', to: 'document#update_toc'
 get '/edit_toc/:id', to: 'document#edit_toc'
 get '/test', to: 'test#toc'
 

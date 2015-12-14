@@ -25,6 +25,9 @@ gem 'asciidoctor', '~> 1.5.2'
 gem 'asciidoctor-latex', :github => 'asciidoctor/asciidoctor-latex', :branch => 'master'
 gem 'thread_safe'
 
+# https://github.com/rails/execj
+gem 'execjs', '~> 2.6'
+
 group :test do
   gem 'minitest'
   gem 'capybara'
