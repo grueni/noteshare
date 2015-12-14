@@ -440,7 +440,7 @@ textarea {
 .dragula_toc {
 
     margin-bottom: 1em;
-
+    margin-left: 0;
 }
 
 ul.toc {

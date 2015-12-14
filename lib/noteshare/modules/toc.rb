@@ -154,15 +154,17 @@ module Noteshare
     def dragula_table
 
       # http://codepen.io/rachelslurs/pen/EjKmLG
+      # http://js-tutorial.com/dragula-drag-and-drop-so-simple-it-hurts-1483
+      # https://developer.mozilla.org/en-US/docs/Web/API/Document_Object_Model/Introduction
 
       return '' if @toc.length == 0
 
       output = "<div id = 'toc_editor-defaults' class = 'container'>\n"
       output << '  <div id="drag-elements">' << "\n"
 
-      @table.each do |item|
+      @table.each_with_index do |item, index|
 
-        output << "    <div class='dragula_toc'>#{item.title}</div>\n"
+        output << "    <div id=#{index} class='dragula_toc'>#{item.title}</div>\n"
 
       end
 

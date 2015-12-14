@@ -263,7 +263,22 @@ function dragula (initialContainers, options) {
     movements(true);
   }
 
+  function list_permutation(class_name) {
+
+    var n = o.mirrorContainer.getElementsByClassName(class_name).length;
+    var _permutation = [];
+    for(var k = 0; k < n - 1; k++) {
+      var index = o.mirrorContainer.getElementsByClassName(class_name)[k].id
+      _permutation.push(index)
+    }
+
+    return _permutation
+  }
+
   function release (e) {
+    var permutation = list_permutation('dragula_toc')
+    console.log('ON RELEASE, PERMUTATION: ' + permutation);
+    localStorage.setItem('toc_permutation', permutation)
     ungrab();
 
     if (!drake.dragging) {
