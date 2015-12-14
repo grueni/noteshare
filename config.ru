@@ -1,9 +1,9 @@
 require './config/environment'
-require 'rack/cors'
+# require 'rack/cors'
 
 # use Rack::Static, :urls => ["/assets", "/images "], :root => "public"
 
-
+=begin
 
 use Rack::Cors do
 
@@ -28,5 +28,7 @@ use Rack::Cors do
   end
 
 end
+
+=end
 
 run Lotus::Container.new
