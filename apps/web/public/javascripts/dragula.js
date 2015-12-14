@@ -263,11 +263,11 @@ function dragula (initialContainers, options) {
     movements(true);
   }
 
-  function list_permutation(class_name) {
+  function get_permutation(class_name) {
 
     var n = o.mirrorContainer.getElementsByClassName(class_name).length;
     var _permutation = [];
-    for(var k = 0; k < n - 1; k++) {
+    for(var k = 0; k < n; k++) {
       var index = o.mirrorContainer.getElementsByClassName(class_name)[k].id
       _permutation.push(index)
     }
@@ -276,7 +276,7 @@ function dragula (initialContainers, options) {
   }
 
   function release (e) {
-    var permutation = list_permutation('dragula_toc')
+    var permutation = get_permutation('dragula_toc')
     console.log('ON RELEASE, PERMUTATION: ' + permutation);
     localStorage.setItem('toc_permutation', permutation)
     ungrab();

@@ -42,6 +42,13 @@ $(document).ready(function() {
     $('#Yak').click(yak);
 
 
+    $('#update_toc_button').click(function() {
+
+        alert(localStorage.getItem('toc_permutation'));
+        $.post('/editor/update_toc/0', localStorage.getItem('toc_permutation'))
+    });
+
+
     /**
     $(".lined").linedtextarea({
         selectedLine: 10,

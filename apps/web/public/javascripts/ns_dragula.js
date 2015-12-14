@@ -1,6 +1,8 @@
 
 
 $(document).ready(function() {
+
+
     function $(id) {
         return document.getElementById(id);
     }
@@ -8,6 +10,9 @@ $(document).ready(function() {
     dragula([$('drag-elements')], {
         revertOnSpill: true
     });
+
+
+
 
 });
 
