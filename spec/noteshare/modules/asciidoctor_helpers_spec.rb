@@ -214,8 +214,8 @@ EOF
     it 'can produce a table of contents with inactive references' do
 
       input = @input_1
-      toc =   Noteshare::AsciidoctorHelper::TableOfContents.new(input, ['inactive', 'sectnums'],{})
-      toc.table.must_equal(@expected_output_null_ref)
+      toc =   Noteshare::AsciidoctorHelper::TableOfContents.new(input, ['inert', 'sectnums'],{})
+      toc.table.must_equal(@expected_output_2)
 
     end
 

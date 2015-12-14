@@ -1,3 +1,4 @@
+get '/edit_toc/:id', to: 'document#edit_toc'
 get '/test', to: 'test#toc'
 
 post '/create_new_associated_document', to: 'document#create_new_associated_document'

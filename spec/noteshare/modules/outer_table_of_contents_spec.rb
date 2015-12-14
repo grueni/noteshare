@@ -74,5 +74,23 @@ describe OuterTableOfContents do
 
   end
 
+  it 'can produce a table of contents in dragula form' do
+
+    tc = OuterTableOfContents.new(@article, [], {})
+    # assert otc.is_a? OuterTableOfContents
+
+    puts tc
+
+  end
+
+  it 'can make a table of contents in dragula format' do
+
+    otc = OuterTableOfContents.new(@article, [], {})
+    output = otc.dragula_table
+    puts
+    puts output.cyan
+
+
+  end
 
 end

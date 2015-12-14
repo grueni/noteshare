@@ -151,6 +151,21 @@ module Noteshare
 
     end
 
+    def dragula_table
+
+      return '' if @toc.length == 0
+
+      output = "<div id = 'toc_editor-defaults' class = 'container'>\n"
+
+      @table.each do |item|
+
+        output << "  <div class='dragula_toc'>#{item.title}</div>\n"
+
+      end
+      output << "</div>\n"  << "<code> dragula([document.getElementById(toc_editor)]);</code>" << "\n\n"
+
+    end
+
 
     # If active_id matches the id of an item
     # in the table of contents, that item is

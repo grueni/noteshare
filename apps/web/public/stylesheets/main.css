@@ -437,6 +437,12 @@ textarea {
 
 /*** TABLE OF CONTENTS ***/
 
+.dragula_toc {
+
+    margin-bottom: 1em;
+
+}
+
 ul.toc {
     list-style:none;
     padding-left:20px;
