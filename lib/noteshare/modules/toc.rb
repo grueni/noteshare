@@ -153,16 +153,21 @@ module Noteshare
 
     def dragula_table
 
+      # http://codepen.io/rachelslurs/pen/EjKmLG
+
       return '' if @toc.length == 0
 
       output = "<div id = 'toc_editor-defaults' class = 'container'>\n"
+      output << '  <div id="drag-elements">' << "\n"
 
       @table.each do |item|
 
-        output << "  <div class='dragula_toc'>#{item.title}</div>\n"
+        output << "    <div class='dragula_toc'>#{item.title}</div>\n"
 
       end
-      output << "</div>\n"  << "<code> dragula([document.getElementById(toc_editor)]);</code>" << "\n\n"
+
+      output << '  </div>' << "\n"
+      output << "</div>\n\n"
 
     end
 

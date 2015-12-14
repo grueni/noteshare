@@ -8,9 +8,6 @@ module Editor::Controllers::Document
 
       @active_item = 'editor'
 
-      puts "PARAMS:".red
-      puts params.inspect.cyan
-
       @document = DocumentRepository.find params['id']
       @outer_table_of_contents = OuterTableOfContents.new(@document, [], {})
 

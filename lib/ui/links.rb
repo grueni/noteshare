@@ -251,7 +251,7 @@ module UI
 
 
     def edit_toc_link(document)
-      image_link('/images/edit_toc.png', '#', 'rearrange table of contents #')
+      image_link('/images/edit_toc.png', "/editor/edit_toc/#{document.id}", 'rearrange table of contents #')
     end
 
 
