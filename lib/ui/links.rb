@@ -62,6 +62,17 @@ module UI
     #####################################################
 
 
+    def domain_link
+      domain = ENV['DOMAIN']
+      if domain
+        domain.sub(/^\./,'')
+      else
+        'localhost'
+      end
+
+    end
+
+
     def home_link(active_item='')
       if active_item == 'home'
         link_to html.img(src: '/images/earth_green.png', title: 'system home', style: 'margin-top:-4px'), '/home'

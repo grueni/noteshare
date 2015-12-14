@@ -1,7 +1,7 @@
 .row
 
   .col.s5.offset-s1
-    h3==  ENV['DOMAIN'].sub(/^\./,'')
+    h3==  domain_link
     div
       .ns_card style='min-height:400px;'
         - if current_user(session)
