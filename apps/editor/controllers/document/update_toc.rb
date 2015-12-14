@@ -6,14 +6,23 @@ module Editor::Controllers::Document
 
     def call(params)
 
-
       puts "controller, UpdateToc".red
-      puts request.query_string.cyan
-      self.body = "PERMUTATION = ???"
+
+      data = request.query_string
+      permutation = data.split(',').map{ |x| x.to_i }
+
+      puts permutation.to_s.cyan
+
+      puts  "session['current_document_id'] = #{session['current_document_id']}".red
+      document = DocumentRepository.find session['current_document_id']
+      document.permute_table_of_contents(permutation)
+
+      self.body = "PERMUTATION = #{permutation}"
 
     end
 
     #Fixme: we really shouldn't do this
+    #See: https://rubygems.org/gems/jquery-lotus
     private
     def verify_csrf_token?
       false

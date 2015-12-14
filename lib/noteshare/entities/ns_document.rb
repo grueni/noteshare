@@ -916,6 +916,16 @@ class NSDocument
   #
   ############################################################
 
+  def permute_table_of_contents(permutation)
+    puts "In permute_table_of_contents:"
+    puts "I will permute #{self.title} using"
+    puts permutation.to_s.cyan
+    puts "length of p = #{permutation.count}, length of toc = #{self.toc.length}".red
+    toc2 = self.toc.permute(permutation)
+    self.toc = toc2
+    DocumentRepository.update self
+  end
+
   # Return a string representing the table of
   # contents.  The format of the string can
   # be modified by the choice of the option

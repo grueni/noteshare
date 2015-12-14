@@ -22,6 +22,15 @@ class Array
     self[0, k+1]
   end
 
+  def permute(permutation)
+    return self if self.count != permutation.count
+    array = []
+    permutation.each do |k|
+      array << self[k]
+    end
+    array
+  end
+
 
 
   # [10, 11, 12, 13]].random_indices(2)
