@@ -1,263 +1,263 @@
 (function(f){if(typeof exports==="object"&&typeof module!=="undefined"){module.exports=f()}else if(typeof define==="function"&&define.amd){define([],f)}else{var g;if(typeof window!=="undefined"){g=window}else if(typeof global!=="undefined"){g=global}else if(typeof self!=="undefined"){g=self}else{g=this}g.dragula = f()}})(function(){var define,module,exports;return (function e(t,n,r){function s(o,u){if(!n[o]){if(!t[o]){var a=typeof require=="function"&&require;if(!u&&a)return a(o,!0);if(i)return i(o,!0);var f=new Error("Cannot find module '"+o+"'");throw f.code="MODULE_NOT_FOUND",f}var l=n[o]={exports:{}};t[o][0].call(l.exports,function(e){var n=t[o][1][e];return s(n?n:e)},l,l.exports,e,t,n,r)}return n[o].exports}var i=typeof require=="function"&&require;for(var o=0;o<r.length;o++)s(r[o]);return s})({1:[function(require,module,exports){
-'use strict';
+  'use strict';
 
-var cache = {};
-var start = '(?:^|\\s)';
-var end = '(?:\\s|$)';
+  var cache = {};
+  var start = '(?:^|\\s)';
+  var end = '(?:\\s|$)';
 
-function lookupClass (className) {
-  var cached = cache[className];
-  if (cached) {
-    cached.lastIndex = 0;
-  } else {
-    cache[className] = cached = new RegExp(start + className + end, 'g');
+  function lookupClass (className) {
+    var cached = cache[className];
+    if (cached) {
+      cached.lastIndex = 0;
+    } else {
+      cache[className] = cached = new RegExp(start + className + end, 'g');
+    }
+    return cached;
   }
-  return cached;
-}
 
-function addClass (el, className) {
-  var current = el.className;
-  if (!current.length) {
-    el.className = className;
-  } else if (!lookupClass(className).test(current)) {
-    el.className += ' ' + className;
+  function addClass (el, className) {
+    var current = el.className;
+    if (!current.length) {
+      el.className = className;
+    } else if (!lookupClass(className).test(current)) {
+      el.className += ' ' + className;
+    }
   }
-}
 
-function rmClass (el, className) {
-  el.className = el.className.replace(lookupClass(className), ' ').trim();
-}
+  function rmClass (el, className) {
+    el.className = el.className.replace(lookupClass(className), ' ').trim();
+  }
 
-module.exports = {
-  add: addClass,
-  rm: rmClass
-};
+  module.exports = {
+    add: addClass,
+    rm: rmClass
+  };
 
 },{}],2:[function(require,module,exports){
-(function (global){
-'use strict';
+  (function (global){
+    'use strict';
 
-var emitter = require('contra/emitter');
-var crossvent = require('crossvent');
-var classes = require('./classes');
-var doc = document;
-var documentElement = doc.documentElement;
-var body = doc.body;
+    var emitter = require('contra/emitter');
+    var crossvent = require('crossvent');
+    var classes = require('./classes');
+    var doc = document;
+    var documentElement = doc.documentElement;
+    var body = doc.body;
 
-function dragula (initialContainers, options) {
-  var len = arguments.length;
-  if (len === 1 && Array.isArray(initialContainers) === false) {
-    options = initialContainers;
-    initialContainers = [];
-  }
-  var _mirror; // mirror image
-  var _source; // source container
-  var _item; // item being dragged
-  var _offsetX; // reference x
-  var _offsetY; // reference y
-  var _moveX; // reference move x
-  var _moveY; // reference move y
-  var _initialSibling; // reference sibling when grabbed
-  var _currentSibling; // reference sibling now
-  var _copy; // item used for copying
-  var _renderTimer; // timer for setTimeout renderMirrorImage
-  var _lastDropTarget = null; // last container item was over
-  var _grabbed; // holds mousedown context until first mousemove
-
-  var o = options || {};
-  if (o.moves === void 0) { o.moves = always; }
-  if (o.accepts === void 0) { o.accepts = always; }
-  if (o.invalid === void 0) { o.invalid = invalidTarget; }
-  if (o.containers === void 0) { o.containers = initialContainers || []; }
-  if (o.isContainer === void 0) { o.isContainer = never; }
-  if (o.copy === void 0) { o.copy = false; }
-  if (o.copySortSource === void 0) { o.copySortSource = false; }
-  if (o.revertOnSpill === void 0) { o.revertOnSpill = false; }
-  if (o.removeOnSpill === void 0) { o.removeOnSpill = false; }
-  if (o.direction === void 0) { o.direction = 'vertical'; }
-  if (o.ignoreInputTextSelection === void 0) { o.ignoreInputTextSelection = true; }
-  if (o.mirrorContainer === void 0) { o.mirrorContainer = body; }
-
-  var drake = emitter({
-    containers: o.containers,
-    start: manualStart,
-    end: end,
-    cancel: cancel,
-    remove: remove,
-    destroy: destroy,
-    dragging: false
-  });
-
-  if (o.removeOnSpill === true) {
-    drake.on('over', spillOver).on('out', spillOut);
-  }
-
-  events();
-
-  return drake;
-
-  function isContainer (el) {
-    return drake.containers.indexOf(el) !== -1 || o.isContainer(el);
-  }
-
-  function events (remove) {
-    var op = remove ? 'remove' : 'add';
-    touchy(documentElement, op, 'mousedown', grab);
-    touchy(documentElement, op, 'mouseup', release);
-  }
-
-  function eventualMovements (remove) {
-    var op = remove ? 'remove' : 'add';
-    touchy(documentElement, op, 'mousemove', startBecauseMouseMoved);
-  }
-
-  function movements (remove) {
-    var op = remove ? 'remove' : 'add';
-    touchy(documentElement, op, 'selectstart', preventGrabbed); // IE8
-    touchy(documentElement, op, 'click', preventGrabbed);
-  }
-
-  function destroy () {
-    events(true);
-    release({});
-  }
-
-  function preventGrabbed (e) {
-    if (_grabbed) {
-      e.preventDefault();
-    }
-  }
-
-  function grab (e) {
-    _moveX = e.clientX;
-    _moveY = e.clientY;
-
-    var ignore = whichMouseButton(e) !== 1 || e.metaKey || e.ctrlKey;
-    if (ignore) {
-      return; // we only care about honest-to-god left clicks and touch events
-    }
-    var item = e.target;
-    var context = canStart(item);
-    if (!context) {
-      return;
-    }
-    _grabbed = context;
-    eventualMovements();
-    if (e.type === 'mousedown') {
-      if (isInput(item)) { // see also: https://github.com/bevacqua/dragula/issues/208
-        item.focus(); // fixes https://github.com/bevacqua/dragula/issues/176
-      } else {
-        e.preventDefault(); // fixes https://github.com/bevacqua/dragula/issues/155
+    function dragula (initialContainers, options) {
+      var len = arguments.length;
+      if (len === 1 && Array.isArray(initialContainers) === false) {
+        options = initialContainers;
+        initialContainers = [];
       }
-    }
-  }
+      var _mirror; // mirror image
+      var _source; // source container
+      var _item; // item being dragged
+      var _offsetX; // reference x
+      var _offsetY; // reference y
+      var _moveX; // reference move x
+      var _moveY; // reference move y
+      var _initialSibling; // reference sibling when grabbed
+      var _currentSibling; // reference sibling now
+      var _copy; // item used for copying
+      var _renderTimer; // timer for setTimeout renderMirrorImage
+      var _lastDropTarget = null; // last container item was over
+      var _grabbed; // holds mousedown context until first mousemove
 
-  function startBecauseMouseMoved (e) {
-    if (!_grabbed) {
-      return;
-    }
-    if (whichMouseButton(e) === 0) {
-      release({});
-      return; // when text is selected on an input and then dragged, mouseup doesn't fire. this is our only hope
-    }
-    // truthy check fixes #239, equality fixes #207
-    if (e.clientX !== void 0 && e.clientX === _moveX && e.clientY !== void 0 && e.clientY === _moveY) {
-      return;
-    }
-    if (o.ignoreInputTextSelection) {
-      var clientX = getCoord('clientX', e);
-      var clientY = getCoord('clientY', e);
-      var elementBehindCursor = doc.elementFromPoint(clientX, clientY);
-      if (isInput(elementBehindCursor)) {
-        return;
+      var o = options || {};
+      if (o.moves === void 0) { o.moves = always; }
+      if (o.accepts === void 0) { o.accepts = always; }
+      if (o.invalid === void 0) { o.invalid = invalidTarget; }
+      if (o.containers === void 0) { o.containers = initialContainers || []; }
+      if (o.isContainer === void 0) { o.isContainer = never; }
+      if (o.copy === void 0) { o.copy = false; }
+      if (o.copySortSource === void 0) { o.copySortSource = false; }
+      if (o.revertOnSpill === void 0) { o.revertOnSpill = false; }
+      if (o.removeOnSpill === void 0) { o.removeOnSpill = false; }
+      if (o.direction === void 0) { o.direction = 'vertical'; }
+      if (o.ignoreInputTextSelection === void 0) { o.ignoreInputTextSelection = true; }
+      if (o.mirrorContainer === void 0) { o.mirrorContainer = body; }
+
+      var drake = emitter({
+        containers: o.containers,
+        start: manualStart,
+        end: end,
+        cancel: cancel,
+        remove: remove,
+        destroy: destroy,
+        dragging: false
+      });
+
+      if (o.removeOnSpill === true) {
+        drake.on('over', spillOver).on('out', spillOut);
       }
-    }
 
-    var grabbed = _grabbed; // call to end() unsets _grabbed
-    eventualMovements(true);
-    movements();
-    end();
-    start(grabbed);
+      events();
 
-    var offset = getOffset(_item);
-    _offsetX = getCoord('pageX', e) - offset.left;
-    _offsetY = getCoord('pageY', e) - offset.top;
+      return drake;
 
-    classes.add(_copy || _item, 'gu-transit');
-    renderMirrorImage();
-    drag(e);
-  }
-
-  function canStart (item) {
-    if (drake.dragging && _mirror) {
-      return;
-    }
-    if (isContainer(item)) {
-      return; // don't drag container itself
-    }
-    var handle = item;
-    while (getParent(item) && isContainer(getParent(item)) === false) {
-      if (o.invalid(item, handle)) {
-        return;
+      function isContainer (el) {
+        return drake.containers.indexOf(el) !== -1 || o.isContainer(el);
       }
-      item = getParent(item); // drag target should be a top element
-      if (!item) {
-        return;
+
+      function events (remove) {
+        var op = remove ? 'remove' : 'add';
+        touchy(documentElement, op, 'mousedown', grab);
+        touchy(documentElement, op, 'mouseup', release);
       }
-    }
-    var source = getParent(item);
-    if (!source) {
-      return;
-    }
-    if (o.invalid(item, handle)) {
-      return;
-    }
 
-    var movable = o.moves(item, source, handle, nextEl(item));
-    if (!movable) {
-      return;
-    }
+      function eventualMovements (remove) {
+        var op = remove ? 'remove' : 'add';
+        touchy(documentElement, op, 'mousemove', startBecauseMouseMoved);
+      }
 
-    return {
-      item: item,
-      source: source
-    };
-  }
+      function movements (remove) {
+        var op = remove ? 'remove' : 'add';
+        touchy(documentElement, op, 'selectstart', preventGrabbed); // IE8
+        touchy(documentElement, op, 'click', preventGrabbed);
+      }
 
-  function manualStart (item) {
-    var context = canStart(item);
-    if (context) {
-      start(context);
-    }
-  }
+      function destroy () {
+        events(true);
+        release({});
+      }
 
-  function start (context) {
-    if (isCopy(context.item, context.source)) {
-      _copy = context.item.cloneNode(true);
-      drake.emit('cloned', _copy, context.item, 'copy');
-    }
+      function preventGrabbed (e) {
+        if (_grabbed) {
+          e.preventDefault();
+        }
+      }
 
-    _source = context.source;
-    _item = context.item;
-    _initialSibling = _currentSibling = nextEl(context.item);
+      function grab (e) {
+        _moveX = e.clientX;
+        _moveY = e.clientY;
 
-    drake.dragging = true;
-    drake.emit('drag', _item, _source);
-  }
+        var ignore = whichMouseButton(e) !== 1 || e.metaKey || e.ctrlKey;
+        if (ignore) {
+          return; // we only care about honest-to-god left clicks and touch events
+        }
+        var item = e.target;
+        var context = canStart(item);
+        if (!context) {
+          return;
+        }
+        _grabbed = context;
+        eventualMovements();
+        if (e.type === 'mousedown') {
+          if (isInput(item)) { // see also: https://github.com/bevacqua/dragula/issues/208
+            item.focus(); // fixes https://github.com/bevacqua/dragula/issues/176
+          } else {
+            e.preventDefault(); // fixes https://github.com/bevacqua/dragula/issues/155
+          }
+        }
+      }
 
-  function invalidTarget () {
-    return false;
-  }
+      function startBecauseMouseMoved (e) {
+        if (!_grabbed) {
+          return;
+        }
+        if (whichMouseButton(e) === 0) {
+          release({});
+          return; // when text is selected on an input and then dragged, mouseup doesn't fire. this is our only hope
+        }
+        // truthy check fixes #239, equality fixes #207
+        if (e.clientX !== void 0 && e.clientX === _moveX && e.clientY !== void 0 && e.clientY === _moveY) {
+          return;
+        }
+        if (o.ignoreInputTextSelection) {
+          var clientX = getCoord('clientX', e);
+          var clientY = getCoord('clientY', e);
+          var elementBehindCursor = doc.elementFromPoint(clientX, clientY);
+          if (isInput(elementBehindCursor)) {
+            return;
+          }
+        }
 
-  function end () {
-    if (!drake.dragging) {
-      return;
-    }
-    var item = _copy || _item;
-    drop(item, getParent(item));
-  }
+        var grabbed = _grabbed; // call to end() unsets _grabbed
+        eventualMovements(true);
+        movements();
+        end();
+        start(grabbed);
 
-  function ungrab () {
+        var offset = getOffset(_item);
+        _offsetX = getCoord('pageX', e) - offset.left;
+        _offsetY = getCoord('pageY', e) - offset.top;
+
+        classes.add(_copy || _item, 'gu-transit');
+        renderMirrorImage();
+        drag(e);
+      }
+
+      function canStart (item) {
+        if (drake.dragging && _mirror) {
+          return;
+        }
+        if (isContainer(item)) {
+          return; // don't drag container itself
+        }
+        var handle = item;
+        while (getParent(item) && isContainer(getParent(item)) === false) {
+          if (o.invalid(item, handle)) {
+            return;
+          }
+          item = getParent(item); // drag target should be a top element
+          if (!item) {
+            return;
+          }
+        }
+        var source = getParent(item);
+        if (!source) {
+          return;
+        }
+        if (o.invalid(item, handle)) {
+          return;
+        }
+
+        var movable = o.moves(item, source, handle, nextEl(item));
+        if (!movable) {
+          return;
+        }
+
+        return {
+          item: item,
+          source: source
+        };
+      }
+
+      function manualStart (item) {
+        var context = canStart(item);
+        if (context) {
+          start(context);
+        }
+      }
+
+      function start (context) {
+        if (isCopy(context.item, context.source)) {
+          _copy = context.item.cloneNode(true);
+          drake.emit('cloned', _copy, context.item, 'copy');
+        }
+
+        _source = context.source;
+        _item = context.item;
+        _initialSibling = _currentSibling = nextEl(context.item);
+
+        drake.dragging = true;
+        drake.emit('drag', _item, _source);
+      }
+
+      function invalidTarget () {
+        return false;
+      }
+
+      function end () {
+        if (!drake.dragging) {
+          return;
+        }
+        var item = _copy || _item;
+        drop(item, getParent(item));
+      }
+
+      function ungrab () {
     _grabbed = false;
     eventualMovements(true);
     movements(true);
@@ -279,6 +279,8 @@ function dragula (initialContainers, options) {
     var permutation = get_permutation('dragula_toc')
     console.log('ON RELEASE, PERMUTATION: ' + permutation);
     localStorage.setItem('toc_permutation', permutation)
+    str  = localStorage.GetItem('toc_permutation')
+    puts "CONFIRM: " + str
     ungrab();
 
     if (!drake.dragging) {

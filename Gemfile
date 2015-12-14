@@ -25,8 +25,8 @@ gem 'asciidoctor', '~> 1.5.2'
 gem 'asciidoctor-latex', :github => 'asciidoctor/asciidoctor-latex', :branch => 'master'
 gem 'thread_safe'
 
-# https://github.com/rails/execj
-gem 'execjs', '~> 2.6'
+# https://github.com/cyu/rack-cors
+gem 'rack-cors', :require => 'rack/cors'
 
 group :test do
   gem 'minitest'

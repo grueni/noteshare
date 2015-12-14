@@ -44,8 +44,13 @@ $(document).ready(function() {
 
     $('#update_toc_button').click(function() {
 
-        alert(localStorage.getItem('toc_permutation'));
-        $.post('/editor/update_toc/0', localStorage.getItem('toc_permutation'))
+        console.log('button clicked')
+
+        var data = localStorage.getItem('toc_permutation');
+
+        console.log('AGAIN: ' + data);
+        var url = "/editor/update_toc/0?" + data;
+        $.post(url, 'foo');
     });
 
 
