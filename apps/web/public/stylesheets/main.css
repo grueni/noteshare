@@ -610,6 +610,11 @@ ul.toc {
 
 /*** OTHER ***/
 
+.message a {
+
+    text-decoration: underline;
+}
+
 
 .heart {
 

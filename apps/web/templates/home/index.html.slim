@@ -21,8 +21,9 @@
   .col.s5.offset-s6
     div style='position: absolute; top:75px; left: 30%;'
       .ns_card
-        h5 style='margin-top:0' Messages
-        == message
+        .div style='margin-top:-1.5em;'
+        /.message == Asciidoctor.convert settings.get_key('message')
+        .message == Asciidoctor.convert settings.get_key('message')
         br
         br
 
