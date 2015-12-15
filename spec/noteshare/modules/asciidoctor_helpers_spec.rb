@@ -7,7 +7,7 @@ include Noteshare::AsciidoctorUtilities
 # The tests below are organized into two sections:
 #
 #   (1) FreestandingTableOfContents
-#   (2) TableOfContents
+#   (2) NSTableOfContents
 #
 # The first is the TOC class for generic
 # Asciidoctor use.  The second is a subclass
@@ -15,7 +15,7 @@ include Noteshare::AsciidoctorUtilities
 
 # Fixme: the naming sucks and needs some work.
 
-describe 'FreestandingTableOfContents' do
+describe 'TableOfContents' do
 
   before do
 
@@ -103,7 +103,7 @@ EOF
   end
 
 
-  describe '(1) FreestandingTableOfContents' do
+  describe '(1) TableOfContents' do
 
     before do
 
@@ -136,14 +136,14 @@ EOF
 
     it 'can parse asciidoctor text and produce a table of contents as HTML' do
 
-      output =  Noteshare::AsciidoctorUtilities::FreestandingTableOfContents.new(@input_1, ['internal'], {}).table
+      output =  Noteshare::AsciidoctorUtilities::TableOfContents.new(@input_1, ['internal'], {}).table
       output.must_equal(@expected_output_1)
 
     end
 
     it 'can number the sections' do
 
-      toc =   Noteshare::AsciidoctorUtilities::FreestandingTableOfContents.new(@input_1, ['internal', 'sectnums'], {})
+      toc =   Noteshare::AsciidoctorUtilities::TableOfContents.new(@input_1, ['internal', 'sectnums'], {})
       toc.table.must_equal(@expected_output_2)
 
     end
@@ -154,7 +154,7 @@ EOF
 
 
 
-  describe '(2) TableOfContents' do
+  describe '(2) NSTableOfContents' do
 
     before do
 
@@ -182,15 +182,15 @@ EOF
 </ul>
 EOF
 
-      @expected_output_null_ref = <<EOF
-<ul class='inner_toc null'>
-  <li class='inner_toc null'> <a href='#'> 1. One</a></li>
-  <li class='inner_toc null'> <a href='#'> 2. Two</a></li>
-  <ul class='inner_toc null'>
-    <li class='inner_toc null'> <a href='#'> 2.1. Two.One</a></li>
-    <li class='inner_toc null'> <a href='#'> 2.2. Two.Two</a></li>
+      @expected_output_inert = <<EOF
+<ul class='inner_toc inert'>
+  <li class='inner_toc inert'> <a href='#'> 1. One</a></li>
+  <li class='inner_toc inert'> <a href='#'> 2. Two</a></li>
+  <ul class='inner_toc inert'>
+    <li class='inner_toc inert'> <a href='#'> 2.1. Two.One</a></li>
+    <li class='inner_toc inert'> <a href='#'> 2.2. Two.Two</a></li>
   </ul>
-  <li class='inner_toc null'> <a href='#'> 3. Three</a></li>
+  <li class='inner_toc inert'> <a href='#'> 3. Three</a></li>
 </ul>
 EOF
     end
@@ -198,7 +198,7 @@ EOF
 
     it 'can parse asciidoctor text and produce a table of contents as HTML' do
 
-      output =  Noteshare::AsciidoctorHelper::TableOfContents.new(@input_1, ['internal'], {} ).table
+      output =  Noteshare::AsciidoctorHelper::NSTableOfContents.new(@input_1, ['internal'], {} ).table
       output.must_equal(@expected_output_1)
 
     end
@@ -206,7 +206,7 @@ EOF
     it 'can number the sections' do
 
       input = "'sectnums'\n\n#{"'sectnums'\n\n" + @input_1}"
-      toc =   Noteshare::AsciidoctorHelper::TableOfContents.new(input, ['internal', 'sectnums'], {} )
+      toc =   Noteshare::AsciidoctorHelper::NSTableOfContents.new(input, ['internal', 'sectnums'], {} )
       toc.table.must_equal(@expected_output_2)
 
     end
@@ -214,8 +214,8 @@ EOF
     it 'can produce a table of contents in whih all internal references are inert' do
 
       input = @input_1
-      toc =   Noteshare::AsciidoctorHelper::TableOfContents.new(input, ['inert', 'sectnums'],{})
-      toc.table.must_equal(@expected_output_2)
+      toc =   Noteshare::AsciidoctorHelper::NSTableOfContents.new(input, ['inert', 'sectnums'],{})
+      toc.table.must_equal(@expected_output_inert)
 
     end
 

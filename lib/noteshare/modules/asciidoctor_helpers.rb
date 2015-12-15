@@ -61,7 +61,7 @@ module Noteshare
     # the class TableOfContents < TOC which is listed at the end.
 
 
-     class FreestandingTableOfContents
+     class TableOfContents
 
        def initialize(text, _attributes, _options )
          @text = text
@@ -140,6 +140,10 @@ module Noteshare
 
          @sections = doc.find_by context: :section
 
+         if @attributes.include? 'auto_level' and @sections.count > 0
+           @level = @sections[0].level
+         end
+
          return '' if @sections == nil
 
          @toc_string = ''
@@ -204,7 +208,7 @@ module Noteshare
     # is omitted. If the :numbered option is present, items in the table of contents
     # will be numbered.  (For the moment this requires ":numbered:\n\n" as the first
     # three lines of the input text.)
-    class TableOfContents < FreestandingTableOfContents
+    class NSTableOfContents < TableOfContents
 
       # Returns the entry in the table of contents for @section
       def toc_entry
@@ -227,17 +231,15 @@ module Noteshare
       # Set @ul and @li in accord with the options
       # 'inner_toc' refers to a CSS class that should give
       # proper indentation. 'null' refers to another CSS
-      # class that is used to distinguishh inactive items --
+      # class that is used to distinguish inactive items --
       # inactive in the sense that they do not point to
       # anything.
       def setup_list
-        if @attributes.include? 'inactive'
-          @ul = "<ul class='inner_toc null'>"
-          @li = "<li class='inner_toc null'>"
-        else
-          @ul = "<ul class='inner_toc'>"
-          @li = "<li class='inner_toc'>"
-        end
+        puts "attributes: #{@attributes}".red
+        css_classes = 'inner_toc'
+        css_classes << ' inert' if  @attributes.include? 'inert'
+        @ul = "<ul class='#{css_classes}'>"
+        @li = "<li class='#{css_classes}'>"
       end
 
       # @toc_string is the instance variable in which the output is

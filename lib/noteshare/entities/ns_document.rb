@@ -972,6 +972,8 @@ class NSDocument
     end
   end
 
+  # The active_id is the id of the subdocument which
+  # the user has selected.
   def root_table_of_contents(active_id, target='reader')
     puts "self.title: #{self.title}".red
     root = root_document || self
@@ -1009,17 +1011,18 @@ class NSDocument
 
   def dive(item, active_id,  ancestral_ids, target, output)
 
-    attributes = ['skip_first_item']
+    attributes = ['skip_first_item', 'auto_level']
     item.id == active_id ?   attributes << 'internal' : attributes << 'external'
     attributes << 'inert' if target == 'editor'
+    puts "DIVE, attributes = #{attributes}".cyan
 
     doc = DocumentRepository.find item.id
     return '' if doc == nil
 
-    itoc = doc.internal_table_of_contents(attributes, {doc_id: doc.id} )
-    output << itoc
+    output << doc.internal_table_of_contents(attributes, {doc_id: doc.id} )
     # Fixme: memoize, make lazy what we can.
 
+    # Here is where the recursion happens:
     if doc.table_of_contents.length > 0 and ancestral_ids.include? doc.id
       output << "<ul>\n" << doc.master_table_of_contents(active_id, target) << "</ul>"
     end
@@ -1058,6 +1061,7 @@ class NSDocument
 
     self.table_of_contents.each do |item|
 
+      puts "process item #{item.title}".yellow
       output << process_toc_item(item, active_id, ancestral_ids, target)
       dive(item, active_id,  ancestral_ids, target, output)
 
@@ -1078,7 +1082,7 @@ class NSDocument
 
     (attributes.include? 'root') ? source = self.compiled_content : source = self.content
 
-    toc =  Noteshare::AsciidoctorHelper::TableOfContents.new(source, attributes, options)
+    toc =  Noteshare::AsciidoctorHelper::NSTableOfContents.new(source, attributes, options)
 
     result = toc.table || ''
 

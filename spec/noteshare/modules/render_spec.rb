@@ -5,7 +5,7 @@ describe Render do
   before do
 
     ImageRepository.clear
-    image = Image.new(title: 'Shell', file_name: 'Joordens_Trinil_engravedshell-640x907-original.jpg', url: 's3.amazonaws.com/vschool/noteshare_images/Joordens_Trinil_engravedshell-640x907-original.jpg')
+    image = Image.new(title: 'Shell', file_name: 'Joordens_Trinil_engravedshell-640x907-original.jpg', url: 'http://s3.amazonaws.com/vschool/noteshare_images/Joordens_Trinil_engravedshell-640x907-original.jpg')
     ImageRepository.create image
     @image = ImageRepository.find_one_by_title('Shell')
     @text = "This ia an image:\n\nimage::#{@image.id}[width=200] \n\nLa di dah!"
