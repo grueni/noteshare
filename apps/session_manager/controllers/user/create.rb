@@ -7,6 +7,8 @@ module SessionManager::Controllers::User
 
     def call(params)
 
+      puts "IN: SessionManager, User, Create".red
+
       new_user = User.create(params[:user])
       password = params[:user]['password']
 

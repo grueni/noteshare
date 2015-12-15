@@ -4,7 +4,7 @@ module SessionManager::Controllers::User
 
     def call(params)
 
-
+       puts "IN: SessionManager. New "
       # redirect_to '/'
     end
   end
