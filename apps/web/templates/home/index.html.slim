@@ -13,7 +13,11 @@
           br
           p.compact == signup_link
         br
-        p.compact == link_to 'About', '/about'
+        p.compact.message
+          | Noteshare is a platform for creating and sharing documents on the web
+          | – course materials and lecture notes, handbooks, film festival catalogues,
+          | the next great novel, you name it!
+        p.compact.message == link_to 'More about Noteshare', '/about'
 
         span style='color:#F5574F;position:absolute; bottom:1em;left:2.5em;' ❤
         i style='color:#F5574F;position:absolute; bottom:1em; left:4.0em;' Share the knowledge!

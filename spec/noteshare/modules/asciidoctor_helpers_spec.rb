@@ -211,7 +211,7 @@ EOF
 
     end
 
-    it 'can produce a table of contents with inactive references' do
+    it 'can produce a table of contents in whih all internal references are inert' do
 
       input = @input_1
       toc =   Noteshare::AsciidoctorHelper::TableOfContents.new(input, ['inert', 'sectnums'],{})

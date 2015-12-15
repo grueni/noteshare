@@ -1,7 +1,7 @@
 class Lesson
   include Lotus::Entity
   attributes :id, :title, :content, :author_id, :course_id, :created_at, :modified_at,
-             :tags, :area, :sequence
+             :tags, :area, :sequence, :summary, :aside
 
   def to_document(screen_name)
     user = UserRepository.find_one_by_screen_name(screen_name)

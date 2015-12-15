@@ -984,7 +984,7 @@ class NSDocument
 
 
 
-  def toc_item(item, active_id, ancestral_ids, target)
+  def process_toc_item(item, active_id, ancestral_ids, target)
 
     doc_id = item.id
     doc_title = item.title
@@ -1058,7 +1058,7 @@ class NSDocument
 
     self.table_of_contents.each do |item|
 
-      output << toc_item(item, active_id, ancestral_ids, target)
+      output << process_toc_item(item, active_id, ancestral_ids, target)
       dive(item, active_id,  ancestral_ids, target, output)
 
     end

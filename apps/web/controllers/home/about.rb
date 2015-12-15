@@ -5,7 +5,6 @@ module Web::Controllers::Home
 
     def call(params)
       @active_item = 'home'
-      puts params.env.inspect
     end
   end
 end

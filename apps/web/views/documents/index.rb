@@ -1,4 +1,4 @@
-module Web::Views::Documents
+  module Web::Views::Documents
   class Index
     include Web::View
     require_relative '../../../../lib/ui/links'

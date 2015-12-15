@@ -6,7 +6,7 @@ describe 'Visit home' do
     visit '/'
 
     page.body.must_include('Noteshare')
-    page.body.must_include('About')
+    # page.body.must_include('About')
 
   end
 end
