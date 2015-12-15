@@ -26,7 +26,7 @@ gem 'asciidoctor-latex', :github => 'asciidoctor/asciidoctor-latex', :branch => 
 gem 'thread_safe'
 
 # https://github.com/cyu/rack-cors
-gem 'rack-cors', :require => 'rack/cors'
+# gem 'rack-cors', :require => 'rack/cors'
 
 group :test do
   gem 'minitest'
