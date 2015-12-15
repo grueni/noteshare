@@ -49,7 +49,7 @@ class Image
 
   def url2(size='original')
     if self.url
-      return "http://#{self.url}"
+      return self.url
     else
       return "http://s3.amazonaws.com/#{self.object_name}"
     end

@@ -23,7 +23,7 @@
       .ns_card
         .div style='margin-top:-1.5em;'
         /.message == Asciidoctor.convert settings.get_key('message')
-        .message == Asciidoctor.convert settings.get_key('message')
+        .message == Asciidoctor.convert ( settings.get_key('message') || '')
         br
         br
 

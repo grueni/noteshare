@@ -28,6 +28,9 @@ gem 'thread_safe'
 # https://github.com/cyu/rack-cors
 # gem 'rack-cors', :require => 'rack/cors'
 
+# http://www.rubydoc.info/gems/jquery-lotus/0.0.1
+gem 'jquery-lotus'
+
 group :test do
   gem 'minitest'
   gem 'capybara'

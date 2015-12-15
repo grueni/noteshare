@@ -181,6 +181,14 @@ module Editor
       # Fixme: temporarily disabled by JC
       # security.content_security_policy "default-src 'none'; script-src 'self'; connect-src 'self'; img-src 'self'; style-src 'self'; font-src 'self';"
 
+
+      ##
+      # CACHING
+      #
+
+      #
+      # http_caching true
+
       ##
       # FRAMEWORKS
       #
