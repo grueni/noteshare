@@ -48,9 +48,6 @@ describe Course do
     doc = course.to_document @user.screen_name
     doc.title.must_equal course.title
 
-    warn "doc.id = #{doc.id}".red if $VERBOOSE
-    warn "doc created_at #{doc.created_at}".cyan if $VERBOOSE
-    warn "doc modified_at #{doc.modified_at}".cyan if $VERBOOSE
     doc2 = DocumentRepository.find doc.id
     doc2.title.must_equal(doc.title)
 
@@ -68,8 +65,6 @@ describe Course do
   it 'can create a master document (doc + sections) from a course' do
 
     master = @course.create_master_document @user.screen_name
-
-    puts "CHECK (3) master title: #{master.title}".red
 
     master.title.must_equal(@course.title)
 

@@ -32,7 +32,7 @@ describe 'Delete document' do
 
   end
 
-  it 'can delete a document' do
+  it 'can delete a document 888' do
 
     sign_in('jayfoo@bar.com', 'foobar123')
     # current_path.must_equal("/user/#{@user.id}")

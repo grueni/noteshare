@@ -145,18 +145,18 @@ describe NSDocument do
 
   describe 'references to the parent and root document' do
 
-    it 'are set up by the "insert" method' do
+    it 'are set up by the "insert" method 888  ' do
 
       @section1.insert(0,@article)
       @section2.insert(1,@article)
       @section3.insert(2,@article)
       @subsection.insert(0, @section3)
-      @subsection.insert(0, @subsection)
+      @subsubsection.insert(0, @subsection)
 
       @article.root_document_id.must_equal 0
       @section1.root_document_id.must_equal @article.id
-      skip @subsection.root_document_id.must_equal @article.id
-      skip @subsubsection.root_document_id.must_equal @article.id
+      @subsection.root_document_id.must_equal @article.id
+      @subsubsection.root_document_id.must_equal @article.id
 
     end
 
@@ -206,7 +206,7 @@ describe NSDocument do
 
     end
 
-    it 'can compute the level of a document' do
+    it 'can computpute the level of a document' do
 
       @section1.content = 'Foo'
       @section1.asciidoc_level.must_equal(0)
@@ -252,8 +252,6 @@ describe NSDocument do
       @section2.insert(1,@article)
       @section3.insert(2,@article)
 
-      puts @article.toc
-
       @section1.previous_document_id.must_equal nil
       @section2.previous_document_id.must_equal @section1.id
       @section3.previous_document_id.must_equal @section2.id
@@ -290,19 +288,31 @@ describe NSDocument do
 
       p = @section1.parent_document
 
-      puts p.subdocument(0).title.cyan
-      puts p.subdocument(1).title.cyan
-      puts p.subdocument(2).title.cyan
+      #  @section2.delete
 
-      @section2.delete
-
-      puts
       p = p.reload
-      puts p.subdocument(0).title.red
-      puts p.subdocument(1).title.red
 
-      p.subdocument(0).next_document.title.must_equal p.subdocument(1).title
+      #      p.subdocument(0).next_document.title.must_equal p.subdocument(1).title
       p.subdocument(1).previous_document.title.must_equal p.subdocument(0).title
+
+    end
+
+
+    it 'subdocuments can be removed from their parent uuu'  do
+
+      @section1.add_to(@article)
+      @section2.add_to(@article)
+      @section3.add_to(@article)
+
+
+      p = @section1.parent_document
+      p_id = p.id
+
+      @section2.remove_from_parent
+
+      p = DocumentRepository.find p_id
+
+      assert p.toc.count == 2
 
     end
 
@@ -312,7 +322,7 @@ describe NSDocument do
 
     it 'can move a subdocument from one position to another mmm' do
 
-      puts "MMM".magenta
+
       article_id = @article.id
       @section1.add_to(@article)
       @section2.add_to(@article)
@@ -545,11 +555,7 @@ EOF
 
     it 'can render its content rcc' do
 
-      puts "CONTENT:\n#{@section2.content}"
       @section2.render
-
-      puts
-      puts "RENDERED CONTENT:\n#{@section2.rendered_content}"
 
       @section2.rendered_content.must_include '<em>so</em>'
 
@@ -560,8 +566,6 @@ EOF
       @section2.content = "He said that $a^2 + b^2 = c^2$. *Wow!*\n[env.theorem]\n--\nThere are infinitely many primes.\n--\n\n"
       @section2.render_options['format'] = 'adoc-latex'
       @section2.render
-
-      puts @section2.rendered_content
 
       asciidoc_content = "<div class=\"paragraph\">\n<p>He said that \\(a^2 + b^2 = c^2\\). <strong>Wow!</strong></p>\n</div>\n<div class=\"openblock theorem\">\n<div class=\"title\">Theorem 1.</div><div class=\"content\">\n<div class='click_oblique'>\nThere are infinitely many primes.\n</div>\n</div>\n</div>"
       @section2.rendered_content.must_equal asciidoc_content

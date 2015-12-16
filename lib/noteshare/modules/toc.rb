@@ -196,12 +196,6 @@ module Noteshare
 
         output << toc_item(item)
 
-        if item.has_subdocs
-          puts "#{item.title} has subdocs".cyan
-        else
-          puts "#{item.title} ----".cyan
-        end
-
         dive(item, output)
 
 
@@ -222,8 +216,6 @@ module Noteshare
     end
 
     def dive(item, output)
-
-      puts "IN DiVE: #{item.title}".red
 
       attributes = @attributes.dup << 'skip_first_item'
 

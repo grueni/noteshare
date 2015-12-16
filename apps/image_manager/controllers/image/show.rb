@@ -6,7 +6,6 @@ module ImageManager::Controllers::Image
 
     def call(params)
       @active_item = 'images'
-      puts "image_manager, call for show".red
       @image = ImageRepository.find params[:id]
       session[:current_image_id] = params[:id]
     end

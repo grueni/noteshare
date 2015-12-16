@@ -311,7 +311,6 @@ class NSDocument
   end
 
   def delete_subdocument
-    puts "delete_subdocument".red
     if parent_document
       self.remove_from_parent
     end
@@ -319,7 +318,6 @@ class NSDocument
   end
 
   def delete_associated_document
-    puts "delete_associated_document".red
     disassociate
     DocumentRepository.delete self
   end
@@ -341,6 +339,7 @@ class NSDocument
     p = parent_document
     _toc = TOC.new(p)
     _toc.delete_by_identifier(self.identifier)
+    _toc.save!
     DocumentRepository.update(p)
   end
 
@@ -407,7 +406,7 @@ class NSDocument
   end
 
   # Return next NSDocument.  That is, if @foo, @bar, and @baz
-  # are subcocuments in order of @article, then @bar.next_document = @baz
+  # are subocuments in order of @article, then @bar.next_document = @baz
   def next_document
     return if parent_document == nil
     _toc = TOC.new(parent_document)
@@ -420,7 +419,7 @@ class NSDocument
 
 
   # Return previous NSDocument.  That is, if @foo, @bar, and @baz
-  # are subcocuments in order of @article, then @bar.previous_document = @foo
+  # are subocuments in order of @article, then @bar.previous_document = @foo
   def previous_document
     return if parent_document == nil
     _toc = TOC.new(parent_document)
@@ -616,11 +615,7 @@ class NSDocument
   def disassociate
     _parent = parent_document
     _type = self.type.sub('associated:', '')
-    puts "_type: #{_type}".red
-    puts "class of _parent.doc_refs = #{_parent.doc_refs.class.name}".red
-    puts _parent.doc_refs.to_s
     _parent.doc_refs.delete(_type)
-    puts _parent.doc_refs.to_s
     self.parent_id = 0
     self.parent_ref =  nil
     self.root_document_id = 0
@@ -795,7 +790,6 @@ class NSDocument
 
     finish = Time.now
     elapsed = finish - start
-    puts "compile_with_render: elapsed time = #{elapsed}".red
     return value
   end
 
@@ -917,10 +911,6 @@ class NSDocument
   ############################################################
 
   def permute_table_of_contents(permutation)
-    puts "In permute_table_of_contents:"
-    puts "I will permute #{self.title} using"
-    puts permutation.to_s.cyan
-    puts "length of p = #{permutation.count}, length of toc = #{self.toc.length}".red
     toc2 = self.toc.permute(permutation)
     self.toc = toc2
     DocumentRepository.update self
@@ -975,7 +965,6 @@ class NSDocument
   # The active_id is the id of the subdocument which
   # the user has selected.
   def root_table_of_contents(active_id, target='reader')
-    puts "self.title: #{self.title}".red
     root = root_document || self
     if root
       root.master_table_of_contents(active_id, target)
@@ -1014,7 +1003,6 @@ class NSDocument
     attributes = ['skip_first_item', 'auto_level']
     item.id == active_id ?   attributes << 'internal' : attributes << 'external'
     attributes << 'inert' if target == 'editor'
-    puts "DIVE, attributes = #{attributes}".cyan
 
     doc = DocumentRepository.find item.id
     return '' if doc == nil
@@ -1061,7 +1049,6 @@ class NSDocument
 
     self.table_of_contents.each do |item|
 
-      puts "process item #{item.title}".yellow
       output << process_toc_item(item, active_id, ancestral_ids, target)
       dive(item, active_id,  ancestral_ids, target, output)
 
@@ -1069,7 +1056,6 @@ class NSDocument
 
     finish = Time.now
     elapsed = finish - start
-    puts "\nTable Of_Contents: elapsed time = #{elapsed}\n".magenta
 
     output << "</ul>\n\n"
 
@@ -1088,7 +1074,6 @@ class NSDocument
 
     finish = Time.now
     elapsed = finish - start
-    puts "internal_table_of_contents: elapsed time = #{elapsed}".red
 
    return result
 
@@ -1105,7 +1090,6 @@ class NSDocument
     end
     metadata['dict'] = new_dict
     self.meta = JSON.generate metadata
-    puts self.class.name.green
     DocumentRepository.update self
     new_dict
   end
@@ -1230,13 +1214,11 @@ class NSDocument
     table.each do |item|
       doc = DocumentRepository.find item.id
       doc.send(message, *args)
-      puts "#{doc.title}: #{message}".red
       DocumentRepository.update doc
     end
     doc_refs.each do |title, id|
       doc = DocumentRepository.find id
       doc.send(message, *args)
-      puts "#{doc.title}: #{message}".red
       DocumentRepository.update doc
     end
   end
@@ -1315,7 +1297,6 @@ class NSDocument
   # Fixme: this will become obsolete
   # when things are working better
   def heal_associated_docs
-    puts "keys (1): #{self.doc_refs.count}".red
     bad_keys = []
     self.doc_refs do |key, value|
       if DocumentRepository.find key == nil
@@ -1325,13 +1306,10 @@ class NSDocument
     bad_keys.each do |key|
       self.doc_refs.delete(key)
     end
-    puts "keys (2): #{self.doc_refs.count}".red
     DocumentRepository.update self
   end
 
   def associated_document_map(target='reader')
-
-    puts "associated_document_map".red
 
     heal_associated_docs
 
@@ -1429,7 +1407,6 @@ class NSDocument
   # = link text (or image)
   # if the link is not valid
   def previous_link(hash = {})
-    puts "PREVIOUS LINK".red
     alt_title =  hash[:alt_title] || ''
     p = self.previous_document
     p ? p.link(hash) : alt_title
@@ -1448,7 +1425,6 @@ class NSDocument
 
 
   def associate_link(type, prefix='')
-    puts "TYPE: #{type}".red
     if prefix == ''
       "<a href='/document/#{self.doc_refs[type]}'>#{type.capitalize}</a>"
     else
@@ -1464,16 +1440,10 @@ class NSDocument
   # Return the id of subdocument k - 1 or nil
   def previous_id
     p = parent_document
-    puts "IN: previous_id, parentof #{self.title} (#{self.id})  = #{parent_title} (#{parent_id})".magenta
     return nil if p == nil
     return nil if index_in_parent == nil
     return nil if index_in_parent-1 < 0
     table = TOC.new(p).table
-
-    puts "  -- and index_in_parent = #{index_in_parent}".cyan
-    puts "  -- toc_item: #{table[index_in_parent]}".red
-    puts "  -- previous toc_item: #{table[index_in_parent-1]}".red
-    puts "Class: #{table[index_in_parent-1].class.name}"
     return table[index_in_parent-1].id
   end
 
@@ -1481,17 +1451,11 @@ class NSDocument
   # Return the id of subdocuemnt k + 1 or nil
   def next_id
     p = parent_document
-    puts "IN: next_id, parent = #{parent_document.title} (#{parent_document.id})".magenta
     return nil if p == nil
     return nil if index_in_parent == nil
     return nil if index_in_parent+1 > p.subdoc_refs.length
     table = TOC.new(p).table
 
-
-    puts "  -- and index_in_parent = #{index_in_parent}".cyan
-    puts "  -- toc_item: #{table[index_in_parent]}".red
-    puts "  -- next toc_item: #{table[index_in_parent+1]}".red
-    puts "Class: #{table[index_in_parent+1].class.name}"
     return toc[index_in_parent+1].id
   end
 

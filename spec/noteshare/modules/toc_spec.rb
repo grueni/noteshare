@@ -52,12 +52,6 @@ describe TOC do
     @section2.add_to(@article)
     @section3.add_to(@article)
 
-    puts @article.toc.to_s.red
-    puts @section1.parent_ref.to_s.cyan
-    puts @section1.root_ref.to_s.blue
-
-    # puts @article.get_author_credentials.red
-
   end
 
 
@@ -70,8 +64,6 @@ describe TOC do
 
     compiled_text = @article.compile
 
-    puts "\n\n++++++++++++++++++++++++++++++++++".red
-    puts @article.toc.to_s.blue
 
     #compiled_text2 = @section2.compile
     #compiled_text2.must_include @section2.content

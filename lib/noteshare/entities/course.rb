@@ -35,7 +35,7 @@ class Course
   def create_master_document(screen_name)
 
     master = self.to_document(screen_name)
-    puts "CHECK master title: #{master.title}".red
+
     master.content ||= ''
     lessons = self.associated_lessons
     lesson_count = lessons.count
@@ -56,19 +56,12 @@ class Course
       stack == [] ?  delta = 2 : delta =  section.asciidoc_level - stack.last.asciidoc_level
       if delta >= 2
         stack.push(last_node)
-        puts "push #{last_node.title}".magenta
       elsif delta <= 0
         x = stack.pop
-        puts "pop #{x.title}".magenta
       end
       section.add_to(stack.last)
-      puts "#{section.title} => #{stack.last.title}".red
-      puts "   --- #{section.identifier}".blue
-      puts "   --- #{section.author_credentials}".blue
       last_node = section
     end
-    puts "CHECK (2) master title: #{master.title}".red
-    # master.update_table_of_contents(force: true)
     return master
   end
 

@@ -9,21 +9,16 @@ module SessionManager::Controllers::User
     expose :user
 
     def handle_login
-      puts "Enter handle_login".red
       if @user
         params[:user]['authenticated']  = true
-        puts "user authenticated: #{@user.full_name}".red
-        puts "at end of 'authenticate', session = #{session.inspect}".cyan
       else
         params[:user]['authenticated']  = false
-        puts "Error: could not authenticate".red
         redirect_to '/home'
       end
     end
 
     def handle_redirect
 
-      puts "Enter handle redirect".red
       @user_node = NSNodeRepository.for_owner_id @user.id
       @user_node_name = @user_node.name
 
@@ -38,10 +33,6 @@ module SessionManager::Controllers::User
     end
 
     def call(params)
-
-      puts "SessionManager, AUTHENTICATE".magenta
-      puts "at beginning of 'authenticate', session = #{session.inspect}".cyan
-      puts "ENV['DOMAIN'] = #{ENV['DOMAIN']}".red
 
       session[:user_id] = nil
       authenticator = UserAuthentication.new(params[:user]['email'], params[:user]['password'])

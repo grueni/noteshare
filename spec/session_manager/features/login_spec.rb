@@ -28,7 +28,7 @@ describe 'Login User' do
       click_button 'Log in'
     end
 
-    current_path.must_equal("/user/#{@user.id}")       ###????
+    current_path.must_equal("/authenticate")       ###????
 
     visit "/node/user/#{@user.id}"
     assert page.has_content?(@user.screen_name), "Go to user's node page"
