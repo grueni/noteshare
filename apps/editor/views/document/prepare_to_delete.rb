@@ -9,6 +9,7 @@ module Editor::Views::Document
         text_field :destroy
 
         hidden_field :document_id, value: document.id
+        hidden_field :delete_mode, value: delete_mode
 
         submit 'Destroy', {style: 'margin-top:1em;'}
         # button_to 'Cancel', "/documents/#{params[:id]}"
