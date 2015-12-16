@@ -7,16 +7,19 @@ module Editor::Controllers::Document
     def call(params)
       @active_item = 'editor'
       puts 'controller: CreateNewSection'.red
+      puts "(2) query: #{request.query_string}".cyan
 
       document_packet = params['document']
       title = document_packet['title']
       content = document_packet['content']
       parent_id = document_packet['parent_id']
+      create_mode = document_packet['create_mode']
 
       user = current_user(session)
 
       puts "user: #{user.screen_name}".magenta
       puts "parent_id: #{parent_id}".magenta
+      puts "create_mode: #{create_mode  }".magenta
 
       author = UserRepository.find user.id
       current_document = DocumentRepository.find session[:current_document_id]
@@ -27,7 +30,7 @@ module Editor::Controllers::Document
 
 
 
-      redirect_to "/document/#{new_document.id}"
+      redirect_to "/editor/document/#{new_document.id}"
 
     end
   end

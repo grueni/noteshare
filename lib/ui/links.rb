@@ -217,13 +217,27 @@ module UI
 
     def new_section_link(document)
       #   html.tag(:a, 'New section', href: "/editor/new_section/#{document.id}")
-      image_link '/images/new_section.png', "/editor/new_section/#{document.id}", 'new section'
+      image_link '/images/new_section.png', "/editor/new_section/#{document.id}?child", 'new section (child)'
+    end
+
+    def new_sibling_before_link(document)
+      image_link '/images/less_than.png', "/editor/new_section/#{document.id}?sibling_before", 'new section (sibling before)'
+    end
+
+    def new_sibling_after_link(document)
+      image_link '/images/greater_than.png', "/editor/new_section/#{document.id}?sibling_after", 'new section (sibling after)'
     end
 
     def new_associated_document_link(document)
-      #   html.tag(:a, 'New section', href: "/editor/new_section/#{document.id}")
       image_link '/images/site.png', "/editor/new_associated_document/#{document.id}", 'new associated document'
     end
+
+
+
+    def move_up_in_toc_link(document)
+      image_link '/images/move_up.png', "#", 'move section up one level'
+    end
+
 
 
     def delete_document_link(document)

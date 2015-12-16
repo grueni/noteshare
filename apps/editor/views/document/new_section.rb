@@ -16,6 +16,7 @@ module Editor::Views::Document
         text_area :content
 
         hidden_field :parent_id, value: params[:id]
+        hidden_field :create_mode, value: create_mode
 
         submit 'Create'
 

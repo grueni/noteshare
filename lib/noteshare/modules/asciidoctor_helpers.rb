@@ -65,8 +65,8 @@ module Noteshare
 
        def initialize(text, _attributes, _options )
          @text = text
-         @attributes = _attributes
-         @options = _options
+         @attributes = _attributes || []
+         @options = _options || {}
          @doc_id = @options[:doc_id]
        end
 
@@ -140,7 +140,8 @@ module Noteshare
 
          @sections = doc.find_by context: :section
 
-         if @attributes.include? 'auto_level' and @sections.count > 0
+         # Fixme: this code is questionable
+         if @attributes.include? 'auto_level' && @sections && @sections.count > 0
            @level = @sections[0].level
          end
 
