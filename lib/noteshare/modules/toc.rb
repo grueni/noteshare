@@ -134,6 +134,17 @@ module Noteshare
       target
     end
 
+
+    # Swap TOC entries for the given identifiers
+    def swap(subdocument1, subdocument2)
+      index1 = index_by_identifier(subdocument1.identifier)
+      index2 = index_by_identifier(subdocument2.identifier)
+      item1 = @table[index1]
+      item2 = @table[index2]
+      @table[index1] = item2
+      @table[index2] = item1
+      self.save!
+    end
   end
 
   class OuterTableOfContents

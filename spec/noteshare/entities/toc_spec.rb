@@ -235,6 +235,40 @@ describe NSDocument do
 
   end
 
+  it 'can swap two entries in the TOC (swax)' do
+
+    id = @article1.id
+    @section1.add_to(@article1)
+    @section2.add_to(@article1)
+    @section3.add_to(@article1)
+
+    TOC.new(@article1).swap(@section1, @section3)
+
+    @article1 = DocumentRepository.find id
+    assert @article1.subdocument(0) == @section3
+    assert @article1.subdocument(2) == @section1
+
+
+  end
+
+  it 'can swap two entries in the TOC using NSDocument convenience methods(sway)' do
+
+    id = @article1.id
+    @section1.add_to(@article1)
+    @section2.add_to(@article1)
+    @section3.add_to(@article1)
+
+    @section1.sibling_swap_in_toc(@section3)
+
+
+    @article1 = DocumentRepository.find id
+    assert @article1.subdocument(0) == @section3
+    assert @article1.subdocument(2) == @section1
+
+
+  end
+
+
 
 end
 

@@ -356,7 +356,7 @@ class NSDocument
     parent_document.parent_document
   end
 
-  def move_leve_up
+  def move_section_to_parent_level
     gp = grandparent_document
     if gp != parent_document
       remove_from_parent
@@ -367,6 +367,25 @@ class NSDocument
       return parent_document
     end
   end
+
+  def sibling_swap_in_toc(document)
+    p = parent_document
+    _toc = TOC.new(p)
+    _toc.swap(self, document)
+  end
+
+  def move_section_down_in_toc
+    gp = grandparent_document
+    if gp != parent_document
+      remove_from_parent
+      add_to(gp)
+      return gp
+    else
+      puts 'grand parent iS parent'.cyan
+      return parent_document
+    end
+  end
+
 
   # Return title, id, an ids of previous and next documents
   def status
