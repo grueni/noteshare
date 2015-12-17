@@ -12,7 +12,7 @@ module Editor::Views::Document
         text_field :tags, {value: document.tags, style:'color:white;'}
 
         label :options
-        text_field :options
+        text_area :options, {value: document.options, style: 'background-color: rgba(10,10,10,0.67); height:200px;margin-top:0.5em;'}
 
         hidden_field :document_id, style:'color:white;', value: params[:id]
 

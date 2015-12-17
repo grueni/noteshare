@@ -78,10 +78,15 @@ class NSDocument
 
 
   include Lotus::Entity
-  attributes :id, :author_id, :author, :author_identifier, :author_credentials, :title, :identifier, :tags, :type, :area, :meta,
-    :created_at, :modified_at, :content, :compiled_content, :rendered_content, :compiled_and_rendered_content, :render_options,
-    :parent_ref, :root_ref, :parent_id, :index_in_parent, :root_document_id, :visibility,
-    :subdoc_refs,  :toc, :doc_refs, :content_dirty, :compiled_dirty, :toc_dirty, :acl, :groups_json
+  attributes :id, :title, :identifier,
+             :author_id, :author, :author_identifier, :author_credentials,
+             :tags, :type, :area, :meta, :doc_attributes, :options,
+             :created_at, :modified_at,
+             :content, :compiled_content, :rendered_content, :compiled_and_rendered_content, :render_options,
+             :parent_ref, :root_ref, :parent_id, :index_in_parent, :root_document_id,
+             :subdoc_refs,  :toc, :doc_refs,
+             :content_dirty, :compiled_dirty, :toc_dirty,
+             :acl,  :visibility, :groups_json
 
 
   # include Noteshare::Setup

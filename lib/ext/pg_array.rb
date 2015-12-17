@@ -7,6 +7,8 @@ require 'sequel/extensions/pg_array'
 
 Sequel.extension :pg_array_ops
 
+# Sequel.extension :pg_json_ops
+
 
 class PGIntArray < Lotus::Model::Coercer
   def self.dump(value)
@@ -18,8 +20,18 @@ class PGIntArray < Lotus::Model::Coercer
   end
 end
 
+class PGStringArray < Lotus::Model::Coercer
+  def self.dump(value)
+    ::Sequel.pg_array(value, :text)
+  end
 
-class PGJsonb < Lotus::Model::Coercer
+  def self.load(value)
+    ::Kernel.Array(value) unless value.nil?
+  end
+end
+
+
+class PGJSONb < Lotus::Model::Coercer
   def self.dump(value)
     Sequel.pg_jsonb(value)
   end

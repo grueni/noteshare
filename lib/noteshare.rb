@@ -74,6 +74,8 @@ Lotus::Model.configure do
       attribute :toc_dirty, Boolean
       attribute :acl, JSON
       attribute :groups_json, JSON
+      attribute :doc_attributes, PGStringArray
+      attribute :options, JSON
     end
 
     collection :settings do
