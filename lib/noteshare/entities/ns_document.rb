@@ -286,6 +286,17 @@ class NSDocument
 
   end
 
+  def add_as_sibling_of(document, direction)
+    p = document.parent_document
+    _toc = TOC.new(p)
+    k = _toc.index_by_identifier(document.identifier)
+    direction == :before ? offset = 0 : offset = +1
+    k = k + offset
+    return if k < 0
+    return if k > _toc.count
+    insert(k,p)
+  end
+
   # Used by #insert to preserve the
   # validity of the previous and next
   # links of subdocuments.

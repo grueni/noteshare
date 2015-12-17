@@ -26,11 +26,19 @@ module Editor::Controllers::Document
       # current_root_document = current_document.root_document
       new_document = NSDocument.create(title: title, content: content, author_credentials: author.credentials)
 
-      new_document.add_to(current_document)
 
-
-
+      case create_mode
+        when 'child'
+          new_document.add_to(current_document)
+        when 'sibling_before'
+          new_document.add_as_sibling_of current_document, :before
+        when 'sibling_after'
+          new_document.add_as_sibling_of current_document, :after
+        else
+          puts 'do ntoting'
+      end
       redirect_to "/editor/document/#{new_document.id}"
+
 
     end
   end

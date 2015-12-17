@@ -137,6 +137,39 @@ describe NSDocument do
 
     end
 
+    it 'can add a document to a parent as sibling' do
+
+      @section1.add_to(@article)
+      @section2.add_to(@article)
+      @section3.add_to(@article)
+
+      id = @article.id
+
+      @subsection.add_as_sibling_of(@section3, :before)
+
+      @article = DocumentRepository.find id
+
+      assert @article.subdocument(2) == @subsection
+
+    end
+
+    it 'can add a document to a parent as sibling after' do
+
+
+      @section1.add_to(@article)
+      @section2.add_to(@article)
+      @section3.add_to(@article)
+
+      id = @article.id
+
+      @subsection.add_as_sibling_of(@section2, :after)
+
+      @article = DocumentRepository.find id
+
+      assert @article.subdocument(2) == @subsection
+
+    end
+
   end
 
 

@@ -52,6 +52,10 @@ module Noteshare
       @table
     end
 
+    def count
+      return table.count
+    end
+
     def save
       new_table = table.map{ |item| item.to_h}
       @document.toc = new_table
