@@ -6,7 +6,6 @@ module Admin::Controllers::Users
 
     def call(params)
       @active_item = 'admin'
-      puts "admin controller users"
       @users = UserRepository.all
     end
 

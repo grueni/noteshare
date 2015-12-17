@@ -318,12 +318,115 @@ describe NSDocument do
 
   end
 
-  describe 'moves: ' do
+  describe 'moves mxx' do
+
+
+    it 'can compute the grandparent' do
+
+      @section1.add_to(@article)
+      @section2.add_to(@section1)
+      @section3.add_to(@section2)
+
+      assert @section2.grandparent_document == @article
+      assert @section1.grandparent_document == nil
+
+    end
+
+    it 'can remove a document from its parent rxx' do
+
+
+      @section1.add_to(@article)
+      @section2.add_to(@article)
+      @section3.add_to(@article)
+
+      assert @article.toc.count == 3
+
+      @article.toc.each do |item|
+        puts item.to_s.red
+      end
+
+      @section2.remove_from_parent
+
+      puts
+      @article.toc.each do |item|
+        puts item.to_s.red
+      end
+
+      assert @article.toc.count == 2, 'one item less in toc after removal'
+
+    end
+
+
+    it 'can move a subdocument up one level step-by-step msup' do
+
+
+
+      @section1.add_to(@article)
+      @section2.add_to(@article)
+      @section3.add_to(@article)
+      @subsection.add_to(@section2)
+
+
+      @article.toc.each do |item|
+        puts item.to_s.red
+      end
+
+
+      @section2.toc.each do |item|
+        puts item.to_s.cyan
+      end
+
+      @subsection.remove_from_parent
+      @subsection = @subsection.reload
+
+
+      puts
+
+
+      @section2.toc.each do |item|
+        puts item.to_s.cyan
+      end
+
+      @article.toc.each do |item|
+        puts item.to_s.red
+      end
+
+      # puts @section2.toc.red
+
+      assert @article.toc.count == 2
+
+
+
+    end
+
+
+    it 'can move a subdocument up one level mup' do
+
+      parid = @article.id
+      subid = @subsection.id
+
+      @section1.add_to(@article)
+      @section2.add_to(@article)
+      @section3.add_to(@article)
+      @subsection.add_to(@section2)
+
+      @subsection.add_to(@section2)
+      @subsection.move_up
+
+      @article = DocumentRepository.find parid
+      @subsection = DocumentRepository.find subid
+
+      assert @subsection.parent_document == @article
+
+      assert @article.toc.count == 4
+      assert @article.subdocument(3) == @subsection
+    end
+
 
     it 'can move a subdocument from one position to another mmm' do
 
 
-      article_id = @article.id
+
       @section1.add_to(@article)
       @section2.add_to(@article)
       @section3.add_to(@article)

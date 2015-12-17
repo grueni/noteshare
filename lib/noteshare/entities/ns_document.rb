@@ -332,7 +332,7 @@ class NSDocument
 
   # @foo.remove_from_parent removes
   # @foo as a subdocument of its parent.
-  # It oes not delete @foo.
+  # It does not delete @foo.
   # Fixme: it is intended that a document have at most one parent.
   # However, this is not yet enforced.
   def remove_from_parent
@@ -340,7 +340,6 @@ class NSDocument
     _toc = TOC.new(p)
     _toc.delete_by_identifier(self.identifier)
     _toc.save!
-    DocumentRepository.update(p)
   end
 
 
@@ -353,6 +352,21 @@ class NSDocument
     insert(new_position, parent_document)
   end
 
+  def grandparent_document
+    parent_document.parent_document
+  end
+
+  def move_up
+    gp = grandparent_document
+    if gp != parent_document
+      remove_from_parent
+      add_to(gp)
+      return gp
+    else
+      puts 'grand parent iS parent'.cyan
+      return parent_document
+    end
+  end
 
   # Return title, id, an ids of previous and next documents
   def status

@@ -54,54 +54,36 @@ describe NSDocument do
 
   end
 
-=begin
 
-  it 'can initialize an instance from a toc_array and access the data therein' do
+
+  it 'can initialize an instance from a toc_array and access the data therein (weak check)' do
 
     t = TOC.new(@article)
     t.table[0].id.must_equal @toc_array[0]['id']
-    puts "(1)"
-    puts t.table
-    puts "---------------"
-
-
 
   end
 
 
 
-  it 'can make changes to its data and read them back' do
+  it 'can make changes to its data, read them back, and save them to the database  cxx' do
 
     t = TOC.new(@article)
+    id = @article.id
     t.table[0].id = 777
     t.table[0].id.must_equal 777
 
-  end
+    # In this case the changes are not persisted
+    a = DocumentRepository.find id
+    tt = TOC.new(a)
+    assert tt.table[0].id != 777
 
-
-  it 'can make changes to its data, persist them, and read them back' do
-
-    article2 = DocumentRepository.find @article.id
-
-    article2.title.must_equal @article.title
-    t2 = TOC.new(article2)
-    t2.table[0].id.must_equal 2
-    t2.table[0].id = 777
-
-    t2.save!
-
-    puts "(2)"
-    puts t2.table
-    puts "---------------"
-
-    article3 = DocumentRepository.find @article.id
-    t3 = TOC.new(article3)
-    t3.table[0].id.must_equal 777
+    # In this case the changes are persisted
+    t.save!
+    a = DocumentRepository.find id
+    tt = TOC.new(a)
+    assert tt.table[0].id == 777
 
   end
-=end
-
-
 
 
   it 'sets the correct parent_item and root_item fields for a document added to another' do
@@ -124,19 +106,15 @@ describe NSDocument do
 
     @section1.parent_item.identifier.must_equal @article1.identifier
 
-    @section1.display('@section1', [:id, :title, :identifier, :root_document_id, :root_ref, :root_item, :parent_id, :parent_ref, :parent_item, :toc])
-    @article1.display('@section1', [:id, :title, :identifier, :root_document_id, :root_ref, :root_item, :parent_id, :parent_ref, :parent_item, :toc])
+    # @section1.display('@section1', [:id, :title, :identifier, :root_document_id, :root_ref, :root_item, :parent_id, :parent_ref, :parent_item, :toc])
+    # @article1.display('@section1', [:id, :title, :identifier, :root_document_id, :root_ref, :root_item, :parent_id, :parent_ref, :parent_item, :toc])
 
-
-    puts "For #{@section1.title} @section1.parent_item = #{ @section1.parent_item}".red
     @section1.parent_item.id.must_equal(@article1.id)
     @section1.parent_id.must_equal(@article1.id)
     @section1.root_item.title.must_equal(@article1.title)
     @section1.level.must_equal(1)
     @section1.ancestor_ids.must_equal([@article1.id])
     # assert @section1.toc[0].identifier != nil
-
-
 
 
   end
@@ -159,7 +137,6 @@ describe NSDocument do
     table[2].title.must_equal(@section3.title)
 
     DocumentRepository.update @article1
-
 
     article2 = DocumentRepository.find @article1.id
     article2_table = TOC.new(article2).table
@@ -200,8 +177,6 @@ describe NSDocument do
     @subsection1.add_to(@section2)
     @subsection2.add_to(@section2)
 
-
-
   end
 
   it 'can change the the title of a TOC item given an id' do
@@ -222,64 +197,44 @@ describe NSDocument do
 
   end
 
-  it 'can delete an entry by id number' do
-=begin
+  it 'can crudely delete an entry by id number cuu' do
+
     @section1.add_to(@article1)
     @section2.add_to(@article1)
     @section3.add_to(@article1)
 
-    @section2.remove_from(@article)
-=end
+    assert @article1.toc.count == 3,  'There should be three items in the toc after setup'
+
+    p = @section2.parent_document
+
+    assert p == @article1
+
+    _toc = TOC.new(p)
+    _toc.delete_by_identifier(@section2.identifier)
+    _toc.save!
+
+    assert p.toc.count == 2, 'There should be two items in the toc after removal'
+
   end
 
+  it 'can delete an entry by id number duu' do
 
-=begin
-
-
- it 'can update its table of contents mtoc' do
-
-    # @article.update_table_of_contents
+    id = @article1.id
 
     @section1.add_to(@article1)
     @section2.add_to(@article1)
-    # @section3.add_to(@article1)
-    # @subsection1.add_to(@section2)
-    # @subsection2.add_to(@section2)
+    @section3.add_to(@article1)
 
-    puts "TOC for article:"
-    puts @article1.toc
+    assert @article1.toc.count == 3,  'There should be three items in the toc after setup'
 
-    puts "TOC for first section:"
-    puts @section1.toc
+    @section2.remove_from_parent
 
-    puts "\n\nTOC for second section:"
-    puts @section2.toc
+    @article2 = DocumentRepository.find id
 
-    flat_toc = @article1.toc.flatten
-
-    flat_toc[0].title.must_equal 'Uncertainty Principle'
-    # flat_toc[1].title.must_equal 'Wave-Particle Duality'
-    # flat_toc[5].must_equal 'Matrix Mechanics'
-
+    assert @article2.toc.count == 2, 'There should be two items in the toc after removal'
 
   end
 
-  it 'can construct a master table of contents' do
-
-    @article.update_table_of_contents
-    puts @article.master_table_of_contents
-
-  end
-
-  it 'can compute the level of a subdocument xxx' do
-
-    @article.level.must_equal 0
-    @section1.level.must_equal 1
-    @subsection1.level.must_equal 2
-
-  end
-
-=end
 
 end
 

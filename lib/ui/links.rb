@@ -235,7 +235,7 @@ module UI
 
 
     def move_up_in_toc_link(document)
-      image_link '/images/move_up.png', "#", 'move section up one level'
+      image_link '/images/move_up.png', "/editor/move/#{document.id}/?up", 'move section up one level'
     end
 
 

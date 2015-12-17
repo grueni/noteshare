@@ -36,6 +36,10 @@ module Noteshare
       end
     end
 
+    def title
+      @document.title
+    end
+
     def display
       str = "\n-------\nTABLE:\n"
       @table.each do |item|
