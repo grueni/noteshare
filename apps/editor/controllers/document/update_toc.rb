@@ -15,6 +15,9 @@ module Editor::Controllers::Document
 
       puts  "session['current_document_id'] = #{session['current_document_id']}".red
       document = DocumentRepository.find session['current_document_id']
+      redirect_to "editor/document/#{document.id}" if document.toc.count == 0
+
+
       document.permute_table_of_contents(permutation)
 
       self.body = "PERMUTATION = #{permutation}"

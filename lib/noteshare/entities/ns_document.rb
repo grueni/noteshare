@@ -358,7 +358,7 @@ class NSDocument
 
   def move_section_to_parent_level
     gp = grandparent_document
-    if gp != parent_document
+    if gp && gp != parent_document
       remove_from_parent
       add_to(gp)
       return gp

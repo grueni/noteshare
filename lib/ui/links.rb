@@ -235,7 +235,11 @@ module UI
 
 
     def move_section_to_level_of_parent_link(document)
-      image_link '/images/move_level_up.png', "/editor/move/#{document.id}/?move_to_parent_level", 'move section to level of parent'
+      image_link '/images/move_to_parent_level.png', "/editor/move/#{document.id}/?move_to_parent_level", 'move section to level of parent'
+    end
+
+    def move_section_to_child_level_link(document)
+      image_link '/images/move_to_child_level.png', "/editor/move/#{document.id}/?move_to_child_level", 'make section child of ...'
     end
 
 
@@ -245,7 +249,7 @@ module UI
 
 
     def move_down_in_toc_link(document)
-      image_link '/images/move_down.png', "/editor/move/#{document.id}/?move_down_in_toc", 'move section down in toc'
+      image_link '/images/move_down.png', "#", 'move section down in toc'
     end
 
 
