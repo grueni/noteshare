@@ -249,7 +249,7 @@ module UI
 
 
     def move_down_in_toc_link(document)
-      image_link '/images/move_down.png', "#", 'move section down in toc'
+      image_link '/images/move_down.png', "/editor/move/#{document.id}/?move_down_in_toc", 'move section down in toc'
     end
 
 

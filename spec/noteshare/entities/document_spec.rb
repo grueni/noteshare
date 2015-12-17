@@ -170,6 +170,41 @@ describe NSDocument do
 
     end
 
+    it 'can make a document be the child of its (upper) siblingr' do
+
+
+      @section1.add_to(@article)
+      @section2.add_to(@article)
+      @section3.add_to(@article)
+      @subsection.add_to(@article)
+
+      id = @article.id
+
+      @subsection.make_child_of_sibling
+
+      @article = DocumentRepository.find id
+
+      assert @subsection.parent_document == @section3
+
+    end
+
+    it 'can make a document which was the child of its parent be the sibling of its parent sss' do
+
+      id = @article.id
+
+      @section1.add_to(@article)
+      @section2.add_to(@article)
+      @section3.add_to(@article)
+      @subsection.add_to(@section3)
+
+      @subsection.move_section_to_sibling_of_parent
+
+      @article = DocumentRepository.find id
+
+      assert @subsection.previous_document == @section3
+
+    end
+
   end
 
 

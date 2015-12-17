@@ -48,21 +48,23 @@ class DocumentRepository
   # List all descendants of a given document
   def self.descendants(doc_id)
     query do
-      where(parent_id: doc_id)
+      where(root_document_id: doc_id)
     end
   end
 
   # Destroy all descendants of a given
   # document and the document itself
-  def self.destroy_tree(doc_id)
+  def self.destroy_tree(doc_id, switches = [:verbose ])
     descendants = self.descendants(doc_id)
     n = descendants.count
     descendants.each do |doc|
-      DocumentRepository.delete doc
+      puts "#{doc.id}: #{doc.title}" if switches.include? :verbose
+      DocumentRepository.delete doc if switches.include? :kill
     end
-    doc = DocumentRepository.find(doc_id)
-    DocumentRepository.delete(doc)
-    n
+    doc = DocumentRepository.find(doc_id) if switches.include? :verbose
+    author_node = NSNodeRepository.for_owner_id doc.author_id
+    DocumentRepository.delete(doc) if switches.include? :kill
+    author_node.update_docs_for_owner
   end
 
 end

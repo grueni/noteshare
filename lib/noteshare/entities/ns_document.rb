@@ -297,6 +297,12 @@ class NSDocument
     insert(k,p)
   end
 
+  def make_child_of_sibling
+    p = previous_document
+    remove_from_parent
+    add_to(p)
+  end
+
   # Used by #insert to preserve the
   # validity of the previous and next
   # links of subdocuments.
@@ -372,6 +378,20 @@ class NSDocument
     if gp && gp != parent_document
       remove_from_parent
       add_to(gp)
+      return gp
+    else
+      puts 'grand parent iS parent'.cyan
+      return parent_document
+    end
+  end
+
+  def move_section_to_sibling_of_parent
+    gp = grandparent_document
+    p = parent_document
+    k = p.index_in_parent
+    if gp && gp != parent_document
+      remove_from_parent
+      insert(k+1, gp)
       return gp
     else
       puts 'grand parent iS parent'.cyan
@@ -1021,6 +1041,9 @@ class NSDocument
 
   def process_toc_item(item, active_id, ancestral_ids, target)
 
+    # Fixme: TEMPORARY????
+
+    return '' if item == nil
     doc_id = item.id
     doc_title = item.title
 
@@ -1045,6 +1068,8 @@ class NSDocument
   def dive(item, active_id,  ancestral_ids, target, output)
 
     attributes = ['skip_first_item', 'auto_level']
+
+    return output if item == nil
     item.id == active_id ?   attributes << 'internal' : attributes << 'external'
     attributes << 'inert' if target == 'editor'
 

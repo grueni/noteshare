@@ -236,7 +236,6 @@ module Noteshare
       # inactive in the sense that they do not point to
       # anything.
       def setup_list
-        puts "attributes: #{@attributes}".red
         css_classes = 'inner_toc'
         css_classes << ' inert' if  @attributes.include? 'inert'
         @ul = "<ul class='#{css_classes}'>"
@@ -250,7 +249,6 @@ module Noteshare
       def update_toc_string
         if @section.level == 0
           @toc_string << "<h5><a href='/compiled/#{@doc_id}'>#{@section.title}</a></h5>" << "\n"
-          puts "section level 0, title = #{@section.title}, id = #{@doc_id}".magenta
         else
           @toc_string << "#{spacing}#{@li} #{toc_entry}" << "</li>\n"
         end

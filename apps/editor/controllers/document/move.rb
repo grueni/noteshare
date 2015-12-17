@@ -15,18 +15,16 @@ module Editor::Controllers::Document
 
       case query_string
         when 'move_to_parent_level'
-          new_parent = @document.move_section_to_parent_level
-          redirect_to "/editor/document/#{new_parent.id}"
+          # new_parent = @document.move_section_to_parent_level
+          @document.move_section_to_sibling_of_parent
+        when 'move_to_child_level'
+          @document.make_child_of_sibling
         when 'move_up_in_toc'
           @document.move_up_in_toc
-          redirect_to "/editor/document/#{@document.id}"
         when 'move_down_in_toc'
           @document.move_down_in_toc
-          redirect_to "/editor/document/#{@document.id}"
       end
-
-      # redirect_to '/'
-
+      redirect_to "/editor/document/#{@document.id}"
     end
 
   end
