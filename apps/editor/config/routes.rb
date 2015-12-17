@@ -1,3 +1,4 @@
+
 get '/move/:id', to: 'document#move'
 
 post '/update_toc/:id', to: 'document#update_toc'
