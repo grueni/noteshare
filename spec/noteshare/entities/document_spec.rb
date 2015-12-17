@@ -360,11 +360,14 @@ describe NSDocument do
     it 'can move a subdocument up one level step-by-step msup' do
 
 
+      id = @article.id
 
       @section1.add_to(@article)
       @section2.add_to(@article)
       @section3.add_to(@article)
       @subsection.add_to(@section2)
+
+      assert @section2.toc.count == 1, '@section2 has ons subdocument'
 
 
       @article.toc.each do |item|
@@ -377,7 +380,11 @@ describe NSDocument do
       end
 
       @subsection.remove_from_parent
+
+      assert @section2.toc.count == 0, 'after removal, @section2 has no subdocuments'
+
       @subsection = @subsection.reload
+      @subsection.add_to(@article)
 
 
       puts
@@ -387,13 +394,14 @@ describe NSDocument do
         puts item.to_s.cyan
       end
 
+      @article = DocumentRepository.find id
       @article.toc.each do |item|
         puts item.to_s.red
       end
 
       # puts @section2.toc.red
 
-      assert @article.toc.count == 2
+      assert @article.toc.count == 4
 
 
 

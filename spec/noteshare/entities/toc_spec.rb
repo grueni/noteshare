@@ -268,6 +268,70 @@ describe NSDocument do
 
   end
 
+  it 'can move a subdocument up in the toc upx' do
+
+    id = @article1.id
+    @section1.add_to(@article1)
+    @section2.add_to(@article1)
+    @section3.add_to(@article1)
+
+    @section3.move_up_in_toc
+
+    @article1 = DocumentRepository.find id
+    assert @article1.subdocument(1) == @section3
+    assert @article1.subdocument(2) == @section2
+
+  end
+
+  it 'can respond gracefully when the section if the first subdocument' do
+
+    id = @article1.id
+    @section1.add_to(@article1)
+    @section2.add_to(@article1)
+    @section3.add_to(@article1)
+
+    @section1.move_up_in_toc
+
+    @article1 = DocumentRepository.find id
+    assert @article1.subdocument(0) == @section1
+    assert @article1.subdocument(1) == @section2
+    assert @article1.subdocument(2) == @section3
+
+
+  end
+
+  it 'can move a subdocument down in the toc downx' do
+
+    id = @article1.id
+    @section1.add_to(@article1)
+    @section2.add_to(@article1)
+    @section3.add_to(@article1)
+
+    @section1.move_down_in_toc
+
+    @article1 = DocumentRepository.find id
+    assert @article1.subdocument(0) == @section2
+    assert @article1.subdocument(1) == @section1
+
+  end
+
+  it 'can respond gracefully when the section if the last subdocument downxx' do
+
+    id = @article1.id
+    @section1.add_to(@article1)
+    @section2.add_to(@article1)
+    @section3.add_to(@article1)
+
+    @section3.move_down_in_toc
+
+    @article1 = DocumentRepository.find id
+    assert @article1.subdocument(0) == @section1
+    assert @article1.subdocument(1) == @section2
+    assert @article1.subdocument(2) == @section3
+
+
+  end
+
 
 
 end
