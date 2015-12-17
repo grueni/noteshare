@@ -234,9 +234,20 @@ module UI
 
 
 
-    def move_up_in_toc_link(document)
-      image_link '/images/move_up.png', "/editor/move/#{document.id}/?up", 'move section up one level'
+    def move_section_to_level_of_parent_link(document)
+      image_link '/images/move_level_up.png', "/editor/move/#{document.id}/?move_to_parent_level", 'move section to level of parent'
     end
+
+
+    def move_up_in_toc_link(document)
+      image_link '/images/move_up.png', "#", 'move section up in toc'
+    end
+
+
+    def move_down_in_toc_link(document)
+      image_link '/images/move_down.png', "#", 'move section down in toc'
+    end
+
 
 
 

@@ -411,7 +411,7 @@ describe NSDocument do
       @subsection.add_to(@section2)
 
       @subsection.add_to(@section2)
-      @subsection.move_up
+      @subsection.move_leve_up
 
       @article = DocumentRepository.find parid
       @subsection = DocumentRepository.find subid

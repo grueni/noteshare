@@ -356,7 +356,7 @@ class NSDocument
     parent_document.parent_document
   end
 
-  def move_up
+  def move_leve_up
     gp = grandparent_document
     if gp != parent_document
       remove_from_parent
