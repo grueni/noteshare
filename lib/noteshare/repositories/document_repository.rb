@@ -1,3 +1,8 @@
+require 'sequel'
+require 'sequel/extensions/pg_array'
+require 'sequel/extensions/pg_hstore'
+
+
 
 # DocumentRespository provides services for
 # persisence and search to NSDocument
@@ -10,6 +15,26 @@ class DocumentRepository
       where(title: title)
     end
   end
+
+
+  def self.find_by_dict_entry(hash)
+    query do
+      where(Sequel.hstore_op(:dict).contains(hash))
+    end
+  end
+
+  def self.find_by_doc_attribute(attr)
+    query do
+      where(Sequel.pg_array_op(:doc_attributes).contains(attr))
+    end
+  end
+
+  def self.find_by_doc_attribute2(attr)
+    query do
+      where(Sequel.pg_array_op(:doc_attributes).matches(attr))
+    end
+  end
+
 
   def self.find_by_title(key, limit: 8)
     array = fetch("SELECT id FROM documents WHERE title ILIKE '%#{key}%';")
@@ -54,7 +79,7 @@ class DocumentRepository
 
   # Destroy all descendants of a given
   # document and the document itself
-  def self.destroy_tree(doc_id, switches = [:verbose ])
+  def self.                                                                                                                                                 destroy_tree(doc_id, switches = [:verbose ])
     descendants = self.descendants(doc_id)
     n = descendants.count
     descendants.each do |doc|

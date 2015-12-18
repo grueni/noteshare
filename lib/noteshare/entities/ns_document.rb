@@ -62,7 +62,8 @@ class NSDocument
   #     2. MANAGE SUBDOCUMENTS
   #     3. ASSOCIATED DOCUMENTS
   #     4. UPDATE, COMPILE & RENDER
-  #     5. TABLE OF CONTENTS
+  #     5. TABLE OF CON
+  # TENTS
   #
   ###################################################
 
@@ -80,7 +81,7 @@ class NSDocument
   include Lotus::Entity
   attributes :id, :title, :identifier,
              :author_id, :author, :author_identifier, :author_credentials,
-             :tags, :type, :area, :meta, :doc_attributes, :options,
+             :tags, :type, :area, :meta, :doc_attributes, :options, :dict,
              :created_at, :modified_at,
              :content, :compiled_content, :rendered_content, :compiled_and_rendered_content, :render_options,
              :parent_ref, :root_ref, :parent_id, :index_in_parent, :root_document_id,
