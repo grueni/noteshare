@@ -78,7 +78,7 @@ Lotus::Model.configure do
       attribute :toc_dirty, Boolean
       attribute :acl, JSON
       attribute :groups_json, JSON
-      attribute :doc_attributes, PGStringArray
+      attribute :xattributes, PGStringArray
       # attribute :options, JSON
       # attribute :dict, PGHStore
     end
@@ -119,6 +119,7 @@ Lotus::Model.configure do
       attribute :docs, JSON
       attribute :children, JSON
       attribute :tags, String
+      attribute :xattributes, PGStringArray
     end
 
     collection :ns_groups do

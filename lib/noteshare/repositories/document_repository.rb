@@ -24,13 +24,13 @@ class DocumentRepository
 
   def self.find_by_doc_attribute(attr)
     query do
-      where(Sequel.pg_array_op(:doc_attributes).contains([attr]))
+      where(Sequel.pg_array_op(:xattributes).contains([attr]))
     end
   end
 
   def self.find_by_doc_attribute2(attr)
     query do
-      where(Sequel.pg_array_op(:doc_attributes).matches(attr))
+      where(Sequel.pg_array_op(:xattributes).matches(attr))
     end
   end
 
