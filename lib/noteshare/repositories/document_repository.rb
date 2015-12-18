@@ -9,7 +9,7 @@ require 'sequel/extensions/pg_hstore'
 class DocumentRepository
   include Lotus::Repository
 
-  # Find all objects with a gvien title
+  # Find all objects with a given title
   def self.find_by_title1(title)
     query do
       where(title: title)
