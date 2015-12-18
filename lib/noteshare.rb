@@ -80,7 +80,7 @@ Lotus::Model.configure do
       attribute :groups_json, JSON
       attribute :doc_attributes, PGStringArray
       # attribute :options, JSON
-      attribute :dict, PGHStore
+      # attribute :dict, PGHStore
     end
 
     collection :settings do

@@ -5,7 +5,7 @@ require 'sequel/extensions/pg_hstore'
 
 
 # DocumentRespository provides services for
-# persisence and search to NSDocument
+# persistence and search to NSDocument
 class DocumentRepository
   include Lotus::Repository
 
@@ -16,7 +16,6 @@ class DocumentRepository
     end
   end
 
-
   def self.find_by_dict_entry(hash)
     query do
       where(Sequel.hstore_op(:dict).contains(hash))
@@ -25,7 +24,7 @@ class DocumentRepository
 
   def self.find_by_doc_attribute(attr)
     query do
-      where(Sequel.pg_array_op(:doc_attributes).contains(attr))
+      where(Sequel.pg_array_op(:doc_attributes).contains([attr]))
     end
   end
 
