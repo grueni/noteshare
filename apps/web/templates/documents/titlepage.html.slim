@@ -1,0 +1,25 @@
+.row
+  - if root_document
+    .document
+      .row
+        .col.left style = 'width: 30%;padding-left:2em; background-color:#444;'
+
+          span.plainlink.lightlink== standard_document_link(root_document, active_item2)
+          span.plainlink.lightlink== compiled_document_link(root_document, active_item2)
+          span.plainlink.lightlink== titlepage_link(root_document, active_item2)
+          br
+          br
+          h4 Contents
+
+          .toc2 == root_document.internal_table_of_contents(['root', 'titlepage', 'sectnums'], { doc_id: root_document.id })
+
+        .col.middle style = 'left: 30%; width: 70%; padding-bottom:6em;padding-top:2em;background-color:black'
+          h1== root_document.title
+          == "<img src=#{image_url}>"
+          br
+          br
+          p style='color:white' == blurb
+
+  - else
+  p.placeholder Documents not found.
+
