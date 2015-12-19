@@ -120,6 +120,7 @@ Lotus::Model.configure do
       attribute :children, JSON
       attribute :tags, String
       attribute :xattributes, PGStringArray
+      attribute :dict, PGHStore
     end
 
     collection :ns_groups do

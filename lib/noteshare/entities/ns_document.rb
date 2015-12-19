@@ -1512,6 +1512,13 @@ class NSDocument
 
   ##################################
 
+  def author_screen_name
+    _author = UserRepository.find author_id
+    _author ? _author.screen_name  : '--'
+  end
+
+  ##################################
+
   private
   # Assume that receiver is subdocument k of parent_document.
   # Return the id of subdocument k - 1 or nil

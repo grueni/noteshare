@@ -5,7 +5,8 @@
 class NSNode
 
   include Lotus::Entity
-      attributes :id, :owner_id, :identifier,  :name, :type, :meta, :docs, :children, :tags, :xattributes
+      attributes :id, :owner_id, :identifier,  :name, :type,
+                 :meta, :docs, :children, :tags, :xattributes, :dict
 
   # include Noteshare
   require 'json'
@@ -100,6 +101,12 @@ class NSNode
       append_doc(id, doc.title)
     end
 
+  end
+
+  ##################  key-value pairs ##################
+
+  def blurb
+    dict['blurb'] || '--'
   end
 
 end
