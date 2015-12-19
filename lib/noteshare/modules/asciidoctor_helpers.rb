@@ -220,6 +220,8 @@ module Noteshare
           "<a href='#'> #{prefix}#{@section.title}</a>"
         elsif @attributes.include? 'internal'
           "<a href='\##{@section.id}'> #{prefix}#{@section.title}</a>"
+        elsif @attributes.include? 'titlepage'
+          "<a href='/compiled/#{@doc_id}\##{@section.id}'> #{prefix}#{@section.title}</a>"
         elsif @attributes.include? 'external'
           "<a href='/document/#{@doc_id}?#{@section.id}'> #{prefix}#{@section.title}</a>"
         else

@@ -5,8 +5,9 @@
 
         .col.left style = 'width: 30%;padding-left:2em; background-color:#444;'
 
-          span.plainlink.lightlink== standard_document_link(document,active_item2)
-          span.plainlink.lightlink== compiled_document_link(document,active_item2)
+          span.plainlink.lightlink== standard_document_link(document, active_item2)
+          span.plainlink.lightlink== compiled_document_link(document, active_item2)
+          span.plainlink.lightlink== titlepage_link(document, active_item2)
 
           p style = 'margin-top:0.05em; color: #444'}== "  by #{document.author}"
           - if document.doc_refs

@@ -1,3 +1,4 @@
+get '/titlepage/:id', to: 'documents#titlepage'
 get '/', to: 'home#switchboard'
 
 get '/about', to: 'home#about'

@@ -139,6 +139,23 @@ module UI
       end
     end
 
+
+    def titlepage_link(document, active_item2='')
+      if active_item2 == 'titlepage'
+        return link_to 'Title Page', "/titlepage/#{document.id}", class: 'active_item2'
+      else
+        return  link_to 'Title Page', "/titlepage/#{document.id}", class: 'item2'
+      end
+    end
+
+    def titlepage_link2(document, active_item2='')
+      if active_item2 == 'titlepage'
+        return link_to document.title, "/titlepage/#{document.id}", class: 'active_item2'
+      else
+        return  link_to document.title, "/titlepage/#{document.id}", class: 'item2'
+      end
+    end
+
     def compiled_root_document_link(document)
       doc = document.root_document
       link_to doc.title, "/compiled/#{doc.id}"

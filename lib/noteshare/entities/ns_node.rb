@@ -63,7 +63,7 @@ class NSNode
     list = documents.table
     output = "<ul>\n"
     list.each do |item|
-      output << "<li> <a href='/compiled/#{item.id}'>#{item.title}</a></li>\n"
+      output << "<li> <a href='/titlepage/#{item.id}'>#{item.title}</a></li>\n"
     end
     output << "</ul>\n"
     output

@@ -12,7 +12,7 @@
             tbody
               - documents.each do |document|
                 tr.clear_style
-                  td.lightlink == compiled_root_document_link document
+                  td.lightlink == titlepage_link2 document
                   td== document.author
 
   .col.hide-on-small-only.m6.offset-m6.l5.offset-l6

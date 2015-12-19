@@ -1150,6 +1150,8 @@ class NSDocument
     finish = Time.now
     elapsed = finish - start
 
+    puts "compile table of contents for #{self.title} in #{elapsed} seconds".cyan
+
    return result
 
   end
