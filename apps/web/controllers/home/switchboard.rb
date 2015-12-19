@@ -4,11 +4,14 @@ module Web::Controllers::Home
 
     expose :active_it
 
+
+    # There are currently two values for the value of @node.type:
+    # 'public' and 'personal'
     def handle_incoming_node
       @incoming_node = NSNode.from_http(request)
 
       if @incoming_node
-        redirect_to "/node/#{@incoming_node.id}"  if @cu == nil
+        redirect_to "/node/#{@incoming_node.id}"  if @cu == nil or @icoming_node.type == 'public'
       else
         redirect_to '/home/'
       end

@@ -1,6 +1,13 @@
 class NSNodeRepository
   include Lotus::Repository
 
+  def self.search(key, limit: 20)
+    array = fetch("SELECT id FROM nodes WHERE name ILIKE '%#{key}%' OR tags ILIKE '%#{key}%';")
+
+    array = array.map{ |h| h[:id] }.uniq
+    array.map{ |id| NSNodeRepository.find id }.sort_by { |item| item.name }
+  end
+
   def self.find_by_name(name)
     query do
       where(name: name)

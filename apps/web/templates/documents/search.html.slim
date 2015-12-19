@@ -1,14 +1,22 @@
-
-.row.inset
-  .col
+.row
+  .col.s6.m6.l5
     == search_form
     - if documents
-      .row.s8
-        .col style = ''
-          .div.ns_card style = 'margin-top:1.0em; margin-left:-15px;width:400px; height:400px; overflow-y:scroll; padding-bottom:3em;'
-            table style='border=0; border-color: #444; border-collapse;'
-              tbody
-                - documents.each do |document|
-                  tr.clear_style
-                    td.lightlink == compiled_root_document_link(document)
-                    td== document.author
+      .div.ns_card style = 'margin-left:2em;margin-top:1.0em; height:400px; overflow-y:scroll; padding-bottom:3em;'
+        h5 style='margin-top:0;' Documents
+        table style='border=0; border-color: #444; border-collapse;'
+          tbody
+            - documents.each do |document|
+              tr.clear_style
+                td.lightlink == compiled_root_document_link(document)
+                td== document.author
+
+  .col.s6.offset-s6.m6.offset-m6.l4.offset-l5
+    div.ns_card style = 'margin-top:1.0em;width:400px; height:400px; overflow-y:scroll; padding-bottom:3em;'
+      h5 style='margin-top:0;' Nodes
+      table
+        tbody
+          - nodes.each do |node|
+            tr
+              td== node_link(node)
+              td= node.owner_name

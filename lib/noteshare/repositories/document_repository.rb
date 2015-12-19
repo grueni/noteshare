@@ -62,8 +62,11 @@ class DocumentRepository
     end
   end
 
-  def self.root_document_by_title(key, limit: 8)
-    array = fetch("SELECT id FROM documents WHERE parent_id = 0 AND title ILIKE '%#{key}%';")
+  def self.search(key, limit: 20)
+    array = fetch("SELECT id FROM documents WHERE parent_id = 0 AND (title ILIKE '%#{key}%' OR tags ILIKE '%#{key}%');")
+    # array = fetch("SELECT id FROM documents WHERE parent_id = 0 AND tags ILIKE '%#{key}%';")
+    # array = fetch("SELECT id FROM documents WHERE parent_id = 0 AND title ILIKE '%#{key}%';")
+
     array = array.map{ |h| h[:id] }.uniq
     array.map{ |id| DocumentRepository.find id }.sort_by { |item| item.title }
   end
@@ -78,7 +81,7 @@ class DocumentRepository
 
   # Destroy all descendants of a given
   # document and the document itself
-  def self.                                                                                                                                                 destroy_tree(doc_id, switches = [:verbose ])
+  def self.destroy_tree(doc_id)                                                                                                                                                 destroy_tree(doc_id, switches = [:verbose ])
     descendants = self.descendants(doc_id)
     n = descendants.count
     descendants.each do |doc|
