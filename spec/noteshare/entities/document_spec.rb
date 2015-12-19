@@ -666,6 +666,16 @@ EOF
 
     end
 
+    it 'can add an associated document from a text string addass' do
+      puts
+      @section1.add_associate(title: 'test', type: 'note', content: 'This is a test')
+      puts
+      puts "After".cyan
+      # puts @section1.doc_refs.to_s.red
+      @section1.display
+
+    end
+
    end
 
   #########################################################################

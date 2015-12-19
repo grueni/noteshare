@@ -114,6 +114,8 @@ class NSDocument
     @render_options ||= { 'format'=> 'adoc' }
     @root_document_id ||= 0
     @parent_id ||= 0
+    @xattributes ||= []
+    @dict ||= {}
 
     # @toc_dirty ||= true
 
@@ -176,7 +178,8 @@ class NSDocument
     end
 
     DocumentRepository.create doc
-  end
+   end
+
 
 
   # Return the author id from the author credentials
@@ -678,6 +681,24 @@ class NSDocument
     DocumentRepository.update(parent)
     DocumentRepository.update(self)
   end
+
+  # Add associat to receiver
+  # Example
+  #
+  #    @content = 'Dr. Smith said that conservation laws ...'
+  #    @article.add_associtate(title: 'Notes from class', type: 'note', content: @content)
+  #
+  def add_associate(hash)
+    puts 'in add_associate'.red
+    title  = hash[:title]
+    type = hash[:type]
+    content = hash[:content]
+    doc = NSDocument.create(title: title, content: content)
+    # doc.set_author_credentials(self.get_author_credentials)
+    puts "doc.title = #{doc.title}".red
+    doc.associate_to(self, type)
+  end
+
 
   # The method below assumes that a document
   # is the associate of at most one other
