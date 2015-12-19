@@ -12,6 +12,11 @@ class PGHStore < Lotus::Model::Coercer
   end
 
   def self.load(value)
-    ::Kernel.Hash(value) unless value.nil?
+    # ::Kernel.Hash(value.to_matrix) unless value.nil?
+    if value.nil?
+      {}
+    else
+      ::Kernel.Hash(value)
+    end
   end
 end
