@@ -15,6 +15,9 @@ module Web::Controllers::Documents
       session[:current_document_id] = document.id
 
       @root_document = document.root_document
+      @root_document.compile_with_render({numbered: true, format: 'adoc-latex'})
+      @root_document.compiled_content = @root_document.compile
+
       @blurb = @root_document.dict['blurb'] || 'blurb'
 
       titlepage_image_id =  @root_document.dict['titlepage_image'] || 727
