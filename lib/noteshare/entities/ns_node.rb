@@ -11,6 +11,16 @@ class NSNode
   # include Noteshare
   require 'json'
 
+  def initialize(hash)
+
+    hash.each { |name, value| instance_variable_set("@#{name}", value) }
+
+    @xattributes ||= []
+    @dict ||= {}
+
+    # @toc_dirty ||= true
+
+  end
 
   def self.lookup_by_name(node_name)
     NSNodeRepository.where(name: node_name).first
