@@ -4,9 +4,7 @@
       .row
         .col.left style = 'width: 30%;padding-left:2em; background-color:#444;'
 
-          span.plainlink.lightlink== standard_document_link(root_document, active_item2)
-          span.plainlink.lightlink== compiled_document_link(root_document, active_item2)
-          span.plainlink.lightlink== titlepage_link(root_document, active_item2)
+          == render partial: 'documents/view_control', locals: { }
           br
           br
           h4 Contents

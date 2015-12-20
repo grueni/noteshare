@@ -2,7 +2,7 @@ module Web::Controllers::Documents
   class Titlepage
     include Web::Action
 
-    expose :root_document, :toc, :blurb, :image_url
+    expose :root_document, :document, :toc, :blurb, :image_url
     expose :active_item, :active_item2
 
     def call(params)
@@ -11,7 +11,7 @@ module Web::Controllers::Documents
       @active_item = 'reader'
       @active_item2 = 'titlepage'
 
-      document = DocumentRepository.find(params['id'])
+      @document = DocumentRepository.find(params['id'])
       session[:current_document_id] = document.id
 
       @root_document = document.root_document

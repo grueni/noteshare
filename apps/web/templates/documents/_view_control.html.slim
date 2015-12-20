@@ -1,0 +1,6 @@
+br
+-if document && active_item2
+  span.plainlink.lightlink== standard_document_link(document, active_item2)
+  span.plainlink.lightlink== aside_document_link(document, active_item2)
+  span.plainlink.lightlink== compiled_document_link(document, active_item2)
+  span.plainlink.lightlink== titlepage_link(document, active_item2)

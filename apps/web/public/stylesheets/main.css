@@ -12,6 +12,14 @@
 
 ***/
 
+.scroll-y {
+
+    overflow-y:scroll;
+    height: 100%;
+}
+
+/********/
+
 tr.clear_style:nth-child(even)  {
 
     background-color: #444;

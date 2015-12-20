@@ -5,16 +5,14 @@
 
         .col.left style = 'width: 30%;padding-left:2em; background-color:#444;'
 
-          span.plainlink.lightlink== standard_document_link(document, active_item2)
-          span.plainlink.lightlink== compiled_document_link(document, active_item2)
-          span.plainlink.lightlink== titlepage_link(document, active_item2)
+          == render partial: 'documents/view_control', locals: { }
 
           p style = 'margin-top:0.05em; color: #444'}== "  by #{document.author}"
           - if document.doc_refs
             .toc2 style = 'padding-top:0' == document.root_associated_document_map
           h5 style = 'margin-bottom:0; color:#444;'  Table of Contents
           p.plainlink.lightlink style='font-size:larger; padding-top:0em;margin-bottom:0; margin-left:-0.5em;;' == document.root_link
-          .toc2== document.root_table_of_contents(document.id)
+          .toc2== document.root_table_of_contents(document.id, 'reader')
 
         .col.middle style = 'left: 30%; width: 70%; padding-bottom:6em;padding-top:2em;'
 

@@ -173,6 +173,14 @@ module UI
       end
     end
 
+    def aside_document_link(document, active_item2='')
+      if active_item2 == 'aside'
+        return link_to 'Aside', "/aside/#{document.id}", class: 'active_item2'
+      else
+        return  link_to 'Aside', "/aside/#{document.id}", class: 'item2'
+      end
+    end
+
     def documents_link(active_item='')
       if active_item == 'documents'
         return link_to 'Directory', "/documents", class: 'active_item'

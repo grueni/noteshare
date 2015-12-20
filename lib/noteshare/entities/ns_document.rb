@@ -1093,8 +1093,26 @@ class NSDocument
     doc_id = item.id
     doc_title = item.title
 
-    target == 'editor' ? prefix = '/editor' : prefix = ''
-    doc_link = "href='#{prefix}/document/#{doc_id}'>#{doc_title}</a>"
+
+    case target
+      when 'editor'
+        prefix = '/editor'
+        stem = 'document'
+      when 'reader'
+        prefix = ''
+        stem = 'document'
+      when 'compiled'
+        prefix = ''
+        stem = 'compiled'
+      when 'aside'
+        prefix = ''
+        stem = 'aside'
+      else
+        prefix = ''
+        stem = 'document'
+    end
+
+    doc_link = "href='#{prefix}/#{stem}/#{doc_id}'>#{doc_title}</a>"
 
     class_str = "class = '"
 

@@ -81,7 +81,7 @@ class DocumentRepository
 
   # Destroy all descendants of a given
   # document and the document itself
-  def self.destroy_tree(doc_id)                                                                                                                                                 destroy_tree(doc_id, switches = [:verbose ])
+  def self.destroy_tree(doc_id, switches = [:verbose ])
     descendants = self.descendants(doc_id)
     n = descendants.count
     descendants.each do |doc|
