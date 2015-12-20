@@ -11,7 +11,7 @@ module Web::Controllers::Documents
       @active_item = 'reader'
       @active_item2 = 'titlepage'
 
-      @document = DocumentRepository.find(params['id'])
+      document = DocumentRepository.find(params['id'])
       session[:current_document_id] = document.id
 
       @root_document = document.root_document

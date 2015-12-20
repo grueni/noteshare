@@ -98,6 +98,13 @@ namespace :db do
     exec cmd
   end
 
+  desc "Updates heroku db."
+  task :update_heroku => :dump do
+    cmd = "ruby up.rb db/noteshare.dump"
+    puts cmd
+    exec cmd
+  end
+
 end
 
 namespace :update do

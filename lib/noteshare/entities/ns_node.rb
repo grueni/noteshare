@@ -68,6 +68,11 @@ class NSNode
     NSNodeRepository.update self
   end
 
+  def delete_all_docs
+    self.docs = "[]"
+    NSNodeRepository.update self
+  end
+
   # Return an HTML list of links to documents
   def documents_as_list
     return '' if documents == nil or documents == []
