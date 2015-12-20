@@ -1,0 +1,27 @@
+.row
+  - if document
+    .document
+      .row
+
+        .col.s2.m2.l2.scroll-y style = 'padding-left:1em; background-color:#444;'
+
+          == render partial: 'documents/view_control', locals: { }
+
+          p style = 'margin-top:0.05em; color: #444'}== "  by #{document.author}"
+          - if document.doc_refs
+            .toc2 style = 'padding-top:0' == document.root_associated_document_map
+          h5 style = 'margin-bottom:0; color:#444;'  Table of Contents
+          p.plainlink.lightlink style='font-size:larger; padding-top:0em;margin-bottom:0; margin-left:-0.5em;;' == document.root_link
+          .toc2== document.root_table_of_contents(document.id, 'aside')
+
+        .col.s5.offset-s2.m5.offset-m2.l5.offset-l2.scroll-y style = 'padding-bottom:6em;padding-top:2em; background-color:#eee;'
+
+          h5== document.root_document_title
+          == document.rendered_content
+
+        .col.s5.offset-s7.m5.offset-m7.l5.offset-l7.scroll-y style = 'padding-bottom:6em;padding-top:2em; background-color:#ddd;'
+          -if aside
+            == aside.rendered_content
+  - else
+  p.placeholder Documents not found.
+
