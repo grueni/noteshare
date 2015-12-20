@@ -54,7 +54,7 @@ class Course
     lessons.all.each do |lesson|
       section = lesson.to_document(screen_name)
       if lesson.original_aside
-        section.add_aside(lesson.original_aside)
+        section.add_aside(title: 'Notes', content: lesson.original_aside, type: 'aside')
       end
       stack == [] ?  delta = 2 : delta =  section.asciidoc_level - stack.last.asciidoc_level
       if delta >= 2

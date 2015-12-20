@@ -668,13 +668,11 @@ EOF
 
     it 'can add an associated document from a text string addass' do
 
-      puts @section1.author_credentials.to_s.magenta
-      puts
-      @section1.add_associate(title: 'test', type: 'note', content: 'This is a test')
-      puts
-      puts "After".cyan
-      # puts @section1.doc_refs.to_s.red
-      @section1.display
+      @section1.add_associate(title: 'test', type: 'note', content: 'This is a test.')
+      puts @section1.doc_refs
+      note = @section1.associated_document('note')
+      note.content.must_equal('This is a test.')
+
 
     end
 

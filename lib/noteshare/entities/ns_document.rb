@@ -180,6 +180,18 @@ class NSDocument
     DocumentRepository.create doc
    end
 
+  def self.create1(hash)
+    doc = NSDocument.new(hash)
+    doc.root_ref = { 'id'=> 0, 'title' => ''}
+    if !(doc.content =~ /^== .*/)
+      content = doc.content || ''
+      content = "== #{doc.title}\n\n#{content}"
+      doc.content = content
+    end
+
+    DocumentRepository.create doc
+  end
+
 
 
   # Return the author id from the author credentials
@@ -689,35 +701,21 @@ class NSDocument
   #    @article.add_associtate(title: 'Notes from class', type: 'note', content: @content)
   #
   def add_associate(hash)
-=begin
-    puts 'in add_associate'.red
-    puts "title: #{hash[:title]}".cyan
-    puts "content: #{hash[:content]}".cyan
-    puts "type: #{hash[:type]}".cyan
 
-    cred = self.get_author_credentials
+    type = hash.delete(:type)
 
-    hash[:author_credentals] = {id: cred['id'], first_name: cred['first_name'], last_name: cred['last_name']}
-    puts hash.to_s.red
-
-    h =  {title: hash[:title]}
     doc = NSDocument.new(hash)
-    doc.content = hash[:content]
     doc.identifier = Noteshare::Identifier.new().string
     doc.root_ref = { 'id'=> 0, 'title' => ''}
-    doc.author_id = cred[:id]
+    doc.author_id = self.author_id
+    doc.author = self.author
+    doc.author_credentials = self.author_credentials
 
-
-    puts "INFO".red
     doc.info
-     puts "/INFO".red
+    doc2 = DocumentRepository.create doc
 
-     DocumentRepository.create doc
+    doc2.associate_to(self, type)
 
-    # doc.set_author_credentials(self.get_author_credentials)
-
-    doc.associate_to(self, hash[:type])
-=end
   end
 
 
