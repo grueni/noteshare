@@ -689,14 +689,35 @@ class NSDocument
   #    @article.add_associtate(title: 'Notes from class', type: 'note', content: @content)
   #
   def add_associate(hash)
+=begin
     puts 'in add_associate'.red
-    title  = hash[:title]
-    type = hash[:type]
-    content = hash[:content]
-    doc = NSDocument.create(title: title, content: content)
+    puts "title: #{hash[:title]}".cyan
+    puts "content: #{hash[:content]}".cyan
+    puts "type: #{hash[:type]}".cyan
+
+    cred = self.get_author_credentials
+
+    hash[:author_credentals] = {id: cred['id'], first_name: cred['first_name'], last_name: cred['last_name']}
+    puts hash.to_s.red
+
+    h =  {title: hash[:title]}
+    doc = NSDocument.new(hash)
+    doc.content = hash[:content]
+    doc.identifier = Noteshare::Identifier.new().string
+    doc.root_ref = { 'id'=> 0, 'title' => ''}
+    doc.author_id = cred[:id]
+
+
+    puts "INFO".red
+    doc.info
+     puts "/INFO".red
+
+     DocumentRepository.create doc
+
     # doc.set_author_credentials(self.get_author_credentials)
-    puts "doc.title = #{doc.title}".red
-    doc.associate_to(self, type)
+
+    doc.associate_to(self, hash[:type])
+=end
   end
 
 
