@@ -94,7 +94,7 @@ class Permission
 
 
 
-  def can
+  def can_do
     if @action_code == 'r' and @user == nil
       return @object.is_world_readable
     end

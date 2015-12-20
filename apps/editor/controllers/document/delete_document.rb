@@ -26,7 +26,7 @@
 
       puts "HERE (3)".red
 
-      return if Permission.new(user, :delete,  @document) == false
+      return if Permission.new(user, :delete,  @document).can_do == false
 
       puts "HERE (4)".red
 
