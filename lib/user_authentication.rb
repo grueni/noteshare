@@ -91,10 +91,8 @@ class Permission
     action_code_map = { read: 'r', edit: 'w', update: 'w', create: 'w', delete: 'w'}
     @action_code = action_code_map[action]
   end
-  
-  def grant
 
-    puts "grant: user = #{@user.full_name}".red
+  def grant
 
     # if there is no logged in user, grant access
     # if the world permission of the object matches
