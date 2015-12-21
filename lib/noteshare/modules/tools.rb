@@ -1,6 +1,15 @@
 module Noteshare
   module Tools
 
+    def can_read(user)
+      lambda{ |doc| Permission.new(user, :read, doc).grant }
+    end
+
+    def can_edit(user)
+      lambda{ |doc| Permission.new(user, :read, doc).grant }
+    end
+
+
     def self.symbolize_keys(hash)
       hash.inject({}){|new_hash, key_value|
         key, value = key_value

@@ -1,6 +1,7 @@
 require 'lotus/helpers'
 require_relative 'views/forms'
 require_relative 'views/menus'
+require_relative '../../lib/noteshare/modules/tools'
 # require 'lotus/assets'
 
 module Web
@@ -220,6 +221,7 @@ module Web
         include Lotus::Helpers
         include Web::Views::Forms
         include Web::Views::Menus
+        include Noteshare::Tools
       end
     end
 
