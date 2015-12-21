@@ -1302,12 +1302,17 @@ class NSDocument
     table = TOC.new(self).table
     table.each do |item|
       doc = DocumentRepository.find item.id
-      doc.apply_to_tree(message, args)
+      doc.apply_to_tree(message, args) if doc
     end
     doc_refs.each do |title, id|
       doc = DocumentRepository.find id
-      doc.apply_to_tree(message, args)
+      doc.apply_to_tree(message, args) if doc
     end
+  end
+
+  def save
+    puts "#{self.title}: #{self.acl}".red
+    DocumentRepository.update self
   end
 
   # Apply a method with args to

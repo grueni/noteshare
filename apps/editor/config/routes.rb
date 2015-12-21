@@ -1,3 +1,4 @@
+get '/publish_all/:id', to: 'document#publish_all'
 get '/publish_section/:id', to: 'document#publish_section'
 
 get '/move/:id', to: 'document#move'
