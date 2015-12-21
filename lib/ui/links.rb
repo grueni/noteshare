@@ -286,16 +286,23 @@ module UI
     end
 
     def delete_section_link(document)
-      # html.tag(:a, 'Delete section', href: '#')
       image_link('/images/delete_section.png', "/editor/prepare_to_delete_document/#{document.id}?section", 'delete section')
     end
 
     def publish_document_link(document)
-      image_link('/images/publish_document.png', "#", 'publish document #')
+      if document.root_document.acl_get(:world) =~ /r/
+        image_link('/images/publish_document_green.png', "#", 'publish/unpbublish document')
+      else
+        image_link('/images/publish_document_blue.png', "#", 'publish/unpbublish document')
+      end
     end
 
     def publish_section_link(document)
-      image_link('/images/publish_section.png', "#", 'publish section #')
+      if document.acl_get(:world) =~ /r/
+        image_link('/images/publish_section_green.png', "#", 'publish/unpbublish section')
+      else
+        image_link('/images/publish_section_blue.png', "#", 'publish/unpbublish section')
+      end
     end
 
     def check_in_out_link(document)
