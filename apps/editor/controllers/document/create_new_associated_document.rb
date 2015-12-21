@@ -24,6 +24,8 @@ module Editor::Controllers::Document
 
       current_document = DocumentRepository.find session[:current_document_id]
       new_document = NSDocument.create(title: title, content: content, author_credentials: author.credentials)
+      new_document.acl_set_permissions('rw', 'r', '-')
+      DocumentRepository.update new_document
       new_document.associate_to(current_document, type,)
 
 
