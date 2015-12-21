@@ -9,6 +9,10 @@ module Noteshare
       lambda{ |doc| Permission.new(user, :read, doc).grant }
     end
 
+    def sort_by_title
+      sort_by { |item| item.title }
+    end
+
 
     def self.symbolize_keys(hash)
       hash.inject({}){|new_hash, key_value|
