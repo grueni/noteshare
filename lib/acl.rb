@@ -58,6 +58,14 @@ module ACL
     end
   end
 
+  def self.set_all_permissions_to(u,g,w)
+    DocumentRepository.all.each do |doc|
+      doc.acl_set_permissions(u,g,w)
+      DocumentRepository.update(doc)
+    end
+    DocumentRepository.all.count
+  end
+
 
 end
 
