@@ -46,6 +46,12 @@ module ACL
     end
   end
 
+  def acl_unset_permissions(key)
+    if [:user, :group, :world].include? key
+      acl[key.to_s] = '-'
+    end
+  end
+
   def acl_set(key, identifier, value)
     if [:user, :group, :world].include? key
       acl["#{key.to_s}:#{identifier}"] = value
@@ -57,6 +63,30 @@ module ACL
       acl.delete "#{key.to_s}:#{identifier}"
     end
   end
+
+  ######################################
+
+  def self.set_world_readable(document)
+    document.acl_set_permission(:world, 'r')
+    DocumentRepository.update document
+  end
+
+  def self.unset_world_readable(document)
+    document.acl_set_permission(:world, '-')
+    DocumentRepository.update document
+  end
+
+  def self.toggle_world_readable(document)
+    if document.acl_get(:world) =~ /r/
+      document.acl_unset_permissions(:world)
+      DocumentRepository.update document
+    else
+      document.acl_set_permission(:world, 'r')
+      DocumentRepository.update document
+    end
+  end
+
+  ######################################
 
   def self.set_all_permissions_to(u,g,w)
     DocumentRepository.all.each do |doc|

@@ -1,3 +1,6 @@
+require_relative '../../lib/noteshare/modules/tools'
+require_relative '../../lib/acl'
+
 module UI
 
   #####################################################
@@ -11,6 +14,8 @@ module UI
   module Links
     require_relative '../../lib/user_authentication'
     include SessionTools
+    include Noteshare::Tools
+    include ACL
 
     #####################################################
     #
@@ -299,9 +304,9 @@ module UI
 
     def publish_section_link(document)
       if document.acl_get(:world) =~ /r/
-        image_link('/images/publish_section_green.png', "#", 'publish/unpbublish section')
+        image_link('/images/publish_section_green.png', "/editor/publish_section/#{document.id}", 'publish/unpublish section')
       else
-        image_link('/images/publish_section_blue.png', "#", 'publish/unpbublish section')
+        image_link('/images/publish_section_blue.png', "/editor/publish_section/#{document.id}", 'publish/unpublish section')
       end
     end
 

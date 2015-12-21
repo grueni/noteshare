@@ -1,5 +1,6 @@
 require 'lotus/helpers'
 require_relative '../../apps/web/views/forms'
+require_relative '../../lib/noteshare/modules/tools'
 
 module Editor
   class Application < Lotus::Application
@@ -209,6 +210,7 @@ module Editor
       view.prepare do
         include Lotus::Helpers
         include Web::Views::Forms
+        include Noteshare::Tools
       end
     end
 
