@@ -14,7 +14,8 @@
       @delete_mode = params['document']['delete_mode']
       puts "DELETE MODE #{@delete_mode}".red
       @document = DocumentRepository.find doc_id
-      parent_id = @document.parent_document.id
+
+      parent_id = @document.parent_document.id if @document.parent_document
       document_id = @document.id
 
 
