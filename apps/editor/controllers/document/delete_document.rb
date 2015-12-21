@@ -21,19 +21,11 @@
       redirect_to '/error/666' if Permission.new(user, :delete,  @document).grant == false
       message = ''
 
-      puts "HERE (1,2)".red
-
-
       if control != 'destroy'
         message << "You did not say 'destroy'"
         redirect_to "/editor/document/#{doc_id}"
       end
 
-      puts "HERE (3)".red
-
-
-
-      puts "HERE (4)".red
 
       if @delete_mode == 'section'
         puts "HERE (5a)".red

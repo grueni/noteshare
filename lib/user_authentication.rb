@@ -91,10 +91,10 @@ class Permission
     action_code_map = { read: 'r', edit: 'w', update: 'w', create: 'w', delete: 'w'}
     @action_code = action_code_map[action]
   end
-
-
-
+  
   def grant
+
+    puts "grant: user = #{@user.full_name}".red
 
     # if there is no logged in user, grant access
     # if the world permission of the object matches
@@ -116,10 +116,14 @@ class Permission
     # grant permission if the access control list permits it for the user
     return true if @object.acl_get "user:#{@user.screen_name}" =~ /#{@action_code}/
 
+=begin
     # process group permissions for ACL
-    @user.groups.each do |group|
-      return true if @object.acl_get("group:#{group}") =~/#{@action_code}/
+    if @user.groups
+      @user.groups.each do |group|
+        return true if @object.acl_get("group:#{group}") =~/#{@action_code}/
+      end
     end
+=end
 
     return false
   end
