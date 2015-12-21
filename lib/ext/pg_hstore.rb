@@ -12,6 +12,7 @@ class PGHStore < Lotus::Model::Coercer
   end
 
   def self.load(value)
-    value.nil?  ? {} :  ::Kernel.Hash(value)
+    put "in hstore coercer, value = #{value}".red
+    value.nil?  ? {} : ::Kernel.Hash(value)
   end
 end

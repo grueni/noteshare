@@ -49,6 +49,7 @@ namespace :db do
 
   desc "Dumps the database to db/APP_NAME.dump"
   task :dump  do
+    puts "===> Dump noteshare database"
     cmd = "pg_dump --host 'localhost' --username #{user} --verbose --clean --no-owner --no-acl --format=c #{db} > #{here}/db/#{app}.dump"
     puts cmd
     exec cmd
@@ -99,11 +100,31 @@ namespace :db do
   end
 
   desc "Updates heroku db."
-  task :update_heroku => :dump do
+  # task :update_heroku => :dump do
+  task :update_heroku do
+    # Rake::Task[:dump].invoke
+    puts "===> Update Heroku"
     cmd = "ruby up.rb db/noteshare.dump"
     puts cmd
     exec cmd
   end
+
+=begin
+  task :primary => [:secondary]
+
+  task :secondary do
+    puts "Doing Secondary Task"
+  end
+But if you really, really need to call the tasks directly you can use invoke to call another task
+
+  task :primary do
+    Rake::Task[:secondary].invoke
+  end
+
+  task :secondary do
+    puts "Doing Secondary Task"
+  end
+=end
 
 end
 
