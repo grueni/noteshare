@@ -27,77 +27,35 @@
 # $ setfacl -x user:genie turkey.txt
 
 
-class ACL
+module ACL
 
-  attr_accessor :hash
 
-  def initialize
-    @hash={}
+  def acl_get(key)
+    acl[key]
   end
 
-  def self.init_from_hash(hash)
-    acl = ACL.new()
-    acl.hash = hash
-    return acl
+  def acl_set_permissions(u,g,w)
+    acl['user']  = u
+    acl['group'] = g
+    acl['world'] = w
   end
 
-  def self.create_with_permissions(u, g, w)
-    acl = ACL.new()
-    acl.set(u,g,w)
-    return acl
+  def acl_set_permission(key, value)
+    if [:user, :group, :world].include? key
+      acl[key.to_s] = value
+    end
   end
 
-  def lookup(key)
-    @hash[key]
+  def acl_set(key, identifier, value)
+    if [:user, :group, :world].include? key
+      acl["#{key.to_s}:#{identifier}"] = value
+    end
   end
 
-  def set_user(user, value)
-    @hash['user:'+user]=value
-  end
-
-
-  def get_user(user='')
-    @hash['user:'+user]
-  end
-
-  def set_group(group, value)
-    @hash['group:'+group]=value
-  end
-
-
-  def get_group(group='')
-    @hash['group:'+group]
-  end
-
-
-  def set_world(value)
-    @hash['world']=value
-  end
-
-  def get_world
-    @hash['world']
-  end
-
-  def delete_user(user)
-    @hash['user:'+user] = nil
-  end
-
-  def delete_group(group)
-    @hash['group:'+group] = nil
-  end
-
-  def set(u,g,w)
-    set_user('', u)
-    set_group('', g)
-    set_world(w)
-  end
-
-  def to_json
-   hash.to_json
-  end
-
-  def self.parse(str)
-    ACL.init_from_hash JSON.parse(str)
+  def acl_delete(key, identifier)
+    if [:user, :group, :world].include? key
+      acl.delete "#{key.to_s}:#{identifier}"
+    end
   end
 
 

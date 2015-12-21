@@ -7,7 +7,7 @@ Sequel.extension :pg_json_ops
 
 
 
-class PGJSONb < Lotus::Model::Coercer
+class PGJSON < Lotus::Model::Coercer
   def self.dump(value)
     Sequel.pg_jsonb(value)
   end

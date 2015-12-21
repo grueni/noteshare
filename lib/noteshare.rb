@@ -76,7 +76,7 @@ Lotus::Model.configure do
       attribute :content_dirty, Boolean
       attribute :compiled_dirty, Boolean
       attribute :toc_dirty, Boolean
-      attribute :acl, JSON
+      attribute :acl, PGHStore
       attribute :groups_json, JSON
       attribute :xattributes, PGStringArray
       # attribute :options, JSON

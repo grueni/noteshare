@@ -409,18 +409,11 @@ describe NSDocument do
 
       assert @article.toc.count == 3
 
-      @article.toc.each do |item|
-        puts item.to_s.red
-      end
-
       @section2.remove_from_parent
 
-      puts
-      @article.toc.each do |item|
-        puts item.to_s.red
-      end
-
-      assert @article.toc.count == 2, 'one item less in toc after removal'
+      # reload
+      @article = DocumentRepository.find @article.id
+      @article.toc.count.must_equal(2)
 
     end
 
@@ -437,41 +430,17 @@ describe NSDocument do
 
       assert @section2.toc.count == 1, '@section2 has ons subdocument'
 
-
-      @article.toc.each do |item|
-        puts item.to_s.red
-      end
-
-
-      @section2.toc.each do |item|
-        puts item.to_s.cyan
-      end
-
       @subsection.remove_from_parent
 
+      @section2 = DocumentRepository.find @section2.id
       assert @section2.toc.count == 0, 'after removal, @section2 has no subdocuments'
 
       @subsection = @subsection.reload
       @subsection.add_to(@article)
 
-
-      puts
-
-
-      @section2.toc.each do |item|
-        puts item.to_s.cyan
-      end
-
       @article = DocumentRepository.find id
-      @article.toc.each do |item|
-        puts item.to_s.red
-      end
-
-      # puts @section2.toc.red
 
       assert @article.toc.count == 4
-
-
 
     end
 
@@ -501,18 +470,20 @@ describe NSDocument do
 
     it 'can move a subdocument from one position to another mmm' do
 
-
-
       @section1.add_to(@article)
       @section2.add_to(@article)
       @section3.add_to(@article)
 
+      t1 = @section1.title
+      t2 = @section2.title
+      t3 = @section3.title
 
       @section1.move_to(2)
       #Fixme
 
-      @article = DocumentRepository.find article_id
+      @article = DocumentRepository.find @article.id
 
+      @article.subdocument(2).title.must_equal(t1)
 
     end
 
@@ -685,10 +656,10 @@ EOF
      it 'can be set using the "set_permissions" method' do
 
 
-       @article.set_permissions('rw', 'r', '-' )
-       @article.get_user_permission.must_equal('rw')
-       @article.get_group_permission.must_equal('r')
-       @article.get_world_permission.must_equal('-')
+       @article.acl_set_permissions('rw', 'r', '-' )
+       @article.acl_get(:user).must_equal('rw')
+       @article.acl_get(:group).must_equal('r')
+       @article.acl_get(:world).must_equal('-')
 
      end
 
@@ -698,16 +669,16 @@ EOF
 
   describe 'application of method to the document tree' do
 
-    it 'can be done using the "apply_to_tree" method' do
+    it 'can be done using the "apply_to_tree" method acl' do
 
       @section1.add_to(@article)
       # @section2.add_to(@article)
       # @section3.add_to(@article)
 
-      @article.apply_to_tree(:set_permissions, ['rw', 'r', 'r'])
-      @article.get_acl.get_user.must_equal('rw')
+      @article.apply_to_tree(:acl_set_permissions, ['rw', 'r', 'r'])
+      @article.acl_get(:user).must_equal('rw')
       @section1 = @section1.reload
-      @section1.get_acl.get_user.must_equal('rw')
+      @section1.acl_get(:user).must_equal('rw')
 
 
     end

@@ -31,7 +31,10 @@ module FeatureHelpers
                           screen_name: 'jayfoo', password: 'foobar123', password_confirmation: 'foobar123')
 
       NSNode.create_for_user(@user)
+
       @document = NSDocument.create(title: 'Test', author_credentials: @user.credentials)
+      @document.acl_set_permissions('rw', 'r', '-')
+      DocumentRepository.update @document
     end
 
   end

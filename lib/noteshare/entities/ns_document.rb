@@ -95,6 +95,7 @@ class NSDocument
   include Noteshare
   include Noteshare::Groups
   include Noteshare::AsciidoctorHelper
+  include ACL
 
 
   # When initializing an NSDocument, ensure that certain fields
@@ -116,6 +117,7 @@ class NSDocument
     @parent_id ||= 0
     @xattributes ||= []
     @dict ||= {}
+    @acl ||= {}
 
     # @toc_dirty ||= true
 
@@ -1281,38 +1283,6 @@ class NSDocument
 
   ###########  ACL  ##########
 
-  def set_acl(acl)
-    self.acl = acl.to_json
-    DocumentRepository.update self
-  end
-
-
-  def set_acl!(acl)
-    self.set_acl(acl)
-    DocumentRepository.update self
-  end
-
-  def get_acl
-    ACL.parse(self.acl)
-  end
-
-  def get_user_permission(user='')
-    get_acl.get_user(user)
-  end
-
-  def get_group_permission(group='')
-    get_acl.get_group(group)
-  end
-
-  def get_world_permission
-    get_acl.get_world
-  end
-
-  def set_permissions(u, g, w)
-    a = ACL.create_with_permissions(u, g, w)
-    self.acl =  a.to_json
-    DocumentRepository.update self
-  end
 
 
 

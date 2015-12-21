@@ -88,27 +88,37 @@ class Permission
   def initialize(user, action, object)
     @user = user
     @object = object
-    action_code_map = { read: 'r', update: 'w', create: 'w', delete: 'w'}
+    action_code_map = { read: 'r', edit: 'w', update: 'w', create: 'w', delete: 'w'}
     @action_code = action_code_map[action]
   end
 
 
 
-  def can_do
-    if @action_code == 'r' and @user == nil
-      return @object.is_world_readable
-    end
+  def grant
 
+    # if there is no logged in user, grant access
+    # if the world permission of the object matches
+    # the code of action
+    return @object.acl_get(:world) =~ /#{@action_code}/  if @user == nil
+
+    # Grant permission if the world permission matches
+    return true if @object.acl_get(:world) =~ /#{@action_code}/
+
+    # From now on, we may assume that @user exists
+    # and that world permissions have been processed
+
+    # admin can do anything
     return true if @user.admin
 
-    return true if @user.id == @object.creator_id
+    # process user permissions
+    return true if @user.id == @object.creator_id && @object.acl_get(:user) =~ /#{@action_code}/
 
-    acl = @object.get_acl
+    # grant permission if the access control list permits it for the user
+    return true if @object.acl_get "user:#{@user.screen_name}" =~ /#{@action_code}/
 
-    return true if acl.get_user[@user.screen_name] =~ /#{@action_code}/
-
+    # process group permissions for ACL
     @user.groups.each do |group|
-      return true if acl.get_group(group) =~/#{@action_code}/
+      return true if @object.acl_get("group:#{group}") =~/#{@action_code}/
     end
 
     return false

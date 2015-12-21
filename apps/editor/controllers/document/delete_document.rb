@@ -14,6 +14,11 @@
       @delete_mode = params['document']['delete_mode']
       puts "DELETE MODE #{@delete_mode}".red
       @document = DocumentRepository.find doc_id
+      parent_id = @document.parent_document.id
+      document_id = @document.id
+
+
+      redirect_to '/error/666' if Permission.new(user, :delete,  @document).grant == false
       message = ''
 
       puts "HERE (1,2)".red
@@ -26,7 +31,7 @@
 
       puts "HERE (3)".red
 
-      return if Permission.new(user, :delete,  @document).can_do == false
+
 
       puts "HERE (4)".red
 
@@ -36,7 +41,11 @@
         node = user.node
         node.update_docs_for_owner
         message << "#{@document.title} has been deleted."
-        redirect_to "/editor/document/#{@parent.id}"
+        if parent_id != document_id
+          redirect_to "/editor/document/#{parent_id}"
+        else
+          redirect_to "/node/user/#{current_user(session).id}"
+        end
       end
 
       if @delete_mode == 'tree'
