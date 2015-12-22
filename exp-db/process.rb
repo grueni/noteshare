@@ -5,7 +5,7 @@ name = ARGV[0].split('.')[0]
 lines = data.split("\n")
 
 dict = {'Integer'=>'integer', 'String'=>'text', 'JSON'=>'jsonb', 'DateTime'=>'timestamp with time zone',
-         'PGIntArray'=>'integer[]', 'Boolean'=>'boolean'}
+         'PGIntArray'=>'integer[]', 'PGStringArray'=>'text[]', 'Boolean'=>'boolean', 'PGHStore' => 'hstore'}
 
 
 

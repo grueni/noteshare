@@ -1313,6 +1313,8 @@ class NSDocument
   def save
     puts "#{self.title}: #{self.acl}".red
     DocumentRepository.update self
+    doc = DocumentRepository.find  self.id
+    puts "#{doc.title}: #{doc.acl}".magenta
   end
 
   # Apply a method with args to

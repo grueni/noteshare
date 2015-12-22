@@ -47,9 +47,8 @@ module ACL
   end
 
   def acl_set_permission!(key, value)
-    puts "acl_set_permission!".blue
     acl_set_permission(key, value)
-    save
+    DocumentRepository.update self
   end
 
   def acl_unset_permission(key)
@@ -59,9 +58,8 @@ module ACL
   end
 
   def acl_unset_permission!(key)
-    puts "acl_unset_permission!".blue
     acl_unset_permission(key)
-    save
+    DocumentRepository.update self
   end
 
   def acl_set(key, identifier, value)
@@ -90,20 +88,16 @@ module ACL
 
   def self.toggle_world_readable(document)
     if document.acl_get(:world) =~ /r/
-      document.acl_unset_permission(:world)
-      DocumentRepository.update document
+      document.acl_unset_permission!(:world)
     else
-      document.acl_set_permission(:world, 'r')
-      DocumentRepository.update document
+      document.acl_set_permission!(:world, 'r')
     end
   end
 
   def self.toggle_world_readable_for_tree(document)
     if document.acl_get(:world) =~ /r/
-      puts "unset #{document.title}".red
       document.apply_to_tree(:acl_unset_permission!, [:world])
     else
-      puts "set #{document.title}".red
       document.apply_to_tree(:acl_set_permission!, [:world, 'r'])
     end
   end

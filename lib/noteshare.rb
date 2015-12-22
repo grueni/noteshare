@@ -79,7 +79,6 @@ Lotus::Model.configure do
       attribute :acl, PGHStore
       attribute :groups_json, JSON
       attribute :xattributes, PGStringArray
-      # attribute :options, JSON
       attribute :dict, PGHStore
     end
 
@@ -110,7 +109,7 @@ Lotus::Model.configure do
     collection :nodes do
       entity NSNode
       repository NSNodeRepository
-     attribute :id, Integer
+      attribute :id, Integer
       attribute :owner_id, Integer
       attribute :identifier, String
       attribute :name, String

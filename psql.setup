@@ -1,61 +1,64 @@
 DROP TABLE documents;
 CREATE TABLE documents(
-   id serial,
-   title text,
-   identifier text,
-   author_identifier text,
-   author_id integer,
-   author text,
-   author_credentials jsonb,
-   tags text,
-   type text,
-   area text,
-   meta jsonb,
-   created_at timestamp with time zone,
-   modified_at timestamp with time zone,
-   content text,
-   rendered_content text,
-   compiled_and_rendered_content text,
-   render_options jsonb,
-   parent_id integer,
-   parent_ref jsonb,
-   root_ref jsonb,
-   index_in_parent integer,
-   root_document_id integer,
-   visibility integer,
-   subdoc_refs integer[],
-   doc_refs jsonb,
-   toc jsonb,
-   content_dirty boolean,
-   compiled_dirty boolean,
-   toc_dirty boolean,
-   acl jsonb,
-   groups_json jsonb
-
-   PRIMARY KEY( id )
+  id integer,
+  title text,
+  identifier text,
+  author_identifier text,
+  author_id integer,
+  author text,
+  author_credentials jsonb,
+  tags text,
+  type text,
+  area text,
+  meta jsonb,
+  created_at timestamp with time zone,
+  modified_at timestamp with time zone,
+  content text,
+  compiled_content text,
+  rendered_content text,
+  compiled_and_rendered_content text,
+  render_options jsonb,
+  parent_id integer,
+  parent_ref jsonb,
+  root_ref jsonb,
+  index_in_parent integer,
+  root_document_id integer,
+  visibility integer,
+  subdoc_refs integer[],
+  doc_refs jsonb,
+  toc jsonb,
+  content_dirty boolean,
+  compiled_dirty boolean,
+  toc_dirty boolean,
+  acl hstore,
+  groups_json jsonb,
+  xattributes text[],
+  dict hstore,
+PRIMARY KEY(id)
 );
 
 DROP TABLE users;
 CREATE TABLE users(
-  id serial,
+  id integer,
+  admin boolean,
   first_name text,
   last_name text,
+  identifier text,
   email text,
   screen_name text,
   level integer,
   password text,
-  password_confirmation text,
   meta jsonb,
-  PRIMARY KEY( id )
+PRIMARY KEY(id)
 );
 
-DROP TABLE image;
-CREATE TABLE image(
+DROP TABLE images;
+CREATE TABLE images(
   id integer,
-  owner_id ,
+  owner_id integer,
   title text,
-  file_name ,
-  mime_type ,
+  file_name text,
+  mime_type text,
   created_at timestamp with time zone,
   modified_at ,
   public boolean,
@@ -68,8 +71,8 @@ CREATE TABLE image(
 PRIMARY KEY(id)
 );
 
-DROP TABLE ns_node;
-CREATE TABLE ns_node(
+DROP TABLE nodes;
+CREATE TABLE nodes(
   id integer,
   owner_id integer,
   identifier text,
@@ -78,14 +81,16 @@ CREATE TABLE ns_node(
   meta jsonb,
   docs jsonb,
   children jsonb,
+  tags text,
+  xattributes text[],
+  dict hstore,
 PRIMARY KEY(id)
 );
 
 DROP TABLE settings;
-CREATE TABLE settings (
-    id integer UNIQUE default(1),
-    owner text,
-    Constraint CHK_Logging_singlerow CHECK (id = 1)
+CREATE TABLE settings(
+  id integer,
+  owner text,
+  raw_hash jsonb,
+PRIMARY KEY(id)
 );
-
-

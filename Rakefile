@@ -42,7 +42,7 @@ namespace :db do
   task :reset do
     cmd = "psql -U #{user} -d noteshare_development --file ./psql.setup"
     puts cmd
-    #  exec cmd
+    exec cmd
     system cmd
   end
 

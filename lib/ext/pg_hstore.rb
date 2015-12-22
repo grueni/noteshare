@@ -12,10 +12,9 @@ class PGHStore < Lotus::Model::Coercer
   end
 
   def self.load(value)
-    return {} if value == nil
-    return {} if value.length < 3
-    return {} if value[0] != '['
-    puts "in hstore coercer, value = [#{value}]".red
-    ::Kernel.Hash(value)
+    #return {} if value == nil
+    # return {} if value.length < 3
+    # beturn {} if value[0] != '['
+    value == nil ? {} :  ::Kernel.Hash(value)
   end
 end
