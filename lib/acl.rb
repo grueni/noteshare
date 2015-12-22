@@ -96,9 +96,9 @@ module ACL
 
   def self.toggle_world_readable_for_tree(document)
     if document.acl_get(:world) =~ /r/
-      document.apply_to_tree(:acl_unset_permission!, [:world])
+      document.apply_to_tree(:acl_unset_permission, [:world])
     else
-      document.apply_to_tree(:acl_set_permission!, [:world, 'r'])
+      document.apply_to_tree(:acl_set_permission, [:world, 'r'])
     end
   end
 

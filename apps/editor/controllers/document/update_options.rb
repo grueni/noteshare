@@ -6,56 +6,65 @@ module Editor::Controllers::Document
 
     expose :document, :active_item
 
-    def process_options(document, option)
-      dirty = false
-      hash = option.hash_value(key_value_separator: ':', item_separator: "\n")
-      puts "IN PROCESS_OPTIONS, OPTION HASH = #{hash}".red
-      if hash
-        document.render_options['format'] = hash['format']
-        puts "Set document render_options to #{hash['format']}".red
-        dirty = true
+
+    def propagate(document, hash)
+      if hash['format']
+        document.apply_to_tree(:set_format_of_render_option, [hash['format']])
       end
+    end
+
+    def update_dict(document, hash)
       hash.each do |key, value|
-        document.dict[key] = value
+        puts "key = [#{key}], [#{value}]".red
+        if value == ''
+          puts "delete key #{value}".cyan
+          document.dict.delete(key)
+        else
+          puts "set: #{key} = #{value}".cyan
+          document.dict[key] = value
+        end
       end
-      return dirty
+    end
+
+    def process_hash(document, hash)
+
+      update_dict(document, hash)
+      propagate(document, hash) if @mode == 'root'
+      DocumentRepository.update document
+
     end
 
 
     def update_meta(document, document_packet)
 
-      puts" document_packet: #{document_packet}\n"
-
-      dirty = false
+      puts "document_packet: #{document_packet}".red
 
       if document_packet['tags'] != ''
         document.tags = document_packet['tags']
-        puts "tags = #{document_packet['tags']}"
-        dirty = true
       end
 
       if document_packet['options'] != ''
         options = document_packet['options']
-        puts "options = #{document_packet['options']}"
-        dirty_options = process_options(document, options)
-        dirty = dirty || dirty_options
+        return if options == nil
+        hash = options.hash_value(key_value_separator: ':', item_separator: "\n")
+        process_hash(document, hash) if hash
       end
 
-      if dirty
-        DocumentRepository.update(document)
-      end
+      DocumentRepository.update(document)
 
     end
 
     def call(params)
       @active_item = 'editor'
-      puts ">> Editor update options (CONTROLLER)".yellow
+      @mode = if document_packet['mode'] == 'root'
 
       document_packet = params.env['rack.request.form_hash']['document']
 
       id =  document_packet['document_id']
       if id
         document = DocumentRepository.find id
+        document = document.root_document if @mode == 'root'
+        puts "In UpdateOptions, document = #{document.title}".red
         update_meta(document, document_packet)
       end
 

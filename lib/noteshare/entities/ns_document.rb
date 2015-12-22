@@ -876,6 +876,11 @@ class NSDocument
   end
 
 
+  def set_format_of_render_option(value)
+    render_options['format'] = value
+  end
+
+
   def get_render_option
     format = self.render_options['format']
 

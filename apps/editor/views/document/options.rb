@@ -15,6 +15,7 @@ module Editor::Views::Document
         text_area :options, document.dict.string_val(:vertical)
 
         hidden_field :document_id, value: params[:id]
+        hidden_field :mode, value: mode
 
         submit 'Update', {style: 'margin-top:1em;'}
 
