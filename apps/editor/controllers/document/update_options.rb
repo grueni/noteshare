@@ -7,15 +7,16 @@ module Editor::Controllers::Document
     expose :document, :active_item
 
     def process_options(document, option)
-      puts "controller Editor update".red
-      puts "IN PROCESS_OPTIONS, options = #{option}".red
       dirty = false
-      hash = option.hash_value
+      hash = option.hash_value(key_value_separator: ':', item_separator: "\n")
       puts "IN PROCESS_OPTIONS, OPTION HASH = #{hash}".red
       if hash
         document.render_options['format'] = hash['format']
         puts "Set document render_options to #{hash['format']}".red
         dirty = true
+      end
+      hash.each do |key, value|
+        document.dict[key] = value
       end
       return dirty
     end
@@ -30,12 +31,6 @@ module Editor::Controllers::Document
       if document_packet['tags'] != ''
         document.tags = document_packet['tags']
         puts "tags = #{document_packet['tags']}"
-        dirty = true
-      end
-
-      if document_packet['area'] != ''
-        document.area = document_packet['area']
-        puts "area = #{document_packet['area']}"
         dirty = true
       end
 
@@ -64,7 +59,7 @@ module Editor::Controllers::Document
         update_meta(document, document_packet)
       end
 
-      redirect_to "/document/#{id}"
+      redirect_to "/editor/document/#{id}"
     end
 
   end

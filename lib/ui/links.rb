@@ -296,9 +296,9 @@ module UI
 
     def publish_document_link(document)
       if document.root_document.acl_get(:world) =~ /r/
-        image_link('/images/publish_document_green.png', "/editor/publish_all/#{document.id}", 'publish/unpbublish document')
+        image_link('/images/publish_document_green.png', "/editor/publish_all/#{document.id}", 'publish/unpublish document')
       else
-        image_link('/images/publish_document_blue.png', "/editor/publish_all/#{document.id}", 'publish/unpbublish document')
+        image_link('/images/publish_document_blue.png', "/editor/publish_all/#{document.id}", 'publish/unpublish document')
       end
     end
 

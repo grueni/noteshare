@@ -60,6 +60,27 @@ class Array
   end
 end
 
+class Hash
+
+  def string_val(style=:horizontal)
+    out = ''
+    case style
+      when :vertical
+        terminator = "\n"
+      when :horizontal
+        terminator = ", "
+      else
+        terminator = ", "
+    end
+    self.each do |key, value|
+      out << "#{key}: #{value}" << terminator
+    end
+    out = out[0..-3] if style == :horizontal
+    out
+  end
+
+end
+
 class String
   def blue
     "\e[1;34m#{self}\e[0m"
