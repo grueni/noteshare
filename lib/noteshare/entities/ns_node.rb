@@ -73,16 +73,37 @@ class NSNode
     NSNodeRepository.update self
   end
 
-  # Return an HTML list of links to documents
-  def documents_as_list
-    return '' if documents == nil or documents == []
-    list = documents.table
+  def titlepage_list(list)
     output = "<ul>\n"
     list.each do |item|
       output << "<li> <a href='/titlepage/#{item.id}'>#{item.title}</a></li>\n"
     end
     output << "</ul>\n"
     output
+  end
+
+  def sidebar_list(list)
+    output = "<ul>\n"
+    list.each do |item|
+      output << "<li> <a href='/aside/#{item.id}'>#{item.title}</a></li>\n"
+    end
+    output << "</ul>\n"
+    output
+  end
+
+  # Return an HTML list of links to documents
+  def documents_as_list(option=:titlepage)
+    docs = documents
+    return '' if docs == nil or docs == []
+    list = docs.table
+    case option
+      when :titlepage
+        titlepage_list(list)
+      when :sidebar
+        sidebar_list(list)
+      else
+        titlepage_list(list)
+    end
   end
 
 

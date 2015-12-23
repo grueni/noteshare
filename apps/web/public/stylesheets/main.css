@@ -529,6 +529,8 @@ ul.toc {
 
 /*** TABLE OF CONTENTS 2 ***/
 
+.toc2 { margin-left: 1em; }
+
 .toc2 ul {
 
     /* padding-left: 0.25em;

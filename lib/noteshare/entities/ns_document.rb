@@ -1500,26 +1500,27 @@ class NSDocument
   #
   ############################################################
 
+
   # Return URL of document
-  def url(prefix='')
+  def url(prefix, stem)
     if prefix == ''
-      #"http:/document/#{self.id}"
-      "/document/#{self.id}"
+      "/#{stem}/#{self.id}"
     else
-      #"http://#{prefix}/document/#{self.id}"
-      "#{prefix}/document/#{self.id}"
+      "#{prefix}/#{stem}/#{self.id}"
     end
 
   end
+
 
   # Return html link to document
   def link(hash = {})
     title = hash[:title]
     prefix = hash[:prefix] || ''
+    stem = hash[:stem] || 'document'
     if title
-      "<a href=#{self.url(prefix)}>#{title}</a>"
+      "<a href=#{self.url(prefix, stem)}>#{title}</a>"
     else
-      "<a href=#{self.url(prefix)}>#{self.title}</a>"
+      "<a href=#{self.url(prefix, stem)}>#{self.title}</a>"
     end
   end
 

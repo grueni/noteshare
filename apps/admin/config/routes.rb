@@ -1,3 +1,6 @@
+get '/node', to: 'node#add_document'
+
+post '/add_document_to_node', to: 'node#add_document'
 
 get '/course/import', to: 'course#import'
 post '/course/do_import', to: 'course#do_import'

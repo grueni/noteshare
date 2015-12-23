@@ -5,13 +5,13 @@
 
         .col.s2.m2.l2.scroll-y style = 'padding-left:1em; background-color:#444;'
 
-          == render partial: 'documents/view_control', locals: { }
+          == render partial: 'documents/view_control', locals: { } unless document.root_document.dict['show_controls'] == 'no'
 
           p style = 'margin-top:0.05em; color: #444'}== "  by #{document.author}"
-          - if document.doc_refs
+          - if document.doc_refs && !(document.root_document.dict['show_associated_docs'] == 'no')
             .toc2 style = 'padding-top:0' == document.root_associated_document_map
           h5 style = 'margin-bottom:0; color:#444;'  Table of Contents
-          p.plainlink.lightlink style='font-size:larger; padding-top:0em;margin-bottom:0; margin-left:-0.5em;;' == document.root_link
+          p.plainlink.lightlink style='font-size:larger; padding-top:0em;margin-bottom:0;margin-left:0.5em;' == document.root_link(stem: 'aside')
           .toc2== document.root_table_of_contents(document.id, 'aside')
 
         .col.s6.offset-s2.m6.offset-m2.l6.offset-l2.scroll-y style = 'padding-bottom:6em;padding-top:2em; background-color:#eee;'

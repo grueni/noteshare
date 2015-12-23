@@ -2,17 +2,17 @@ module Node::Controllers::Public
   class Show
     include Node::Action
 
-
-    expose :node, :active_item
+    expose :node, :active_item, :layout_option
 
     def call(params)
-       @active_item = 'node'
-      puts "controller for Node: Public::Show".red
-
+      @active_item = 'documents'
       @node = NSNodeRepository.find params[:id]
-
-
-
+      if @node.dict['layout'] == 'simple_sidebar'
+        @layout_option = :sidebar
+      else
+        @layout_option = :titlepage
+      end
     end
+
   end
 end

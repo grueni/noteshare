@@ -1,12 +1,17 @@
-.row.inset
+.row
 
-  h3 Admin Home!!
+  .col.s6.m6.l6
+    h3 Admin Home!!
 
-  p == update_message_link
-  p == link_to 'Users', '/admin/users/'
-  p == link_to 'Documents', '/admin/documents/'
-  p == link_to 'Nodes', '/node/admin/'
-  p == link_to 'New user', '/session_manager/new_user'
-  p == link_to 'Log in', '/session_manager/login'
-  p == link_to 'Import course', 'admin/course/import'
-  p == link_to 'New node', 'node/new'
+    p == update_message_link
+    p == link_to 'Users', '/admin/users/'
+    p == link_to 'Documents', '/admin/documents/'
+    p == link_to 'Nodes', '/node/admin/'
+    p == link_to 'New user', '/session_manager/new_user'
+    p == link_to 'Log in', '/session_manager/login'
+    p == link_to 'Import course', 'admin/course/import'
+    p == link_to 'New node', 'node/new'
+
+  .col.s6.offset-s6.m6.offset-m6.l6.offset0l6
+    /== add_document_to_node_form
+
