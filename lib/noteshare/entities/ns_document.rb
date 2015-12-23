@@ -150,7 +150,7 @@ class NSDocument
   end
 
   def info
-    self.display('Document', [:title, :identifier, :author, :author_id, :author_credentials, :parent_id, :parent_ref, :root_document_id, :root_ref, :render_options, :toc])
+    self.display('Document', [:title, :identifier, :author, :author_id, :author_credentials, :parent_id, :parent_ref, :root_document_id, :root_ref, :render_options, :toc, :dict])
   end
 
   # Create a document given a hash.

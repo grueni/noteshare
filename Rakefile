@@ -38,12 +38,23 @@ namespace :db do
   here = '.'
   app = 'noteshare'
 
+  desc "Push local database to heroku"
+  task :push_heroku do
+    cmd = "heroku ps:stop DYNOS; "
+    cmd << "heroku pg:reset DATABASE_URL --app nslab; "
+    cmd << "heroku pg:push noteshare_development DATABASE_URL --app nslab; "
+    cmd << "heroku restart; "
+    cmd << "heroku logs --tail"
+    puts cmd
+    exec cmd
+  end
+
   desc "Drops the database tables for noteshare"
   task :reset do
     cmd = "psql -U #{user} -d noteshare_development --file ./psql.setup"
     puts cmd
     exec cmd
-    system cmd
+    # system cmd
   end
 
 
