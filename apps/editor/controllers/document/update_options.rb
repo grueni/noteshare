@@ -56,9 +56,10 @@ module Editor::Controllers::Document
 
     def call(params)
       @active_item = 'editor'
-      @mode = if document_packet['mode'] == 'root'
+      #  @mode = if document_packet['mode'] == 'root'
 
       document_packet = params.env['rack.request.form_hash']['document']
+      @mode = document_packet['mode']
 
       id =  document_packet['document_id']
       if id

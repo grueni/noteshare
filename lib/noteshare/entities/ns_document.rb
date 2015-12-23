@@ -1135,6 +1135,27 @@ class NSDocument
 
   end
 
+  def process_associated_documents(item, target)
+    doc = DocumentRepository.find item.id
+    output = ''
+    puts "doc: #{doc.title}, doc_refs = #{doc.doc_refs}".red if doc
+    if doc.doc_refs
+      puts "I will now process the doc_refs for #{doc.title}".cyan
+      prefix = '/editor'
+      stem = 'document'
+      class_str = 'toc_associated_doc'
+      output << "<ul class='toc_associated_doc'>\n"
+      doc.doc_refs.each do |type, id|
+        puts "doc_ref: #{type} => #{id}".red
+        type = "sidebar" if type == "aside"
+        doc_link = "href='#{prefix}/#{stem}/#{id}'>#{type}</a>"
+        output <<  "<li #{class_str} '><a #{doc_link}</a></li>\n"
+      end
+      output << "</ul>\n"
+    end
+    return output
+  end
+
 
   def dive(item, active_id,  ancestral_ids, target, output)
 
@@ -1187,15 +1208,18 @@ class NSDocument
 
     target == 'editor'? output = "<ul class='toc2'>\n" : output = "<ul class='toc2'>\n"
 
-    self.table_of_contents.each do |item|
+    table_of_contents.each do |item|
 
       output << process_toc_item(item, active_id, ancestral_ids, target)
+      output << process_associated_documents(item, target) if target == 'editor'
       dive(item, active_id,  ancestral_ids, target, output)
 
     end
 
     finish = Time.now
     elapsed = finish - start
+
+    puts "master_table_of_contents (#{self.title}), #{elapsed} seconds"
 
     output << "</ul>\n\n"
 

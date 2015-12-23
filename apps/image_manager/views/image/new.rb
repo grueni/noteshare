@@ -6,7 +6,6 @@ module ImageManager::Views::Image
     include ImageManager::View
 
     def form
-      puts ">> form NEW Image".red
 
       form_for :image, '/image_manager/upload', class: 'image new' do
 

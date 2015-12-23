@@ -18,6 +18,17 @@
     height: 100%;
 }
 
+.toc_associated_doc ul {
+
+    margin-left: 3em;
+    padding-left: 3em;
+}
+
+.toc_associated_doc a {
+
+    color: lightskyblue;
+}
+
 /********/
 
 tr.clear_style:nth-child(even)  {

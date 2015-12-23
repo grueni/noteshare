@@ -345,11 +345,16 @@ module UI
     end
 
     def settings_link(document)
-      image_link '/images/document_settings.png', "/editor/document/options/#{document.id}?root", 'document settings!'
+      image_link '/images/document_settings.png', "/editor/document/options/#{document.id}?root", 'document settings'
     end
 
     def section_settings_link(document)
-      image_link '/images/section_settings.png', "/editor/document/options/#{document.id}?section", 'section settings!'
+      image_link '/images/section_settings.png', "/editor/document/options/#{document.id}?section", 'section settings'
+    end
+
+
+    def upload_image_link
+      image_link '/images/upload_image.png', "/uploader/image", 'upload image'
     end
 
     #####################################################
