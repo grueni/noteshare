@@ -1,23 +1,15 @@
-.row.inset
-  .col style='margin-bottom:2em; width=50%; height:90%;'
-
-    .users.ns_card style='top: 160px; width: 700px; margin-left:auto; margin-right:auto;'
-      == admin_link
-      table.ns_card style='margin-top;-20px; width: 500px; margin-left:auto; margin-right:auto;'
-        thead
-          tr
-            th ID
-            th Name
-            th Screen Name
-            th Email
-            th Node ID
-
-        tbody
-          - users.each do |user|
-            tr
-              td= user.id
-              td= "#{user.first_name} #{user.last_name}"
-              td= user.screen_name
-              td= user.email
-              td= user.node_id
+.row
+  .col.s12.m7.l7
+    .div style='margin-top:40px;margin-left:30px;'
+      .ns_card.scroll-y  style='height:400px'
+        table
+          tbody
+            - users.each do |user|
+              tr
+                td= user.id
+                td= "#{user.first_name} #{user.last_name}"
+                td= user.screen_name
+                td= user.email
+                td== delete_user_link(user.id)
+                td= user.node_id
 

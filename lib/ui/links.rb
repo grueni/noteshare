@@ -332,6 +332,9 @@ module UI
      link_to 'Edit system message', '/admin/update_message'
    end
 
+   def delete_user_link(id)
+     link_to 'delete', "/admin/delete_user/#{id}"
+   end
 
     #####################################################
     #
