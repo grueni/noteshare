@@ -147,4 +147,24 @@ class String
     hash
   end
 
+  # Assume that the receive is of the form
+  # "foo, bar, baz".  Return a list of the form
+  # ['foo', 'bar', 'baz']
+  def to_list
+    self.split(',').map{ |str| str.strip }
+  end
+
+  # Assume that the receive is of the form
+  # "foo, 1;  bar, 2;  baz, 3".  Return a list of the form
+  # [['foo', '1'], ['bar', '2'], ['baz', '3']]
+  def to_pair_list
+    list = self.split(';').map{ |str| str.strip }
+    list_of_pairs = []
+    list.each do |item|
+      pair = item.split(',').map{ |str| str.strip }
+      list_of_pairs << pair
+    end
+    list_of_pairs
+  end
+
 end

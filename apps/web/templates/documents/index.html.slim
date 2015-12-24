@@ -13,7 +13,7 @@
               - documents.each do |document|
                 tr.clear_style
                   td.lightlink == titlepage_link2 document
-                  td== document.author_screen_name
+                  td== node_link_for_document(document)
 
   .col.hide-on-small-only.m6.offset-m6.l5.offset-l6
     h4 Nodes

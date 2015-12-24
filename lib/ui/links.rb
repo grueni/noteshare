@@ -339,6 +339,18 @@ module UI
     #
     #####################################################
 
+    def node_link_for_document(document)
+      publisher_data = document.dict['publisher']
+      return '--' if publisher_data == nil
+      publisher_list = publisher_data.to_pair_list || []
+      if publisher_list != []
+        name, id = publisher_list[0]
+        link_to name, "/node/#{id}"
+      else
+        '--'
+      end
+    end
+
 
     def user_settings_link
       image_link '/images/gears.png', '/session_manager/settings', 'user settings'

@@ -123,6 +123,7 @@ class NSDocument
 
   end
 
+
   # Display the fields of the reeiver
   # specified by arts.  'label' gives
   # the heading.
@@ -143,7 +144,7 @@ class NSDocument
 
   end
 
-  # A convencience method for #display
+  # A convenience method for #display
   def self.info(id)
     doc = DocumentRepository.find(id)
     doc.display('Document', [:title, :identifier, :author_credentials, :parent_ref, :root_ref, :render_options, :toc])
