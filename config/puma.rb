@@ -9,7 +9,7 @@ port        ENV['PORT']     || 3000
 environment ENV['RACK_ENV'] || ENV['LOTUS_ENV'] || 'development'
 
 on_worker_boot do
-   Sequel.connect DATABASE_URL
+   #    Sequel.connect DATABASE_URL
 end
 
 
