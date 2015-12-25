@@ -103,6 +103,7 @@ Lotus::Model.configure do
       attribute :level, Integer
       attribute :password, String
       attribute :meta, JSON
+      attribute :dict2, PGHStore
     end
 
 

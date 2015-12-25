@@ -7,7 +7,7 @@ class User
   include Noteshare::Dict
 
   attributes :id, :admin, :first_name, :last_name, :identifier, :email, :screen_name,
-             :level, :password, :meta, :password_confirmation
+             :level, :password, :meta, :dict2, :password_confirmation
 
   # http://hawkins.io/2012/07/rack_from_the_beginning/
   # https://blog.engineyard.com/2015/understanding-rack-apps-and-middleware
@@ -95,26 +95,26 @@ class User
   # Return the id of the node associated
   # to te user if  it exists.
   def node_id
-    dict_lookup('node')
+    dict2['node']
   end
 
   def node
-    id = self.dict_lookup('node')
+    id = dict2['node']
     NSNodeRepository.find id if id
   end
 
   def set_node(id_of_node)
-    dict_update({'node'=> id_of_node})
+    dict2['node'] = id_of_node
   end
 
   def remember_current_document_id(session)
     cid = session['current_document_id']
     puts "In remember_current_document_id, cid = #{cid}"
-    dict_update({'current_document_id'=> cid})
+    dict2['current_document_id'] = cid
   end
 
   def recall_current_document_id(session)
-    session['current_document_id'] = dict_lookup('current_document_id')
+    session['current_document_id'] = dict2['current_document_id']
   end
 
 
