@@ -5,7 +5,7 @@ module Editor::Controllers::Documents
     include NSDocument::Asciidoc
 
     def get_format(author)
-      author_format = author.dict_lookup('format')
+      author_format = author.dict['format']
       if author_format
         format_hash = {format: author_format}
       else

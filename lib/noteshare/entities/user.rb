@@ -1,10 +1,10 @@
 require_relative '../modules/display'
-require_relative '../modules/dict'
+# require_relative '../modules/dict'
 
 class User
   include Lotus::Entity
   include Noteshare::Display
-  include Noteshare::Dict
+  # include Noteshare::Dict
 
   attributes :id, :admin, :first_name, :last_name, :identifier, :email, :screen_name,
              :level, :password, :meta, :dict2, :password_confirmation
@@ -31,6 +31,7 @@ class User
     if new_user.password == new_user.password_confirmation
       new_user.password = BCrypt::Password.create(new_user.password)
       new_user.set_identifier
+      new_user.dict2 = {}
       UserRepository.create new_user
     end
 
@@ -105,12 +106,14 @@ class User
 
   def set_node(id_of_node)
     dict2['node'] = id_of_node
+    UserRepository.update self
   end
 
   def remember_current_document_id(session)
     cid = session['current_document_id']
     puts "In remember_current_document_id, cid = #{cid}"
     dict2['current_document_id'] = cid
+    UserRepository.update self
   end
 
   def recall_current_document_id(session)

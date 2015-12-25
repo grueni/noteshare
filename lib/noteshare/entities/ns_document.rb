@@ -4,6 +4,7 @@ require_relative '../modules/toc_item'
 require_relative '../../../lib/acl'
 require_relative '../modules/groups'
 require_relative '../../../lib/noteshare/modules/asciidoctor_helpers'
+require_relative '../modules/document_dictionary'
 
 
 
@@ -96,6 +97,7 @@ class NSDocument
   include Noteshare::Groups
   include Noteshare::AsciidoctorHelper
   include ACL
+  include Noteshare::NSDocumentDictionary
 
 
   # When initializing an NSDocument, ensure that certain fields
@@ -787,7 +789,7 @@ class NSDocument
       self.content = str
     end
 
-    render_by_identity = dict_lookup('render') == 'identity'
+    render_by_identity = dict['render'] == 'identity'
     if render_by_identity
       self.rendered_content =  content
     else
@@ -1247,69 +1249,6 @@ class NSDocument
   end
 
 
-  ##################################
-
-  def dict_set(new_dict)
-    if meta
-      metadata = JSON.parse self.meta
-    else
-      metadata = {}
-    end
-    metadata['dict'] = new_dict
-    self.meta = JSON.generate metadata
-    DocumentRepository.update self
-    new_dict
-  end
-
-
-  # Example: @foo.dict_update 'children': 5
-  def dict_update(entry)
-    metadata = JSON.parse self.meta
-    dict = metadata['dict'] || { }
-    dict[entry.keys[0]] = entry.values[0]
-    metadata['dict'] = dict
-    self.meta = JSON.generate metadata
-    DocumentRepository.update self
-    entry
-  end
-
-  def dict_lookup(key)
-    return nil if meta == nil
-    metadata = JSON.parse self.meta
-    dict = metadata['dict'] || { }
-    dict[key]
-  end
-
-  def dict_list
-    if meta == nil
-      puts 'empty'
-      return ''
-    end
-    metadata = JSON.parse self.meta
-    dict = metadata['dict'] || { }
-    dict.each do |key, value|
-      puts "#{key} => #{value}"
-    end
-  end
-
-  def dict_delete(key)
-    metadata = JSON.parse self.meta
-    dict = metadata['dict'] || { }
-    dict[key] = nil
-    metadata['dict'] = dict
-    self.meta = JSON.generate metadata
-    DocumentRepository.update self
-    key
-  end
-
-  def dict_clear
-    metadata = JSON.parse self.meta
-    metadata['dict'] = {}
-    self.meta = JSON.generate metadata
-    DocumentRepository.update self
-    key
-  end
-
 
   ###########  ACL  ##########
 
@@ -1608,6 +1547,10 @@ class NSDocument
 
     return toc[index_in_parent+1].id
   end
+
+  ###################################
+
+
 
 
 end

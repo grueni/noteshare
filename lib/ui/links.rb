@@ -347,7 +347,7 @@ module UI
       return '--' if publisher_data == nil
       publisher_list = publisher_data.to_pair_list || []
       if publisher_list != []
-        name, id = publisher_list[0]
+          name, id = publisher_list[0]
         link_to name, "/node/#{id}"
       else
         '--'

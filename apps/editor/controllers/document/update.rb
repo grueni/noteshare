@@ -20,7 +20,7 @@ module Editor::Controllers::Document
       # if @document.is_root_document?
       #  @document.compile_with_render
       # end
-      @document.synchronize_title unless @document.dict_lookup('synchronize_title') == 'no'
+      @document.synchronize_title unless @document.dict['synchronize_title'] == 'no'
 
       redirect_to "/editor/document/#{id}"
     end
