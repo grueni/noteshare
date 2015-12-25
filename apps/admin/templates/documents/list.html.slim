@@ -1,23 +1,15 @@
-.row.inset
-  h4 Documents
-  .col
+.row
+  .col.s12.m6.l6
+    h4 Documents
     /== search_form
-  - if documents
-    .row.s8 style = ' margin-top:10 px; padding-left:1em; padding-right:1em;  '
-      .col.ns_card
+    - if documents
+      .col.ns_card.scroll-y style='height:400px;'
         table style='border=0; border-color: #444; border-collapse;'
-          thead
-            tr
-              th id
-              th title
-              th author
-              th id
-              th visibility
           tbody
             - documents.each do |document|
               tr.clear_style
                 td== document.id
                 td.lightlink == document.link
                 td== document.author
-                td== document.author_id
-                td== document.visibility
+                td== node_link_for_document document
+                td== delete_document_link document.id

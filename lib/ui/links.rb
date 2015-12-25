@@ -336,6 +336,14 @@ module UI
      link_to 'delete', "/admin/delete_user/#{id}"
    end
 
+    def delete_document_link(id)
+      link_to 'delete', "/admin/delete_document/#{id}"
+    end
+
+    def edit_node_link(id)
+      link_to 'edit', "/node/edit/#{id}"
+    end
+
     #####################################################
     #
     #   5. OTHER LINKS

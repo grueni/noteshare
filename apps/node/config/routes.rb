@@ -1,3 +1,5 @@
+post '/update/:id', to: 'admin#update'
+get '/edit/:id', to: 'admin#edit'
 post '/create', to: 'admin#create'
 get '/new', to: 'admin#new'
 
