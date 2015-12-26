@@ -102,5 +102,18 @@ EOF
 
   end
 
+  it 'can return the index as #index' do
+
+    indexer = DocumentIndex.new(string: @more_elaborate_text)
+    indexer.preprocess_to_string
+    processed_text = indexer.output
+    html = Asciidoctor.convert processed_text
+    squeeze(processed_text).must_equal(squeeze(@more_elaborate_text_processed))
+    puts processed_text
+
+    # puts @css <<"\n\n" << html
+
+  end
+
 
 end

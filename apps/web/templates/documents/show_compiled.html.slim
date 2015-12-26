@@ -10,6 +10,8 @@
           h4 Contents
 
           .toc2 == root_document.internal_table_of_contents(['root', 'internal', 'sectnums'], { doc_id: root_document.id })
+          -if root_document.dict['make_index']
+            span.lightlink style='margin-left:1em; margin-top:-2em;' == link_to 'Index', '#_index'
 
         .col.middle style = 'left: 30%; width: 70%; padding-bottom:6em;padding-top:2em;'
           h5== root_document.title

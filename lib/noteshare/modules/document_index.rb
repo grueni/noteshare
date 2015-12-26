@@ -18,7 +18,7 @@ class DocumentIndex
   # foo = DocumentIndex.new(string: 'ho ho ho')
   # foo = DocumentIndex.new(file: 'final_word.adoc')
   def initialize(hash)
-    @lines = hash[:string].split("                                                                                                                                            \n") if hash[:string]
+    @lines = hash[:string].split("\n") if hash[:string]
     @lines = IO.readlines(hash[:file]) if hash[:file]
   end
 
@@ -155,7 +155,7 @@ class DocumentIndex
   def transform_lines_to_string
     output = ''
     @lines.each do |line|
-      output << transform_line(line)
+      output << transform_line(line) << "\n"
     end
     output
   end
@@ -252,7 +252,12 @@ class DocumentIndex
       output << heading(reference_list)
       output << index_pair_to_index_item(index_pair, 1)
     end
+    # puts "In DOCUMENT_INDEX, output = #{output}".red
     @index = output
+  end
+
+  def document_index
+    @index
   end
 
 
@@ -262,7 +267,7 @@ class DocumentIndex
   def preprocess_to_file(outfile)
     scan
     make_index_map
-    transform_lines_file(outfile)
+    transform_lines_to_file(outfile)
     make_index
 
 
@@ -274,10 +279,18 @@ class DocumentIndex
     file.close
   end
 
+  # After exection of 'process_to_string', the
+  # markeup-up asciidoc text is in @output
+  # and tte tex of the index is in @index.
   def preprocess_to_string
     scan
     make_index_map
     @output = transform_lines_to_string
+    make_index
+    @output
   end
+
+
+
 
 end

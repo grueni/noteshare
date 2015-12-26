@@ -9,16 +9,29 @@ class Render
   require 'asciidoctor'
   require 'asciidoctor-latex'
 
+  attr_reader :index
+
   include Asciidoctor
 
   def initialize(source, options = {})
     @source = source
+    puts "(1) @source.length = #{@source.length}".red
     @options = options
   end
 
   def convert
     @options = @options.merge({verbose:0})
     rewrite_urls
+    if @options[:make_index]
+      puts "MAKING INDEX".red
+      @indexer = DocumentIndex.new(string: @source)
+      @indexer.preprocess_to_string
+      @source = @indexer.output
+      @index = @indexer.document_index
+      puts "In convert, @index = #{@index}".blue
+      @source << "\n:!sectnums:\n\n== Index\n\n" << @index
+      puts "In convert, @source = #{@source}".cyan
+    end
     Asciidoctor.convert(@source, @options)
   end
 

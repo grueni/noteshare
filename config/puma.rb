@@ -9,7 +9,7 @@ port        ENV['PORT']     || 3000
 environment ENV['RACK_ENV'] || ENV['LOTUS_ENV'] || 'development'
 
 on_worker_boot do
-   Sequel.connect ENV['NOTESHARE_DATABASE_URL']
+   Lotus::Model.load!
 end
 
 

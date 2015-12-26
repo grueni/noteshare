@@ -703,7 +703,7 @@ class NSDocument
   # Example
   #
   #    @content = 'Dr. Smith said that conservation laws ...'
-  #    @article.add_associtate(title: 'Notes from class', type: 'note', content: @content)
+  #    @article.add_associate(title: 'Notes from class', type: 'note', content: @content)
   #
   def add_associate(hash)
 
@@ -886,7 +886,6 @@ class NSDocument
 
   def get_render_option
     format = self.render_options['format']
-
     case format
       when 'adoc'
         render_option = {}
@@ -895,7 +894,7 @@ class NSDocument
       else
         render_option = {}
     end
-
+    render_option
   end
 
   # Compile the receiver, render it, and store the
@@ -903,13 +902,20 @@ class NSDocument
   def compile_with_render(option={})
     start = Time.now
 
-    renderer = Render.new(self.compile, get_render_option )
+    option = option.merge get_render_option
+    if dict['make_index']
+      h = {}
+      h[:make_index] = true
+      option = option.merge(h)
+    end
+    renderer = Render.new(self.compile, option )
     self.compiled_and_rendered_content = renderer.convert
     self.compiled_dirty = false
     value = DocumentRepository.update(self)
 
     finish = Time.now
     elapsed = finish - start
+    puts "Compile with render in #{elapsed} seconds".red
     return value
   end
 

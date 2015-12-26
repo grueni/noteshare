@@ -52,7 +52,7 @@ class NSNode
 
   # update_docs_for_owner docs: replace current list with list of ids
   # and title root documents belonging to the owner of the node
-  def update_docs_for_owner
+    def update_docs_for_owner
     dd = DocumentRepository.root_documents_for_user(self.owner_id)
     docs_string = ''
     dd.each do |doc|

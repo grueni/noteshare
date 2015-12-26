@@ -71,16 +71,17 @@ td.clear_style {
 
 }
 
-.redlink a {
-
-    color: red;
-}
-
 .lightlink a:hover {
 
     color: red;
 
 }
+
+.redlink a {
+
+    color: red;
+}
+
 
 .inset_left{
 

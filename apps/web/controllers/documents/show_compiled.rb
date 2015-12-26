@@ -16,6 +16,16 @@ module Web::Controllers::Documents
       @root_document = document.root_document
       @root_document.compile_with_render({numbered: true, format: 'adoc-latex'})
       @root_document.compiled_content = @root_document.compile
+
+      if @root_document.dict['make_index'] && false
+        index_content = @root_document.dict['document_index']
+        if @root_document.associated_document('index') == nil
+          @root_document.add_associate(title: 'Index', type: 'index', rendered_content: index_content)
+        else
+          @root_document.associated_document('index').rendered_content = index_content
+        end
+      end
+
       DocumentRepository.update @root_document
 
     end

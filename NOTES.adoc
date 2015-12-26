@@ -182,3 +182,4 @@ http://stackoverflow.com/questions/5123325/correct-way-to-share-login-sessions-a
 https://player.vimeo.com/video/71846170[Engineyard Demo]
 https://robots.thoughtbot.com/write-reliable-asynchronous-integration-tests-with-capybara[Integration tests with Capybara]
 http://stackoverflow.com/questions/3388511/run-rake-tasks-in-sequence[sequence rake tasks]
+https://blog.heroku.com/archives/2013/6/5/javascript_in_your_postgres[javascript in postgres]
