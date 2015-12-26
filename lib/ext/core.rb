@@ -134,15 +134,22 @@ class String
   def hash_value(arg = {})
     key_value_separator = arg[:key_value_separator] || ':'
     item_separator = arg[:item_separator] || ','
-    items = self.split(item_separator)
+    if item_separator == "\n"
+      str = self.gsub(/\n\n*/m, "\n")
+    else
+      str = self
+    end
+    items = str.split(item_separator)
     items = items.map{ |item| item.strip }
     hash = {}
     items.each do |item|
       a, b = item.split(key_value_separator)
-      a = a.strip
-      b = b.strip if b
-      b ||= ''
-      hash[a] = b
+      if a
+        a = a.strip
+        b = b.strip if b
+        b ||= ''
+        hash[a] = b
+      end
     end
     hash
   end

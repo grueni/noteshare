@@ -106,6 +106,18 @@ module Noteshare
       @table.map{ |x| x.to_h }
     end
 
+    def self.as_string(json_str)
+      oil = ObjectItemList.new(JSON.parse(json_str))
+      array  = oil.to_hash_array
+      puts array.to_s.red
+      str = ''
+      array.each do |hash|
+        item = "#{hash[:title]}, #{hash[:id]}"
+        str << item << "; "
+      end
+      str
+    end
+
     def encode
       to_hash_array.to_json
     end

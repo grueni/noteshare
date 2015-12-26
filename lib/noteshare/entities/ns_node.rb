@@ -60,6 +60,19 @@ class NSNode
     NSNodeRepository.update self
   end
 
+  def update_docs_for_from_pair_list(pair_list)
+    hash_array = []
+    pair_list.each do |pair|
+      hash = {}
+      hash[:title] = pair[0]
+      hash[:id] = pair[1]
+      hash_array << hash
+    end
+    object_item_list = ObjectItemList.new(hash_array)
+    self.docs  = object_item_list.encode
+    NSNodeRepository.update self
+  end
+
   def append_doc(id, title)
     oi = ObjectItem.new(id, title)
     oil = ObjectItemList.decode self.docs
@@ -123,6 +136,14 @@ class NSNode
       ObjectItemList.decode(self.docs)
     else
       []
+    end
+  end
+
+  def documents_as_string
+    if docs
+      ObjectItemList.as_string(self.docs)
+    else
+      ''
     end
   end
 

@@ -4,10 +4,13 @@ module Node::Views::Admin
 
     def form
 
+      edit_text = node.dict.string_val(:vertical) << "\n"
+      edit_text << 'docs: ' << node.documents_as_string
+
       form_for :node, "/node/update/#{node.id}" do
 
         label :dictionary
-        text_area :dictionary,  node.dict.string_val(:vertical)
+        text_area :dictionary,  edit_text
 
         hidden_field :node_id, value: node.id
 

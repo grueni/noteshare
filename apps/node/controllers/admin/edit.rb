@@ -8,6 +8,7 @@ module Node::Controllers::Admin
       @active_item='admin'
       id = params['id']
       @node = NSNodeRepository.find(id)
+
     end
 
   end
