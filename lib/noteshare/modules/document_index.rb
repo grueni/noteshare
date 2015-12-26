@@ -29,7 +29,7 @@ class DocumentIndex
     str.scan(INDEX_TERM_REGEX).flatten.map{ |e| e.sub('((','').sub('))','') }
   end
 
-  # Return the terms to be indexwd by
+  # Return the terms to be indexed by
   # scanning the entire @lines array
   def scan
     output = []
@@ -38,6 +38,7 @@ class DocumentIndex
       output << term_array
     end
     @term_array = output.flatten.map{ |e| e.sub('((','').sub('))','') }
+    puts "@term_array = #{@term_array}".cyan
   end
 
   def sort_indicator(element)
@@ -58,9 +59,9 @@ class DocumentIndex
   #
   #   @index_map = { 'foo': [0, 2], 'bar': [1]}
   #
-  # After the @index_map is contructed, it is used
+  # After the @index_map is constructed, it is used
   # to build @index_array -- the corresponding
-  # array which is case-insenstive sorted on the
+  # array which is case-insensitive sorted on the
   # index terms.  Thus
   #
   #   @index_array = [ ['bar', [1]], ['foo', [0, 2]] ]
