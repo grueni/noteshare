@@ -28,16 +28,8 @@ module Node::Controllers::Admin
       puts "dictionary  =  #{dictionary}".cyan
       dictionary = dictionary.gsub(/\n\n*/m, "\n")
       hash = dictionary.hash_value(key_value_separator: ':', item_separator: "\n")
-      doc_element = hash.delete('docs')
-      puts "doc_element was: #{doc_element}".red
-
-      pair_list = doc_element.to_pair_list
-      puts "pair_list was: #{pair_list}".cyan
-      node.update_docs_for_from_pair_list(pair_list)
-
       update_dict(node, hash)
       NSNodeRepository.update node
-
       redirect_to '/node/admin'
     end
   end

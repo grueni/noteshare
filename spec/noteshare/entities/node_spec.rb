@@ -35,7 +35,7 @@ describe NSNode do
     @document = NSDocument.create(title: 'Test', author_credentials: @user.credentials)
     @node =  NSNode.create_for_user(@user)
     @node.update_docs_for_owner
-    @node.docs.must_equal("[{\"id\":#{@document.id},\"title\":\"Test\"}]")
+    @node.dict['docs'].must_equal("Test, #{@document.id}; ")
 
   end
 

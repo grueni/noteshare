@@ -54,9 +54,11 @@ class NSNode
   # and title root documents belonging to the owner of the node
   def update_docs_for_owner
     dd = DocumentRepository.root_documents_for_user(self.owner_id)
-    hash_array = dd.map{ |doc| {id: doc.id, title: doc.title } }
-    object_item_list = ObjectItemList.new(hash_array)
-    self.docs  = object_item_list.encode
+    docs_string = ''
+    dd.each do |doc|
+      docs_string << "#{doc.title}, #{doc.id}; "
+    end
+    dict['docs'] = docs_string
     NSNodeRepository.update self
   end
 
@@ -74,22 +76,19 @@ class NSNode
   end
 
   def append_doc(id, title)
-    oi = ObjectItem.new(id, title)
-    oil = ObjectItemList.decode self.docs
-    oil.append(oi)
-    self.docs = oil.encode
+     dict['docs'] << "#{title}, #{id};"
     NSNodeRepository.update self
   end
 
   def delete_all_docs
-    self.docs = "[]"
+    dict['docs'] = ''
     NSNodeRepository.update self
   end
 
   def titlepage_list(list)
     output = "<ul>\n"
     list.each do |item|
-      output << "<li> <a href='/titlepage/#{item.id}'>#{item.title}</a></li>\n"
+      output << "<li> <a href='/titlepage/#{item[1]}'>#{item[0]}</a></li>\n"
     end
     output << "</ul>\n"
     output
@@ -98,7 +97,7 @@ class NSNode
   def sidebar_list(list)
     output = "<ul>\n"
     list.each do |item|
-      output << "<li> <a href='/aside/#{item.id}'>#{item.title}</a></li>\n"
+      output << "<li> <a href='/aside/#{item[1]}'>#{item[0]}</a></li>\n"
     end
     output << "</ul>\n"
     output
@@ -106,9 +105,8 @@ class NSNode
 
   # Return an HTML list of links to documents
   def documents_as_list(option=:titlepage)
-    docs = documents
-    return '' if docs == nil or docs == []
-    list = docs.table
+    list = documents # as array of pairs [title, id]
+    return '' if list == []
     case option
       when :titlepage
         titlepage_list(list)
@@ -132,19 +130,12 @@ class NSNode
 
   # Retrieve the document list: unpack
   def documents
-    if docs
-      ObjectItemList.decode(self.docs)
-    else
-      []
-    end
+    documents_string =  dict['docs'] || ''
+    documents_string.to_pair_list
   end
 
   def documents_as_string
-    if docs
-      ObjectItemList.as_string(self.docs)
-    else
-      ''
-    end
+    dict['docs'] || ''
   end
 
   def document_count
