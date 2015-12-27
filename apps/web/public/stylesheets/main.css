@@ -78,8 +78,19 @@ td.clear_style {
 }
 
 .redlink a {
+     /* color: #ba3925; */
+    color: #da3925;
+    text-decoration:none;
+}
 
-    color: red;
+.red {
+
+    color: #ea3925;
+}
+
+.no_underline_link a {
+
+    text-decoration:none;
 }
 
 
