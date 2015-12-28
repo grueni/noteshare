@@ -1,22 +1,20 @@
 .row
   - if root_document
-    .document
-      .row
-        .col.left style = 'width: 30%;padding-left:2em; background-color:#444;'
+    .col.hide-on-small-and-down.m3.l3.scroll0y style = 'padding-left:2em; padding-bottom:400px; background-color:#444;'
 
-          == render partial: 'documents/view_control', locals: { }
-          br
-          br
-          h4 style='margin-bottom:0;' Contents
-          -if root_document.dict['make_index']
-            span.redlink style='margin-left:0; margin-top:0em;' == link_to 'Index', '#_index'
+      == render partial: 'documents/view_control', locals: { }
+      br
+      br
+      h4 style='margin-bottom:0;' Contents
+      -if root_document.dict['make_index']
+        span.redlink style='margin-left:0; margin-top:0em;' == link_to 'Index', '#_index'
 
-          .toc2 == root_document.internal_table_of_contents(['root', 'internal', 'sectnums'], { doc_id: root_document.id })
+      .toc2 == root_document.internal_table_of_contents(['root', 'internal', 'sectnums'], { doc_id: root_document.id })
 
 
-        .col.middle style = 'left: 30%; width: 70%; padding-bottom:6em;padding-top:2em;'
-          h5== root_document.title
-          == root_document.compiled_and_rendered_content
+    .col.s12.m9.offset-m3.l9.offset-l3.scroll-y style = 'background-color: #fff; padding-bottom:6em;padding-top:2em;'
+      h5== root_document.title
+      == root_document.compiled_and_rendered_content
   - else
   p.placeholder Documents not found.
 
