@@ -286,7 +286,6 @@ module UI
 
 
     def delete_document_link(document)
-      # html.tag(:a, 'Delete document', href: '#')
       image_link('/images/delete_document.png', "/editor/prepare_to_delete_document/#{document.id}?tree", 'delete document')
     end
 
@@ -336,7 +335,7 @@ module UI
      link_to 'delete', "/admin/delete_user/#{id}"
    end
 
-    def delete_document_link(id)
+    def admin_delete_document_link(id)
       link_to 'delete', "/admin/delete_document/#{id}"
     end
 

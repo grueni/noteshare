@@ -1,0 +1,10 @@
+attribute :id, Integer
+      attribute :admin, Boolean
+      attribute :first_name, String
+      attribute :last_name, String
+      attribute :identifier, String
+      attribute :email, String
+      attribute :screen_name, String
+      attribute :level, Integer
+      attribute :password, String
+      attribute :meta, JSON
