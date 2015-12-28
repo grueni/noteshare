@@ -40,7 +40,7 @@ html
           == document.previous_link(title: "<img src='/images/arrowleft_light_gray.png', width=24px>", alt_title: "<img src='/images/arrowleft_gray.png', width=24px>")
           == document.next_link(title: "<img src='/images/arrowright_light_gray.png', width=24px>", alt_title: "<img src='/images/arrowright_gray.png', width=24px>")
       .navbar_right_item
-        ul id='navlist'
+        ul id='navlist' style='float:right'
           - if current_user(session)
             li
               == editor_link(session)

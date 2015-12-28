@@ -1,6 +1,6 @@
 .row
-  .col.s6.m6.l5
-    == search_form
+  .col.s12.m6.l5
+    /== search_form
     - if documents
       .div.ns_card style = 'margin-left:2em;margin-top:1.0em; height:400px; overflow-y:scroll; padding-bottom:3em;'
         h5 style='margin-top:0;' Documents
@@ -11,7 +11,7 @@
                 td.lightlink == compiled_root_document_link(document)
                 td== node_link_for_document(document)
 
-  .col.s6.offset-s6.m6.offset-m6.l4.offset-l5
+  .col.hide-on-small-and-down.offset-s6.m6.offset-m6.l4.offset-l5
     div.ns_card style = 'margin-top:1.0em;width:400px; height:400px; overflow-y:scroll; padding-bottom:3em;'
       h5 style='margin-top:0;' Nodes
       table

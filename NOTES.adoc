@@ -184,3 +184,5 @@ https://robots.thoughtbot.com/write-reliable-asynchronous-integration-tests-with
 http://stackoverflow.com/questions/3388511/run-rake-tasks-in-sequence[sequence rake tasks]
 https://blog.heroku.com/archives/2013/6/5/javascript_in_your_postgres[javascript in postgres]
 http://stackoverflow.com/questions/34481638/how-to-use-tocify-with-asciidoctor-for-a-dynamic-toc[tocify -- collapsilble toc]
+https://github.com/davydovanton/lotus-webpack-reactjs[Lotus app with react.js (davydovanton)]
+https://github.com/solnic/lotuskase[Solnic's Lotus app]
