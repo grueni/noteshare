@@ -16,9 +16,11 @@ module Admin::Controllers::Course
 
       screen_name = current_user(session).screen_name
 
-      course.create_master_document(screen_name)
+      new_root_document = course.create_master_document(screen_name)
 
-      self.body = "Boss, I am importing #{course.title}"
+      redirect_to  "/titlepage/#{new_root_document.id}"
+
+      # self.body = "Boss, I am importing #{course.title}"
 
     end
 
