@@ -8,7 +8,7 @@ module Admin::Views::Settings
       form_for :update_settings, '/admin/do_update_message', class: '' do
 
         label :message
-        text_area :message, settings.get_key('message')
+        text_area :message, settings.dict['message']
 
         submit 'Update message',  class: "green"
 

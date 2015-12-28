@@ -1,4 +1,4 @@
-module Admin::Controllers::Settings
+ module Admin::Controllers::Settings
   class Update
     include Admin::Action
 

@@ -9,12 +9,12 @@ module Admin::Controllers::Settings
     def call(params)
       @active_item = 'admin'
       raw_new_message = params['update_settings']['message']
-      # new_message = Asciidoctor.convert raw_new_message
       @settings = SettingsRepository.first
-      @settings.set_key('message', raw_new_message)
+      @settings.dict['message'] = raw_new_message
+      @settings.dict['rendered_message'] = Asciidoctor.convert @settings.dict['message']
       SettingsRepository.update @settings
 
-      redirect_to "/node/user/#{current_user(session).id}"
+      redirect_to "/"
 
     end
   end

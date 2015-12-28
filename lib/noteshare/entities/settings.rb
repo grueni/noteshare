@@ -1,34 +1,19 @@
 class Settings
   include Lotus::Entity
 
-  attributes :owner, :id, :raw_hash
+  attributes :owner, :id, :dict
 
-  def hash
-    JSON.parse(self.raw_hash || "{}")
-  end
-
-  def set_hash(h)
-    self.raw_hash = h.to_json
-  end
 
   def set_key(key, value)
-    h = self.hash
-    h[key] = value
-    set_hash(h)
+    dict[key] = value
   end
 
   def get_key(key)
-    hash[key]
+    dict[key]
   end
 
   def delete_key(key)
-    h = self.hash
-    h.delete(key)
-    set_hash(h)
-  end
-
-  def hash_as_string
-    hash.to_s
+    dict.delete(key)
   end
 
   def update

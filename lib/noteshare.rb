@@ -87,7 +87,7 @@ Lotus::Model.configure do
       repository SettingsRepository
       attribute :id,   Integer
       attribute :owner, String
-      attribute :raw_hash, JSON
+      attribute :dict, PGHStore
     end
 
     collection :users do

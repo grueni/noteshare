@@ -1,6 +1,6 @@
 .row
 
-  .col.s5.offset-s1
+  .col.s4.offset-s1.m4.offset-m1.l4.offset-l1
     h3==  domain_link
     div
       .ns_card style='min-height:400px;'
@@ -17,17 +17,21 @@
           | Noteshare is a platform for creating and sharing documents on the web
           | – course materials and lecture notes, handbooks, film festival catalogues,
           | the next great novel, you name it!
+          | <br>
+          | <br>
+          | <img src="https://s3.amazonaws.com/vschool%2Fnoteshare_images/rockband.jpg" alt="rockband" width="200">
+          | <br>
+          | <br>
         p.compact.message == link_to 'More about Noteshare', '/about'
 
         span style='color:#F5574F;position:absolute; bottom:1em;left:2.5em;' ❤
         i style='color:#F5574F;position:absolute; bottom:1em; left:4.0em;' Share the knowledge!
 
-  .col.s5.offset-s6
+  .col.hide-on-small-and-down.m5.offset-m5.l4.offset-l5
     div style='position: absolute; top:75px; left: 30%;'
       .ns_card
         .div style='margin-top:-1.5em;'
-        /.message == Asciidoctor.convert settings.get_key('message')
-        .message == Asciidoctor.convert ( settings.get_key('message') || '')
+        .message == settings.dict['rendered_message']
         br
         br
 
