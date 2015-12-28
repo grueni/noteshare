@@ -2,21 +2,20 @@
   - if root_document
     .document
       .row
-        .col.left style = 'width: 30%;padding-left:2em; background-color:#444;'
+        .col.s12.m3.l3.scroll-y style = 'background-color:#444; padding-bottom:400px;'
 
           == render partial: 'documents/view_control', locals: { }
-          br
-          br
-          h4 style='margin-bottom:0' Contents
+
+          h4 style='margin-bottom:0;margin-left:0.7em;' Contents
           - if root_document.dict['make_index']
-            span.redlink style='margin-left:0; margin-top:0' == link_to 'Index', '#_index'
+            span.redlink style='margin-left:1em; margin-top:0' == link_to 'Index', '#_index'
 
           .toc2 == root_document.internal_table_of_contents(['root', 'titlepage', 'sectnums'], { doc_id: root_document.id })
 
 
 
-        .col.middle style = 'left: 30%; width: 70%; padding-bottom:6em;padding-top:2em;background-color:black'
-          h1== root_document.title
+        .col.hide-on-small-and-down.m9.offset-m3.l9.offset-l3.scroll-y style = 'padding-bottom:6em;padding-top:0;background-color:black'
+          h1 style='margin-left:2em;' == root_document.title
           == "<img src=#{image_url}>"
           br
           br
