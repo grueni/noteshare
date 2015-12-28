@@ -16,7 +16,7 @@
       @documents = (DocumentRepository.root_documents.all.select &can_read(user)).sort_by { |item| item.title }
       @active_item = 'documents'
 
-      @nodes = NSNodeRepository.all
+      @nodes = NSNodeRepository.all.sort_by { |item| item.name }
     end
 
   end

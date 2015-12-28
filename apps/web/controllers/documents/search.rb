@@ -10,8 +10,8 @@ module Web::Controllers::Documents
       @active_item = 'reader'
       search_key = params['search']['search']
       puts "SEARCH KEY = #{search_key}"
-      @documents = DocumentRepository.search(search_key)
-      @nodes = NSNodeRepository.search(search_key)
+      @documents = DocumentRepository.search(search_key).sort_by { |item| item.title }
+      @nodes = NSNodeRepository.search(search_key).sort_by { |item| item.name }
 
       puts "N = #{@documents.count} documents"
 
