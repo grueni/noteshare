@@ -32,7 +32,7 @@ class NSNode
   end
 
   def self.create_for_user(user)
-     node =  NSNodeRepository.create(NSNode.new(owner_id: user.id, owner_identifier: user.identifier, name: user.screen_name, docs: "[]"))
+     node =  NSNodeRepository.create(NSNode.new(owner_id: user.id, owner_identifier: user.identifier, name: user.screen_name, type: 'personal', docs: "[]"))
      user.set_node(node.id)
      node
   end
