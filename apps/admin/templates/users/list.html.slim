@@ -8,7 +8,7 @@
               tr
                 td= user.id
                 td= "#{user.first_name} #{user.last_name}"
-                td= user.screen_name
+                td== user_node_link(user)
                 td= user.email
                 td== delete_user_link(user.id)
                 td= user.node_id

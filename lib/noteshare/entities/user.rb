@@ -53,10 +53,15 @@ class User
   # Delete the user with given id
   # and also all dependent structures,
   # for now just the associated node
-  def self.delete_with_dependents(id)
-    user = UserRepository.find id
+  def self.delete_with_dependents(user_id)
+    puts "Deleting user #{user_id} and all dependent structures ...".red
+    user = UserRepository.find user_id
     return if user == nil
+    puts "deleting node #{user.node_id}".red
     user.delete_node
+    puts "deleting documents ...".red
+    DocumentRepository.delete_all_documents_of_author(user_id)
+    puts "deleting user".red
     UserRepository.delete user
   end
 

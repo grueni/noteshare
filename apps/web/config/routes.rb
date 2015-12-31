@@ -1,6 +1,9 @@
 get '/error/:id', to: 'home#error'
 get '/aside/:id', to: 'documents#aside'
+
 get '/titlepage/:id', to: 'documents#titlepage'
+get '/titlepage', to: 'home#error'
+
 get '/', to: 'home#switchboard'
 
 get '/about', to: 'home#about'

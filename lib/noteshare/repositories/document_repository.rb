@@ -16,6 +16,20 @@ class DocumentRepository
     end
   end
 
+  def self.find_by_author_id(author_id)
+    query do
+      where(author_id: author_id)
+    end
+  end
+
+  def self.delete_all_documents_of_author(author_id)
+    docs = self.find_by_author_id(author_id)
+    docs.each do |doc|
+      puts "deletings document #{doc.id}".red
+      doc.delete
+    end
+  end
+
   def self.find_by_dict_entry(hash)
     query do
       where(Sequel.hstore_op(:dict).contains(hash))

@@ -6,7 +6,12 @@ module Web::Controllers::Home
 
     def call(params)
 
-      @error_message = ErrorReporter.new(params[:id], request.query_string).message
+      if params[:id]
+        @error_message = ErrorReporter.new(params[:id], request.query_string).message
+      else
+        @error_message = "Error: no id given to find resource (document, node, etc)."
+      end
+
 
       @active_item = 'home'
 

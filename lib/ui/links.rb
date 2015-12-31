@@ -100,6 +100,10 @@ module UI
       link_to node.name, "/node/#{node.id}"
     end
 
+    def user_node_link(user)
+      link_to user.screen_name, "/node/#{user.node_id}"
+    end
+
     def image_manager_link(active_item='')
       if active_item == 'images'
         html.tag(:a, 'Images', href: '/image_manager/search', class: 'active_item')
