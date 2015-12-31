@@ -13,7 +13,9 @@ module SessionManager::Controllers::User
       password = params[:user]['password']
 
       if new_user
-        NSNode.create_for_user(new_user)
+        new_node = NSNode.create_for_user(new_user)
+        new_user.dict2['node'] = new_node.id
+        UserRepository.update new_user
         new_user.login(password, session)
       end
 
