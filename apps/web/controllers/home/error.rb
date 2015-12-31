@@ -6,12 +6,9 @@ module Web::Controllers::Home
 
     def call(params)
 
-      @error_message = "Error, code #{params[:id]}"
+      @error_message = ErrorReporter.new(params[:id], request.query_string).message
 
       @active_item = 'home'
-
-      # puts request.env["rack.session.unpacked_cookie_data"].to_s.red
-      # @message = Asciidoctor.convert @settings.get_key('message')
 
     end
 

@@ -222,6 +222,11 @@ module Web
         include Web::Views::Forms
         include Web::Views::Menus
         include Noteshare::Tools
+        include Noteshare
+      end
+
+      controller.prepare do
+        include Noteshare::ErrorHandler
       end
     end
 

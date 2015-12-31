@@ -12,6 +12,7 @@ module Web::Controllers::Documents
       @active_item2 = 'titlepage'
 
       document = DocumentRepository.find(params['id'])
+      handle_nil_document(document, params['id'])
       session[:current_document_id] = document.id
 
       @root_document = document.root_document

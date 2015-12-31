@@ -125,7 +125,6 @@ class NSDocument
 
   end
 
-
   # Display the fields of the reeiver
   # specified by arts.  'label' gives
   # the heading.

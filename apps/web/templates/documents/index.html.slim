@@ -2,7 +2,7 @@
 .row
 
   .col.s12.m6.l6
-    h4 style='margin-left:25px;' Documents
+    h4 style='margin-left:25px;' == "Documents (#{documents.count})"
     /== search_form
     - if documents
       /.row.s8 style = ' margin-top:10 px; padding-left:1em; padding-right:1em;'
@@ -16,7 +16,7 @@
                   td== node_link_for_document(document)
 
   .col.hide-on-small-only.m6.offset-m6.l5.offset-l6
-    h4 Nodes
+    h4 == "Nodes (#{nodes.count})"
     .ns_card
       table style='border=0; border-color: #444; border-collapse;'
         tbody

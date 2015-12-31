@@ -12,6 +12,7 @@ module Web::Controllers::Documents
       @active_item = 'reader'
       @active_item2 = 'aside'
       @document = DocumentRepository.find(document_id)
+      handle_nil_document(@document, document_id)
       @aside = @document.associated_document('aside')
 
       session[:current_document_id] = document_id
