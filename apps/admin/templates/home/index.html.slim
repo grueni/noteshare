@@ -1,16 +1,27 @@
 .row
 
   .col.s6.m6.l6
-    h3 Admin Home!!
+    h3 Admin Home
+    .ns_card
 
-    p == update_message_link
-    p == link_to 'Users', '/admin/users/'
-    p == link_to 'Documents', '/admin/documents/'
-    p == link_to 'Nodes', '/node/admin/'
-    p == link_to 'New user', '/session_manager/new_user'
-    p == link_to 'Log in', '/session_manager/login'
-    p == link_to 'Import course', 'admin/course/import'
-    p == link_to 'New node', 'node/new'
+      button == link_to 'Users', '/admin/users/'
+      button == link_to 'Documents', '/admin/documents/'
+      button == link_to 'Nodes', '/node/admin/'
+      button == link_to 'Import course', 'admin/course/import'
+      br
+      br
+      br
+      button == update_message_link
+      button== link_to 'New user', '/session_manager/new_user'
+
+      button == link_to 'Log in', '/session_manager/login'
+
+      button == link_to 'New node', 'node/new'
+
+      br
+      br
+      br
+      br
 
   .col.s6.offset-s6.m6.offset-m6.l6.offset0l6
     /== add_document_to_node_form

@@ -139,7 +139,13 @@ td.clear_style {
 .ns_card button {
 
     background-color: lightseagreen;
-    margin-top:1em
+    margin-top:1em;
+    margin-right:1em;
+}
+
+.right_margin1em {
+
+    margin-right:1em
 }
 
 .ns_card table {
