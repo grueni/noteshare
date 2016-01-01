@@ -134,6 +134,11 @@ class NSNode
     documents_string.to_pair_list
   end
 
+  def documents_as_hash
+    documents_string =  dict['docs'] || ''
+    documents_string.hash_value(',;')
+  end
+
   def documents_as_string
     dict['docs'] || ''
   end
