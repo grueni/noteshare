@@ -22,9 +22,21 @@ class NSNode
 
   end
 
+
+
+
+
+  #### FINDERS ####
+
   def self.lookup_by_name(node_name)
     NSNodeRepository.where(name: node_name).first
   end
+
+
+
+
+
+  #### CREATORS ####
 
   def self.create(name, owner_id, type, tags)
     NSNodeRepository.create(NSNode.new(name: name, owner_id: owner_id,
@@ -36,6 +48,11 @@ class NSNode
      user.set_node(node.id)
      node
   end
+
+
+
+
+  #### USER ####
 
   def owner_name
     return if owner_id == nil
@@ -50,9 +67,44 @@ class NSNode
   end
 
 
+  #### ???? ####
+
+  def self.from_http(request)
+    prefix = request.host.split('.')[0]
+    if prefix
+      NSNodeRepository.find_one_by_name(prefix)
+    end
+  end
+
+
+
+
+
+  #### DOCS ####
+
+  # A node maintains a list of 'published' documents as the value of
+  # node.dict['docs'].  That value is a string of the form
+  #
+  #    doc_title_1, doc_id_1; doc_title_2, doc_id_2; ...
+  #
+  # It can be transformed into an array of pairs by saying
+  #
+  #    node.dict['docs'].to_pair_list
+  #
+  #    => [[doc_title_1, doc_id_1], [doc_title_2, doc_id_2], ...]
+  #
+  # and it can be transformed into a hash by
+  #
+  #    node.dict['docs'].hash_value(key_value_separator: ',', item_separator: ';')
+  #
+  #    => { 'doc_title_1': doc_id_1, 'doc_title_2': doc_id_2, ...]
+  #
+
+
   # update_docs_for_owner docs: replace current list with list of ids
   # and title root documents belonging to the owner of the node
-    def update_docs_for_owner
+  def update_docs_for_owner
+    return if type != 'personal'
     dd = DocumentRepository.root_documents_for_user(self.owner_id)
     docs_string = ''
     dd.each do |doc|
@@ -76,7 +128,7 @@ class NSNode
   end
 
   def append_doc(id, title)
-     dict['docs'] << "#{title}, #{id};"
+    dict['docs'] << "#{title}, #{id};"
     NSNodeRepository.update self
   end
 
@@ -85,19 +137,19 @@ class NSNode
     NSNodeRepository.update self
   end
 
-  def titlepage_list(list)
+  def titlepage_list(hash)
     output = "<ul>\n"
-    list.each do |item|
-      output << "<li> <a href='/titlepage/#{item[1]}'>#{item[0]}</a></li>\n"
+    hash.each do |title, id|
+      output << "<li> <a href='/titlepage/#{id}'>#{title}</a></li>\n"
     end
     output << "</ul>\n"
     output
   end
 
-  def sidebar_list(list)
-    output = "<ul>\n"
-    list.each do |item|
-      output << "<li> <a href='/aside/#{item[1]}'>#{item[0]}</a></li>\n"
+  def sidebar_list(hash)
+    hash = "<ul>\n"
+    hash.each do |title, id|
+      output << "<li> <a href='/aside/#{id}'>#{title}</a></li>\n"
     end
     output << "</ul>\n"
     output
@@ -105,30 +157,25 @@ class NSNode
 
   # Return an HTML list of links to documents
   def documents_as_list(option=:titlepage)
-    list = documents # as array of pairs [title, id]
-    return '' if list == []
+    hash = documents_as_hash # as array of pairs [title, id]
+    return '' if hash == {}
     case option
       when :titlepage
-        titlepage_list(list)
+        titlepage_list(hash)
       when :sidebar
-        sidebar_list(list)
+        sidebar_list(hash)
       else
-        titlepage_list(list)
+        titlepage_list(hash)
     end
   end
-
-
-  def self.from_http(request)
-    prefix = request.host.split('.')[0]
-    if prefix
-      NSNodeRepository.find_one_by_name(prefix)
-    end
-  end
-
-
-  ##########  Manage the doc list ############
 
   # Retrieve the document list: unpack
+
+  def documents_as_hash
+    documents_string =  dict['docs'] || ''
+    documents_string.hash_value(",;")
+  end
+
   def documents
     documents_string =  dict['docs'] || ''
     documents_string.to_pair_list
@@ -156,7 +203,10 @@ class NSNode
 
   end
 
-  ##################  key-value pairs ##################
+
+
+
+  #### DICT ####
 
   def blurb
     dict['blurb'] || '--'

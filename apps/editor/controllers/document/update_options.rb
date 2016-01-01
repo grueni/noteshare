@@ -46,7 +46,7 @@ module Editor::Controllers::Document
       if document_packet['options'] != ''
         options = document_packet['options']
         return if options == nil
-        hash = options.hash_value(key_value_separator: ':', item_separator: "\n")
+        hash = options.hash_value(":\n")
         process_hash(document, hash) if hash
       end
 

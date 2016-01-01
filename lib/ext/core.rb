@@ -131,9 +131,9 @@ class String
   end
 
   # Map 'foo: 123, bar: 456, baz:' to {'foo': 123, 'bar': 456}
-  def hash_value(arg = {})
-    key_value_separator = arg[:key_value_separator] || ':'
-    item_separator = arg[:item_separator] || ','
+   def hash_value(arg=':,')
+    key_value_separator = arg[0] || ':'
+    item_separator = arg[1] || ','
     if item_separator == "\n"
       str = self.gsub(/\n\n*/m, "\n")
     else
@@ -168,10 +168,12 @@ class String
     list = self.split(';').map{ |str| str.strip }
     list_of_pairs = []
     list.each do |item|
-      pair = item.split(',').map{ |str| str.strip }
+      pair = item.hash_value(",;")
       list_of_pairs << pair
     end
     list_of_pairs
   end
+
+
 
 end

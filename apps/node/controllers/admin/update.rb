@@ -27,7 +27,7 @@ module Node::Controllers::Admin
       puts "node_id  =  #{node_id}".cyan
       puts "dictionary  =  #{dictionary}".cyan
       dictionary = dictionary.gsub(/\n\n*/m, "\n")
-      hash = dictionary.hash_value(key_value_separator: ':', item_separator: "\n")
+      hash = dictionary.hash_value(":\n")
       update_dict(node, hash)
       NSNodeRepository.update node
       redirect_to '/node/admin'
