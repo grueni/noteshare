@@ -8,7 +8,7 @@ module SessionManager::Controllers::Settings
       @active_item = ''
       user = current_user(session)
       data = params['user_settings']['settings_as_text']
-      hash = data.hash_value(key_value_separator: '=', item_separator: "\n")
+      hash = data.hash_value("=\n")
       user.dict_update_from_hash(hash)
       user.dict_display
 
