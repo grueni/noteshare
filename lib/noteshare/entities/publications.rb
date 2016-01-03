@@ -10,5 +10,13 @@ class Publications
     end
   end
 
+  def self.for_node(node)
+    PubicationsRepository.documents_for_node(node)
+  end
+
+  def self.for_document(document)
+    PubicationsRepository.nodes_for_document(document)
+  end
+
 
 end

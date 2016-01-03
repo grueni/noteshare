@@ -1,5 +1,5 @@
 require 'spec_helper'
 
-describe NodePublications do
+describe Publications do
   # place your tests here
 end

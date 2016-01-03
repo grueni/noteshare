@@ -71,6 +71,17 @@ CREATE TABLE images(
 PRIMARY KEY(id)
 );
 
+DROP TABLE publications;
+CREATE TABLE publications(
+  id serial,
+  node_id integer,
+  document_id integer,
+PRIMARY KEY(id)
+);
+create index on publications (node_id);
+create index on publications (document_id);
+
+
 DROP TABLE nodes;
 CREATE TABLE nodes(
   id integer,
@@ -86,6 +97,7 @@ CREATE TABLE nodes(
   dict hstore,
 PRIMARY KEY(id)
 );
+
 
 DROP TABLE settings;
 CREATE TABLE settings(

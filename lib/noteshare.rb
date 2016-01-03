@@ -123,6 +123,14 @@ Lotus::Model.configure do
       attribute :dict, PGHStore
     end
 
+    collection :publications do
+      entity Publications
+      repository PublicationsRepository
+      attribute :id, Integer
+      attribute :node_id, Integer
+      attribute :document_id, Integer
+    end
+
     collection :ns_groups do
       entity Groups
       repository GroupsRepository
