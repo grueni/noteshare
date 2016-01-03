@@ -16,6 +16,18 @@ class Settings
     dict.delete(key)
   end
 
+  def clear
+    self.dict = {}
+  end
+
+  def set(hash)
+    self.dict = hash
+  end
+
+  def as_string
+    self.dict.to_s
+  end
+
   def update
     SettingsRepository.update self
   end
