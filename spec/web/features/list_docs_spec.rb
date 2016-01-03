@@ -1,20 +1,54 @@
 # spec/web/features/list_documents_spec.rb
 require 'features_helper'
+include FeatureHelpers::Common
+
 
 describe 'List Docs' do
 
   before do
     DocumentRepository.clear
+    standard_user_node_doc
 
-    DocumentRepository.create(NSDocument.new(title: 'OS Z', author: 'Melvin Luck'))
-    DocumentRepository.create(NSDocument.new(title: 'Electromagnetic Theory', author: 'Coram Daag'))
+    @document2 = NSDocument.create(title:  'OS Z', author_credentials: @user.credentials)
+    @document2.acl_set_permissions('rw', 'r', 'r')
+    DocumentRepository.update @document2
+
+    @document3 = NSDocument.create(title:  'Electromagnetic Theory', author_credentials: @user.credentials)
+    @document3.acl_set_permissions('rw', 'r', '-')
+    DocumentRepository.update @document3
+  end
+
+  it 'shows public documents to a non-logged in user' do
+
+    visit '/documents'
+    assert page.has_content?('Test'), "Has content Test"
+    assert page.has_content?('OS Z'), "Has content OS Z"
+    skip assert page.has_content?('Electromagnetic Theory') == false, "Has content Electromagnetic Theory (1)"
+
   end
 
   it 'shows a document element for each document' do
+
+    login_standard_user
+
+    puts "@document3 author_id = #{@document3.author_id}".red
+    puts "@document3 title = #{@document3.title}".cyan
+    puts "@document3 author_id = #{@document3.author_id}".cyan
+
+    puts "@user id = #{@user.id}".red
+    p = Permission.new(@user, :read, @document3).grant
+    puts "p = #{p}".red
+    q = can_read(@user).call(@document3)
+    puts "q = #{q}".cyan
+    puts "@user_full_name = #{@user.full_name}".red
+    puts "current_user_full_name = #{current_user_full_name}".cyan
+
     visit '/documents'
-    assert page.has_content?('OS Z')
-    assert page.has_content?('Electromagnetic Theory')
-    # skip page.has_css?('.document', count: 2), "Expected to find 2 books"
+    # assert page.has_css?('lightlink', count: 2), "Expected to find 2 books"
+    assert page.has_content?('Test'), "Has content Test"
+    assert page.has_content?('OS Z'), "Has content OS Z"
+    assert page.has_content?('Electromagnetic Theory'), "Has content Electromagnetic Theory (2)"
+
   end
 
 end

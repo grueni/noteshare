@@ -1,15 +1,14 @@
 # spec/web/features/list_documents_spec.rb
 require 'features_helper'
+include FeatureHelpers::Common
+
 
 describe 'Login User' do
 
   before do
-
     UserRepository.clear
-    @user = User.create(first_name: 'Jared', last_name: 'Foo-Bar', email: 'jayfoo@bar.com', screen_name: 'jayfoo', password: 'foobar123', password_confirmation: 'foobar123')
-
     NSNodeRepository.clear
-    NSNode.create_for_user(@user)
+    standard_user_node_doc
   end
 
   it 'can bring up the login form' do
@@ -17,7 +16,7 @@ describe 'Login User' do
     assert page.has_content?('Password')
   end
 
-  it 'can create log a user in' do
+  it 'can log a user in' do
 
     visit '/session_manager/login'
 

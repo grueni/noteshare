@@ -171,11 +171,6 @@ class NSNode
 
   # Retrieve the document list: unpack
 
-  def documents_as_hash
-    documents_string =  dict['docs'] || ''
-    documents_string.hash_value(",;")
-  end
-
   def documents
     documents_string =  dict['docs'] || ''
     documents_string.to_pair_list

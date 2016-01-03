@@ -10,8 +10,9 @@ describe Permission do
   before do
 
     UserRepository.clear
-    standard_user_node_doc # @document.acl_set_permissions('rw', 'r', '-')
-
+    standard_user_node_doc
+    # standard_user_node_doc sets @document.acl_set_permissions('rw', 'r', '-')
+    # standard_user_node_doc sets
     @admin = User.create(first_name: 'Harold', last_name: 'Haroldson', admin: true)
     @janedoe = User.create(first_name: 'Sarah', last_name: 'Samuelson', admin: false)
 
@@ -28,6 +29,18 @@ describe Permission do
     Permission.new(@admin, :delete, @document).grant.must_equal(true)
 
   end
+
+  it 'grants the author access to his documents' do
+
+    Permission.new(@user, :create, @document).grant.must_equal(true)
+    Permission.new(@user, :read, @document).grant.must_equal(true)
+
+    Permission.new(@user, :edit, @document).grant.must_equal(true)
+    Permission.new(@user, :update, @document).grant.must_equal(true)
+    Permission.new(@user, :delete, @document).grant.must_equal(true)
+
+  end
+
 
   it 'denies a generic user access ta a document wth permissins rw, r, -' do
 

@@ -3,7 +3,7 @@ require 'features_helper'
 
 describe 'Visit home' do
   it 'is successful' do
-    visit '/'
+    visit '/home/'
 
     page.body.must_include('Noteshare')
     # page.body.must_include('About')

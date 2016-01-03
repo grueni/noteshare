@@ -9,3 +9,5 @@ tmp/
 outbox/
 bak
 apps/node/public
+exp/
+exp-db/
