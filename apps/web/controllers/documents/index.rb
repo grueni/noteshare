@@ -9,13 +9,9 @@
 
 
     def call(params)
-
-      # @documents = DocumentRepository.root_documents.sort_by { |item| item.title }
       user = current_user(session)
-      # @documents = DocumentRepository.root_documents.all.select{ |doc| Permission.new(user, :read, doc).grant }.sort_by { |item| item.title }
       @documents = (DocumentRepository.root_documents.all.select &can_read(user)).sort_by { |item| item.title }
       @active_item = 'documents'
-
       @nodes = NSNodeRepository.all.sort_by { |item| item.name }
     end
 
