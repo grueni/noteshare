@@ -72,13 +72,26 @@ module UI
     end
 
 
-    def home_link(active_item='')
+    def home_link1(active_item='')
       if active_item == 'home'
         link_to html.img(src: '/images/earth_green.png', title: 'system home', style: 'margin-top:-4px'), '/home'
       else
         link_to html.img(src: '/images/earth_white.png', title: 'system home', style: 'margin-top:-4px'), '/home'
       end
     end
+
+    def home_link(active_item='')
+      puts "ENV['DOMAIN'] = #{ENV['DOMAIN']}".magenta
+      puts "domain = #{current_domain_name}".magenta
+      domain_name = current_domain_name
+      domain_name += ':2300' if domain_name == 'localhost'
+      if active_item == 'home'
+        link_to html.img(src: '/images/earth_green.png', title: 'system home', style: 'margin-top:-4px'), "http://#{domain_name}/home"
+      else
+        link_to html.img(src: '/images/earth_white.png', title: 'system home', style: 'margin-top:-4px'), "http://#{domain_name}/home"
+      end
+    end
+
 
     def current_user_node_link(session, active_item='')
       user = current_user(session)
