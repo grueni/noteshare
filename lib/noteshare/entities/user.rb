@@ -50,6 +50,24 @@ class User
     end
   end
 
+
+  # Record the last node visited
+  def set_current_node(node)
+    if node
+      dict2['current_node_id'] = node.id
+      dict2['current_node_name'] = node.name
+      UserRepository.update self
+    end
+  end
+
+  def get_current_node_name
+    dict2['current_node_name']
+  end
+
+  def get_current_node_id
+    dict2['current_node_id']
+  end
+
   # Delete the user with given id
   # and also all dependent structures,
   # for now just the associated node

@@ -133,15 +133,23 @@ module UI
 
     def current_node_link(session, active_item='')
       puts "current_node_link".red
-      node_id = session['current_node_id']
+      cu = current_user(session)
+      return '' if cu == nil
+      node_name = cu.get_current_node_name
+      node_id = cu.get_current_node_id
       puts "current_node_id = #{node_id}".cyan
       if node_id
         node = NSNodeRepository.find node_id
       end
       return '' if node == nil
+      if cu 
+        prefix = cu.node_name
+      else
+        prefix = node_name
+      end
       puts "current node: #{node.name}".red
       active_item == 'node' ? image = '/images/node_green.png' : image = '/images/node_white.png'
-      image_link2(prefix: node_name, suffix: "node/#{node.id}", title: 'current home', image: image)
+      image_link2(prefix:prefix, suffix: "node/#{node.id}", title: 'current home', image: image)
     end
 
     def image_manager_link(active_item='')

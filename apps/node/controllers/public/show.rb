@@ -9,8 +9,10 @@ module Node::Controllers::Public
       @node = NSNodeRepository.find params[:id]
       return if @node == nil
       # ^^ Fixme: better, go to error page
-      cookies[:current_node_id] = @node.id
-      puts "In  Node::Controllers::Public, Show, cookies[:current_node_id] = #{cookies[:current_node_id]}".red
+      cu = current_user(session)
+      if cu
+        cu.set_current_node(@node)
+      end
       if @node.dict['layout'] == 'simple_sidebar'
         @layout_option = :sidebar
       else
