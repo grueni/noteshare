@@ -117,8 +117,14 @@ module UI
       image_link2(prefix: user.node_name, suffix: "node/#{user.node_id}", title: 'system home', image: image)
     end
 
-    def node_link(node, session)
+    def node_link1(node, session)
       text_link(prefix: node.name, suffix: "node/#{node.id}", title: node.name)
+    end
+
+    def node_link(node, session)
+      cu = current_user(session)
+      cu ? prefix = cu.node_name : prefix = node.name
+      text_link(prefix: prefix, suffix: "node/#{node.id}", title: node.name)
     end
 
     def user_node_link(user)

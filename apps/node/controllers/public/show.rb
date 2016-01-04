@@ -8,9 +8,9 @@ module Node::Controllers::Public
       @active_item = 'documents'
       @node = NSNodeRepository.find params[:id]
       return if @node == nil
-      # Fixme: better, go to error page
-      # session['current_node_id'] = @node.id
-      # puts "In  Node::Controllers::Public, Show, session['current_node_id'] = #{@node.id}".red
+      # ^^ Fixme: better, go to error page
+      cookies[:current_node_id] = @node.id
+      puts "In  Node::Controllers::Public, Show, cookies[:current_node_id] = #{cookies[:current_node_id]}".red
       if @node.dict['layout'] == 'simple_sidebar'
         @layout_option = :sidebar
       else

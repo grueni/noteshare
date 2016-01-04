@@ -2,6 +2,7 @@ require 'lotus/helpers'
 require_relative 'views/forms'
 require_relative 'views/menus'
 require_relative '../../lib/noteshare/modules/tools'
+# require_relative '../../lib/ui/links'
 # require 'lotus/assets'
 
 module Web
@@ -67,7 +68,7 @@ module Web
       #                      See #scheme and #ssl?
       #          :httponly - Prevent JavaScript access (Boolean - true by default)
       #
-      # cookies true
+      cookies true
       # or
       # cookies max_age: 300
 

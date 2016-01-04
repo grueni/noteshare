@@ -1,8 +1,12 @@
+
+require_relative '../../../../lib/ui/links'
+
 module Web::Controllers::Home
   class Switchboard
     include Web::Action
+    include UI::Links
 
-    expose :active_it
+    expose :active_item
 
 
     def host_base
@@ -18,28 +22,17 @@ module Web::Controllers::Home
     # There are currently two values for the value of @node.type:
     # 'public' and 'personal'
     def handle_incoming_node
-      puts "handle_incoming_node".red
+
       @incoming_node = NSNode.from_http(request)
-      puts "after @incoming_node"
-      puts "@incoming_node: #{@incoming_node.inspect}"
 
       if @incoming_node
-        # redirect_to "/node/#{@incoming_node.id}"  if @cu == nil or @incoming_node.type == 'public'
-        redirect_to "/node/#{@incoming_node.id}"  if  @incoming_node.type == 'public'
+        if  @incoming_node.type == 'public'
+          redirect_to "/node/#{@incoming_node.id}"
+        else
+          redirect_to basic_link @incoming_node.name, "home"
+        end
       else
-        puts "redirect_to '/home/'".red
         redirect_to '/home/'
-      end
-
-    end
-
-    def handle_current_user
-      @cu = current_user(session)
-
-      if @cu
-        @user_node = NSNodeRepository.for_owner_id cu.id
-      else
-        redirect_to "/node/#{@incoming_node.id}"  if @cu == nil
       end
 
     end
@@ -47,13 +40,11 @@ module Web::Controllers::Home
 
     def call(params)
 
-      puts "host: #{host_base}".red
+      puts "In Switchboard, Show, cookies[:current_node_id] = #{cookies[:current_node_id]}".red
 
       @active_item = 'home'
-
+      @active_item = 'home'
       handle_incoming_node
-
-      puts "after handle_incoming_node".red
 
     end
   end
