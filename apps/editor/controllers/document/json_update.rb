@@ -29,7 +29,7 @@ module Editor::Controllers::Document
     end
 
 
-
+    #Fixme: this is BAAAD!!
     private
     def verify_csrf_token?
       false

@@ -18,5 +18,5 @@
         tbody
           - nodes.each do |node|
             tr
-              td== node_link(node)
+              td== node_link(node, session)
               td= node.blurb

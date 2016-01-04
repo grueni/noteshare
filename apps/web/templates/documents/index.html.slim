@@ -22,5 +22,5 @@
         tbody
         - nodes.each do |node|
           tr.clear_style
-            td.lightlink== node_link(node)
+            td.lightlink== node_link(node, session)
             td= node.blurb

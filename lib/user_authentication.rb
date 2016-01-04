@@ -45,8 +45,10 @@ module SessionTools
 
   def logout(user, session)
     puts "LOGOUT".red
-    user.remember_current_document_id(session)
-    UserRepository.update user
+    if user
+      user.remember_current_document_id(session)
+      UserRepository.update user
+    end
     session[:current_document_id] = nil
     session[:current_image_id] = nil
     session[:user_id] = nil

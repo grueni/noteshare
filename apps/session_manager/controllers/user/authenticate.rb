@@ -8,6 +8,14 @@ module SessionManager::Controllers::User
 
     expose :user
 
+    def basic_link(prefix, suffix)
+      prefix == :none ? prefix = '' : prefix = "#{prefix}."
+      suffix == :none ? suffix = '' : suffix = "/#{suffix}"
+      stem = ENV['DOMAIN'].sub(/^\./,'')
+      stem = "localhost:#{ENV['PORT']}" if stem == 'localhost'
+      "http://#{prefix}#{stem}#{suffix}"
+    end
+
     def handle_login
       if @user
         params[:user]['authenticated']  = true
@@ -20,15 +28,8 @@ module SessionManager::Controllers::User
     def handle_redirect
 
       @user_node = NSNodeRepository.for_owner_id @user.id
-      @user_node_name = @user_node.name
-
-      if ENV['DOMAIN'] == nil
-        session[:domain]  = '.login'
-        redirect_to "http://#{@user_node_name}.localhost:2300/node/user/#{@user.id}"
-        # redirect_to "/node/user/#{@user.id}"
-      else
-        redirect_to "http://#{@user_node_name}#{ENV['DOMAIN']}/node/user/#{@user.id}"
-      end
+      # @user_node_name = @user_node.name
+      redirect_to basic_link(@user.node_name, "node/#{@user.node_id}")
 
     end
 
@@ -41,6 +42,12 @@ module SessionManager::Controllers::User
       handle_login
       handle_redirect
 
+    end
+
+    #Fixme: this is BAAAD!!
+    private
+    def verify_csrf_token?
+      false
     end
 
 

@@ -120,6 +120,7 @@ class User
 
   def remember_current_document_id(session)
     cid = session['current_document_id']
+    return if cid == nil
     puts "In remember_current_document_id, cid = #{cid}"
     dict2['current_document_id'] = cid
     UserRepository.update self

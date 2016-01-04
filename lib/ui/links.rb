@@ -123,13 +123,25 @@ module UI
       image_link2(prefix: user.node_name, suffix: "node/#{user.node_id}", title: 'system home', image: image)
     end
 
-    def node_link(node)
+      def node_link(node, session)
       text_link(prefix: node.name, suffix: "node/#{node.id}", title: node.name)
-      # link_to node.name, "/node/#{node.id}"
     end
 
     def user_node_link(user)
       link_to user.screen_name, "/node/#{user.node_id}"
+    end
+
+    def current_node_link(session, active_item='')
+      puts "current_node_link".red
+      node_id = session['current_node_id']
+      puts "current_node_id = #{node_id}".cyan
+      if node_id
+        node = NSNodeRepository.find node_id
+      end
+      return '' if node == nil
+      puts "current node: #{node.name}".red
+      active_item == 'node' ? image = '/images/node_green.png' : image = '/images/node_white.png'
+      image_link2(prefix: node_name, suffix: "node/#{node.id}", title: 'current home', image: image)
     end
 
     def image_manager_link(active_item='')

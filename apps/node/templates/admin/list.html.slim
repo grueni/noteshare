@@ -7,7 +7,7 @@
             - nodes.each do |node|
               tr
                 td= node.id
-                td== node_link(node)
+                td== node_link(node, session)
                 td= node.owner_name
                 td= node.owner_id
                 td= node.type
