@@ -104,6 +104,10 @@ class User
     dict2['node']
   end
 
+  def node_name
+    node.name
+  end
+
   def node
     id = dict2['node']
     NSNodeRepository.find id if id
