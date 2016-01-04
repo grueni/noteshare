@@ -19,9 +19,11 @@ html
       .nav
         .navbar_left_item
           == home_link(session)
-          | &nbsp;&nbsp;&nbsp;
+          | &nbsp;&nbsp;
           == current_user_node_link(session)
-          | &nbsp; &nbsp; &nbsp; &nbsp;
+          | &nbsp; &nbsp;
+          == current_node_link(session)
+          | &nbsp; &nbsp;
           form[name="search" action="/image_manager/search"]
             input[type="text" name="search" id="basic_search_form"]
 

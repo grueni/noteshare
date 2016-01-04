@@ -13,9 +13,11 @@ html
     .nav
       .navbar_left_item
         == home_link(session)
-        | &nbsp;&nbsp;&nbsp;
+        | &nbsp;&nbsp;
         == current_user_node_link(session)
-        | &nbsp; &nbsp; &nbsp; &nbsp;
+        | &nbsp; &nbsp;
+        == current_node_link(session)
+        | &nbsp; &nbsp;
         /== basic_search_form
 
       .navbar_middle_item

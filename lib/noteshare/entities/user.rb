@@ -52,8 +52,9 @@ class User
 
 
   # Record the last node visited
-  def set_current_node(node)
-    if node
+  # if it is not the user's node
+  def set_current_node(user, node)
+    if node.id.to_i != user.node_id.to_i
       dict2['current_node_id'] = node.id
       dict2['current_node_name'] = node.name
       UserRepository.update self

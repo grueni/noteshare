@@ -11,7 +11,7 @@ module Node::Controllers::Public
       # ^^ Fixme: better, go to error page
       cu = current_user(session)
       if cu
-        cu.set_current_node(@node)
+        cu.set_current_node(cu, @node)
       end
       if @node.dict['layout'] == 'simple_sidebar'
         @layout_option = :sidebar
