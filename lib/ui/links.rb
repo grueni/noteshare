@@ -67,14 +67,8 @@ module UI
     #####################################################
 
 
-    def domain_link
-      domain = ENV['DOMAIN']
-      if domain
-        domain.sub(/^\./,'')
-      else
-        'localhost'
-      end
-
+    def current_domain_name
+      ENV['DOMAIN'].sub(/^\./,'')
     end
 
 

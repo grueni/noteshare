@@ -10,7 +10,7 @@ module Web::Controllers::Home
       if http_host_parts[-1] =~ /localhost/
         return http_host_parts[-1]
       else
-        return "#{http_host_parts[-1]}.#{http_host_parts[-2]}"
+        return "#{http_host_parts[-2]}.#{http_host_parts[-1]}"
       end
     end
 

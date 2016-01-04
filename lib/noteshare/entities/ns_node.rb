@@ -62,7 +62,8 @@ class NSNode
   end
 
   def url
-    domain = ENV['DOMAIN'] || '.localhost'
+    domain = ENV['DOMAIN']
+    puts "domain: #[domain}"
     "#{self.name}#{domain}"
   end
 
