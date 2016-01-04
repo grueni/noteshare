@@ -783,11 +783,9 @@ class NSDocument
 
     if input == nil
       str = self.content || ''
-      puts  "(1) set str to self.content: #{str[0..100]}".red
     else
       str = input
       self.content = str
-      puts  "(2) set self.content to str: #{self.content[0..100 ]}".red
     end
 
     render_by_identity = dict['render'] == 'identity'
@@ -800,9 +798,6 @@ class NSDocument
     DocumentRepository.update self
 
     doc = DocumentRepository.find self.id
-    puts "ID: #{self.id}".red
-    puts "(A) doc.content: #{doc.content[0..100]}".magenta
-    puts "(B) doc.rendered_content: #{doc.rendered_content[0..200]}".cyan
     self.content_dirty = false
 
   end

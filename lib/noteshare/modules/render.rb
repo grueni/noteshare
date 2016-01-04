@@ -15,7 +15,6 @@ class Render
 
   def initialize(source, options = {})
     @source = source
-    puts "(1) @source.length = #{@source.length}".red
     @options = options
   end
 

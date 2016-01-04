@@ -12,7 +12,7 @@ $(document).ready(function(){
   }
 
 
-  function udpate_document() {
+  function update_document() {
 
     var element = document.getElementById('document-updated-text');
     var source_text = element.value;
@@ -27,7 +27,7 @@ $(document).ready(function(){
     $.post( '/editor/json_update/' + id, { source: source_text }, update_rendered_content );
   }
 
-  $('#update_source_button').click(udpate_document);
+  $('#update_source_button').click(update_document);
 
 
 
