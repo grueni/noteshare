@@ -6,7 +6,18 @@ module Editor::Controllers::Document
 
     def call(params)
       @active_item = 'editor'
-      id = session[:current_document_id]
+      # id = session[:current_document_id]
+      puts "PARAMS".red
+      puts params.inspect.cyan
+      puts
+      puts "REQUEST_URI:".magenta
+      puts request.env['REQUEST_URI'].magenta
+
+      request_uri = request.env['REQUEST_URI']
+      id  = request_uri.split('/')[-1]
+
+      # id = params[:document][:document_id]
+      puts "in json_update, id = #{id}".magenta
       @document = DocumentRepository.find(id)
       @document.content_dirty = true
       @document.update_content params['source']

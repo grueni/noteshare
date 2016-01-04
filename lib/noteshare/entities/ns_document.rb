@@ -774,7 +774,7 @@ class NSDocument
   # If input is nil, render the content
   # and save it in rendered_content.  Otherwise,
   # Replace #content by str, render it
-  # and save itl. .
+  # and save it ...
   def update_content(input=nil)
 
     # dirty = self.content_dirty
@@ -783,9 +783,11 @@ class NSDocument
 
     if input == nil
       str = self.content || ''
+      puts  "(1) set str to self.content: #{str[0..100]}".red
     else
       str = input
       self.content = str
+      puts  "(2) set self.content to str: #{self.content[0..100 ]}".red
     end
 
     render_by_identity = dict['render'] == 'identity'
@@ -795,8 +797,13 @@ class NSDocument
       update_content_from(str)
     end
 
-    self.content_dirty = false
     DocumentRepository.update self
+
+    doc = DocumentRepository.find self.id
+    puts "ID: #{self.id}".red
+    puts "(A) doc.content: #{doc.content[0..100]}".magenta
+    puts "(B) doc.rendered_content: #{doc.rendered_content[0..200]}".cyan
+    self.content_dirty = false
 
   end
 
