@@ -14,7 +14,7 @@ html
     script src="/javascripts/common.js" type="text/javascript"
     .nav
       .navbar_left_item
-        == home_link
+        == home_link(session)
         | &nbsp; &nbsp;
         == current_user_node_link(session, active_item)
         | &nbsp; &nbsp;
@@ -32,7 +32,7 @@ html
             li.hide-on-small-only
               == image_manager_link
           li
-            == documents_link(active_item)
+            == documents_link(session, active_item)
           - if current_user_is_admin?(session)
             li.hide-on-small-only
               == admin_link(active_item)

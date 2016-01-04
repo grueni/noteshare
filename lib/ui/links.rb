@@ -100,19 +100,13 @@ module UI
       ENV['DOMAIN'].sub(/^\./,'')
     end
 
-    def home_link(active_item='')
+    def home_link(session, active_item='')
       active_item == 'home' ? image = '/images/earth_green.png' : image = '/images/earth_white.png'
-      image_link2(prefix: :none, suffix: 'home', title: 'system home', image: image)
-    end
-
-
-    def current_user_node_link1(session, active_item='')
-      user = current_user(session)
-      return '' if user == nil
-      if active_item == 'node'
-        link_to html.img(src: '/images/home_green.png', title: 'user home', style: 'margin-top:-4px'), "/node/user/#{user.id}"
+      cu = current_user(session)
+      if cu
+        image_link2(prefix: cu.node_name, suffix: 'home', title: 'system home', image: image)
       else
-        link_to html.img(src: '/images/home_white.png', title: 'user home', style: 'margin-top:-4px'), "/node/user/#{user.id}"
+        image_link2(prefix: :none, suffix: 'home', title: 'system home', image: image)
       end
     end
 
@@ -123,7 +117,7 @@ module UI
       image_link2(prefix: user.node_name, suffix: "node/#{user.node_id}", title: 'system home', image: image)
     end
 
-      def node_link(node, session)
+    def node_link(node, session)
       text_link(prefix: node.name, suffix: "node/#{node.id}", title: node.name)
     end
 
@@ -230,13 +224,13 @@ module UI
       end
     end
 
-    def documents_link(active_item='')
-      if active_item == 'documents'
-        # return link_to 'Directory', "/documents", class: 'active_item'
-        return text_link(prefix: :none, suffix: "documents", title: 'Directory', class: 'active_item')
+    def documents_link(session, active_item='')
+      active_item == 'documents' ? css_class = 'active_item' : css_class = ''
+      cu = current_user(session)
+      if cu
+        return text_link(prefix: cu.node_name, suffix: "documents", title: 'Directory', class: css_class)
       else
-        return  text_link(prefix: :none, suffix: "documents", title: 'Directory', class: '')
-        # return link_to 'Directory', "/documents"
+        return  text_link(prefix: :none, suffix: "documents", title: 'Directory', class: css_class)
       end
     end
 

@@ -18,7 +18,7 @@ html
     .nav
       .nav
         .navbar_left_item
-          == home_link
+          == home_link(session)
           | &nbsp;&nbsp;&nbsp;
           == current_user_node_link(session)
           | &nbsp; &nbsp; &nbsp; &nbsp;
@@ -37,7 +37,7 @@ html
             li
               == image_manager_link(active_item)
           li
-            == documents_link
+            == documents_link(session)
 
       .navbar_right_item2
 

@@ -18,12 +18,3 @@ module Web
   end
 end
 
-
-
-=begin
-== home_link
-        | &nbsp;&nbsp;&nbsp;
-        == current_user_node_link(session)
-        | &nbsp; &nbsp; &nbsp; &nbsp;
-        == basic_search_form
-=end

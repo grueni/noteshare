@@ -41,7 +41,7 @@ html
     script src="/javascripts/ns_dragula.js " type="text/javascript"
     .nav
       .navbar_left_item
-        == home_link
+        == home_link(session)
         | &nbsp; &nbsp;&nbsp;
         == current_user_node_link(session)
         | &nbsp; &nbsp; &nbsp; &nbsp;&nbsp;&nbsp;
@@ -60,7 +60,7 @@ html
             li
               == image_manager_link
           li
-            == documents_link
+            == documents_link(session)
 
     .main_row
       == yield
