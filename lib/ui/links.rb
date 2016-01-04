@@ -56,7 +56,8 @@ module UI
 
     # text_link()
     def text_link(hash)
-      link_to hash[:title], basic_link(hash[:prefix], hash[:suffix])
+      css_class = hash[:class] || ''
+      link_to hash[:title], basic_link(hash[:prefix], hash[:suffix]), class: css_class
     end
 
     #####################################################
@@ -105,7 +106,7 @@ module UI
     end
 
 
-    def current_user_node_link(session, active_item='')
+    def current_user_node_link1(session, active_item='')
       user = current_user(session)
       return '' if user == nil
       if active_item == 'node'
@@ -115,8 +116,16 @@ module UI
       end
     end
 
+    def current_user_node_link(session, active_item='')
+      user = current_user(session)
+      return '' if user == nil
+      active_item == 'home' ? image = '/images/home_green.png' : image = '/images/home_white.png'
+      image_link2(prefix: user.node_name, suffix: "node/#{user.node_id}", title: 'system home', image: image)
+    end
+
     def node_link(node)
-      link_to node.name, "/node/#{node.id}"
+      text_link(prefix: node.name, suffix: "node/#{node.id}", title: node.name)
+      # link_to node.name, "/node/#{node.id}"
     end
 
     def user_node_link(user)
@@ -211,9 +220,11 @@ module UI
 
     def documents_link(active_item='')
       if active_item == 'documents'
-        return link_to 'Directory', "/documents", class: 'active_item'
+        # return link_to 'Directory', "/documents", class: 'active_item'
+        return text_link(prefix: :none, suffix: "documents", title: 'Directory', class: 'active_item')
       else
-        return  link_to 'Directory', "/documents"
+        return  text_link(prefix: :none, suffix: "documents", title: 'Directory', class: '')
+        # return link_to 'Directory', "/documents"
       end
     end
 
