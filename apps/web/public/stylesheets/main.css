@@ -345,7 +345,7 @@ ul {
 .navbar_left_item {
 
     position: absolute;
-    left:2em;
+    left:1em;
     top: 12px;
     width:30%;
     display:inline-block;
@@ -700,7 +700,7 @@ p.compact {
 #basic_search_form {
 
     position:absolute;
-    top:-6px; left:100px;
+    top:-6px; left:112px;
     padding-left: 20px;
     placeholder: Search for;
     color: white;
