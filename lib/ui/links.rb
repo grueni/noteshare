@@ -27,8 +27,36 @@ module UI
     #
     #####################################################
 
+    # Example: basic_link('code', 'foobar')
+    # => "http://code.localhost:2300/foobar"
+    # if ENV['HOST'] = '.localhost'
+    #
+    # Example: basic_link(:none, 'home')
+    # => "http://scripta.io/home"
+    # if ENV['HOST'] = 'scripta.io'
+    #
+    def basic_link(prefix, suffix)
+      prefix == :none ? prefix = '' : prefix = "#{prefix}."
+      suffix == :none ? suffix = '' : suffix = "/#{suffix}"
+      stem = ENV['DOMAIN'].sub(/^\./,'')
+      stem = "localhost:#{ENV['PORT']}" if stem == 'localhost'
+      "http://#{prefix}#{stem}#{suffix}"
+    end
+
     def image_link(image_path, url, title='')
       link_to html.img(src: image_path, title: title), url
+    end
+
+    # image_link2(prefix: :none, suffix: 'home', image: '/images/earth.png', 'system home')
+    def image_link2(hash)
+      style = hash['style'] || 'margin-top:-4px'
+      basic_url = basic_link(hash[:prefix], hash[:suffix])
+      link_to html.img(src: hash[:image], title: hash[:title], style: style), basic_url
+    end
+
+    # text_link()
+    def text_link(hash)
+      link_to hash[:title], basic_link(hash[:prefix], hash[:suffix])
     end
 
     #####################################################
@@ -71,25 +99,9 @@ module UI
       ENV['DOMAIN'].sub(/^\./,'')
     end
 
-
-    def home_link1(active_item='')
-      if active_item == 'home'
-        link_to html.img(src: '/images/earth_green.png', title: 'system home', style: 'margin-top:-4px'), '/home'
-      else
-        link_to html.img(src: '/images/earth_white.png', title: 'system home', style: 'margin-top:-4px'), '/home'
-      end
-    end
-
     def home_link(active_item='')
-      puts "ENV['DOMAIN'] = #{ENV['DOMAIN']}".magenta
-      puts "domain = #{current_domain_name}".magenta
-      domain_name = current_domain_name
-      domain_name += ':2300' if domain_name == 'localhost'
-      if active_item == 'home'
-        link_to html.img(src: '/images/earth_green.png', title: 'system home', style: 'margin-top:-4px'), "http://#{domain_name}/home"
-      else
-        link_to html.img(src: '/images/earth_white.png', title: 'system home', style: 'margin-top:-4px'), "http://#{domain_name}/home"
-      end
+      active_item == 'home' ? image = '/images/earth_green.png' : image = '/images/earth_white.png'
+      image_link2(prefix: :none, suffix: 'home', title: 'system home', image: image)
     end
 
 
