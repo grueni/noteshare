@@ -1,3 +1,5 @@
+get '/get/:id', to: 'document#get_file'
+get '/put/:id', to: 'document#send_file'
 get '/publish_all/:id', to: 'document#publish_all'
 get '/publish_section/:id', to: 'document#publish_section'
 

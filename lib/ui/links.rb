@@ -397,6 +397,10 @@ module UI
       link_to 'edit', "/node/edit/#{id}"
     end
 
+    def upload_file_link
+      link_to 'upload', "/uploader/file"
+    end
+
     #####################################################
     #
     #   5. OTHER LINKS

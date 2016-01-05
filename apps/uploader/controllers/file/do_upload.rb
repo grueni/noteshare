@@ -5,15 +5,16 @@ module Uploader::Controllers::File
     include Noteshare::AWS
     include Noteshare::Util
 
-    expose :image_id, :title, :filename, :url, :tags, :active_item
+    expose :image_id, :title, :filename, :url, :tags, :active_item, :message
 
     def call(params)
       @active_item = ''
       puts "Call  uploader, file".magenta
 
-      @title =  params['title']
-      @tags = params['tags']
       @filename = params['datafile']['filename']
+      @title =  params['title'] || 'Test'
+      @tags = params['tags'] || ''
+
       tmpfile = params['datafile']['tempfile'].inspect.match(/Tempfile:(.*)>/)[1]
 
       puts @title.cyan
@@ -22,10 +23,6 @@ module Uploader::Controllers::File
       puts tmpfile.cyan
 
       @url = Noteshare::AWS.upload(@filename, tmpfile, 'test' )
-
-      image = Image.new(title: @title, file_name: @filename, tags: @tags, url: @url)
-      saved_image = Image.repository.create image
-      @image_id = saved_image.id
 
     end
 
