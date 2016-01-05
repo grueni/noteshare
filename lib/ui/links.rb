@@ -401,6 +401,14 @@ module UI
       link_to 'upload', "/uploader/file"
     end
 
+    def get_document_link(document)
+      link_to 'Get', "/editor/get/#{document.id}"
+    end
+
+    def put_document_link(document)
+      link_to 'Put', "/editor/put/#{document.id}"
+    end
+
     #####################################################
     #
     #   5. OTHER LINKS
