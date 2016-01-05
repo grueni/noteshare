@@ -6,6 +6,8 @@ module Editor::Controllers::Document
     def get_document
       object_name = "#{@document.identifier}.txt"
       str = AWS.get_string(object_name, 'test')
+      @document.content = str
+      @document.update_content
       self.body = str
     end
 
