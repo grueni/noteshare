@@ -15,8 +15,8 @@ module Web::Controllers::Documents
       handle_nil_document(@document, params['id'])
       session[:current_document_id] = document.id
       @root_document = document.root_document
-      @root_document.compile_with_render({numbered: true, format: 'adoc-latex'})
-      @root_document.compiled_content = @root_document.compile
+      @root_document.compile_with_render_lazily({numbered: true, format: 'adoc-latex'})
+      # @root_document.compiled_content = @root_document.compile
 
       if @root_document.dict['make_index'] # && false
         index_content = @root_document.dict['document_index']

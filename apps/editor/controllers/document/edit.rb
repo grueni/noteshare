@@ -12,9 +12,9 @@ module Editor::Controllers::Document
       session[:current_document_id] = params[:id]
       @document = DocumentRepository.find(session[:current_document_id])
       if @document.is_root_document?
-        @document.compile_with_render
+        @document.compile_with_render_lazily
       else
-        @document.update_content
+        @document.update_content_lazily
       end
       @updated_text = @document.content
     end

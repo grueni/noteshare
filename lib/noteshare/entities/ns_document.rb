@@ -764,6 +764,13 @@ class NSDocument
   #
   ###################################################
 
+  def set_compile_dirty
+    head = self.root_document
+    if head.compiled_dirty == false
+      head.compiled_dirty = true
+      DocumentRepository.update head
+    end
+  end
 
   def update_content_from(str)
     tm = texmacros || ''
@@ -771,11 +778,25 @@ class NSDocument
     self.rendered_content = renderer.convert
   end
 
+  def update_content_lazily(input=nil)
+    if content_dirty
+      puts "Document #{self.title} is DIRTY".red
+      t = Time.now
+      update_content(input)
+      t2 = Time.now
+      puts "updated in #{t2-t} seconds".red
+    else
+      puts "Document #{self.title} is CLEAN".red
+    end
+  end
+
   # If input is nil, render the content
   # and save it in rendered_content.  Otherwise,
   # Replace #content by str, render it
   # and save it ...
   def update_content(input=nil)
+
+    set_compile_dirty
 
     # dirty = self.content_dirty
     # dirty = true if dirty.nil?
@@ -795,10 +816,8 @@ class NSDocument
       update_content_from(str)
     end
 
-    DocumentRepository.update self
-
-    doc = DocumentRepository.find self.id
     self.content_dirty = false
+    DocumentRepository.update self
 
   end
 
@@ -875,7 +894,13 @@ class NSDocument
 
   def compile_with_render_lazily(option={})
     if compiled_dirty
+      puts "document #{self.title} is DIRTY -- compiling and rendering".red
+      t = Time.now
       compile_with_render(option)
+      t2 = Time.now
+      puts "Time for compile and render = #{t2 - t} seconds".red
+    else
+      puts "document #{self.title} is CLEAN".red
     end
   end
 
