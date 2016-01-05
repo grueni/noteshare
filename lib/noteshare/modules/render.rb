@@ -18,19 +18,22 @@ class Render
     @options = options
   end
 
+
+  def make_index
+    puts "MAKING INDEX".red
+    @indexer = DocumentIndex.new(string: @source)
+    @indexer.preprocess_to_string
+    @source = @indexer.output
+    @index = @indexer.document_index
+    puts "In convert, @index = #{@index}".blue
+    @source << "\n:!sectnums:\n\n== Index\n\n" << @index
+    puts "In convert, @source = #{@source}".cyan
+  end
+
   def convert
     @options = @options.merge({verbose:0})
     rewrite_urls
-    if @options[:make_index]
-      puts "MAKING INDEX".red
-      @indexer = DocumentIndex.new(string: @source)
-      @indexer.preprocess_to_string
-      @source = @indexer.output
-      @index = @indexer.document_index
-      puts "In convert, @index = #{@index}".blue
-      @source << "\n:!sectnums:\n\n== Index\n\n" << @index
-      puts "In convert, @source = #{@source}".cyan
-    end
+    make_index if @options[:make_index]
     Asciidoctor.convert(@source, @options)
   end
 
