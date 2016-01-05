@@ -3,12 +3,13 @@ module Editor::Controllers::Document
     include Editor::Action
 
 
-    def get_document
+    def get_new_documen_text
       object_name = "#{@document.identifier}.txt"
       str = AWS.get_string(object_name, 'test')
       @document.content = str
       @document.update_content
-      self.body = str
+      puts "Updated  document #{@document.id} (#{@docment.title}) with text  #{str[0..200]}".cyan
+      redirect_to "/editor/document/#{@document.id}"
     end
 
     def call(params)
@@ -16,7 +17,7 @@ module Editor::Controllers::Document
       @document = DocumentRepository.find id
       if @document
         puts "Gettind document #{id} (#{@document.title})".red
-        get_document
+        get_new_documen_text
       else
         puts "Error; file #{id} not found"
       end
