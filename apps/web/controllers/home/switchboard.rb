@@ -43,7 +43,6 @@ module Web::Controllers::Home
       puts "In Switchboard, Show, cookies[:current_node_id] = #{cookies[:current_node_id]}".red
 
       @active_item = 'home'
-      @active_item = 'home'
       handle_incoming_node
 
     end

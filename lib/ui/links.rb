@@ -134,7 +134,7 @@ module UI
     def current_node_link(session, active_item='')
       puts "current_node_link".red
       cu = current_user(session)
-      return '' if cu == nil
+      return ''  if cu == nil
       node_name = cu.get_current_node_name
       node_id = cu.get_current_node_id
       puts "current_node_id = #{node_id}".cyan
