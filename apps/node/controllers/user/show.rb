@@ -13,7 +13,8 @@ module Node::Controllers::User
     def call(params)
       @active_item = 'node'
       user_id = params[:id]
-      @current_node = NSNodeRepository.for_owner_id user_id
+      # @current_node = NSNodeRepository.for_owner_id user_id
+      @current_node = NSNodeRepository.find user.node_id
       if @current_node == nil
         @message = "Sorry, your node could not be found."
         puts @message.red
