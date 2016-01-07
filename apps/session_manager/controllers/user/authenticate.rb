@@ -21,7 +21,7 @@ module SessionManager::Controllers::User
         params[:user]['authenticated']  = true
       else
         params[:user]['authenticated']  = false
-        redirect_to '/home'
+        redirect_to basic_link @user.node_name, 'home'
       end
     end
 
@@ -39,7 +39,7 @@ module SessionManager::Controllers::User
       authenticator = UserAuthentication.new(params[:user]['email'], params[:user]['password'])
       @user = authenticator.login(session)
 
-      handle_login
+      # handle_login
       handle_redirect
 
     end
