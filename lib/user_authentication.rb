@@ -26,12 +26,14 @@ class UserAuthentication
 
   def login(session)
     puts "Enter UserAuthenticator # login ".magenta
-    puts session.to_s.cyan
+    puts session.inspect.to_s.cyan
 
     if authenticate
       session[:user_id] = @user.id
       session[:current_document_id] = @user.recall_current_document_id(session)
+      session[:domain] = "#{@user.node_name}#{ENV['DOMAIN']}"
       session[:current_image_id] = nil
+      puts session.inspect.to_s.red
       return @user
     else
       return nil
@@ -59,7 +61,7 @@ module SessionTools
   end
 
   def current_user_id(session)
-    if current_user
+    if current_user(session)
       return current_user.id
     else
       return nil
@@ -72,9 +74,8 @@ module SessionTools
     return user.admin
   end
 
-  def current_user_full_name
-    # SettingsRepository.first.owner
-    user = UserRepository.first
+  def current_user_full_name(session)
+    user = UserRepository.find session[:user_id]
     "#{user.first_name} #{user.last_name}"
   end
 

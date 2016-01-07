@@ -102,17 +102,20 @@ module UI
 
     def home_link(session, active_item='')
       active_item == 'home' ? image = '/images/earth_green.png' : image = '/images/earth_white.png'
+      puts "In home link, session = #{session.inspect}".cyan
       cu = current_user(session)
       if cu
+        puts "in home_link, user = #{cu.last_name}".red
         image_link2(prefix: cu.node_name, suffix: 'home', title: 'system home', image: image)
       else
+        puts "in home_link,NO USER".red
         image_link2(prefix: :none, suffix: 'home', title: 'system home', image: image)
       end
     end
 
     def current_user_node_link(session, active_item='')
       user = current_user(session)
-      return '' if user == nil
+      return '#' if user == nil
       active_item == 'home' ? image = '/images/home_green.png' : image = '/images/home_white.png'
       image_link2(prefix: user.node_name, suffix: "node/#{user.node_id}", title: 'system home', image: image)
     end
@@ -141,7 +144,7 @@ module UI
       if node_id
         node = NSNodeRepository.find node_id
       end
-      return '' if node == nil
+      return '#' if node == nil
       if cu
         prefix = cu.node_name
       else

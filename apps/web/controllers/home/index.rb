@@ -14,11 +14,14 @@ module Web::Controllers::Home
       # puts request.env["rack.session.unpacked_cookie_data"].to_s.red
 
       @settings = SettingsRepository.first
-      puts @settings.dict['message'].red
-      puts @settings.dict['rendered_message'].cyan
+      puts session.inspect.cyan
+      if current_user(session)
+        puts current_user_full_name(session).magenta
+      else
+        puts "NO USER".magenta
+      end
+      puts '----------------------------'.red
 
-
-      # @message = Asciidoctor.convert @settings.get_key('message')
 
     end
     
