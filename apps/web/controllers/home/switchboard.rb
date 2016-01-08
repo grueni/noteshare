@@ -40,7 +40,7 @@ module Web::Controllers::Home
 
     def call(params)
 
-      puts "In Switchboard, Show, cookies[:current_node_id] = #{cookies[:current_node_id]}".red
+      puts "app = web, controller = switchboard".red
 
       @active_item = 'home'
       handle_incoming_node

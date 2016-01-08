@@ -11,10 +11,10 @@ module Web::Controllers::Home
 
     def call(params)
 
-      # puts request.env["rack.session.unpacked_cookie_data"].to_s.red
+      puts "app = web, controller = switchboard".red
+      puts session.inspect.cyan
 
       @settings = SettingsRepository.first
-      puts session.inspect.cyan
       if current_user(session)
         puts current_user_full_name(session).magenta
       else

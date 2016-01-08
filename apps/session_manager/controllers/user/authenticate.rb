@@ -12,7 +12,7 @@ module SessionManager::Controllers::User
       prefix == :none ? prefix = '' : prefix = "#{prefix}."
       suffix == :none ? suffix = '' : suffix = "/#{suffix}"
       stem = ENV['DOMAIN'].sub(/^\./,'')
-      stem = "localhost:#{ENV['PORT']}" if stem == 'localhost'
+      stem = "fuf.me:#{ENV['PORT']}" if stem == 'fuf.me'
       "http://#{prefix}#{stem}#{suffix}"
     end
 
@@ -34,6 +34,8 @@ module SessionManager::Controllers::User
     end
 
     def call(params)
+      puts "app = session_manager, controller = authenticate".red
+      puts session.inspect.cyan
 
       session[:user_id] = nil
       authenticator = UserAuthentication.new(params[:user]['email'], params[:user]['password'])

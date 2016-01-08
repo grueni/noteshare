@@ -1,5 +1,19 @@
 require 'lotus/helpers'
 
+
+require 'lotus/action/cookie_jar'
+module Lotus
+  module Action
+    class CookieJar
+      def set_cookie(key, value)
+        # left empty on purpose
+      end
+
+
+    end
+  end
+end
+
 module SessionManager
   class Application < Lotus::Application
     configure do

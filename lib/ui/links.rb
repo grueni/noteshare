@@ -39,7 +39,7 @@ module UI
       prefix == :none ? prefix = '' : prefix = "#{prefix}."
       suffix == :none ? suffix = '' : suffix = "/#{suffix}"
       stem = ENV['DOMAIN'].sub(/^\./,'')
-      stem = "localhost:#{ENV['PORT']}" if stem == 'localhost'
+      stem = "fuf.me:#{ENV['PORT']}" if stem == 'fuf.me'
       "http://#{prefix}#{stem}#{suffix}"
     end
 

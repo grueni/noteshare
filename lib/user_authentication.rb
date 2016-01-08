@@ -33,7 +33,6 @@ class UserAuthentication
       session[:current_document_id] = @user.recall_current_document_id(session)
       session[:domain] = "#{@user.node_name}#{ENV['DOMAIN']}"
       session[:current_image_id] = nil
-      puts session.inspect.to_s.red
       return @user
     else
       return nil

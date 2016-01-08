@@ -5,6 +5,19 @@ require_relative '../../lib/noteshare/modules/tools'
 # require_relative '../../lib/ui/links'
 # require 'lotus/assets'
 
+require 'lotus/action/cookie_jar'
+module Lotus
+  module Action
+    class CookieJar
+      def set_cookie(key, value)
+        # left empty on purpose
+      end
+
+
+    end
+  end
+end
+
 module Web
   class Application < Lotus::Application
     configure do
