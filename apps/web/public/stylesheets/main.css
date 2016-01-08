@@ -798,6 +798,12 @@ p.compact {
 
     color: white;
     padding: 0.4em;
+}
+
+.item2black {
+
+    color: white;
+    padding: 0.4em;
     background-color: #111;
 }
 

@@ -199,7 +199,7 @@ module UI
       if active_item2 == 'compiled'
         return link_to 'CD', "/compiled/#{document.id}", class: 'active_item2', title: 'compiled document'
       else
-        return  link_to 'CD', "/compiled/#{document.id}", class: 'item2', title: 'compiled document'
+        return  link_to 'CD', "/compiled/#{document.id}", class: 'item2black', title: 'compiled document'
       end
     end
 
@@ -208,7 +208,7 @@ module UI
       if active_item2 == 'titlepage'
         return link_to 'TI', "/titlepage/#{document.id}", class: 'active_item2', title: 'titlepage'
       else
-        return  link_to 'TI', "/titlepage/#{document.id}", class: 'item2', title: 'titlepage'
+        return  link_to 'TI', "/titlepage/#{document.id}", class: 'item2black', title: 'titlepage'
       end
     end
 
@@ -231,9 +231,9 @@ module UI
 
     def standard_document_link(document, active_item2='')
       if active_item2 == 'standard'
-        return link_to 'VC', "/document/#{document.id}", class: 'active_item2', title: 'view chuncks'
+        return link_to 'VC', "/document/#{document.id}", class: 'active_item2', title: 'view chunks'
       else
-        return  link_to 'VC', "/document/#{document.id}", class: 'item2', title: 'view chunks'
+        return  link_to 'VC', "/document/#{document.id}", class: 'item2black', title: 'view chunks'
       end
     end
 
@@ -241,7 +241,7 @@ module UI
       if active_item2 == 'aside'
         return link_to 'SB', "/aside/#{document.id}", class: 'active_item2', title: 'view sidebar'
       else
-        return  link_to 'SB', "/aside/#{document.id}", class: 'item2', title: 'view sidebar'
+        return  link_to 'SB', "/aside/#{document.id}", class: 'item2black', title: 'view sidebar'
       end
     end
 
