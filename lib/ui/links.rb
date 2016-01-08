@@ -146,11 +146,14 @@ module UI
         node = NSNodeRepository.find node_id
       end
       return '#' if node == nil
+=begin
       if cu
         prefix = cu.node_name
       else
         prefix = node_name
       end
+=end
+      prefix = node_name
       puts "current node: #{node.name}".red
       active_item == 'node' ? image = '/images/node_green.png' : image = '/images/node_white.png'
       image_link2(prefix:prefix, suffix: "node/#{node.id}", title: 'current node', image: image)
