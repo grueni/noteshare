@@ -148,7 +148,7 @@ class NSNode
   end
 
   def sidebar_list(hash)
-    hash = "<ul>\n"
+    output = "<ul>\n"
     hash.each do |title, id|
       output << "<li> <a href='/aside/#{id}'>#{title}</a></li>\n"
     end
