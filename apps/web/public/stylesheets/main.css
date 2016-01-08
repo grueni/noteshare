@@ -790,7 +790,7 @@ p.compact {
 .active_item2 {
 
     font-weight: 900;
-    background-color: #666;
+    background-color: #711;
     padding: 0.4em;
 }
 
@@ -798,6 +798,7 @@ p.compact {
 
     color: white;
     padding: 0.4em;
+    background-color: #111;
 }
 
 .active_item2 > a {
