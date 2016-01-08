@@ -125,8 +125,9 @@ module UI
     end
 
     def node_link(node, session)
-      cu = current_user(session)
-      cu ? prefix = cu.node_name : prefix = node.name
+      # cu = current_user(session)
+      # cu ? prefix = cu.node_name : prefix = node.name
+      prefix = node.name
       text_link(prefix: prefix, suffix: "node/#{node.id}", title: node.name)
     end
 

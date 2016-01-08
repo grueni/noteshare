@@ -16,7 +16,7 @@ module Editor::Controllers::Document
       id = params[:id]
       @document = DocumentRepository.find id
       if @document
-        puts "Gettind document #{id} (#{@document.title})".red
+        puts "Getting  document #{id} (#{@document.title})".red
         get_new_document_text
       else
         puts "Error; file #{id} not found"
