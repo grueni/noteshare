@@ -55,6 +55,7 @@ module UI
     #####################################################
 
     def signin_link
+      puts 'SIGNIN_LINK'.red
       link_to 'Sign in', '/session_manager/login'
     end
 
@@ -174,8 +175,7 @@ module UI
       active_item == 'admin' ? css_class = 'active_item' : ''
       cu = current_user(session)
       return ''  if cu == nil
-      node_name = cu.get_current_node_name
-      text_link(title: 'Admin', prefix: node_name , suffix: '/admin', class: css_class)
+      text_link(title: 'Admin', prefix: cu.node_name , suffix: 'admin', class: css_class)
     end
 
     def document_link(document)

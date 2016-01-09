@@ -5,7 +5,25 @@ module SessionManager::Controllers::User
     def call(params)
       user = UserRepository.find session[:user_id]
       logout(user, session)
-      self.body = "<div style='position:absolute;left:80px;top:80px;'>You are now logged out\n<br/><a href='http://#{ENV['HOME']}'>Back to #{ENV['NAME']}</a></div>"
+
+      case ENV['MODE']
+        when 'LOCAL'
+          url = 'localhost:2300'
+          name = localhost
+        when 'LVH'
+          stem = ENV['DOMAIN'].sub(/^\./,'') # delete leading '.'
+          url = "http://#{stem}:#{ENV['PORT']}"
+          name = stem
+        else
+          stem = ENV['DOMAIN'].sub(/^\./,'') # delete leading '.'
+          name = stem
+          url = "http://#{stem}"
+      end
+
+      if ENV['MODE'] == 'LOCAL'
+      else
+      end
+      self.body = "<div style='position:absolute;left:80px;top:80px;'>You are now logged out\n<br/><a href='#{url}'>Back to #{name}</a></div>"
     end
   end
 end

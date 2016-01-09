@@ -23,7 +23,12 @@ module SessionManager::Controllers::User
 
       @user_node = NSNodeRepository.for_owner_id @user.id
       # @user_node_name = @user_node.name
-      redirect_to basic_link(@user.node_name, "node/#{@user.node_id}")
+      if ENV['MODE'] == 'LOCAL'
+        redirect_to "/node/#{@user.node_id}"
+      else
+        redirect_to basic_link(@user.node_name, "node/#{@user.node_id}")
+      end
+
 
     end
 

@@ -12,8 +12,9 @@ module Noteshare
     def basic_link(prefix, suffix)
       prefix == :none ? prefix = '' : prefix = "#{prefix}."
       suffix == :none ? suffix = '' : suffix = "/#{suffix}"
+      return suffix if ENV['MODE'] == 'LOCAL'
       stem = ENV['DOMAIN'].sub(/^\./,'') # delete leading '.'
-      stem = "#{stem}:#{ENV['PORT']}" if ENV['MODE'] == 'LOCAL'
+      stem = "#{stem}:#{ENV['PORT']}" if ENV['MODE'] == 'LVH'
       "http://#{prefix}#{stem}#{suffix}"
     end
   end

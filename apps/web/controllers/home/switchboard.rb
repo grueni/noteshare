@@ -27,12 +27,14 @@ module Web::Controllers::Home
 
       if @incoming_node
         if  @incoming_node.type == 'public'
-          redirect_to "/node/#{@incoming_node.id}"
+          # redirect_to "/node/#{@incoming_node.id}"
+          redirect_to basic_link @incoming_node.name, "node/#{@incoming_node.id}"
         else
           redirect_to basic_link @incoming_node.name, "home"
         end
       else
-        redirect_to '/home/'
+        # redirect_to '/home/'
+        redirect_to basic_link '', 'home'
       end
 
     end
