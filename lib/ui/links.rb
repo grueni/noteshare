@@ -103,7 +103,7 @@ module UI
 
     def current_user_node_link(session, active_item='')
       user = current_user(session)
-      return '#' if user == nil
+      return '' if user == nil
       active_item == 'home' ? image = '/images/home_green.png' : image = '/images/home_white.png'
       image_link2(prefix: user.node_name, suffix: "node/user/#{user.node_id}", title: 'user home', image: image)
     end

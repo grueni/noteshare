@@ -51,7 +51,8 @@ namespace :db do
 
   desc "Pull local database from heroku"
   task :pull_heroku do
-    cmd = "heroku pg:pull DATABASE_URL noteshare_development --app nslab; "
+    cmd = "dropdb noteshare_development; "
+    cmd << "heroku pg:pull DATABASE_URL noteshare_development --app nslab; "
     puts cmd
     exec cmd
   end
