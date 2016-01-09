@@ -15,6 +15,10 @@ module Noteshare
       return suffix if ENV['MODE'] == 'LOCAL'
       stem = ENV['DOMAIN'].sub(/^\./,'') # delete leading '.'
       stem = "#{stem}:#{ENV['PORT']}" if ENV['MODE'] == 'LVH'
+      puts "Basic link".cyan
+      puts "prefix: #{prefix}".cyan
+      puts "stem: #{stem}".cyan
+      puts "suffix: #{suffix}".cyan
       "http://#{prefix}#{stem}#{suffix}"
     end
   end

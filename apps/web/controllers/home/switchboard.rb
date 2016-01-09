@@ -24,17 +24,21 @@ module Web::Controllers::Home
     def handle_incoming_node
 
       @incoming_node = NSNode.from_http(request)
+      puts "@incoming_node: #{@incoming_node}".red
 
       if @incoming_node
         if  @incoming_node.type == 'public'
           # redirect_to "/node/#{@incoming_node.id}"
+          puts 'A'.magenta
           redirect_to basic_link @incoming_node.name, "node/#{@incoming_node.id}"
         else
+          puts 'B'.magenta
           redirect_to basic_link @incoming_node.name, "home"
         end
       else
+        puts 'C'.magenta
         # redirect_to '/home/'
-        redirect_to basic_link '', 'home'
+        redirect_to basic_link :none, 'home'
       end
 
     end
