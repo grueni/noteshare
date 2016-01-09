@@ -170,12 +170,12 @@ module UI
     #
     #####################################################
 
-    def admin_link(active_item='')
-      if active_item == 'admin'
-        return link_to 'Admin', '/admin', class: 'active_item'
-      else
-        return  link_to 'Admin', '/admin'
-      end
+    def admin_link(session, active_item='')
+      active_item == 'admin' ? css_class = 'active_item' : ''
+      cu = current_user(session)
+      return ''  if cu == nil
+      node_name = cu.get_current_node_name
+      text_link(title: 'Admin', prefix: node_name , suffix: '/admin', class: css_class)
     end
 
     def document_link(document)

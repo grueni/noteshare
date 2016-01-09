@@ -52,7 +52,7 @@ html
             == documents_link(session, active_item)
           - if current_user_is_admin?(session)
             li
-              == admin_link(active_item)
+              == admin_link(session, active_item)
 
 
 
@@ -60,7 +60,7 @@ html
         ul#dropdown2a.dropdown-content
           li
             a[href="#!"]
-              == admin_link
+              == admin_link(session)
               span.badge
                 | 1
           li

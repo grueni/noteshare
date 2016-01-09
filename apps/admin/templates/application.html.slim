@@ -35,7 +35,7 @@ html
             == documents_link(session)
           - if current_user_is_admin?(session)
             li
-              == admin_link(active_item)
+              == admin_link(sessjon, active_item)
     .main_row
       == yield
 

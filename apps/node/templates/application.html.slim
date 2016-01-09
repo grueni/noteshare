@@ -37,7 +37,7 @@ html
             == documents_link(session, active_item)
           - if current_user_is_admin?(session)
             li.hide-on-small-only
-              == admin_link(active_item)
+              == admin_link(session, active_item)
 
 
 
