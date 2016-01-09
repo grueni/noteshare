@@ -13,7 +13,7 @@ module Noteshare
       prefix == :none ? prefix = '' : prefix = "#{prefix}."
       suffix == :none ? suffix = '' : suffix = "/#{suffix}"
       stem = ENV['DOMAIN'].sub(/^\./,'') # delete leading '.'
-      stem = "#{stem}:#{ENV['PORT']}" if ENV['PORT']
+      stem = "#{stem}:#{ENV['PORT']}" if ENV['MODE'] == 'LOCAL'
       "http://#{prefix}#{stem}#{suffix}"
     end
   end
