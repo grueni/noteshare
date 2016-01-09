@@ -49,6 +49,13 @@ namespace :db do
     exec cmd
   end
 
+  desc "Pull local database from heroku"
+  task :pull_heroku do
+    cmd = "heroku pg:pull DATABASE_URL noteshare_development --app nslab; "
+    puts cmd
+    exec cmd
+  end
+
   desc "Drops the database tables for noteshare"
   task :reset do
     cmd = "psql -U #{user} -d noteshare_development --file ./psql.setup"
