@@ -6,6 +6,8 @@ module Web
       include Web::Layout
       # include Web::Assets::Helpers
       require_relative '../../../lib/ui/links'
+      require_relative '../../../lib/noteshare/modules/subdomain'
+      include Noteshare::Subdomain
       include UI::Links
       include UI::Forms
 

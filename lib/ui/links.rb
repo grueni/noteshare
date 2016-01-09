@@ -45,7 +45,8 @@ module UI
     # text_link()
     def text_link(hash)
       css_class = hash[:class] || ''
-      link_to hash[:title], basic_link(hash[:prefix], hash[:suffix]), class: css_class
+      css_style = hash[:style] || ''
+      link_to hash[:title], basic_link(hash[:prefix], hash[:suffix]), class: css_class, css_style: css_style
     end
 
     #####################################################
@@ -155,6 +156,21 @@ module UI
         current_document = DocumentRepository.find session[:current_document_id]
         link_to current_document.title, "/document/#{current_document.id}"
       end
+    end
+
+    def guide_link_long(session)
+      cu = current_user(session)
+      cu ? prefix = cu.node_name : prefix = :none
+      return text_link(prefix: prefix, suffix: "document/#{ENV['USER_GUIDE_DOC_ID']}", title: 'User Guide')
+      # link_to 'User Guide', "/document/#{ENV['USER_GUIDE_DOC_ID']}"
+    end
+
+    def guide_link(session)
+      cu = current_user(session)
+      cu ? prefix = cu.node_name : prefix = :none
+      return text_link(prefix: prefix, suffix: "document/#{ENV['USER_GUIDE_DOC_ID']}", title: 'G', class: 'redlink;', style: 'font-weight: bold; margin-bottom:-4px;')
+      # link_to "G",  "document/#{ENV['USER_GUIDE_DOC_ID']}",  class: 'redlink;', style: 'font-weight: bold; margin-bottom:-4px;'
+
     end
 
     #####################################################
