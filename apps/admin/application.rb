@@ -66,6 +66,7 @@ module Admin
       # cookies true
       # or
       # cookies max_age: 300
+      cookies path: '/'
 
       # Enable sessions
       # Argument: Symbol the Rack session adapter

@@ -1,20 +1,14 @@
 require_relative '../../../../lib/user_authentication'
 require_relative  '../../../../lib/noteshare/repositories/user_repository'
+require_relative '../../../../lib/noteshare/modules/subdomain'
 # include UserRepository
 
 module SessionManager::Controllers::User
   class Authenticate
     include SessionManager::Action
+    include Noteshare::Subdomain
 
     expose :user
-
-    def basic_link(prefix, suffix)
-      prefix == :none ? prefix = '' : prefix = "#{prefix}."
-      suffix == :none ? suffix = '' : suffix = "/#{suffix}"
-      stem = ENV['DOMAIN'].sub(/^\./,'')
-      stem = "fuf.me:#{ENV['PORT']}" if stem == 'fuf.me'
-      "http://#{prefix}#{stem}#{suffix}"
-    end
 
     def handle_login
       if @user

@@ -80,6 +80,9 @@ module SessionManager
       # cookies true
       # or
       # cookies max_age: 300
+      cookies path: '/'
+      # or
+      # cookies max_age: 300
 
       # Enable sessions
       # Argument: Symbol the Rack session adapter
@@ -89,7 +92,7 @@ module SessionManager
       #
       # sessions :cookie, secret: ENV['SESSION_MANAGER_SESSIONS_SECRET']
 
-      sessions :cookie, {secret: ENV['WEB_SESSIONS_SECRET'], domain: ENV['DOMAIN'] }
+      sessions :cookie, {secret: ENV['WEB_SESSIONS_SECRET'], domain: ENV['DOMAIN'], path: '/' }
 
       # Configure Rack middleware for this application
       #

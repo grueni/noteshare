@@ -13,9 +13,11 @@ module UI
 
   module Links
     require_relative '../../lib/user_authentication'
+    require_relative '../../lib/noteshare/modules/subdomain'
     include SessionTools
     include Noteshare::Tools
     include ACL
+    include Noteshare::Subdomain
 
     #####################################################
     #
@@ -27,21 +29,7 @@ module UI
     #
     #####################################################
 
-    # Example: basic_link('code', 'foobar')
-    # => "http://code.localhost:2300/foobar"
-    # if ENV['HOST'] = '.localhost'
-    #
-    # Example: basic_link(:none, 'home')
-    # => "http://scripta.io/home"
-    # if ENV['HOST'] = 'scripta.io'
-    #
-    def basic_link(prefix, suffix)
-      prefix == :none ? prefix = '' : prefix = "#{prefix}."
-      suffix == :none ? suffix = '' : suffix = "/#{suffix}"
-      stem = ENV['DOMAIN'].sub(/^\./,'')
-      stem = "fuf.me:#{ENV['PORT']}" if stem == 'fuf.me'
-      "http://#{prefix}#{stem}#{suffix}"
-    end
+
 
     def image_link(image_path, url, title='')
       link_to html.img(src: image_path, title: title), url

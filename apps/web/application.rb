@@ -81,7 +81,10 @@ module Web
       #                      See #scheme and #ssl?
       #          :httponly - Prevent JavaScript access (Boolean - true by default)
       #
-      cookies true
+      # cookies true
+      # or
+      # cookies max_age: 300
+      cookies path: '/'
       # or
       # cookies max_age: 300
 
@@ -93,7 +96,7 @@ module Web
       #
       # Uncommented by JC:
 
-      sessions :cookie, {secret: ENV['WEB_SESSIONS_SECRET'], domain: ENV['DOMAIN'] }
+      sessions :cookie, {secret: ENV['WEB_SESSIONS_SECRET'], domain: ENV['DOMAIN'], path: '/' }
       # sessions :cookie, secret: ENV['WEB_SESSIONS_SECRET']
 
       # Configure Rack middleware for this application
