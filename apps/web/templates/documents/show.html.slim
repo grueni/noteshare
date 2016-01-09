@@ -1,23 +1,21 @@
 .row
   - if document
-    .document
-      .row
 
-        .col.left style = 'width: 30%;padding-left:2em; background-color:#444;'
+    .col.hide-on-small-and-down.m3.l3.scroll-y style = 'padding-left:2em; padding-bottom:400px; background-color:#444;'
 
-          == render partial: 'documents/view_control', locals: { }
+      .hide-on-med-and-down== render partial: 'documents/view_control', locals: { }
 
-          p style = 'margin-top:0.05em; color: #444'}== "  by #{document.author}"
-          - if document.doc_refs
-            .toc2 style = 'padding-top:0' == document.root_associated_document_map
-          h5 style = 'margin-bottom:0; color:#444;'  Table of Contents
-          p.plainlink.lightlink style='font-size:larger; padding-top:0em;margin-bottom:0; margin-left:-0.5em;;' == document.root_link
-          .toc2== document.root_table_of_contents(document.id, 'reader')
+      p style = 'margin-top:0.05em; color: #444'}== "  by #{document.author}"
+      - if document.doc_refs
+        .toc2 style = 'padding-top:0' == document.root_associated_document_map
+      h5 style = 'margin-bottom:0; color:#444;'  Table of Contents
+      p.plainlink.lightlink style='font-size:larger; padding-top:0em;margin-bottom:0; margin-left:-0.5em;;' == document.root_link
+      .toc2 style='margin-left:0' == document.root_table_of_contents(document.id, 'reader')
 
-        .col.middle style = 'left: 30%; width: 70%; padding-bottom:6em;padding-top:2em;'
+    .col.s12.m9.offset-m3.l9.offset-l3.scroll-y style = 'background-color: #fff; padding-bottom:6em;padding-top:2em;'
 
-          h5== document.root_document_title
-          == document.rendered_content
+      h5== document.root_document_title
+      == document.rendered_content2
   - else
     p.placeholder Documents not found.
 

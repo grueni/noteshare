@@ -125,25 +125,17 @@ module UI
     end
 
     def current_node_link(session, active_item='')
-      puts "current_node_link".red
       cu = current_user(session)
       return ''  if cu == nil
       node_name = cu.get_current_node_name
       node_id = cu.get_current_node_id
-      puts "current_node_id = #{node_id}".cyan
+
       if node_id
         node = NSNodeRepository.find node_id
       end
-      return '#' if node == nil
-=begin
-      if cu
-        prefix = cu.node_name
-      else
-        prefix = node_name
-      end
-=end
+      return '' if node == nil
+
       prefix = node_name
-      puts "current node: #{node.name}".red
       active_item == 'node' ? image = '/images/node_green.png' : image = '/images/node_white.png'
       image_link2(prefix:prefix, suffix: "node/#{node.id}", title: 'current node', image: image)
     end
@@ -185,18 +177,18 @@ module UI
 
     def compiled_document_link(document, active_item2='')
       if active_item2 == 'compiled'
-        return link_to 'CD', "/compiled/#{document.id}", class: 'active_item2', title: 'compiled document'
+        return link_to 'C', "/compiled/#{document.id}", class: 'active_item2', title: 'view compiled document'
       else
-        return  link_to 'CD', "/compiled/#{document.id}", class: 'item2black', title: 'compiled document'
+        return  link_to 'C', "/compiled/#{document.id}", class: 'item2black', title: 'view compiled document'
       end
     end
 
 
     def titlepage_link(document, active_item2='')
       if active_item2 == 'titlepage'
-        return link_to 'TI', "/titlepage/#{document.id}", class: 'active_item2', title: 'titlepage'
+        return link_to 'T', "/titlepage/#{document.id}", class: 'active_item2', title: 'view titlepage'
       else
-        return  link_to 'TI', "/titlepage/#{document.id}", class: 'item2black', title: 'titlepage'
+        return  link_to 'T', "/titlepage/#{document.id}", class: 'item2black', title: 'view titlepage'
       end
     end
 
@@ -219,17 +211,17 @@ module UI
 
     def standard_document_link(document, active_item2='')
       if active_item2 == 'standard'
-        return link_to 'VC', "/document/#{document.id}", class: 'active_item2', title: 'view chunks'
+        return link_to 'P', "/document/#{document.id}", class: 'active_item2', title: 'view by document parts'
       else
-        return  link_to 'VC', "/document/#{document.id}", class: 'item2black', title: 'view chunks'
+        return  link_to 'P', "/document/#{document.id}", class: 'item2black', title: 'view by document parts'
       end
     end
 
     def aside_document_link(document, active_item2='')
       if active_item2 == 'aside'
-        return link_to 'SB', "/aside/#{document.id}", class: 'active_item2', title: 'view sidebar'
+        return link_to 'S', "/aside/#{document.id}", class: 'active_item2', title: 'view sidebars'
       else
-        return  link_to 'SB', "/aside/#{document.id}", class: 'item2black', title: 'view sidebar'
+        return  link_to 'S', "/aside/#{document.id}", class: 'item2black', title: 'view sidebars'
       end
     end
 
@@ -280,7 +272,14 @@ module UI
       return '' if session == nil
       _id = session['current_document_id']
       # puts "In editor link, session['current_document_id'] = #{session['current_document_id']} ".magenta
+
       return '' if _id == nil
+      document = DocumentRepository.find _id
+      return '' if document == nil
+      cu = current_user(session)
+      return '' if cu == nil
+      return '' if cu.id != document.author_id
+
       if active_item == 'editor'
         return link_to 'Editor', "/editor/document/#{_id}", class: 'active_item'
       else

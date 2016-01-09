@@ -155,6 +155,18 @@ class NSDocument
     self.display('Document', [:title, :identifier, :author, :author_id, :author_credentials, :parent_id, :parent_ref, :root_document_id, :root_ref, :render_options, :toc, :dict])
   end
 
+
+ def rendered_content2
+   if rendered_content and rendered_content != ''
+     return rendered_content
+   else
+     return "<p style='margin:3em;font-size:24pt;'>This part of the document is blank.  Please go to the next one</p>"
+   end
+
+ end
+
+  ############
+
   # Create a document given a hash.
   # The hash must define both the title and the author credentials,
   # as in the example below;
@@ -1173,9 +1185,7 @@ class NSDocument
   def process_associated_documents(item, target)
     doc = DocumentRepository.find item.id
     output = ''
-    puts "doc: #{doc.title}, doc_refs = #{doc.doc_refs}".red if doc
     if doc.doc_refs
-      puts "I will now process the doc_refs for #{doc.title}".cyan
       prefix = '/editor'
       stem = 'document'
       class_str = 'toc_associated_doc'
@@ -1261,20 +1271,22 @@ class NSDocument
   end
 
 
-  def internal_table_of_contents(attributes, options)
+  def toc_internal(attributes, options)
 
-    start = Time.now
+    (attributes.include? 'root') ? source = self.compiled_content : source = self.content
+
+    toc =  Noteshare::AsciidoctorHelper::NSTableOfContents.new(source, attributes, options)
+
+  end
+
+
+  def internal_table_of_contents(attributes, options)
 
     (attributes.include? 'root') ? source = self.compiled_content : source = self.content
 
     toc =  Noteshare::AsciidoctorHelper::NSTableOfContents.new(source, attributes, options)
 
     result = toc.table || ''
-
-    finish = Time.now
-    elapsed = finish - start
-
-    puts "compile table of contents for #{self.title} in #{elapsed} seconds".cyan
 
    return result
 

@@ -11,6 +11,8 @@ module Node::Controllers::User
 
     # Go to the node belonging to the user
     def call(params)
+      puts 'controller NODE, USER, SHOW'.red
+      puts current_user(session).last_name.red
       @active_item = 'node'
       user_id = params[:id]
       # @current_node = NSNodeRepository.for_owner_id user_id
