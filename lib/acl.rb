@@ -46,6 +46,11 @@ module ACL
     acl['world'] = w
   end
 
+  def acl_set_permissions!(u,g,w)
+    acl_set_permissions(u,g,w)
+    DocumentRepository.update self
+  end
+
   def acl_set_permission(key, value)
     if [:user, :group, :world].include? key
       acl[key.to_s] = value
