@@ -98,6 +98,10 @@ class Permission
     Permission.new(subject, verb, object).grant
   end
 
+  def self.is_not_given?(subject, verb, object)
+    !Permission.new(subject, verb, object).grant
+  end
+
   def grant
 
     # if there is no logged in user, grant access
