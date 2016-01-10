@@ -165,10 +165,26 @@ module UI
       # link_to 'User Guide', "/document/#{ENV['USER_GUIDE_DOC_ID']}"
     end
 
+
     def guide_link(session)
       cu = current_user(session)
       cu ? prefix = cu.node_name : prefix = :none
       return text_link(prefix: prefix, suffix: "document/#{ENV['USER_GUIDE_DOC_ID']}", title: 'G', class: 'redlink;', style: 'font-weight: bold; margin-bottom:-4px;')
+      # link_to "G",  "document/#{ENV['USER_GUIDE_DOC_ID']}",  class: 'redlink;', style: 'font-weight: bold; margin-bottom:-4px;'
+
+    end
+
+    def admin_manual_link_long(session)
+      cu = current_user(session)
+      cu ? prefix = cu.node_name : prefix = :none
+      return text_link(prefix: prefix, suffix: "document/#{ENV['ADMIN_MANUAL_DOC_ID']}", title: "Administrator's manual")
+      # link_to 'User Guide', "/document/#{ENV['USER_GUIDE_DOC_ID']}"
+    end
+
+    def admin_manual_link(session)
+      cu = current_user(session)
+      cu ? prefix = cu.node_name : prefix = :none
+      return text_link(prefix: prefix, suffix: "document/#{ENV['ADMIN_MANUAL_DOC_ID']}", title: 'A', class: 'redlink;', style: 'font-weight: bold; margin-bottom:-4px;')
       # link_to "G",  "document/#{ENV['USER_GUIDE_DOC_ID']}",  class: 'redlink;', style: 'font-weight: bold; margin-bottom:-4px;'
 
     end
