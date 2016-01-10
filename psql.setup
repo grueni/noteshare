@@ -1,6 +1,6 @@
-ROP TABLE documents;
+DROP TABLE documents;
 CREATE TABLE documents(
-  id integer,
+  id serial,
   title text,
   identifier text,
   author_identifier text,
