@@ -33,7 +33,7 @@ module Editor::Controllers::Documents
       @document.compile_with_render
 
 
-      DocumentRepository.update @document
+      @document.acl_set_permissions!('rw', 'r', '-')
 
       user = current_user(session)
       node = NSNodeRepository.find user.node_id
