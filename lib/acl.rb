@@ -29,6 +29,12 @@
 
 module ACL
 
+  def acl_info
+    acl.each do |key, value|
+      puts "#{key} => #{value}".red
+    end
+  end
+
 
   def acl_get(key)
     acl[key]

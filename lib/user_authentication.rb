@@ -94,25 +94,34 @@ class Permission
     @action_code = action_code_map[action]
   end
 
+  def self.is_given?(subject, verb, object)
+    Permission.new(subject, verb, object).grant
+  end
+
   def grant
 
     # if there is no logged in user, grant access
     # if the world permission of the object matches
     # the code of action
+    # puts "A"
     return @object.acl_get(:world) =~ /#{@action_code}/  if @user == nil
 
+    # puts "B"
     # Grant permission if the world permission matches
     return true if @object.acl_get(:world) =~ /#{@action_code}/
 
     # From now on, we may assume that @user exists
     # and that world permissions have been processed
 
+    # puts "C"
     # admin can do anything
     return true if @user.admin
 
+    # puts "D"
     # process user permissions
     return true if @user.id == @object.creator_id && @object.acl_get(:user) =~ /#{@action_code}/
 
+    # puts "E"
     # grant permission if the access control list permits it for the user
     return true if @object.acl_get "user:#{@user.screen_name}" =~ /#{@action_code}/
 
@@ -125,6 +134,7 @@ class Permission
     end
 =end
 
+    # puts "F"
     return false
   end
 

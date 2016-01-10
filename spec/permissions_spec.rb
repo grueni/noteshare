@@ -42,10 +42,14 @@ describe Permission do
   end
 
 
-  it 'denies a generic user access ta a document wth permissins rw, r, -' do
+  it 'denies a generic user editing and delete access ta a document wth permissions rw, r, - ummm' do
+
+    @document.acl_info
+    puts "@document author_id = #{@document.author_id}".red
+    puts "@author id = #{@janedoe.id}".red
 
     Permission.new(@janedoe, :create, @document).grant.must_equal(false)
-    Permission.new(@janedoe, :read, @document).grant.must_equal(false)
+    Permission.new(@janedoe, :read, @document).grant.must_equal(true)
     Permission.new(@janedoe, :edit, @document).grant.must_equal(false)
     Permission.new(@janedoe, :update, @document).grant.must_equal(false)
     Permission.new(@janedoe, :delete, @document).grant.must_equal(false)
