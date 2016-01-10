@@ -1,4 +1,4 @@
-DROP TABLE documents;
+ROP TABLE documents;
 CREATE TABLE documents(
   id integer,
   title text,
@@ -36,6 +36,7 @@ CREATE TABLE documents(
   dict hstore,
 PRIMARY KEY(id)
 );
+
 
 DROP TABLE users;
 CREATE TABLE users(
