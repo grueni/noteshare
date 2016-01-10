@@ -310,7 +310,8 @@ module UI
       return '' if document == nil
       cu = current_user(session)
       return '' if cu == nil
-      return '' if cu.id != document.author_id
+      # return '' if cu.id != document.author_id
+      return '' if Permission.is_not_given?(cu, :edit, document)
 
       if active_item == 'editor'
         return link_to 'Editor', "/editor/document/#{_id}", class: 'active_item'
