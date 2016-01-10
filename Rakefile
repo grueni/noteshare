@@ -74,6 +74,14 @@ namespace :db do
     exec cmd
   end
 
+  desc "Dumps the test database to db/APP_NAME_test.dump"
+  task :dump_test  do
+    puts "===> Dump noteshare database"
+    cmd = "pg_dump --host 'localhost' --username #{user} --verbose --clean --no-owner --no-acl --format=c #{db_test} > #{here}/db/#{app}_test.dump"
+    puts cmd
+    exec cmd
+  end
+
   desc "Dump noteshare database offline. Bravo!!"
   task :herokudump  do
     cmd = 'PGPASSWORD=Password -Fc --no-acl --no-owner -h localhost -U carlson noteshare_development > jcdb.dump'
@@ -96,7 +104,7 @@ namespace :db do
 
   desc "Restores the database dump at db/APP_NAME.dump."
   task :restore_test => :reset do
-    cmd = "pg_restore --verbose --host 'localhost' --username #{user} --clean --no-owner --no-acl --dbname #{db_test} #{here}/db/#{app}.dump"
+    cmd = "pg_restore --verbose --host 'localhost' --username #{user} --clean --no-owner --no-acl --dbname #{db_test} #{here}/db/#{app}_test.dump"
     # Rake::Task["db:reset"].invoke
     puts cmd
     exec cmd
