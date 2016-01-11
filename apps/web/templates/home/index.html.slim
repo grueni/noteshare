@@ -20,7 +20,7 @@
           | <img src="https://s3.amazonaws.com/vschool%2Fnoteshare_images/rockband.jpg" alt="rockband" width="200">
           | <br>
           | <br>
-        p.compact.message == link_to 'About Noteshare', '/about'
+        p.compact.message == link_to "About #{ENV['SITENAME']}", '/about'
 
         span style='color:#F5574F;position:absolute; bottom:1em;left:2.5em;' ❤
         i style='color:#F5574F;position:absolute; bottom:1em; left:4.0em;' Share the knowledge!
