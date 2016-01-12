@@ -242,7 +242,7 @@ module Web
       # See: http://www.rubydoc.info/gems/lotus-view#Configuration
       view.prepare do
         include Lotus::Helpers
-        include Web::Assets::Helpers
+        # include Web::Assets::Helpers
         include Web::Views::Forms
         include Web::Views::Menus
         include Noteshare::Tools
