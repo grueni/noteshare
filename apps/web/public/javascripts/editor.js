@@ -4,6 +4,8 @@ $(document).ready(function(){
 
   $('#update_source_button').click(update_document);
 
+  window.setInterval(update_document, 10000);
+
 
 
 });
