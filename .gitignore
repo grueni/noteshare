@@ -1,3 +1,4 @@
+public/assets*
 .idea/
 .yardoc/
 node_modules/
