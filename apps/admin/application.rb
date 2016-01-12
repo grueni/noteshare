@@ -127,10 +127,6 @@ module Admin
       #   'vendor/javascripts'
       # ]
 
-      # Enabling serving assets
-      # Defaults to false
-      #
-      # serve_assets false
 
       ##
       # SECURITY
@@ -211,9 +207,6 @@ module Admin
     configure :development do
       # Don't handle exceptions, render the stack trace
       handle_exceptions false
-
-      # Serve static assets during development
-      serve_assets      true
     end
 
     ##
@@ -222,9 +215,6 @@ module Admin
     configure :test do
       # Don't handle exceptions, render the stack trace
       handle_exceptions false
-
-      # Serve static assets during development
-      serve_assets      true
     end
 
     ##

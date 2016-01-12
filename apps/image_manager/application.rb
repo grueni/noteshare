@@ -127,10 +127,6 @@ module ImageManager
 
       assets << [ '../web/public/' ]
 
-      # Enabling serving assets
-      # Defaults to false
-      #
-      # serve_assets false
 
       ##
       # SECURITY
@@ -212,9 +208,6 @@ module ImageManager
     configure :development do
       # Don't handle exceptions, render the stack trace
       handle_exceptions false
-
-      # Serve static assets during development
-      serve_assets      true
     end
 
     ##
@@ -223,9 +216,6 @@ module ImageManager
     configure :test do
       # Don't handle exceptions, render the stack trace
       handle_exceptions false
-
-      # Serve static assets during development
-      serve_assets      true
     end
 
     ##

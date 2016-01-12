@@ -130,10 +130,6 @@ module Node
       #
       # assets << [ '../web/public/images' ]
 
-      # Enabling serving assets
-      # Defaults to false
-      #
-      # serve_assets true
 
       ##
       # SECURITY
@@ -216,9 +212,6 @@ module Node
     configure :development do
       # Don't handle exceptions, render the stack trace
       handle_exceptions false
-
-      # Serve static assets during development
-      serve_assets      true
     end
 
     ##
@@ -227,9 +220,6 @@ module Node
     configure :test do
       # Don't handle exceptions, render the stack trace
       handle_exceptions false
-
-      # Serve static assets during development
-      serve_assets      true
     end
 
     ##
