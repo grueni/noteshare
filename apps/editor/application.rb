@@ -1,4 +1,5 @@
 require 'lotus/helpers'
+require 'lotus/assets'
 require_relative '../../apps/web/views/forms'
 require_relative '../../lib/noteshare/modules/tools'
 
@@ -124,8 +125,17 @@ module Editor
       # The directory `public/` is added by default
       #
 
-      assets << [ '../web/public/images']
+      # assets << [ '../web/public/images']
 
+      assets do
+        javascript_compressor :builtin
+        stylesheet_compressor :builtin
+
+        sources << [
+            'assets',
+        # 'vendor/assets'
+        ]
+      end
 
       ##
       # SECURITY
@@ -206,6 +216,7 @@ module Editor
       # See: http://www.rubydoc.info/gems/lotus-view#Configuration
       view.prepare do
         include Lotus::Helpers
+        include Web::Assets::Helpers
         include Web::Views::Forms
         include Noteshare::Tools
       end
@@ -215,7 +226,15 @@ module Editor
     # DEVELOPMENT
     #
     configure :development do
-      # Don't handle exceptions, render the stack trace
+      assets do
+        compile false
+        digest  true
+
+        # CDN Mode (optional)
+        # scheme 'https'
+        # host   '123.cloudfront.net'
+        # port   443
+      end
       handle_exceptions false
     end
 

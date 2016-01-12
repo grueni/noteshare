@@ -1,4 +1,5 @@
 require 'lotus/helpers'
+require 'lotus/assets'
 require_relative '../../apps/web/views/forms'
 
 
@@ -126,10 +127,15 @@ module Node
       # Specify sources for assets
       # The directory `public/` is added by default
       #
-      # assets << [ 'public/' ]'
-      #
-      # assets << [ '../web/public/images' ]
+      assets do
+        javascript_compressor :builtin
+        stylesheet_compressor :builtin
 
+        sources << [
+            'assets',
+        # 'vendor/assets'
+      ]
+    end
 
       ##
       # SECURITY
@@ -202,6 +208,7 @@ module Node
       # See: http://www.rubydoc.info/gems/lotus-view#Configuration
       view.prepare do
         include Lotus::Helpers
+        include Web::Assets::Helpers
         include Web::Views::Forms
       end
     end

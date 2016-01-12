@@ -1,4 +1,5 @@
 require 'lotus/helpers'
+require 'lotus/assets'
 
 module ImageManager
   class Application < Lotus::Application
@@ -123,9 +124,20 @@ module ImageManager
       # Specify sources for assets
       # The directory `public/` is added by default
       #
-      assets << [ '../web/public/images']
 
-      assets << [ '../web/public/' ]
+      assets do
+        javascript_compressor :builtin
+        stylesheet_compressor :builtin
+
+        sources << [
+            'assets',
+        # 'vendor/assets'
+        ]
+      end
+
+      # assets << [ '../web/public/images']
+
+      # assets << [ '../web/public/' ]
 
 
       ##
@@ -198,6 +210,7 @@ module ImageManager
       # See: http://www.rubydoc.info/gems/lotus-view#Configuration
       view.prepare do
         include Lotus::Helpers
+        include Web::Assets::Helpers
         include Web::Views::Forms
       end
     end
@@ -225,6 +238,15 @@ module ImageManager
       # scheme 'https'
       # host   'example.org'
       # port   443
+      assets do
+        compile false
+        digest  true
+
+        # CDN Mode (optional)
+        # scheme 'https'
+        # host   '123.cloudfront.net'
+        # port   443
+      end
     end
   end
 end

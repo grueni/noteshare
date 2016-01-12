@@ -1,4 +1,5 @@
 require 'lotus/helpers'
+require 'lotus/assets'
 
 module Admin
   class Application < Lotus::Application
@@ -123,9 +124,15 @@ module Admin
       # Specify sources for assets
       # The directory `public/` is added by default
       #
-      # assets << [
-      #   'vendor/javascripts'
-      # ]
+      assets do
+        javascript_compressor :builtin
+        stylesheet_compressor :builtin
+
+        sources << [
+            'assets',
+        # 'vendor/assets'
+        ]
+      end
 
 
       ##
@@ -198,6 +205,7 @@ module Admin
       # See: http://www.rubydoc.info/gems/lotus-view#Configuration
       view.prepare do
         include Lotus::Helpers
+        include Web::Assets::Helpers
       end
     end
 

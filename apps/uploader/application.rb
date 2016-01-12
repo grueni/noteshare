@@ -1,4 +1,5 @@
 require 'lotus/helpers'
+require 'lotus/assets'
 
 module Uploader
   class Application < Lotus::Application
@@ -123,9 +124,15 @@ module Uploader
       # Specify sources for assets
       # The directory `public/` is added by default
       #
-      # assets << [
-      #   'vendor/javascripts'
-      # ]
+      assets do
+        javascript_compressor :builtin
+        stylesheet_compressor :builtin
+
+        sources << [
+            'assets',
+        # 'vendor/assets'
+        ]
+      end
 
       ##
       # SECURITY
@@ -197,6 +204,7 @@ module Uploader
       # See: http://www.rubydoc.info/gems/lotus-view#Configuration
       view.prepare do
         include Lotus::Helpers
+        include Web::Assets::Helpers
       end
     end
 
@@ -223,6 +231,15 @@ module Uploader
       # scheme 'https'
       # host   'example.org'
       # port   443
+      assets do
+        compile false
+        digest  true
+
+        # CDN Mode (optional)
+        # scheme 'https'
+        # host   '123.cloudfront.net'
+        # port   443
+      end
     end
   end
 end
