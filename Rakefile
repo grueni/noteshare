@@ -1,5 +1,6 @@
 require 'rake'
 require 'rake/testtask'
+require 'lotus/rake_tasks'
 
 # https://mallibone.wordpress.com/tag/raketesttask/
 
