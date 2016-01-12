@@ -1,4 +1,5 @@
 require 'lotus/helpers'
+require 'lotus/assets'
 require_relative 'views/forms'
 require_relative 'views/menus'
 require_relative '../../lib/noteshare/modules/tools'
