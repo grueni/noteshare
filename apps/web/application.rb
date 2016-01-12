@@ -145,11 +145,17 @@ module Web
       # Specify sources for assets
       # The directory `public/` is added by default
       #
-      # assets << [
-      #   'vendor/javascripts'
-      # ]
 
-      assets << [ 'public/images' ]
+
+      assets do
+        javascript_compressor :builtin
+        stylesheet_compressor :builtin
+
+        sources << [
+            'assets',
+        # 'vendor/assets'
+        ]
+      end
 
 
       # Enabling serving assets
@@ -236,6 +242,7 @@ module Web
       # See: http://www.rubydoc.info/gems/lotus-view#Configuration
       view.prepare do
         include Lotus::Helpers
+        include Web::Assets::Helpers
         include Web::Views::Forms
         include Web::Views::Menus
         include Noteshare::Tools
@@ -270,6 +277,15 @@ module Web
       # scheme 'https'
       # host   'nslab.herokuapp.com'
       # port   443
+      assets do
+        compile false
+        digest  true
+
+        # CDN Mode (optional)
+        # scheme 'https'
+        # host   '123.cloudfront.net'
+        # port   443
+      end
     end
   end
 end
