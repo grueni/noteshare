@@ -5,4 +5,4 @@
     /== search_form
     - if node.document_count > 0
       .ns_card.s12.m8.l6 style='margin-left:25px; height:400px; overflow-y:scroll; padding-bottom:3em;'
-        == node.documents_as_list(layout_option)
+        == node.documents_as_list(current_user(session), layout_option)
