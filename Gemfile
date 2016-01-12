@@ -7,9 +7,9 @@ gem 'rake'
 
 gem 'puma'
 
-gem 'lotusrb',     '0.5.0'
-gem 'lotus-model', '~> 0.5'
-gem 'lotus-assets'
+gem 'lotusrb',     '0.6.0'
+gem 'lotus-model'
+
 
 
 gem 'pg'
