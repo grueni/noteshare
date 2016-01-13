@@ -33,15 +33,16 @@ auto_update_document = function () {
   var element2 = document.getElementById('document-document-id');
   var id = element2.value;
 
-  console.log('source: ' + source_text.length);
-  local_storage = localStorage.getItem('source')
-  if (local_storage == null) {
-    console.log('local storage is NULL');
-    localStorage.setItem('source', source_text)
-  } else if (local_storage != source_text) {
-    console.log('local storage: ' + local_storage.length);
+  console.log('source_text: ' + source_text.length);
+  source_text_local = localStorage.getItem('source_text')
+  if (source_text_local == null) {
+    console.log('source_text_local is NULL');
+    localStorage.setItem('source_text', source_text)
+  } else if (source_text_local != source_text) {
+    console.log('DOING AUTO UPDATE')
+    console.log('source_text_local: ' + source_text_local.length);
     $.post( '/editor/json_update/' + id, { source: source_text }, update_rendered_content );
-    localStorage.setItem('source', source_text);
+    localStorage.setItem('source_text', source_text);
     $('#count_words').html("<span>" + count_words(source_text) + "</span>")
   }
 
