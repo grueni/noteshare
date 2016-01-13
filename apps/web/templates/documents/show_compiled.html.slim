@@ -9,8 +9,8 @@
       -if root_document.dict['make_index']
         span.redlink style='margin-left:0; margin-top:0em;font-size:larger' == link_to 'Index', '#_index'
 
-      .toc2 style='margin-left:0em;' == root_document.internal_table_of_contents(['root', 'internal', 'sectnums'], { doc_id: root_document.id })
-
+      /.toc2 style='margin-left:0em;' == root_document.internal_table_of_contents(['root', 'internal', 'sectnums'], { doc_id: root_document.id })
+      .toc2 == root_document.internal_table_of_contents(['root', 'titlepage', 'sectnums'], {doc_id: root_document.id})
 
     .col.s12.m9.offset-m3.l9.offset-l3.scroll-y style = 'background-color: #fff; padding-bottom:6em;padding-top:2em;'
       h5== root_document.title
