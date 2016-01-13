@@ -40,6 +40,7 @@ auto_update_document = function () {
     // console.log('local storage: ' + local_storage.slice(0,20));
     $.post( '/editor/json_update/' + id, { source: source_text }, update_rendered_content );
     localStorage.setItem('source', source_text);
+    $('#count_words').html("<span>" + count_words(source_text) + "</span>")
   }
 
 }
@@ -59,4 +60,11 @@ update_document = function () {
 
 
   $.post( '/editor/json_update/' + id, { source: source_text }, update_rendered_content );
+}
+
+count_words = function(text) {
+
+  var message = "word count: " + text.split(" ").length
+  console.log(message);
+  return message
 }
