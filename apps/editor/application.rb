@@ -216,7 +216,7 @@ module Editor
       # See: http://www.rubydoc.info/gems/lotus-view#Configuration
       view.prepare do
         include Lotus::Helpers
-        include Web::Assets::Helpers
+        include Editor::Assets::Helpers
         include Web::Views::Forms
         include Noteshare::Tools
       end

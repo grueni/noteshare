@@ -208,7 +208,7 @@ module Node
       # See: http://www.rubydoc.info/gems/lotus-view#Configuration
       view.prepare do
         include Lotus::Helpers
-        include Web::Assets::Helpers
+        include Node::Assets::Helpers
         include Web::Views::Forms
       end
     end

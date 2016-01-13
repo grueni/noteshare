@@ -210,7 +210,7 @@ module ImageManager
       # See: http://www.rubydoc.info/gems/lotus-view#Configuration
       view.prepare do
         include Lotus::Helpers
-        include Web::Assets::Helpers
+        include ImageManager::Assets::Helpers
         include Web::Views::Forms
       end
     end

@@ -220,7 +220,7 @@ module SessionManager
       # See: http://www.rubydoc.info/gems/lotus-view#Configuration
       view.prepare do
         include Lotus::Helpers
-        include Web::Assets::Helpers
+        include SessionManager::Assets::Helpers
       end
     end
 
