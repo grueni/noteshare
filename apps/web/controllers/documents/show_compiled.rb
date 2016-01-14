@@ -16,11 +16,6 @@ module Web::Controllers::Documents
       session[:current_document_id] = document.id
       @root_document = document.root_document
       @root_document.compile_with_render_lazily({numbered: true, format: 'adoc-latex'})
-      #  @root_document.compile_with_render({numbered: true, format: 'adoc-latex'})
-      if @root_document.compiled_dirty or true
-        @root_document.compiled_content = @root_document.compile
-      end
-      # @root_document.compiled_content = @root_document.compile
 
       if @root_document.dict['make_index'] # && false
         index_content = @root_document.dict['document_index']

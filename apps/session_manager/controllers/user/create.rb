@@ -16,7 +16,6 @@ module SessionManager::Controllers::User
 
       if new_user
         puts "app = SessionManager, controller = Create (User)".red
-        puts session.inspect.cyan
         new_node = NSNode.create_for_user(new_user)
         new_user.dict2['node'] = new_node.id
         UserRepository.update new_user

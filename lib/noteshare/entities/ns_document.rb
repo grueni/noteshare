@@ -940,17 +940,28 @@ class NSDocument
   def compile_with_render(option={})
     start = Time.now
 
+    # Update the compilation and rendering options
     option = option.merge get_render_option
     if dict['make_index']
       h = {}
       h[:make_index] = true
       option = option.merge(h)
     end
-    renderer = Render.new(self.compile, option )
+
+    # Compile the document and save the compilation if the document
+    # is a root document: the compilation is used to build the internal
+    # table of contents
+    _compiled_content = self.compile
+    self.compiled_content = _compiled_content if self.is_root_document?
+
+    # Render the content
+    renderer = Render.new(_compiled_content, option )
     self.compiled_and_rendered_content = renderer.convert
+
+
+    # Set flags, update, and report timings
     self.compiled_dirty = false
     value = DocumentRepository.update(self)
-
     finish = Time.now
     elapsed = finish - start
     puts "Compile with render in #{elapsed} seconds".red
