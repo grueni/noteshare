@@ -26,7 +26,7 @@ module Noteshare
         when 'document_not_found'
           "Document #{@code} not found.  Perhaps it has been deleted."
         else
-          "Error on #{@code} -- #{@query}"
+          "Error on #{@code} — #{@query.gsub('%20', ' ')}"
       end
     end
 
