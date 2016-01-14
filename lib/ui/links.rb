@@ -339,6 +339,10 @@ module UI
       image_link '/images/add_right.png', "/editor/new_section/#{document.id}?sibling_after", 'new section after'
     end
 
+    def add_pdf_link(document)
+      image_link '/images/attach.png', "/editor/add_pdf/#{document.id}", 'new section with attached image or pdf file'
+    end
+
     def new_associated_document_link(document)
       image_link '/images/site.png', "/editor/new_associated_document/#{document.id}", 'new associated document'
     end

@@ -325,7 +325,10 @@ class NSDocument
 
   def add_as_sibling_of(document, direction)
     p = document.parent_document
+    puts "before TOC in add_as_sibling_of".red
+    puts "parent document = #{p.title} (#{p.id}}".red
     _toc = TOC.new(p)
+     puts "after TOC in add_as_sibling_of".red
     k = _toc.index_by_identifier(document.identifier)
     direction == :before ? offset = 0 : offset = +1
     k = k + offset

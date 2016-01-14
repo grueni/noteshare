@@ -1,0 +1,19 @@
+.row.inset
+  .col
+    .ns_card
+      span == "Attach file after #{document.title}"
+      br
+      br
+      form[action='/editor/do_add_pdf' name='upload' enctype='multipart/form-data' method='post']
+        p Title:
+        input[type='text' name='title' size=30]
+        br
+        p Tags:
+        input[type='text' name='tags' size=30]
+        br
+        br
+        input[type="file" name="datafile" size="40" class='green' style='color:white' ]
+        br
+        input[type="hidden" name="document_id" value=document.id ]
+        br
+        input[type="submit" value="Add" class='green' style='color:white']
