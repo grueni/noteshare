@@ -160,7 +160,7 @@ class NSDocument
    if rendered_content and rendered_content != ''
      return rendered_content
    else
-     return "<p style='margin:3em;font-size:24pt;'>This part of the document is blank.  Please go to the next one</p>"
+     return "<p style='margin:3em;font-size:24pt;'>This block of the document is blank.  Please edit it or go to the next block</p>"
    end
 
  end
