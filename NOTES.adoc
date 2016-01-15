@@ -195,6 +195,6 @@ http://redis.io/topics/quickstart[Redis quick start]
 http://redis.io/topics/data-types-intro[data structures]
 https://feeding.cloud.geek.nz/posts/restoring-single-table-from-postgres/[Restoring a single table in Postgres]
 To export the vschool database:
- heroku pg:backups capture
+heroku pg:backups capture
 $ curl -o latest.dump `heroku pg:backups public-url`
 https://www.safaribooksonline.com/library/view/heroku-up-and/9781449341381/ch05.html[heroku book on postgres]

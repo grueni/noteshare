@@ -191,6 +191,10 @@ Lotus::Model.configure do
       attribute :modified_at, DateTime, as: :updated_at
       attribute :summary, String, as: :capsule
       attribute :aside, String, as: :original_aside
+      attribute :image_path1, String
+      attribute :image_path2, String
+      attribute :content_type, String
+
 
     end
 

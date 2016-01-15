@@ -117,7 +117,7 @@ class DocumentRepository
     doc = DocumentRepository.find(doc_id) if switches.include? :verbose
     author_node = NSNodeRepository.for_owner_id doc.author_id
     DocumentRepository.delete(doc) if switches.include? :kill
-    author_node.update_docs_for_owner
+    author_node.update_docs_for_owner if author_node
   end
 
 end

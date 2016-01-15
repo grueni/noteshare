@@ -218,14 +218,14 @@ class NSDocument
 
   # Typical credential:
   #
-  #  "id"=>91, "last_name"=>"Foo-Bar", "first_name"=>"Jason", "identifier"=>"35e...48"}
+  #  "id"=>91, "last_name"=>"Foo-Bar", "first_name"=>"Jason", "identifier"=>"35e...48"
   #
   # Make all changes to author info via this method to keep data consistent
   def set_author_credentials(credentials)
     self.author_credentials = JSON.generate(credentials)
-    first_name = credentials[:first_name]
-    last_name = credentials[:last_name]
-    author_id = credentials[:id]
+    first_name = credentials['first_name'] || ''
+    last_name = credentials['last_name']  || ''
+    author_id = credentials['id']
     self.author_id = author_id
     self.author = first_name + " " + last_name
   end

@@ -103,6 +103,9 @@ class Permission
 
   def grant
 
+
+    return false if @object == nil
+
     # if there is no logged in user, grant access
     # if the world permission of the object matches
     # the code of action
