@@ -9,7 +9,7 @@ class LessonRepository
   end
 
   def self.sections_of_course(id)
-    sections = self.select_course(id)
+    sections = self.select_for_course(id)
     output = ''
     sections.all.each do |s|
       output << "#{s.sequence}, #{s.id}: #{s.title}\n"
