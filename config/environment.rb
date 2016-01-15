@@ -1,3 +1,5 @@
+require 'tilt/erb'
+
 require 'rubygems'
 require 'bundler/setup'
 require 'lotus/setup'

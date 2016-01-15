@@ -160,7 +160,7 @@ class NSDocument
    if rendered_content and rendered_content != ''
      return rendered_content
    else
-     return "<p style='margin:3em;font-size:24pt;'>This part of the document is blank.  Please go to the next one</p>"
+     return "<p style='margin:3em;font-size:24pt;'>This block of the document is blank.  Please edit it or go to the next block</p>"
    end
 
  end
@@ -325,7 +325,10 @@ class NSDocument
 
   def add_as_sibling_of(document, direction)
     p = document.parent_document
+    puts "before TOC in add_as_sibling_of".red
+    puts "parent document = #{p.title} (#{p.id}}".red
     _toc = TOC.new(p)
+     puts "after TOC in add_as_sibling_of".red
     k = _toc.index_by_identifier(document.identifier)
     direction == :before ? offset = 0 : offset = +1
     k = k + offset
@@ -940,17 +943,28 @@ class NSDocument
   def compile_with_render(option={})
     start = Time.now
 
+    # Update the compilation and rendering options
     option = option.merge get_render_option
     if dict['make_index']
       h = {}
       h[:make_index] = true
       option = option.merge(h)
     end
-    renderer = Render.new(self.compile, option )
+
+    # Compile the document and save the compilation if the document
+    # is a root document: the compilation is used to build the internal
+    # table of contents
+    _compiled_content = self.compile
+    self.compiled_content = _compiled_content if self.is_root_document?
+
+    # Render the content
+    renderer = Render.new(_compiled_content, option )
     self.compiled_and_rendered_content = renderer.convert
+
+
+    # Set flags, update, and report timings
     self.compiled_dirty = false
     value = DocumentRepository.update(self)
-
     finish = Time.now
     elapsed = finish - start
     puts "Compile with render in #{elapsed} seconds".red

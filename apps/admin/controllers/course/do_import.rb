@@ -12,13 +12,19 @@ module Admin::Controllers::Course
 
       course = CourseRepository.find course_id
 
-      puts "COURSE TO IMPORT: #{course.title}".red
+      if course
+        puts "COURSE TO IMPORT: #{course.title}".red
 
-      screen_name = current_user(session).screen_name
+        screen_name = current_user(session).screen_name
 
-      new_root_document = course.create_master_document(screen_name)
+        new_root_document = course.create_master_document(screen_name)
 
-      redirect_to  "/titlepage/#{new_root_document.id}"
+        redirect_to  "/titlepage/#{new_root_document.id}"
+      else
+         redirect_to "/error/#{course_id}?You tried to import a non-existent course."
+      end
+
+
 
       # self.body = "Boss, I am importing #{course.title}"
 

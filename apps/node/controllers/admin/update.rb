@@ -6,7 +6,7 @@ module Node::Controllers::Admin
 
     def update_dict(node, hash)
       hash.each do |key, value|
-        puts "key = [#{key}], [#{value}]".red
+        puts "key = [#{key}] => [#{value}]".red
         if value == ''
           puts "delete key #{value}".cyan
           node.dict.delete(key)
@@ -28,6 +28,8 @@ module Node::Controllers::Admin
       puts "dictionary  =  #{dictionary}".cyan
       dictionary = dictionary.gsub(/\n\n*/m, "\n")
       hash = dictionary.hash_value(":\n")
+      node.update_publication_records_from_string(hash['docs']) if hash['docs']
+      hash.delete('docs')
       update_dict(node, hash)
       NSNodeRepository.update node
       redirect_to '/node/admin'

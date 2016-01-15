@@ -88,13 +88,13 @@ namespace :db do
     exec cmd
   end
 
-  desc "Restore heroku database from dump"
+  desc "Restore heroku database from dump at S3"
   task :herokurestore do
     cmd = "heroku pg:backups restore 'http://vschool.s3.amazonaws.com/noteshare.dump' DATABASE_URL"
     exec cmd
   end
 
-  desc "Restores the database dump at db/APP_NAME.dump."
+  desc "Restores the local database from the dump at db/APP_NAME.dump."
   task :restore => :reset do
     cmd = "pg_restore --verbose --host 'localhost' --username #{user} --clean --no-owner --no-acl --dbname #{db} #{here}/db/#{app}.dump"
     # Rake::Task["db:reset"].invoke
@@ -102,7 +102,7 @@ namespace :db do
     exec cmd
   end
 
-  desc "Restores the database dump at db/APP_NAME.dump."
+  desc "Restores the test database dump at db/APP_NAME.dump."
   task :restore_test => :reset do
     cmd = "pg_restore --verbose --host 'localhost' --username #{user} --clean --no-owner --no-acl --dbname #{db_test} #{here}/db/#{app}_test.dump"
     # Rake::Task["db:reset"].invoke

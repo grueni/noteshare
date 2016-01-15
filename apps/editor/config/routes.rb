@@ -1,3 +1,6 @@
+post '/do_add_pdf', to: 'document#do_add_pdf'
+get '/add_pdf/:id', to: 'document#add_pdf'
+
 get '/get/:id', to: 'document#get_file'
 get '/put/:id', to: 'document#send_file'
 get '/publish_all/:id', to: 'document#publish_all'

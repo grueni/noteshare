@@ -107,75 +107,89 @@ class NSNode
   def update_docs_for_owner
     return if type != 'personal'
     dd = DocumentRepository.root_documents_for_user(self.owner_id)
-    docs_string = ''
     dd.each do |doc|
-      docs_string << "#{doc.title}, #{doc.id}; "
+      Publications.add_record(self.id, doc.id)
     end
-    dict['docs'] = docs_string
-    NSNodeRepository.update self
   end
 
-  def update_docs_for_from_pair_list(pair_list)
-    hash_array = []
-    pair_list.each do |pair|
-      hash = {}
-      hash[:title] = pair[0]
-      hash[:id] = pair[1]
-      hash_array << hash
-    end
-    object_item_list = ObjectItemList.new(hash_array)
-    self.docs  = object_item_list.encode
-    NSNodeRepository.update self
-  end
 
   def append_doc(id, title)
-    dict['docs'] << "#{title}, #{id};"
-    NSNodeRepository.update self
+    Publications.add_record(self.id, id)
   end
 
   def delete_all_docs
-    dict['docs'] = ''
-    NSNodeRepository.update self
   end
 
-  def titlepage_list(hash)
+  def titlepage_list(docs)
     output = "<ul>\n"
-    hash.each do |title, id|
-      output << "<li> <a href='/titlepage/#{id}'>#{title}</a></li>\n"
+    docs.each do |doc|
+      output << "<li> <a href='/titlepage/#{doc.id}'>#{doc.title}</a></li>\n"
     end
     output << "</ul>\n"
     output
   end
 
-  def sidebar_list(hash)
+  def sidebar_list(docs)
     output = "<ul>\n"
-    hash.each do |title, id|
-      output << "<li> <a href='/aside/#{id}'>#{title}</a></li>\n"
+    docs.each do |doc|
+      output << "<li> <a href='/aside/#{doc.id}'>#{doc.title}</a></li>\n"
     end
     output << "</ul>\n"
     output
   end
 
   # Return an HTML list of links to documents
-  def documents_as_list(option=:titlepage)
-    hash = documents_as_hash # as array of pairs [title, id]
-    return '' if hash == {}
+  def documents_as_list(user, option)
+    user ? docs = self.documents_readable_by(user) : docs = self.public_documents
+    return '' if docs == []
     case option
       when :titlepage
-        titlepage_list(hash)
+        titlepage_list(docs)
       when :sidebar
-        sidebar_list(hash)
+        sidebar_list(docs)
       else
-        titlepage_list(hash)
+        titlepage_list(docs)
     end
   end
 
-  # Retrieve the document list: unpack
+  #################################################
+
+  def publication_records
+    PublicationsRepository.records_for_node(self.id)
+  end
+
+  def publication_records_as_string
+    output = 'docs: '
+    publication_records.all.each do |record|
+       output << "#{record.document_title}, #{record.document_id}; "
+    end
+    output
+  end
+
+  def update_publication_records_from_string(str)
+    self.publication_records.all.each do |record|
+      PublicationsRepository.delete record
+    end
+    hash = str.hash_value(',;')
+    hash.each do |doc_title, doc_id|
+      puts "#{doc_title}: #{doc_id}".cyan
+      Publications.add_record(self.id, doc_id)
+    end
+  end
 
   def documents
-    documents_string =  dict['docs'] || ''
-    documents_string.to_pair_list
+    Publications.documents_for_node(self.id)
   end
+
+  def public_documents
+    Publications.documents_for_node(self.id)
+  end
+
+  def documents_readable_by(user)
+    Publications.documents_for_node(self.id).select(&can_read(user)).sort_by { |item| item.title }
+  end
+
+  #################################################
 
   def documents_as_hash
     documents_string =  dict['docs'] || ''

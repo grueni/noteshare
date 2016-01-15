@@ -7,7 +7,7 @@ module Node::Controllers::Admin
     def call(paramm)
       @active_item = 'admin'
       puts "call: controller Node, Admin, List".red
-      @nodes = NSNodeRepository.all
+      @nodes = NSNodeRepository.all.sort_by{|node| node.name}
     end
 
   end

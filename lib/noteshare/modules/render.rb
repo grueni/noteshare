@@ -63,13 +63,17 @@ class Render
       part = old_tag.match rxParts
       id = part[1]
       attributes = part[2]
-      iii = ImageRepository.find id
-      if iii
-        new_tag = "#{tag}::#{iii.url2}[#{attributes}]"
-        @source = @source.sub(old_tag, new_tag)
-      else
-        puts "Image #{id} not found".red
+
+      if id =~ /^\d+\d$/
+        iii = ImageRepository.find id
+        if iii
+          new_tag = "#{tag}::#{iii.url2}[#{attributes}]"
+          @source = @source.sub(old_tag, new_tag)
+        else
+          puts "Image #{id} not found".red
+        end
       end
+
     end
 
   end

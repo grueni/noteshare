@@ -32,7 +32,7 @@ Lotus::Model.configure do
   ##
   # Database mapping
   #
-  # Intended for specifying applica1ion wide mappings.
+  # Intended for specifying application wide mappings.
   #
   # You can specify mapping file to load with:
   #
@@ -90,7 +90,7 @@ Lotus::Model.configure do
       attribute :dict, PGHStore
     end
 
-    collection :users do
+    collection :ns_users do
       entity User
       repository UserRepository
       attribute :id, Integer
@@ -183,6 +183,7 @@ Lotus::Model.configure do
       attribute :title, String
       attribute :author_id, Integer
       attribute :tags, String
+      attribute :area, String
       attribute :course_id, Integer
       attribute :content, String,  as: :original_content
       attribute :sequence, Integer
@@ -197,6 +198,8 @@ Lotus::Model.configure do
   end
 
 end.load!
+
+
 
 
 Lotus::Mailer.configure do

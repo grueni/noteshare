@@ -132,8 +132,10 @@ class String
 
   # Map 'foo: 123, bar: 456, baz:' to {'foo': 123, 'bar': 456}
    def hash_value(arg=':,')
+    str ||= ''
     key_value_separator = arg[0] || ':'
     item_separator = arg[1] || ','
+    str = str.strip
     if item_separator == "\n"
       str = self.gsub(/\n\n*/m, "\n")
     else

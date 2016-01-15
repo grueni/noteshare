@@ -26,7 +26,6 @@ class UserAuthentication
 
   def login(session)
     puts "Enter UserAuthenticator # login ".magenta
-    puts session.inspect.to_s.cyan
 
     if authenticate
       session[:user_id] = @user.id
