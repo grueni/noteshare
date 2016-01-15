@@ -6,7 +6,10 @@ module Editor::Controllers::Document
 
     def call(params)
 
-      puts "controller, UpdateToc".red
+      puts "controller, UpdateToc, id = #{params['id']}".red
+      id = session['current_document_id']
+      puts "ID #{id}".magenta
+
 
       data = request.query_string
       permutation = data.split(',').map{ |x| x.to_i }
@@ -14,13 +17,17 @@ module Editor::Controllers::Document
       puts permutation.to_s.cyan
 
       puts  "session['current_document_id'] = #{session['current_document_id']}".red
-      document = DocumentRepository.find session['current_document_id']
+      #document = DocumentRepository.find session['current_document_id']
+      document = DocumentRepository.find id
       redirect_to "editor/document/#{document.id}" if document.toc.count == 0
 
 
       document.permute_table_of_contents(permutation)
+      document.root_document.compiled_dirty = true
+      DocumentRepository.update document
 
-      self.body = "PERMUTATION = #{permutation}"
+      # self.body = "PERMUTATION = #{permutation}"
+      redirect_to "editor/document/#{id}"
 
     end
 
