@@ -85,6 +85,18 @@ class DocumentRepository
     array.map{ |id| DocumentRepository.find id }.sort_by { |item| item.title }
   end
 
+  def self.search_local(user, key, limit: 20)
+    array = fetch("SELECT id FROM documents WHERE author_id = #{user.id} AND parent_id = 0 AND (title ILIKE '%#{key}%' OR tags ILIKE '%#{key}%');")
+    array = array.map{ |h| h[:id] }.uniq
+    array.map{ |id| DocumentRepository.find id }.sort_by { |item| item.title }
+  end
+
+  def self.search_global(user, key, limit: 20)
+    array = fetch("SELECT id FROM documents WHERE author_id != #{user.id} AND parent_id = 0 AND (title ILIKE '%#{key}%' OR tags ILIKE '%#{key}%');")
+    array = array.map{ |h| h[:id] }.uniq
+    array.map{ |id| DocumentRepository.find id }.sort_by { |item| item.title }
+  end
+
 
   # List all descendants of a given document
   def self.descendants(doc_id)

@@ -1,3 +1,4 @@
+post '/set_search_type', to: 'documents#set_search_type'
 get '/error/:id', to: 'home#error'
 get '/aside/:id', to: 'documents#aside'
 

@@ -279,8 +279,8 @@
       function release (e) {
         var permutation = get_permutation('dragula_toc')
         console.log('ON RELEASE, PERMUTATION: ' + permutation);
-        // Put the permuation in local storage so that Ruby
-        // can use it also.
+        // Put the permuation in local storage so that it can be
+        // POSTED to the Ruby app.
         localStorage.setItem('toc_permutation', permutation)
         ungrab();
 
