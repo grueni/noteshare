@@ -190,3 +190,5 @@ http://lotusrb.org/blog/2015/12/29/introducing-assets.html[Lotus assets]
 bundle exec lotus db create
 http://www.copterlabs.com/json-what-it-is-how-it-works-how-to-use-it/[JSON - How to use it]
 https://github.com/jodosha/mruby-rack-json-api[MRuby reall fast JSON API app (Lotus - Jodosha)
+http://redis.io/topics/quickstart[Redis quick start]
+http://redis.io/topics/data-types-intro[data structures]
