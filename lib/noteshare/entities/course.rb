@@ -50,13 +50,13 @@ class Course
 
     _tex_macros = tex_macros
     if _tex_macros
-        puts "-- a1".cyan
+      puts "-- a1".cyan
       tex_macro_document =  NSDocument.create(title: 'Tex Macros', author_credentials: JSON.parse(master.author_credentials))
-        puts "-- a2".cyan
+      puts "-- a2".cyan
       tex_macro_document.content = "\\(" + _tex_macros + "\\)"
-        puts "-- a3".cyan
+      puts "-- a3".cyan
       DocumentRepository.update tex_macro_document
-        puts "-- a4".cyan
+      puts "-- a4".cyan
       tex_macro_document.associate_to(master, 'texmacros')
     end
 
@@ -100,6 +100,8 @@ class Course
         puts "Error in importing #{lesson.title} (#{lesson.id})".red
 
       end
+
+
 
     end
     return master
