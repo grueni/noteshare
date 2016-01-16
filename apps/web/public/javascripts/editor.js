@@ -4,7 +4,8 @@ $(document).ready(function(){
 
   $('#update_source_button').click(update_document);
 
-  window.setInterval(auto_update_document, 2500);
+  window.setInterval(auto_update_document, 2500  +   text.split(" ").length/1000.0)
+  );
 
 
 
