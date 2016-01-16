@@ -10,6 +10,9 @@ module Admin::Views::Course
         label :course_id
         text_field :course_id
 
+        label :screen_name
+        text_field :screen_name
+
         submit 'Import course',  class: "waves-effect waves-light btn"
 
       end

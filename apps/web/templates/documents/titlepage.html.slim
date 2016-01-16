@@ -15,11 +15,12 @@
 
 
         .col.hide-on-small-and-down.m9.offset-m3.l9.offset-l3.scroll-y style = 'padding-bottom:6em;padding-top:0;background-color:black'
-          h1 style='margin-left:2em;' == root_document.title
-          == "<img src=#{image_url}>"
+          h1 style='margin-left:0.7em;margin-bottom:0;' == root_document.title
+          h3 style='margin-left:1.15em;margin-top:0;margin-bottom:1em;' == root_document.author
+          div style='margin-left:2em;' == "<img src=#{image_url}>"
           br
           br
-          p style='color:white' == blurb
+          p style='color:white; margin-left:2em;' == blurb
 
   - else
   p.placeholder Documents not found.

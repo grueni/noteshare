@@ -6,27 +6,23 @@ module Admin::Controllers::Course
 
       puts "Entering course importer".red
 
-      course_id =params['course_import']['course_id']
+      course_id = params['course_import']['course_id']
+      screen_name = params['course_import']['screen_name']
 
       puts "course_id = #{course_id}".red
 
       course = CourseRepository.find course_id
-
-      if course
-        puts "COURSE TO IMPORT: #{course.title}".red
-
-        screen_name = current_user(session).screen_name
-
-        new_root_document = course.create_master_document(screen_name)
-
-        redirect_to  "/titlepage/#{new_root_document.id}"
-      else
-         redirect_to "/error/#{course_id}?You tried to import a non-existent course."
+      if course == nil
+        redirect_to "/error/#{course_id}?You tried to import a non-existent course."
       end
 
+      user = UserRepository.find_by_screen_name screen_name
+      if user == nil
+        redirect_to "/error/#{course_id}?Screen name is invalid."
+      end
 
-
-      # self.body = "Boss, I am importing #{course.title}"
+      new_root_document = course.create_master_document(screen_name)
+      redirect_to  "/titlepage/#{new_root_document.id}"
 
     end
 

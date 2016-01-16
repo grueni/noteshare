@@ -12,7 +12,8 @@ class Course
     return if user == nil
 
     doc = NSDocument.create(title: self.title, author_credentials: user.credentials)
-    doc.author_id = self.author_id
+    doc.author_id = user.id
+    doc.author = user.full_name
     doc.tags = self.tags
     doc.area = self.area
     doc.created_at = self.created_at
