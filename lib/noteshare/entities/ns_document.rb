@@ -363,6 +363,7 @@ class NSDocument
   # section.add_to(article) makes section
   # the last subdocument of article
   def add_to(parent_document)
+    puts "#{self.title} add_to #{parent_document.title}".red
     new_index = parent_document.toc.length
     insert(new_index, parent_document)
   end
