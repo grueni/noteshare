@@ -3,8 +3,19 @@ module Editor::Views::Document
     include Editor::View
 
     def new_section_title
-      current_document = DocumentRepository.find session[:current_document_id]
-      "New section for #{current_document.title}"
+      document = DocumentRepository.find session[:current_document_id]
+
+      case create_mode
+        when 'child'
+          "New section: child of #{document.title}"
+        when 'sibling_after'
+          "New section: sibling #{document.title} (below)"
+        when  'sibling_before'
+          "New section: sibling of #{document.title} (above)"
+        else
+          "New section for #{document.title}"
+      end
+
     end
 
     def new_section_form
