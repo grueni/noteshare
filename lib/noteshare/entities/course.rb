@@ -32,16 +32,20 @@ class Course
     LessonRepository.select_for_course(self.id)
   end
 
-  # Add all of the lessons associated to a given course
+  # Create a root document for the given course with
+  # authorship determinded by the screen name.
+  # Then add all of the lessons of the course
+  # to the master document.
   def create_master_document(screen_name)
 
+    # Set up master document
     master = self.to_document(screen_name)
-
     master.content ||= ''
     lessons = self.associated_lessons
     lesson_count = lessons.count
     puts "Lessons to import: #{lesson_count}".red
 
+    # Handle tex macros if necessary
     _tex_macros = tex_macros
     if _tex_macros
       tex_macro_document =  NSDocument.create(title: 'Tex Macros', author_credentials: JSON.parse(master.author_credentials))
@@ -50,10 +54,12 @@ class Course
       tex_macro_document.associate_to(master, 'texmacros')
     end
 
+    # Set up a stack for iterating over lessons
     stack = []
     last_node = master
     count = 0
 
+    # Process the lessons
     lessons.all.each do |lesson|
       count = count + 1
       puts "#{count}: #{lesson.id}, #{lesson.title}".cyan
