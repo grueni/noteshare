@@ -8,6 +8,8 @@ module Editor::Controllers::Document
 
       @active_item = 'editor'
       @document = DocumentRepository.find params['id']
+      parent = @document.parent_document
+      @document = parent if parent
       @outer_table_of_contents = OuterTableOfContents.new(@document, [], {})
 
 
