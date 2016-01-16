@@ -150,7 +150,7 @@ Lotus::Model.configure do
       attribute :created_at, DateTime
       attribute :modified_at, DateTime, as: :updated_at
       attribute :public, Boolean
-      attribute :meta, JSON
+      attribute :dict, PGHStore
       attribute :doc_ids, PGIntArray
       attribute :tags, String
       attribute :identifier, String

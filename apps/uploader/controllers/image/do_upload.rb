@@ -25,7 +25,7 @@ module Uploader::Controllers::Image
       @url = Noteshare::AWS.upload(@filename, @tempfile, 'noteshare_images' )
 
       if @url
-        raw_image = Image.new(title: @title, file_name: @filename, url: @url, tags: @tags)
+        raw_image = Image.new(title: @title, file_name: @filename, url: @url, tags: @tags, dict: {})
         @image = ImageRepository.create raw_image
         @message = "Image upload successful (id: #{@image.id})"
       else
