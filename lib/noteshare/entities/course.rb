@@ -34,51 +34,63 @@ class Course
   # Add all of the lessons associated to a given course
   def create_master_document(screen_name)
 
-    # Setup
     master = self.to_document(screen_name)
+
     master.content ||= ''
     lessons = self.associated_lessons
     lesson_count = lessons.count
-    puts "Lessons to import: #{lesson_count}".red
+    puts "Lesson to import: #{lesson_count}".red
 
-    # Process tex macros if present
+    puts "A".red
+
+    mac = master.author_credentials
+    puts mac.inspect.red
+
+    puts "A2".red
+
     _tex_macros = tex_macros
     if _tex_macros
+        puts "-- a1".cyan
       tex_macro_document =  NSDocument.create(title: 'Tex Macros', author_credentials: JSON.parse(master.author_credentials))
+        puts "-- a2".cyan
       tex_macro_document.content = "\\(" + _tex_macros + "\\)"
+        puts "-- a3".cyan
       DocumentRepository.update tex_macro_document
+        puts "-- a4".cyan
       tex_macro_document.associate_to(master, 'texmacros')
     end
 
-    # stack of documents will manage the recursive block structure
-    # of the master document.
+    puts "B".red
+
     stack = []
     last_node = master
+
+    puts "C".red
+
     count = 0
     lessons.all.each do |lesson|
 
       count = count + 1
-      puts "\n\n#{count}: #{lesson.id}, #{lesson.title}".cyan
+      puts "#{count}: #{lesson.id}, #{lesson.title}".cyan
 
       begin
 
-        section = lesson.to_document(screen_name)
-        puts "1. section.asciidoc_level: #{section.asciidoc_level}".red
-        stack == [] ?  delta = 2 : delta =  section.asciidoc_level - stack.last.asciidoc_level
-        puts "2, delta = #{delta}.magenta"
+        puts "before 'to_document'".red
 
+        section = lesson.to_document(screen_name)
+
+        puts "section.asciidoc_level; #{section.asciidoc_level}".green
+
+        #if lesson.aside and lesson.aside.length > 1
+        #  section.add_associate(title: 'Notes', content: lesson.aside, type: 'aside')
+        # end
+        stack == [] ?  delta = 2 : delta =  section.asciidoc_level - stack.last.asciidoc_level
         if delta >= 2
           stack.push(last_node)
         elsif delta <= 0
           stack.pop
         end
-        puts "2.8. stack size = #{stack.count}".magenta
-        puts "3. stack updated, will add doc to #{stack.last.title}".red
-
-
-
         section.add_to(stack.last)
-        puts "4. document added to #{stack.last.title}".red
         last_node = section
 
         puts "  -- ok".blue
