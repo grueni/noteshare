@@ -23,7 +23,7 @@
           label for="select_tool_panel" Tools
 
 
-    .div style='position:absolute; top:20px; left:20px;' id='toc_panel'
+    .div style='position:absolute; top:60px; left:20px;' id='toc_panel'
       p.plainlink.lightlink style = 'font-size:larger; padding-top:0.4em;margin-bottom:0;'
        == iconic_compiled_document_link(document)
        span style='margin-left:1em;' == document.root_link(prefix: '/editor')
@@ -32,8 +32,9 @@
       .toc.plainlink.lightlink == document.root_associated_document_map('editor')
       .toc2== document.root_table_of_contents(document.id, 'editor')
 
+    .div
       #slider
-      #slider_value style='margin-top:1em;'
+      #slider_value style='margin-top:0.6em;'
 
   /.div style='position:absolute; top:50px; left:20px;' id='tools_panel'
       .toc
@@ -42,6 +43,7 @@
 
   .col.source style='top:80px; margin-top:-40px;padding-bottom:18em;'
     == form
+
 
   .col.rendered id='rendered_content'  style='top:80px; margin-top:-40px;padding-bottom:36em;'
       == document.rendered_content2
