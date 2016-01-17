@@ -4,8 +4,26 @@ $(document).ready(function(){
 
   $('#update_source_button').click(update_document);
 
-  window.setInterval(auto_update_document, 3000);
+  refresh_auto_updater = setInterval(auto_update_document, 3000);
   // window.setInterval(auto_update_document, 2000  +   localStorage.getItem('source_text').split(" ").length/500.0);
+
+  $( "#slider" ).slider({
+    value: 4.167,
+    min: 0,
+    max: 100
+  });
+
+  $( "#slider" ).slider({
+    change: function( event, ui ) {
+
+      var delay =  auto_update_delay();
+      console.log('in CHANGE, computed delay: ' + delay);
+      clearInterval(refresh_auto_updater);
+      refresh_auto_updater = setInterval(auto_update_document, delay);
+      $('#slider_value').html("<span>delay: " + delay/1000.0 + " seconds</span>")
+
+    }
+  });
 
 
 });
@@ -23,6 +41,7 @@ update_rendered_content = function(data, status) {
 
 }
 
+// Delay ranges from 0.5 seconds to 1 minute 0.5 seconds
 auto_update_delay = function() {
 
   var val = $('#slider').slider("option", "value");
@@ -32,14 +51,11 @@ auto_update_delay = function() {
 
 }
 
+
 auto_update_document = function () {
 
   console.log('Auto_update_document!!');
   console.log('computed delay: ' + auto_update_delay());
-  var val = $('#slider').slider("option", "value");
-  window.clearInterval();
-  window.setInterval(auto_update_document, val);
-  console.log('slider: ' + val);
 
   var element = document.getElementById('document-updated-text');
   var source_text = element.value;
@@ -56,7 +72,7 @@ auto_update_document = function () {
     $.post( '/editor/json_update/' + id, { source: source_text }, update_rendered_content );
     localStorage.setItem('source_text', source_text);
     $('#count_words').html("<span>" + count_words(source_text) + "</span>")
-    $('#slider_value').html("<span>" + $('#slider').slider("option", "value") + "</span>")
+
   }
 
 }
