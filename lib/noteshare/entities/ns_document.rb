@@ -878,7 +878,8 @@ class NSDocument
   # :foo: bar
   def substitutions
     root_doc = self.root_document
-    substitution_hash = root_doc.dict['substitutions'].hash_value(',;')
+    substitution_string = root_doc.dict['substitutions'] || ''
+    substitution_hash = substitution_string.hash_value(',;')
     str = ''
     substitution_hash.each do |key, value|
       str << ":#{key}: #{value}\n"
@@ -888,7 +889,8 @@ class NSDocument
 
   def asciidoctor_attributes
     root_doc = self.root_document
-    attr_list = root_doc.dict['substitutions'].split(',').map{ |x| x.strip }
+    attr_string = root_doc.dict['substitutions'] || ''
+    attr_list = attr_string.split(',').map{ |x| x.strip }
     str = ''
     attr_list.each do |attr|
       str << ":#{attr}:\n"
