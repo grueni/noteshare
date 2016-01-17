@@ -3,7 +3,6 @@ module Editor::Views::Document
     include Editor::View
 
     def new_section_title
-      document = DocumentRepository.find session[:current_document_id]
 
       case create_mode
         when 'child'
