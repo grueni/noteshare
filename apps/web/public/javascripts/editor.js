@@ -23,17 +23,29 @@ update_rendered_content = function(data, status) {
 
 }
 
+auto_update_delay = function() {
+
+  var val = $('#slider').slider("option", "value");
+  delay = parseFloat(val);
+  delay = 500 + delay*600;
+  return delay
+
+}
 
 auto_update_document = function () {
 
-  console.log('Auto_update_document');
+  console.log('Auto_update_document!!');
+  console.log('computed delay: ' + auto_update_delay());
+  var val = $('#slider').slider("option", "value");
+  window.clearInterval();
+  window.setInterval(auto_update_document, val);
+  console.log('slider: ' + val);
 
   var element = document.getElementById('document-updated-text');
   var source_text = element.value;
   var element2 = document.getElementById('document-document-id');
   var id = element2.value;
 
-  console.log('source_text: ' + source_text.length);
   source_text_local = localStorage.getItem('source_text')
   if (source_text_local == null) {
     console.log('source_text_local is NULL');
@@ -44,6 +56,7 @@ auto_update_document = function () {
     $.post( '/editor/json_update/' + id, { source: source_text }, update_rendered_content );
     localStorage.setItem('source_text', source_text);
     $('#count_words').html("<span>" + count_words(source_text) + "</span>")
+    $('#slider_value').html("<span>" + $('#slider').slider("option", "value") + "</span>")
   }
 
 }
