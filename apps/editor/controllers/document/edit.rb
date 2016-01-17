@@ -11,7 +11,7 @@ module Editor::Controllers::Document
       puts "I will edit document #{params[:id]}".magenta
       id = request.env['REQUEST_URI'].split('/')[-1].sub(/\#.*$/, '')
       puts "ID of document to edit: #{id}".magenta
-      session[:current_document_id] = params[:id]
+      session[:current_document_id] = params['id']
       @document = DocumentRepository.find(session[:current_document_id])
       if @document.is_root_document?
         @document.compile_with_render_lazily
