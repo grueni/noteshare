@@ -113,6 +113,10 @@ module ACL
     end
   end
 
+  def self.set_permissions_for_tree(document, u, g, w)
+      document.apply_to_tree(:acl_set_permissions, [u, g, w])
+  end
+
   ######################################
 
   def self.set_all_permissions_to(u,g,w)
