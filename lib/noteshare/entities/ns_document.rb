@@ -790,7 +790,7 @@ class NSDocument
 
   def update_content_from(str)
     tm = texmacros || ''
-    renderer = Render.new(tm + str)
+    renderer = Render.new(asciidoctor_attributes + substitutions + tm + str)
     self.rendered_content = renderer.convert
   end
 
@@ -870,9 +870,35 @@ class NSDocument
     end
   end
 
+  # Get dict['substitutions'], e.g., app, Scripta; foo, bar;
+  # then turn it into a hash, e.g., {'app' => 'Scripta', 'foo' => 'bar'}
+  # and finally turn it into a string representing text substitutions
+  # for Asciidoctor, e.g.
+  # :app: Scritpa
+  # :foo: bar
+  def substitutions
+    root_doc = self.root_document
+    substitution_hash = root_doc.dict['substitutions'].hash_value(',;')
+    str = ''
+    substitution_hash.each do |key, value|
+      str << ":#{key}: #{value}\n"
+    end
+    str << "\n"
+  end
+
+  def asciidoctor_attributes
+    root_doc = self.root_document
+    attr_list = root_doc.dict['substitutions'].split(',').map{ |x| x.strip }
+    str = ''
+    attr_list.each do |attr|
+      str << ":#{attr}:\n"
+    end
+    str << "\n"
+  end
+
   def compile
     tm = texmacros  || ''
-    result = tm + compile_aux
+    result = asciidoctor_attributes + substitutions + tm + compile_aux
     result
   end
 

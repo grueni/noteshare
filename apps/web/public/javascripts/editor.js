@@ -4,7 +4,8 @@ $(document).ready(function(){
 
   $('#update_source_button').click(update_document);
 
-  window.setInterval(auto_update_document, 2000  +   localStorage.getItem('source_text').split(" ").length/500.0);
+  window.setInterval(auto_update_document, 3000);
+  // window.setInterval(auto_update_document, 2000  +   localStorage.getItem('source_text').split(" ").length/500.0);
 
 
 });
