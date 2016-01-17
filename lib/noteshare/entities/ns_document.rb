@@ -1349,6 +1349,10 @@ class NSDocument
     self.visibility = x
   end
 
+  def set_author_id(x)
+    self.author_id = x
+  end
+
   # Apply a method with args to
   # a document, and all subdocuments
   # and associated documents
