@@ -21,8 +21,6 @@ module SessionManager::Controllers::User
 
     def handle_redirect
 
-      @user_node = NSNodeRepository.for_owner_id @user.id
-      # @user_node_name = @user_node.name
       if ENV['MODE'] == 'LOCAL'
         redirect_to "/node/#{@user.node_id}"
       else
@@ -39,6 +37,12 @@ module SessionManager::Controllers::User
       session[:user_id] = nil
       authenticator = UserAuthentication.new(params[:user]['email'], params[:user]['password'])
       @user = authenticator.login(session)
+
+      if @user == nil
+        redirect_to '/error/0?Error signing in — please check your password and login email'
+      end
+      puts "Loged in user (#{@user.id}) is #{@user.full_name}".red
+      puts "User's node is #{@user.node.id}".red
 
       # handle_login
       handle_redirect

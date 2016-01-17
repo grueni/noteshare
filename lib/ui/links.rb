@@ -301,16 +301,21 @@ module UI
     end
 
     def editor_link(session, active_item='')
+      puts "editor_link: A".red
       return '' if session == nil
       _id = session['current_document_id']
       # puts "In editor link, session['current_document_id'] = #{session['current_document_id']} ".magenta
 
+      puts "editor_link: B".red
       return '' if _id == nil
       document = DocumentRepository.find _id
+      puts "editor_link: C".red
       return '' if document == nil
       cu = current_user(session)
+      puts "editor_link: D".red
       return '' if cu == nil
       # return '' if cu.id != document.author_id
+      puts "editor_link: E".red
       return '' if Permission.is_not_given?(cu, :edit, document)
 
       if active_item == 'editor'
