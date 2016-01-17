@@ -14,6 +14,7 @@ module Editor::Controllers::Document
       content = document_packet['content']
       parent_id = document_packet['parent_id']
       create_mode = document_packet['create_mode']
+      current_document_id = document_packet['current_document_id']
 
       user = current_user(session)
 
@@ -22,7 +23,8 @@ module Editor::Controllers::Document
       puts "create_mode: #{create_mode  }".magenta
 
       author = UserRepository.find user.id
-      current_document = DocumentRepository.find session[:current_document_id]
+      current_document = DocumentRepository.find current_document_id
+      puts "In create_new_section, current_document: #{current_document_id} (#{current_document.title})".red
       # current_root_document = current_document.root_document
       new_document = NSDocument.create(title: title, content: content, author_credentials: author.credentials)
       new_document.acl_set_permissions!('rw', '-', '-')
