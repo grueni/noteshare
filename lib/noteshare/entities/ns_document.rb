@@ -1353,6 +1353,7 @@ class NSDocument
   # a document, and all subdocuments
   # and associated documents
   def apply_to_tree(message, args)
+    puts "#{self.title}: #{message}; #{args}"
     self.send(message, *args)
     DocumentRepository.update self
     table = TOC.new(self).table
