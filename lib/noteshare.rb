@@ -139,7 +139,7 @@ Lotus::Model.configure do
       attribute :name, String
     end
 
-    collection :images do
+    collection :ns_images do
       entity Image
       repository ImageRepository
       attribute :id, Integer
