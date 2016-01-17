@@ -17,7 +17,7 @@ module Uploader::Controllers::Image
       @filename = params['datafile']['filename']
       @tempfile = params['datafile']['tempfile'].inspect.match(/Tempfile:(.*)>/)[1]
 
-      _identifier = Identifier('image').string
+      _identifier = Identifier.new('image').string
       @filename =  "#{_identifier}_#{@filename}"
 
       puts @title.cyan
