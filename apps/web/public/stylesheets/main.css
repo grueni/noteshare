@@ -813,6 +813,13 @@ p.compact {
 
 }
 
+#slider {
+
+    color: yellow;
+    background-color: red;
+    z-index: 100;
+}
+
 /*
 ul {
 

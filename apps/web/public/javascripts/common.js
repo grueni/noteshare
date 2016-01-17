@@ -94,6 +94,8 @@ $(document).ready(function() {
 
     $.setup_search_selector();
 
+
+
     /**
     $(".lined").linedtextarea({
         selectedLine: 10,
