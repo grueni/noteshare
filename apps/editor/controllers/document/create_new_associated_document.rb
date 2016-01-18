@@ -12,7 +12,7 @@ module Editor::Controllers::Document
       title = document_packet['title']
       type = document_packet['type'] || 'note'
       content = document_packet['content']
-      parent_id = document_packet['parent_id']
+      current_document_id = document_packet['current_document_id']
 
       type = 'note' if type == ''
 
@@ -20,18 +20,16 @@ module Editor::Controllers::Document
 
       puts "user: #{user.screen_name}".magenta
       puts "type: #{type}".magenta
-      puts "parent_id: #{parent_id}".magenta
 
       author = UserRepository.find user.id
 
-      current_document = DocumentRepository.find session[:current_document_id]
+      current_document = DocumentRepository.find current_document_id
       new_document = NSDocument.create(title: title, content: content, author_credentials: author.credentials)
       new_document.acl_set_permissions('rw', 'r', '-')
       DocumentRepository.update new_document
       new_document.associate_to(current_document, type)
 
-
-      redirect_to "/editor/document/#{current_document.id}"
+      redirect_to "/editor/document/#{current_document.root_document.id}"
 
     end
 

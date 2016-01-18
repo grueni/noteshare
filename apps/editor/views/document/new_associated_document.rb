@@ -13,7 +13,7 @@ module Editor::Views::Document
         label :content
         text_area :content
 
-        hidden_field :parent_id, value: params['id']
+        hidden_field :current_document_id, value: params['id']
 
         submit 'Create'
       end
