@@ -54,14 +54,22 @@ auto_update_document = function () {
   var source_text = element.value;
   var element2 = document.getElementById('document-document-id');
   var id = element2.value;
+  var local_source_text = localStorage.getItem('local_source_text')
 
-  source_text_local = localStorage.getItem('source_text')
-  if (source_text_local == null) {
-    localStorage.setItem('source_text', source_text)
-  } else if (source_text_local != source_text) {
-    $.post( '/editor/json_update/' + id, { source: source_text }, update_rendered_content );
-    localStorage.setItem('source_text', source_text);
-    $('#count_words').html("<span>" + count_words(source_text) + "</span>")
+  if (local_source_text == null) {
+
+    localStorage.setItem('local_source_text', local_source_text)
+
+  } else if (local_source_text != source_text) {
+
+      console.log('lengths: ' + local_source_text.length + ", " + source_text.length)
+      // console.log('1:' + local_source_text)
+      //console.log('2:' + source_text);
+
+      localStorage.setItem('local_source_text', source_text);
+      $.post( '/editor/json_update/' + id, { source: source_text }, update_rendered_content );
+
+      $('#count_words').html("<span>" + count_words(source_text) + "</span>")
 
   }
 
