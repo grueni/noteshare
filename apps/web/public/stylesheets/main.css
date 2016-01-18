@@ -395,6 +395,11 @@ ul {
 
 /* EDITOR */
 
+.editor_input {
+
+    padding-bottom:30em;
+}
+
 .source_input {
 
     width: 100%;
