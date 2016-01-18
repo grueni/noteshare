@@ -14,6 +14,8 @@ module Editor::Controllers::Document
       content = document_packet['content']
       parent_id = document_packet['parent_id']
 
+      type = 'note' if type == ''
+
       user = current_user(session)
 
       puts "user: #{user.screen_name}".magenta
@@ -26,7 +28,7 @@ module Editor::Controllers::Document
       new_document = NSDocument.create(title: title, content: content, author_credentials: author.credentials)
       new_document.acl_set_permissions('rw', 'r', '-')
       DocumentRepository.update new_document
-      new_document.associate_to(current_document, type,)
+      new_document.associate_to(current_document, type)
 
 
       redirect_to "/document/#{new_document.id}"
