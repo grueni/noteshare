@@ -50,23 +50,36 @@ auto_update_delay = function() {
 
 auto_update_document = function () {
 
+
+
+    localStorage;
+
   var element = document.getElementById('document-updated-text');
   var source_text = element.value;
   var element2 = document.getElementById('document-document-id');
   var id = element2.value;
-  var local_source_text = localStorage.getItem('local_source_text')
+  /****** GGG *****/
+  var local_source_text  =  localStorage.getItem('local_source_text');
 
   if (local_source_text == null) {
 
-    localStorage.setItem('local_source_text', local_source_text)
+      local_source_text ='';
+  }
 
-  } else if (local_source_text != source_text) {
 
-      console.log('lengths: ' + local_source_text.length + ", " + source_text.length)
-      // console.log('1:' + local_source_text)
-      //console.log('2:' + source_text);
+  if (local_source_text != source_text) {
 
+      console.log('(1) lengths: ' + local_source_text.length + ", " + source_text.length);
+      // console.log('1:' + local_source_text);
+      // console.log('2:' + source_text);
+
+
+      /****** SSS *****/
+      localStorage.getItem('local_source_text');
       localStorage.setItem('local_source_text', source_text);
+      local_source_text  =  localStorage.getItem('local_source_text');
+      console.log('(2) lengths: ' + local_source_text.length + ", " + source_text.length);
+
       $.post( '/editor/json_update/' + id, { source: source_text }, update_rendered_content );
 
       $('#count_words').html("<span>" + count_words(source_text) + "</span>")
