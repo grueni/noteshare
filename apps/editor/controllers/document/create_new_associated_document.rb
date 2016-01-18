@@ -31,7 +31,7 @@ module Editor::Controllers::Document
       new_document.associate_to(current_document, type)
 
 
-      redirect_to "/document/#{new_document.id}"
+      redirect_to "/editor/document/#{current_document.id}"
 
     end
 
