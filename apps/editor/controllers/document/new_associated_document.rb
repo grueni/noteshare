@@ -2,16 +2,19 @@ module Editor::Controllers::Document
   class NewAssociatedDocument
     include Editor::Action
 
-    expose :document
-    expose :parent_document , :active_item
+    expose :document, :active_item
 
     def call(params)
       @active_item = 'editor'
       puts 'controller: NewAssociatedDocument'.red
-      @document = DocumentRepository.find params[:id]
-      @parent_document = @document.parent_document
+      @document = DocumentRepository.find params['id']
 
-      puts "In controller, newSection, document = #{document.title}"
+      if @document == nil
+        redirect_to "/error/#{params['id']}?No document found (weird)!"
+      end
+
+      puts "In controller, NewAssociatedDocument, document = #{@document.title}".red
+
     end
 
   end
