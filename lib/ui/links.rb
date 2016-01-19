@@ -95,7 +95,7 @@ module UI
       puts "In home link, session = #{session.inspect}".cyan
       cu = current_user(session)
       if cu
-        puts "in home_link, user = #{cu.last_name}".red
+        puts "in home_link, user = #{cu.full_name}".red
         image_link2(prefix: cu.node_name, suffix: 'home', title: 'system home', image: image)
       else
         puts "in home_link,NO USER".red
@@ -301,21 +301,13 @@ module UI
     end
 
     def editor_link(session, active_item='')
-      puts "editor_link: A".red
       return '' if session == nil
       _id = session['current_document_id']
-      # puts "In editor link, session['current_document_id'] = #{session['current_document_id']} ".magenta
-
-      puts "editor_link: B".red
       return '' if _id == nil
       document = DocumentRepository.find _id
-      puts "editor_link: C".red
       return '' if document == nil
       cu = current_user(session)
-      puts "editor_link: D".red
       return '' if cu == nil
-      # return '' if cu.id != document.author_id
-      puts "editor_link: E".red
       return '' if Permission.is_not_given?(cu, :edit, document)
 
       if active_item == 'editor'

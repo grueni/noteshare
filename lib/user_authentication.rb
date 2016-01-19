@@ -129,7 +129,10 @@ class Permission
 
     # puts "E"
     # grant permission if the access control list permits it for the user
-    return true if @object.acl_get "user:#{@user.screen_name}" =~ /#{@action_code}/
+    puts "action code: [#{@action_code}]".red
+    _info = @object.acl_get "user:#{@user.screen_name}"
+    puts "acl says: [#{_info}]".red
+    return true if (@object.acl_get "user:#{@user.screen_name}") =~ /#{@action_code}/
 
 =begin
     # process group permissions for ACL

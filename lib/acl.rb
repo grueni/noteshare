@@ -52,7 +52,7 @@ module ACL
   end
 
   def acl_set_permission(key, value)
-    if [:user, :group, :world].include? key
+    if [:user, :group, :world].include? key or key =~ /user:/
       acl[key.to_s] = value
     end
   end
