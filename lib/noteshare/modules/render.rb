@@ -67,7 +67,11 @@ class Render
       if id =~ /^\d+\d$/
         iii = ImageRepository.find id
         if iii
-          new_tag = "#{tag}::#{iii.url2}[#{attributes}]"
+          if tag_scan  =~ /::/
+            new_tag = "#{tag}::#{iii.url2}[#{attributes}]"
+          else
+            new_tag = "#{tag}:#{iii.url2}[#{attributes}]"
+          end
           @source = @source.sub(old_tag, new_tag)
         else
           puts "Image #{id} not found".red
