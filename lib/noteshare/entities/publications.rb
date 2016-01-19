@@ -59,7 +59,8 @@ class Publications
     p = PublicationsRepository.records_for_node(node_id)
     docs = []
     p.all.each do |record|
-      docs << record.document
+      doc = record.document
+      docs << doc if doc
     end
     docs
   end
