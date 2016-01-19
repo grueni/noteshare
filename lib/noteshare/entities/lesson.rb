@@ -20,12 +20,14 @@ class Lesson
     user = UserRepository.find_one_by_screen_name(screen_name)
     return if user == nil
     doc = NSDocument.create(title: self.title, author_credentials: user.credentials)
-    doc.author_id = self.author_id
+    doc.author_id = user.author_id
+    doc.author = user.full_name
     doc.tags = self.tags
     doc.area = self.area
     doc.created_at = self.created_at
     doc.modified_at =  self.modified_at
     doc.content = self.content
+    doc.acl_set_permissions!('rw', 'r', '-')
 
     handle_pdf(doc) if self.content_type == 'pdf'
 

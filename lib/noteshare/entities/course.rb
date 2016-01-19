@@ -41,6 +41,10 @@ class Course
     # Set up master document
     master = self.to_document(screen_name)
     master.content ||= ''
+    titlepage_image_id = self.titlepage_image
+    if  titlepage_image_id
+      master.dict['titlepage_image'] = titlepage_image_id
+    end
     lessons = self.associated_lessons
     lesson_count = lessons.count
     puts "Lessons to import: #{lesson_count}".red
@@ -82,4 +86,19 @@ class Course
   end
 
 
+  def titlepage_image
+
+    data = self.course_attributes  || ''
+    _match = data.match /^titlepage-image=(.*)$/
+    if _match
+      _match[1].to_i
+    end
+
+  end
+
+
 end
+
+
+
+
