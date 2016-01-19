@@ -6,6 +6,7 @@ gem 'bundler'
 gem 'rake'
 
 gem 'puma'
+gem 'newrelic_rpm'
 
 gem 'lotusrb',     '0.5.0'
 gem 'lotus-model', '~> 0.5'
