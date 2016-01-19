@@ -68,14 +68,19 @@ class Course
       count = count + 1
       puts "#{count}: #{lesson.id}, #{lesson.title}".cyan
       begin
+        puts "A".red
         section = lesson.to_document(screen_name)
+        puts "B".red
         stack == [] ?  delta = 2 : delta =  section.asciidoc_level - stack.last.asciidoc_level
+        puts "C".red
         if delta >= 2
           stack.push(last_node)
         elsif delta <= 0
           stack.pop
         end
+        puts "D".red
         section.add_to(stack.last)
+        puts "E".red
         last_node = section
       rescue
         puts "Error in importing #{lesson.title} (#{lesson.id})".red

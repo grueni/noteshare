@@ -18,10 +18,15 @@ class Lesson
 
   def to_document(screen_name)
     user = UserRepository.find_one_by_screen_name(screen_name)
+    puts "  -- AA".magenta
     return if user == nil
+    puts "  -- BB".magenta
     doc = NSDocument.create(title: self.title, author_credentials: user.credentials)
-    doc.author_id = user.author_id
+    puts "  -- CC".magenta
+    doc.author_id = user.id
+    puts "  -- aa".magenta
     doc.author = user.full_name
+    puts "  -- bb".magenta
     doc.tags = self.tags
     doc.area = self.area
     doc.created_at = self.created_at
@@ -29,9 +34,11 @@ class Lesson
     doc.content = self.content
     doc.acl_set_permissions!('rw', 'r', '-')
 
+    puts "  -- DD".magenta
     handle_pdf(doc) if self.content_type == 'pdf'
-
+    puts "  -- EE".magenta
     DocumentRepository.update(doc)
+    puts "  -- FF".magenta
     return doc
   end
 
