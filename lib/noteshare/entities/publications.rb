@@ -60,7 +60,11 @@ class Publications
     docs = []
     p.all.each do |record|
       doc = record.document
-      docs << doc if doc
+      if doc
+        docs << doc
+      else
+        PublicationsRepository.delete record
+      end
     end
     docs
   end
