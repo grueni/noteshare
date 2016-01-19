@@ -21,11 +21,16 @@ module Editor::Controllers::Document
       puts "user: #{user.screen_name}".magenta
       puts "type: #{type}".magenta
 
-      author = UserRepository.find user.id
-
       current_document = DocumentRepository.find current_document_id
+      puts "current_document: #{current_document.title} (#{current_document_id})"
+      author_id = current_document.get_author_credentials['id']
+      puts "author_id: #{author_id}".red
+      author = UserRepository.find current_document.get_author_credentials['id']
+      puts "In create_new_section, current_document: #{current_document_id} (#{current_document.title})".red
+      puts "--- Author is #{author.screen_name}".red
       new_document = NSDocument.create(title: title, content: content, author_credentials: author.credentials)
-      new_document.acl_set_permissions('rw', 'r', '-')
+      # new_document.acl_set_permissions('rw', 'r', '-')
+      new_document.acl = current_document.root_document.acl
       DocumentRepository.update new_document
       new_document.associate_to(current_document, type)
 
