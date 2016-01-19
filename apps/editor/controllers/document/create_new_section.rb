@@ -22,12 +22,15 @@ module Editor::Controllers::Document
       puts "parent_id: #{parent_id}".magenta
       puts "create_mode: #{create_mode  }".magenta
 
-      author = UserRepository.find user.id
       current_document = DocumentRepository.find current_document_id
+      author = UserRepository.find current_document.author_id
       puts "In create_new_section, current_document: #{current_document_id} (#{current_document.title})".red
+      puts "--- Author is #{author.screen_name}".red
       # current_root_document = current_document.root_document
       new_document = NSDocument.create(title: title, content: content, author_credentials: author.credentials)
-      new_document.acl_set_permissions!('rw', '-', '-')
+      new_document.acl = current_document.root_document.acl
+      # new_document.acl_set_permissions!('rw', '-', '-')
+      DocumentRepository.update new_document
 
       case create_mode
         when 'child'
