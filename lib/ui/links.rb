@@ -206,6 +206,13 @@ module UI
       link_to document.title, "/document/#{document.id}"
     end
 
+    def print_document_link(session)
+      user = current_user(session)
+      document = DocumentRepository.find session['current_document_id']
+      return 'X' if user == nil or document == nil
+      image_link2(prefix: user.node_name, suffix: "viewer/print/#{document.id}", title: 'print document', image: '/images/printer_white.png')
+    end
+
 
     def compiled_document_link(document, active_item2='')
       if active_item2 == 'compiled'

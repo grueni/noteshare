@@ -1,0 +1,1 @@
+get '/print/:id', to: 'document#print'
