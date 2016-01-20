@@ -23,7 +23,7 @@ module SessionManager::Controllers::User
       end
 
       if new_user
-        # redirect_to  "/node/user/#{new_user.id}"
+        Keen.publish(:sign_ups, { :username => new_user.screen_name })
         redirect_to  basic_link new_user.node_name, "node/user/#{new_user.id}"
       else
         redirect_to '/'

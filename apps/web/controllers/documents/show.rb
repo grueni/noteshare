@@ -20,6 +20,15 @@ module Web::Controllers::Documents
 
       @document.update_content
 
+      cu = current_user(session)
+      if cu
+        Keen.publish(:document_views, { :username => cu.screen_name,
+                                        :document => @document.title, :document_id => @document.id })
+      else
+        Keen.publish(:document_views, { :username => 'anonymous',
+                                        :document => @document.title, :document_id => @document.id })
+      end
+
       if query_string != ''
         redirect_to "/document/#{document_id}\##{query_string}"
       end
