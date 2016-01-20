@@ -1,11 +1,13 @@
 require 'bcrypt'
 require_relative '../../../../lib/noteshare/modules/subdomain'
+require 'keen'
 
 module SessionManager::Controllers::User
 
   class Create
     include SessionManager::Action
     include Noteshare::Subdomain
+    include Keen
 
     def call(params)
 

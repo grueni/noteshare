@@ -1,12 +1,14 @@
 require_relative '../../../../lib/user_authentication'
 require_relative  '../../../../lib/noteshare/repositories/user_repository'
 require_relative '../../../../lib/noteshare/modules/subdomain'
+require 'keen'
 # include UserRepository
 
 module SessionManager::Controllers::User
   class Authenticate
     include SessionManager::Action
     include Noteshare::Subdomain
+    include Keen
 
     expose :user
 

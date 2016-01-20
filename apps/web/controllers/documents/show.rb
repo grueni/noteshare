@@ -1,8 +1,9 @@
 
-
+require 'keen'
 module Web::Controllers::Documents
   class Show
     include Web::Action
+    include Keen
 
     expose :document,  :active_item, :active_item2
 
