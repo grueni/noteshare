@@ -40,7 +40,7 @@ module SessionManager::Controllers::User
       authenticator = UserAuthentication.new(params[:user]['email'], params[:user]['password'])
       @user = authenticator.login(session)
 
-      Keen.publish(:sign_ins, { :username => @user.screen_name })
+      Keen.publish(:sign_ins, { :username => @user.screen_name }) if !@user.admin
 
       if @user == nil
         redirect_to '/error/0?Error signing in — please check your password and login email'
