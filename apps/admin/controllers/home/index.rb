@@ -6,11 +6,13 @@ module Admin::Controllers::Home
     include Admin::Action
     include Analytics
 
-    expose :active_item, :page_views
+    expose :active_item, :analytics
 
     def call(params)
       @active_item = 'admin'
-      @page_views = Analytics.get_page_views
+      page_view_count = Analytics.get_keen_data(query_type: 'count', collection: 'page_views')
+      page_view_average = Analytics.get_keen_data(query_type: 'average', collection: 'page_views')
+      @analytics = "Page views: #{page_view_count}, average: #{page_view_average}"
     end
 
   end
