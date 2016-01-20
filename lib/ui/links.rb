@@ -206,11 +206,16 @@ module UI
       link_to document.title, "/document/#{document.id}"
     end
 
-    def print_document_link(session)
+    def print_document_link(session, active_item2)
       user = current_user(session)
       document = DocumentRepository.find session['current_document_id']
       return 'X' if user == nil or document == nil
-      image_link2(prefix: user.node_name, suffix: "viewer/print/#{document.id}", title: 'print document', image: '/images/printer_white.png')
+      if active_item2 == 'compiled'
+        route = "viewer/print/#{document.id}?root"
+      else
+        route = "viewer/print/#{document.id}?section"
+      end
+      image_link2(prefix: user.node_name, suffix: route, title: 'print document', image: '/images/printer_white.png')
     end
 
 

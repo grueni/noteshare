@@ -4,4 +4,4 @@ br
   span.plainlink.lightlink== aside_document_link(document, active_item2)
   span.plainlink.lightlink== compiled_document_link(document, active_item2)
   span.plainlink.lightlink== titlepage_link(document, active_item2)
-  span style='margin-left:2em;' == print_document_link(session) if ['standard', 'aside'].include? active_item2
+  span style='margin-left:2em;' == print_document_link(session, active_item2) if ['compiled', 'standard', 'aside'].include? active_item2

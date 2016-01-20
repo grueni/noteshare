@@ -7,6 +7,7 @@ module Viewer::Controllers::Document
 
     def call(params)
 
+      option = request.query_string
       id = params['id']
       @document = DocumentRepository.find  id
       if @document == nil
@@ -14,7 +15,7 @@ module Viewer::Controllers::Document
       end
 
       pm = PrintManager.new(@document)
-      pm.process_document
+      pm.process_document(option)
       html = pm.get_print_string
 
       self.body = html

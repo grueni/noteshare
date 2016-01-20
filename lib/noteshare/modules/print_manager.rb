@@ -8,6 +8,14 @@ h1,h2,h3,#toctitle,.sidebarblock>.content>.title,h4,h5,h6{font-weight:300;font-s
 h1 small,h2 small,h3 small,#toctitle small,.sidebarblock>.content>.title small,h4 small,h5 small,h6 small{color:#000}
 EOF
 
+  MARGINS= <<EOF
+  body {
+    margin-left:6em;
+    margin-right:6em;
+}
+EOF
+
+
   def initialize(document)
 
     @document = document
@@ -777,26 +785,30 @@ EOF
     "<!doctype html>\n<html lang='en'>\n<head>\n<meta charset='utf-8'>"
   end
 
-  def process_document
+  def process_document(option)
 
-    @document.update_content_lazily
-    html = @document.rendered_content
+    if option == 'section'
+      @document.update_content_lazily
+      html = @document.rendered_content
+    else
+      @document = @document.root_document
+      @document.compile_with_render_lazily
+      html = @document.compiled_and_rendered_content
+    end
+
     css = ''
     css << stylesheet(asciidoctor_css)
     css << stylesheet(asciidoctor2_css)
     css << stylesheet("#_dummyoutersection { display: none; }")
     css << stylesheet(CSS_FOR_PRINTING)
+    css << stylesheet(MARGINS)
     css << @mathjax
-
-    # old_head =  '<head>'
-    # new_head =   "\n#{css}\n</head>"
-    # html = html.gsub(old_head, new_head)
-    # html = "<head>\n#{css}\n</head>\n\n<body>\n#{html}\n</body>\n"
     html = "#{head}\n#{css}\n</head>\n<body>\n#{html}\n</body>\n\n"
     AWS.put_string(html, object_name, folder='print')
     puts document_url
 
   end
+
 
   def get_print_string
     AWS.get_string(object_name, folder='print')
