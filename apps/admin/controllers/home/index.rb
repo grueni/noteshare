@@ -10,7 +10,7 @@ module Admin::Controllers::Home
 
     def call(params)
       @active_item = 'admin'
-      @page_views = Analytics.get_page_views
+      @page_views = Analytics.get_keen_data(query_type: 'count', collection: 'page_views')
     end
 
   end
