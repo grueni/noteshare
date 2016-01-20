@@ -2,8 +2,8 @@ class PrintManager
 
 
   CSS_FOR_PRINTING = <<EOF
-@media print{@page{margin:2.25cm 2.75cm}
-body{ font-size: 0.9em; }}
+@media print{@page{margin:1.25cm 1.75cm}
+body{ font-size: 0.9em; margin-left:0; margin-left:0;}
 h1,h2,h3,#toctitle,.sidebarblock>.content>.title,h4,h5,h6{font-weight:300;font-style:normal;color:#000}
 h1 small,h2 small,h3 small,#toctitle small,.sidebarblock>.content>.title small,h4 small,h5 small,h6 small{color:#000}
 EOF
