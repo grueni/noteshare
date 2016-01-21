@@ -18,6 +18,7 @@ module Node::Controllers::Admin
     end
 
     def call(params)
+      redirect_if_not_signed_in('image, Admin,  Update')
       @active_item = 'admin'
 
       data = params['node']

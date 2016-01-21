@@ -5,6 +5,7 @@ module ImageManager::Controllers::Image
     expose :images, :active_item
 
     def call(params)
+      redirect_if_not_signed_in('editor, image,  Search')
       @active_item = 'images'
       key1 = params['search']
       puts "image search key = #{key1}".red

@@ -5,7 +5,7 @@ module Editor::Controllers::Document
     include Editor::Action
 
     def call(params)
-
+      redirect_if_not_signed_in('editor, document, UpdateToc')
       puts "controller, UpdateToc, id = #{params['id']}".red
       id = session['current_document_id']
       puts "ID #{id}".magenta

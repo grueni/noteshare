@@ -55,6 +55,7 @@ module Editor::Controllers::Document
     end
 
     def call(params)
+      redirect_if_not_signed_in('editor, document, UpdateOptions')
       @active_item = 'editor'
       #  @mode = if document_packet['mode'] == 'root'
 

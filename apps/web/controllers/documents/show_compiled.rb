@@ -1,8 +1,9 @@
-
+require_relative '../../../../lib/modules/analytics'
 
 module Web::Controllers::Documents
   class ShowCompiled
     include Web::Action
+    include Analytics
 
     expose :root_document, :document, :toc
     expose :active_item, :active_item2
@@ -16,6 +17,8 @@ module Web::Controllers::Documents
       session[:current_document_id] = document.id
       @root_document = document.root_document
       @root_document.compile_with_render_lazily({numbered: true, format: 'adoc-latex'})
+
+      Analytics.record_page_visit(current_user(session), @root_document)
 
       if @root_document.dict['make_index'] # && false
         index_content = @root_document.dict['document_index']

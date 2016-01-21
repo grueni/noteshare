@@ -6,7 +6,7 @@ module Viewer::Controllers::Document
 
 
     def call(params)
-
+      redirect_if_not_signed_in('viewer, Document,  Print')
       option = request.query_string
       id = params['id']
       @document = DocumentRepository.find  id

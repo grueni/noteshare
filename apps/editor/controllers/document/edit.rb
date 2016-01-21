@@ -7,6 +7,7 @@ module Editor::Controllers::Document
     expose :active_item
 
     def call(params)
+      redirect_if_not_signed_in('editor, document, Edit')
       @active_item = 'editor'
       puts "I will edit document #{params[:id]}".magenta
       id = request.env['REQUEST_URI'].split('/')[-1].sub(/\#.*$/, '')

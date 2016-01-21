@@ -5,6 +5,7 @@ module Editor::Controllers::Document
     expose :active_item
 
     def call(params)
+      redirect_if_not_signed_in('editor, document, CreateNewAssociatedDocument')
       @active_item = 'editor'
       puts 'controller: CreateNewAssociatedDocument'.red
 

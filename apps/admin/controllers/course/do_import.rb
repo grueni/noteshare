@@ -3,7 +3,7 @@ module Admin::Controllers::Course
     include Admin::Action
 
     def call(params)
-
+      redirect_if_not_admin('Attempt to import course (admin, course, do_import)')
       puts "Entering course importer".red
 
       course_id = params['course_import']['course_id']

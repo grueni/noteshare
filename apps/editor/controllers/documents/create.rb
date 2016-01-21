@@ -17,6 +17,7 @@ module Editor::Controllers::Documents
     expose :document
 
     def call(params)
+      redirect_if_not_signed_in('editor, documents, Create')
       puts "controller create!!!".red
       doc_params = params[:document]
       title = doc_params['title']

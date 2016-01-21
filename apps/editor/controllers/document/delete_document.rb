@@ -5,6 +5,7 @@
     expose :active_item
 
     def call(params)
+      redirect_if_not_signed_in('editor, document, DeleteDocument')
       puts "controler DeleteDocument".red
 
       @active_item = 'editor'
