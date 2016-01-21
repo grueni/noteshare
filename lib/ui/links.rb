@@ -150,6 +150,20 @@ module UI
 
     end
 
+    def admin_link(session, active_item='')
+      active_item == 'admin' ? css_class = 'active_item' : ''
+      cu = current_user(session)
+      return ''  if cu == nil
+      text_link(title: 'Admin', prefix: cu.node_name , suffix: 'admin', class: css_class)
+    end
+
+    def admin_analytics_link(session, active_item='')
+      active_item == 'admin' ? css_class = 'active_item' : ''
+      cu = current_user(session)
+      return ''  if cu == nil
+      text_link(title: 'Analytics', prefix: cu.node_name , suffix: 'admin/analytics', class: css_class)
+    end
+
 
     def current_document_link(session)
       if session['current_document_id']
@@ -195,12 +209,7 @@ module UI
     #
     #####################################################
 
-    def admin_link(session, active_item='')
-      active_item == 'admin' ? css_class = 'active_item' : ''
-      cu = current_user(session)
-      return ''  if cu == nil
-      text_link(title: 'Admin', prefix: cu.node_name , suffix: 'admin', class: css_class)
-    end
+
 
     def document_link(document)
       link_to document.title, "/document/#{document.id}"
@@ -449,6 +458,8 @@ module UI
       link_to 'Put', "/editor/put/#{document.id}"
     end
 
+
+
     #####################################################
     #
     #   5. OTHER LINKS
@@ -485,10 +496,6 @@ module UI
       image_link '/images/upload_image.png', "/uploader/image", 'upload image'
     end
 
-
-    def page_view_analytics_link
-      link_to 'Page views', 'https://api.keen.io/3.0/projects/569eb92ed2eaaa67e388d3b3/queries/count?api_key=8fd44a8395eaf4654e1515a3a9a7be2e1ffc20fa71c4bdc2fb2c4b76bcd75bb7651df2d8d8c6410a0925c34c9e681cf82e7221ac66722804f4c7f2d104622120afd18e3c6aff6b92a2e3b7b07bfd02f0a899ed4d69e0e51fd9514db3bfc42588&event_collection=document_views&timezone=US%2FEastern&timeframe=this_14_days&filters=%5B%5D'
-    end
 
     #####################################################
     #
