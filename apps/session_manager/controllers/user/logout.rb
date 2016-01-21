@@ -1,10 +1,15 @@
+require_relative '../../../../lib/modules/analytics'
+
 module SessionManager::Controllers::User
   class Logout
     include SessionManager::Action
+    include Keen
 
     def call(params)
       user = UserRepository.find session[:user_id]
       logout(user, session)
+
+      Keen.publish(:sign_outs, { :username => user.screen_name }) if !user.admin
 
       case ENV['MODE']
         when 'LOCAL'
