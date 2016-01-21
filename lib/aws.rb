@@ -22,10 +22,14 @@ module Noteshare
   end
 
 
+  ### INTERFACE ###
+  # AWS.upload
+  # AWS.put_string
+  # AWS.get_string
   module AWS
     require 'aws-sdk'
 
-    ### INTERFACE (All three methods) ###
+    ### INTERFACE ###
 
     def self.upload(file_name, tmpfile, folder='tmp')
 

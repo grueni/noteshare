@@ -1,5 +1,8 @@
 require_relative '../../../lib/noteshare/modules/text_parse'
 
+
+### INTERFACE ###
+# create_master_document
 class Course
   include Lotus::Entity
   attributes :id, :title, :author, :author_id, :tags, :area, :created_at, :modified_at, :content, :course_attributes
@@ -8,7 +11,7 @@ class Course
 
 
 
-  ### PUBLIC INTERFACE ###
+  ### INTERFACE ###
 
   # Create a root document for the given course with
   # authorship determinded by the screen name.
