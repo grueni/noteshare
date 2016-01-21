@@ -14,13 +14,13 @@ module Admin::Controllers::Home
       puts "Here is controller DisplayAnalytics".magenta
       @active_item = 'admin'
 
-      page_view_count_signed_in = Analytics.get_keen_data(query_type: 'count', collection: 'page_views_signed_in')
-      page_view_average_signed_in = Analytics.get_keen_data(query_type: 'average', collection: 'page_views_signed_in')
+      page_view_count_signed_in = Analytics.get_keen_data(query_type: 'count', collection: 'document_views_signed_in')
+      page_view_average_signed_in = Analytics.get_keen_data(query_type: 'average', collection: 'document_views_signed_in')
       @analytics_pages_signed_in = "Page views, signed in: #{page_view_count_signed_in}, average: #{page_view_average_signed_in}"
 
-      page_view_count_anonymous = Analytics.get_keen_data(query_type: 'count', collection: 'page_views_anonymous')
-      page_view_average_anonymous = Analytics.get_keen_data(query_type: 'average', collection: 'page_views_anonymous')
-      @analytics_pages_anonymous = "Page views, anonymous: #{page_view_count_anonymous}, average: #{page_view_average_anonymous}"
+      page_view_count_anonymous = Analytics.get_keen_data(query_type: 'count', collection: 'anonymous_document_views')
+      anonymous_document_views = Analytics.get_keen_data(query_type: 'average', collection: 'anonymous_document_views')
+      @analytics_pages_anonymous = "Page views, anonymous: #{page_view_count_anonymous}, average: #{anonymous_document_views}"
 
       sign_ins_count = Analytics.get_keen_data(query_type: 'count', collection: 'sign_ins')
       sign_ins_average = Analytics.get_keen_data(query_type: 'average', collection: 'sign_ins')
