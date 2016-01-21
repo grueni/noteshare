@@ -4,6 +4,15 @@ require 'json'
 
 module Analytics
 
+  def self.record_access(user, id, action, message)
+    if user == nil
+      user_name = 'NIL'
+    else
+      user_name = user.screen_name
+    end
+    Keen.publish(:access, {user: user_name, id: id, action: action, message: message})
+  end
+
   def self.record_page_visit(user, document)
     puts "analytics".red
     if user
