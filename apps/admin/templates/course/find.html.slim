@@ -1,0 +1,13 @@
+.row
+  .col.s12.m6.l6
+    h4 Courses
+    /== search_form
+    - if courses
+      .col.ns_card.scroll-y style='height:400px;'
+        table style='border=0; border-color: #444; border-collapse;'
+          tbody
+            - courses.each do |course|
+              tr.clear_style
+                td== course.id
+                td== course.title
+                td== course.author_id
