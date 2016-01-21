@@ -13,7 +13,7 @@ module Analytics
       end
     else
       Keen.publish(:anonymous_document_views, { :username => 'anonymous',
-                                      :document => document.title, :document_id => @ocument.id })
+                                      :document => document.title, :document_id => @document.id })
     end
   end
 
