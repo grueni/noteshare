@@ -87,7 +87,7 @@ module SessionTools
       if cu == nil
         Keen.publish(:unauthorized_access_attempt, {user: 'nil', message: message})
       else
-        Keen.publish(:unauthorized_access_attemp, {user: cu.screen_name, message: message})
+        Keen.publish(:unauthorized_access_attempt, {user: cu.screen_name, message: message})
       end
       # redirect_to '/error/0?Something went wrong.'
       halt(401)
