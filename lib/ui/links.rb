@@ -173,10 +173,10 @@ module UI
     end
 
     def guide_link_long(session)
-      cu = current_user(session)
-      cu ? prefix = cu.node_name : prefix = :none
-      return text_link(prefix: prefix, suffix: "document/#{ENV['USER_GUIDE_DOC_ID']}", title: 'User Guide')
-      # link_to 'User Guide', "/document/#{ENV['USER_GUIDE_DOC_ID']}"
+      # cu = current_user(session)
+      # cu ? prefix = cu.node_name : prefix = :none
+      # return text_link(prefix: prefix, suffix: "document/#{ENV['USER_GUIDE_DOC_ID']}", title: 'User Guide')
+      link_to 'User Guide', "/document/#{ENV['USER_GUIDE_DOC_ID']}"
     end
 
 
