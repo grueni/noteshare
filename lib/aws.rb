@@ -25,6 +25,8 @@ module Noteshare
   module AWS
     require 'aws-sdk'
 
+    ### INTERFACE (All three methods) ###
+
     def self.upload(file_name, tmpfile, folder='tmp')
 
       bucket = "vschool/#{folder}"

@@ -2,11 +2,14 @@
 
 # include Aws
 
+### INTERFACE ###
+# Image.upload
+# Image#url2
 class Image
   include Lotus::Entity
   attributes :id, :title, :file_name, :mime_type, :created_at, :modified_at, :owner_id, :public, :doc_ids, :tags, :dict, :url, :identifier, :source
 
-
+  ### INTERFACE ###
 
   def self.upload(local_file)
 
@@ -37,6 +40,20 @@ class Image
   end
 
 
+
+  def url2(size='original')
+    if self.url
+      return self.url
+    else
+      return "http://s3.amazonaws.com/#{self.object_name}"
+    end
+  end
+
+
+  ### BLACK BOX ###
+
+  protected
+
   def object_name(size='original')
     old_name = self.file_name || 'null.jpg'
     return if old_name == nil
@@ -47,21 +64,6 @@ class Image
     "vschool/noteshare_images/#{new_name}"
   end
 
-  def url2(size='original')
-    if self.url
-      return self.url
-    else
-      return "http://s3.amazonaws.com/#{self.object_name}"
-    end
-  end
-
-  def safe_url
-    if object_name
-      url
-    else
-      '#'
-    end
-  end
 
 
 end
