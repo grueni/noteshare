@@ -78,6 +78,9 @@ module SessionTools
     "#{user.first_name} #{user.last_name}"
   end
 
+  # See
+  #    http://lotusrb.org/guides/actions/share-code/
+  # for a better solution
   def redirect_if_not_admin(message)
     cu = current_user(session)
     if cu == nil or cu.admin == false
@@ -86,7 +89,8 @@ module SessionTools
       else
         Keen.publish(:unauthorized_access_attemp, {user: cu.screen_name, message: message})
       end
-      redirect_to '/error/0?Something went wrong.'
+      # redirect_to '/error/0?Something went wrong.'
+      halt(401)
     end
   end
 
@@ -94,7 +98,8 @@ module SessionTools
     cu = current_user(session)
     if cu == nil
       Keen.publish(:unauthorized_access_attempt, {user: 'nil', message: message})
-      redirect_to '/error/1?Something went wrong.'
+      # redirect_to '/error/1?Something went wrong.'
+      halt(401)
     end
   end
 
