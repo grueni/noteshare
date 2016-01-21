@@ -11,6 +11,7 @@ module Node::Controllers::User
 
     # Go to the node belonging to the user
     def call(params)
+      redirect_if_not_signed_in('image, User,  Show')
       puts 'controller NODE, USER, SHOW'.red
       puts current_user(session).last_name.red
       @active_item = 'node'

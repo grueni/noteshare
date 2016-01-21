@@ -5,6 +5,7 @@ module Editor::Controllers::Document
      expose :document, :active_item, :mode
 
     def call(params)
+      redirect_if_not_signed_in('editor, document, Options')
       @active_item = 'editor'
       puts "controller Editor Options".red
       query_string = request.query_string

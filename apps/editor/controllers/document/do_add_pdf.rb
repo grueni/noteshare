@@ -3,7 +3,7 @@ module Editor::Controllers::Document
     include Editor::Action
 
     def call(params)
-
+      redirect_if_not_signed_in('editor, document, DoAddPdf')
       puts "controller DoAddPdf".red
 
       @document_id = params['document_id']

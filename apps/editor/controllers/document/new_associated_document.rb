@@ -5,6 +5,7 @@ module Editor::Controllers::Document
     expose :document, :active_item
 
     def call(params)
+      redirect_if_not_signed_in('editor, document, NewAssociatedDocument')
       @active_item = 'editor'
       puts 'controller: NewAssociatedDocument'.red
       @document = DocumentRepository.find params['id']

@@ -5,6 +5,7 @@ module Editor::Controllers::Document
     expose :active_item
 
     def call(params)
+      redirect_if_not_signed_in('editor, document, Move')
       @active_item = 'editor'
       doc_id =  params[:id]
       query_string = request.query_string

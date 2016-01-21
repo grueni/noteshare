@@ -5,6 +5,7 @@ module Editor::Controllers::Document
     expose :active_item
 
     def call(params)
+      redirect_if_not_signed_in('editor, document, CreateNewSection')
       @active_item = 'editor'
       puts 'controller: CreateNewSection'.red
       puts "(2) query: #{request.query_string}".cyan

@@ -5,7 +5,7 @@ module Editor::Controllers::Document
     expose :document, :outer_table_of_contents, :active_item
 
     def call(params)
-
+      redirect_if_not_signed_in('editor, document, EditToc')
       @active_item = 'editor'
       @document = DocumentRepository.find params['id']
       parent = @document.parent_document

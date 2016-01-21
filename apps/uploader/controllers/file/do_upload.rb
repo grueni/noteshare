@@ -8,6 +8,7 @@ module Uploader::Controllers::File
     expose :image_id, :title, :filename, :url, :tags, :active_item, :message
 
     def call(params)
+      redirect_if_not_signed_in('uploader, File,  Settings')
       @active_item = ''
       puts "Call  uploader, file".magenta
 

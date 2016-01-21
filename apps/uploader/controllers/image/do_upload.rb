@@ -10,6 +10,7 @@ module Uploader::Controllers::Image
     expose :url, :image, :message
 
     def call(params)
+      redirect_if_not_signed_in('uploader, Image,  DoUpload')
       puts "Call  uploader, file".magenta
 
       @title =  params['title']

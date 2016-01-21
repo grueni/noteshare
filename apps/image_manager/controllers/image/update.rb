@@ -4,6 +4,7 @@ module ImageManager::Controllers::Image
     expose :active_item
 
     def call(params)
+      redirect_if_not_signed_in('editor, image,  Update')
       @active_item = 'images'
       puts "#{session[:current_image_id]}".magenta
       puts "#{params['source']}".cyan

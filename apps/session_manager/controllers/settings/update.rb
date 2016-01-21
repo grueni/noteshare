@@ -5,6 +5,7 @@ module SessionManager::Controllers::Settings
     expose :active_item
 
     def call(params)
+      redirect_if_not_signed_in('session_manager, Settings,  Update')
       @active_item = ''
       user = current_user(session)
       data = params['user_settings']['settings_as_text']

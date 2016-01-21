@@ -1,5 +1,6 @@
 module ImageManager::Controllers::Image
   class Upload
+    redirect_if_not_signed_in('editor, image,  Upload')
     include ImageManager::Action
 
     expose :active_item

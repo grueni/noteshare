@@ -8,6 +8,7 @@ module Editor::Controllers::Document
     expose :document, :active_item
 
     def call(params)
+      redirect_if_not_signed_in('editor, document, Update')
       @active_item = 'editor'
       puts "controller Editor update".red
 
