@@ -6,31 +6,9 @@ class Course
 
   include TextParse
 
-  # Create an NSDcoument from a Noteshare document
-  def to_document(screen_name)
-    user = UserRepository.find_one_by_screen_name(screen_name)
-    return if user == nil
 
-    doc = NSDocument.create(title: self.title, author_credentials: user.credentials)
-    doc.author_id = user.id
-    doc.author = user.full_name
-    doc.tags = self.tags
-    doc.area = self.area
-    doc.created_at = self.created_at
-    doc.modified_at =  self.modified_at
-    doc.content = self.content
-    DocumentRepository.update(doc)
 
-    return doc
-  end
-
-  def tex_macros
-    grab text: course_attributes, ad_prefix: 'doc', ad_suffix: 'texmacros'
-  end
-
-  def associated_lessons
-    LessonRepository.select_for_course(self.id)
-  end
+  ### PUBLIC INTERFACE ###
 
   # Create a root document for the given course with
   # authorship determinded by the screen name.
@@ -88,6 +66,37 @@ class Course
     end
 
     return master
+  end
+
+
+  ### PRIVATE METHODS ###
+
+  protected
+
+  # Create an NSDocument from a Noteshare document
+  def to_document(screen_name)
+    user = UserRepository.find_one_by_screen_name(screen_name)
+    return if user == nil
+
+    doc = NSDocument.create(title: self.title, author_credentials: user.credentials)
+    doc.author_id = user.id
+    doc.author = user.full_name
+    doc.tags = self.tags
+    doc.area = self.area
+    doc.created_at = self.created_at
+    doc.modified_at =  self.modified_at
+    doc.content = self.content
+    DocumentRepository.update(doc)
+
+    return doc
+  end
+
+  def tex_macros
+    grab text: course_attributes, ad_prefix: 'doc', ad_suffix: 'texmacros'
+  end
+
+  def associated_lessons
+    LessonRepository.select_for_course(self.id)
   end
 
 
