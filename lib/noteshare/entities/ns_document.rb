@@ -125,6 +125,7 @@ class NSDocument
 
   end
 
+  # PUBLIC
   # Display the fields of the reeiver
   # specified by arts.  'label' gives
   # the heading.
@@ -145,17 +146,20 @@ class NSDocument
 
   end
 
+  # PUBLIC
   # A convenience method for #display
   def self.info(id)
     doc = DocumentRepository.find(id)
     doc.display('Document', [:title, :identifier, :author_credentials, :parent_ref, :root_ref, :render_options, :toc])
   end
 
+  # PUBLIC
   def info
     self.display('Document', [:title, :identifier, :author, :author_id, :author_credentials, :parent_id, :parent_ref, :root_document_id, :root_ref, :render_options, :toc, :dict])
   end
 
 
+ # PUBLIC
  def rendered_content2
    if rendered_content and rendered_content != ''
      return rendered_content
@@ -167,6 +171,7 @@ class NSDocument
 
   ############
 
+  # PUBLIC
   # Create a document given a hash.
   # The hash must define both the title and the author credentials,
   # as in the example below;
@@ -196,26 +201,14 @@ class NSDocument
     DocumentRepository.create doc
    end
 
-  def self.create1(hash)
-    doc = NSDocument.new(hash)
-    doc.root_ref = { 'id'=> 0, 'title' => ''}
-    if !(doc.content =~ /^== .*/)
-      content = doc.content || ''
-      content = "== #{doc.title}\n\n#{content}"
-      doc.content = content
-    end
-
-    DocumentRepository.create doc
-  end
-
-
-
+  # PUBLIC: one uage in Permissions#grant
   # Return the author id from the author credentials
   def creator_id
     get_author_credentials.id
   end
 
 
+  ### PRIVAE -- used ony in this class
   # Typical credential:
   #
   #  "id"=>91, "last_name"=>"Foo-Bar", "first_name"=>"Jason", "identifier"=>"35e...48"
@@ -230,20 +223,24 @@ class NSDocument
     self.author = first_name + " " + last_name
   end
 
+  # PUBLIC
   def get_author_credentials
     JSON.parse(self.author_credentials)
   end
 
+  # PRIVATE
   def set_identifier
     self.identifier = Noteshare::Identifier.new().string
   end
 
+  ## NOT USED
   def set_identifier!
     set_identifier
     DocumentRepository.update self
     self.identifier
   end
 
+  # PRIVATE
   def set_author_identifier
     author_obj = UserRepository.find self.author_id
     if author_obj
@@ -251,12 +248,14 @@ class NSDocument
     end
   end
 
+  # NOT USED
   def set_author_identifier!
     set_author_identifier
     DocumentRepository.update self
     self.author_identifier
   end
 
+  # PUBLIC
   # User for uniform interface to the
   # permissions class
   def creator_id
@@ -269,6 +268,8 @@ class NSDocument
   #
   ###################################################
 
+
+  # USED INTERNALLY AND IN TESTS --  PRIVATE?
   # @section(k, @article) makes @section the k-th subdocument
   # of @article.  The subdocuments that were in position
   # k and above are shifted to the right.  This method
@@ -323,6 +324,7 @@ class NSDocument
 
   end
 
+  # PUBLIC
   def add_as_sibling_of(document, direction)
     p = document.parent_document
     puts "before TOC in add_as_sibling_of".red
@@ -337,29 +339,15 @@ class NSDocument
     insert(k,p)
   end
 
+  # PUBLIC
   def make_child_of_sibling
     p = previous_document
     remove_from_parent
     add_to(p)
   end
 
-  # Used by #insert to preserve the
-  # validity of the previous and next
-  # links of subdocuments.
-  def update_neighbors
-    self.set_previous_doc
-    self.set_next_doc
 
-    if previous_document
-      previous_document.set_next_doc
-    end
-
-    if next_document
-      next_document.set_previous_doc
-    end
-  end
-
-
+  # PUBLIC
   # section.add_to(article) makes section
   # the last subdocument of article
   def add_to(parent_document)
@@ -368,6 +356,7 @@ class NSDocument
     insert(new_index, parent_document)
   end
 
+  # PRIVATE
   def delete_subdocument
     if parent_document
       self.remove_from_parent
@@ -375,11 +364,13 @@ class NSDocument
     DocumentRepository.delete self
   end
 
+  # PRIVATE
   def delete_associated_document
     disassociate
     DocumentRepository.delete self
   end
 
+  # PUBLIC
   def delete
     if is_associated_document?
       delete_associated_document
@@ -388,6 +379,8 @@ class NSDocument
     end
   end
 
+
+  # PRIVATE, tests
   # @foo.remove_from_parent removes
   # @foo as a subdocument of its parent.
   # It does not delete @foo.
@@ -401,6 +394,8 @@ class NSDocument
   end
 
 
+
+  # NOT UESD EXCEPT IN TESTS
   # @foo.move_to(7) moves @foo in its
   # parent document to position 7.
   # Subdocuments that were in position 7 and up
@@ -410,10 +405,12 @@ class NSDocument
     insert(new_position, parent_document)
   end
 
+  # PRIVATE
   def grandparent_document
     parent_document.parent_document
   end
 
+  # ONLY IN TESTS
   def move_section_to_parent_level
     gp = grandparent_document
     if gp && gp != parent_document
@@ -426,6 +423,7 @@ class NSDocument
     end
   end
 
+  # PUBLIC
   def move_section_to_sibling_of_parent
     gp = grandparent_document
     p = parent_document
@@ -440,17 +438,20 @@ class NSDocument
     end
   end
 
+  # PRIVATE
   def sibling_swap_in_toc(document)
     p = parent_document
     _toc = TOC.new(p)
     _toc.swap(self, document)
   end
 
+  # PUBLIC
   def move_up_in_toc
     p = previous_document
     sibling_swap_in_toc(p) if p
   end
 
+  # PUBLIC
   def move_down_in_toc
     n = next_document
     sibling_swap_in_toc(n) if n

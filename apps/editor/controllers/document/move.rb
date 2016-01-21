@@ -13,11 +13,12 @@ module Editor::Controllers::Document
       puts "QUERY STRING; #{query_string}".red
 
       @document = DocumentRepository.find doc_id
+      @tocManager = TOCManager.new(@document)
 
       case query_string
         when 'move_to_parent_level'
           # new_parent = @document.move_section_to_parent_level
-          @document.move_section_to_sibling_of_parent
+          @tocManager.move_section_to_sibling_of_parent
         when 'move_to_child_level'
           @document.make_child_of_sibling
         when 'move_up_in_toc'
