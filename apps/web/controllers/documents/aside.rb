@@ -1,6 +1,9 @@
+require_relative '../../../../lib/modules/analytics'
+
 module Web::Controllers::Documents
   class Aside
     include Web::Action
+    include Analytics
 
     expose :document, :aside, :active_item, :active_item2
 
@@ -19,6 +22,8 @@ module Web::Controllers::Documents
 
       @document.update_content
       @aside.update_content if @aside && @aside.content
+
+      Analytics.record_page_visit(current_user(session), @document)
 
       if query_string != ''
         redirect_to "/document/#{document_id}\##{query_string}"
