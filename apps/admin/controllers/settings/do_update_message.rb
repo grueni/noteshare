@@ -7,6 +7,7 @@ module Admin::Controllers::Settings
     expose :active_item
 
     def call(params)
+      redirect_if_not_admin('Attempt to change system message (admin, settings, do update messge)')
       @active_item = 'admin'
       raw_new_message = params['update_settings']['message']
       @settings = SettingsRepository.first

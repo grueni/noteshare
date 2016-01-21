@@ -9,6 +9,8 @@ module Admin::Controllers::Home
 
     def call(params)
 
+      redirect_if_not_admin('Attempt to show analytics (admin, home, show analytics)')
+
       puts "Here is controller DisplayAnalytics".magenta
       @active_item = 'admin'
 

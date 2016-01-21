@@ -77,6 +77,26 @@ module SessionTools
     "#{user.first_name} #{user.last_name}"
   end
 
+  def redirect_if_not_admin(message)
+    cu = current_user(session)
+    if cu == nil or cu.admin == false
+      if cu == nil
+        Keen.publish(:unauthorized_access_attempt, {user: 'nil', message: message})
+      else
+        Keen.publish(:unauthorized_access_attemp, {user: cu.screen_name, message: message})
+      end
+      redirect_to '/error/0?Something went wrong.'
+    end
+  end
+
+  def redirect_if_not_signed_in(message)
+    cu = current_user(session)
+    if cu == nil
+      Keen.publish(:unauthorized_access_attempt, {user: 'nil', message: message})
+      redirect_to '/error/1?Something went wrong.'
+    end
+  end
+
 
 end
 

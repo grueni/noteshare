@@ -8,6 +8,7 @@ module Admin::Controllers::Home
            :analytics_sign_ins, :analytics_sign_outs, :analytics_sign_ups
 
     def call(params)
+      redirect_if_not_admin('Attempt to display analytics (admin, home, diplay analytics)')
 
       puts "Here is controller DisplayAnalytics".magenta
       @active_item = 'admin'

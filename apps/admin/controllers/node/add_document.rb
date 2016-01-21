@@ -5,6 +5,7 @@ module Admin::Controllers::Node
     expose :active_item
 
     def call(params)
+      redirect_if_not_admin('Attempt to add document to node (admin, node, show add document)')
       @active_item = 'admin'
       node_id = params['admin']['node_id']
       doc_id = params['admin']['document_id']

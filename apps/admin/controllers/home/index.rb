@@ -9,6 +9,7 @@ module Admin::Controllers::Home
     expose :active_item
 
     def call(params)
+      redirect_if_not_admin('Attempt to list documents (admin, home, index)')
       @active_item = 'admin'
     end
 
