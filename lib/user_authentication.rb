@@ -40,8 +40,9 @@ class UserAuthentication
 
 end
 
-
+require 'keen'
 module SessionTools
+  include Keen
 
   def logout(user, session)
     puts "LOGOUT".red
