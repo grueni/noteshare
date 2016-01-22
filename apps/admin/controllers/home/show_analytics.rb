@@ -5,8 +5,7 @@ module Admin::Controllers::Home
     include Admin::Action
 
     expose :active_item, :analytics_pages_signed_in, :analytics_pages_anonymous,
-           :analytics_sign_ins, :analytics_sign_outs, :analytics_sign_ups
-
+           :analytics_sign_ins, :analytics_sign_outs, :analytics_sign_ups, :analytics_unauth_access_attempts
     def call(params)
 
       puts "Analytics,  controller".red
@@ -35,6 +34,10 @@ module Admin::Controllers::Home
       sign_ups_count = Analytics.get_keen_data(query_type: 'count', collection: 'sign_ups')
       sign_ups_average = Analytics.get_keen_data(query_type: 'average', collection: 'sign_ups')
       @analytics_sign_ups = "Sign ups: #{sign_ups_count}, average: #{sign_ups_average}"
+
+      unauth_access_attempt_count = Analytics.get_keen_data(query_type: 'count', collection: 'unauthorized_access_attempt')
+      unauth_access_attempt_average = Analytics.get_keen_data(query_type: 'average', collection: 'sign_ups')
+      @analytics_unauth_access_attempts = "Unauthorized access attempts: #{unauth_access_attempt_count}, average: #{unauth_access_attempt_average}"
     end
   end
 end

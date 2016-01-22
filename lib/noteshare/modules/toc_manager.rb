@@ -60,9 +60,10 @@ class TOCManager
 
   ### PRIVATE ###
 
-  def sibling_swap_in_toc(p)
+  def sibling_swap_in_toc(other_document)
+    p = @document.parent_document
     _toc = TOC.new(p)
-    _toc.swap(self, @document)
+    _toc.swap(@document, other_document)
   end
 
 

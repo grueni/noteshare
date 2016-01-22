@@ -492,7 +492,8 @@ module UI
     end
 
 
-    def upload_image_link
+    def upload_image_link(document)
+      session[:current_document_id] = document.id
       image_link '/images/upload_image.png', "/uploader/image", 'upload image'
     end
 

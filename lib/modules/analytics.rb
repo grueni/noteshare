@@ -16,7 +16,7 @@ module Analytics
   def self.record_page_visit(user, document)
     puts "analytics".red
     if user
-      if !user.admin
+      if user.screen_name != epsilon
         Keen.publish(:document_views_signed_in, { :username => user.screen_name,
                                         :document => document.title, :document_id => document.id })
       end

@@ -1323,34 +1323,6 @@ class NSDocument
     puts "#{doc.title}: #{doc.acl}".magenta
   end
 
-  # Apply a method with args to
-  # a document, and all subdocuments
-  # and associated documents
-  def apply_to_tree1(message, args)
-    self.send(message, *args)
-    table = TOC.new(self).table
-    table.each do |item|
-      doc = DocumentRepository.find item.id
-      doc.send(message, *args)
-      DocumentRepository.update doc
-    end
-    doc_refs.each do |title, id|
-      doc = DocumentRepository.find id
-      doc.send(message, *args)
-      DocumentRepository.update doc
-    end
-  end
-
-  # Reload object from database
-  def reload
-    DocumentRepository.find  self.id
-  end
-
-
-
-
-
-  ################
 
   ############################################################
   #
@@ -1363,6 +1335,7 @@ class NSDocument
     p ? p.title : '-'
   end
 
+  # PRIVATE, used in subdocument titles
   # Return previous document title or '-'
   def previous_document_title
     p = previous_document
@@ -1374,30 +1347,6 @@ class NSDocument
     p = next_document
     p ? p.title : '-'
   end
-
-  # *doc.subdocument_titles* returns a list of the
-  # titles of the sections of *document*.
-  def subdocument_titles(option=:simple)
-    #Fixme: bad implementation
-    list = []
-    if [:header].include? option
-      list << self.title.upcase
-    end
-    toc = TOC.new(self)
-    toc.table.each do |item|
-      section = DocumentRepository.find(item.id)
-      if [:header, :simple].include? option
-        item = section.title
-      elsif option == :verbose
-        item = "#{section.id}, #{section.title}. back: #{section.previous_document_title}, forward: #{section.next_document_title}"
-      end
-      list << item
-    end
-    list
-  end
-
-
-
 
 
   ############################################################
@@ -1485,9 +1434,7 @@ class NSDocument
     else
       "#{prefix}/#{stem}/#{self.id}"
     end
-
   end
-
 
   # Return html link to document
   def link(hash = {})
