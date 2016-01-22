@@ -339,13 +339,6 @@ class NSDocument
     insert(k,p)
   end
 
-  # PUBLIC
-  def make_child_of_sibling
-    p = previous_document
-    remove_from_parent
-    add_to(p)
-  end
-
 
   # PUBLIC
   # section.add_to(article) makes section
@@ -409,55 +402,6 @@ class NSDocument
   def grandparent_document
     parent_document.parent_document
   end
-
-  # ONLY IN TESTS
-  def move_section_to_parent_level
-    gp = grandparent_document
-    if gp && gp != parent_document
-      remove_from_parent
-      add_to(gp)
-      return gp
-    else
-      puts 'grand parent iS parent'.cyan
-      return parent_document
-    end
-  end
-
-  # PUBLIC
-  def move_section_to_sibling_of_parent
-    gp = grandparent_document
-    p = parent_document
-    k = p.index_in_parent
-    if gp && gp != parent_document
-      remove_from_parent
-      insert(k+1, gp)
-      return gp
-    else
-      puts 'grand parent iS parent'.cyan
-      return parent_document
-    end
-  end
-
-  # PRIVATE
-  def sibling_swap_in_toc(document)
-    p = parent_document
-    _toc = TOC.new(p)
-    _toc.swap(self, document)
-  end
-
-  # PUBLIC
-  def move_up_in_toc
-    p = previous_document
-    sibling_swap_in_toc(p) if p
-  end
-
-  # PUBLIC
-  def move_down_in_toc
-    n = next_document
-    sibling_swap_in_toc(n) if n
-  end
-
-
 
 
   # Return title, id, an ids of previous and next documents
@@ -1616,33 +1560,6 @@ class NSDocument
   end
 
   ##################################
-
-  private
-  # Assume that receiver is subdocument k of parent_document.
-  # Return the id of subdocument k - 1 or nil
-  def previous_id
-    p = parent_document
-    return nil if p == nil
-    return nil if index_in_parent == nil
-    return nil if index_in_parent-1 < 0
-    table = TOC.new(p).table
-    return table[index_in_parent-1].id
-  end
-
-  # Assume that receiver is subdocument k of parent.
-  # Return the id of subdocuemnt k + 1 or nil
-  def next_id
-    p = parent_document
-    return nil if p == nil
-    return nil if index_in_parent == nil
-    return nil if index_in_parent+1 > p.subdoc_refs.length
-    table = TOC.new(p).table
-
-    return toc[index_in_parent+1].id
-  end
-
-  ###################################
-
 
 
 

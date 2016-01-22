@@ -197,7 +197,9 @@ describe NSDocument do
       @section3.add_to(@article)
       @subsection.add_to(@section3)
 
-      @subsection.move_section_to_sibling_of_parent
+      @toc_manager = TOCManager.new(@subsection)
+      @toc_manager.move_section_to_sibling_of_parent
+      # @subsection.move_section_to_sibling_of_parent
 
       @article = DocumentRepository.find id
 

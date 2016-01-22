@@ -33,5 +33,19 @@ module Noteshare
       @text = @text + '::' + tail
     end
 
+
+    # Set identifiers for documents which do not have them.`                                                                                                                                                                  `
+    def self.set
+      count = 0
+      DocumentRepository.all.each do |document|
+        if document.identifier == nil
+          document.identifier = Identifier.new().string
+          DocumentRepository.update document
+          count += 1
+        end
+      end
+      count
+    end
+
   end
 end

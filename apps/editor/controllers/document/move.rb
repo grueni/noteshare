@@ -22,9 +22,9 @@ module Editor::Controllers::Document
         when 'move_to_child_level'
           @document.make_child_of_sibling
         when 'move_up_in_toc'
-          @document.move_up_in_toc
+          @tocManager.move_up_in_toc
         when 'move_down_in_toc'
-          @document.move_down_in_toc
+          @tocManager.move_down_in_toc
       end
       redirect_to "/editor/document/#{@document.id}"
     end
