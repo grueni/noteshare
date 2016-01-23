@@ -225,7 +225,7 @@ class NSDocument
 
   # PUBLIC
   def get_author_credentials
-    JSON.parse(self.author_credentials)
+    self.author_credentials
   end
 
   # PRIVATE
@@ -432,12 +432,14 @@ class NSDocument
     TOCItem.from_hash(root_ref)
   end
 
+  # ONLY IN TESTS
   def previous_toc_item
     table = TOC.new(parent_document).table
     index_of_previous_toc_item = index_in_parent - 1
     return table[index_of_previous_toc_item] if index_of_previous_toc_item > -1
   end
 
+  # ONLY IN TESTS
   def next_toc_item
     return if parent_document == nil
     table = TOC.new(parent_document).table
@@ -445,6 +447,7 @@ class NSDocument
     return table[index_of_next_toc_item] if index_of_next_toc_item < table.count
   end
 
+  # NO USAGE
   def get_index_in_parent
     return if parent_document == nil
     table = TOC.new(parent_document).table
@@ -455,6 +458,7 @@ class NSDocument
     end
   end
 
+  # CORE METHOD, USED INTERNALLY AND IN TOC MANAGER
   # Return next NSDocument.  That is, if @foo, @bar, and @baz
   # are subocuments in order of @article, then @bar.next_document = @baz
   def next_document
@@ -468,6 +472,7 @@ class NSDocument
   end
 
 
+  # CORE METHOD, USED INTERNALLY AND IN TOC MANAGER
   # Return previous NSDocument.  That is, if @foo, @bar, and @baz
   # are subocuments in order of @article, then @bar.previous_document = @foo
   def previous_document
@@ -480,16 +485,20 @@ class NSDocument
     return  DocumentRepository.find(_id)
   end
 
+  # ONLY IN TESTS
   def next_document_id
     doc = next_document
     doc.id if doc
   end
 
+  # ONLY IN TESTS
   def previous_document_id
     doc = previous_document
     doc.id if doc
   end
 
+
+  # NOT USED
   # Use the information in self.parent.subdoc_refs
   # to set the previous document link.  Thus,
   # if @foo and @bar are subdocuments in order
