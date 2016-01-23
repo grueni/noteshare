@@ -8,9 +8,10 @@ module Editor::Controllers::Document
 
     def call(params)
       redirect_if_not_signed_in('editor, document, Edit')
-      @active_item = 'editor'
-      # id = request.env['REQUEST_URI'].split('/')[-1].sub(/\#.*$/, '')
+      user = current_user(session)
       id = params['id']
+      Analytics.record_edit(user, document)
+      @active_item = 'editor'
       puts "ID of document to edit: #{id}".magenta
       @document = DocumentRepository.find(id)
       session[:current_document_id] = id

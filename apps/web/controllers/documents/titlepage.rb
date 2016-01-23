@@ -22,7 +22,7 @@ module Web::Controllers::Documents
       @root_document.compile_with_render({numbered: true, format: 'adoc-latex'})
       @root_document.compiled_content = @root_document.compile
 
-      Analytics.record_page_visit(current_user(session), @root_document)
+      Analytics.record_document_view(current_user(session), @root_document)
 
       @blurb = @root_document.dict['blurb'] || 'blurb'
 

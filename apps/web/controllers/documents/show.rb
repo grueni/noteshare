@@ -25,7 +25,7 @@ module Web::Controllers::Documents
 
       cu = current_user(session)
 
-      Analytics.record_page_visit(cu, @document)
+      Analytics.record_document_view(cu, @document)
 
       if query_string != ''
         redirect_to "/document/#{document_id}\##{query_string}"

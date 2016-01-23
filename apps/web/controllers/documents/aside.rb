@@ -23,7 +23,7 @@ module Web::Controllers::Documents
       @document.update_content
       @aside.update_content if @aside && @aside.content
 
-      Analytics.record_page_visit(current_user(session), @document)
+      Analytics.record_document_view(current_user(session), @document)
 
       if query_string != ''
         redirect_to "/document/#{document_id}\##{query_string}"

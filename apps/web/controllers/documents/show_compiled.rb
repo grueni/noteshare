@@ -18,7 +18,7 @@ module Web::Controllers::Documents
       @root_document = document.root_document
       @root_document.compile_with_render_lazily({numbered: true, format: 'adoc-latex'})
 
-      Analytics.record_page_visit(current_user(session), @root_document)
+      Analytics.record_document_view(current_user(session), @root_document)
 
       if @root_document.dict['make_index'] # && false
         index_content = @root_document.dict['document_index']

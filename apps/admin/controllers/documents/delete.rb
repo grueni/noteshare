@@ -3,7 +3,6 @@ module Admin::Controllers::Documents
     include Admin::Action
 
     def call(params)
-      Analytics.record_access(current_user(session), params['id'], '/delete_document/:id', 'app admin')
       redirect_if_not_admin('Attempt to delete document (admin, documents, delete)')
       id = params['id']
       redirect_if_not_admin("Attempt to delete document #{id}: (admin, documents, delete)")

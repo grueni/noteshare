@@ -1,22 +1,34 @@
 require 'net/http'
 require 'uri'
 require 'json'
+require 'lotus/controller'
+require 'lotus/action/session'
+
 
 module Analytics
 
-  def self.record_access(user, id, action, message)
+  def self.record_access(user, id, message)
+    puts "analytics, record_access".red
     if user == nil
       user_name = 'NIL'
     else
       user_name = user.screen_name
     end
-    Keen.publish(:access, {user: user_name, id: id, action: action, message: message})
+
+    Keen.publish(:access, {user: user_name, id: id, action: action, message: message}) if user_name != ENV['DEVELOPER_SCREEN_NAME']
   end
 
-  def self.record_page_visit(user, document)
-    puts "analytics".red
+  def self.record_edit(user, document)
+    puts "analytics, record_edit".red
+    if user && user.screen_name != ENV['DEVELOPER_SCREEN_NAME']
+        Keen.publish(:document_edit, { :username => user.screen_name, :document => document.title, :document_id => document.id })
+    end
+  end
+
+  def self.record_document_view(user, document)
+    puts "analytics, record_page_visit".red
     if user
-      if user.screen_name != 'epsilon'
+      if user.screen_name != ENV['DEVELOPER_SCREEN_NAME']
         Keen.publish(:document_views_signed_in, { :username => user.screen_name,
                                         :document => document.title, :document_id => document.id })
       end
@@ -30,7 +42,7 @@ module Analytics
     _hash = hash || {}
     query_type = _hash[:query_type] || 'count'
     collection = _hash[:collection] || 'document_views'
-    time_frame = _hash[:time_frame] || 'this_14_days'
+    time_frame = _hash[:time_frame] || 'this_7_days'
 
     proj_id = ENV['KEEN_PROJECT_ID']
     read_key = ENV['KEEN_READ_KEY']
