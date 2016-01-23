@@ -16,11 +16,13 @@ $(document).ready(function(){
   $('#slider_value').html("<span>auto-refresh: " + 3 + " seconds</span>")
 
   $( "#slider" ).slider({
-    change: function( event, ui ) {
+      max: 60,
+      min: 1,
+      change: function( event, ui ) {
 
-      var delay =  auto_update_delay();
-      // localStorage.setItem('minimum_editing_update_delay', delay);
-      $('#slider_value').html("<span>auto-refresh: " + delay/1000.0 + " seconds</span>")
+         var delay =  auto_update_delay();
+         // localStorage.setItem('minimum_editing_update_delay', delay);
+          $('#slider_value').html("<span>auto-refresh: " + delay + " seconds</span>")
 
     }
   });
@@ -48,7 +50,8 @@ auto_update_delay = function() {
 
     var val = $('#slider').slider("option", "value");
     var delay = parseFloat(val);
-    if (delay < 500) { delay = 500; }
+    console.log('delay: ' + delay + 'seconds');
+    // if (delay < 500) { delay = 500; }
     return delay
 
 }
@@ -63,9 +66,8 @@ auto_update_document = function () {
 
     var elapsed_time;
     var current_time = new Date()   ;
-    console.log('current_time = ' + current_time);
-
     var last_edit_update_time_string = localStorage.getItem('last_edit_update_time');
+
     if (last_edit_update_time_string == null) {
         console.log('last_edit_update_time is NULL');
         localStorage.setItem('last_edit_update_time', current_time.toString());
@@ -77,7 +79,9 @@ auto_update_document = function () {
     }
 
 
-  if (elapsed_time > auto_update_delay()) {
+    // elapsed_time is in milliseconds, auto_update_delay
+    // is in seconds
+  if (elapsed_time > 1000*auto_update_delay()) {
 
       var element = document.getElementById('document-updated-text');
       var source_text = element.value;
