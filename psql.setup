@@ -38,9 +38,9 @@ PRIMARY KEY(id)
 );
 
 
-DROP TABLE users;
-CREATE TABLE users(
-  id integer,
+DROP TABLE ns_users;
+CREATE TABLE ns_users(
+  id serial,
   admin boolean,
   first_name text,
   last_name text,
@@ -50,20 +50,21 @@ CREATE TABLE users(
   level integer,
   password text,
   meta jsonb,
+  dict2 hstore,
 PRIMARY KEY(id)
 );
 
-DROP TABLE images;
-CREATE TABLE images(
-  id integer,
-  owner_id integer,
+DROP TABLE ns_images;
+CREATE TABLE ns_images(
+  id serial,
+  owner_id text,
   title text,
   file_name text,
   mime_type text,
   created_at timestamp with time zone,
-  modified_at ,
+  modified_at timestamp with time zone,
   public boolean,
-  meta jsonb,
+  dict hstore,
   doc_ids integer[],
   tags text,
   identifier text,
@@ -85,7 +86,7 @@ create index on publications (document_id);
 
 DROP TABLE nodes;
 CREATE TABLE nodes(
-  id integer,
+  id serial,
   owner_id integer,
   identifier text,
   name text,
@@ -105,5 +106,41 @@ CREATE TABLE settings(
   id integer,
   owner text,
   raw_hash jsonb,
+PRIMARY KEY(id)
+);
+
+
+DROP TABLE lessons;
+CREATE TABLE lessons(
+  id serial,
+  title text,
+  author_id integer,
+  tags text,
+  area text,
+  course_id integer,
+  content text,
+  sequence integer,
+  created_at timestamp with time zone,
+  modified_at timestamp with time zone,
+  summary text,
+  aside text,
+  image_path1 text,
+  image_path2 text,
+  content_type text,
+PRIMARY KEY(id)
+);
+
+DROP TABLE course;
+
+CREATE TABLE course(
+  id serial,
+  title text,
+  author_id integer,
+  tags text,
+  area text,
+  created_at timestamp with time zone,
+  modified_at timestamp with time zone,
+  content text,
+  course_attributes text,
 PRIMARY KEY(id)
 );
