@@ -24,10 +24,11 @@ module Editor::Controllers::Document
       puts "create_mode: #{create_mode  }".magenta
 
       current_document = DocumentRepository.find current_document_id
-      author = UserRepository.find current_document.get_author_credentials['id']
+      _author_credentials = current_document.author_credentials2
+      author = UserRepository.find _author_credentials['id']
       puts "In create_new_section, current_document: #{current_document_id} (#{current_document.title})".red
       puts "--- Author is #{author.screen_name}".red
-      new_document = NSDocument.create(title: title, content: content, author_credentials: author.credentials)
+      new_document = NSDocument.create(title: title, content: content, author_credentials: _author_credentials)
       new_document.acl = current_document.root_document.acl
       # new_document.acl_set_permissions!('rw', '-', '-')
       DocumentRepository.update new_document

@@ -22,9 +22,9 @@ module Editor::Controllers::Documents
       doc_params = params[:document]
       title = doc_params['title']
       _author = current_user(session)
-      author_credentials = _author.credentials
+      _author_credentials = _author.credentials
 
-      @document = NSDocument.create(title: title, author_credentials: author_credentials)
+      @document = NSDocument.create(title: title, author_credentials: _author_credentials)
       @document.author = _author.full_name
       @document.render_options = get_format(_author)
 

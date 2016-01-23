@@ -24,9 +24,9 @@ module Editor::Controllers::Document
 
       current_document = DocumentRepository.find current_document_id
       puts "current_document: #{current_document.title} (#{current_document_id})"
-      author_id = current_document.get_author_credentials['id']
+      author_id = current_document.author_credentials2['id']
       puts "author_id: #{author_id}".red
-      author = UserRepository.find current_document.get_author_credentials['id']
+      author = UserRepository.find author_id
       puts "In create_new_section, current_document: #{current_document_id} (#{current_document.title})".red
       puts "--- Author is #{author.screen_name}".red
       new_document = NSDocument.create(title: title, content: content, author_credentials: author.credentials)

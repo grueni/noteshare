@@ -86,6 +86,8 @@ Lotus::Model.configure do
       attribute :groups_json, JSON
       attribute :xattributes, PGStringArray
       attribute :dict, PGHStore
+
+      attribute :author_credentials2, PGHStore
     end
 
     collection :settings do
