@@ -1,4 +1,5 @@
 require 'lotus/helpers'
+require_relative './controllers/authenticate'
 
 module Admin
   class Application < Lotus::Application

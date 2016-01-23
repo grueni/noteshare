@@ -1,7 +1,4 @@
 module Admin
-
-
-
   module Authentication
 
     def self.included(action)
