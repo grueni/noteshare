@@ -1,6 +1,10 @@
 $(document).ready(function(){
 
-  $('#document-updated-text').on('input', auto_update_document )
+    $( window ).unload(function() {
+        clearInterval(auto_update_interval);
+    });
+
+  $('#document-updated-text').on('input', mark_text_as_dirty )
 
   /* Do manual update/refresh */
   $('#update_source_button').click(update_document);
@@ -11,6 +15,8 @@ $(document).ready(function(){
     max: 100
   });
 
+    auto_update_interval = setInterval(auto_update_document, 1000*auto_update_delay());
+
 
   /* The slider sets the auto-refresh interval; the initial value is 3 seconds. */
   $('#slider_value').html("<span>auto-refresh: " + 3 + " seconds</span>")
@@ -20,9 +26,10 @@ $(document).ready(function(){
       min: 1,
       change: function( event, ui ) {
 
-         var delay =  auto_update_delay();
-         // localStorage.setItem('minimum_editing_update_delay', delay);
-          $('#slider_value').html("<span>auto-refresh: " + delay + " seconds</span>")
+          var delay =  auto_update_delay();
+          $('#slider_value').html("<span>auto-refresh: " + delay + " seconds</span>");
+          clearInterval(auto_update_interval);
+          auto_update_interval = setInterval(auto_update_document, 1000*auto_update_delay());
 
     }
   });
@@ -30,9 +37,11 @@ $(document).ready(function(){
 
 });
 
-report_text_has_changed = function() {
+mark_text_as_dirty = function() {
 
-    console.log('text has changed' );
+    localStorage.setItem('edit_text_is_dirty', 'yes');
+
+    console.log('text marked as DIRTY');
 }
 
 
@@ -51,7 +60,6 @@ auto_update_delay = function() {
     var val = $('#slider').slider("option", "value");
     var delay = parseFloat(val);
     console.log('delay: ' + delay + 'seconds');
-    // if (delay < 500) { delay = 500; }
     return delay
 
 }
@@ -64,41 +72,28 @@ auto_update_delay = function() {
  */
 auto_update_document = function () {
 
-    var elapsed_time;
-    var current_time = new Date()   ;
-    var last_edit_update_time_string = localStorage.getItem('last_edit_update_time');
+    console.log('ENTER auto_update_document')
 
-    if (last_edit_update_time_string == null) {
-        console.log('last_edit_update_time is NULL');
-        localStorage.setItem('last_edit_update_time', current_time.toString());
-        elapsed_time = 1000.0*60*60; /* one hour -- a large elapsed time*/
-    } else {
-        var last_edit_update_time = Date.parse(last_edit_update_time_string);
-        elapsed_time = current_time.getTime() - last_edit_update_time;
-        console.log('elapsed_time = ' + elapsed_time + ' ms');
-    }
+  if (localStorage.getItem('edit_text_is_dirty') == 'yes') {
+
+      console.log('auto_update_document --UPDATE')
 
 
-    // elapsed_time is in milliseconds, auto_update_delay
-    // is in seconds
-  if (elapsed_time > 1000*auto_update_delay()) {
+      update_document();
 
       var element = document.getElementById('document-updated-text');
       var source_text = element.value;
-      var element2 = document.getElementById('document-document-id');
-      var id = element2.value;
-
-      $.post( '/editor/json_update/' + id, { source: source_text }, update_rendered_content );
-
       $('#count_words').html("<span>" + count_words(source_text) + "</span>");
 
-      localStorage.setItem('last_edit_update_time', current_time.toString());
+      localStorage.setItem('edit_text_is_dirty', 'no');
 
-      console.log('SET last_edit_update_time');
+      console.log('text marked as CLEAN');
 
   }
 
 }
+
+
 
 /* Send the updated text to the server by POST.
 The action '/editor/json_update/' will render
