@@ -1,10 +1,9 @@
 $(document).ready(function(){
 
+  $('#document-updated-text').on('input', auto_update_document )
 
   /* Do manual update/refresh */
   $('#update_source_button').click(update_document);
-
-  refresh_auto_updater = setInterval(auto_update_document, 3000);
 
   $( "#slider" ).slider({
     value: 4.167,
@@ -20,8 +19,7 @@ $(document).ready(function(){
     change: function( event, ui ) {
 
       var delay =  auto_update_delay();
-      clearInterval(refresh_auto_updater);
-      refresh_auto_updater = setInterval(auto_update_document, delay);
+      // localStorage.setItem('minimum_editing_update_delay', delay);
       $('#slider_value').html("<span>auto-refresh: " + delay/1000.0 + " seconds</span>")
 
     }
@@ -29,6 +27,11 @@ $(document).ready(function(){
 
 
 });
+
+report_text_has_changed = function() {
+
+    console.log('text has changed' );
+}
 
 
 /* Replace the rendered content with the updated rendered content */
@@ -40,13 +43,13 @@ update_rendered_content = function(data, status) {
 
 }
 
-// Get the auto-upodate delay; it ranges from 0.5 seconds to 1 minute 0.5 seconds
+// Get the auto-upodate delay; its minimum value is 0.5 seconds
 auto_update_delay = function() {
 
-  var val = $('#slider').slider("option", "value");
-  delay = parseFloat(val);
-  delay = 500 + delay*600;
-  return delay
+    var val = $('#slider').slider("option", "value");
+    var delay = parseFloat(val);
+    if (delay < 500) { delay = 500; }
+    return delay
 
 }
 
@@ -58,35 +61,36 @@ auto_update_delay = function() {
  */
 auto_update_document = function () {
 
+    var elapsed_time;
+    var current_time = new Date()   ;
+    console.log('current_time = ' + current_time);
 
-  var element = document.getElementById('document-updated-text');
-  var source_text = element.value;
-  var element2 = document.getElementById('document-document-id');
-  var id = element2.value;
-  var local_source_text  =  localStorage.getItem('local_source_text');
-
-  if (local_source_text == null) {
-
-      local_source_text ='';
-  }
-
-
-  if (local_source_text != source_text) {
-
-      console.log('(1) lengths: ' + local_source_text.length + ", " + source_text.length);
-      // console.log('1:' + local_source_text);
-      // console.log('2:' + source_text);
+    var last_edit_update_time_string = localStorage.getItem('last_edit_update_time');
+    if (last_edit_update_time_string == null) {
+        console.log('last_edit_update_time is NULL');
+        localStorage.setItem('last_edit_update_time', current_time.toString());
+        elapsed_time = 1000.0*60*60; /* one hour -- a large elapsed time*/
+    } else {
+        var last_edit_update_time = Date.parse(last_edit_update_time_string);
+        elapsed_time = current_time.getTime() - last_edit_update_time;
+        console.log('elapsed_time = ' + elapsed_time + ' ms');
+    }
 
 
-      /****** SSS *****/
-      localStorage.getItem('local_source_text');
-      localStorage.setItem('local_source_text', source_text);
-      local_source_text  =  localStorage.getItem('local_source_text');
-      console.log('(2) lengths: ' + local_source_text.length + ", " + source_text.length);
+  if (elapsed_time > auto_update_delay()) {
+
+      var element = document.getElementById('document-updated-text');
+      var source_text = element.value;
+      var element2 = document.getElementById('document-document-id');
+      var id = element2.value;
 
       $.post( '/editor/json_update/' + id, { source: source_text }, update_rendered_content );
 
-      $('#count_words').html("<span>" + count_words(source_text) + "</span>")
+      $('#count_words').html("<span>" + count_words(source_text) + "</span>");
+
+      localStorage.setItem('last_edit_update_time', current_time.toString());
+
+      console.log('SET last_edit_update_time');
 
   }
 
