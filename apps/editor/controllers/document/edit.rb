@@ -9,11 +9,11 @@ module Editor::Controllers::Document
     def call(params)
       redirect_if_not_signed_in('editor, document, Edit')
       @active_item = 'editor'
-      puts "I will edit document #{params[:id]}".magenta
-      id = request.env['REQUEST_URI'].split('/')[-1].sub(/\#.*$/, '')
+      # id = request.env['REQUEST_URI'].split('/')[-1].sub(/\#.*$/, '')
+      id = params['id']
       puts "ID of document to edit: #{id}".magenta
-      session[:current_document_id] = params['id']
-      @document = DocumentRepository.find(session[:current_document_id])
+      @document = DocumentRepository.find(id)
+      session[:current_document_id] = id
       if @document.is_root_document?
         @document.compile_with_render_lazily
       else
