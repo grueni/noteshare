@@ -1,0 +1,9 @@
+ attribute :id,    Integer
+      attribute :title, String
+      attribute :author_id, Integer, as: :author
+      attribute :tags, String
+      attribute :area, String
+      attribute :created_at, DateTime
+      attribute :modified_at, DateTime, as: :updated_at
+      attribute :content, String, as: :description
+      attribute :course_attributes, String

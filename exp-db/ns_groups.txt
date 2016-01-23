@@ -1,0 +1,3 @@
+attribute :id, Integer
+      attribute :owner_id, Integer
+      attribute :name, String

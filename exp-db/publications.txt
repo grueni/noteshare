@@ -1,0 +1,3 @@
+ attribute :id, Integer
+      attribute :node_id, Integer
+      attribute :document_id, Integer

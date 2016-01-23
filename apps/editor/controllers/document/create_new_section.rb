@@ -32,6 +32,8 @@ module Editor::Controllers::Document
       # new_document.acl_set_permissions!('rw', '-', '-')
       DocumentRepository.update new_document
 
+      Analytics.record_new_section(user, new_document)
+
       case create_mode
         when 'child'
           new_document.add_to(current_document)
@@ -40,7 +42,7 @@ module Editor::Controllers::Document
         when 'sibling_after'
           new_document.add_as_sibling_of current_document, :after
         else
-          puts 'do ntoting'
+          puts 'do nothing'
       end
       redirect_to "/editor/document/#{new_document.id}"
 

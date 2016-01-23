@@ -1,0 +1,15 @@
+ attribute :id,    Integer
+      attribute :title, String
+      attribute :author_id, Integer
+      attribute :tags, String
+      attribute :area, String
+      attribute :course_id, Integer
+      attribute :content, String,  as: :original_content
+      attribute :sequence, Integer
+      attribute :created_at, DateTime
+      attribute :modified_at, DateTime, as: :updated_at
+      attribute :summary, String, as: :capsule
+      attribute :aside, String, as: :original_aside
+      attribute :image_path1, String
+      attribute :image_path2, String
+      attribute :content_type, String
