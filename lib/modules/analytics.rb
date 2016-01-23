@@ -25,6 +25,29 @@ module Analytics
     end
   end
 
+  def self.record_new_document(user, document)
+    puts "analytics, record document creation".red
+    if user && user.screen_name != ENV['DEVELOPER_SCREEN_NAME']
+      Keen.publish(:new_document, { :username => user.screen_name, :document => document.title, :document_id => document.id })
+    end
+  end
+
+  def self.record_new_section(user, document)
+    puts "analytics, record new section creation".red
+    if user && user.screen_name != ENV['DEVELOPER_SCREEN_NAME']
+      Keen.publish(:new_section, { :username => user.screen_name, :document => document.title, :document_id => document.id })
+    end
+  end
+
+
+  def self.record_new_pdf_document(user, document)
+    puts "analytics, record new_pdf_document".red
+    if user && user.screen_name != ENV['DEVELOPER_SCREEN_NAME']
+      Keen.publish(:new_pdf_document, { :username => user.screen_name, :document => document.title, :document_id => document.id })
+    end
+  end
+
+
   def self.record_document_view(user, document)
     puts "analytics, record_page_visit".red
     if user

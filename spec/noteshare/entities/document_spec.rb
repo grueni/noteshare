@@ -2,11 +2,6 @@ require 'spec_helper'
 
 require 'json'
 
-# USED ONLY IN TESTS
-# Reload object from database
-def reload
-  DocumentRepository.find  self.id
-end
 
 # *doc.subdocument_titles* returns a list of the
 # titles of the sections of *document*.
@@ -388,7 +383,7 @@ describe NSDocument do
 
       #  @section2.delete
 
-      p = p.reload
+      p = DocumentRepositoryfind p.id
 
       #      p.subdocument(0).next_document.title.must_equal p.subdocument(1).title
       p.subdocument(1).previous_document.title.must_equal p.subdocument(0).title
@@ -465,7 +460,7 @@ describe NSDocument do
       @section2 = DocumentRepository.find @section2.id
       assert @section2.toc.count == 0, 'after removal, @section2 has no subdocuments'
 
-      @subsection = @subsection.reload
+      @subsection = DocumentRepository.find @subsection.id
       @subsection.add_to(@article)
 
       @article = DocumentRepository.find id
@@ -656,7 +651,7 @@ EOF
     it 'can be added and deleted, cleaning up after themselves' do
       @section1.associate_to(@article, 'summary')
       @section1.disassociate
-      @article = @article.reload
+      @article = DocumentRepository.find @article.id
       @article.associates.must_equal({})
     end
 
@@ -707,7 +702,7 @@ EOF
 
       @article.apply_to_tree(:acl_set_permissions, ['rw', 'r', 'r'])
       @article.acl_get(:user).must_equal('rw')
-      @section1 = @section1.reload
+      @section1 = DocumentRepository.find @section1.id
       @section1.acl_get(:user).must_equal('rw')
 
 
@@ -723,13 +718,13 @@ EOF
       @article.apply_to_tree(:set_visibility, [666])
       @article.visibility.must_equal(666)
 
-      @subsection = @subsection.reload
+      @subsection = DocumentRepository.find @subsection.id
       @subsection.visibility.must_equal(666)
 
-      @section2 = @section2.reload
+      @section2 = DocumentRepository.find @section2.id
       @section2.visibility.must_equal(666)
 
-      @section3 = @section2.reload
+      @section3 = DocumentRepository.find @section2.id
       @section3.visibility.must_equal(666)
 
 

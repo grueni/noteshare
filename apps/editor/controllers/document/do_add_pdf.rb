@@ -71,6 +71,10 @@ module Editor::Controllers::Document
       end
       puts "after adding_to".red
 
+      Analytics.record_new_pdf_document(author, new_document)
+
+
+
       redirect_to "/editor/document/#{new_document.id}"
 
     end

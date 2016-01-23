@@ -4,7 +4,7 @@ module Admin::Controllers::Home
   class ShowAnalytics
     include Admin::Action
 
-    expose :active_item, :doc_views_signed_in, :doc_views_anonymous, :edits,
+    expose :active_item, :doc_views_signed_in, :doc_views_anonymous, :edits, :new_sections, :new_pdf_document,
            :sign_ins, :sign_outs, :sign_ups, :unauth_access_attempts
 
 
@@ -28,6 +28,12 @@ module Admin::Controllers::Home
 
       edits = Analytics.get_keen_data(query_type: 'count', collection: 'document_edit')
       @edits = "Edits: #{edits}  — #{daily_average(edits)}"
+
+      new_sections = Analytics.get_keen_data(query_type: 'count', collection: 'new_section')
+      @new_sections = "New documents: #{new_sections}  — #{daily_average(new_sections)}"
+
+      new_pdf_document = Analytics.get_keen_data(query_type: 'count', collection: 'new_pdf_document')
+      @new_pdf_document = "New pdf file: #{new_pdf_document}  — #{daily_average(new_pdf_document)}"
 
       sign_ins_count = Analytics.get_keen_data(query_type: 'count', collection: 'sign_ins')
       @sign_ins = "Sign ins: #{sign_ins_count} — #{daily_average(sign_ins_count)}"
