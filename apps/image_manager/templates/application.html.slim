@@ -41,6 +41,9 @@ html
               == image_manager_link(active_item)
           li
             == documents_link(session)
+          - if current_user_is_admin?(session)
+            li
+              == admin_link(session, active_item)
 
       .navbar_right_item2
 

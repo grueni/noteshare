@@ -70,6 +70,9 @@ html
               == image_manager_link
           li
             == documents_link(session)
+          - if current_user_is_admin?(session)
+            li
+              == admin_link(session)
 
     .main_row
       == yield
