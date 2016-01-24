@@ -1,6 +1,6 @@
 module AdminUtilities
 
-  def self.fix_author_credentials(option)
+    def self.fix_author_credentials(option)
 
     string_count = 0
     hash_count = 0
