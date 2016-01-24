@@ -151,12 +151,12 @@ class NSDocument
   # A convenience method for #display
   def self.info(id)
     doc = DocumentRepository.find(id)
-    doc.display('Document', [:title, :identifier, :author_credentials, :parent_ref, :root_ref, :render_options, :toc])
+    doc.display('Document', [:title, :identifier, :author_credentials2, :parent_ref, :root_ref, :render_options, :toc])
   end
 
   # PUBLIC
   def info
-    self.display('Document', [:title, :identifier, :author, :author_id, :author_credentials, :parent_id, :parent_ref, :root_document_id, :root_ref, :render_options, :toc, :dict])
+    self.display('Document', [:title, :identifier, :author, :author_id, :author_credentials2, :parent_id, :parent_ref, :root_document_id, :root_ref, :render_options, :toc, :dict])
   end
 
 
@@ -205,7 +205,7 @@ class NSDocument
   # PUBLIC: one uage in Permissions#grant
   # Return the author id from the author credentials
   def creator_id
-    get_author_credentials.id
+    author_credentials2['id']
   end
 
 
@@ -216,7 +216,7 @@ class NSDocument
   #
   # Make all changes to author info via this method to keep data consistent
   def set_author_credentials(credentials)
-    self.author_credentials = JSON.generate(credentials)
+    self.author_credentials2 =credentials
     first_name = credentials['first_name'] || ''
     last_name = credentials['last_name']  || ''
     author_id = credentials['id']
@@ -226,7 +226,7 @@ class NSDocument
 
   # PUBLIC
   def get_author_credentials
-    self.author_credentials
+    self.author_credentials2
   end
 
   # PRIVATE
@@ -684,7 +684,7 @@ class NSDocument
     doc.root_ref = { 'id'=> 0, 'title' => ''}
     doc.author_id = self.author_id
     doc.author = self.author
-    doc.author_credentials = self.author_credentials
+    doc.author_credentials2 = self.author_credentials2
 
     doc.info
     doc2 = DocumentRepository.create doc

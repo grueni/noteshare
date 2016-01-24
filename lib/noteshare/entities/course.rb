@@ -33,7 +33,7 @@ class Course
     # Handle tex macros if necessary
     _tex_macros = tex_macros
     if _tex_macros
-      tex_macro_document =  NSDocument.create(title: 'Tex Macros', author_credentials: JSON.parse(master.author_credentials))
+      tex_macro_document =  NSDocument.create(title: 'Tex Macros', author_credentials: master.author_credentials2)
       tex_macro_document.content = "\\(" + _tex_macros + "\\)"
       DocumentRepository.update tex_macro_document
       tex_macro_document.associate_to(master, 'texmacros')
