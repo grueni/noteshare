@@ -46,6 +46,7 @@ module Editor::Controllers::Document
       new_document.acl_set_permissions!('rw', '-', '-')
       new_document.dict['pdf:image_id'] = @image.id
       new_document.dict['pdf:url'] = @url
+      new_document.update_content(nil)
       puts "I will save this document with id #{new_document.id}".red
       DocumentRepository.update new_document
 
