@@ -1,6 +1,7 @@
 require 'bcrypt'
 require_relative '../../../../lib/noteshare/modules/subdomain'
 require 'keen'
+require_relative '../../../../lib/noteshare/repositories/user_repository'
 
 module SessionManager::Controllers::User
 
@@ -11,7 +12,9 @@ module SessionManager::Controllers::User
 
     def call(params)
 
-      puts "IN: SessionManager, User, Create".red
+      email =  params[:user]['email']
+      user =  UserRepository.find_one_by_email email
+      redirect_to '/error/1?The email you entered is already taken' if user
 
       new_user = User.create(params[:user])
 
@@ -23,7 +26,6 @@ module SessionManager::Controllers::User
 
       new_user.screen_name = new_user.screen_name || ''
       new_user.screen_name = new_user.screen_name .strip.downcase
-
 
       password = params[:user]['password']
 
@@ -39,7 +41,7 @@ module SessionManager::Controllers::User
         Keen.publish(:sign_ups, { :username => new_user.screen_name })
         redirect_to  basic_link new_user.node_name, "node/user/#{new_user.id}"
       else
-        redirect_to '/'
+        redirect_to '/error/2?Something went wrong with the signup process'
       end
 
     end
