@@ -1,3 +1,4 @@
+get '/remove_document/:id', to: 'user#remove'
 get '/manage/:id', to: 'user#manage'
 post '/update/:id', to: 'admin#update'
 get '/edit/:id', to: 'admin#edit'

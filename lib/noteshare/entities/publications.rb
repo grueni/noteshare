@@ -47,8 +47,8 @@ class Publications
   end
 
   def self.remove(node_id, document_id)
-    publication = PublicationsRepository.find_for_pair(node_id, document_id)
-    PublicationsRepository.create publication if publication
+    publication = PublicationsRepository.record_for_pair(node_id, document_id)
+    PublicationsRepository.delete publication if publication
   end
 
   def self.records_for_node(node_id)

@@ -112,9 +112,12 @@ class NSNode
     end
   end
 
+  def append_doc(document_id)
+    Publications.add_record(self.id, document_id)
+  end
 
-  def append_doc(id, title)
-    Publications.add_record(self.id, id)
+  def remove_doc(document_id)
+    Publications.remove(self.id, document_id)
   end
 
   def delete_all_docs
@@ -205,12 +208,11 @@ class NSNode
   end
 
   # Add a document
-  def add_document_by_id(id)
-    doc = DocumentRepository.find id
+  def add_document_by_id(document_id)
+    doc = DocumentRepository.find document_id
     if doc
-      append_doc(id, doc.title)
+      append_doc(document_id)
     end
-
   end
 
 
