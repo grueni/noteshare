@@ -2,22 +2,48 @@
 
   .col.s6.m6.l6
     h3 Analytics
-    .ns_card
+    .ns_card style='width:400px;'
+      table
+        tbody
+          tr
+            td Doc views, signed in
+            td == doc_views_signed_in
+            td == doc_views_signed_in_daily_average
+          tr
+            td Doc views, anonymous
+            td == doc_views_anonymous
+            td == doc_views_anonymous_daily_average
+          tr
+            td Edits
+            td == edits
+            td == edits_daily_average
+          tr
+            td New documents
+            td == new_sections
+            td == new_sections_daily_average
+          tr
+            td New pdfs
+            td == new_pdf_document
+            td == new_pdf_document_daily_average
+          tr
+            td Sign ins
+            td == sign_ins
+            td == sign_ins_daily_average
+          tr
+            td Sign outs
+            td == sign_outs
+            td == sign_outs_daily_average
+          tr
+            td Sign ups
+            td == sign_ups
+            td == sign_ups_daily_average
+          tr
+            td Unauth access attempts
+            td == unauth_access_attempts
+            td == unauth_access_attempts_daily_average
 
-      br
-      br == doc_views_signed_in
-      br == doc_views_anonymous
-      br
-      br == edits
-      br == new_sections
-      br == new_pdf_document
-      br
-      br == sign_ins
-      br == sign_outs
-      br == sign_ups
-      br
-      br == unauth_access_attempts
-      br
+
+
 
   .col.s6.offset-s6.m6.offset-m6.l6.offset-l6
     .ns_card style='margin-top:75px;'
