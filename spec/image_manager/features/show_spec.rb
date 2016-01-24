@@ -5,7 +5,7 @@ describe 'Show image' do
 
   before do
     ImageRepository.clear
-    @image = Image.new(title: 'Foo')
+    @image = Image.new(title: 'Foo', dict: {})
     ImageRepository.create(@image)
   end
 

@@ -22,12 +22,10 @@ module Editor::Controllers::Document
       @url = Noteshare::AWS.upload(@filename, @tempfile, 'noteshare_images' )
 
       if @url
-        raw_image = Image.new(title: @title, file_name: @filename, url: @url, tags: @tags)
+        raw_image = Image.new(title: @title, file_name: @filename, url: @url, tags: @tags, dict: {})
         @image = ImageRepository.create raw_image
         @message1 = "Image upload successful (id: #{@image.id})"
       end
-
-
 
       author = current_user(session)
       current_document = DocumentRepository.find @document_id
@@ -43,8 +41,8 @@ module Editor::Controllers::Document
         content << "image::#{@url}[]"
       end
 
-
       new_document = NSDocument.create(title: @title, content: content, author_credentials: author.credentials)
+
       new_document.acl_set_permissions!('rw', '-', '-')
       new_document.dict['pdf:image_id'] = @image.id
       new_document.dict['pdf:url'] = @url
@@ -57,8 +55,6 @@ module Editor::Controllers::Document
         create_mode = 'sibling_after'
       end
 
-
-      puts "before adding_to".red
       case create_mode
         when 'child'
           new_document.add_to(current_document)
@@ -69,11 +65,8 @@ module Editor::Controllers::Document
         else
           puts 'do nothing'
       end
-      puts "after adding_to".red
 
       Analytics.record_new_pdf_document(author, new_document)
-
-
 
       redirect_to "/editor/document/#{new_document.id}"
 

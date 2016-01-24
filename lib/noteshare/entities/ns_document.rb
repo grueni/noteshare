@@ -190,7 +190,7 @@ class NSDocument
    def self.create(hash)
     doc = NSDocument.new(hash)
     doc.title = hash[:title]
-    doc.set_author_credentials(hash[:author_credentials])
+    doc.author_credentials2 = hash[:author_credentials]
     doc.identifier = Noteshare::Identifier.new().string
     doc.root_ref = { 'id'=> 0, 'title' => ''}
     if !(doc.content =~ /^== .*/)
