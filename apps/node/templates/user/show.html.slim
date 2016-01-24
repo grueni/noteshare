@@ -3,7 +3,7 @@
   .col.s12.m8.offset-m1.l5.offset-l1
     h3 == current_node.url
     div
-      .ns_card
+      .ns_card.scroll-y style='height:400px;'
         - if current_node
           - if current_document != nil
             == link_to current_document.title, "/document/#{current_document.id}"
@@ -19,3 +19,6 @@
       br
       br
       == user_settings_link
+      br
+      br
+      == link_to 'Edit node', "/node/manage/#{current_node.id}"

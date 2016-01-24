@@ -2,8 +2,8 @@ get '/courses', to: 'course#find'
 get '/analytics', to: 'home#show_analytics'
 get '/delete_document/:id', to: 'documents#delete'
 get '/delete_user/:id', to: 'users#delete'
-get '/node', to: 'node#add_document'
 
+get '/node', to: 'node#add_document'
 post '/add_document_to_node', to: 'node#add_document'
 
 get '/course/import', to: 'course#import'

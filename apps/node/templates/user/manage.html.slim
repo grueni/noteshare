@@ -1,0 +1,19 @@
+.row.inset_left
+  h3 style='margin-left:0.4em;' Manage Node
+  .col.s6.m6.l6
+    .ns_card.scroll-y style='height:400px;'
+      table
+        tbody
+          - documents.each do |document|
+            tr
+              td== document.id
+              td== document_link(document)
+
+
+
+
+
+  .col.s6.offset-s6.m5.offset-m6.l5.offset-l6
+    .ns_card
+      p Add document to node
+      == add_document_to_node_form

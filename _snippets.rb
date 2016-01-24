@@ -1,4 +1,4 @@
-
+=begin
 #USER
 @user = User.create(first_name: 'Jared', last_name: 'Foo-Bar', screen_name: 'jayfoo',
                      password: 'foobar123', password_confirmation: 'foobar123')
@@ -41,3 +41,4 @@ def form
     submit 'Create image',  class: "waves-effect waves-light btn"
 
   end
+=end
