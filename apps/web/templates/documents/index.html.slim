@@ -17,7 +17,7 @@
 
   .col.hide-on-small-only.m6.offset-m6.l5.offset-l6
     h4 == "Nodes (#{nodes.count})"
-    .ns_card
+    .ns_card.scroll-y style='height:400px;'
       table style='border=0; border-color: #444; border-collapse;'
         tbody
         - nodes.each do |node|
