@@ -14,6 +14,17 @@ module SessionManager::Controllers::User
       puts "IN: SessionManager, User, Create".red
 
       new_user = User.create(params[:user])
+
+      new_user.first_name = new_user.first_name || ''
+      new_user.first_name = new_user.first_name.strip.capitalize
+
+      new_user.last_name = new_user.last_name || ''
+      new_user.last_name = new_user.last_name.strip.capitalize
+
+      new_user.screen_name = new_user.screen_name || ''
+      new_user.screen_name = new_user.screen_name .strip.downcase
+
+
       password = params[:user]['password']
 
       if new_user

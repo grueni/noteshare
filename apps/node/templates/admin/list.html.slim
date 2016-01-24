@@ -1,17 +1,16 @@
 .row.inset
   .col.s6.m6.l6
-      .ns_card
-        .div.scroll-y
-          table
-            tbody
-              - nodes.each do |node|
-                tr
-                  td= node.id
-                  td== node_link(node, session)
-                  td= node.owner_name
-                  td= node.owner_id
-                  td= node.type
-                  td== edit_node_link node.id
+      .ns_card.scroll-y style='height:400px;'
+        table
+          tbody
+            - nodes.each do |node|
+              tr
+                td= node.id
+                td== node_link(node, session)
+                td= node.owner_name
+                td= node.owner_id
+                td= node.type
+                td== edit_node_link node.id
 
 
 
