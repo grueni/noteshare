@@ -9,7 +9,7 @@ module Node::Views::User
 
         hidden_field :node_id, value: current_node.id
 
-        label :document_id
+        label :document_id_or_title
         text_field :document_id, class: 'plain'
 
         submit :add
