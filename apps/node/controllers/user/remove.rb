@@ -3,6 +3,7 @@ module Node::Controllers::User
     include Node::Action
 
     def call(params)
+      redirect_if_not_signed_in('node, user,  remove')
       redirect_to "/error/5?Either the node or the document was invalid" if current_user(session) == nil
       puts params['id'].red
       puts current_user(session).screen_name.red
