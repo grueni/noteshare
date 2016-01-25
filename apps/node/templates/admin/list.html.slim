@@ -14,7 +14,19 @@
 
 
 
-  .col.s6.offset-s6.m6.offset-m6.l6.offset-l6
+  .col.s6.offset-s6.m2.offset-m6.l2.offset-l6
     .ns_card style='width:150px'
       p doc >> node
       == add_document_to_node_form
+
+  .col.hide-on-small-only.m4.offset-m8.l4.offset-l8
+    - if documents
+      /.row.s8 style = ' margin-top:10 px; padding-left:1em; padding-right:1em;'
+      .col style = ''
+        .ns_card style='margin-left:15px; height:400px; overflow-y:scroll; padding-bottom:3em;'
+          table style='border=0; border-color: #444; border-collapse;'
+            tbody
+              - documents.each do |document|
+                tr.clear_style
+                  td.lightlink == titlepage_link2 document
+                  td== document.id

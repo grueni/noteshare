@@ -330,7 +330,7 @@ module UI
       return '' if document == nil
       cu = current_user(session)
       return '' if cu == nil
-      puts "editor_link, cu = #{current_user(session).screen_name}"
+      puts "editor_link, cu = #{cu.screen_name}"
       return '' if Permission.is_not_given?(cu, :edit, document)
 
       if active_item == 'editor'
