@@ -23,7 +23,7 @@ module Web::Controllers::Documents
       @document.update_content
       @aside.update_content if @aside && @aside.content
 
-      session[:current_document_id] = @document.id
+        session[:current_document_id] = @document.id
       puts "web aside, recording session[:current_document_id] as #{session[:current_document_id]}".red
 
       Analytics.record_document_view(current_user(session), @document)
