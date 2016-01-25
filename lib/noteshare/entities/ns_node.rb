@@ -209,6 +209,7 @@ class NSNode
 
   # Add a document
   def add_document_by_id(document_id)
+    puts "Adding document #{document_id} to node #{self.id}".red
     doc = DocumentRepository.find document_id
     if doc
       append_doc(document_id)

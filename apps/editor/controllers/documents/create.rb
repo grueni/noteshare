@@ -37,11 +37,10 @@ module Editor::Controllers::Documents
       @document.acl_set_permissions!('rw', 'r', '-')
 
       user = current_user(session)
-      node = NSNodeRepository.find user.node_id
-      if node
-        node.update_docs_for_owner
-      else
-        puts "No node for user #{user.screen_name}".magenta
+      user_node = user.node
+      if user_node
+        user_node.add_document_by_id(@document.id)
+        NSNodeRepository.update user_node
       end
 
       redirect_to "/document/#{@document.id}"

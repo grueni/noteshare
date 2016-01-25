@@ -7,7 +7,7 @@ module Admin::Controllers::Documents
     def call(params)
       redirect_if_not_admin('Attempt to list courses (admin, documents, list)')
       @active_item = 'admin'
-      @documents = DocumentRepository.root_documents
+      @documents = DocumentRepository.root_documents.sort_by { |document| document.title }
     end
   end
 end
