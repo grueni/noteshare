@@ -17,14 +17,13 @@ module Uploader::Controllers::Image
       @tags =  params['tags']
       @filename = params['datafile']['filename']
       @tempfile = params['datafile']['tempfile'].inspect.match(/Tempfile:(.*)>/)[1]
+      @option = params['option']
+
+      puts "In image upload, option = #{@option}, current_document_id = #{session['current_document_id']}".red
 
       _identifier = Identifier.new('image').string
       @filename =  "#{_identifier}_#{@filename}"
 
-      puts @title.cyan
-      puts @tags.cyan
-      puts @filename.cyan
-      puts @tempfile.cyan
 
       @url = Noteshare::AWS.upload(@filename, @tempfile, 'noteshare_images' )
 
@@ -32,13 +31,17 @@ module Uploader::Controllers::Image
         raw_image = Image.new(title: @title, file_name: @filename, url: @url, tags: @tags, dict: {})
         @image = ImageRepository.create raw_image
         session[:current_image_id] = @image.id
+        user =  current_user(session)
+        user.dict2['current_image_id'] = @image.id
+        UserRepository.update user
         @message = "Image upload successful (id: #{@image.id})"
       else
         @message = "Image upload failed"
       end
 
-
-      # @message = Noteshare::Util.read(filename, tmpfile )
+      if @option == 'editor' && session['current_document_id']
+        redirect_to "/editor/document/#{session['current_document_id']}"
+      end
     end
 
     private

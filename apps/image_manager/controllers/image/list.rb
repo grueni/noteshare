@@ -11,7 +11,7 @@ module ImageManager::Controllers::Image
       if search_key == nil
         @images = ImageRepository.all.random_sublist(12)
       elsif search_key == ''
-        @images = ImageReposit                                                                     ory.all.random_sublist(12)
+        @images = ImageRepository.all.random_sublist(12)
       else
         hash = ImageRepository.search(search_key).all
         puts "hash: #{hash}".magenta

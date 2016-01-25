@@ -29,9 +29,9 @@ class UserAuthentication
 
     if authenticate
       session[:user_id] = @user.id
-      session[:current_document_id] = @user.recall_current_document_id(session)
+      session[:current_document_id] = @user.dict2['current_document_id']
+      session[:current_image_id] = @user.dict2['current_image_id']
       session[:domain] = "#{@user.node_name}#{ENV['DOMAIN']}"
-      session[:current_image_id] = nil
       return @user
     else
       return nil

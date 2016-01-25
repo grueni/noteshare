@@ -496,9 +496,13 @@ module UI
     end
 
 
-    def upload_image_link
+    def upload_image_link(option=nil)
       # session[:current_document_id] = document.id if document
-      image_link '/images/upload_image.png', "/uploader/image", 'upload image'
+      if option == nil
+        image_link '/images/upload_image.png', "/uploader/image", 'upload image'
+      else
+        image_link '/images/upload_image.png', "/uploader/image?#{option}", 'upload image'
+      end
     end
 
 
