@@ -11,6 +11,7 @@ module ImageManager::Controllers::Image
       puts "image search key = #{key1}".red
       @images = ImageRepository.search3(key1)
       puts "N = #{@images.count} documents images".magenta
+      puts "image_manager search, reporting session[:current_document_id] as #{session[:current_document_id]}".red
     end
 
     private
