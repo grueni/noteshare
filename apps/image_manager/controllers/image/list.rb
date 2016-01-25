@@ -2,7 +2,7 @@ module ImageManager::Controllers::Image
   class List
     include ImageManager::Action
 
-    expose :images, :active_item
+    expose :images, :active_item, :current_image_id
 
     def call(params)
       redirect_if_not_signed_in('editor, image, List')
@@ -19,6 +19,11 @@ module ImageManager::Controllers::Image
         puts "ids: #{ids}"
         @images = hash_array.map { |id| ImageRepository.find(id)}
       end
+
+      if session['current_image_id']
+        @current_image_id = session['current_image_id']
+      end
+
       puts "N = #{@images.count} documents found".magenta
     end
 

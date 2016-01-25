@@ -18,12 +18,16 @@
           tbody
             - images.each do |image|
               tr
-                td[width='150px']== image_link image.url2,  "/image_manager/show/#{image.id}"
+                td[width='150px;']== image_link image.url2,  "/image_manager/show/#{image.id}"
                 td== link_to image.title, "/image_manager/show/#{image.id}"
                 td= image.id
                 td= image.tags
 
   .col style='margin-bottom:2em; color:white;left: 70%; width:40%'
+
+    - if current_image
+      == image_link current_image.url2,  "/image_manager/show/#{current_image.id}"
+      p == "ID: #{current_image.id}"
 
     - if current_user_is_admin?(session)
       p== link_to 'UPLOAD', '/uploader/image', class:'plainlink lightlink '

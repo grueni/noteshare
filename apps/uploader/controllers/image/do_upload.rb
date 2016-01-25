@@ -31,6 +31,7 @@ module Uploader::Controllers::Image
       if @url
         raw_image = Image.new(title: @title, file_name: @filename, url: @url, tags: @tags, dict: {})
         @image = ImageRepository.create raw_image
+        session[:current_image_id] = @image.id
         @message = "Image upload successful (id: #{@image.id})"
       else
         @message = "Image upload failed"
