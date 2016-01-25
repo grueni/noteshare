@@ -135,25 +135,25 @@ class Permission
     # if there is no logged in user, grant access
     # if the world permission of the object matches
     # the code of action
-    # puts "A"
+    puts "A"
     return @object.acl_get(:world) =~ /#{@action_code}/  if @user == nil
 
-    # puts "B"
+    puts "B"
     # Grant permission if the world permission matches
     return true if @object.acl_get(:world) =~ /#{@action_code}/
 
     # From now on, we may assume that @user exists
     # and that world permissions have been processed
 
-    # puts "C"
+    puts "C"
     # admin can do anything
     return true if @user.admin
 
-    # puts "D"
+    puts "D"
     # process user permissions
-    return true if @user.id == @object.creator_id && @object.acl_get(:user) =~ /#{@action_code}/
+    return true if @user.id == @object.author_credentials['id'] && @object.acl_get(:user) =~ /#{@action_code}/
 
-    # puts "E"
+    puts "E"
     # grant permission if the access control list permits it for the user
     puts "action code: [#{@action_code}]".red
     _info = @object.acl_get "user:#{@user.screen_name}"
@@ -169,7 +169,7 @@ class Permission
     end
 =end
 
-    # puts "F"
+    puts "F"
     return false
   end
 

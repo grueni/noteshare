@@ -322,10 +322,12 @@ module UI
     end
 
     def editor_link(session, active_item='')
+      puts "editor_link, cu = #{current_user(session).screen_name}"
       return '' if session == nil
       _id = session['current_document_id']
       return '' if _id == nil
       document = DocumentRepository.find _id
+      puts "editor_link, document = #{document.id}".red
       return '' if document == nil
       cu = current_user(session)
       return '' if cu == nil
