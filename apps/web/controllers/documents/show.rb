@@ -20,6 +20,7 @@ module Web::Controllers::Documents
       @document = DocumentRepository.find(document_id)
       handle_nil_document(@document, document_id)
       session[:current_document_id] = document_id
+      puts "web show, recording session[:current_document_id] as #{session[:current_document_id]}".red
 
       @document.update_content
 

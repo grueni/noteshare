@@ -6,7 +6,6 @@ module Noteshare
     # to an error page with information in the header
     # about the nature of the error
     def handle_nil_document(document, code)
-      puts "ENTER: handle_nil_document with code #{code}".red
       if document == nil
         redirect_to "/error/#{code}/?document_not_found"
       end

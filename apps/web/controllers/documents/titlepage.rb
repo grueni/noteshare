@@ -22,6 +22,9 @@ module Web::Controllers::Documents
       @root_document.compile_with_render({numbered: true, format: 'adoc-latex'})
       @root_document.compiled_content = @root_document.compile
 
+      session[:current_document_id] = @root_document.id
+      puts "web titlepage, recording session[:current_document_id] as #{session[:current_document_id]}".red
+
       Analytics.record_document_view(current_user(session), @root_document)
 
       @blurb = @root_document.dict['blurb'] || 'blurb'
