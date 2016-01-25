@@ -10,10 +10,11 @@ module Editor::Controllers::Document
       redirect_if_not_signed_in('editor, document, Edit')
       user = current_user(session)
       id = params['id']
-      Analytics.record_edit(user, document)
+
       @active_item = 'editor'
       puts "ID of document to edit: #{id}".magenta
       @document = DocumentRepository.find(id)
+      Analytics.record_edit(user, @document)
       session[:current_document_id] = id
       if @document.is_root_document?
         @document.compile_with_render_lazily
