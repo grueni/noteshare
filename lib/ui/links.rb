@@ -328,9 +328,9 @@ module UI
       puts "EL; 2".red
       return '' if _id == nil
       document = DocumentRepository.find _id
-      puts "editor_link, document = #{document.id}".red
       puts "EL; 3".red
       return '' if document == nil
+      puts "editor_link, document = #{document.id}".red
       cu = current_user(session)
       puts "EL; 4".red
       return '' if cu == nil
