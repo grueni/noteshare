@@ -325,8 +325,8 @@ module UI
     def editor_link(session, active_item='')
       puts "EL; 1".red
       return '' if session == nil
-      cu = current_user(session
-      return if u == nil
+      cu = current_user(session)
+      return if cu == nil
       _id = cu.dict2['current_document_id']
       puts "EL; 2".red
       return '' if _id == nil
