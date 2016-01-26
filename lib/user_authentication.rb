@@ -151,7 +151,9 @@ class Permission
 
     puts "D"
     # process user permissions
-    return true if @user.id == @object.author_credentials['id'] && @object.acl_get(:user) =~ /#{@action_code}/
+    puts "@user.id == @object.author_credentials2['id'] = #{@user.id == @object.author_credentials2['id']}".red
+    puts "@object.acl_get(:user) =~ /#{@action_code}/ = #{@object.acl_get(:user) =~ /#{@action_code}/}".red
+    return true if @user.id == @object.author_credentials2['id'].to_i && @object.acl_get(:user) =~ /#{@action_code}/
 
     puts "E"
     # grant permission if the access control list permits it for the user
