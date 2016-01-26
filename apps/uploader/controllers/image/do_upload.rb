@@ -1,3 +1,5 @@
+require_relative '../../../../lib/modules/analytics'
+
 module Uploader::Controllers::Image
   class DoUpload
     include Uploader::Action
@@ -6,6 +8,7 @@ module Uploader::Controllers::Image
     include Uploader::Action
     include Noteshare::AWS
     include Noteshare::Util
+    include Analytics
 
     expose :url, :image, :message
 

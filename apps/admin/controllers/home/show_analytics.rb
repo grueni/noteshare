@@ -10,10 +10,12 @@ module Admin::Controllers::Home
            :edits, :edits_daily_average,
            :new_sections, :new_sections_daily_average,
            :new_pdf_document, :new_pdf_document_daily_average,
+           :image_upload, :image_upload_daily_average,
            :sign_ins, :sign_ins_daily_average,
            :sign_outs, :sign_outs_daily_average,
            :sign_ups, :sign_ups_daily_average,
            :unauth_access_attempts, :unauth_access_attempts_daily_average
+
 
 
     def daily_average(count)
@@ -47,6 +49,10 @@ module Admin::Controllers::Home
       new_pdf_document = Analytics.get_keen_data(query_type: 'count', collection: 'new_pdf_document')
       @new_pdf_document = "#{new_pdf_document}"
       @new_pdf_document_daily_average = "#{daily_average(new_pdf_document)}"
+
+      image_upload = Analytics.get_keen_data(query_type: 'count', collection: 'image_upload')
+      @image_upload = "#{image_upload}"
+      @image_upload_daily_average = "#{daily_average(image_upload)}"
 
       sign_ins_count = Analytics.get_keen_data(query_type: 'count', collection: 'sign_ins')
       @sign_ins = "#{sign_ins_count}"
