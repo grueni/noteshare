@@ -33,6 +33,7 @@ module Uploader::Controllers::Image
         session[:current_image_id] = @image.id
         user =  current_user(session)
         user.dict2['current_image_id'] = @image.id
+        Analytics.record_image_upload(user, @image)
         UserRepository.update user
         @message = "Image upload successful (id: #{@image.id})"
       else

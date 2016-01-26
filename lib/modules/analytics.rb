@@ -32,6 +32,13 @@ module Analytics
     end
   end
 
+  def self.record_image_upload(user, image)
+    puts "analytics, record image_upload".red
+    if user # && user.screen_name != ENV['DEVELOPER_SCREEN_NAME']
+      Keen.publish(:image_upload, { :username => user.screen_name, :image => image.title, :image_id => image.id })
+    end
+  end
+
   def self.record_new_section(user, document)
     puts "analytics, record new section creation".red
     if user && user.screen_name != ENV['DEVELOPER_SCREEN_NAME']
