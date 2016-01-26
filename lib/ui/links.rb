@@ -322,17 +322,23 @@ module UI
     end
 
     def editor_link(session, active_item='')
+      puts "EL; 1".red
       return '' if session == nil
       _id = session['current_document_id']
+      puts "EL; 2".red
       return '' if _id == nil
       document = DocumentRepository.find _id
       puts "editor_link, document = #{document.id}".red
+      puts "EL; 3".red
       return '' if document == nil
       cu = current_user(session)
+      puts "EL; 4".red
       return '' if cu == nil
       puts "editor_link, cu = #{cu.screen_name}"
+      puts "EL; 5".red
       return '' if Permission.is_not_given?(cu, :edit, document)
 
+      puts "EL; 6".red
       if active_item == 'editor'
         return link_to 'Editor', "/editor/document/#{_id}", class: 'active_item'
       else
