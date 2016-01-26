@@ -292,8 +292,9 @@ module UI
 
     def reader_link(session, active_item='')
       return '' if session == nil
-      _id = session['current_document_id']
-      return '' if _id == nil
+        cu = current_user(session)
+      return '' if cu == nil
+        _id = cu.dict2['current_document_id']
       if active_item == 'reader'
         return link_to 'Reader', '#', class: 'active_item'
       else
