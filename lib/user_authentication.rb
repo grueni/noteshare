@@ -161,7 +161,7 @@ class Permission
       end
     end
 =end
-    
+
     return false
   end
 
