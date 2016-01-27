@@ -12,7 +12,7 @@ module Editor::Controllers::Document
       if session['current_image_id']
         puts "session['current_image_id'] = #{session['current_image_id']}".red
         @current_image = ImageRepository.find session['current_image_id']
-        puts "VERIFY: #{@current_image.id}".cyan
+        puts "VERIFY: #{@current_image.id}".cyan if @current_image
       end
 
       @active_item = 'editor'
