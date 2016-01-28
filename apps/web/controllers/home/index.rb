@@ -1,4 +1,4 @@
-# apps/web/controllers/home/index.rb
+                                                                     ;# apps/web/controllers/home/index.rb
 require 'asciidoctor'
 
 module Web::Controllers::Home

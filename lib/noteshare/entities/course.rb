@@ -73,7 +73,7 @@ class Course
 
 
   ### PRIVATE METHODS ###
-  
+
 
   # Create an NSDocument from a Noteshare document
   def to_document(screen_name)
