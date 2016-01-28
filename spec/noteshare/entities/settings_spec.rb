@@ -5,10 +5,11 @@ describe Settings do
 
 
   before do
-
-    # The database is set up to have exactly one entry:
+    # The database is set up to have exactly one entry:n
+    # SettingsRepository.clear
+    # @settings = Settings.new(id: 1, message: 'Howdy', owner: 'Jason Foo-Bar')
+    # settingsRepository.create @settings
     @settings = SettingsRepository.first
-
   end
 
   describe 'initialization' do
@@ -60,8 +61,8 @@ describe Settings do
       puts @settings.inspect.cyan
       # @settings.update
       SettingsRepository.update @settings
-      @settings2 = SettingsRepository.first
-      @settings2.get_key('foo').must_equal('1111')
+      @settings = SettingsRepository.first
+      @settings.get_key('foo').must_equal('1111')
 
     end
 
