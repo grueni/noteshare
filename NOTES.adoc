@@ -200,3 +200,11 @@ $ curl -o latest.dump `heroku pg:backups public-url`
 https://www.safaribooksonline.com/library/view/heroku-up-and/9781449341381/ch05.html[heroku book on postgres]
 https://devcenter.heroku.com/articles/ruby-memory-use[Heroku: memory problems]
 https://docs.newrelic.com/docs/agents/ruby-agent/frameworks/sinatra-support[NewRelic for RACK apps]
+----
+SELECT attname, format_type(atttypid, atttypmod) AS type
+FROM   pg_attribute
+WHERE  attrelid = 'documents'::regclass
+AND    attnum > 0
+AND    NOT attisdropped
+ORDER  BY attnum;
+----
