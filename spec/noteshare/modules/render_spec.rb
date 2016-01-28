@@ -23,14 +23,12 @@ describe Render do
 
  it 'rewrites media urls' do
 
-   expected_text =<<EOF
+   expected_text =<<EOF 
 <div class="paragraph">
 <p>This ia an image:</p>
 </div>
-<div class="imageblock">
-<div class="content">
-<img src="http://s3.amazonaws.com/vschool/noteshare_images/Joordens_Trinil_engravedshell-640x907-original.jpg" alt="Joordens Trinil engravedshell 640x907 original" width="200">
-</div>
+<div class="paragraph">
+<p><span class="image"><img src="http://s3.amazonaws.com/vschool/noteshare_images/Joordens_Trinil_engravedshell-640x907-original.jpg" alt="Joordens_Trinil_engravedshell-640x907-original" width="200"></span></p>
 </div>
 <div class="paragraph">
 <p>La di dah!</p>
