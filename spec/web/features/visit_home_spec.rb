@@ -4,14 +4,9 @@ require 'features_helper'
 describe 'Visit home' do
   it 'is successful' do
 
-
-    settings = SettingsRepository.new(message: "Howdy")
-    SettingsRepository.create settings
-
     visit '/home'
 
-    page.body.must_include('Noteshare')
-    # page.body.must_include('About')
+    page.body.must_include('About Scripta')
 
   end
 end

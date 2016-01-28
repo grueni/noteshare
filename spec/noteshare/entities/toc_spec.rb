@@ -258,7 +258,9 @@ describe NSDocument do
     @section2.add_to(@article1)
     @section3.add_to(@article1)
 
-    @section1.sibling_swap_in_toc(@section3)
+    @tocManager = TOCManager.new(@section1)
+
+    @tocManager.sibling_swap_in_toc(@section3)
 
 
     @article1 = DocumentRepository.find id
@@ -275,7 +277,8 @@ describe NSDocument do
     @section2.add_to(@article1)
     @section3.add_to(@article1)
 
-    @section3.move_up_in_toc
+    @tocManager = TOCManager.new(@section3)
+    @tocManager.move_up_in_toc
 
     @article1 = DocumentRepository.find id
     assert @article1.subdocument(1) == @section3
@@ -290,7 +293,8 @@ describe NSDocument do
     @section2.add_to(@article1)
     @section3.add_to(@article1)
 
-    @section1.move_up_in_toc
+    @tocManager = TOCManager.new(@section1)
+    @tocManager.move_up_in_toc
 
     @article1 = DocumentRepository.find id
     assert @article1.subdocument(0) == @section1
@@ -307,7 +311,8 @@ describe NSDocument do
     @section2.add_to(@article1)
     @section3.add_to(@article1)
 
-    @section1.move_down_in_toc
+    @tocManager = TOCManager.new(@section1)
+    @tocManager.move_down_in_toc
 
     @article1 = DocumentRepository.find id
     assert @article1.subdocument(0) == @section2
@@ -322,7 +327,9 @@ describe NSDocument do
     @section2.add_to(@article1)
     @section3.add_to(@article1)
 
-    @section3.move_down_in_toc
+    @tocManager = TOCManager.new(@section3)
+    @tocManager.move_down_in_toc
+
 
     @article1 = DocumentRepository.find id
     assert @article1.subdocument(0) == @section1
