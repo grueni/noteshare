@@ -3,27 +3,6 @@ require 'spec_helper'
 require 'json'
 
 
-# *doc.subdocument_titles* returns a list of the
-# titles of the sections of *document*.
-def subdocument_titles(option=:simple)
-  #Fixme: bad implementation
-  list = []
-  if [:header].include? option
-    list << self.title.upcase
-  end
-  toc = TOC.new(self)
-  toc.table.each do |item|
-    section = DocumentRepository.find(item.id)
-    if [:header, :simple].include? option
-      item = section.title
-    elsif option == :verbose
-      item = "#{section.id}, #{section.title}. back: #{section.previous_document_title}, forward: #{section.next_document_title}"
-    end
-    list << item
-  end
-  list
-end
-
 
 describe NSDocument do
 

@@ -108,7 +108,8 @@ class NSNode
     return if type != 'personal'
     dd = DocumentRepository.root_documents_for_user(self.owner_id)
     dd.each do |doc|
-      Publications.add_record(self.id, doc.id)
+      p = Publications.add_record(self.id, doc.id)
+      puts "P: #{p.id}".cyan
     end
   end
 

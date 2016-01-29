@@ -208,3 +208,4 @@ AND    attnum > 0
 AND    NOT attisdropped
 ORDER  BY attnum;
 ----
+https://github.com/stravid/datsu-api/pull/10[skylight]
