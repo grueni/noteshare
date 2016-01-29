@@ -225,7 +225,7 @@ class NSDocument
   end
 
   # PUBLIC
-  def get_author_credentials
+  def  get_author_credentials
     self.author_credentials2
   end
 

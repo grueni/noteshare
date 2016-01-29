@@ -172,7 +172,7 @@ describe NSDocument do
 
     end
 
-    it 'can make a document be the child of its (upper) siblingr' do
+    it 'can make a document be the child of its (upper) siblingr sxx' do
 
 
       @section1.add_to(@article)
@@ -182,7 +182,8 @@ describe NSDocument do
 
       id = @article.id
 
-      @subsection.make_child_of_sibling
+      @tocManager = TOCManager.new(@subsection)
+      @tocManager.make_child_of_sibling
 
       @article = DocumentRepository.find id
 
@@ -362,7 +363,7 @@ describe NSDocument do
 
       #  @section2.delete
 
-      p = DocumentRepositoryfind p.id
+      p = DocumentRepository.find p.id
 
       #      p.subdocument(0).next_document.title.must_equal p.subdocument(1).title
       p.subdocument(1).previous_document.title.must_equal p.subdocument(0).title
@@ -460,7 +461,9 @@ describe NSDocument do
       @subsection.add_to(@section2)
 
       @subsection.add_to(@section2)
-      @subsection.move_section_to_parent_level
+
+      @tocManager = TOCManager.new(@subsection)
+      @tocManager.move_section_to_parent_level
 
       @article = DocumentRepository.find parid
       @subsection = DocumentRepository.find subid
@@ -610,7 +613,8 @@ EOF
        assert @article.associated_document('summary') == @section1
        assert @section1.type == 'associated:summary'
 
-       assert @article.get_author_credentials['id'] == @user.id
+       #Fixme: a bit dangeerous, this comparison (to_i) think about it
+       assert @article.get_author_credentials['id'].to_i == @user.id
        assert @article.get_author_credentials['first_name'] == @user.first_name
        assert @article.get_author_credentials['last_name' ] == @user.last_name
        @article.get_author_credentials['identifier'].must_equal(@user.identifier)
