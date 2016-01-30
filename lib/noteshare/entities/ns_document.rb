@@ -62,9 +62,9 @@ class NSDocument
   #     1. REQUIRE, INCLUDE, INITIALIZE AND DISPLAY
   #     2. MANAGE SUBDOCUMENTS
   #     3. ASSOCIATED DOCUMENTS
-  #     4. UPDATE, COMPILE & RENDER
-  #     5. TABLE OF CON
-  # TENTS
+  #           4. UPDATE, COMPILE & RENDER
+  #     5. TABLE OF CONTENTS
+  #
   #
   ###################################################
 
@@ -735,73 +735,14 @@ class NSDocument
   #
   ###################################################
 
-  def set_compile_dirty
-    head = self.root_document
-    if head.compiled_dirty == false
-      head.compiled_dirty = true
-      DocumentRepository.update head
-    end
-  end
+  ################ END OF REFACTORING PROJECT (LINE 738) ###########
 
-  def update_content_from(str)
-    tm = texmacros || ''
-    renderer = Render.new(asciidoctor_attributes + substitutions + tm + str)
-    self.rendered_content = renderer.convert
-  end
+  # Used internally by compile_with_render,
+  # export, and render
+  # Used in controller titlepage
 
-  def update_content_lazily(input=nil)
-    if content_dirty
-      puts "Document #{self.title} is DIRTY".red
-      t = Time.now
-      update_content(input)
-      t2 = Time.now
-      puts "updated in #{t2-t} seconds".red
-    else
-      puts "Document #{self.title} is CLEAN".red
-    end
-  end
-
-  # If input is nil, render the content
-  # and save it in rendered_content.  Otherwise,
-  # Replace #content by str, render it
-  # and save it ...
-  def update_content(input=nil)
-
-    set_compile_dirty
-
-    # dirty = self.content_dirty
-    # dirty = true if dirty.nil?
-    # return if dirty == false
-
-    if input == nil
-      str = self.content || ''
-    else
-      str = input
-      self.content = str
-    end
-
-    render_by_identity = dict['render'] == 'identity'
-    if render_by_identity
-      self.rendered_content =  content
-    else
-      update_content_from(str)
-    end
-
-    self.content_dirty = false
-    DocumentRepository.update self
-
-  end
-
-  def texmacros
-    rd = root_document || self
-    if rd and rd.doc_refs['texmacros']
-      macro_text = rd.associated_document('texmacros').content
-      macro_text = macro_text.gsub(/^=*= .*$/,'')
-      macro_text = "\n\n[env.texmacro]\n--\n#{macro_text}\n--\n\n"
-      macro_text
-    end
-  end
-
+  # Used by ContentManager#compile
+  #
   # *doc.compile* concatenates the contents
   # of *doc* with the compiled text of
   # each section of *doc*.  The sections
@@ -809,7 +750,7 @@ class NSDocument
   # a persistent array of integers which
   # represent the id's of the sections of
   # *doc*.
-  def compile_aux
+  def compile
     table = table_of_contents
     if table == []
       return content || ''
@@ -817,178 +758,15 @@ class NSDocument
       text = content + "\n\n" || ''
       table.each do |item|
         section = DocumentRepository.find(item.id)
-          if section != nil
-          text  << section.compile_aux << "\n\n"
+        if section != nil
+          text  << section.compile << "\n\n"
         end
       end
       return text
     end
   end
 
-  # Get dict['substitutions'], e.g., app, Scripta; foo, bar;
-  # then turn it into a hash, e.g., {'app' => 'Scripta', 'foo' => 'bar'}
-  # and finally turn it into a string representing text substitutions
-  # for Asciidoctor, e.g.
-  # :app: Scritpa
-  # :foo: bar
-  def substitutions
-    root_doc = self.root_document
-    substitution_string = root_doc.dict['substitutions'] || ''
-    substitution_hash = substitution_string.hash_value(',;')
-    str = ''
-    substitution_hash.each do |key, value|
-      str << ":#{key}: #{value}\n"
-    end
-    str << "\n"
-  end
-
-  def asciidoctor_attributes
-    root_doc = self.root_document
-    attr_string = root_doc.dict['substitutions'] || ''
-    attr_list = attr_string.split(',').map{ |x| x.strip }
-    str = ''
-    attr_list.each do |attr|
-      str << ":#{attr}:\n"
-    end
-    str << "\n"
-  end
-
-  def compile
-    tm = texmacros  || ''
-    result = asciidoctor_attributes + substitutions + tm + compile_aux
-    result
-  end
-
-
-  def render_lazily
-    if content_dirty
-      render
-    end
-  end
-
-
-  # NSDocument#render is the sole connection between class NSDocument and
-  # module Render.  It updates self.rendered_content by applying
-  # Asciidoctor.convert to self.content with the provided options.
-  def render
-
-    format = @render_options['format']
-
-    case format
-      when 'adoc'
-        render_option = {}
-      when 'adoc-latex'
-        render_option = {backend: 'html5'}
-      else
-        render_option = {}
-    end
-
-    renderer = Render.new(self.compile, render_option )
-    self.rendered_content = renderer.convert
-    self.content_dirty = false
-    DocumentRepository.update(self)
-
-  end
-
-
-  def compile_with_render_lazily(option={})
-    if compiled_dirty
-      puts "document #{self.title} is DIRTY -- compiling and rendering".red
-      t = Time.now
-      compile_with_render(option)
-      t2 = Time.now
-      puts "Time for compile and render = #{t2 - t} seconds".red
-    else
-      puts "document #{self.title} is CLEAN".red
-    end
-  end
-
-
-  def set_format_of_render_option(value)
-    render_options['format'] = value
-  end
-
-
-  def get_render_option
-    format = self.render_options['format']
-    case format
-      when 'adoc'
-        render_option = {}
-      when 'adoc-latex'
-        render_option = {backend: 'html5'}
-      else
-        render_option = {}
-    end
-    render_option
-  end
-
-  # Compile the receiver, render it, and store the
-  # rendered text in self.compiled_and_rendered_content
-  def compile_with_render(option={})
-    start = Time.now
-
-    # Update the compilation and rendering options
-    option = option.merge get_render_option
-    if dict['make_index']
-      h = {}
-      h[:make_index] = true
-      option = option.merge(h)
-    end
-
-    # Compile the document and save the compilation if the document
-    # is a root document: the compilation is used to build the internal
-    # table of contents
-    _compiled_content = self.compile
-    self.compiled_content = _compiled_content if self.is_root_document?
-
-    # Render the content
-    renderer = Render.new(_compiled_content, option )
-    self.compiled_and_rendered_content = renderer.convert
-
-
-    # Set flags, update, and report timings
-    self.compiled_dirty = false
-    value = DocumentRepository.update(self)
-    finish = Time.now
-    elapsed = finish - start
-    puts "Compile with render in #{elapsed} seconds".red
-    return value
-  end
-
-  def export
-    header = '= ' << title << "\n"
-    header << author << "\n"
-    header << ":numbered:" << "\n"
-    header << ":toc2:" << "\n\n\n"
-
-    renderer = Render.new(header + texmacros + self.compile, get_render_option )
-    renderer.rewrite_urls
-    file_name = self.title.normalize
-    path = "outgoing/#{file_name}.adoc"
-    IO.write(path, renderer.source)
-    export_html(get_render_option)
-
-  end
-
-  def export_html(format)
-
-    file_name = self.title.normalize
-    path = "outgoing/#{file_name}.adoc"
-    format = self.render_options['format']
-
-    case format
-      when 'adoc'
-        cmd = "asciidoctor #{path}"
-      when 'adoc-latex'
-        cmd = "asciidoctor-latex -b html #{path}"
-      else
-        cmd =  "asciidoctor #{path}"
-    end
-
-    system cmd
-
-  end
-
+  ################ END OF REFACTORING PROJECT (LINE 1017) -- 279 LINES ############
 
   #########################################################
   #
@@ -1539,7 +1317,5 @@ class NSDocument
     end
     list
   end
-
-
 
 end
