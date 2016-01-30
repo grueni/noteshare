@@ -47,10 +47,8 @@ describe 'List Docs' do
     puts "@user_full_name = #{@user.full_name}".red
 
     visit2 @user, '/documents'
-    # assert page.has_css?('lightlink', count: 2), "Expected to find 2 books"
     assert page.has_content?('Test'), "Has content Test"
     assert page.has_content?('OS Z'), "Has content OS Z"
-    # puts page.body.cyan
     assert page.has_content?('Electromagnetic Theory'), "Has content Electromagnetic Theory (2)"
 
   end
