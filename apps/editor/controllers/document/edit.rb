@@ -21,8 +21,10 @@ module Editor::Controllers::Document
       Analytics.record_edit(user, @document)
       session[:current_document_id] = id
       if @document.is_root_document?
+        ### REFACTOR ###
         @document.compile_with_render_lazily
       else
+        ### REFACTOR ###
         @document.update_content_lazily
       end
       @updated_text = @document.content
