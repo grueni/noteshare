@@ -17,7 +17,7 @@ describe 'Login User' do
   end
 
   it 'can log a user in 222' do
-    
+
     visit2 nil,  '/session_manager/login'
 
     within 'form#user-form' do
