@@ -3,6 +3,7 @@ require_relative './spec_helper'
 
 require 'capybara'
 require 'capybara/dsl'
+require_relative '../lib/noteshare/modules/subdomain'
 
 Capybara.app = Lotus::Container.new
 
@@ -26,6 +27,17 @@ module FeatureHelpers
   end
 
   module Common
+
+    include Noteshare::Subdomain
+
+    def visit2(user, route)
+      if user
+        visit "http://#{user.screen_name}.fuf.me:2300#{route}"
+      else
+        visit "http://fuf.me:2300#{route}"
+      end
+    end
+
     def standard_user_node_doc
       @user = User.create(first_name: 'Jared', last_name: 'Foo-Bar', email: 'jayfoo@bar.com',
                           screen_name: 'jayfoo', password: 'foobar123', password_confirmation: 'foobar123')
@@ -42,8 +54,9 @@ module FeatureHelpers
         fill_in 'Password', with: 'foobar123'
         click_button 'Log in'
       end
-      current_path.must_equal("/authenticate")       ###????
-      visit "/node/user/#{@user.id}"
+      # current_path.must_equal("/#{@user.id}")       ###????
+      # visit "/node/user/#{@user.id}"
+      visit basic_link @user.node_name, "/node/user/#{@user.id}"
       assert page.has_content?(@user.screen_name), "Go to user's node page"
     end
 

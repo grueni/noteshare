@@ -28,6 +28,7 @@ describe 'Delete document' do
   it 'can visit the delete document page' do
 
     visit "/editor/prepare_to_delete_document/#{@document.id}"
+    visit2 @user, "/node/user/#{@user.id}"
     assert_match /Delete document #{@document.title}/, page.body, "Expected to find standard page heading for document"
 
   end
