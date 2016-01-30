@@ -11,7 +11,9 @@ module Editor::Controllers::Document
      puts "ID: #{params[:id]}".red
       # self.body = 'OK'
       @document = DocumentRepository.find params[:id]
-      @document.export
+
+      ContentManager.new(@document).export
+
       redirect_to "/document/#{params[:id]}"
     end
 

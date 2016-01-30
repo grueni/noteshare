@@ -31,7 +31,10 @@ module Editor::Controllers::Document
       new_document = NSDocument.create(title: title, content: content, author_credentials: _author_credentials)
       new_document.acl = current_document.root_document.acl
       # new_document.acl_set_permissions!('rw', '-', '-')
-      new_document.update_content(nil)
+
+
+      ContentManager.new(new_document).update_content(nil)
+
       DocumentRepository.update new_document
 
       Analytics.record_new_section(user, new_document)

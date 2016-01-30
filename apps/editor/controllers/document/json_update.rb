@@ -14,7 +14,7 @@ module Editor::Controllers::Document
       @active_item = 'editor'
       @document = DocumentRepository.find(id)
       @document.content_dirty = true
-      @document.update_content params['source']
+      ContentManager.new(@document).update_content params['source']
       @document.synchronize_title unless @document.dict['synchronize_title'] == 'no'
 
       self.body = @document.rendered_content

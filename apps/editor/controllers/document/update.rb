@@ -17,7 +17,7 @@ module Editor::Controllers::Document
       new_text = document_packet['updated_text']
 
       @document = DocumentRepository.find(id)
-      @document.update_content new_text
+      ContentManager.new(@document).update_content new_text
       # if @document.is_root_document?
       #  @document.compile_with_render
       # end

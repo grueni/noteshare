@@ -20,8 +20,8 @@ module Web::Controllers::Documents
 
       session[:current_document_id] = document_id
 
-      @document.update_content
-      @aside.update_content if @aside && @aside.content
+      ContentManager.new(@document).update_content
+      ContentManager.new(@aside).update_content if @aside && @aside.content
 
         session[:current_document_id] = @document.id
       puts "web aside, recording session[:current_document_id] as #{session[:current_document_id]}".red
