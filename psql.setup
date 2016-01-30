@@ -34,6 +34,7 @@ CREATE TABLE documents(
   groups_json jsonb,
   xattributes text[],
   dict hstore,
+  author_credentials2 hstore,
 PRIMARY KEY(id)
 );
 
@@ -70,6 +71,7 @@ CREATE TABLE ns_images(
   identifier text,
   url text,
   source text,
+  data_file_name text,
 PRIMARY KEY(id)
 );
 
@@ -105,7 +107,7 @@ DROP TABLE settings;
 CREATE TABLE settings(
   id integer,
   owner text,
-  raw_hash jsonb,
+  dict hstore,
 PRIMARY KEY(id)
 );
 
