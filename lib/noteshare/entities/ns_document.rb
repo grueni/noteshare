@@ -1143,6 +1143,7 @@ class NSDocument
   #
   ############################################################
 
+  # EXTERNAL (3)
   def root_associated_document_map(target='reader')
     root = root_document || self
     root.associated_document_map(target)
@@ -1164,6 +1165,7 @@ class NSDocument
     DocumentRepository.update self
   end
 
+  # ONE INTERNAL USE
   def associated_document_map(target='reader')
 
     heal_associated_docs
@@ -1195,7 +1197,7 @@ class NSDocument
   end
 
 
-
+  # NOT USED
   # Return html text with links to the root and parent documents
   # as well as previous and next documents if they are present.
   def document_map
@@ -1215,6 +1217,7 @@ class NSDocument
   ############################################################
 
 
+  # EXTENSIVE INTERNAL AND EXTERNAL USE
   # Return URL of document
   def url(prefix, stem)
     if prefix == ''
@@ -1224,6 +1227,8 @@ class NSDocument
     end
   end
 
+
+  # INTERNAL AND EXTERNAL
   # Return html link to document
   def link(hash = {})
     title = hash[:title]
@@ -1236,6 +1241,7 @@ class NSDocument
     end
   end
 
+  # USED BY APPS
   # Return link to the root document
   def root_link(hash = {})
     if self.type =~ /associated:/
@@ -1249,12 +1255,14 @@ class NSDocument
     end
   end
 
+  # INTERNAL: Document map only
   # HTML link to parent document
   def parent_link(hash = {})
     p = self.parent_document
     p ? p.link(hash) : ''
   end
 
+  # INTERNAL: Document map only
   # HTML link to previous document
   # with arg1 = link text (or image)
   # if the link is valid and arg2
@@ -1266,6 +1274,7 @@ class NSDocument
     p ? p.link(hash) : alt_title
   end
 
+  # INTERNAL: Document map only
   # HTML link to next document
   # with arg1 = link text (or image)
   # if the link is valid and arg2
@@ -1277,7 +1286,7 @@ class NSDocument
     n ? n.link(hash) : alt_title
   end
 
-
+  # INTERNAL
   def associate_link(type, prefix='')
     if prefix == ''
       "<a href='/document/#{self.doc_refs[type]}'>#{type.capitalize}</a>"
@@ -1289,6 +1298,7 @@ class NSDocument
 
   ##################################
 
+  # NOT USED
   def author_screen_name
     _author = UserRepository.find author_id
     _author ? _author.screen_name  : '--'
