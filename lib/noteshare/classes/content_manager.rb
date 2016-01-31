@@ -70,7 +70,7 @@ class ContentManager
     # Compile the document and save the compilation if the document
     # is a root document: the compilation is used to build the internal
     # table of contents
-    _compiled_content = @document.compile
+    _compiled_content = compile
     @document.compiled_content = _compiled_content if @document.is_root_document?
 
     # Render the content
