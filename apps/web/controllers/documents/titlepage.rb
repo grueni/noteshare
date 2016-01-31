@@ -19,8 +19,8 @@ module Web::Controllers::Documents
       session[:current_document_id] = document.id
 
       @root_document = document.root_document
-      @root_document.compile_with_render({numbered: true, format: 'adoc-latex'})
-      @root_document.compiled_content = @root_document.compile
+      ContentManager.new(@root_document).compile_with_render({numbered: true, format: 'adoc-latex'})
+      @root_document.compiled_content = ContentManager.new(@root_document).compile
 
       session[:current_document_id] = @root_document.id
       puts "web titlepage, recording session[:current_document_id] as #{session[:current_document_id]}".red

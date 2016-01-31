@@ -20,12 +20,12 @@ module Editor::Controllers::Document
       @document = DocumentRepository.find(id)
       Analytics.record_edit(user, @document)
       session[:current_document_id] = id
+
+      cm = ContentManager.new(@document)
       if @document.is_root_document?
-        ### REFACTOR ###
-        @document.compile_with_render_lazily
+        cm.compile_with_render_lazily
       else
-        ### REFACTOR ###
-        @document.update_content_lazily
+        cm.update_content_lazily
       end
       @updated_text = @document.content
     end

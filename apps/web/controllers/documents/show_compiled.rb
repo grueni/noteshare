@@ -15,8 +15,8 @@ module Web::Controllers::Documents
       @document = DocumentRepository.find(params['id'])
       handle_nil_document(@document, params['id'])
       session[:current_document_id] = document.id
-      @root_document = document.root_document
-      @root_document.compile_with_render_lazily({numbered: true, format: 'adoc-latex'})
+      @root_document = @document.root_document
+      ContentManager.new(@root_document).compile_with_render_lazily({numbered: true, format: 'adoc-latex'})
 
       session[:current_document_id] = @root_document.id
       puts "web show_compiled, recording session[:current_document_id] as #{session[:current_document_id]}".red

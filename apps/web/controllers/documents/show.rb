@@ -22,7 +22,7 @@ module Web::Controllers::Documents
         session[:current_document_id] = document_id
         puts "web show, recording session[:current_document_id] as #{session[:current_document_id]}".red
 
-      @document.update_content
+      ContentManager.new(@document).update_content
 
       cu = current_user(session)
 

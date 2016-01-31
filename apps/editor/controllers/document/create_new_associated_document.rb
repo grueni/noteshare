@@ -32,7 +32,9 @@ module Editor::Controllers::Document
       new_document = NSDocument.create(title: title, content: content, author_credentials: author.credentials)
       # new_document.acl_set_permissions('rw', 'r', '-')
       new_document.acl = current_document.root_document.acl
-      new_document.update_content(nil)
+
+      ContentManager.new(new_document).update_content(nil)
+
       DocumentRepository.update new_document
       new_document.associate_to(current_document, type)
 
