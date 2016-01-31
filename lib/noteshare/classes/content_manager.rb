@@ -153,6 +153,31 @@ class ContentManager
 
   end
 
+  def prepare_content(new_content)
+
+    if @document
+      prefix = "="*(@document.level + 2)
+    else
+      prefix = "== "
+    end
+
+    if @document
+      new_title = @document.title
+    else
+      new_title = 'TITLE'
+    end
+
+    header = "#{prefix} #{new_title}"
+
+    if new_content
+      prepared_content = "#{header}\n\n#{new_content}"
+    else
+      prepared_content = header
+    end
+
+    @document.content = prepared_content
+  end
+
 
   ############# INTERNAL ############
 

@@ -29,9 +29,10 @@ module Editor::Controllers::Documents
       @document.render_options = get_format(_author)
 
 
-      @document.content = prepare_content(@document, doc_params['content'])
-      @document.update_content
-      @document.compile_with_render
+      cm = ContentManager.new(@document)
+      cm.prepare_content(doc_params['content'])
+      cm.update_content
+      cm.compile_with_render
 
 
       @document.acl_set_permissions!('rw', 'r', '-')
