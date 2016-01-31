@@ -244,7 +244,7 @@ module Noteshare
       doc = DocumentRepository.find item.id
       return '' if doc == nil
 
-      itoc = doc.internal_table_of_contents(attributes, {doc_id: doc.id} )
+      itoc = TOCPresenter(doc).internal_table_of_contents(attributes, {doc_id: doc.id} )
       output << itoc
       # Fixme: memoize, make lazy what we can.
 
