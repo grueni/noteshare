@@ -735,8 +735,6 @@ class NSDocument
   #
   ###################################################
 
-  ################ END OF REFACTORING PROJECT (LINE 738) ###########
-
   # Used internally by compile_with_render,
   # export, and render
   # Used in controller titlepage
@@ -766,8 +764,6 @@ class NSDocument
     end
   end
 
-  ################ END OF REFACTORING PROJECT (LINE 1017) -- 279 LINES ############
-
   #########################################################
   #
   #  TABLE OF CONTENTS
@@ -780,21 +776,24 @@ class NSDocument
     TOC.new(self).table
   end
 
-
+  # NOT USED
   def set_toc_dirty
     self.toc_dirty = true
     self.root_document.toc_dirty = true
   end
 
+  # NOT USED
   def set_toc_clean
     self.toc_dirty = false
     self.root_document.toc_dirty = false
   end
 
+  # NOT USED
   def toc_is_dirty
     self.root_document.toc_dirty
   end
 
+  # USED ONLY IN TESTS
   # return the TOC item with given id
   def toc_item(id)
     target = nil
@@ -807,6 +806,7 @@ class NSDocument
     target
   end
 
+  # USED ONLY IN TESTS
   # return the TOC item with given id
   def toc_item_change_title(id, new_title)
     target = nil
@@ -835,6 +835,7 @@ class NSDocument
 
   end
 
+  # USED ONLY IN TESTS
   def update_toc_at_root
     root_document.update_table_of_contents
   end
