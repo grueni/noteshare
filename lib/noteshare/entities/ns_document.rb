@@ -776,73 +776,6 @@ class NSDocument
     TOC.new(self).table
   end
 
-  # NOT USED
-  def set_toc_dirty
-    self.toc_dirty = true
-    self.root_document.toc_dirty = true
-  end
-
-  # NOT USED
-  def set_toc_clean
-    self.toc_dirty = false
-    self.root_document.toc_dirty = false
-  end
-
-  # NOT USED
-  def toc_is_dirty
-    self.root_document.toc_dirty
-  end
-
-  # USED ONLY IN TESTS
-  # return the TOC item with given id
-  def toc_item(id)
-    target = nil
-    self.toc.each do |item|
-      if item[:id] == id
-        target = item
-        break
-      end
-    end
-    target
-  end
-
-  # USED ONLY IN TESTS
-  # return the TOC item with given id
-  def toc_item_change_title(id, new_title)
-    target = nil
-    self.toc.each do |item|
-      if item[:id] == id
-        item[:title] = new_title
-        target = item
-        break
-      end
-    end
-    target
-  end
-
-
-  # A table of contents is an array of hashes,
-  # where the key-value pairs are like
-  #
-  #    hash['id'] = 23
-  #    hash['title'] = 'Long Journey'
-  #    hash['subdocs'] = true
-  #
-  # The metnod  #update_table_of_contents
-  # creates this structure from scratch, then stores
-  # it as jsonb in the toc field of the database
-  def update_table_of_contents(arg = {force: false})
-
-  end
-
-  # USED ONLY IN TESTS
-  def update_toc_at_root
-    root_document.update_table_of_contents
-  end
-
-
-  ###############
-
 
 
   ############################################################
@@ -851,11 +784,6 @@ class NSDocument
   #
   ############################################################
 
-  def permute_table_of_contents(permutation)
-    toc2 = self.toc.permute(permutation)
-    self.toc = toc2
-    DocumentRepository.update self
-  end
 
   # Return a string representing the table of
   # contents.  The format of the string can

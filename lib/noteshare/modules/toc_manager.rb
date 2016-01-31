@@ -51,6 +51,12 @@ class TOCManager
     sibling_swap_in_toc(n) if n
   end
 
+  def permute_table_of_contents(permutation)
+    toc2 = @document.toc.permute(permutation)
+    @document.toc = toc2
+    DocumentRepository.update @document
+  end
+
   # PUBLIC
   def make_child_of_sibling
     p = @document.previous_document

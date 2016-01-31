@@ -1,33 +1,27 @@
-
+require_relative '../../../../lib/noteshare/modules/subdomain'
+include Subdomain
 
 module Editor::Controllers::Document
   class UpdateToc
     include Editor::Action
 
     def call(params)
+
       redirect_if_not_signed_in('editor, document, UpdateToc')
-      puts "controller, UpdateToc, id = #{params['id']}".red
       id = session['current_document_id']
-      puts "ID #{id}".magenta
-
-
       data = request.query_string
       permutation = data.split(',').map{ |x| x.to_i }
-
-      puts permutation.to_s.cyan
-
-      puts  "session['current_document_id'] = #{session['current_document_id']}".red
-      #document = DocumentRepository.find session['current_document_id']
       document = DocumentRepository.find id
-      redirect_to "editor/document/#{document.id}" if document.toc.count == 0
+      redirect_to "/editor/document/#{document.id}" if document.toc.count == 0
 
-
-      document.permute_table_of_contents(permutation)
+      TOCManager.new(document).permute_table_of_contents(permutation)
       document.root_document.compiled_dirty = true
       DocumentRepository.update document
 
-      # self.body = "PERMUTATION = #{permutation}"
-      redirect_to "editor/document/#{id}"
+      puts 'READY TO REDIRECT'.magenta
+      # redirect_to "/editor/document/#{id}"
+      redirect_to basic_link "#{current_user(session)}.screen_name",   "/editor/document/#{id}"
+      # redirect_to "/"
 
     end
 

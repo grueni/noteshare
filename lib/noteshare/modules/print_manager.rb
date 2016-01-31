@@ -788,11 +788,11 @@ EOF
   def process_document(option)
 
     if option == 'section'
-      @document.update_content_lazily
+      ContentManager.new(@document).update_content_lazily
       html = @document.rendered_content
     else
       @document = @document.root_document
-      @document.compile_with_render_lazily
+      ContentManager.new(@document).compile_with_render_lazily
       html = @document.compiled_and_rendered_content
     end
 

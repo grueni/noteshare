@@ -552,7 +552,7 @@ ul.toc {
 
 /*** TABLE OF CONTENTS 2 ***/
 
-.toc2 { margin-left: 1em;  }
+.toc2 { margin-left: 1em; margin-bottom:200px;}
 
 .toc2 ul {
 
