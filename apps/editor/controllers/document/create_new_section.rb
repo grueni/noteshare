@@ -11,7 +11,7 @@ module Editor::Controllers::Document
       puts "(2) query: #{request.query_string}".cyan
 
       document_packet = params['document']
-      title = document_packet['title']
+      title = document_packet['title'] || 'Oops, no title'
       content = document_packet['content']
       parent_id = document_packet['parent_id']
       create_mode = document_packet['create_mode']

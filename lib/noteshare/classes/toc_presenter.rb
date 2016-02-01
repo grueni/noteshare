@@ -75,7 +75,7 @@ class TOCPresenter
 
     return '' if item == nil
     doc_id = item.id
-    doc_title = item.title
+    doc_title = item.title || 'NO TITLE'
 
 
     case target
@@ -206,7 +206,7 @@ class TOCPresenter
 
     (attributes.include? 'root') ? source = @document.compiled_content : source = @document.content
 
-    toc =  Noteshare::AsciidoctorHelper::NSTableOfContents.new(source, attributes, options)
+    Noteshare::AsciidoctorHelper::NSTableOfContents.new(source, attributes, options)
 
   end
 
@@ -217,9 +217,8 @@ class TOCPresenter
 
     toc =  Noteshare::AsciidoctorHelper::NSTableOfContents.new(source, attributes, options)
 
-    result = toc.table || ''
+    toc.table || ''
 
-    return result
 
   end
 

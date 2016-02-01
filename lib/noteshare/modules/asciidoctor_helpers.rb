@@ -160,7 +160,7 @@ module Noteshare
 
          setup_table
 
-         if @sections
+         if @sections  && @sections.count > 0
 
            @sections[@first_index..@last_index].each do |section|
 
