@@ -1,5 +1,5 @@
 require_relative '../../../../lib/noteshare/modules/subdomain'
-include Subdomain
+include Noteshare::Subdomain
 
 module Editor::Controllers::Document
   class UpdateToc
