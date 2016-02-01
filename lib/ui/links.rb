@@ -29,7 +29,13 @@ module UI
     #
     #####################################################
 
-
+    def document_index_link(document)
+      if document
+        text_link(title: 'index', prefix: :none, suffix: "/compiled/#{document.id}\#_index")
+      else
+        'no doc'
+      end
+    end
 
     def image_link(image_path, url, title='')
       link_to html.img(src: image_path, title: title), url

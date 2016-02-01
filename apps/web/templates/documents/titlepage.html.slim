@@ -8,7 +8,7 @@
 
           h4 style='margin-bottom:0;margin-left:0.7em;' Contents
           - if root_document.dict['make_index']
-            span.redlink style='margin-left:1em; margin-top:0' == link_to 'Index', '#_index'
+            span.redlink style='margin-left:1em; margin-top:0' == document_index_link(document)
 
           .toc2 == TOCPresenter.new(root_document).internal_table_of_contents(['root', 'titlepage', 'sectnums'], { doc_id: root_document.id })
 
