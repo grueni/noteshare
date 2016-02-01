@@ -34,11 +34,19 @@ $(document).ready(function(){
     }
   });
 
+  $.setup_editor();
 
-    $('#image_id_control').click(insert_image_link);
+  $('#image_id_control').click(insert_image_link);
 
 
 });
+
+$.setup_editor = function() {
+
+    var element = document.getElementById('document-updated-text');
+    var source_text = element.value;
+    $('#count_words').html("<span>" + count_words(source_text) + "</span>");
+}
 
 mark_text_as_dirty = function() {
 
