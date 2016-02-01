@@ -24,11 +24,12 @@ module Web::Controllers::Documents
       Analytics.record_document_view(current_user(session), @root_document)
 
       if @root_document.dict['make_index'] # && false
+        adm = AssociateDocManager.new(@root_document)
         index_content = @root_document.dict['document_index']
-        if @root_document.associated_document('index') == nil
+        if adm.associated_document('index') == nil
           AssociateDocManager.new(@root_document).add_associate(title: 'Index', type: 'index', rendered_content: index_content)
         else
-          @root_document.associated_document('index').rendered_content = index_content
+          adm.associated_document('index').rendered_content = index_content
         end
       end
 
