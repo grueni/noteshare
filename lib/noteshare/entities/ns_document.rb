@@ -61,9 +61,6 @@ class NSDocument
   #
   #     1. REQUIRE, INCLUDE, INITIALIZE AND DISPLAY
   #     2. MANAGE SUBDOCUMENTS
-  #     3. ASSOCIATED DOCUMENTS
-  #           4. UPDATE, COMPILE & RENDER
-  #     5. TABLE OF CONTENTS
   #
   #
   ###################################################
@@ -209,10 +206,10 @@ class NSDocument
   end
 
 
-  ### PRIVAE -- used ony in this class
+  ### PRIVATE -- used ony in this class
   # Typical credential:
   #
-  #  "id"=>91, "last_name"=>"Foo-Bar", "first_name"=>"Jason", "identifier"=>"35e...48"
+  #  "id"=>91, "last_name"=>"Foo-Bar", g"first_name"=>"Jason", "identifier"=>"35e...48"
   #
   # Make all changes to author info via this method to keep data consistent
   def set_author_credentials(credentials)

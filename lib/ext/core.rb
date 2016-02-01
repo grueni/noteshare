@@ -154,7 +154,7 @@ class String
       end
     end
     hash
-  end
+    end
 
   # Assume that the receive is of the form
   # "foo, bar, baz".  Return a list of the form

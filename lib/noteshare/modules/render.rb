@@ -30,10 +30,23 @@ class Render
     puts "In convert, @source = #{@source}".cyan
   end
 
+  ####
+
+  def append_glossary
+    glossary = Glossary.new(@source)
+    glossary_text = glossary.table
+    @source << "\n\n" << glossary_text << "\n\n"
+  end
+
+  ####
+
   def convert
     @options = @options.merge({verbose:0})
     rewrite_urls
     make_index if @options[:make_index]
+    if @source.include?  ':glossary:'
+      append_glossary
+    end
     Asciidoctor.convert(@source, @options)
   end
 
