@@ -36,7 +36,7 @@ class Course
       tex_macro_document =  NSDocument.create(title: 'Tex Macros', author_credentials: master.author_credentials2)
       tex_macro_document.content = "\\(" + _tex_macros + "\\)"
       DocumentRepository.update tex_macro_document
-      tex_macro_document.associate_to(master, 'texmacros')
+      AssociateDocManager.new(tex_macro_document).associate_to(master, 'texmacros')
     end
 
     # Set up a stack for iterating over lessons

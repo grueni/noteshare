@@ -354,16 +354,21 @@ class NSDocument
     DocumentRepository.delete self
   end
 
-  # PRIVATE
-  def delete_associated_document
-    disassociate
-    DocumentRepository.delete self
+
+  def is_associated_document?
+    if type =~ /associated:/
+      return true
+    else
+      return false
+    end
   end
 
+
+  #Fixme, spaghetti?
   # PUBLIC
   def delete
     if is_associated_document?
-      delete_associated_document
+      AssociateDocManager.new(self).delete_associated_document
     else
       delete_subdocument
     end
@@ -647,83 +652,6 @@ class NSDocument
   end
 
 
-  ###################################################
-  #
-  #      3. ASSOCIATED DOCUMENTS
-  #
-  ###################################################
-
-  # @foo.associate_to(@bar, 'summary',)
-  # associates @foo to @bar as a 'summary'.
-  # It can be retrieved as @foo.associated_document('summary')
-  def associate_to(parent, type)
-    parent.doc_refs[type] = self.id
-    self.type = 'associated:' + type
-    self.set_parent_document_to(parent)
-    self.set_root_document_to(parent)
-    DocumentRepository.update(parent)
-    DocumentRepository.update(self)
-  end
-
-  # Add associat to receiver
-  # Example
-  #
-  #    @content = 'Dr. Smith said that conservation laws ...'
-  #    @article.add_associate(title: 'Notes from class', type: 'note', content: @content)
-  #
-  def add_associate(hash)
-
-    type = hash.delete(:type)
-
-    doc = NSDocument.new(hash)
-    doc.identifier = Noteshare::Identifier.new().string
-    doc.root_ref = { 'id'=> 0, 'title' => ''}
-    doc.author_id = self.author_id
-    doc.author = self.author
-    doc.author_credentials2 = self.author_credentials2
-
-    doc.info
-    doc2 = DocumentRepository.create doc
-
-    doc2.associate_to(self, type)
-
-  end
-
-
-  # The method below assumes that a document
-  # is the associate of at most one other
-  # document.  This should be enforced (#fixme)
-  def disassociate
-    _parent = parent_document
-    _type = self.type.sub('associated:', '')
-    _parent.doc_refs.delete(_type)
-    self.parent_id = 0
-    self.parent_ref =  nil
-    self.root_document_id = 0
-    self.root_ref = nil
-    DocumentRepository.update(_parent)
-    DocumentRepository.update(self)
-  end
-
-  # @foo.associatd_document('summary')
-  # retrieve the document associated to
-  # @foo which is of type 'summary'
-  def associated_document(type)
-    DocumentRepository.find(self.doc_refs[type])
-  end
-
-  # return hash of associates of a given document
-  def associates
-    self.doc_refs
-  end
-
-  def is_associated_document?
-    if type =~ /associated:/
-      return true
-    else
-      return false
-    end
-  end
 
   ###################################################
   #
@@ -827,66 +755,6 @@ class NSDocument
   def next_document_title
     p = next_document
     p ? p.title : '-'
-  end
-
-
-  ############################################################
-  #
-  #   ASSOCIATED DOCUMENTS
-  #
-  ############################################################
-
-  # EXTERNAL (3)
-  def root_associated_document_map(target='reader')
-    root = root_document || self
-    root.associated_document_map(target)
-  end
-
-  # Remove stale keys
-  # Fixme: this will become obsolete
-  # when things are working better
-  def heal_associated_docs
-    bad_keys = []
-    self.doc_refs do |key, value|
-      if DocumentRepository.find key == nil
-        bad_keys << key
-      end
-    end
-    bad_keys.each do |key|
-      self.doc_refs.delete(key)
-    end
-    DocumentRepository.update self
-  end
-
-  # ONE INTERNAL USE
-  def associated_document_map(target='reader')
-
-    heal_associated_docs
-
-    if self.type =~ /associated:/
-      document = self.parent_document
-    else
-      document = self
-    end
-
-    hash = document.doc_refs
-    keys = hash.keys
-    if keys
-      keys.delete "previous"
-      keys.delete "next"
-      map = "<ul>\n"
-      keys.sort.each do |key|
-        if target == 'editor'
-          map << "<li>" << "#{self.associate_link(key, 'editor')}</li>\n"
-        else
-          map << "<li>" << "#{self.associate_link(key)}</li>\n"
-        end
-      end
-      map << "</ul>\n"
-    else
-      map = ''
-    end
-    map
   end
 
 

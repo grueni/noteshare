@@ -36,7 +36,7 @@ module Editor::Controllers::Document
       ContentManager.new(new_document).update_content(nil)
 
       DocumentRepository.update new_document
-      new_document.associate_to(current_document, type)
+      AssociateDocManager.new(new_document).associate_to(current_document, type)
 
       redirect_to "/editor/document/#{current_document.root_document.id}"
 

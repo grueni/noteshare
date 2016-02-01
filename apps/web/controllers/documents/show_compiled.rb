@@ -26,7 +26,7 @@ module Web::Controllers::Documents
       if @root_document.dict['make_index'] # && false
         index_content = @root_document.dict['document_index']
         if @root_document.associated_document('index') == nil
-          @root_document.add_associate(title: 'Index', type: 'index', rendered_content: index_content)
+          AssociateDocManager.new(@root_document).add_associate(title: 'Index', type: 'index', rendered_content: index_content)
         else
           @root_document.associated_document('index').rendered_content = index_content
         end

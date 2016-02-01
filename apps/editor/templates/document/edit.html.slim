@@ -32,7 +32,7 @@
        span style='margin-left:1em;' == document.root_link(prefix: '/editor')
       /p style = 'margin-top:0.05em;' == "by #{document.author}"
 
-      .toc.plainlink.lightlink == document.root_associated_document_map('editor')
+      .toc.plainlink.lightlink == AssociateDocManager.new(document).root_associated_document_map('editor')
       .toc2== TOCPresenter.new(document.root_document).root_table_of_contents(document.id, 'editor')
 
     .div
