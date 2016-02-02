@@ -628,7 +628,7 @@ class NSDocument
   # *doc.subdocment(k)* returns the k-th
   # subdocument of *doc*
   def subdocument(k)
-    _id = table_of_contents[k].id
+    _id = toc[k]['id']
     if _id
       DocumentRepository.find(_id)
     end
