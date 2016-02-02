@@ -275,9 +275,17 @@ module UI
 
     def aside_document_link(document, active_item2='')
       if active_item2 == 'aside'
-        return link_to 'S', "/aside/#{document.id}", class: 'active_item2', title: 'view sidebars'
+        return link_to 'B', "/aside/#{document.id}", class: 'active_item2', title: 'view both doc & sidebar'
       else
-        return  link_to 'S', "/aside/#{document.id}", class: 'item2black', title: 'view sidebars'
+        return  link_to 'B', "/aside/#{document.id}", class: 'item2black', title: 'view both doc & sidebar'
+      end
+    end
+
+    def source_document_link(document, active_item2='')
+      if active_item2 == 'source'
+        return link_to 'S', "/view_source/#{document.id}", class: 'active_item2', title: 'view source'
+      else
+        return  link_to 'S', "/view_source/#{document.id}", class: 'item2black', title: 'view source'
       end
     end
 

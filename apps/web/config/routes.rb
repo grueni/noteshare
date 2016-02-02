@@ -1,3 +1,4 @@
+get '/view_source/:id', to: 'documents#view_source'
 post '/set_search_type', to: 'documents#set_search_type'
 get '/error/:id', to: 'home#error'
 get '/aside/:id', to: 'documents#aside'
@@ -19,6 +20,6 @@ get '/documents', to: 'documents#index'
 
 post '/search', to: 'documents#search'
 
-# Configure your routes here
+
 # See: http://www.rubydoc.info/gems/lotus-router/#Usage
 
