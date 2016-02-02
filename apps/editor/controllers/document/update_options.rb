@@ -30,6 +30,11 @@ module Editor::Controllers::Document
 
       update_dict(document, hash)
       propagate(document, hash) if @mode == 'root'
+      if document.is_root_document? && hash['title']
+        if hash['title'].length > 0
+          document.title = hash['title']
+        end
+      end
       DocumentRepository.update document
 
     end

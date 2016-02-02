@@ -46,6 +46,7 @@ module NSDocument::Asciidoc
   # Make document.title agree with what
   # is said in the text.
   def synchronize_title
+    return if self.is_root_document?
     old_title = self.title || ''
     new_title = title_from_content || ''
     old_title = 'No Title' if old_title == ''
@@ -55,8 +56,8 @@ module NSDocument::Asciidoc
       if parent_document
         puts "synchronize_title: Updating parent document".red
         toc  = TOC.new(parent_document)
-        # toc.change_title(self.id, new_title)
-        # toc.save!
+        toc.change_title(self.id, new_title)
+        toc.save!
         DocumentRepository.update self
       end
     end
