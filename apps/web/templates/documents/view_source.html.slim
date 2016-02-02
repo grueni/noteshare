@@ -1,0 +1,21 @@
+
+.row
+  .col.tools style='top:0; background-color:#444; color: white; margin-top:-40px;'
+
+    .hide-on-med-and-down== render partial: 'documents/view_control', locals: { }
+
+    .div style='position:absolute; top:60px; left:20px;' id='toc_panel'
+      p.plainlink.lightlink style = 'font-size:larger; padding-top:0.4em;margin-bottom:0;'
+        == document.root_link(prefix: '/editor')
+      - if root_document.dict['make_index']
+        .toc.plainlink.lightlink == document_index_link(document)
+      .toc.plainlink.lightlink == AssociateDocManager.new(document).root_associated_document_map('editor')
+      .toc2== TOCPresenter.new(document.root_document).root_table_of_contents(document.id, 'editor')
+
+  .col.source style='margin-top:-40px; padding-bottom:18em;white-space:pre-wrap; padding-top:40px;'
+    == document.content
+
+
+  .col.rendered id='rendered_content'  style=' margin-top:-40px;padding-bottom:36em;'
+    == document.rendered_content2
+
