@@ -42,7 +42,7 @@ class Render
 
   def convert
     @options = @options.merge({verbose:0})
-    rewrite_urls
+    rewrite_media_urls
     make_index if @options[:make_index]
     if @source.include?  ':glossary:'
       append_glossary
@@ -55,45 +55,39 @@ class Render
     rewrite_urls
   end
 
-  def rewrite_urls(option={destination: 'web'})
 
-    rewrite_media_urls('image', option)
-    # @source = self.rewrite_media_urls('video', option)
-    # @source = self.rewrite_media_urls('audio', option)
+  def rewrite_media_urls
 
-  end
-
-  def rewrite_media_urls(tag, option)
-
-    rxTag = /(#{tag}:+.*?\])/
-    rxParts = /#{tag}:+(.*?)\[(.*)\]/
+    rxTag = /(image|video|audio)(:+)(.*?)\[(.*)\]/
     scanner = @source.scan(rxTag)
     count = 0
 
-    scanner.each do |tag_scan|
+    scanner.each do |scan_item|
       count += 1
-      old_tag = tag_scan[0]
-      part = old_tag.match rxParts
-      id = part[1]
-      attributes = part[2]
+
+      media_type = scan_item[0]
+      infix = scan_item[1]
+      id = scan_item[2]
+      attributes = scan_item[3]
+
+      old_tag = "#{media_type}#{infix}#{id}[#{attributes}]"
 
       if id =~ /^\d+\d$/
         iii = ImageRepository.find id
         if iii
-          if tag_scan  =~ /::/
-            new_tag = "#{tag}::#{iii.url2}[#{attributes}]"
-          else
-            new_tag = "#{tag}:#{iii.url2}[#{attributes}]"
-          end
+          new_tag = "#{media_type}#{infix}#{iii.url2}[#{attributes}]"
           @source = @source.sub(old_tag, new_tag)
         else
-          puts "Image #{id} not found".red
+          puts "Media #{id} not found".red
         end
+        puts "old_tag: #{old_tag}"
+        puts "new_tag: #{new_tag}"
       end
 
     end
 
   end
+
 
   def source
     @source
