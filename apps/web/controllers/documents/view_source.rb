@@ -20,7 +20,7 @@ module Web::Controllers::Documents
       @active_item = 'reader'
       @active_item2 = 'source'
       @document = DocumentRepository.find(id)
-      handle_nil_document(@document, document_id)
+      handle_nil_document(@document, params['id'])
       redirect_if_document_not_public(@document, 'Unauthorized attempt to read document that is not world-readable')
 
       @root_document = @document.root_document
