@@ -14,8 +14,6 @@ module Web::Controllers::Documents
       document_id = params['id']
       query_string = request.query_string || ''
 
-      redirect_if_document_not_public(document, message)
-
       @active_item = 'reader'
       @active_item2 = 'standard'
       @document = DocumentRepository.find(document_id)
