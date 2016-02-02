@@ -12,7 +12,7 @@ module Web::Controllers::Documents
       cu = current_user(session)
       if cu == nil
         puts 'DOING SEARCH FOR ALL'.red
-        @documents = DocumentRepository.search(search_key).select(&can_read(user)).sort_by { |item| item.title }
+        @documents = DocumentRepository.search(search_key).select{ |item| item.acl_get(:world) =~ /r/ }.sort_by { |item| item.title }
       else
         if cu.dict2['search_type'] == 'local'
           puts 'DOING LOCAL SEARCH'.red
