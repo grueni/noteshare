@@ -43,6 +43,7 @@ class Render
   def convert
     @options = @options.merge({verbose:0})
     rewrite_media_urls
+    rewrite_xlinks
     make_index if @options[:make_index]
     if @source.include?  ':glossary:'
       append_glossary
@@ -86,6 +87,21 @@ class Render
 
     end
 
+  end
+
+  def rewrite_xlinks
+    scanner = @source.scan(/(xlink::.*?\[)/)
+    scanner.each do |pattern|
+      xlink_string = pattern[0]
+      hit = xlink_string.match /xlink::(.*)\[/
+      id = hit[1]
+      if ENV['MODE'] == 'LVH'
+        new_xlink_string = "http://www#{ENV['DOMAIN']}:#{ENV['PORT']}/document/#{id}["
+      else
+        new_xlink_string = "http://www#{ENV['DOMAIN']}/document/#{id}["
+      end
+      @source = @source.gsub(xlink_string, new_xlink_string)
+    end
   end
 
 
