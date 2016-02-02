@@ -106,13 +106,6 @@ pre.content {
 /* CAPSULE */
 
 
-.openblock.capsule {
-    margin-left:10em;
-    margin-bottom:2em;
-    font-style:italic;
-    font-size:0.85em;
-}
-
 
 .openblock.theorem {
 
@@ -155,14 +148,23 @@ pre.content {
 
 /* CAPSULE */
 
-
-.openblock.capsule.content {
+.openblock.capsule {
     margin-top:3em;
     margin-bottom:2em;
     line-height:1.3em;
-    font-style:italic;
-    font-size:0.85em;
+    margin-left:50%;
+    font-size: 1.1em;
+    font-style:oblique;
 }
+
+
+.openblock.capsule.content {
+
+
+
+
+}
+
 
 .openblock.texmacro {
 

@@ -274,7 +274,7 @@ module UI
     end
 
     def aside_document_link(document, active_item2='')
-      if active_item2 == 'aside'
+      if active_item2 == 'sidebar'
         return link_to 'B', "/aside/#{document.id}", class: 'active_item2', title: 'view both doc & sidebar'
       else
         return  link_to 'B', "/aside/#{document.id}", class: 'item2black', title: 'view both doc & sidebar'

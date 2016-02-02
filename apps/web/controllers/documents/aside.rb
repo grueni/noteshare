@@ -13,7 +13,7 @@ module Web::Controllers::Documents
       query_string = request.query_string || ''
 
       @active_item = 'reader'
-      @active_item2 = 'standard'
+      @active_item2 = 'sidebar'
       @document = DocumentRepository.find(document_id)
       handle_nil_document(@document, document_id)
 
