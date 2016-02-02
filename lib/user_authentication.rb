@@ -103,6 +103,15 @@ module SessionTools
     end
   end
 
+  def redirect_if_document_not_public(document, message)
+    cu = current_user(session)
+    world_permission = document.acl_get(:world)
+    if cu == nil && !(world_permission =~ /r/)
+      Keen.publish(:unauthorized_access_attempt, {user: 'nil', message: message})
+      halt(401)
+    end
+  end
+
 
 end
 

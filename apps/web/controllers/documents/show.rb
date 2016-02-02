@@ -14,11 +14,13 @@ module Web::Controllers::Documents
       document_id = params['id']
       query_string = request.query_string || ''
 
+      redirect_if_document_not_public(document, message)
 
       @active_item = 'reader'
       @active_item2 = 'standard'
       @document = DocumentRepository.find(document_id)
       handle_nil_document(@document, document_id)
+      redirect_if_document_not_public(@document, 'Unauthorized attempt to read document that is not world-readable')
 
       @root_document = @document.root_document
       if @document.content.length < 3
