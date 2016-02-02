@@ -94,6 +94,11 @@ $(document).ready(function() {
 
     $.setup_search_selector();
 
+    $('.openblock.click').find('.content').hide();
+
+    $('.openblock.click').click(function() {
+        return $(this).find('.content').slideToggle('200');
+    });
 
 
     /**

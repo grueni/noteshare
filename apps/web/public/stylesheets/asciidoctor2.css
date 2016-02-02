@@ -138,6 +138,19 @@ pre.content {
     margin-bottom:1.5em;
 }
 
+/* CLICK BLOCK */
+
+
+.openblock.click { margin-top:-0.75em; margin-bottom: 1em; }
+.openblock.click.title { color: blue; }
+.openblock.click.paragraph { font-style: oblique; }
+
+
+/* COMMENT */
+
+.openblock.comment.title { color: blue }
+.openblock.comment.content.paragraph { font-style: oblique; }
+
 
 
 /* CAPSULE */
