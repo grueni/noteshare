@@ -6,7 +6,12 @@ class ContentManager
 
   def initialize(document)
     @document = document
-    @format = @document.root_document.render_options['format']
+    @root_document = @document.root_document
+    if  @root_document
+      @format = @root_document.render_options['format']
+    else
+      @format = 'adoc'
+    end
     case @format
       when 'adoc'
         @render_option = {}
