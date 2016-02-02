@@ -16,6 +16,7 @@ module Web::Controllers::Documents
       @active_item2 = 'sidebar'
       @document = DocumentRepository.find(document_id)
       handle_nil_document(@document, document_id)
+      redirect_if_document_not_public(@document, 'Unauthorized attempt to read document that is not world-readable')
 
       @root_document = @document.root_document
       if @document.content.length < 3

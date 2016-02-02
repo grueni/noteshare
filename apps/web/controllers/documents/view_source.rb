@@ -10,7 +10,6 @@ module Web::Controllers::Documents
 
     def call(params)
       puts "Enter: ViewSource".red
-      redirect_if_not_signed_in('web, document, ViewSource')
       user = current_user(session)
       id = params['id']
 
@@ -21,6 +20,9 @@ module Web::Controllers::Documents
       @active_item = 'reader'
       @active_item2 = 'source'
       @document = DocumentRepository.find(id)
+      handle_nil_document(@document, document_id)
+      redirect_if_document_not_public(@document, 'Unauthorized attempt to read document that is not world-readable')
+
       @root_document = @document.root_document
       Analytics.record_document_view(user, @document)
       session[:current_document_id] = id

@@ -5,6 +5,7 @@ module Web::Controllers::Documents
 
     def call(params)
       @active_item = 'reader'
+      redirect_if_not_signed_in('editor, document, Options')
     end
   end
 end

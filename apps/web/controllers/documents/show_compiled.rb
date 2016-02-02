@@ -14,6 +14,9 @@ module Web::Controllers::Documents
       @active_item2 = 'compiled'
       @document = DocumentRepository.find(params['id'])
       handle_nil_document(@document, params['id'])
+      redirect_if_document_not_public(@document, 'Unauthorized attempt to read document that is not world-readable')
+
+
       session[:current_document_id] = document.id
       @root_document = @document.root_document
       ContentManager.new(@root_document).compile_with_render_lazily({numbered: true, format: 'adoc-latex'})
