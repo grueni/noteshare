@@ -29,6 +29,9 @@ module UI
     #
     #####################################################
 
+    def document_index_link(document)
+      text_link(title: 'Index', prefix: :none, suffix: "compiled/#{document.id}\#_index")
+    end
 
 
     def image_link(image_path, url, title='')

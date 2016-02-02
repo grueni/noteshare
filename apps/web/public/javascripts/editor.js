@@ -34,17 +34,18 @@ $(document).ready(function(){
     }
   });
 
-  $.setup_editor();
+  setup_editor();
 
   $('#image_id_control').click(insert_image_link);
 
 
 });
 
-$.setup_editor = function() {
+setup_editor = function() {
 
     var element = document.getElementById('document-updated-text');
     var source_text = element.value;
+    console.log(count_words(source_text) + ' words');
     $('#count_words').html("<span>" + count_words(source_text) + "</span>");
 }
 
@@ -88,7 +89,6 @@ auto_update_document = function () {
   if (localStorage.getItem('edit_text_is_dirty') == 'yes') {
 
       console.log('auto_update_document --UPDATE')
-
 
       update_document();
 

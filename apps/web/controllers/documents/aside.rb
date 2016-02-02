@@ -5,7 +5,7 @@ module Web::Controllers::Documents
     include Web::Action
     include Analytics
 
-    expose :document, :aside, :active_item, :active_item2
+    expose :document, :root_document, :aside, :active_item, :active_item2
 
     def call(params)
 
@@ -16,6 +16,7 @@ module Web::Controllers::Documents
       @active_item2 = 'aside'
       @document = DocumentRepository.find(document_id)
       handle_nil_document(@document, document_id)
+      @root_document = @document.root_document
       @aside = AssociateDocManager.new(@document).associated_document('aside')
 
       session[:current_document_id] = document_id
@@ -23,8 +24,7 @@ module Web::Controllers::Documents
       ContentManager.new(@document).update_content
       ContentManager.new(@aside).update_content if @aside && @aside.content
 
-        session[:current_document_id] = @document.id
-      puts "web aside, recording session[:current_document_id] as #{session[:current_document_id]}".red
+      session[:current_document_id] = @document.id
 
       Analytics.record_document_view(current_user(session), @document)
 

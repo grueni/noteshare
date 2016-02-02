@@ -7,7 +7,7 @@ module Web::Controllers::Documents
     include Web::Action
     include Keen
 
-    expose :document,  :active_item, :active_item2
+    expose :document, :root_document,  :active_item, :active_item2
 
     def call(params)
 
@@ -19,8 +19,9 @@ module Web::Controllers::Documents
       @active_item2 = 'standard'
       @document = DocumentRepository.find(document_id)
       handle_nil_document(@document, document_id)
-        session[:current_document_id] = document_id
-        puts "web show, recording session[:current_document_id] as #{session[:current_document_id]}".red
+      @root_document = @document.root_document
+
+      session[:current_document_id] = document_id
 
       ContentManager.new(@document).update_content
 

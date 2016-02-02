@@ -121,14 +121,15 @@ class AssociateDocManager
     hash = document.doc_refs
     keys = hash.keys
     if keys
-      keys.delete "previous"
-      keys.delete "next"
+      keys.delete 'previous'
+      keys.delete 'next'
+      keys.delete 'index'
       map = "<ul>\n"
       keys.sort.each do |key|
         if target == 'editor'
-          map << "<li>" << "#{@document.associate_link(key, 'editor')}</li>\n"
+          map << '<li>' << "#{@document.associate_link(key, 'editor')}</li>\n"
         else
-          map << "<li>" << "#{@document.associate_link(key)}</li>\n"
+          map << '<li>' << "#{@document.associate_link(key)}</li>\n"
         end
       end
       map << "</ul>\n"

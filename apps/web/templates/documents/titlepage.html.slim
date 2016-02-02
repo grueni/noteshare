@@ -6,11 +6,13 @@
 
           == render partial: 'documents/view_control', locals: { }
 
-          h4 style='margin-bottom:0;margin-left:0.7em;' Contents
-          - if root_document.dict['make_index']
-            span.redlink style='margin-left:1em; margin-top:0' == link_to 'Index', '#_index'
 
-          .toc2 == TOCPresenter.new(root_document).internal_table_of_contents(['root', 'titlepage', 'sectnums'], { doc_id: root_document.id })
+          - if root_document.dict['make_index']
+            p.redlink style='margin-left:0.7em; margin-top:1em; margin-bottom:0.3em; font-size:1.2em;' == document_index_link(root_document)
+
+          p style='margin-bottom:0;margin-top:0;margin-left:0.7em;color: white;' Contents
+
+          .toc2 style='margin-top:0.6em;' == TOCPresenter.new(root_document).internal_table_of_contents(['root', 'titlepage', 'sectnums'], { doc_id: root_document.id })
 
 
 

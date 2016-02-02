@@ -28,10 +28,8 @@
 
     .div style='position:absolute; top:60px; left:20px;' id='toc_panel'
       p.plainlink.lightlink style = 'font-size:larger; padding-top:0.4em;margin-bottom:0;'
-       == iconic_compiled_document_link(document)
-       span style='margin-left:1em;' == document.root_link(prefix: '/editor')
-      /p style = 'margin-top:0.05em;' == "by #{document.author}"
-
+        == document.root_link(prefix: '/editor')
+      .toc.plainlink.lightlink == document_index_link(document)
       .toc.plainlink.lightlink == AssociateDocManager.new(document).root_associated_document_map('editor')
       .toc2== TOCPresenter.new(document.root_document).root_table_of_contents(document.id, 'editor')
 
