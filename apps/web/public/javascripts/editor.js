@@ -51,9 +51,10 @@ setup_editor = function() {
 
 mark_text_as_dirty = function() {
 
-    localStorage.setItem('edit_text_is_dirty', 'yes');
-
-    console.log('text marked as DIRTY');
+    localStorage.setItem('text_is_dirty', 'yes');
+    var is_dirty = localStorage.getItem('text_is_dirty');
+    console.log('mark, text_is_dirty: ' + is_dirty );
+    //console.log('text marked as DIRTY');
 }
 
 
@@ -84,9 +85,12 @@ auto_update_delay = function() {
  */
 auto_update_document = function () {
 
-    console.log('ENTER auto_update_document')
 
-  if (localStorage.getItem('edit_text_is_dirty') == 'yes') {
+  var is_dirty = localStorage.getItem('text_is_dirty');
+
+  console.log('auto_update, text_is_dirty: ' + is_dirty );
+
+  if (is_dirty == 'yes') {
 
       console.log('auto_update_document --UPDATE')
 
@@ -96,7 +100,7 @@ auto_update_document = function () {
       var source_text = element.value;
       $('#count_words').html("<span>" + count_words(source_text) + "</span>");
 
-      localStorage.setItem('edit_text_is_dirty', 'no');
+      localStorage.setItem('text_is_dirty', 'no');
 
       console.log('text marked as CLEAN');
 
