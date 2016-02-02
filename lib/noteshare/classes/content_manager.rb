@@ -223,6 +223,8 @@ class ContentManager
       update_content_from(str)
     end
 
+    @document.synchronize_title
+
     @document.content_dirty = false
     DocumentRepository.update @document
 

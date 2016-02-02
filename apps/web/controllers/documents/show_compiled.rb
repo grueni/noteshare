@@ -19,7 +19,6 @@ module Web::Controllers::Documents
       ContentManager.new(@root_document).compile_with_render_lazily({numbered: true, format: 'adoc-latex'})
 
       session[:current_document_id] = @root_document.id
-      puts "web show_compiled, recording session[:current_document_id] as #{session[:current_document_id]}".red
 
       Analytics.record_document_view(current_user(session), @root_document)
 
