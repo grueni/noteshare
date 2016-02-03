@@ -267,25 +267,25 @@ module UI
 
     def standard_document_link(document, active_item2='')
       if active_item2 == 'standard'
-        return link_to 'P', "/document/#{document.id}", class: 'active_item2', title: 'view by document parts'
+        return link_to 'B', "/document/#{document.id}", class: 'active_item2', title: 'view by block'
       else
-        return  link_to 'P', "/document/#{document.id}", class: 'item2black', title: 'view by document parts'
+        return  link_to 'B', "/document/#{document.id}", class: 'item2black', title: 'view by block'
       end
     end
 
     def aside_document_link(document, active_item2='')
       if active_item2 == 'sidebar'
-        return link_to 'B', "/aside/#{document.id}", class: 'active_item2', title: 'view both doc & sidebar'
+        return link_to 'S', "/aside/#{document.id}", class: 'active_item2', title: 'display sidebar'
       else
-        return  link_to 'B', "/aside/#{document.id}", class: 'item2black', title: 'view both doc & sidebar'
+        return  link_to 'S', "/aside/#{document.id}", class: 'item2black', title: 'display sidebar'
       end
     end
 
     def source_document_link(document, active_item2='')
       if active_item2 == 'source'
-        return link_to 'S', "/view_source/#{document.id}", class: 'active_item2', title: 'view source'
+        return link_to 'X', "/view_source/#{document.id}", class: 'active_item2', title: 'view source'
       else
-        return  link_to 'S', "/view_source/#{document.id}", class: 'item2black', title: 'view source'
+        return  link_to 'X', "/view_source/#{document.id}", class: 'item2black', title: 'view source'
       end
     end
 

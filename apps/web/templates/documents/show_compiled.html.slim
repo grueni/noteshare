@@ -1,16 +1,17 @@
 .row
   - if root_document
-    .col.hide-on-small-and-down.m3.l3.scroll-y style = 'padding-left:2em; padding-bottom:400px; background-color:#444;'
+    .col.hide-on-small-and-down.m3.l3.scroll-y style = 'padding-left:0.5em; padding-bottom:400px; background-color:#444;'
 
       .hide-on-med-and-down== render partial: 'documents/view_control', locals: { }
       br
       br
-      p.plainlink.lightlink style = 'font-size:larger; padding-top:0.4em;margin-bottom:0;margin-left:-0.7em;'
-        == document.root_link(stem: 'compiled')
-      -if root_document.dict['make_index']
-        span.redlink style='margin-left:-0.6em; margin-top:0em;font-size:larger' == link_to 'Index', '#_index'
+      div style='margin-left:1.5em'
+        p.plainlink.lightlink style = 'font-size:larger; padding-top:0.4em;margin-bottom:0;margin-left:-0.7em;'
+          == document.root_link(stem: 'compiled')
+        -if root_document.dict['make_index']
+          span.redlink style='margin-left:-0.6em; margin-top:0em;font-size:larger' == link_to 'Index', '#_index'
 
-      .toc2 style='margin-left:-1em;margin-top:1em;' == TOCPresenter.new(root_document).internal_table_of_contents(['root', 'titlepage', 'sectnums'], {doc_id: root_document.id})
+        .toc2 style='margin-left:-1em;margin-top:1em;' == TOCPresenter.new(root_document).internal_table_of_contents(['root', 'titlepage', 'sectnums'], {doc_id: root_document.id})
 
     .col.s12.m9.offset-m3.l9.offset-l3.scroll-y style = 'background-color: #fff; padding-bottom:6em;padding-top:2em;'
       h5== root_document.title
