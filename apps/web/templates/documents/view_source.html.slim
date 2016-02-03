@@ -10,7 +10,7 @@
       - if root_document.dict['make_index']
         .toc.plainlink.lightlink == document_index_link(document)
       .toc.plainlink.lightlink == AssociateDocManager.new(document).root_associated_document_map('editor')
-      .toc2== TOCPresenter.new(document.root_document).root_table_of_contents(document.id, 'editor')
+      .toc2== TOCPresenter.new(document.root_document).root_table_of_contents(document.id, 'view_source')
 
   .col.source style='margin-top:-40px; padding-bottom:18em;white-space:pre-wrap; padding-top:40px;'
     == document.content

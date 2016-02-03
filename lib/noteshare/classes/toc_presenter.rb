@@ -91,6 +91,9 @@ class TOCPresenter
       when 'aside'
         prefix = ''
         stem = 'aside'
+      when 'view_source'
+        prefix = ''
+        stem = 'view_source'
       else
         prefix = ''
         stem = 'document'
