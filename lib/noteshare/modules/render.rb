@@ -16,6 +16,7 @@ class Render
   def initialize(source, options = {})
     @source = source
     @options = options
+    puts "in Render, initialize, @options = #{@options}".magenta
   end
 
 
@@ -43,9 +44,12 @@ class Render
   def convert
     @options = @options.merge({verbose:0})
     rewrite_media_urls
-    if @options['xlinks'] == 'internalize'
+    puts "in convert, @options = #{@options}".magenta
+    if @options[:xlinks] == 'internalize'
+      puts "Choice = internalize_xlinks".magenta
       internalize_xlinks
     else
+      puts "Choice = rewrite_xlinks".magenta
       rewrite_xlinks
     end
     make_index if @options[:make_index]
@@ -94,6 +98,7 @@ class Render
   end
 
   def rewrite_xlinks
+      puts "rewrite_xlinks".magenta
       scanner = @source.scan(/xlink::(.*?)\[(.*)\]/)
       scanner.each do |scan_item|
       id = scan_item[0]
@@ -124,23 +129,26 @@ class Render
   # Example:
   # "xlink::540[Further reading]" =>  "<<_atomic_theory, Further reading>>"
   def internalize_xlinks
+    puts "internalize_xlinks".magenta
     xlink_rx = /xlink::(.*?)\[(.*?)\]/
-    scan = text.scan xlink_rx
+    scan = @source.scan xlink_rx
     scan.each do |match|
       id = match[0]
       internal_id = id.split('#')[1]
       label = match[1]
-      old_text = "xlink::#{id}[#{label}]"
+      old_reference = "xlink::#{id}[#{label}]"
       if id =~ /^\d*$/    # numerical id, that is, a file ID
         doc = DocumentRepository.find id
-        new_id = "_#{doc.title.normalize('alphanum')}"
+        new_id = "_#{doc.title.normalize('alphanum')}" if doc
       else
         new_id = id.split('#')[1]
         new_id = new_id.normalize('alphanum')
         new_id = new_id.gsub(" ", '_')
       end
-      new_text = "<<#{new_id}, #{label}>>"
-      @source = @source.gsub(old_text, new_text)
+      if new_id
+        new_reference = "<<#{new_id}, #{label}>>"
+        @source = @source.gsub(old_reference, new_reference)
+      end
     end
   end
 

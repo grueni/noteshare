@@ -4,22 +4,25 @@
 class ContentManager
 
 
-  def initialize(document)
+  def initialize(document, options = {})
+
     @document = document
+    @options = options
     @root_document = @document.root_document
-    if  @root_document
+
+    # values of @format are 'adoc' or 'adoc-latex'
+    if @root_document
       @format = @root_document.render_options['format']
     else
       @format = 'adoc'
     end
-    case @format
-      when 'adoc'
-        @render_option = {}
-      when 'adoc-latex'
-        @render_option = {backend: 'html5'}
-      else
-        @render_option = {}
+
+    if @document.dict['make_index']
+      @options[:make_index] = true
     end
+
+    puts "In ContentManager, initialize, options = #{@options}".magenta
+
   end
 
 
@@ -50,7 +53,7 @@ class ContentManager
   # Asciidoctor.convert to @document.content with the provided options.
   def render
 
-    renderer = Render.new(compile, @render_option )
+    renderer = Render.new(compile, @options )
     @document.rendered_content = renderer.convert
     @document.content_dirty = false
     DocumentRepository.update(@document)
@@ -61,16 +64,8 @@ class ContentManager
   # Two external uses
   # Compile the receiver, render it, and store the
   # rendered text in @document.compiled_and_rendered_content
-  def compile_with_render(option={})
+  def compile_with_render
     start = Time.now
-
-    # Update the compilation and rendering options
-    option = option.merge @render_option
-    if @document.dict['make_index']
-      h = {}
-      h[:make_index] = true
-      option = option.merge(h)
-    end
 
     # Compile the document and save the compilation if the document
     # is a root document: the compilation is used to build the internal
@@ -79,7 +74,7 @@ class ContentManager
     @document.compiled_content = _compiled_content if @document.is_root_document?
 
     # Render the content
-    renderer = Render.new(_compiled_content, option )
+    renderer = Render.new(_compiled_content, @options )
     @document.compiled_and_rendered_content = renderer.convert
 
 
@@ -95,11 +90,11 @@ class ContentManager
 
   # OK
   # Extensive external use
-  def compile_with_render_lazily(option={})
+  def compile_with_render_lazily
     if @document.compiled_dirty
       puts "document #{@document.title} is DIRTY -- compiling and rendering".red
       t = Time.now
-      compile_with_render(option)
+      compile_with_render
       t2 = Time.now
       puts "Time for compile and render = #{t2 - t} seconds".red
     else
@@ -149,12 +144,12 @@ class ContentManager
     header << ":numbered:" << "\n"
     header << ":toc2:" << "\n\n\n"
 
-    renderer = Render.new(header + texmacros + @document.compile, @render_option )
+    renderer = Render.new(header + texmacros + @document.compile, @options )
     renderer.rewrite_urls
     file_name = @document.title.normalize
     path = "outgoing/#{file_name}.adoc"
     IO.write(path, renderer.source)
-    export_html(@render_option)
+    export_html
 
   end
 
@@ -197,7 +192,7 @@ class ContentManager
 
   # used only by update_content
   def update_content_from(str)
-    renderer = Render.new(asciidoctor_attributes + substitutions + texmacros + str)
+    renderer = Render.new(asciidoctor_attributes + substitutions + texmacros + str, @options)
     @document.rendered_content = renderer.convert
   end
 
@@ -287,7 +282,7 @@ class ContentManager
 
 
   # One internal use
-  def export_html(format)
+  def export_html
 
     file_name = @document.title.normalize
     path = "outgoing/#{file_name}.adoc"
@@ -298,7 +293,7 @@ class ContentManager
       when 'adoc-latex'
         cmd = "asciidoctor-latex -b html #{path}"
       else
-        cmd =  "asciidoctor #{path}"
+        cmd = "asciidoctor #{path}"
     end
 
     system cmd

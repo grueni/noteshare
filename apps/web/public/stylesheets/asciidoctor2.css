@@ -166,10 +166,16 @@ pre.content {
 }
 
 
+.openblock.texmacro.content {
+
+    display:none;
+}
+
 .openblock.texmacro {
 
     display:none;
 }
+
 
 
 /* Equation Style */

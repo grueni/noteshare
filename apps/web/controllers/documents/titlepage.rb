@@ -21,7 +21,8 @@ module Web::Controllers::Documents
       session[:current_document_id] = @document.id
 
       @root_document = @document.root_document
-      ContentManager.new(@root_document).compile_with_render({numbered: true, format: 'adoc-latex'})
+      cm = ContentManager.new(@root_document, {numbered: true, format: 'adoc-latex'})
+      cm.compile_with_render
       @root_document.compiled_content = ContentManager.new(@root_document).compile
 
       session[:current_document_id] = @root_document.id

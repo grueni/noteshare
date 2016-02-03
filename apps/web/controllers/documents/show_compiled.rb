@@ -16,11 +16,12 @@ module Web::Controllers::Documents
       handle_nil_document(@document, params['id'])
       redirect_if_document_not_public(@document, 'Unauthorized attempt to read document that is not world-readable')
 
-
       session[:current_document_id] = document.id
       @root_document = @document.root_document
-      ContentManager.new(@root_document).compile_with_render_lazily({numbered: true,
-                                                                     format: 'adoc-latex', xlinks: 'internalize'})
+
+      options = {numbered: true, format: 'adoc-latex', xlinks: 'internalize'}
+      cm = ContentManager.new(@root_document, options)
+      cm.compile_with_render_lazily
 
       session[:current_document_id] = @root_document.id
 
