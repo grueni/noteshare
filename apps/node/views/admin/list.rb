@@ -12,9 +12,10 @@ module Node::Views::Admin
         label :document_id
         text_field :document_id, class: 'plain'
 
-        submit :add
+        submit 'add'
 
       end
+
     end
 
 

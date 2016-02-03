@@ -10,6 +10,7 @@ module Node::Controllers::Admin
       puts "call: controller Node, Admin, List".red
       @nodes = NSNodeRepository.all.sort_by{|node| node.name}
       @documents = DocumentRepository.root_documents.sort_by{|document| document.title}
+      puts "exit controller node, admin, list".red
     end
 
   end
