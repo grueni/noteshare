@@ -125,9 +125,21 @@ class String
     gsub(/[^a-zA-Z_]/, substitution_character)
   end
 
+  def alpha_num_filter(substitution_character = '')
+    gsub(/[^a-zA-Z0-9_]/, substitution_character)
+  end
+
   # Map "It's cool!" to 'its_cool``
-  def normalize
-    self.gsub(' ', '_').downcase.alpha_filter
+  def normalize(option='alpha')
+    case option
+      when 'alpha'
+        self.gsub(' ', '_').downcase.alpha_filter
+      when 'alphanum'
+        self.gsub(' ', '_').downcase.alpha_num_filter
+      else
+        self.gsub(' ', '_').downcase.alpha_filter
+    end
+
   end
 
   # Map 'foo: 123, bar: 456, baz:' to {'foo': 123, 'bar': 456}

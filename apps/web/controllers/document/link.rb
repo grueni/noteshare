@@ -3,17 +3,17 @@ module Web::Controllers::Document
     include Web::Action
 
     def call(params)
-      puts request.host.cyan
-      puts request.query_string.cyan
-      puts params['id'].cyan
-      puts current_user(session).screen_name.cyan
 
+      if current_user(session)
+        screen_name = current_user(session).screen_name
+      else
+        screen_name = 'www'
+      end
 
-      screen_name = current_user(session).screen_name
       id = params['id']
       reference = request.query_string
 
-      if reference
+      if reference && reference != ""
         puts "using reference".cyan
         new_link = basic_link screen_name, "document/#{id}\##{reference}"
       else
