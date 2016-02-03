@@ -90,15 +90,28 @@ class Render
   end
 
   def rewrite_xlinks
-    scanner = @source.scan(/(xlink::.*?\[)/)
-    scanner.each do |pattern|
-      xlink_string = pattern[0]
-      hit = xlink_string.match /xlink::(.*)\[/
-      id = hit[1]
-      if ENV['MODE'] == 'LVH'
-        new_xlink_string = "http://www#{ENV['DOMAIN']}:#{ENV['PORT']}/document/#{id}["
+      scanner = @source.scan(/xlink::(.*?)\[(.*)\]/)
+      scanner.each do |scan_item|
+      id = scan_item[0]
+      link_text = scan_item[1]
+      if id =~ /#/
+         m = id.match /(.*)\#(.*)/
+         numerical_id = m[1]
+         reference = m[2]
       else
-        new_xlink_string = "http://www#{ENV['DOMAIN']}/document/#{id}["
+        numerical_id = id
+      end
+
+      if ENV['MODE'] == 'LVH'
+        prefix = "http://www#{ENV['DOMAIN']}:#{ENV['PORT']}"
+      else
+        prefix = "http://www#{ENV['DOMAIN']}"
+      end
+      xlink_string = "xlink::#{id}[#{link_text}]"
+      if reference
+        new_xlink_string = "#{prefix}/link/#{numerical_id}?#{reference}[#{link_text}]"
+      else
+        new_xlink_string = "#{prefix}/link/#{numerical_id}[#{link_text}]"
       end
       @source = @source.gsub(xlink_string, new_xlink_string)
     end
