@@ -19,7 +19,8 @@ module Web::Controllers::Documents
 
       session[:current_document_id] = document.id
       @root_document = @document.root_document
-      ContentManager.new(@root_document).compile_with_render_lazily({numbered: true, format: 'adoc-latex'})
+      ContentManager.new(@root_document).compile_with_render_lazily({numbered: true,
+                                                                     format: 'adoc-latex', xlinks: 'internalize'})
 
       session[:current_document_id] = @root_document.id
 

@@ -43,7 +43,11 @@ class Render
   def convert
     @options = @options.merge({verbose:0})
     rewrite_media_urls
-    rewrite_xlinks
+    if @options['xlinks'] == 'internalize'
+      internalize_xlinks
+    else
+      rewrite_xlinks
+    end
     make_index if @options[:make_index]
     if @source.include?  ':glossary:'
       append_glossary
@@ -117,6 +121,29 @@ class Render
     end
   end
 
+  # Example:
+  # "xlink::540[Further reading]" =>  "<<_atomic_theory, Further reading>>"
+  def internalize_xlinks
+    xlink_rx = /xlink::(.*?)\[(.*?)\]/
+    scan = text.scan xlink_rx
+    scan.each do |match|
+      id = match[0]
+      internal_id = id.split('#')[1]
+      label = match[1]
+      old_text = "xlink::#{id}[#{label}]"
+      if id =~ /^\d*$/    # numerical id, that is, a file ID
+        doc = DocumentRepository.find id
+        new_id = "_#{doc.title.normalize('alphanum')}"
+      else
+        new_id = id.split('#')[1]
+        new_id = new_id.normalize('alphanum')
+        new_id = new_id.gsub(" ", '_')
+      end
+      new_text = "<<#{new_id}, #{label}>>"
+      @source = @source.gsub(old_text, new_text)
+    end
+  end
+
 
   def source
     @source
@@ -124,12 +151,3 @@ class Render
 
 end
 
-
-=begin
-   if option[:xlink] == 'internalize'
-      @source = self.internalize_xlinks(source)
-    else
-      @source = self.rewrite_xlinks(source, option)
-    end
-
-=end
