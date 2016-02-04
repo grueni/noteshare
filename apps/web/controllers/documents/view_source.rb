@@ -24,6 +24,10 @@ module Web::Controllers::Documents
       redirect_if_document_not_public(@document, 'Unauthorized attempt to read document that is not world-readable')
 
       @root_document = @document.root_document
+      if @document.content.length < 3
+        @document = @document.subdocument(0)
+        handle_nil_document(@document, document_id)
+      end
       Analytics.record_document_view(user, @document)
       session[:current_document_id] = id
 
