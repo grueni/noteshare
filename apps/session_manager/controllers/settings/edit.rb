@@ -11,6 +11,8 @@ module SessionManager::Controllers::Settings
 
       @unpacked_user_settings = current_user(session).dict2.string_val(:vertical_strict)
 
+      puts "@unpacked_user_settings:\n#{@unpacked_user_settings}\n------\n".cyan
+
     end
 
 

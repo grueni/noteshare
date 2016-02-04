@@ -10,7 +10,9 @@ module SessionManager::Controllers::Settings
       @active_item = ''
       user = current_user(session)
       data = params['user_settings']['settings_as_text']
+      puts "data:\n#{data}\n-----\n".cyan
       hash = data.hash_value(":;")
+      puts "hash:\n#{hash}\n-----\n".cyan
       user.dict2 = hash
       puts user.dict2.to_s.red
       UserRepository.update user
