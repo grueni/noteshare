@@ -122,7 +122,7 @@ class ContentManager
   # used internally by process_document
   # and externally by controller Edit
   def update_content_lazily(input=nil)
-    if @document.content_dirty or @document.rendered_content.length < 3
+    if @document.rendered_content == nil or @document.content_dirty or @document.rendered_content.length < 3
       puts "Document #{@document.title} is DIRTY".red
       t = Time.now
       update_content(input)
