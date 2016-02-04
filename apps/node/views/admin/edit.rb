@@ -18,5 +18,6 @@ module Node::Views::Admin
 
       end
     end
+
   end
 end

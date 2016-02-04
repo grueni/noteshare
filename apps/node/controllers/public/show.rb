@@ -19,7 +19,7 @@ module Node::Controllers::Public
         @layout_option = :titlepage
       end
 
-      @blurb_text =  @node.dict['long_blurb'] || ''
+      @blurb_text =  @node.meta['long_blurb'] || ''
 
     end
 

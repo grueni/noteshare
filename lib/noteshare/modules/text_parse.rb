@@ -23,7 +23,7 @@ module TextParse
   # tm =TextParse.grab text: c.course_attributes, ad_prefix: 'doc', ad_suffix: 'texmacros'
   # => foobar
 
-  def grab(hash)
+  def self.grab(hash)
     pt = ParseTool.new
     text = hash[:text]
     if hash[:ad_prefix]

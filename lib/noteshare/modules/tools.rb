@@ -41,5 +41,21 @@ module Noteshare
     end
 
 
+    # an element has the form
+    #
+    # [foo]
+    # --
+    # Blah, blah
+    #
+    # blah, blah, blah!
+    # --
+    #
+
+    def self.get_elements (str)
+      # str.scan /\[(.*?)\][\r\n]+--[\r\n]+(.*?)[\r\n]+--[\r\n]+/m
+      str.scan /\[(.*?)\][\r\n]{1,2}--[\r\n]{1,2}(.*?)[\r\n]{1,2}--[\r\n]{1,2}/m
+    end
+
+
   end
 end

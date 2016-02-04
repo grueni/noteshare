@@ -1,3 +1,5 @@
+post '/update_blurb/:id', to: 'admin#update_blurb'
+get '/edit_blurb/:id', to: 'admin#edit_blurb'
 get '/remove_document/:id', to: 'user#remove'
 get '/manage/:id', to: 'user#manage'
 post '/update/:id', to: 'admin#update'
