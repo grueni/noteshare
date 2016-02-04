@@ -33,7 +33,7 @@ module Noteshare
 
     def self.upload(file_name, tmpfile, folder='tmp')
 
-      bucket = "vschool/#{folder}"
+      bucket = "vschool"
       # mime_type = "application/octet-stream"
 
       s3 = Aws::S3::Resource.new(
@@ -44,7 +44,7 @@ module Noteshare
 
       base_name = File.basename(file_name)
 
-      puts "Uploading #{file_name} as '#{base_name}' to '#{bucket}'"
+      puts "Uploading #{file_name} as '#{folder}/#{base_name}' to '#{bucket}'"
       t1 = Time.now
       obj = s3.bucket(bucket).object(base_name)
       obj.upload_file(tmpfile, acl: 'public-read')
