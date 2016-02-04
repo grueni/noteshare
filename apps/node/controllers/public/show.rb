@@ -2,7 +2,7 @@ module Node::Controllers::Public
   class Show
     include Node::Action
 
-    expose :node, :active_item, :layout_option
+    expose :node, :active_item, :layout_option, :blurb_text
 
     def call(params)
       @active_item = 'documents'
@@ -18,6 +18,9 @@ module Node::Controllers::Public
       else
         @layout_option = :titlepage
       end
+
+      @blurb_text =  @node.dict['long_blurb'] || ''
+
     end
 
   end

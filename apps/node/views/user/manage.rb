@@ -12,7 +12,7 @@ module Node::Views::User
         label :document_id_or_title
         text_field :document_id, class: 'plain'
 
-        submit :add
+        submit 'add'
 
       end
     end

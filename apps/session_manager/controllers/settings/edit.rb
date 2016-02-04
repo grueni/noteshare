@@ -9,7 +9,7 @@ module SessionManager::Controllers::Settings
       redirect_if_not_signed_in('session_manager, Settings,  Edit')
       keys = %w(render_with) # editable_keys
 
-      @unpacked_user_settings = current_user(session).dict_to_s(keys)
+      @unpacked_user_settings = current_user(session).dict2.string_val(:vertical_strict)
 
     end
 

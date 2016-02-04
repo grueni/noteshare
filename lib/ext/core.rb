@@ -67,6 +67,8 @@ class Hash
     case style
       when :vertical
         terminator = "\n"
+      when :vertical_strict
+        terminator = ";\n"
       when :horizontal
         terminator = ", "
       else

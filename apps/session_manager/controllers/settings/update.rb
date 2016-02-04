@@ -5,13 +5,15 @@ module SessionManager::Controllers::Settings
     expose :active_item
 
     def call(params)
+      puts "User settings".red
       redirect_if_not_signed_in('session_manager, Settings,  Update')
       @active_item = ''
       user = current_user(session)
       data = params['user_settings']['settings_as_text']
-      hash = data.hash_value("=\n")
-      user.dict_update_from_hash(hash)
-      user.dict_display
+      hash = data.hash_value(":;")
+      user.dict2 = hash
+      puts user.dict2.to_s.red
+      UserRepository.update user
 
       # self.body = 'OK'
       redirect_to "/node/user/#{current_user(session).id}"
