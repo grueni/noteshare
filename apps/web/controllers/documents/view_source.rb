@@ -26,7 +26,7 @@ module Web::Controllers::Documents
       @root_document = @document.root_document
       if @document.content.length < 3
         @document = @document.subdocument(0)
-        handle_nil_document(@document, document_id)
+        handle_nil_document(@document, id)
       end
       Analytics.record_document_view(user, @document)
       session[:current_document_id] = id
