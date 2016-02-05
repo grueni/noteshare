@@ -5,6 +5,7 @@
     .div style='margin-top:-15px' == render partial: 'documents/view_control', locals: { }
 
     .div style='position:absolute; top:60px; left:20px;' id='toc_panel'
+      p.plainlink.lightlink style='color:white; margin-top:2em;' == PublicationsManager.new(document).principal_publisher_link
       p.plainlink.lightlink style = 'font-size:larger; padding-top:0.4em;margin-bottom:0;'
         == document.root_link(stem: 'view_source')
       - if root_document.dict['make_index']

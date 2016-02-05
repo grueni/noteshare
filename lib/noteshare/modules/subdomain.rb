@@ -17,5 +17,6 @@ module Noteshare
       stem = "#{stem}:#{ENV['PORT']}" if ENV['MODE'] == 'LVH'
       "http://#{prefix}#{stem}#{suffix}"
     end
+
   end
 end

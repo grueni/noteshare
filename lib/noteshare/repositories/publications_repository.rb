@@ -13,6 +13,12 @@ class PublicationsRepository
     end
   end
 
+  def self.principal_publisher_for_document(document_id)
+    query do
+      where(document_id: document_id, type: 'principal')
+    end
+  end
+
   def self.record_for_pair(node_id, document_id)
     query do
       where(document_id: document_id, node_id: node_id)

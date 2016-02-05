@@ -6,6 +6,7 @@
 
           == render partial: 'documents/view_control', locals: { }
 
+          p.plainlink.lightlink style='color:white; margin-top:2em;' == PublicationsManager.new(document).principal_publisher_link
 
           - if root_document.dict['make_index']
 

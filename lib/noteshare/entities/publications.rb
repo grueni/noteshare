@@ -120,3 +120,25 @@ class Publications
 
 
 end
+
+class PublicationsManager
+
+  def initialize(document)
+    @document = document
+  end
+
+  def principal_publisher
+    query = PublicationsRepository.principal_publisher_for_document(@document.id)
+    record = query.first
+    NSNodeRepository.find record.node_id if record
+  end
+
+  def principal_publisher_link
+    node = principal_publisher
+    return '' if node == nil
+    link_text = "Published by #{node.name}#{ENV['DOMAIN']}"
+    link = basic_link(node.name, :none)
+    "<a href=\"#{link}\">#{link_text}</a>"
+  end
+
+end

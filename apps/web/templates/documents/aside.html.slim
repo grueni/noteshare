@@ -8,6 +8,7 @@
           == render partial: 'documents/view_control', locals: { } unless document.root_document.dict['show_controls'] == 'no'
 
           .div style='margin-top:0;'
+            p.plainlink.lightlink style='color:white; margin-top:2em;' == PublicationsManager.new(document).principal_publisher_link
             - if document.doc_refs && !(document.root_document.dict['show_associated_docs'] == 'no')
               .toc2 style = 'padding-top:0' == AssociateDocManager.new(document).root_associated_document_map
             h5 style = 'margin-bottom:0; color:#444;'  Table of Contents
