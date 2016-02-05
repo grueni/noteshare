@@ -19,6 +19,7 @@ module Node::Controllers::Public
         @layout_option = :titlepage
       end
 
+      node.meta = {} if node.meta == nil
       @blurb_text =  @node.meta['long_blurb'] || ''
 
     end
