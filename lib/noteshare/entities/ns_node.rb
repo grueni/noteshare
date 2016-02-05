@@ -211,11 +211,12 @@ class NSNode
   # Add a document
   def publish_document(hash)
     document_id = hash[:id]
-    type = hash[:type]
+    # value of type: 'author', 'principal', 'ordinary'
+    type = hash[:type] || 'ordinary'
     puts "Adding document #{document_id} to node #{self.id} with type #{type}".red
     doc = DocumentRepository.find document_id
     if doc
-      Publications.add_record(self.id, document_id)
+      Publications.add_record(self.id, document_id, type)
     end
   end
 
