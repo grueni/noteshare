@@ -133,8 +133,14 @@ class PublicationsManager
     NSNodeRepository.find record.node_id if record
   end
 
+  def author_node
+    user = UserRepository.find @document.author_id
+    user.node
+  end
+
   def principal_publisher_link
     node = principal_publisher
+    node = author_node if node == nil
     return '' if node == nil
     link_text = "Published by #{node.name}#{ENV['DOMAIN']}"
     link = basic_link(node.name, :none)
