@@ -31,7 +31,7 @@ module Editor::Controllers::Document
       puts "--- Author is #{author.screen_name}".red
       new_document = NSDocument.create(title: title, content: content, author_credentials: _author_credentials)
       #Fixme: the following is to be deleted when author_id is retired
-      new_document.author_id = _author.credentials[:id].to_i
+      new_document.author_id = _author_credentials['id'].to_i
       new_document.acl = current_document.root_document.acl
       # new_document.acl_set_permissions!('rw', '-', '-')
 

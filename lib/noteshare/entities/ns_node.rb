@@ -108,13 +108,13 @@ class NSNode
     return if type != 'personal'
     dd = DocumentRepository.root_documents_for_user(self.owner_id)
     dd.each do |doc|
-      p = Publications.add_record(self.id, doc.id)
+      p = Publications.add_record(self.id, doc.id, 'author')
       puts "P: #{p.id}".cyan
     end
   end
 
-  def append_doc(document_id)
-    Publications.add_record(self.id, document_id)
+  def append_doc(document_id, type)
+    Publications.add_record(self.id, document_id, type)
   end
 
   def remove_doc(document_id)
@@ -177,7 +177,7 @@ class NSNode
     hash = str.hash_value(',;')
     hash.each do |doc_title, doc_id|
       puts "#{doc_title}: #{doc_id}".cyan
-      Publications.add_record(self.id, doc_id)
+      Publications.add_record(self.id, doc_id, 'author')
     end
   end
 
