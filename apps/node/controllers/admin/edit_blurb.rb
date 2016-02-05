@@ -9,7 +9,11 @@ module Node::Controllers::Admin
       @active_item='admin'
       id = params['id']
       @node = NSNodeRepository.find(id)
-
+      #fixme:
+      if @node.meta == nil
+        @node.meta = {}
+        NSNodeRepository.update @node
+      end
 
     end
   end
