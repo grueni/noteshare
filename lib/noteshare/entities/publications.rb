@@ -138,11 +138,13 @@ class PublicationsManager
     user.node if user
   end
 
+
+
   def principal_publisher_link
 
     node1 = principal_publisher
     node2 = author_node if node1 == nil
-    return '' if node2 == nil
+    return '' if node1 == nil && node2 == nil
 
     if node1
       link_text = "Published by #{node1.name}#{ENV['DOMAIN']}"
@@ -154,6 +156,26 @@ class PublicationsManager
       "<a href=\"#{link}\">#{link_text}</a>"
     end
 
+  end
+
+
+  def publishers
+    records = PublicationsRepository.records_for_document @document.id
+    _publishers = {}
+    records.each do |record|
+      node = NSNodeRepository.find record.node_id
+      if node
+        _publishers[node.name] = {node_id: node.id, record_id: record.id, type: record.type}
+      end
+    end
+    _publishers
+  end
+
+  def set_principal_publisher_to_node(node_name)
+    node = NSNodeRepository.find_one_by_name node_name
+    record = Publications.find_for_pair(node.id, @document.id)
+    record.type = 'principal'
+    PublicationsRepository.update record
   end
 
 end
