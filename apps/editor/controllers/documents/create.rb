@@ -44,7 +44,7 @@ module Editor::Controllers::Documents
       user = current_user(session)
       user_node = user.node
       if user_node
-        user_node.add_document_by_id(@document.id)
+        user_node.publish_document(id: @document.id, type: 'author')
         NSNodeRepository.update user_node
       end
 

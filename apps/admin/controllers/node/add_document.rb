@@ -3,7 +3,6 @@ module Admin::Controllers::Node
     include Admin::Action
 
     expose :active_item
-
     def get_doc_id_from_title(id)
       documents = DocumentRepository.find_by_title(id)
       redirect_to "/error/4?Could not find any matching documents" if documents == nil
@@ -24,7 +23,7 @@ module Admin::Controllers::Node
       node = NSNodeRepository.find node_id
       doc = DocumentRepository.find doc_id
       puts "Boss, I will add document #{doc.title} to node #{node.name}".red
-      node.add_document_by_id(doc_id)
+      node.publish_document(id: doc_id, type: 'publisher')
       NSNodeRepository.update node
       redirect_to "/node/#{node_id}"
     end

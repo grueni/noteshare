@@ -11,8 +11,8 @@ class Publications
   def self.add_documents_for_node(node)
     node.documents_as_hash.each do |title, doc_id|
       publication = Publication.find_for_pair(node.id, doc_id)
-      if publication.nil?
-        publication = Publications.new(node_id: node.id, document_id: doc_id)
+      if publication.nil?   # create new publication record only if it does not exist
+        publication = Publications.new(node_id: node.id, document_id: doc_id, type: 'author')
         puts "#{title} => #{node.name}".red
         PublicationsRepository.create publication
       end
@@ -33,12 +33,12 @@ class Publications
 
   # Add publication record with given node_id and docuemnt_id
   # unless one of those id's is invalid, e.g., not present
-  def self.add_record(node_id, document_id)
+  def self.add_record(node_id, document_id, type)
     return if (NSNodeRepository.find node_id) == nil
     return if (DocumentRepository.find document_id) == nil
     record = self.find_for_pair(node_id,document_id)
     if record == nil
-      publication = Publications.new(node_id: node_id, document_id: document_id)
+      publication = Publications.new(node_id: node_id, document_id: document_id, type: type)
       PublicationsRepository.create publication
     end
   end
