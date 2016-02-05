@@ -55,7 +55,43 @@ module AdminUtilities
     "hash: #{hash_count}, string: #{string_count}"
 
 
+    end
+
+  def self.fix_author_id(option)
+
+    count = 0
+    count_root = 0
+
+    DocumentRepository.all.each do |doc|
+
+      case option
+        when 'inspect'
+          if doc.author_id == nil
+            count += 1
+            if doc.is_root_document?
+              puts "#{doc.id}\t #{doc.title}".red
+            else
+              count_root += 1
+              puts "#{doc.id}\t #{doc.title}".cyan
+            end
+          end
+        when 'fix'
+          if doc.author_id == nil
+            if doc.author_credentials2['id']
+              doc.author_id =  doc.author_credentials2['id'].to_i
+              DocumentRepository.update doc
+            else
+              count += 1
+              puts "NO id in credentials: #{doc.id}\t #{doc.title}".red
+            end
+          end
+      end
+
+    end
+
+    [count, count_root]
   end
+
 
 
 end
