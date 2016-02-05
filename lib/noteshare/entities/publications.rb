@@ -135,7 +135,7 @@ class PublicationsManager
 
   def author_node
     user = UserRepository.find @document.author_id
-    user.node
+    user.node if user
   end
 
   def principal_publisher_link
