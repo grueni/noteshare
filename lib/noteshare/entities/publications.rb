@@ -139,12 +139,21 @@ class PublicationsManager
   end
 
   def principal_publisher_link
-    node = principal_publisher
-    node = author_node if node == nil
-    return '' if node == nil
-    link_text = "Published by #{node.name}#{ENV['DOMAIN']}"
-    link = basic_link(node.name, :none)
-    "<a href=\"#{link}\">#{link_text}</a>"
+
+    node1 = principal_publisher
+    node2 = author_node if node1 == nil
+    return '' if node2 == nil
+
+    if node1
+      link_text = "Published by #{node1.name}#{ENV['DOMAIN']}"
+      link = basic_link(node1.name, :none)
+      "<a href=\"#{link}\">#{link_text}</a>"
+    else
+      link_text = "Published by #{node2.name}#{ENV['DOMAIN']}"
+      link = basic_link(node1.name, "node/#{node2.id}")
+      "<a href=\"#{link}\">#{link_text}</a>"
+    end
+
   end
 
 end
