@@ -26,8 +26,12 @@ module Editor::Controllers::Documents
 
       @document = NSDocument.create(title: title, author_credentials: _author_credentials)
       @document.author = _author.full_name
+
+      #Fixme: the following is to be deleted when author_id is retired
+      @document.author_id = _author.credentials[:id].to_i
       @document.render_options = get_format(_author)
 
+      DocumentRepository.update @document
 
       cm = ContentManager.new(@document)
       cm.prepare_content(doc_params['content'])

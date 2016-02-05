@@ -19,16 +19,13 @@ module Editor::Controllers::Document
 
       user = current_user(session)
 
-      puts "user: #{user.screen_name}".magenta
-      puts "type: #{type}".magenta
 
       current_document = DocumentRepository.find current_document_id
-      puts "current_document: #{current_document.title} (#{current_document_id})"
+
+      #Fixme: the following is to be deleted when author_id is retired
       author_id = current_document.author_credentials2['id']
-      puts "author_id: #{author_id}".red
+
       author = UserRepository.find author_id
-      puts "In create_new_section, current_document: #{current_document_id} (#{current_document.title})".red
-      puts "--- Author is #{author.screen_name}".red
       new_document = NSDocument.create(title: title, content: content, author_credentials: author.credentials)
       # new_document.acl_set_permissions('rw', 'r', '-')
       new_document.acl = current_document.root_document.acl
