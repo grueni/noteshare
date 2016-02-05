@@ -150,7 +150,7 @@ class PublicationsManager
       "<a href=\"#{link}\">#{link_text}</a>"
     else
       link_text = "Published by #{node2.name}#{ENV['DOMAIN']}"
-      link = basic_link(node1.name, "node/#{node2.id}")
+      link = basic_link(node2.name, "node/#{node2.id}")
       "<a href=\"#{link}\">#{link_text}</a>"
     end
 
