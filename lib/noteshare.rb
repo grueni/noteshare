@@ -137,6 +137,7 @@ Lotus::Model.configure do
       attribute :id, Integer
       attribute :node_id, Integer
       attribute :document_id, Integer
+      attribute :type, String
     end
 
     collection :ns_groups do

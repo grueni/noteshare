@@ -4,7 +4,8 @@
 class Publications
   include Lotus::Entity
 
-  attributes :id, :node_id, :document_id
+  attributes :id, :node_id, :document_id, :type
+  # type can be 'author', 'principal', or ''
 
   # for transiton only
   def self.add_documents_for_node(node)
@@ -70,15 +71,52 @@ class Publications
   end
 
   def self.nodes_for_document(document_id)
-    n = PublicationsRepository.records_for_document(document_id)
+    records = PublicationsRepository.records_for_document(document_id)
     nodes = []
-    n.all.each do |record|
-      nodes << record.node
+    records.all.each do |record|
+      #fixme: why should the if clause be necessary (bad data?)
+      nodes << record.node if record.node
     end
     nodes
   end
 
+  def set_type
+    node = NSNodeRepository.find self.node_id
+    if node == nil
+      PublicationsRepository.delete self
+      return
+    end
+    if node.type == 'public'
+      self.type = 'principal'
+    else
+      self.type = 'author'
+    end
+    PublicationsRepository.update self
+  end
 
+  def self.set_type_for_all
+    count = 0
+    DocumentRepository.root_documents.each do |doc|
+      puts "doc: #{doc.id}"
+      records = PublicationsRepository.records_for_document doc.id
+      records = records.select{ |r| r != nil }
+      puts "  #{records.count}"
+      case records.count
+        when 1
+          record = records.first
+          record.type = 'author'
+          PublicationsRepository.update record
+        when 2
+           records.each do |record|
+             record.set_type
+           end
+        else
+          count += 1
+          puts "  document #{doc.id} #{doc.title} has #{records.count} publishers"
+      end
+    end
+    count
+  end
 
 
 end

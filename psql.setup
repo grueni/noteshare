@@ -80,6 +80,7 @@ CREATE TABLE publications(
   id serial,
   node_id integer,
   document_id integer,
+  type text,
 PRIMARY KEY(id)
 );
 create index on publications (node_id);
