@@ -120,14 +120,8 @@ class Publications
 
 
   def command_url(command)
-    # /editor/manage_publications/1302?principal:renzo
-    node = NSNodeRepository.find self.node_id
-    if node
-      _url = "editor/manage_publications/#{self.id}?#{command}:#{node.name}"
-      basic_link(:none, _url)
-    else
-      ''
-    end
+    _url = "editor/manage_publications/#{self.id}?#{command}"
+    basic_link(:none, _url)
   end
 
   def publicationsManager
@@ -140,28 +134,39 @@ class Publications
     PublicationsRepository.update self
   end
 
+  def set_pp
 
-  def self.execute_command(str, record_id)
+    records = PublicationsRepository.records_for_document self.document_id
+    records.each do |record|
+      if record.type == 'principal'
+        record.type = 'standard'
+        PublicationsRepository.update record
+      end
+    end
+
+    self.type = 'principal'
+    PublicationsRepository.update self
+
+  end
+
+
+  def self.execute_command(cmd, record_id)
 
     record  = PublicationsRepository.find record_id
     if record == nil
       puts "#{record_id} is a NIL record".magenta
     end
-    return 'error: string too long' if str.length > 100
-    cmd, arg = str.split(':')
+    return 'error: string too long' if cmd.length > 100
 
     case cmd
       when 'delete'
         PublicationsRepository.delete record
       when 'principal'
-        pm = record.publicationsManager
-        pm.set_principal_publisher_to_node(arg) if pm
+        record.set_pp
       when 'author'
         record.set_type('author')
-        puts 'author'
       when 'standard'
         record.set_type('standard')
-        puts 'standard'
       when 'test'
         puts "test: #{arg}".red
       else
