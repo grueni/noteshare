@@ -18,5 +18,6 @@ module Noteshare
       "http://#{prefix}#{stem}#{suffix}"
     end
 
+
   end
 end

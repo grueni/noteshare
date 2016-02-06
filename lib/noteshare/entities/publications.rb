@@ -80,7 +80,7 @@ class Publications
     nodes
   end
 
-  def set_type
+  def set_default_type
     node = NSNodeRepository.find self.node_id
     if node == nil
       PublicationsRepository.delete self
@@ -108,7 +108,7 @@ class Publications
           PublicationsRepository.update record
         when 2
            records.each do |record|
-             record.set_type
+             record.set_default_type
            end
         else
           count += 1
@@ -116,6 +116,57 @@ class Publications
       end
     end
     count
+  end
+
+
+  def command_url(command)
+    # /editor/manage_publications/1302?principal:renzo
+    node = NSNodeRepository.find self.node_id
+    if node
+      _url = "editor/manage_publications/#{self.id}?#{command}:#{node.name}"
+      basic_link(:none, _url)
+    else
+      ''
+    end
+  end
+
+  def publicationsManager
+    doc = DocumentRepository.find self.document_id
+    PublicationsManager.new(doc) if doc
+  end
+
+  def set_type(new_type)
+    self.type = new_type
+    PublicationsRepository.update self
+  end
+
+
+  def self.execute_command(str, record_id)
+
+    record  = PublicationsRepository.find record_id
+    if record == nil
+      puts "#{record_id} is a NIL record".magenta
+    end
+    return 'error: string too long' if str.length > 100
+    cmd, arg = str.split(':')
+
+    case cmd
+      when 'delete'
+        PublicationsRepository.delete record
+      when 'principal'
+        pm = record.publicationsManager
+        pm.set_principal_publisher_to_node(arg) if pm
+      when 'author'
+        record.set_type('author')
+        puts 'author'
+      when 'standard'
+        record.set_type('standard')
+        puts 'standard'
+      when 'test'
+        puts "test: #{arg}".red
+      else
+        return 'error:unknown command'
+    end
   end
 
 
@@ -172,10 +223,36 @@ class PublicationsManager
   end
 
   def set_principal_publisher_to_node(node_name)
+
+    records = PublicationsRepository.records_for_document @document.id
+    records.each do |record|
+      if record.type == 'principal'
+        record.type = ''
+        PublicationsRepository.update record
+      end
+    end
+
     node = NSNodeRepository.find_one_by_name node_name
     record = Publications.find_for_pair(node.id, @document.id)
     record.type = 'principal'
+    puts "Set record #{record.id} as principal".magenta
     PublicationsRepository.update record
+
   end
+
+  def delete_publication_for_node(node_name)
+    node = NSNodeRepository.find_one_by_name node_name
+    if node == nil
+      puts "NODE IS NIL".magenta
+    end
+    puts "node.id = #{node.id}".red
+    puts "document.id = #{@document.id}".red
+    if node
+      record = Publications.find_for_pair(node.id, @document.id)
+      puts "deleting record id = #{record.id}".magenta
+     PublicationsRepository.delete record if record
+    end
+  end
+
 
 end

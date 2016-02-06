@@ -7,11 +7,13 @@ module Admin::Controllers::Publications
     def call(params)
 
       @active_item = 'admin'
-      _publications = PublicationsRepository.all.sort_by{ |record| record.node_id }
+      _publications = PublicationsRepository.all.sort_by{ |record| record.document_id }
       @publications = []
       _publications.each do |publication|
 
         hash = {}
+
+        hash[:record] = publication
 
         hash[:node_id] =  publication.node_id
         node = NSNodeRepository.find publication.node_id

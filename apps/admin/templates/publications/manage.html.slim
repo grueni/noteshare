@@ -13,5 +13,10 @@
                 td== publication[:document_id]
                 td== publication[:document_title]
                 td== publication[:type]
+                td== link_to 'delete', publication[:record].command_url('delete')
+                td== link_to 'principal', publication[:record].command_url('principal')
+                td== link_to 'author', publication[:record].command_url('author')
+                td== link_to 'standard', publication[:record].command_url('standard')
+
 
 
