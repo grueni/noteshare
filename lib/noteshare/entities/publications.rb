@@ -119,9 +119,9 @@ class Publications
   end
 
 
-  def command_url(command)
+  def command_url(screen_name, command)
     _url = "editor/manage_publications/#{self.id}?#{command}"
-    basic_link(:none, _url)
+    basic_link(screen_name, _url)
   end
 
   def publicationsManager

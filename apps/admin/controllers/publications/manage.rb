@@ -2,9 +2,11 @@ module Admin::Controllers::Publications
   class Manage
     include Admin::Action
 
-    expose :publications, :active_item
+    expose :publications, :active_item,  :screen_name
 
     def call(params)
+
+      @screen_name = current_user(session).screen_name
 
       @active_item = 'admin'
       _publications = PublicationsRepository.all.sort_by{ |record| record.document_id }
