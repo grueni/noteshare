@@ -1,3 +1,4 @@
+get '/publications', to: 'publications#manage'
 get '/courses', to: 'course#find'
 get '/analytics', to: 'home#show_analytics'
 get '/delete_document/:id', to: 'documents#delete'

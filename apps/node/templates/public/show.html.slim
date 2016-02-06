@@ -11,3 +11,11 @@
     - if blurb_text != ''
       .ns_card.scroll-y   style='margin-top:50px;'
         == Asciidoctor.convert(blurb_text)
+
+
+  .col.hide-on-small-and-down.m2.offset-m8.l2.offset-l8.scroll-y style='margin-top:50px;'
+      -if user && (user.admin || user.id == node.owner_id)
+        .ns_card.hide-on-small-and-down.m2.l2
+          p style='font-weight: bold; margin-bottom:0;' EDIT
+          p.plainlink.lightlink style='margin_top:1em;margin-bottom:0;'  == link_to 'Settings', basic_link(node.name, "node/edit/#{node.id}")
+          p.plainlink.lightlink style='margin_top:1em;margin-bottom:0;'  == link_to 'Blurb', basic_link(node.name, "node/edit_blurb/#{node.id}")

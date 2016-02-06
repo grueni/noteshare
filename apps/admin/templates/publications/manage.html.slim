@@ -1,0 +1,17 @@
+.row
+  .col.s12.m6.l6
+    h4 Documents
+    /== search_form
+    - if publications
+      .col.ns_card.scroll-y style='height:400px;'
+        table style='border=0; border-color: #444; border-collapse;'
+          tbody
+            - publications.each do |publication|
+              tr.clear_style
+                td== publication[:node_id]
+                td== publication[:node_name]
+                td== publication[:document_id]
+                td== publication[:document_title]
+                td== publication[:type]
+
+

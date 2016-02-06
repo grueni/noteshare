@@ -2,11 +2,12 @@ module Node::Controllers::Public
   class Show
     include Node::Action
 
-    expose :node, :active_item, :layout_option, :blurb_text
+    expose :node, :user,:active_item, :layout_option, :blurb_text
 
     def call(params)
       @active_item = 'documents'
       @node = NSNodeRepository.find params[:id]
+      @user = current_user(session)
       return if @node == nil
       # ^^ Fixme: better, go to error page
       cu = current_user(session)
