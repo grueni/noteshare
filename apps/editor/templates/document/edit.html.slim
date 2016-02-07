@@ -49,3 +49,9 @@
   .col.rendered id='rendered_content'  style='top:80px; margin-top:-40px;padding-bottom:36em;'
       == document.rendered_content2
 
+  javascript:
+    console.log('Editor page');
+    $(document).on("pagecontainerload", function () {
+      alert("pagecontainerload event fired!");
+    });
+
