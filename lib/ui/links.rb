@@ -289,6 +289,7 @@ module UI
       end
     end
 
+
     def documents_link(session, active_item='')
       active_item == 'documents' ? css_class = 'active_item' : css_class = ''
       cu = current_user(session)
@@ -299,17 +300,16 @@ module UI
       end
     end
 
-
-
     def reader_link(session, active_item='')
       return '' if session == nil
-        cu = current_user(session)
-      return '' if cu == nil
-        _id = cu.dict2['current_document_id']
+      # cu = current_user(session)
+      # return '' if cu == nil
+      _id = session['current_document_id']
+      return '' if _id == nil
       if active_item == 'reader'
         return link_to 'Reader', '#', class: 'active_item'
       else
-        return  link_to 'Reader', "/document/0"
+        return  link_to 'Reader', "/document/#{_id}"
       end
 
     end
