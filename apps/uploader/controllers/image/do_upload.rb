@@ -14,7 +14,7 @@ module Uploader::Controllers::Image
 
     def call(params)
       redirect_if_not_signed_in('uploader, Image,  DoUpload')
-      puts "Call  uploader, file".magenta
+      puts "Call  uploader, image, do-upload".magenta
 
       @title =  params['title']
       @tags =  params['tags']
@@ -22,7 +22,10 @@ module Uploader::Controllers::Image
       @tempfile = params['datafile']['tempfile'].inspect.match(/Tempfile:(.*)>/)[1]
       @option = params['option']
 
+      # PROBLEM IS HERE -- current_document_id CHANGES
+      puts "WARNING:".magenta
       puts "In image upload, option = #{@option}, current_document_id = #{session['current_document_id']}".red
+      puts "----------------------------".magenta
 
       _identifier = Identifier.new('image').string
       @filename =  "#{_identifier}_#{@filename}"
