@@ -7,8 +7,10 @@ class ContentManager
   def initialize(document, options = {})
 
     @document = document
+    puts "ContentManager, document: #{@document.id}".magenta
     @options = options
     @root_document = @document.root_document
+    puts "ContentManager, root document: #{@root_document.id}".magenta
 
     # values of @format are 'adoc' or 'adoc-latex'
     if @root_document
