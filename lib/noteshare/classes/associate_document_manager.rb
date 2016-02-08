@@ -39,7 +39,7 @@ class AssociateDocManager
     doc.info
     doc2 = DocumentRepository.create doc
 
-    doc2.associate_to(@document, type)
+    associate_to(@document, type)
 
   end
 
