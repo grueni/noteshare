@@ -13,7 +13,7 @@ module Web::Controllers::Documents
 
       document_id = params['id']
       if document_id.to_i  == 0
-        document_id = session[:current_document_id]
+        document_id = session['current_document_id']
       end
       redirect_to '/error/0?Sorry, no document recalled from memory' if document_id == nil
 

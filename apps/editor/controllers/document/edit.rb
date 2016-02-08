@@ -19,7 +19,7 @@ module Editor::Controllers::Document
       puts "ID of document to edit: #{id}".magenta
       @document = DocumentRepository.find(id)
       Analytics.record_edit(user, @document)
-      session[:current_document_id] = id
+      session['current_document_id'] = id
 
       cm = ContentManager.new(@document)
       if @document.is_root_document?
