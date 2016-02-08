@@ -8,6 +8,8 @@ module Editor::Controllers::Document
       redirect_if_not_signed_in('editor, document, Edit')
       user = current_user(session)
       id = params['id']
+      session['current_document_id'] = id
+      puts "EDITOR IS RECORDING CURRENT DOCUMENT ID AS #{id}".magenta
 
       if session['current_image_id']
         puts "session['current_image_id'] = #{session['current_image_id']}".red
@@ -16,10 +18,9 @@ module Editor::Controllers::Document
       end
 
       @active_item = 'editor'
-      puts "ID of document to edit: #{id}".magenta
       @document = DocumentRepository.find(id)
       Analytics.record_edit(user, @document)
-      session['current_document_id'] = id
+
 
       cm = ContentManager.new(@document)
       if @document.is_root_document?

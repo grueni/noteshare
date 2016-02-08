@@ -44,6 +44,7 @@ module Uploader::Controllers::Image
       end
 
       if @option == 'editor' && session['current_document_id']
+        puts "UPLOADER IS REDIRECTING TO EDITOR WITH CURRENT DOCUMENT ID = #{session['current_document_id']}".magenta
         redirect_to "/editor/document/#{session['current_document_id']}"
       end
     end
