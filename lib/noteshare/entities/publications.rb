@@ -202,7 +202,7 @@ class PublicationsManager
     node2 = author_node if node1 == nil
     return '' if node1 == nil && node2 == nil
     user = current_user(session)
-    
+
     if user
       prefix = user.screen_name
     else

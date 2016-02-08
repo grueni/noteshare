@@ -149,7 +149,12 @@ module UI
       end
       return '' if node == nil
 
-      prefix = node_name
+      if cu
+        prefix = cu.screen_name
+      else
+        prefix = node_name
+      end
+
       active_item == 'node' ? image = '/images/node_green.png' : image = '/images/node_white.png'
       image_link2(prefix:prefix, suffix: "node/#{node.id}", title: 'current node', image: image)
     end
