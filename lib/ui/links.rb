@@ -309,7 +309,7 @@ module UI
       if active_item == 'reader'
         return link_to 'Reader', '#', class: 'active_item'
       else
-        return  link_to 'Reader', "/document/#{_id}"
+        return  link_to 'Reader', "/document/0"
       end
 
     end
