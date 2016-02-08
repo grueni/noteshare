@@ -3,7 +3,12 @@
 class TOCPresenter
   
   def initialize(document)
+
     @document = document
+
+    first_section_title = @document.title_from_content || @document.title
+    @master_toc_item = TOCItem.from_hash(:id => @document.id, :title => first_section_title,
+                                         :identifier => @document.id, :has_subdocs => @document.id )
   end
 
   ####### INTERFACE #######
@@ -186,6 +191,9 @@ class TOCPresenter
     end
 
     target == 'editor'? output = "<ul class='toc2'>\n" : output = "<ul class='toc2'>\n"
+
+
+    output << process_toc_item( @master_toc_item, 0, 0, 'foo')
 
     table_of_contents.each do |item|
 
