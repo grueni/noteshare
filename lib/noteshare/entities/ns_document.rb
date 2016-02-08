@@ -365,7 +365,7 @@ class NSDocument
   # PUBLIC
   def delete
     if is_associated_document?
-      AssociateDocManager.new(self).delete_associated_document
+      delete_associated_document
     else
       delete_subdocument
     end
@@ -844,15 +844,7 @@ class NSDocument
     n ? n.link(hash) : alt_title
   end
 
-  # INTERNAL
-  def associate_link(type, prefix='')
-    if prefix == ''
-      "<a href='/document/#{self.doc_refs[type]}'>#{type.capitalize}</a>"
-    else
-      "<a href='/#{prefix}/document/#{self.doc_refs[type]}'>#{type.capitalize}</a>"
-    end
 
-  end
 
   ##################################
 
@@ -884,6 +876,88 @@ class NSDocument
       list << item
     end
     list
+  end
+
+
+  ######## ASSOCIATED DOCUMENTS ########
+
+
+
+  # return hash of associates of a given document
+  def associates
+    self.doc_refs
+  end
+
+  # @foo.associate_to(@bar, 'summary',)
+  # associates @foo to @bar as a 'summary'.
+  # It can be retrieved as @foo.associated_document('summary')
+  def associate_to(parent, type)
+    parent.doc_refs[type] = self.id
+    self.type = 'associated:' + type
+    self.set_parent_document_to(parent)
+    self.set_root_document_to(parent)
+    DocumentRepository.update(parent)
+    DocumentRepository.update(self)
+  end
+
+  # Add associate to receiver
+  # Example
+  #
+  #    @content = 'Dr. Smith said that conservation laws ...'
+  #    @article.add_associate(title: 'Notes from class', type: 'note', content: @content)
+  #
+  def add_associate(hash)
+
+    type = hash.delete(:type)
+
+    doc = NSDocument.new(hash)
+    doc.identifier = Noteshare::Identifier.new().string
+    doc.root_ref = { 'id'=> 0, 'title' => ''}
+    doc.author_id = self.author_id
+    doc.author = self.author
+    doc.author_credentials2 = self.author_credentials2
+
+    doc.info
+    doc2 = DocumentRepository.create doc
+
+    doc2.associate_to(self, type)
+
+    doc2
+
+  end
+
+  # The method below assumes that a document
+  # is the associate of at most one other
+  # document.  This should be enforced (#fixme)
+  def disassociate
+    _parent = parent_document
+    _type = self.type.sub('associated:', '')
+    _parent.doc_refs.delete(_type)
+    self.parent_id = 0
+    self.parent_ref =  nil
+    self.root_document_id = 0
+    self.root_ref = nil
+    DocumentRepository.update(_parent)
+    DocumentRepository.update(self)
+  end
+
+
+  # @foo.associatd_document('summary')
+  # retrieve the document associated to
+  # @foo which is of type 'summary'
+  def associated_document(type)
+    DocumentRepository.find(self.doc_refs[type])
+  end
+
+
+  # INTERNAL
+  def associate_link(type, prefix='')
+    if prefix == ''
+      "<a href='/document/#{self.doc_refs[type]}'>#{type.capitalize}</a>"
+    else
+      "<a href='/#{prefix}/document/#{self.doc_refs[type]}'>#{type.capitalize}</a>"
+    end
+
   end
 
 end

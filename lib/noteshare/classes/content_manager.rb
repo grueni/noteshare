@@ -237,7 +237,7 @@ class ContentManager
     rd = @document.root_document || @document
     macro_text = ''
     if rd and rd.doc_refs['texmacros']
-      macro_text << AssociateDocManager.new(rd).associated_document('texmacros').content
+      macro_text << rd.associated_document('texmacros').content
       macro_text = macro_text.gsub(/^=*= .*$/,'')
       macro_text = "\n\n[env.texmacro]\n--\n#{macro_text}\n--\n\n"
     end
