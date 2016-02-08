@@ -6,11 +6,11 @@
       br
       br
       div style='margin-left:1.5em'
-        p.plainlink.lightlink style='color:white; margin-top:2em;' == PublicationsManager.new(document).principal_publisher_link
+        p.plainlink.lightlink style='color:white; margin-top:2em;' == PublicationsManager.new(document).principal_publisher_link(session)
         p.plainlink.lightlink style = 'font-size:larger; padding-top:0.4em;margin-bottom:0;margin-left:-0.7em;'
           == document.root_link(stem: 'compiled')
         -if root_document.dict['make_index']
-          span.redlink style='margin-left:-0.6em; margin-top:0em;font-size:larger' == link_to 'Index', '#_index'
+          span.redlink style='margin-left:-0.6em; margin-top:0em;font-size:larger' == document_index_link(document, session)
 
         .toc2 style='margin-left:-1em;margin-top:1em;' == TOCPresenter.new(root_document).internal_table_of_contents(['root', 'titlepage', 'sectnums'], {doc_id: root_document.id})
 

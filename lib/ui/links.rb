@@ -29,8 +29,13 @@ module UI
     #
     #####################################################
 
-    def document_index_link(document)
-      text_link(title: 'Index', prefix: :none, suffix: "compiled/#{document.id}\#_index")
+    def document_index_link(document, session)
+      user = current_user(session)
+      if user
+        text_link(title: 'Index', prefix: user.screen_name, suffix: "compiled/#{document.id}\#_index")
+      else
+        ''
+      end
     end
 
 
@@ -120,7 +125,12 @@ module UI
     def node_link(node, session)
       # cu = current_user(session)
       # cu ? prefix = cu.node_name : prefix = node.name
-      prefix = node.name
+      user = current_user(session)
+      if user
+        prefix = user.screen_name
+      else
+        prefix = node.name
+      end
       text_link(prefix: prefix, suffix: "node/#{node.id}", title: node.name)
     end
 

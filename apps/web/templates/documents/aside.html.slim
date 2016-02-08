@@ -8,7 +8,7 @@
           == render partial: 'documents/view_control', locals: { } unless document.root_document.dict['show_controls'] == 'no'
 
           .div style='margin-top:0;'
-            p.plainlink.lightlink style='color:white; margin-top:2em;' == PublicationsManager.new(document).principal_publisher_link
+            p.plainlink.lightlink style='color:white; margin-top:2em;' == PublicationsManager.new(document).principal_publisher_link(session)
             - if document.doc_refs && !(document.root_document.dict['show_associated_docs'] == 'no')
               .toc2 style = 'padding-top:0' == AssociateDocManager.new(document).root_associated_document_map
             h5 style = 'margin-bottom:0; color:#444;'  Table of Contents
@@ -17,7 +17,7 @@
               p.plainlink.lightlink style = 'font-size:larger; padding-top:0.4em;margin-bottom:0;'
                 == document.root_link(stem: 'aside')
               - if root_document.dict['make_index']
-                .toc.plainlink.lightlink == document_index_link(document)
+                .toc.plainlink.lightlink == document_index_link(document, session)
 
             .toc2 style='margin-top:0.75em' == TOCPresenter.new(document.root_document).root_table_of_contents(document.id, 'aside')
 

@@ -24,13 +24,21 @@ module Web::Controllers::Home
     def handle_incoming_node
 
       @incoming_node = NSNode.from_http(request)
+      @incoming_node_name =  @incoming_node.name if @incoming_node
       puts "@incoming_node: #{@incoming_node}".red
+
+      user = current_user(session)
+      if user
+        prefix = user.screen_name
+      else
+        prefix = @incoming_node_name || :none
+      end
 
       if @incoming_node
         if  @incoming_node.type == 'public'
           # redirect_to "/node/#{@incoming_node.id}"
           puts 'A'.magenta
-          redirect_to basic_link @incoming_node.name, "node/#{@incoming_node.id}"
+          redirect_to basic_link prefix, "node/#{@incoming_node.id}"
         else
           puts 'B'.magenta
           redirect_to basic_link @incoming_node.name, "home"

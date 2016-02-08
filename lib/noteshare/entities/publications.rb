@@ -196,7 +196,36 @@ class PublicationsManager
 
 
 
-  def principal_publisher_link
+  def principal_publisher_link(session)
+
+    node1 = principal_publisher
+    node2 = author_node if node1 == nil
+    return '' if node1 == nil && node2 == nil
+    user = current_user(session)
+    
+    if user
+      prefix = user.screen_name
+    else
+      if node1
+        prefix = node1.name
+      else
+        prefix = node2.name
+      end
+    end
+
+    if node1
+      link_text = "Published in #{node1.name}#{ENV['DOMAIN']}"
+      link = basic_link(prefix, "node/#{node1.id}")
+      "<a href=\"#{link}\">#{link_text}</a>"
+    else
+      link_text = "Published in #{node2.name}#{ENV['DOMAIN']}"
+      link = basic_link(node2.name, "node/#{node2.id}")
+      "<a href=\"#{link}\">#{link_text}</a>"
+    end
+
+  end
+
+  def principal_publisher_link1(session)
 
     node1 = principal_publisher
     node2 = author_node if node1 == nil
@@ -213,6 +242,7 @@ class PublicationsManager
     end
 
   end
+
 
 
   def publishers
