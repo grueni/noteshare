@@ -193,7 +193,7 @@ class TOCPresenter
     target == 'editor'? output = "<ul class='toc2'>\n" : output = "<ul class='toc2'>\n"
 
 
-    output << process_toc_item( @master_toc_item, 0, 0, 'foo')
+    output << process_toc_item( @master_toc_item, 0, 0, target)
 
     table_of_contents.each do |item|
 
