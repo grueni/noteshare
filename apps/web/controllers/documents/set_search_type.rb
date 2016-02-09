@@ -3,7 +3,7 @@ module Web::Controllers::Documents
     include Web::Action
 
     def call(params)
-      self.body = 'set searsch type -- OK'
+      self.body = 'set search type -- OK'
     end
   end
 end
