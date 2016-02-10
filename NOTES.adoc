@@ -211,3 +211,10 @@ ORDER  BY attnum;
 https://github.com/stravid/datsu-api/pull/10[skylight]
 http://stackoverflow.com/questions/3987683/homebrew-install-specific-version-of-formula[Install specific version of postgres]
 https://github.com/mymai91/bookshelf/blob/master/apps/admin/templates/books/index.html.erb#L18[CORS problem]
+
+
+.Upgrade to 0.7
+--
+@jxxcarlson: I upgraded from 0.5 to 0.6 (using this doc: http://hanamirb.org/guides/upgrade-notes/v060)
+and after I upgraded to 0.7 (renaming to hanami) using this doc: http://hanamirb.org/guides/upgrade-notes/v070
+--
