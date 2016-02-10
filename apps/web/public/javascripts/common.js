@@ -58,21 +58,20 @@ $(document).ready(function() {
     $('#select_local_search').change(function () {
         console.log('select_local_search');
         localStorage.search_selector = 'local'
-        console.log($.csrf_token);
-        // $.post('set_search_type?local', 'local');
+        $.post('set_search_type?local', 'local');
     });
 
     $('#select_global_search').change(function () {
         console.log('select_global_search');
         localStorage.search_selector = 'global'
-        //$.post('set_search_type?global', 'global');
+        $.post('set_search_type?global', 'global');
     });
 
     $('#select_all_search').change(function () {
         //$.post()
         console.log('select_all_search');
         localStorage.search_selector = 'all'
-        //$.post('set_search_type?all', 'all');
+        $.post('set_search_type?all', 'all');
     });
 
     $.setup_search_selector = function () {
