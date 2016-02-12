@@ -6,6 +6,7 @@ gem 'bundler'
 gem 'rake'
 
 gem 'puma'
+gem "puma_worker_killer" # TEMPORARY MEASURE
 # gem 'newrelic_rpm'
 gem 'keen'
 
