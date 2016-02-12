@@ -12,7 +12,7 @@
                 td== node_link_for_document(document)
 
       .div style='position:absolute; left:60px; z-index:39;'
-        form name='search_type_selector' action='set_search_type' method='POST' class='js- ' data-csrf-token=("<%= this.csrf_token %>")
+        form name='search_type_selector' action='set_search_type' method='POST' data-csrf-token="<%= this.csrf_token %>"
         .div style='position:absolute; top:20px; left:20px;'
           .span
             input type="radio" name="radio" id="select_local_search" class="radio"

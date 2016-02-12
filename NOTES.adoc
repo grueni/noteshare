@@ -211,3 +211,4 @@ ORDER  BY attnum;
 https://github.com/stravid/datsu-api/pull/10[skylight]
 http://stackoverflow.com/questions/3987683/homebrew-install-specific-version-of-formula[Install specific version of postgres]
 https://cloud.google.com/functions/writing[Google Cloud Platform]
+http://stackoverflow.com/questions/12173990/how-can-you-debug-a-cors-request-with-curl[debug cors request with curl] + 
