@@ -1,0 +1,150 @@
+create extension hstore;
+
+CREATE TABLE documents(
+  id serial,
+  title text,
+  identifier text,
+  author_identifier text,
+  author_id integer,
+  author text,
+  author_credentials jsonb,
+  tags text,
+  type text,
+  area text,
+  meta jsonb,
+  created_at timestamp with time zone,
+  modified_at timestamp with time zone,
+  content text,
+  compiled_content text,
+  rendered_content text,
+  compiled_and_rendered_content text,
+  render_options jsonb,
+  parent_id integer,
+  parent_ref jsonb,
+  root_ref jsonb,
+  index_in_parent integer,
+  root_document_id integer,
+  visibility integer,
+  subdoc_refs integer[],
+  doc_refs jsonb,
+  toc jsonb,
+  content_dirty boolean,
+  compiled_dirty boolean,
+  toc_dirty boolean,
+  acl hstore,
+  groups_json jsonb,
+  xattributes text[],
+  dict hstore,
+  author_credentials2 hstore,
+PRIMARY KEY(id)
+);
+
+
+
+CREATE TABLE ns_users(
+  id serial,
+  admin boolean,
+  first_name text,
+  last_name text,
+  identifier text,
+  email text,
+  screen_name text,
+  level integer,
+  password text,
+  meta jsonb,
+  dict2 hstore,
+PRIMARY KEY(id)
+);
+
+
+CREATE TABLE ns_images(
+  id serial,
+  owner_id text,
+  title text,
+  file_name text,
+  mime_type text,
+  created_at timestamp with time zone,
+  modified_at timestamp with time zone,
+  public boolean,
+  dict hstore,
+  doc_ids integer[],
+  tags text,
+  identifier text,
+  url text,
+  source text,
+  data_file_name text,
+PRIMARY KEY(id)
+);
+
+
+CREATE TABLE publications(
+  id serial,
+  node_id integer,
+  document_id integer,
+  type text,
+PRIMARY KEY(id)
+);
+create index on publications (node_id);
+create index on publications (document_id);
+
+
+
+CREATE TABLE nodes(
+  id serial,
+  owner_id integer,
+  identifier text,
+  name text,
+  type text,
+  meta jsonb,
+  docs jsonb,
+  children jsonb,
+  tags text,
+  xattributes text[],
+  dict hstore,
+PRIMARY KEY(id)
+);
+
+
+
+CREATE TABLE settings(
+  id integer,
+  owner text,
+  dict hstore,
+PRIMARY KEY(id)
+);
+
+
+
+CREATE TABLE lessons(
+  id serial,
+  title text,
+  author_id integer,
+  tags text,
+  area text,
+  course_id integer,
+  content text,
+  sequence integer,
+  created_at timestamp with time zone,
+  modified_at timestamp with time zone,
+  summary text,
+  aside text,
+  image_path1 text,
+  image_path2 text,
+  content_type text,
+PRIMARY KEY(id)
+);
+
+
+
+CREATE TABLE course(
+  id serial,
+  title text,
+  author_id integer,
+  tags text,
+  area text,
+  created_at timestamp with time zone,
+  modified_at timestamp with time zone,
+  content text,
+  course_attributes text,
+PRIMARY KEY(id)
+);

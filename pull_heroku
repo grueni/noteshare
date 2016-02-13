@@ -1,0 +1,5 @@
+#!/bin/sh
+
+dropdb noteshare_development
+heroku pg:pull DATABASE_URL noteshare_development --app nslab
+
