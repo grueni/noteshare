@@ -15,6 +15,8 @@ $(document).ready(function(){
     max: 100
   });
 
+    // #toc_editor
+
     auto_update_interval = setInterval(auto_update_document, 1000*auto_update_delay());
 
 
