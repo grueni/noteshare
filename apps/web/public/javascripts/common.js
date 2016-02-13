@@ -70,8 +70,9 @@ $(document).ready(function() {
     $('#select_all_search').change(function () {
         //$.post()
         console.log('select_all_search');
+        console.log('local storage: ' + localStorage.csrfToken);
         localStorage.search_selector = 'all'
-        $.post('set_search_type?all', 'all');
+        $.post("set_search_type?all?" + localStorage.csrfToken, "all");
     });
 
     $.setup_search_selector = function () {
