@@ -218,3 +218,6 @@ https://github.com/mymai91/bookshelf/blob/master/apps/admin/templates/books/inde
 @jxxcarlson: I upgraded from 0.5 to 0.6 (using this doc: http://hanamirb.org/guides/upgrade-notes/v060)
 and after I upgraded to 0.7 (renaming to hanami) using this doc: http://hanamirb.org/guides/upgrade-notes/v070
 --
+https://cloud.google.com/functions/writing[Google Cloud Platform]
+http://stackoverflow.com/questions/12173990/how-can-you-debug-a-cors-request-with-curl[debug cors request with curl] + 
+

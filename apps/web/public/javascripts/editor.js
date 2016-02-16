@@ -1,8 +1,14 @@
 $(document).ready(function(){
 
-    $( window ).unload(function() {
+    $(window).on('unload', function() {
+        console.log('EDITOR UNLOADED')
         clearInterval(auto_update_interval);
     });
+
+    $(window).on('load', function () {
+        console.log("EDITOR LOADED event fired!");
+    });
+
 
   $('#document-updated-text').on('input', mark_text_as_dirty )
 

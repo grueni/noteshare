@@ -1,3 +1,4 @@
+# get '/documents', to: 'documents#set_search_type'
 get '/link/:id', to: 'document#link'
 get '/view_source/:id', to: 'documents#view_source'
 post '/set_search_type', to: 'documents#set_search_type'
