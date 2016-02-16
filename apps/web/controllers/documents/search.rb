@@ -10,20 +10,14 @@ module Web::Controllers::Documents
       @active_item = 'reader'
       search_key = params['search']['search']
       cu = current_user(session)
+      search_scope = cu.dict2['search_scope'] || 'all'
+      search_mode = cu.dict2['search_mode'] || 'document'
+
       if cu == nil
         puts 'DOING SEARCH FOR ALL'.red
-        @documents = DocumentRepository.search(search_key).select{ |item| item.acl_get(:world) =~ /r/ }.sort_by { |item| item.title }
+        @documents = DocumentRepository.basic_search(nil, search_key, 'document', 'all').select{ |item| item.acl_get(:world) =~ /r/ }.sort_by { |item| item.title }
       else
-        if cu.dict2['search_type'] == 'local'
-          puts 'DOING LOCAL SEARCH'.red
-          @documents = DocumentRepository.search_local(cu, search_key).sort_by { |item| item.title }
-        elsif cu.dict2['search_type'] == 'global'
-          puts 'DOING GLOBAL SEARCH'.red
-          @documents = DocumentRepository.search_global(cu, search_key).sort_by { |item| item.title }
-        else
-          puts 'DOING SEARCH FOR ALL'.red
-          @documents = DocumentRepository.search(search_key).sort_by { |item| item.title }
-        end
+        @documents = DocumentRepository.basic_search(cu, search_key, search_mode, search_scope).sort_by { |item| item.title }
       end
       @nodes = NSNodeRepository.search(search_key).sort_by { |item| item.name }
     end

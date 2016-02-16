@@ -9,8 +9,12 @@
             - documents.each do |document|
               tr.clear_style
                 td.lightlink == compiled_root_document_link(document)
-                td== node_link_for_document(document)
+                -if document.is_root_document?
+                  td== node_link_for_document(document)
+                -else
+                  td== compiled_root_document_link(document.root_document)
 
+      div style='margin-left:2em; margin-top:1em;' == search_scope_selector
       div style='margin-left:2em; margin-top:1em;' == search_mode_selector
 
   .col.hide-on-small-and-down.offset-s6.m6.offset-m6.l4.offset-l5

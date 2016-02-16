@@ -93,5 +93,31 @@ module AdminUtilities
   end
 
 
+    def self.process_orphan(document, option)
+      result = 0
+      if document.root_document_id != 0
+        root_doc = DocumentRepository.find document.root_document_id
+        if root_doc == nil
+          puts "BAD: #{document.id}: #{document.title}".cyan
+          result = 1
+          if option == 'fix'
+            DocumentRepository.delete document
+          end
+        else
+          result = 0
+        end
+      end
+      result
+    end
+
+  def self.orphans(option='')
+    docs = DocumentRepository.all
+    count = 0
+    docs.each do |document|
+      result =  self.process_orphan(document, option)
+      count += result
+    end
+    count
+  end
 
 end

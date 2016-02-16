@@ -272,8 +272,12 @@ module UI
     end
 
     def compiled_root_document_link(document)
-      doc = document.root_document
-      link_to doc.title, "/compiled/#{doc.id}"
+      root_doc = document.root_document
+      if document == root_doc
+        link_to root_doc.title, "/compiled/#{root_doc.id}"
+      else
+        link_to document.title, "/document/#{document.id}"
+      end
     end
 
     def iconic_compiled_document_link(document)

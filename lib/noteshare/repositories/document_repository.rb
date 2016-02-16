@@ -76,7 +76,7 @@ class DocumentRepository
     end
   end
 
-  def self.search(key, limit: 20)
+  def self.search(key, mode, limit: 20)
     array = fetch("SELECT id FROM documents WHERE parent_id = 0 AND (title ILIKE '%#{key}%' OR tags ILIKE '%#{key}%');")
     # array = fetch("SELECT id FROM documents WHERE parent_id = 0 AND tags ILIKE '%#{key}%';")
     # array = fetch("SELECT id FROM documents WHERE parent_id = 0 AND title ILIKE '%#{key}%';")
@@ -85,13 +85,69 @@ class DocumentRepository
     array.map{ |id| DocumentRepository.find id }.sort_by { |item| item.title }
   end
 
-  def self.search_local(user, key, limit: 20)
-    array = fetch("SELECT id FROM documents WHERE author_id = #{user.id} AND parent_id = 0 AND (title ILIKE '%#{key}%' OR tags ILIKE '%#{key}%');")
+  def self.basic_search(user, key, mode, scope, limit: 20)
+
+    case scope
+      when 'local'
+        scope_clause =  "AND author_id = #{user.id}"
+      when 'global'
+        scope_clause =  "AND author_id != #{user.id}"
+      when  'all'
+        scope_clause =  ""
+      else
+        scope_clause =  ""
+    end
+
+    case mode
+      when 'document'
+        mode_clause = "AND parent_id = 0"
+      when 'section'
+        mode_clause = ''
+      when 'text'
+        mode_clause = ''
+      else
+        mode_clause = ''
+    end
+
+    case mode
+      when 'document'
+        search_clause = "WHERE (title ILIKE '%#{key}%' OR tags ILIKE '%#{key}%')"
+      when 'section'
+        search_clause = "WHERE (title ILIKE '%#{key}%' OR tags ILIKE '%#{key}%')"
+      when 'text'
+        search_clause = "WHERE content ILIKE '%#{key}%'"
+      else
+        search_clause = "WHERE (title ILIKE '%#{key}%' OR tags ILIKE '%#{key}%')"
+    end
+
+    query = "SELECT id FROM documents #{search_clause} #{scope_clause} #{mode_clause} "
+    array = fetch(query)
     array = array.map{ |h| h[:id] }.uniq
+    puts "Found #{array.count} items".cyan
     array.map{ |id| DocumentRepository.find id }.sort_by { |item| item.title }
   end
 
-  def self.search_global(user, key, limit: 20)
+  def self.search_local(user, key, mode, limit: 20)
+    case mode
+      when 'document'
+        puts "local document search".red
+        array = fetch("SELECT id FROM documents WHERE author_id = #{user.id} AND parent_id = 0 AND (title ILIKE '%#{key}%' OR tags ILIKE '%#{key}%');")
+      when 'section'
+        puts "local section search".red
+        array = fetch("SELECT id FROM documents WHERE author_id = #{user.id} AND (title ILIKE '%#{key}%' OR tags ILIKE '%#{key}%');")
+      when 'text'
+        puts "local text search".red
+        array = fetch("SELECT id FROM documents WHERE content ILIKE '%#{key}%';")
+      else
+        # document
+        array = fetch("SELECT id FROM documents WHERE author_id = #{user.id} AND parent_id = 0 AND (title ILIKE '%#{key}%' OR tags ILIKE '%#{key}%');")
+    end
+    array = array.map{ |h| h[:id] }.uniq
+    puts "Found #{array.count} items".cyan
+    array.map{ |id| DocumentRepository.find id }.sort_by { |item| item.title }
+  end
+
+  def self.search_global(user, key, mode, limit: 20)
     array = fetch("SELECT id FROM documents WHERE author_id != #{user.id} AND parent_id = 0 AND (title ILIKE '%#{key}%' OR tags ILIKE '%#{key}%');")
     array = array.map{ |h| h[:id] }.uniq
     array.map{ |id| DocumentRepository.find id }.sort_by { |item| item.title }

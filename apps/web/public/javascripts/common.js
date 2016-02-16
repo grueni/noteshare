@@ -55,38 +55,83 @@ $(document).ready(function() {
     });
 
 
+
+
     $('#select_local_search').change(function () {
-        localStorage.search_selector = 'local'
+        localStorage.search_scope_selector = 'local'
         var csrf_token = document.getElementsByName("_csrf_token")[0].value;
-        $.post("set_search_type?", { search_type: "local", _csrf_token: csrf_token });
+        $.post("set_search_type", { search_scope: "local", _csrf_token: csrf_token });
     });
 
     $('#select_global_search').change(function () {
-        localStorage.search_selector = 'global'
+        localStorage.search_scope_selector = 'global'
         var csrf_token = document.getElementsByName("_csrf_token")[0].value;
-        $.post("set_search_type?", { search_type: "global", _csrf_token: csrf_token });
+        $.post("set_search_type", { search_scope: "global", _csrf_token: csrf_token });
     });
 
     $('#select_all_search').change(function () {
-        localStorage.search_selector = 'all'
+        localStorage.search_scope_selector = 'all'
         var csrf_token = document.getElementsByName("_csrf_token")[0].value;
-        $.post("set_search_type?", { search_type: "all", _csrf_token: csrf_token });
+        $.post("set_search_type", { search_scope: "all", _csrf_token: csrf_token });
+    });
+
+
+
+
+    $('#select_document_search').change(function () {
+        localStorage.search_mode_selector = 'document'
+        var csrf_token = document.getElementsByName("_csrf_token")[0].value;
+        $.post("set_search_type", { search_mode: "document", _csrf_token: csrf_token });
+    });
+
+    $('#select_section_search').change(function () {
+        localStorage.search_mode_selector = 'section'
+        var csrf_token = document.getElementsByName("_csrf_token")[0].value;
+        $.post("set_search_type", { search_mode: "section", _csrf_token: csrf_token });
+    });
+
+    $('#select_text_search').change(function () {
+        localStorage.search_mode_selector = 'text'
+        var csrf_token = document.getElementsByName("_csrf_token")[0].value;
+        $.post("set_search_type", { search_mode: "text", _csrf_token: csrf_token });
     });
 
     $.setup_search_selector = function () {
 
-        if (localStorage.search_selector == 'local') {
+        if (localStorage.search_scope_selector == 'local') {
             $('input:radio[id=select_local_search]').prop('checked', true);
             $('input:radio[id=select_global_search]').prop('checked', false);
             $('input:radio[id=select_all_search]').prop('checked', false);
-        } else if (localStorage.search_selector == 'global') {
+        } else if (localStorage.search_scope_selector == 'global') {
             $('input:radio[id=select_local_search]').prop('checked', false);
             $('input:radio[id=select_global_search]').prop('checked', true);
             $('input:radio[id=select_all_search]').prop('checked', false);
+        } else if (localStorage.search_scope_selector == 'all') {
+            $('input:radio[id=select_local_search]').prop('checked', false);
+            $('input:radio[id=select_global_search]').prop('checked', false);
+            $('input:radio[id=select_all_search]').prop('checked', true);
         } else {
             $('input:radio[id=select_local_search]').prop('checked', false);
             $('input:radio[id=select_global_search]').prop('checked', false);
             $('input:radio[id=select_all_search]').prop('checked', true);
+        }
+
+        if (localStorage.search_mode_selector == 'document') {
+            $('input:radio[id=select_document_search]').prop('checked', true);
+            $('input:radio[id=select_section_search]').prop('checked', false);
+            $('input:radio[id=select_text_search]').prop('checked', false);
+        } else if (localStorage.search_mode_selector == 'section') {
+            $('input:radio[id=select_document_search]').prop('checked', false);
+            $('input:radio[id=select_section_search]').prop('checked', true);
+            $('input:radio[id=select_text_search]').prop('checked', false);
+        } else if (localStorage.search_mode_selector == 'text') {
+            $('input:radio[id=select_document_search]').prop('checked', false);
+            $('input:radio[id=select_section_search]').prop('checked', false);
+            $('input:radio[id=select_text_search]').prop('checked', true);
+        } else {
+            $('input:radio[id=select_document_search]').prop('checked', true);
+            $('input:radio[id=select_section_search]').prop('checked', false);
+            $('input:radio[id=select_text_search]').prop('checked', false);
         }
     }
 
