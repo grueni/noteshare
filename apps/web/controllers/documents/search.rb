@@ -10,8 +10,13 @@ module Web::Controllers::Documents
       @active_item = 'reader'
       search_key = params['search']['search']
       cu = current_user(session)
-      search_scope = cu.dict2['search_scope'] || 'all'
-      search_mode = cu.dict2['search_mode'] || 'document'
+      if cu
+        search_scope = cu.dict2['search_scope'] || 'all'
+        search_mode = cu.dict2['search_mode'] || 'document'
+      else
+        search_scope = 'all'
+        search_mode = 'document'
+      end
 
       if cu == nil
         puts 'DOING SEARCH FOR ALL'.red

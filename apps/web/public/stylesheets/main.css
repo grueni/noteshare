@@ -825,6 +825,10 @@ p.compact {
     z-index: 100;
 }
 
+label {
+    color: #444;
+}
+
 /*
 ul {
 

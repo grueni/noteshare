@@ -15,11 +15,11 @@ module Web::Views::Documents
     def search_scope_selector
       form_for :search_type_selector, 'set_search_type', class: 'horizontal' do
         div do
-          label :local
+          label :my_documents
           radio_button :category, 'local', {value: 'local', id: 'select_local_search'}
-          label :global
+          label :other_documents
           radio_button :category, 'global', {value: 'global', id: 'select_global_search'}
-          label :all
+          label :all_documents
           radio_button :category, 'all', {value: 'all', id: 'select_all_search'}
         end
       end
