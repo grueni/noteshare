@@ -11,20 +11,7 @@
                 td.lightlink == compiled_root_document_link(document)
                 td== node_link_for_document(document)
 
-      .div style='position:absolute; left:60px; z-index:39;'
-        form name='search_type_selector' action='set_search_type' method='POST'
-        .div style='position:absolute; top:20px; left:20px;'
-          .span
-            input type="radio" name="radio" id="select_local_search" class="radio"
-            label for="select_local_search" Local
-        .div style='position:absolute; top:20px; left:100px;'
-          .span
-            input type="radio" name="radio" id="select_global_search" class="radio"
-            label for="select_global_search" Global
-        .div style='position:absolute; top:20px; left:190px;'
-          .span
-            input type="radio" name="radio" id="select_all_search" class="radio"
-            label for="select_all_search" All
+      div style='margin-left:2em; margin-top:1em;' == search_mode_selector
 
   .col.hide-on-small-and-down.offset-s6.m6.offset-m6.l4.offset-l5
     div.ns_card style = 'margin-top:1.0em;width:400px; height:400px; overflow-y:scroll; padding-bottom:3em;'
@@ -35,3 +22,4 @@
             tr
               td== node_link(node, session)
               td= node.blurb
+
