@@ -3,8 +3,14 @@ module Web::Controllers::Documents
     include Web::Action
 
     def call(params)
-      puts "controller Documents, SetSearchType".red
-      self.body = 'set search type -- OK'
+      data = request.env['rack.request.form_vars']
+      search_type = data.match(/search_type=(.*?)&/)[1]
+      cu = current_user(session)
+      if cu
+        cu.dict2['search_type'] = search_type
+        UserRepository.update cu
+      end
+      # self.body = 'set search type -- OK'
     end
 
   end

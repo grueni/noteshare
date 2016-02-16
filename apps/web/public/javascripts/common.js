@@ -56,23 +56,21 @@ $(document).ready(function() {
 
 
     $('#select_local_search').change(function () {
-        console.log('select_local_search');
         localStorage.search_selector = 'local'
-        $.post('set_search_type?local', 'local');
+        var csrf_token = document.getElementsByName("_csrf_token")[0].value;
+        $.post("set_search_type?", { search_type: "local", _csrf_token: csrf_token });
     });
 
     $('#select_global_search').change(function () {
-        console.log('select_global_search');
         localStorage.search_selector = 'global'
-        $.post('set_search_type?global', 'global');
+        var csrf_token = document.getElementsByName("_csrf_token")[0].value;
+        $.post("set_search_type?", { search_type: "global", _csrf_token: csrf_token });
     });
 
     $('#select_all_search').change(function () {
-        //$.post()
-        console.log('select_all_search');
-        console.log('local storage: ' + localStorage.csrfToken);
         localStorage.search_selector = 'all'
-        $.post("set_search_type?all?" + localStorage.csrfToken, "all");
+        var csrf_token = document.getElementsByName("_csrf_token")[0].value;
+        $.post("set_search_type?", { search_type: "all", _csrf_token: csrf_token });
     });
 
     $.setup_search_selector = function () {
