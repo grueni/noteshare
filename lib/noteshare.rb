@@ -208,15 +208,17 @@ Lotus::Model.configure do
 
     end
 
-    collection :access do
-      entity Access
-      repository AccessRepository
+    collection :commands do
+      entity Command
+      repository CommandRepository
 
       attribute :id, Integer
-      attribute :resource_id, Integer
+      attribute :author_id, Integer
       attribute :token, String
-      attribute :action, String
-
+      attribute :command, String
+      attribute :args, PGStringArray
+      attribute :created_at, DateTime
+      attribute :expires_at, DateTime
 
     end
 

@@ -1,5 +1,5 @@
 require 'spec_helper'
 
-describe AccessRepository do
+describe CommandRepository do
   # place your tests here
 end

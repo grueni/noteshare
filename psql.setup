@@ -149,8 +149,8 @@ CREATE TABLE course(
 PRIMARY KEY(id)
 );
 
-drop table access;
-create table access(id integer, resource_id integer, user_id integer, token text, action text, PRIMARY KEY(id));
+drop table access; create table commands(id integer, token text, command text, created_at timestamp with time zone, expires_at timestamp with time zone, PRIMARY KEY(id));
+
 
 drop table token;
 create table token(id integer, token text,  created_at timestamp with time zone,

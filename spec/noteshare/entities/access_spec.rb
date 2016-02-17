@@ -1,5 +1,5 @@
 require 'spec_helper'
 
-describe Access do
+describe Command do
   # place your tests here
 end
