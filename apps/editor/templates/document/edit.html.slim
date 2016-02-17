@@ -2,6 +2,11 @@ script src="/javascripts/editor.js" type="text/javascript"
 .row
   .div id='source_text_data' data-source-text="#{document.content}"
   button id='update_source_button' class='green' style='position: absolute; bottom:4px; left:40px;z-index:100;'   Update
+  .span style='position: absolute; bottom:4px; left:160px; width:110px; padding-top:7px; padding-left:0.5em; height: 30px; z-index:100;' class='green' == link_to 'Check back in', "/editor/status/#{document.id}"
+  .span style='color: white; position: absolute; bottom:4px; left:50%; width:300px; padding-top:6px; padding-left:0.5em; height: 30px; z-index:100;' == editors
+
+
+
   /== render partial: 'document/edit_pane', locals: {}
   -if current_image
     #current_image_id style='display:none;' == current_image.id
@@ -38,21 +43,14 @@ script src="/javascripts/editor.js" type="text/javascript"
       #slider
       #slider_value style='margin-top:0.6em;'
 
-  /.div style='position:absolute; top:50px; left:20px;' id='tools_panel'
-      .toc
-        == render partial: 'document/tool_panel', locals: { }
-
-
   .col.source style='top:80px; margin-top:-40px;padding-bottom:18em;'
     == form
 
 
   .col.rendered id='rendered_content'  style='top:80px; margin-top:-40px;padding-bottom:36em;'
-      == document.rendered_content2
+    == document.rendered_content2
 
   javascript:
     console.log('Editor page');
-    $(document).on("pagecontainerload", function () {
-      alert("pagecontainerload event fired!");
-    });
+
 

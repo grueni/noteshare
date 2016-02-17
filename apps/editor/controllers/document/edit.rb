@@ -2,7 +2,7 @@ module Editor::Controllers::Document
   class Edit
     include Editor::Action
 
-    expose :document, :updated_text, :current_image,:active_item
+    expose :document, :updated_text, :current_image,:active_item, :editors
 
     def call(params)
       redirect_if_not_signed_in('editor, document, Edit')
@@ -29,6 +29,11 @@ module Editor::Controllers::Document
         cm.update_content_lazily
       end
       @updated_text = @document.content
+
+      es = Noteshare::EditorStatus.new(@document)
+      @editors = "Editors: #{es.editor_array_string_value}"
+      es.add_editor(user)
+
     end
 
   end

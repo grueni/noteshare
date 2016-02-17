@@ -1,4 +1,5 @@
-post '/editor_status', to: 'document#editor_status'
+get '/status/:id', to: 'document#editor_status'
+post '/status/:id', to: 'document#editor_status'
 get '/manage_publications/:id', to: 'document#manage_publications'
 post '/do_add_pdf', to: 'document#do_add_pdf'
 get '/add_pdf/:id', to: 'document#add_pdf'
