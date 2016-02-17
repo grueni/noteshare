@@ -162,14 +162,12 @@ class Permission
     _info = @object.acl_get "user:#{@user.screen_name}"
     return true if (@object.acl_get "user:#{@user.screen_name}") =~ /#{@action_code}/
 
-=begin
+
     # process group permissions for ACL
-    if @user.groups
-      @user.groups.each do |group|
-        return true if @object.acl_get("group:#{group}") =~/#{@action_code}/
-      end
+    @user.groups.each do |group|
+      return true if @object.acl_get("group:#{group}") =~/#{@action_code}/
     end
-=end
+
 
     return false
   end
@@ -177,3 +175,4 @@ class Permission
 
 
 end
+

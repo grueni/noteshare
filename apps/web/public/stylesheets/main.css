@@ -826,7 +826,18 @@ p.compact {
 }
 
 label {
-    color: #444;
+    color: #eee;
+}
+
+.user_setup_form label{
+
+    color: white;
+    margin-bottom:0;
+}
+
+.user_setup_form input{
+
+    margin-top:0;padding-top: 0;
 }
 
 /*

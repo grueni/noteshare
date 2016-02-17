@@ -13,7 +13,11 @@ class PGIntArray < Lotus::Model::Coercer
   end
 
   def self.load(value)
-    ::Kernel.Array(value) unless value.nil?
+    if value
+      ::Kernel.Array(value)
+    else
+      []
+    end
   end
 end
 
@@ -23,7 +27,11 @@ class PGStringArray < Lotus::Model::Coercer
   end
 
   def self.load(value)
-    ::Kernel.Array(value) unless value.nil?
+    if value
+      ::Kernel.Array(value)
+    else
+      []
+    end
   end
 end
 

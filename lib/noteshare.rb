@@ -112,6 +112,7 @@ Lotus::Model.configure do
       attribute :password, String
       attribute :meta, JSON
       attribute :dict2, PGHStore
+      attribute :groups, PGStringArray
     end
 
 
@@ -203,6 +204,18 @@ Lotus::Model.configure do
       attribute :image_path1, String
       attribute :image_path2, String
       attribute :content_type, String
+
+
+    end
+
+    collection :access do
+      entity Access
+      repository AccessRepository
+
+      attribute :id, Integer
+      attribute :resource_id, Integer
+      attribute :token, String
+      attribute :action, String
 
 
     end

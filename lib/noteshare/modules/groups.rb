@@ -5,7 +5,7 @@ module Noteshare
     ########## GROUPS   #############
     #
     # Add groups behavior, e.g, to NSDocument.
-    # requairements: a field groups_json of type jsommb
+    # requirements: a field groups_json of type jsommb
     #
 
     def groups

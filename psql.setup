@@ -52,6 +52,7 @@ CREATE TABLE ns_users(
   password text,
   meta jsonb,
   dict2 hstore,
+  groups text[],
 PRIMARY KEY(id)
 );
 
@@ -147,3 +148,10 @@ CREATE TABLE course(
   course_attributes text,
 PRIMARY KEY(id)
 );
+
+drop table access;
+create table access(id integer, resource_id integer, user_id integer, token text, action text, PRIMARY KEY(id));
+
+drop table token;
+create table token(id integer, token text,  created_at timestamp with time zone,
+  expires_at timestamp with time zone, PRIMARY KEY(id));
