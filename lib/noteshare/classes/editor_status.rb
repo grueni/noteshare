@@ -6,7 +6,11 @@ module Noteshare
     def initialize(document)
       @document = document
       @dict = @document.dict
-      @editors = @dict['editors'].split(',').map{ |x| x.strip }
+      if @dict['editors']
+        @editors = @dict['editors'].split(',').map{ |x| x.strip }
+      else
+        @editors = []
+      end
     end
 
     def editor_array_string_value
