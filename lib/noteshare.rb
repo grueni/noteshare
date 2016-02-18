@@ -213,13 +213,12 @@ Lotus::Model.configure do
       repository CommandRepository
 
       attribute :token, String
-      attribute :command, String
+      attribute :command_verb, String
       attribute :args, PGStringArray
       attribute :created_at, DateTime
       attribute :expires_at, DateTime
 
     end
-
 
   end
 
