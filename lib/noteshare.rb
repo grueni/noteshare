@@ -208,7 +208,7 @@ Lotus::Model.configure do
 
     end
 
-    collection :commands do
+    collection :commands2 do
       entity Command
       repository CommandRepository
 
