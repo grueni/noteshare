@@ -5,4 +5,5 @@ class Command
 
   attributes :token, :command, :args, :created_at, :expires_at
 
+  
 end
