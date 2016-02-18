@@ -4,6 +4,7 @@ require 'rubygems'
 require 'bundler/setup'
 require 'lotus/setup'
 require_relative '../lib/noteshare'
+require_relative '../apps/processor/application'
 require_relative '../apps/viewer/application'
 require_relative '../apps/uploader/application'
 require_relative '../apps/image_manager/application'
@@ -16,6 +17,7 @@ require_relative '../apps/node/application'
 
 
 Lotus::Container.configure do
+  mount Processor::Application, at: '/processor'
   mount Viewer::Application, at: '/viewer'
   mount Uploader::Application, at: '/uploader'
   mount ImageManager::Application, at: '/image_manager'

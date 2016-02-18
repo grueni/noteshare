@@ -212,8 +212,6 @@ Lotus::Model.configure do
       entity Command
       repository CommandRepository
 
-      attribute :id, Integer
-      attribute :author_id, Integer
       attribute :token, String
       attribute :command, String
       attribute :args, PGStringArray
