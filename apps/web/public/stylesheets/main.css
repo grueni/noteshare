@@ -829,6 +829,10 @@ label {
     color: #eee;
 }
 
+#search_type_selector-form label {
+    color: #444;
+}
+
 .user_setup_form label{
 
     color: white;

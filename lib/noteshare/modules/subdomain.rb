@@ -14,8 +14,17 @@ module Noteshare
       suffix == :none ? suffix = '' : suffix = "/#{suffix}"
       return suffix if ENV['MODE'] == 'LOCAL'
       stem = ENV['DOMAIN'].sub(/^\./,'') # delete leading '.'
+      puts "1. stem: #{stem}"
+      puts "port: #{ENV['PORT']}"
+
       stem = "#{stem}:#{ENV['PORT']}" if ENV['MODE'] == 'LVH'
-      "http://#{prefix}#{stem}#{suffix}"
+      puts "2. stem: #{stem}"
+      link = "http://#{prefix}#{stem}#{suffix}"
+      puts "prefix: #{prefix}"
+      puts "stem: #{stem}"
+      puts "suffix: #{suffix}"
+      puts "basic_link: #{link}".red
+      link
     end
 
 

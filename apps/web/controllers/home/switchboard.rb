@@ -25,7 +25,12 @@ module Web::Controllers::Home
 
       @incoming_node = NSNode.from_http(request)
       @incoming_node_name =  @incoming_node.name if @incoming_node
-      puts "@incoming_node: #{@incoming_node}".red
+      if @incomin_node
+        puts "@incoming_node: #{@incoming_node}".red
+      else
+        puts "No incoming node".red
+      end
+
 
       user = current_user(session)
       if user
