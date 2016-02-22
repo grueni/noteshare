@@ -149,7 +149,8 @@ CREATE TABLE course(
 PRIMARY KEY(id)
 );
 
-drop table access; create table commands(id integer, token text, command text, created_at timestamp with time zone, expires_at timestamp with time zone, PRIMARY KEY(id));
+drop table commands2;
+n
 
 
 drop table token;
