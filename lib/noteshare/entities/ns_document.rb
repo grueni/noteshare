@@ -878,6 +878,13 @@ class NSDocument
     list
   end
 
+  ##############
+
+  def set_format_of_render_option(value)
+    self.render_options['format'] = value
+    DocumentRepository.update self
+  end
+
 
   ######## ASSOCIATED DOCUMENTS ########
 

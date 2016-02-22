@@ -42,10 +42,15 @@ module Editor::Controllers::Document
 
     def update_meta(document, document_packet)
 
-      puts "document_packet: #{document_packet}".red
+      puts "update_meta says that document_packet: #{document_packet}".red
 
-      if document_packet['tags'] != ''
-        document.tags = document_packet['tags']
+      options_hash = document_packet['options'].hash_value ":\r"
+      puts "options_hash: #{options_hash}"
+
+      new_tags = options_hash['tags'] || ''
+      if new_tags != ''
+        puts "document_packet['tags'] = #{new_tags}".magenta
+        document.tags = new_tags
       end
 
       if document_packet['options'] != ''
@@ -60,11 +65,13 @@ module Editor::Controllers::Document
     end
 
     def call(params)
+      puts "update_options".red
       redirect_if_not_signed_in('editor, document, UpdateOptions')
       @active_item = 'editor'
       #  @mode = if document_packet['mode'] == 'root'
 
       document_packet = params.env['rack.request.form_hash']['document']
+      puts "document packet:\n#{document_packet}".cyan
       @mode = document_packet['mode']
 
       id =  document_packet['document_id']

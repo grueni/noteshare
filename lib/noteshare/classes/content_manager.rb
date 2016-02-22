@@ -107,10 +107,7 @@ class ContentManager
 
   # OK
   # One external use
-  def set_format_of_render_option(value)
-    @document.render_options['format'] = value
-    DocumentRepository.update @document
-  end
+
 
   def set_content_dirty
     @document.content_dirty = true
