@@ -122,6 +122,8 @@ class Render
       else
         new_xlink_string = "#{prefix}/link/#{numerical_id}[#{link_text}]"
       end
+      puts "xlink_string: #{xlink_string}".cyan
+      puts "new_xlink_string: #{new_xlink_string}".red
       @source = @source.gsub(xlink_string, new_xlink_string)
     end
   end
