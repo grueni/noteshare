@@ -99,7 +99,8 @@ class Render
 
   def rewrite_xlinks
       puts "rewrite_xlinks".magenta
-      scanner = @source.scan(/xlink::(.*?)\[(.*)\]/)
+
+      scanner = @source.scan(/xlink::(.*?)\[(.*?)\]/m)
       scanner.each do |scan_item|
       id = scan_item[0]
       link_text = scan_item[1]
@@ -116,14 +117,19 @@ class Render
       else
         prefix = "http://www#{ENV['DOMAIN']}"
       end
+
       xlink_string = "xlink::#{id}[#{link_text}]"
+
+      puts "xlink_string: #{xlink_string}".cyan
+
       if reference
         new_xlink_string = "#{prefix}/link/#{numerical_id}?#{reference}[#{link_text}]"
       else
         new_xlink_string = "#{prefix}/link/#{numerical_id}[#{link_text}]"
       end
-      puts "xlink_string: #{xlink_string}".cyan
-      puts "new_xlink_string: #{new_xlink_string}".red
+
+      puts "new_xlink_string: #{new_xlink_string}".cyan
+
       @source = @source.gsub(xlink_string, new_xlink_string)
     end
   end
