@@ -59,7 +59,16 @@ class NSDocument
   #
   #     CONTENTS
   #
-  #     1. REQUIRE, INCLUDE, INITIALIZE AND DISPLAY
+  #     1. Initialize and create
+  #
+  #        initialize
+  #        create
+  #
+  #     2. Display
+  #
+  #
+  #
+  #
   #     2. MANAGE SUBDOCUMENTS
   #
   #
@@ -69,7 +78,7 @@ class NSDocument
 
   ###################################################
   #
-  #     1. REQUIRE, INCLUDE, INITIALIZE AND DISPLAY
+  #     1. INITIALIZE AND CREATE
   #
   ###################################################
 
@@ -124,6 +133,44 @@ class NSDocument
   end
 
   # PUBLIC
+  # Create a document given a hash.
+  # The hash must define both the title and the author credentials,
+  # as in the example below;
+  #
+  #   @author_credentials = { id: 0, first_name: 'Linus', last_name: 'Pauling', identifier: 'abcd1234'}
+  #
+  #   @article = NSDocument.create(title: 'A. Quantum Mechanics', author_credentials: @author_credentials)
+  #
+  # The hash may contain any other valid keys.
+  #
+  # NOTES: a document is recognized as a root document if its root_id
+  # is zero.  If a document has no parent, its parent_id is nil
+  # All documents begin life as root documents with no parent.
+  #
+  def self.create(hash)
+    doc = NSDocument.new(hash)
+    doc.title = hash[:title]
+    doc.author_credentials2 = hash[:author_credentials]
+    doc.identifier = Noteshare::Identifier.new().string
+    doc.root_ref = { 'id'=> 0, 'title' => ''}
+    if !(doc.content =~ /^== .*/)
+      content = doc.content || ''
+      content = "== #{doc.title}\n\n#{content}"
+      doc.content = content
+    end
+
+    DocumentRepository.create doc
+  end
+
+
+
+  #########################################################################
+  #
+  #  2. Display info about a document
+  #
+  #########################################################################
+
+  # PUBLIC
   # Display the fields of the reeiver
   # specified by arts.  'label' gives
   # the heading.
@@ -167,64 +214,12 @@ class NSDocument
 
  end
 
-  ############
 
-  # PUBLIC
-  # Create a document given a hash.
-  # The hash must define both the title and the author credentials,
-  # as in the example below;
+  ###########################################
   #
-  #   @author_credentials = { id: 0, first_name: 'Linus', last_name: 'Pauling', identifier: 'abcd1234'}
+  # IDENTIFIER
   #
-  #   @article = NSDocument.create(title: 'A. Quantum Mechanics', author_credentials: @author_credentials)
-  #
-  # The hash may contain any other valid keys.
-  #
-  # NOTES: a document is recognized as a root document if its root_id
-  # is zero.  If a document has no parent, its parent_id is nil
-  # All documents begin life as root documents with no parent.
-  #
-   def self.create(hash)
-    doc = NSDocument.new(hash)
-    doc.title = hash[:title]
-    doc.author_credentials2 = hash[:author_credentials]
-    doc.identifier = Noteshare::Identifier.new().string
-    doc.root_ref = { 'id'=> 0, 'title' => ''}
-    if !(doc.content =~ /^== .*/)
-      content = doc.content || ''
-      content = "== #{doc.title}\n\n#{content}"
-      doc.content = content
-    end
-
-    DocumentRepository.create doc
-   end
-
-  # PUBLIC: one uage in Permissions#grant
-  # Return the author id from the author credentials
-  def creator_id
-    author_credentials2['id']
-  end
-
-
-  ### PRIVATE -- used ony in this class
-  # Typical credential:
-  #
-  #  "id"=>91, "last_name"=>"Foo-Bar", g"first_name"=>"Jason", "identifier"=>"35e...48"
-  #
-  # Make all changes to author info via this method to keep data consistent
-  def set_author_credentials(credentials)
-    self.author_credentials2 =credentials
-    first_name = credentials['first_name'] || ''
-    last_name = credentials['last_name']  || ''
-    author_id = credentials['id']
-    self.author_id = author_id
-    self.author = first_name + " " + last_name
-  end
-
-  # PUBLIC
-  def  get_author_credentials
-    self.author_credentials2
-  end
+  ###########################################
 
   # PRIVATE
   def set_identifier
@@ -349,15 +344,6 @@ class NSDocument
       self.remove_from_parent
     end
     DocumentRepository.delete self
-  end
-
-
-  def is_associated_document?
-    if type =~ /associated:/
-      return true
-    else
-      return false
-    end
   end
 
 
@@ -772,6 +758,8 @@ class NSDocument
   #
   #   URLS & LINKS
   #
+  #    av
+  #
   ############################################################
 
 
@@ -886,9 +874,23 @@ class NSDocument
   end
 
 
-  ######## ASSOCIATED DOCUMENTS ########
+
+  ########################
+  #
+  # ASSOCIATE DOCUMENTS
+  #
+  # about 80 lines of code
+  #
+  ########################
 
 
+  def is_associated_document?
+    if type =~ /associated:/
+      return true
+    else
+      return false
+    end
+  end
 
   # return hash of associates of a given document
   def associates
@@ -906,6 +908,7 @@ class NSDocument
     DocumentRepository.update(parent)
     DocumentRepository.update(self)
   end
+
 
   # Add associate to receiver
   # Example

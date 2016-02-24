@@ -613,12 +613,6 @@ EOF
        assert @article.associated_document('summary') == @section1
        assert @section1.type == 'associated:summary'
 
-       #Fixme: a bit dangeerous, this comparison (to_i) think about it
-       assert @article.get_author_credentials['id'].to_i == @user.id
-       assert @article.get_author_credentials['first_name'] == @user.first_name
-       assert @article.get_author_credentials['last_name' ] == @user.last_name
-       @article.get_author_credentials['identifier'].must_equal(@user.identifier)
-
        @section1.parent_id.must_equal(@article.id)
        @section1.parent_item.title.must_equal(@article.title)
        @section1.parent_item.id.must_equal(@article.id)
