@@ -163,98 +163,6 @@ class NSDocument
   end
 
 
-
-  #########################################################################
-  #
-  #  2. Display info about a document
-  #
-  #########################################################################
-
-  # PUBLIC
-  # Display the fields of the reeiver
-  # specified by arts.  'label' gives
-  # the heading.
-  #
-  # Example: document.display('Test document', [:id, :title])
-  def display(label, args)
-
-    puts
-    puts label.red
-    args.each do |field|
-      begin
-        puts "#{field.to_s}: #{self.send(field)}"
-      rescue
-        puts "#{field.to_s}: ERROR".red
-      end
-    end
-    puts
-
-  end
-
-  # PUBLIC
-  # A convenience method for #display
-  def self.info(id)
-    doc = DocumentRepository.find(id)
-    doc.display('Document', [:title, :identifier, :author_credentials2, :parent_ref, :root_ref, :render_options, :toc])
-  end
-
-  # PUBLIC
-  def info
-    self.display('Document', [:title, :identifier, :author, :author_id, :author_credentials2, :parent_id, :parent_ref, :root_document_id, :root_ref, :render_options, :toc, :dict])
-  end
-
-
- # PUBLIC
- def rendered_content2
-   if rendered_content and rendered_content != ''
-     return rendered_content
-   else
-     return "<p style='margin:3em;font-size:24pt;'>This block of the document is blank.  Please edit it or go to the next block</p>"
-   end
-
- end
-
-
-  ###########################################
-  #
-  # IDENTIFIER
-  #
-  ###########################################
-
-  # PRIVATE
-  def set_identifier
-    self.identifier = Noteshare::Identifier.new().string
-  end
-
-  ## NOT USED
-  def set_identifier!
-    set_identifier
-    DocumentRepository.update self
-    self.identifier
-  end
-
-  # PRIVATE
-  def set_author_identifier
-    author_obj = UserRepository.find self.author_id
-    if author_obj
-      self.author_identifier = author_obj.identifier
-    end
-  end
-
-  # NOT USED
-  def set_author_identifier!
-    set_author_identifier
-    DocumentRepository.update self
-    self.author_identifier
-  end
-
-  # PUBLIC
-  # User for uniform interface to the
-  # permissions class
-  def creator_id
-    author_id
-  end
-
   ###################################################
   #
   #     2. MANAGE SUBDOCUMENTS
@@ -387,13 +295,6 @@ class NSDocument
   def grandparent_document
     parent_document.parent_document
   end
-
-
-  # Return title, id, an ids of previous and next documents
-  def status
-    "#{self.title}:: id: #{self.id}, parent_document: #{self.parent.id }, back: #{self.doc_refs['previous']}, next: #{@self.doc_refs['next']}"
-  end
-
 
 
   #########################################
@@ -682,13 +583,6 @@ class NSDocument
 
  ###################################
 
-  def set_visibility(x)
-    self.visibility = x
-  end
-
-  def set_author_id(x)
-    self.author_id = x
-  end
 
   # Apply a method with args to
   # a document, and all subdocuments
@@ -927,7 +821,6 @@ class NSDocument
     doc.author = self.author
     doc.author_credentials2 = self.author_credentials2
 
-    doc.info
     doc2 = DocumentRepository.create doc
 
     doc2.associate_to(self, type)

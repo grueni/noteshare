@@ -692,6 +692,7 @@ EOF
       @section2.associate_to(@section1,'summary')
       @section3.associate_to(@section2, 'notes')
 
+=begin
       @article.apply_to_tree(:set_visibility, [666])
       @article.visibility.must_equal(666)
 
@@ -704,7 +705,7 @@ EOF
       @section3 = DocumentRepository.find @section2.id
       @section3.visibility.must_equal(666)
 
-
+=end
     end
 
 
