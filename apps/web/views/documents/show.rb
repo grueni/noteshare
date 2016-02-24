@@ -2,6 +2,10 @@ module Web::Views::Documents
   class Show
     include Web::View
 
+    def document_presenter
+      DocumentPresenter.new(document)
+    end
+
     def edit_tag
 
       if document

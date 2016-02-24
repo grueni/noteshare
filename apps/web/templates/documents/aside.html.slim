@@ -24,11 +24,11 @@
         .col.s12.m5.offset-m3.l5.offset-l3.scroll-y style = 'padding-bottom:6em;padding-top:2em; background-color:#fff;'
 
           h5== root_document_title
-          == DocumentPresenter.new(document).rendered_content
+          == document_presenter.rendered_content
 
         .col.hide-on-small-and-down.m4.offset-m8.l4.offset-l8.scroll-y style = 'padding-bottom:6em;padding-top:2em; background-color:#ddd;'
           -if aside
-            == aside.rendered_content
+            == aside_presenter.rendered_content
   - else
   p.placeholder Documents not found.
 

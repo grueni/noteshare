@@ -15,8 +15,8 @@ module Editor::Views::Document
       end
     end
 
-    def rendered_content
-      DocumentPresenter.new(document).rendered_content
+    def document_presenter
+      DocumentPresenter.new(document)
     end
    
   end

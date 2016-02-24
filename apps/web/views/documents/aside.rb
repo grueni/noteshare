@@ -11,5 +11,13 @@ module Web::Views::Documents
       end
     end
 
+    def document_presenter
+      DocumentPresenter.new(document)
+    end
+
+    def aside_presenter
+      DocumentPresenter.new(aside)
+    end
+
   end
 end
