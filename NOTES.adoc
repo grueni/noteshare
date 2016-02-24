@@ -224,3 +224,4 @@ http://stackoverflow.com/questions/12173990/how-can-you-debug-a-cors-request-wit
 https://cloud.google.com/functions/writing[Google Cloud Platform]
 http://stackoverflow.com/questions/12173990/how-can-you-debug-a-cors-request-with-curl[debug cors request with curl] + 
 
+http://katafrakt.me/2015/08/14/different-views-for-one-action-in-lotus[Good Hanami Example (katafrakt)] = 

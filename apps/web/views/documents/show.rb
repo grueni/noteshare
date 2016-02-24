@@ -37,5 +37,14 @@ module Web::Views::Documents
       'Right menu (show)'
     end
 
+    def root_document_title
+      root =  root_document || self
+      if root
+        root.title
+      else
+        ''
+      end
+    end
+
   end
 end

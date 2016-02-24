@@ -5,6 +5,63 @@ module Admin
       require_relative '../../../lib/ui/links'
       include UI::Links
 
+      #####################################################
+      #
+      #   4. ADMIN LINKS
+      #
+      #####################################################
+
+      def update_message_link
+        link_to 'Edit system message', '/admin/update_message'
+      end
+
+      def delete_user_link(id)
+        link_to 'delete', "/admin/delete_user/#{id}"
+      end
+
+      def admin_delete_document_link(id)
+        link_to 'delete', "/admin/delete_document/#{id}"
+      end
+
+      def edit_node_link(id)
+        link_to 'edit', "/node/edit/#{id}"
+      end
+
+      def remove_document_from_node_link(document_id)
+        link_to 'remove', "/node/remove_document/#{document_id}"
+      end
+
+      def upload_file_link
+        link_to 'upload', "/uploader/file"
+      end
+
+      def user_node_link(user)
+        link_to user.screen_name, "/node/#{user.node_id}"
+      end
+
+      def admin_analytics_link(session, active_item='')
+        active_item == 'admin' ? css_class = 'active_item' : ''
+        cu = current_user(session)
+        return ''  if cu == nil
+        text_link(title: 'Analytics', prefix: cu.node_name , suffix: 'admin/analytics', class: css_class)
+      end
+
+      def admin_manual_link(session)
+        cu = current_user(session)
+        cu ? prefix = cu.node_name : prefix = :none
+        return text_link(prefix: prefix, suffix: "document/#{ENV['ADMIN_MANUAL_DOC_ID']}", title: 'A', class: 'redlink;', style: 'font-weight: bold; margin-bottom:-4px;')
+        # link_to "G",  "document/#{ENV['USER_GUIDE_DOC_ID']}",  class: 'redlink;', style: 'font-weight: bold; margin-bottom:-4px;'
+
+      end
+
+      def admin_manual_link_long(session)
+        cu = current_user(session)
+        cu ? prefix = cu.node_name : prefix = :none
+        return text_link(prefix: prefix, suffix: "document/#{ENV['ADMIN_MANUAL_DOC_ID']}", title: "Administrator's manual")
+        # link_to 'User Guide', "/document/#{ENV['USER_GUIDE_DOC_ID']}"
+      end
+
+
     end
   end
 end

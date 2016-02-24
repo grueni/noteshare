@@ -50,4 +50,45 @@ class DocumentInfo
     "#{@document.title}:: id: #{@document.id}, parent_document: #{@document.parent.id }, back: #{@document.doc_refs['previous']}, next: #{@document.doc_refs['next']}"
   end
 
+
+
+  # NOT USED
+  # Return html text with links to the root and parent documents
+  # as well as previous and next documents if they are present.
+  def document_map
+    str = "<strong>Map</strong>\n"
+    str << "<ul>\n"
+    str << "<li>Top: #{@document.root_link}</li>\n"
+    str << "<li>Up: #{parent_link}</li>\n"  if @document.parent_document and @document.parent_document != @document.root_document
+    str << "<li>Prev: #{previous_link}</li>\n"  if @document.previous_document
+    str << "<li>Next: #{next_link}</li>\n"  if @document.next_document
+    str << "</ul>\n\n"
+  end
+
+  # INTERNAL: Document map only
+  # HTML link to parent document
+  def parent_link(hash = {})
+    p = @document                                                                                                                                                                                                                    .parent_document
+    p ? p.link(hash) : ''
+  end
+
+
+  # INTERNAL: Document map only
+  # HTML link to next document
+  # with arg1 = link text (or image)
+  # if the link is valid and arg2
+  # = link text (or image)
+  # if the link is not valid
+  def next_link(hash = {})
+    alt_title =  hash[:alt_title] || ''
+    n = @document.next_document
+    n ? n.link(hash) : alt_title
+  end
+
+
+  def previous_link(hash = {})
+    alt_title =  hash[:alt_title] || ''
+    n = @document.previous_document
+    n ? n.link(hash) : alt_title
+  end
 end

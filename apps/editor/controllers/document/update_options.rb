@@ -8,6 +8,7 @@ module Editor::Controllers::Document
 
 
     def propagate(document, hash)
+      puts "Propagating ...".red
       if hash['format']
         document.apply_to_tree(:set_format_of_render_option, [hash['format']])
       end

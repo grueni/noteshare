@@ -5,6 +5,7 @@ require_relative '../../../lib/acl'
 require_relative '../modules/groups'
 require_relative '../../../lib/noteshare/modules/asciidoctor_helpers'
 require_relative '../modules/document_dictionary'
+require_relative '../modules/ns_document_helpers'
 
 
 
@@ -105,6 +106,7 @@ class NSDocument
   include Noteshare::AsciidoctorHelper
   include ACL
   include Noteshare::NSDocumentDictionary
+  include NSDocumentHelpers
 
 
   # When initializing an NSDocument, ensure that certain fields
@@ -291,57 +293,16 @@ class NSDocument
     insert(new_position, parent_document)
   end
 
-  # PRIVATE
-  def grandparent_document
-    parent_document.parent_document
-  end
-
 
   #########################################
   #
-  #     SECTION??
+  #  References
   #
   #########################################N
 
-  def parent_item
-    return if parent_ref == nil
-    # TOCItem.new( parent_ref['id'], parent_ref['title'], parent_ref['identifier'], parent_ref['has_subdocs'] )
-    # TOCItem.new( parent_ref[:id], parent_ref[:title], parent_ref[:identifier], parent_ref[:has_subdocs] )
-    TOCItem.from_hash(parent_ref)
-  end
-
-  def root_item
-    # return if root_ref == nil
-    return if root_document_id == 0
-    # TOCItem.new( root_ref['id'], root_ref['title'], root_ref['identifier'], root_ref['has_subdocs'] )
-    #TOCItem.new( root_ref[:id], root_ref[:title], root_ref[:identifier], root_ref[:has_subdocs] )
-    TOCItem.from_hash(root_ref)
-  end
-
-  # ONLY IN TESTS
-  def previous_toc_item
-    table = TOC.new(parent_document).table
-    index_of_previous_toc_item = index_in_parent - 1
-    return table[index_of_previous_toc_item] if index_of_previous_toc_item > -1
-  end
-
-  # ONLY IN TESTS
-  def next_toc_item
-    return if parent_document == nil
-    table = TOC.new(parent_document).table
-    index_of_next_toc_item = index_in_parent + 1
-    return table[index_of_next_toc_item] if index_of_next_toc_item < table.count
-  end
-
-  # NO USAGE
-  def get_index_in_parent
-    return if parent_document == nil
-    table = TOC.new(parent_document).table
-    table.each_with_index do |item, index|
-      if self.identifier == item.identifier
-        return index
-      end
-    end
+  # used by TOCManager
+  def grandparent_document
+    parent_document.parent_document
   end
 
   # CORE METHOD, USED INTERNALLY AND IN TOC MANAGER
@@ -371,39 +332,6 @@ class NSDocument
     return  DocumentRepository.find(_id)
   end
 
-  # ONLY IN TESTS
-  def next_document_id
-    doc = next_document
-    doc.id if doc
-  end
-
-  # ONLY IN TESTS
-  def previous_document_id
-    doc = previous_document
-    doc.id if doc
-  end
-
-
-  # NOT USED
-  # Use the information in self.parent.subdoc_refs
-  # to set the previous document link.  Thus,
-  # if @foo and @bar are subdocuments in order
-  # of @article, then after the call @bar.set_previous_doc,
-  # @bar.previous_doc == @foo.
-  def set_previous_doc
-    self.doc_refs['previous'] = previous_id
-    DocumentRepository.persist(self)
-  end
-
-  # Use the information in self.parent.subdoc_refs
-  # to set the previous document link.  Thus,
-  # if @foo and @bar are subdocuments in order
-  # of @article, then after the call @foo.set_next_doc,
-  # @foo.next_doc == @bar.
-  def set_next_doc
-    self.doc_refs['next'] = next_id
-    DocumentRepository.persist(self)
-  end
 
   ##################
   # PARENT DOCUMENT
@@ -416,20 +344,6 @@ class NSDocument
     pi_id = pi.id
     return if pi_id == nil
     DocumentRepository.find(pi_id)
-  end
-
-  def set_parent_document_to(parent)
-    self.parent_id = parent.id
-    self.parent_ref =  {"id"=>parent.id, "title"=>parent.title, "identifier"=>parent.identifier}
-  end
-
-
-  def parent_title
-    if parent_document
-      parent_document.title
-    else
-      ''
-    end
   end
 
 
@@ -450,39 +364,6 @@ class NSDocument
     return if ri_id == nil
     DocumentRepository.find(ri_id)
   end
-
-
-  # Find the root document by finding
-  # the parent of the parent of ...
-  def find_root_document
-    cursor = self
-    while cursor.parent_document
-      cursor = cursor.parent_document
-    end
-    cursor
-  end
-
-  def ref
-    TOCItem.new( self.id, self.title, self.identifier )
-  end
-
-  def set_root_document_to(root)
-    self.root_document_id = root.id
-    self.root_ref = { id: root.id, title: root.title, identifier: root.identifier}
-  end
-
-  def set_root_document_to_default
-    rd = find_root_document
-    # Need the follwing for DocumentRepository.root_documents
-    # Fixme: index root_document_id
-    if rd
-      rd.root_document_id = 0
-      self.root_document_id = rd.id
-      self.root_ref = { id: rd.id, title: rd.title, identifier: rd.identifier}
-    end
-  end
-
-
 
   def is_root_document?
     self == find_root_document
@@ -520,7 +401,6 @@ class NSDocument
       DocumentRepository.find(_id)
     end
   end
-
 
 
   # The level is the length of path from the root
@@ -562,7 +442,7 @@ class NSDocument
       return content || ''
     else
       text = content + "\n\n" || ''
-      table.each do |item|
+      table.each do |item                                                                                                           |
         section = DocumentRepository.find(item.id)
         if section != nil
           text  << section.compile << "\n\n"
@@ -572,14 +452,6 @@ class NSDocument
     end
   end
 
-  def root_document_title
-    root =  root_document || self
-    if root
-      root.title
-    else
-      ''
-    end
-  end
 
  ###################################
 
@@ -602,57 +474,10 @@ class NSDocument
     end
   end
 
-  def save
-    puts "#{self.title}: #{self.acl}".red
-    DocumentRepository.update self
-    doc = DocumentRepository.find  self.id
-    puts "#{doc.title}: #{doc.acl}".magenta
-  end
-
-
-  ############################################################
-  #
-  #   TITLES
-  #
-  ############################################################
-
-  def parent_document_title
-    p = parent_document
-    p ? p.title : '-'
-  end
-
-  # PRIVATE, used in subdocument titles
-  # Return previous document title or '-'
-  def previous_document_title
-    p = previous_document
-    p ? p.title : '-'
-  end
-
-  # Return next document title or '-'
-  def next_document_title
-    p = next_document
-    p ? p.title : '-'
-  end
-
-
-  # NOT USED
-  # Return html text with links to the root and parent documents
-  # as well as previous and next documents if they are present.
-  def document_map
-    str = "<strong>Map</strong>\n"
-    str << "<ul>\n"
-    str << "<li>Top: #{self.root_link}</li>\n"
-    str << "<li>Up: #{self.parent_link}</li>\n"  if self.parent_document and self.parent_document != self.root_document
-    str << "<li>Prev: #{self.previous_link}</li>\n"  if self.previous_document
-    str << "<li>Next: #{self.next_link}</li>\n"  if self.next_document
-    str << "</ul>\n\n"
-  end
 
   ############################################################
   #
   #   URLS & LINKS
-  #
-  #    av
   #
   ############################################################
 
@@ -695,78 +520,6 @@ class NSDocument
     end
   end
 
-  # INTERNAL: Document map only
-  # HTML link to parent document
-  def parent_link(hash = {})
-    p = self.parent_document
-    p ? p.link(hash) : ''
-  end
-
-  # INTERNAL: Document map only
-  # HTML link to previous document
-  # with arg1 = link text (or image)
-  # if the link is valid and arg2
-  # = link text (or image)
-  # if the link is not valid
-  def previous_link(hash = {})
-    alt_title =  hash[:alt_title] || ''
-    p = self.previous_document
-    p ? p.link(hash) : alt_title
-  end
-
-  # INTERNAL: Document map only
-  # HTML link to next document
-  # with arg1 = link text (or image)
-  # if the link is valid and arg2
-  # = link text (or image)
-  # if the link is not valid
-  def next_link(hash = {})
-    alt_title =  hash[:alt_title] || ''
-    n = self.next_document
-    n ? n.link(hash) : alt_title
-  end
-
-
-
-  ##################################
-
-  # NOT USED
-  def author_screen_name
-    _author = UserRepository.find author_id
-    _author ? _author.screen_name  : '--'
-  end
-
-  ##################################
-
-
-  # *doc.subdocument_titles* returns a list of the
-  # titles of the sections of *document*.
-  def subdocument_titles(option=:simple)
-    #Fixme: bad implementation
-    list = []
-    if [:header].include? option
-      list << self.title.upcase
-    end
-    toc = TOC.new(self)
-    toc.table.each do |item|
-      section = DocumentRepository.find(item.id)
-      if [:header, :simple].include? option
-        item = section.title
-      elsif option == :verbose
-        item = "#{section.id}, #{section.title}. back: #{section.previous_document_title}, forward: #{section.next_document_title}"
-      end
-      list << item
-    end
-    list
-  end
-
-  ##############
-
-  def set_format_of_render_option(value)
-    self.render_options['format'] = value
-    DocumentRepository.update self
-  end
-
 
 
   ########################
@@ -777,14 +530,6 @@ class NSDocument
   #
   ########################
 
-
-  def is_associated_document?
-    if type =~ /associated:/
-      return true
-    else
-      return false
-    end
-  end
 
   # return hash of associates of a given document
   def associates
@@ -853,14 +598,50 @@ class NSDocument
   end
 
 
-  # INTERNAL
-  def associate_link(type, prefix='')
-    if prefix == ''
-      "<a href='/document/#{self.doc_refs[type]}'>#{type.capitalize}</a>"
-    else
-      "<a href='/#{prefix}/document/#{self.doc_refs[type]}'>#{type.capitalize}</a>"
-    end
+  private
 
+  def parent_item
+    return if parent_ref == nil
+    # TOCItem.new( parent_ref['id'], parent_ref['title'], parent_ref['identifier'], parent_ref['has_subdocs'] )
+    # TOCItem.new( parent_ref[:id], parent_ref[:title], parent_ref[:identifier], parent_ref[:has_subdocs] )
+    TOCItem.from_hash(parent_ref)
   end
+
+  def root_item
+    # return if root_ref == nil
+    return if root_document_id == 0
+    # TOCItem.new( root_ref['id'], root_ref['title'], root_ref['identifier'], root_ref['has_subdocs'] )
+    #TOCItem.new( root_ref[:id], root_ref[:title], root_ref[:identifier], root_ref[:has_subdocs] )
+    TOCItem.from_hash(root_ref)
+  end
+
+  def set_parent_document_to(parent)
+    self.parent_id = parent.id
+    self.parent_ref =  {"id"=>parent.id, "title"=>parent.title, "identifier"=>parent.identifier}
+  end
+
+  # Find the root document by finding
+  # the parent of the parent of ...
+  def find_root_document
+    cursor = self
+    while cursor.parent_document
+      cursor = cursor.parent_document
+    end
+    cursor
+  end
+
+  def set_root_document_to(root)
+    self.root_document_id = root.id
+    self.root_ref = { id: root.id, title: root.title, identifier: root.identifier}
+  end
+
+  def is_associated_document?
+    if type =~ /associated:/
+      return true
+    else
+      return false
+    end
+  end
+
 
 end

@@ -57,9 +57,9 @@ class AssociateDocManager
       map = "<ul>\n"
       keys.sort.each do |key|
         if target == 'editor'
-          map << '<li>' << "#{@document.associate_link(key, 'editor')}</li>\n"
+          map << '<li>' << "#{associate_link(key, 'editor')}</li>\n"
         else
-          map << '<li>' << "#{@document.associate_link(key)}</li>\n"
+          map << '<li>' << "#{associate_link(key)}</li>\n"
         end
       end
       map << "</ul>\n"
@@ -67,6 +67,17 @@ class AssociateDocManager
       map = ''
     end
     map
+  end
+
+
+  # INTERNAL
+  def associate_link(type, prefix='')
+    if prefix == ''
+      "<a href='/document/#{@document.doc_refs[type]}'>#{type.capitalize}</a>"
+    else
+      "<a href='/#{prefix}/document/#{@document.doc_refs[type]}'>#{type.capitalize}</a>"
+    end
+
   end
 
 
