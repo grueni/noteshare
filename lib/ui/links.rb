@@ -230,6 +230,10 @@ module UI
     #
     #####################################################
 
+    def settings_link(document)
+      image_link '/images/document_settings.png', "/editor/document/options/#{document.id}?root", 'document settings'
+    end
+
 
     private
 
