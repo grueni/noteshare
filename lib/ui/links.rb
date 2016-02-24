@@ -234,6 +234,16 @@ module UI
       image_link '/images/document_settings.png', "/editor/document/options/#{document.id}?root", 'document settings'
     end
 
+    def share_document_link(document)
+      #  html.tag(:a, 'Share', href: '#')
+      image_link('/images/share.png', '#', 'share document #')
+    end
+
+
+    def new_document_link
+      # html.tag(:a, 'New document', href: '/editor/new')
+      image_link'/images/new_document.png', '/editor/new', 'new_document'
+    end
 
     private
 

@@ -31,11 +31,6 @@ module Editor
         link_to 'Back to editor', basic_link("#{current_user(session).screen_name}",   "editor/document/#{document_id}")
       end
 
-      def new_document_link
-        # html.tag(:a, 'New document', href: '/editor/new')
-        image_link'/images/new_document.png', '/editor/new', 'new_document'
-      end
-
       def new_section_link(document)
         #   html.tag(:a, 'New section', href: "/editor/new_section/#{document.id}")
         image_link '/images/new_section.png', "/editor/new_section/#{document.id}?child", 'new section (child)'
