@@ -18,6 +18,10 @@ module Editor::Views::Document
     def document_presenter
       DocumentPresenter.new(document)
     end
+
+    def toc_presenter
+      TOCPresenter.new(document.root_document)
+    end
    
   end
 end

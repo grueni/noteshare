@@ -37,7 +37,7 @@ script src="/javascripts/editor.js" type="text/javascript"
         == document.root_link(prefix: '/editor')
       .toc.plainlink.lightlink == document_index_link(document, session)
       .toc.plainlink.lightlink == AssociateDocManager.new(document).root_associated_document_map('editor')
-      .toc2== TOCPresenter.new(document.root_document).root_table_of_contents(document.id, 'editor')
+      .toc2== toc_presenter.editor_table_of_contents(document)
 
     .div
       #slider

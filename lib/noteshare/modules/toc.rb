@@ -217,23 +217,16 @@ module Noteshare
     # viewed can be highlighted.``
     #
     def master_table_of_contents(target='reader')
-
       start = Time.now
-
       return '' if @toc.length == 0
 
       @ancestral_ids = []
       (@ancestral_ids << @active_document.ancestor_ids << @active_document.id) if @active_document
-
       @target == 'editor'? output = "<ul class='toc2'>\n" : output = "<ul class='toc2'>\n"
 
       @table.each do |item|
-
         output << toc_item(item)
-
         dive(item, output)
-
-
       end
 
       finish = Time.now
@@ -246,7 +239,6 @@ module Noteshare
     def toc_item(item)
 
       "<li>#{item.title}</li>\n"  if @attributes.include? 'dumb'
-
 
     end
 

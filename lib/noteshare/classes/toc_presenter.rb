@@ -72,6 +72,10 @@ class TOCPresenter
     end
   end
 
+  def editor_table_of_contents(document)
+    root_table_of_contents(document.id, 'editor')
+  end
+
 
 
   def process_toc_item(item, active_id, ancestral_ids, target)
@@ -193,7 +197,7 @@ class TOCPresenter
     target == 'editor'? output = "<ul class='toc2'>\n" : output = "<ul class='toc2'>\n"
 
 
-    output << process_toc_item( @master_toc_item, 0, 0, target)
+    output << "" # process_toc_item( @master_toc_item, 0, 0, target)
 
     table_of_contents.each do |item|
 
