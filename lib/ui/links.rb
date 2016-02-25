@@ -31,7 +31,7 @@ module UI
 
     def document_index_link(document, session)
       user = current_user(session)
-      if user
+      if user && !document.is_associated_document?
         text_link(title: 'Index', prefix: user.screen_name, suffix: "compiled/#{document.id}\#_index")
       else
         ''

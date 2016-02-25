@@ -35,6 +35,7 @@ script src="/javascripts/editor.js" type="text/javascript"
     .div style='position:absolute; top:60px; left:20px;' id='toc_panel'
       p.plainlink.lightlink style = 'font-size:larger; padding-top:0.4em;margin-bottom:0;'
         == document.root_link(prefix: '/editor')
+      br
       .toc.plainlink.lightlink == document_index_link(document, session)
       .toc.plainlink.lightlink == AssociateDocManager.new(document).root_associated_document_map('editor')
       .toc2== toc_presenter.editor_table_of_contents(document)

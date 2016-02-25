@@ -133,8 +133,7 @@ class TOCPresenter
       class_str = 'toc_associated_doc'
       output << "<ul class='toc_associated_doc'>\n"
       doc.doc_refs.each do |type, id|
-        puts "doc_ref: #{type} => #{id}".red
-        type = "sidebar" if type == "aside"
+        # type = "sidebar" if type == "aside"
         doc_link = "href='#{prefix}/#{stem}/#{id}'>#{type}</a>"
         output <<  "<li #{class_str} '><a #{doc_link}</a></li>\n"
       end
