@@ -20,6 +20,8 @@ class Render
   end
 
 
+
+
   def make_index
     puts "MAKING INDEX".red
     @indexer = DocumentIndex.new(string: @source)
@@ -41,21 +43,26 @@ class Render
 
   ####
 
-  def convert
-    @options = @options.merge({verbose:0})
-    rewrite_media_urls
-    puts "in convert, @options = #{@options}".magenta
+  def handle_xlinks
     if @options[:xlinks] == 'internalize'
-      puts "Choice = internalize_xlinks".magenta
       internalize_xlinks
     else
-      puts "Choice = rewrite_xlinks".magenta
       rewrite_xlinks
     end
+  end
+
+  def write_header
+    @source = ":source-highlighter: coderay\n\n#{@source}"
+  end
+
+  def convert
+    @options = @options.merge({verbose:0})
+    write_header
+    puts "\n-----SOURCE:\n#{@source}\n-----\n".cyan
+    rewrite_media_urls
+    handle_xlinks
     make_index if @options[:make_index]
-    if @source.include?  ':glossary:'
-      append_glossary
-    end
+    append_glossary if @source.include?  ':glossary:'
     Asciidoctor.convert(@source, @options)
   end
 

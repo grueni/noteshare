@@ -10,12 +10,12 @@
 
           .toc2 style='margin-top:0.75em' == TOCPresenter.new(document.root_document).root_table_of_contents(document.id, 'aside')
 
-        .col.s12.m5.offset-m3.l5.offset-l3.scroll-y style = 'padding-bottom:6em;padding-top:2em; background-color:#fff;'
+        .col.s12.m6.offset-m3.l6.offset-l3.scroll-y style = 'padding-bottom:6em;padding-top:2em; background-color:#fff;'
 
           h5== root_document_title
           == document_presenter.rendered_content
 
-        .col.hide-on-small-and-down.m4.offset-m8.l4.offset-l8.scroll-y style = 'padding-bottom:6em;padding-top:2em; background-color:#ddd;'
+        .col.hide-on-small-and-down.m3.offset-m9.l3.offset-l9.scroll-y style = 'padding-bottom:6em;padding-top:2em; background-color:#ddd;'
           -if aside
             == aside_presenter.rendered_content
   - else

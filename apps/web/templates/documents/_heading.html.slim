@@ -8,8 +8,9 @@ div style='margin-left:0.5em'
   p.plainlink.lightlink style='color:white; margin-top:0.5em; font-size:11pt'
     == PublicationsManager.new(document).principal_publisher_link(session)
 
-  - if document.doc_refs
-    == AssociateDocManager.new(document).root_associated_document_map
-
   - if root_document.dict['make_index']
     .toc.plainlink.lightlink == document_index_link(document, session)
+  - if document.doc_refs
+    .toc.plainlink.lightlink == AssociateDocManager.new(document).root_associated_document_map
+
+

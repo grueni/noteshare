@@ -1,8 +1,16 @@
 .row
 
-  .col.s12.m4.l4 style='margin-left:1em;margin-right-1em'
-    h3==  current_domain_name
-    div
+  .col.s7.m7.l7
+    div style='margin-top:20px;'
+      .ns_card.scroll-y style='height:550px;'
+        .div style='margin-top:-1.5em;'
+        .message == settings.dict['rendered_message']
+        br
+        br
+
+  .col.s4.offset-s8.m4.offset-m8.l4.offset-l8
+    /h3==  current_domain_name
+    div style='margin-top:20px;'
       .ns_card style='min-height:400px;'
         - if current_user(session)
           p.compact == welcome_link(session)
@@ -25,11 +33,5 @@
         span style='color:#F5574F;position:absolute; bottom:1em;left:2.5em;' ❤
         i style='color:#F5574F;position:absolute; bottom:1em; left:4.0em;' Share the knowledge!
 
-  .col.hide-on-small-and-down.m5.offset-m6.l4.offset-l5
-    div style='position: absolute; top:75px;'
-      .ns_card
-        .div style='margin-top:-1.5em;'
-        .message == settings.dict['rendered_message']
-        br
-        br
+
 

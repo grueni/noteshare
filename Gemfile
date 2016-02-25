@@ -27,6 +27,7 @@ gem 'aws-sdk', '~> 2'
 gem 'asciidoctor', '~> 1.5.2'
 gem 'asciidoctor-latex', :github => 'asciidoctor/asciidoctor-latex', :branch => 'master'
 gem 'thread_safe'
+gem 'coderay'
 
 # https://github.com/cyu/rack-cors
 # gem 'rack-cors', :require => 'rack/cors'

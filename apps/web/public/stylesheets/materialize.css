@@ -1,4 +1,4 @@
-s/*!
+/*!
  * Materialize v0.97.1 (http://materializecss.com)
  * Copyright 2014-2015 Materialize
  * MIT License (https://raw.githubusercontent.com/Dogfalo/materialize/master/LICENSE)
@@ -1995,7 +1995,9 @@ a {
 ul {
   padding: 0; }
   ul li {
-    list-style-type: none; }
+    /* Commented out by jxxcarlson */
+    /*list-style-type: none; */
+  }
 
 .clearfix {
   clear: both; }

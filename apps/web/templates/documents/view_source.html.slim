@@ -8,7 +8,7 @@
 
           == render partial: 'documents/heading', locals: {}
 
-          .toc2 style='margin-top:0.75em' == TOCPresenter.new(document.root_document).root_table_of_contents(document.id, 'aside')
+          .toc2 style='margin-top:0.75em' == TOCPresenter.new(document.root_document).root_table_of_contents(document.id, 'view_source')
 
         .col.source style='margin-top:-40px; padding-bottom:18em;white-space:pre-wrap; padding-top:40px;'
           == document.content
