@@ -1,30 +1,26 @@
 module CSSData
 
-  def self.setup
+  def self.mathjax
 
-    @mathjax = <<EOF
-<script type='text/x-mathjax-config'></script>
-<![CDATA[
-    MathJax.Hub.Config({
-    tex2jax: {
-    inlineMath: [["\\(", "\\)"]],
-    displayMath: [["\\[", "\\]"]],
-    ignoreClass: "nostem|nolatexmath"
-    },
-    asciimath2jax: {
-    delimiters: [["\\$", "\\$"]],
-    ignoreClass: "nostem|noasciimath"
-    },
-    TeX: { extensions: ["mhchem.js"] }
-    });
-]]>
-<script src='https://cdnjs.cloudflare.com/ajax/libs/mathjax/2.4.0/MathJax.js?config=TeX-MML-AM_HTMLorMML'></script>
+    script = <<EOF
+
+<script type="text/x-mathjax-config">
+MathJax.Hub.Config({tex2jax: {inlineMath: [["\\\\(", "\\\\)"]],
+displayMath: [["\\\\[", "\\\\]"]],
+ignoreClass: "nostem|nolatexmath"},
+asciimath2jax: {delimiters: [["\\\\$", "\\\\$"]],ignoreClass: "nostem|noasciimath"},
+TeX: { extensions: ["mhchem.js"] }});
 </script>
+<script src="http://cdn.mathjax.org/mathjax/latest/MathJax.js?config=TeX-AMS-MML_HTMLorMML"></script>
+
 EOF
+    script
+  end
 
 
+  def self.asciidoctor_css
 
-    @asciidoctor_css = <<EOF
+    css = <<EOF
 /* Asciidoctor default stylesheet | MIT License | http://asciidoctor.org */
 /* Remove the comments around the @import statement below when using this as a custom stylesheet */
 /*@import "https://fonts.googleapis.com/css?family=Open+Sans:300,300italic,400,400italic,600,600italic%7CNoto+Serif:400,400italic,700,700italic%7CDroid+Sans+Mono:400";*/
@@ -428,8 +424,14 @@ p{margin-bottom:1.25rem}
     .hide-for-print{display:none!important}
     .show-for-print{display:inherit!important}}
 EOF
+    css
 
-    @asciidoctor2_css = <<EOF
+  end
+
+
+  def self.asciidoctor2_css
+
+    css = <<EOF
     span.term { color:blue; }
 span.red { color: darkred}
 span.blue {color:blue}
@@ -747,6 +749,7 @@ span.exercise { color:slateblue; font-weight:bold; font-size:11pt;}
 .openblock .texmacro .content { display: none; }
 EOF
 
+    css
   end
 
 end

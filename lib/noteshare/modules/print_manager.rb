@@ -22,7 +22,7 @@ EOF
   def initialize(document)
 
     @document = document
-    CSSData.setup
+    @mathjax = CSSData.mathjax
 
   end
 
@@ -62,7 +62,6 @@ EOF
     css << @mathjax
     html = "#{head}\n#{css}\n</head>\n<body>\n#{html}\n</body>\n\n"
     AWS.put_string(html, object_name, folder='print')
-    puts document_url
 
   end
 
@@ -77,11 +76,11 @@ EOF
 
 
   def asciidoctor_css
-      @asciidoctor_css
+      CSSData.asciidoctor_css
   end
 
   def asciidoctor2_css
-    @asciidoctor2_css
+    CSSData.asciidoctor2_css
   end
 
 
