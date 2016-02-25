@@ -1,9 +1,10 @@
 br
--if document && active_item2
-  span.plainlink.lightlink== standard_document_link(document, active_item2)
-  span.plainlink.lightlink== aside_document_link(document, active_item2)
-  span.plainlink.lightlink== source_document_link(document, active_item2)
-  span.plainlink.lightlink== compiled_document_link(document, active_item2)
-  span.plainlink.lightlink== titlepage_link(document, active_item2)
-  span style='margin-left:1em; color:#aaa;' == active_item2
-  span style='margin-left:2em;' == print_document_link(session, active_item2) if ['compiled', 'standard', 'sidebar'].include? active_item2
+div style=='margin-top;15px;margin-left:0.5em;'
+  -if document && active_item2
+    span.plainlink.lightlink== standard_document_link(document, active_item2)
+    span.plainlink.lightlink== aside_document_link(document, active_item2)
+    span.plainlink.lightlink== source_document_link(document, active_item2)
+    span.plainlink.lightlink== compiled_document_link(document, active_item2)
+    span.plainlink.lightlink== titlepage_link(document, active_item2)
+    span style='margin-left:1em; color:#aaa;' == active_item2
+    span style='margin-left:2em;' == print_document_link(session, active_item2) if ['compiled', 'standard', 'sidebar'].include? active_item2
