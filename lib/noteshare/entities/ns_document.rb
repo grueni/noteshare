@@ -8,8 +8,6 @@ require_relative '../modules/document_dictionary'
 require_relative '../modules/ns_document_helpers'
 
 
-
-
 # require_relative '../modules/render'
 
 
@@ -396,10 +394,11 @@ class NSDocument
   # *doc.subdocment(k)* returns the k-th
   # subdocument of *doc*
   def subdocument(k)
-    _id = toc[k]['id']
-    if _id
-      DocumentRepository.find(_id)
-    end
+    # Fixme: bad code in next line
+    # Think about who can modify toc
+    toc_item = toc[k]
+    doc_id = toc_item[:id] || toc_item['id']
+    DocumentRepository.find(doc_id) if doc_id
   end
 
 
@@ -598,7 +597,7 @@ class NSDocument
   end
 
 
-  private
+  # private
 
   def parent_item
     return if parent_ref == nil

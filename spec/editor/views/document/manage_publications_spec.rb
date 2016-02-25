@@ -1,5 +1,6 @@
+=begin
 require 'spec_helper'
-require_relative '../../../../apps/editor/views/document/manage_publications'
+require_relative '../../../../apps/editor/controllers/document/manage_publications'
 
 describe Editor::Views::Document::ManagePublications do
   let(:exposures) { Hash[foo: 'bar'] }
@@ -11,3 +12,4 @@ describe Editor::Views::Document::ManagePublications do
     view.foo.must_equal exposures.fetch(:foo)
   end
 end
+=end

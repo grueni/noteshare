@@ -1,4 +1,5 @@
 require_relative 'toc_item'
+require_relative '../classes/toc_presenter'
 
 module Noteshare
 
@@ -111,7 +112,7 @@ module Noteshare
     end
 
     # Return the toc item with given id
-    def get(id)
+    def get_by_id(id)
       target = nil
       table.each do |item|
         if item.id == id
@@ -122,8 +123,22 @@ module Noteshare
       target
     end
 
-    def get_title(id)
-      get(id).title
+
+    # Return the toc item with given id
+    def get_by_doc_title(title)
+      target = nil
+      table.each do |item|
+        if item.title == title
+          target = item
+          break
+        end
+      end
+      target
+    end
+
+
+    def title_by_id(id)
+      get_by_id(id).title
     end
 
     def change_title(id, new_title)
@@ -149,7 +164,8 @@ module Noteshare
       @table[index2] = item1
       self.save!
     end
-  end
+
+  end # of class TOC
 
   class OuterTableOfContents
 
@@ -244,7 +260,7 @@ module Noteshare
       doc = DocumentRepository.find item.id
       return '' if doc == nil
 
-      itoc = TOCPresenter(doc).internal_table_of_contents(attributes, {doc_id: doc.id} )
+      itoc = TOCPresenter.new(doc).internal_table_of_contents(attributes, {doc_id: doc.id} )
       output << itoc
       # Fixme: memoize, make lazy what we can.
 

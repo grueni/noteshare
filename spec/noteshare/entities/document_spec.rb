@@ -132,14 +132,7 @@ describe NSDocument do
 
     end
 
-    it 'can form a list of subdocument titles' do
-      @section1.add_to(@article)
-      @section2.add_to(@article)
-      @article.subdocument_titles.must_equal ['Uncertainty Principle', 'Wave-Particle Duality']
-
-    end
-
-    it 'can add a document to a parent as sibling' do
+    it 'can add a document to a parent as sibling 666' do
 
       @section1.add_to(@article)
       @section2.add_to(@article)
@@ -179,6 +172,8 @@ describe NSDocument do
       @section2.add_to(@article)
       @section3.add_to(@article)
       @subsection.add_to(@article)
+
+
 
       id = @article.id
 
@@ -303,42 +298,9 @@ describe NSDocument do
 
   #########################################################################
 
-  describe 'references' do
-
-
-    it 'to the next document are set up by the insert method' do
-
-      @section1.insert(0,@article)
-      @section2.insert(1,@article)
-      @section3.insert(2,@article)
-
-      @section1.next_document_id.must_equal @section2.id
-      @section2.next_document_id.must_equal @section3.id
-      @section3.next_document_id.must_equal nil
-
-
-    end
-
-    it 'to the previous document are set up by the insert method' do
-
-      @section1.insert(0,@article)
-      @section2.insert(1,@article)
-      @section3.insert(2,@article)
-
-      @section1.previous_document_id.must_equal nil
-      @section2.previous_document_id.must_equal @section1.id
-      @section3.previous_document_id.must_equal @section2.id
-
-    end
-
-  end
-
-
-  #########################################################################
-
   describe 'deletions: ' do
 
-    it 'subdocuments can detached from their parent' do
+    it 'subdocuments can detached from their parent 666' do
 
       @section1.add_to(@article)
       @section2.add_to(@article)
@@ -353,7 +315,7 @@ describe NSDocument do
 
     end
 
-    it 'subocuments can be deleted, with associated structures cleaned up'  do
+    it 'subocuments can be deleted, with associated structures cleaned up 666'  do
 
       @section1.add_to(@article)
       @section2.add_to(@article)
@@ -716,24 +678,7 @@ EOF
 
   describe 'rendering' do
 
-    it 'can render its content rcc' do
 
-      @section2.render
-
-      @section2.rendered_content.must_include '<em>so</em>'
-
-    end
-
-    it 'can render mathematical content rmm' do
-
-      @section2.content = "He said that $a^2 + b^2 = c^2$. *Wow!*\n[env.theorem]\n--\nThere are infinitely many primes.\n--\n\n"
-      @section2.render_options['format'] = 'adoc-latex'
-      @section2.render
-
-      asciidoc_content = "<div class=\"paragraph\">\n<p>He said that \\(a^2 + b^2 = c^2\\). <strong>Wow!</strong></p>\n</div>\n<div class=\"openblock theorem\">\n<div class=\"title\">Theorem 1.</div><div class=\"content\">\n<div class='click_oblique'>\nThere are infinitely many primes.\n</div>\n</div>\n</div>"
-      @section2.rendered_content.must_equal asciidoc_content
-
-    end
 
     it 'sets render_options to { format => adoc} by default roo' do
 

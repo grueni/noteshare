@@ -31,7 +31,7 @@ describe NSDocument do
     id = hash[:id]
     title = hash[:title]
 
-    item =toc.get(id)
+    item =toc.get_by_id(id)
     item.title.must_equal(title)
 
   end
@@ -44,7 +44,7 @@ describe NSDocument do
     id = hash[:id]
 
     toc.change_title(id, 'Foo')
-    toc.get_title(id).must_equal('Foo')
+    toc.title_by_id(id).must_equal('Foo')
 
   end
 

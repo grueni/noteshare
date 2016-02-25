@@ -121,7 +121,7 @@ describe NSDocument do
 
 
 
-  it 'can update its table of contents mtoc' do
+  it 'can update its table of contents mtoc 666' do
 
     # @article.update_table_of_contents
 
@@ -141,21 +141,21 @@ describe NSDocument do
     article2 = DocumentRepository.find @article1.id
     article2_table = TOC.new(article2).table
 
-    @section1.previous_toc_item.must_equal(nil)
-    @section1.next_toc_item.title.must_equal(@section2.title)
+    @section1.previous_document.must_equal(nil)
+    @section1.next_document.title.must_equal(@section2.title)
 
-    @section2.previous_toc_item.title.must_equal(@section1.title)
-    @section2.next_toc_item.title.must_equal(@section3.title)
+    @section2.previous_document.title.must_equal(@section1.title)
+    @section2.next_document.title.must_equal(@section3.title)
 
-    @section3.previous_toc_item.title.must_equal(@section2.title)
-    @section3.next_toc_item.must_equal(nil)
+    @section3.previous_document.title.must_equal(@section2.title)
+    @section3.next_document.must_equal(nil)
 
     DocumentRepository.update @article1
 
 
   end
 
-  it 'can return a TOC item given an id' do
+  it 'can return a TOC item given an id 777' do
 
     @section1.add_to(@article1)
     @section2.add_to(@article1)
@@ -163,9 +163,25 @@ describe NSDocument do
     @subsection1.add_to(@section2)
     @subsection2.add_to(@section2)
 
+    puts "@section2 id = #{@section2.id}".red
 
-    item = @article1.toc_item(@section2.id)
-    item[:title].must_equal(@section2.title)
+    # puts @article1.toc
+
+    toc = TOC.new(@article)
+    puts '===================='.red
+    puts toc.inspect.red
+    toc.display
+    puts '===================='.red
+
+
+    _item = toc.get_by_doc_title @section2.title
+    if _item
+      puts _item.inspect.cyan
+    else
+      puts "_item is NIL".red
+    end
+   #  _item ? puts _item.inspect.cyan : puts "_item is NIL".red
+    _item[:title].must_equal(@section2.title)
 
   end
 
@@ -179,23 +195,6 @@ describe NSDocument do
 
   end
 
-  it 'can change the the title of a TOC item given an id' do
-
-    @section1.add_to(@article1)
-    @section2.add_to(@article1)
-    @section3.add_to(@article1)
-    @subsection1.add_to(@section2)
-    @subsection2.add_to(@section2)
-
-
-    item = @article1.toc_item_change_title(@section2.id, 'Foo')
-
-    item[:title].must_equal('Foo')
-
-    item2 = @article1.toc_item(@section2.id)
-    item2[:title].must_equal('Foo')
-
-  end
 
   it 'can crudely delete an entry by id number cuu' do
 
