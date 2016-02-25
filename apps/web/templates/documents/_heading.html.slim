@@ -9,7 +9,7 @@ div style='margin-left:0.5em'
     == PublicationsManager.new(document).principal_publisher_link(session)
 
   - if document.doc_refs
-    .toc2 style = 'padding-top:0' == AssociateDocManager.new(document).root_associated_document_map
+    == AssociateDocManager.new(document).root_associated_document_map
 
   - if root_document.dict['make_index']
     .toc.plainlink.lightlink == document_index_link(document, session)
