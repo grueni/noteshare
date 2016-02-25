@@ -13,6 +13,14 @@ module Noteshare
       sort_by { |item| item.title }
     end
 
+    def remember_user_view(view_name, session)
+      cu = current_user(session)
+      if cu
+        cu.dict2['reader_view'] = view_name
+        UserRepository.update cu
+      end
+    end
+
 
     def self.symbolize_keys(hash)
       hash.inject({}){|new_hash, key_value|

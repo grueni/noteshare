@@ -28,6 +28,7 @@ module Web::Controllers::Documents
         @document = @document.subdocument(0)
         handle_nil_document(@document, id)
       end
+      remember_user_view('source', session)
       Analytics.record_document_view(user, @document)
       session[:current_document_id] = id
 

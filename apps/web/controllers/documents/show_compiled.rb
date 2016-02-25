@@ -25,6 +25,7 @@ module Web::Controllers::Documents
 
       session[:current_document_id] = @root_document.id
 
+      remember_user_view('compiled', session)
       Analytics.record_document_view(current_user(session), @root_document)
 
       if @root_document.dict['make_index'] # && false
