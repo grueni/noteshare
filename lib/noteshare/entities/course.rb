@@ -94,7 +94,7 @@ class Course
   end
 
   def tex_macros
-    grab text: course_attributes, ad_prefix: 'doc', ad_suffix: 'texmacros'
+    TextParse.grab text: course_attributes, ad_prefix: 'doc', ad_suffix: 'texmacros'
   end
 
   def associated_lessons

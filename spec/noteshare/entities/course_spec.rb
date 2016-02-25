@@ -2,6 +2,7 @@ require 'spec_helper'
 
 describe Course do
 
+
   before do
 
     $VERBOOSE = true
@@ -71,9 +72,9 @@ describe Course do
     master.subdocument(0).title.must_equal(@lesson1.title)
     master.subdocument(1).title.must_equal(@lesson2.title)
     master.subdocument(2).title.must_equal(@lesson3.title)
-    master.subdocument(0).next_document_title.must_equal(@lesson2.title)
+    master.subdocument(0).next_document.title.must_equal(@lesson2.title)
     # Fixme:
-    master.subdocument(1).previous_document_title.must_equal(@lesson1.title)
+    master.subdocument(1).previous_document.title.must_equal(@lesson1.title)
 
     table = TOC.new(master).table
     table[0].title.must_equal(@lesson1.title)

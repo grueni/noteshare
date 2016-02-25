@@ -67,6 +67,7 @@ module FeatureHelpers
 
       visit2 @user, "/node/user/#{@user.id}"
       assert page.has_content?(@user.screen_name), "Go to user's node page"
+      @user
     end
 
   end
