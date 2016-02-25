@@ -26,7 +26,10 @@ module Web::Controllers::Documents
 
       session[:current_document_id] = document_id
 
+
       ContentManager.new(@document).update_content
+
+      @aside = @document.associated_document('aside')
       ContentManager.new(@aside).update_content if @aside && @aside.content
 
       session[:current_document_id] = @document.id
