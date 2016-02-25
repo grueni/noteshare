@@ -432,21 +432,17 @@ EOF
   def self.asciidoctor2_css
 
     css = <<EOF
-    span.term { color:blue; }
-span.red { color: darkred}
-span.blue {color:blue}
+span.term { color:blue; }
+span.red  { color: darkred; }
+span.blue { color:blue; }
 
 
 
-/// ul, ol, dl { font-size: 1em; line-height: 1.6; margin-bottom: 1.25em; list-style-position: outside; font-family: inherit;
+
 
 span.exercise { color:slateblue; font-weight:bold; font-size:11pt;}
-.content pre{
-   //  background-color: darken(#fffde5, 6); //  #ffd0ba;
-  background-color: darken(#fffde5, 6); //  #ffd0ba;
-}
 
-
+span.image {margin-left: 0.5em; margin-right: 0.5em; }
 
 .imageblock.left, .imageblock[style*="float: left"] { margin: 0.25em 0.625em -0.00em 0em; }
 
@@ -463,15 +459,12 @@ span.exercise { color:slateblue; font-weight:bold; font-size:11pt;}
 }
 
 .tableblock {
-  margin-top:0;
-  margin-bottom:0;
+    margin-top:0;
+    margin-bottom:0;
 }
-// table th   { background:#E6B69D;   }
-// table tr.even, table tr.alt, table tr:nth-of-type(even) { background:#E6B69D;   }
-// table tr.odd, table tr.alt, table tr:nth-of-type(odd) { background: #E6C99B;}
 
 .table-header {
-  background-color: #bfc0c0;
+    background-color: #bfc0c0;
 }
 
 .indent { margin-left:3em; }
@@ -479,136 +472,79 @@ span.exercise { color:slateblue; font-weight:bold; font-size:11pt;}
 
 .verseblock {
 
-  white-space: pre-line;
+    white-space: pre-line;
+}
 
-  pre.content {
+pre.content {
     border: 0;
     background-color: #fff;
-  }
-
 }
 
 
 
-.openblock.click {
-
-  .title { color: blue; }
-  .content {
-    .paragraph {
-      font-style: oblique;
-    }
-  }
-  margin-top:0;
-  margin-bottom: 2em;
+.openblock.click.title {color: blue;}
+.openblock.content.paragraph{
+    font-style: oblique;
+    margin-top:0;
+    margin-bottom: 2em;
 }
 
-.openblock.comment {
-
-  .title { color: blue; }
-  .content {
-    .paragraph {
-      font-style: oblique;
-    }
-  }
+.openblock.comment.title { color: blue; }
+.openblock.comment.content.paragraph {
+    font-style: oblique;
 }
+
 
 .openblock.verse2 {
 
-  white-space: pre-line;
-
-  .content {;
-
-    .paragraph {
-
-      margin-bottom: -35px;
-
-      p {
-
-      }
-    }
-  }
+    white-space: pre-line;
 
 }
 
-// The below, a work around to center captions of images as in
-// [.text-center]
-// .Image Title
-//  image::tiger.png[]
 
+.openblock.verse2.content.paragraph {
 
-.imageblock {
-  &.text-center > .title {
-    text-align: center !important;
-  }
-  &.text-right > .title {
-    text-align: right !important;
-  }
+    margin-bottom: -35px;
+
 }
+
+
+.imageblock.text-center > .title {
+     text-align: center !important;
+ }
+.imageblock.text-right > .title {
+     text-align: right !important;
+ }
+
 
 
 .toc_element {
-  font-stretch: expanded; }
+    font-stretch: expanded; }
 
 /* BOX */
 
 .openblock.box {
-  margin-top:1em;
-  margin-bottom: 1em;
-  margin-left:3em;
-  margin-right:4em;
-  padding-left: 1em;
-  padding-right: 1em;
-  padding-bottom: 0.5em;
-  padding-top: 1em;
-  font-size: 0.85em;
-  background-color: #ddd;
+    margin-top:1em;
+    margin-bottom: 1em;
+    margin-left:3em;
+    margin-right:4em;
+    padding-left: 1em;
+    padding-right: 1em;
+    padding-bottom: 0.5em;
+    padding-top: 1em;
+    font-size: 0.85em;
+    background-color: #ddd;
 }
 
 
 /* CAPSULE */
 
 
-.openblock.capsule {
-  margin-left:10em;
-  margin-bottom:2em;
-  font-style:italic;
-  font-size:0.85em;
-}
-
-/*
-.openblock.box {
-
-  background-color: #eee;
-
-  .content {
-    background-color: #eee;
-    padding: 1em;
-  }
-  margin-top:1em;
-  margin-bottom: 1em;
-  margin-left:3em;
-  margin-right:4em;
-
-}
-
-.openblock.capsule {
-
-  .content {
-    //background-color: #eee;
-  }
-  margin-top:1em;
-  margin-bottom: 2em;
-  margin-left:10em;
-  font-style: italic;
-  font-size: 0.95em;
-  line-height: 1.25em;
-}
-*/
 
 .openblock.theorem {
 
-  margin-bottom: 1em;
-  font-style: oblique;
+    margin-bottom: 1em;
+    font-style: oblique;
 }
 
 
@@ -616,43 +552,64 @@ span.exercise { color:slateblue; font-weight:bold; font-size:11pt;}
 
 .click_oblique {
 
-  line-height:1.5em;
-  font-size:1.05em;
-  font-style:oblique;
-  margin-bottom:1.5em
+    line-height:1.5em;
+    font-size:1.05em;
+    font-style:oblique;
+    margin-bottom:1.5em
 }
 
 .click_plain {
 
-  line-height:1.5em;
-  font-size:1.05em;
-  margin-bottom:1.5em;
+    line-height:1.5em;
+    font-size:1.05em;
+    margin-bottom:1.5em;
 }
 
+/* CLICK BLOCK */
 
-/* BOX */
 
-/*
-.openblock.box {
-  margin-top:1em;
-  margin-bottom: 1em;
-  margin-left:3em;
-  margin-right:4em;
-  padding: 1em;
-  background-color: #ddd;
-}
-*/
+.openblock.click { margin-top:-0.75em; margin-bottom: 1em; }
+.openblock.click.title { color: blue; }
+.openblock.click.paragraph { font-style: oblique; }
+
+
+/* COMMENT */
+
+.openblock.comment.title { color: blue }
+.openblock.comment.content.paragraph { font-style: oblique; }
+
+
 
 /* CAPSULE */
 
+.openblock.capsule {
+    margin-top:3em;
+    margin-bottom:2em;
+    line-height:1.3em;
+    margin-left:50%;
+    font-size: 1.1em;
+    font-style:oblique;
+}
+
 
 .openblock.capsule.content {
-  margin-top:3em;
-  margin-bottom:2em;
-  line-height:1.3em;
-  font-style:italic;
-  font-size:0.85em;
+
+
+
+
 }
+
+
+.openblock.texmacro.content {
+
+    display:none;
+}
+
+.openblock.texmacro {
+
+    display:none;
+}
+
 
 
 /* Equation Style */
@@ -660,26 +617,26 @@ span.exercise { color:slateblue; font-weight:bold; font-size:11pt;}
 
 .equation_row_style {
 
-  border-collapse: collapse;
-  border:0;
-  font-size: 10pt;
+    border-collapse: collapse;
+    border:0;
+    font-size: 12pt;
 }
 
 .equation_table_style {
 
-  width:100%;
-  border-collapse:collapse;
-  border:0
+    width:100%;
+    border-collapse:collapse;
+    border:0
 }
 
 .equation_number_style {
 
-  text-align:right;
+    text-align:right;
 }
 
 .equation_content_style {
 
-  width:100%;
+    width:100%;
 
 }
 
@@ -688,65 +645,74 @@ span.exercise { color:slateblue; font-weight:bold; font-size:11pt;}
 
 .xref {
 
-  text-decoration:none;
+    text-decoration:none;
 
 }
 
 #_dummyoutersection { display: none; }
 
-.glossary_term {
+.glossterm {
 
-  color: darkred;
+    color: darkred;
 }
 
 /* use for targets of index items */
 .invisible {
-  color: #fff;
-  font-size: 1pt;
- }
+    color: #fff;
+    font-size: 1pt;
+}
 
 
 .index_style ul {
 
-  list-style-type: none;
-  padding:0;
-  margin:0;
-  margin-left:1em;
+    list-style-type: none;
+    padding:0;
+    margin:0;
+    margin-left:1em;
 }
 
 .index_style p {
 
-  padding:0;
-  margin:0;
-  line-height: 1.4em;
-  font-size:1.0em;
+    padding:0;
+    margin:0;
+    line-height: 1.4em;
+    font-size:1.0em;
 }
 
 
 .index_style .title {
 
-  font-weight:bold;
-  margin-top:1em;
+    font-weight:bold;
+    margin-top:1em;
 }
 
 #publisher {
 
-  font-size: 9pt;
-  margin-top:-1.35em;
-  color: #555;
+    font-size: 9pt;
+    margin-top:-1.35em;
+    color: #555;
 }
 
 #simple_publisher {
 
-  font-size: 9pt;
-  margin-top:-1.35em;
-  color: #555;
+    font-size: 9pt;
+    margin-top:-1.35em;
+    color: #555;
 }
 
 .toc_public { font-style: normal; }
 .toc_private { font-style: italic; }
 
-.openblock .texmacro .content { display: none; }
+table.center {
+    margin-left:auto;
+    margin-right:auto;
+}
+
+.glossary_table_style tr { height: 1em; }
+
+.glossary_table_style.tableblock{ height: 1em; font-size:0.9em; margin-top:-0.30em; }
+
+
 EOF
 
     css
