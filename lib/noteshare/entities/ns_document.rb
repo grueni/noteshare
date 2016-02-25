@@ -255,11 +255,13 @@ class NSDocument
   end
 
 
+
   #Fixme, spaghetti?
   # PUBLIC
   def delete
     if is_associated_document?
-      delete_associated_document
+     puts "I am now in DELETE!".red
+     delete_associated_document
     else
       delete_subdocument
     end
@@ -641,6 +643,12 @@ class NSDocument
       return false
     end
   end
+
+  def delete_associated_document
+    disassociate
+    DocumentRepository.delete self
+  end
+
 
 
 end
