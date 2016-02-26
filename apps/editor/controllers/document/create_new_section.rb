@@ -9,12 +9,16 @@ module Editor::Controllers::Document
       @active_item = 'editor'
       puts 'controller: CreateNewSection'.red
       puts "(2) query: #{request.query_string}".cyan
+      # puts params.inspect.red
+
 
       document_packet = params['document']
+      puts document_packet.inspect.red
+
       title = document_packet['title'] || 'Oops, no title'
       content = document_packet['content']
       parent_id = document_packet['parent_id']
-      create_mode = document_packet['create_mode']
+      create_mode = document_packet['create_mode'] || 'sibling_below'
       current_document_id = document_packet['current_document_id']
 
       user = current_user(session)
@@ -45,9 +49,9 @@ module Editor::Controllers::Document
       case create_mode
         when 'child'
           new_document.add_to(current_document)
-        when 'sibling_before'
+        when 'sibling_above'
           new_document.add_as_sibling_of current_document, :before
-        when 'sibling_after'
+        when 'sibling_below'
           new_document.add_as_sibling_of current_document, :after
         else
           puts 'do nothing'

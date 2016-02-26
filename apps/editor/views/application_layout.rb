@@ -33,15 +33,7 @@ module Editor
 
       def new_section_link(document)
         #   html.tag(:a, 'New section', href: "/editor/new_section/#{document.id}")
-        image_link '/images/new_section.png', "/editor/new_section/#{document.id}?child", 'new section (child)'
-      end
-
-      def new_sibling_before_link(document)
-        image_link '/images/add_left.png', "/editor/new_section/#{document.id}?sibling_before", 'new section before'
-      end
-
-      def new_sibling_after_link(document)
-        image_link '/images/add_right.png', "/editor/new_section/#{document.id}?sibling_after", 'new section after'
+        image_link '/images/new_section.png', "/editor/new_section/#{document.id}?child", 'new section'
       end
 
       def add_pdf_link(document)

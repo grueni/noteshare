@@ -3,18 +3,7 @@ module Editor::Views::Document
     include Editor::View
 
     def new_section_title
-
-      case create_mode
-        when 'child'
-          "New section: child of #{document.title}"
-        when 'sibling_after'
-          "New section: sibling #{document.title} (below)"
-        when  'sibling_before'
-          "New section: sibling of #{document.title} (above)"
-        else
-          "New section for #{document.title}"
-      end
-
+      "New section for #{document.title}"
     end
 
     def new_section_form
@@ -25,14 +14,28 @@ module Editor::Views::Document
         # label :content
         # text_area :content
 
+        label :position
+        div do
+          label :above
+          radio_button :create_mode, 'above', {value: 'sibling_above', id: 'select_sibling_above'}
+
+          label :below
+          radio_button :create_mode, 'below', {value: 'sibling_below', id: 'select_sibling_below'}
+
+          label :subdocument
+          radio_button :create_mode, 'subdocument', {value: 'child', id: 'select_subdocument'}
+        end
+
         hidden_field :parent_id, value: params[:id]
         hidden_field :current_document_id, value: document.id
-        hidden_field :create_mode, value: create_mode
+        # hidden_field :create_mode, value: create_mode
 
         submit 'Create'
 
       end
     end
+
+
 
   end
 end

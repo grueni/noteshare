@@ -38,6 +38,7 @@ script src="/javascripts/editor.js" type="text/javascript"
       br
       .toc.plainlink.lightlink == document_index_link(document, session)
       .toc.plainlink.lightlink == AssociateDocManager.new(document).root_associated_document_map('editor')
+      .toc == render partial: 'document/index_tools', locals: { }
       .toc2== toc_presenter.editor_table_of_contents(document)
 
     .div
