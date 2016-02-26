@@ -27,10 +27,6 @@ module Admin
         link_to 'edit', "/node/edit/#{id}"
       end
 
-      def remove_document_from_node_link(document_id)
-        link_to 'remove', "/node/remove_document/#{document_id}"
-      end
-
       def upload_file_link
         link_to 'upload', "/uploader/file"
       end

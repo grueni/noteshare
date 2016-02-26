@@ -245,6 +245,10 @@ module UI
       image_link'/images/new_document.png', '/editor/new', 'new_document'
     end
 
+    def remove_document_from_node_link(document_id)
+      link_to 'remove', "/node/remove_document/#{document_id}"
+    end
+
     private
 
     # image_link2(prefix: :none, suffix: 'home', image: '/images/earth.png', 'system home')
