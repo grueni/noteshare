@@ -19,6 +19,7 @@ module Editor::Controllers::Document
       content = document_packet['content']
       parent_id = document_packet['parent_id']
       create_mode = document_packet['create_mode'] || 'sibling_below'
+
       current_document_id = document_packet['current_document_id']
 
       user = current_user(session)
@@ -28,6 +29,11 @@ module Editor::Controllers::Document
       puts "create_mode: #{create_mode  }".magenta
 
       current_document = DocumentRepository.find current_document_id
+      if current_document.is_root_document?
+        create_mode = 'child'
+      end
+
+
       _author_credentials = current_document.author_credentials2
       author = UserRepository.find _author_credentials['id']
 
