@@ -67,6 +67,7 @@ module Noteshare
          @text = text
          @attributes = _attributes || []
          @options = _options || {}
+         @target = @options[:target] || 'document'
          @doc_id = @options[:doc_id]
        end
 
@@ -223,7 +224,7 @@ module Noteshare
         elsif @attributes.include? 'titlepage'
           "<a href='/compiled/#{@doc_id}\##{@section.id}'> #{prefix}#{@section.title}</a>"
         elsif @attributes.include? 'external'
-          "<a href='/document/#{@doc_id}?#{@section.id}'> #{prefix}#{@section.title}</a>"
+          "<a href='/#{@target}/#{@doc_id}?#{@section.id}'> #{prefix}#{@section.title}</a>"
         else
           "<a href='\##{@section.id}'> #{prefix}#{@section.title}</a>"
         end

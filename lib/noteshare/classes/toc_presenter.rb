@@ -155,7 +155,7 @@ class TOCPresenter
     return '' if doc == nil
 
     toc_presenter =  TOCPresenter.new(doc)
-    output << toc_presenter.internal_table_of_contents(attributes, {doc_id: doc.id} )
+    output << toc_presenter.internal_table_of_contents(attributes, {doc_id: doc.id, target: target } )
     # Fixme: memoize, make lazy what we can.
 
     # Here is where the recursion happens:
@@ -216,9 +216,11 @@ class TOCPresenter
   end
 
 
-  def   internal_table_of_contents(attributes, options)
+  def  internal_table_of_contents(attributes, options)
 
     (attributes.include? 'root') ? source = @document.compiled_content : source = @document.content
+
+
 
     toc =  Noteshare::AsciidoctorHelper::NSTableOfContents.new(source, attributes, options)
 
