@@ -152,6 +152,11 @@ td.clear_style {
 
 }
 
+.ns_card.darker {
+
+    background-color: rgba(10,10,10,0.70);
+}
+
 .ns_card h4, h5   {
 
     color: #fff;
@@ -212,6 +217,17 @@ td.clear_style {
 
     background-color: transparent;
     color: #eee;
+}
+
+.ns_card .openblock .title   {
+
+    color: orangered !important;
+}
+
+.paragraph.big_heading p {
+
+    font-size: 20pt;
+    color: orangered;
 }
 /***
 

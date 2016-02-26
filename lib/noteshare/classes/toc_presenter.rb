@@ -216,20 +216,13 @@ class TOCPresenter
   end
 
 
-  def toc_internal(attributes, options)
-
-    (attributes.include? 'root') ? source = @document.compiled_content : source = @document.content
-
-    Noteshare::AsciidoctorHelper::NSTableOfContents.new(source, attributes, options)
-
-  end
-
-
-  def internal_table_of_contents(attributes, options)
+  def   internal_table_of_contents(attributes, options)
 
     (attributes.include? 'root') ? source = @document.compiled_content : source = @document.content
 
     toc =  Noteshare::AsciidoctorHelper::NSTableOfContents.new(source, attributes, options)
+
+    puts "\n---------\ninternal_table_of_contents: \n#{toc}\n-----------\n".cyan
 
     toc.table || ''
 
