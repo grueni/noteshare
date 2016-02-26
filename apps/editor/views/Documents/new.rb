@@ -8,8 +8,8 @@ module Editor::Views::Documents
         label :title
         text_field :title
 
-        label :content
-        text_area :content, {style: 'height:200px;'}
+        # label :content
+        # text_area :content, {style: 'height:200px;'}
 
         hidden_field :parent_id, value: params[:id]
 

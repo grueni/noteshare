@@ -48,7 +48,7 @@ module Editor::Controllers::Documents
         NSNodeRepository.update user_node
       end
 
-      redirect_to "/document/#{@document.id}"
+      redirect_to "document/#{@document.id}"
     end
 
   end

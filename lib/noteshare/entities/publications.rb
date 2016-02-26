@@ -31,7 +31,7 @@ class Publications
     NSNodeRepository.find node_id
   end
 
-  # Add publication record with given node_id and docuemnt_id
+  # Add publication record with given node_id and document_id
   # unless one of those id's is invalid, e.g., not present
   def self.add_record(node_id, document_id, type)
     return if (NSNodeRepository.find node_id) == nil

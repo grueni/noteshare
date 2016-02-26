@@ -22,8 +22,8 @@ module Editor::Views::Document
         label :title
         text_field :title
 
-        label :content
-        text_area :content
+        # label :content
+        # text_area :content
 
         hidden_field :parent_id, value: params[:id]
         hidden_field :current_document_id, value: document.id

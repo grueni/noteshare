@@ -220,14 +220,9 @@ class TOCPresenter
 
     (attributes.include? 'root') ? source = @document.compiled_content : source = @document.content
 
-
-
     toc =  Noteshare::AsciidoctorHelper::NSTableOfContents.new(source, attributes, options)
 
-    puts "\n---------\ninternal_table_of_contents: \n#{toc}\n-----------\n".cyan
-
     toc.table || ''
-
 
   end
 
