@@ -7,7 +7,7 @@ class CommandProcessor
   end
 
 
-  # hash = { 'command_verb => the_command_verb, 'args' => the_args, 'days_alive' => N}
+  # hash = { 'command_verb' => the_command_verb, 'args' => the_args, 'days_alive' => N}
   def put(hash)
     puts "hash: #{hash.to_s}".red
     c = Command.new(token: @token_presented,
