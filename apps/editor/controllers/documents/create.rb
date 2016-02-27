@@ -25,19 +25,64 @@ module Editor::Controllers::Documents
       _author_credentials = _author.credentials
 
       @document = NSDocument.create(title: title, author_credentials: _author_credentials)
+      @document.content = "= #{title}\n// Document header\n// Material before first section"
       @document.author = _author.full_name
 
       #Fixme: the following is to be deleted when author_id is retired
       @document.author_id = _author.credentials[:id].to_i
       @document.render_options = get_format(_author)
 
-      DocumentRepository.update @document
+      _content = <<EOF
+#The sample content below is just to help you how to get started.
+Modify it or delete it as you wish.  To create a new section,
+click on the "+" button, above left in the toolbar.#
 
-      cm = ContentManager.new(@document)
-      cm.prepare_content(doc_params['content'])
+// How to make a section title:
+== Example text
+
+// This is how you insert an image:
+image::460[width=200, float=right]
+
+//Asciidoc formatting:
+*Note:* This is _only a test!_
+
+// Use LaTeX if you need it for formulas
+$a^2 + b^2 = c^2$
+
+// Make a numbered list:
+. Orange Juice
+. Milk
+. Cereal
+// Use * for itemized lists.
+
+// Refer to a web page:
+_I read the http://nytimes.com[New York Times] every day._
+
+////
+You can delete all this example text anytime.
+
+But please leave the '== ' followed by whatever
+your section title is.  Otherwise Scripta will be confused.
+////
+
+#For more info, see the xlink::530[User Guide]#
+
+EOF
+
+
+
+      @first_section = NSDocument.create(title: 'Example text',
+                                         content: _content, author_credentials: _author_credentials)
+
+      cm = ContentManager.new(@first_section)
       cm.update_content
-      cm.compile_with_render
 
+      # cm = ContentManager.new(@first_section)
+      # cm.update_content
+      @first_section.add_to(@document)
+
+      @document.compiled_dirty = false
+      DocumentRepository.update @document
 
       @document.acl_set_permissions!('rw', 'r', '-')
 
@@ -48,7 +93,7 @@ module Editor::Controllers::Documents
         NSNodeRepository.update user_node
       end
 
-      redirect_to "document/#{@document.id}"
+      redirect_to "document/#{@first_section.id}"
     end
 
   end

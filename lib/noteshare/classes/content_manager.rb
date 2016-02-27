@@ -1,65 +1,51 @@
 
 
-
+# Public interface:
+#
+#   - update_content
+#   - update_content_lazily
+#   - compile_with_render_lazily
+#   - export
+#
+####################
 class ContentManager
 
 
   def initialize(document, options = {})
-
     @document = document
-    puts "ContentManager, document: #{@document.id}".magenta
     @options = options
     @root_document = @document.root_document
-    puts "ContentManager, root document: #{@root_document.id}".magenta
+    configure_format
+    configure_index
+  end
 
-    # values of @format are 'adoc' or 'adoc-latex'
+  def configure_format
     if @root_document
       @format = @root_document.render_options['format']
     else
       @format = 'adoc'
     end
+  end
 
+  def configure_index
     if @document.dict['make_index']
       @options[:make_index] = true
     end
-
-    puts "In ContentManager, initialize, options = #{@options}".magenta
-
   end
 
-
-  ############# EXTERNAL ############
-
-  # INTERFACE
-  ###########
-  # compile
-  # render
-  # -----------------------------
-  # compile_with_render
-  # compile_with_render_lazily
-  # set_format_of_render_option
-  # update_content_lazily
-  # export
-
-
-  # OK?
   # Return the compiled source text of @document
   # Uses NSDocument#compile to recurse over subdocuments
   def compile
     asciidoctor_attributes + substitutions + texmacros + @document.compile
   end
 
-  # Extensive external use
-  # NSDocument#render is the sole connection between class NSDocument and
-  # module Render.  It updates @document.rendered_content by applying
-  # Asciidoctor.convert to @document.content with the provided options.
+  # Compile, render, and update @document
+  # Set #content_dirty to false
   def render
-
     renderer = Render.new(compile, @options )
     @document.rendered_content = renderer.convert
     @document.content_dirty = false
     DocumentRepository.update(@document)
-
   end
 
   # OK?
@@ -298,4 +284,5 @@ class ContentManager
     system cmd
 
   end
+
 end
