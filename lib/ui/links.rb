@@ -147,7 +147,7 @@ module UI
     def guide_link(session)
       cu = current_user(session)
       cu ? prefix = cu.node_name : prefix = :none
-      return text_link(prefix: prefix, suffix: "document/#{ENV['USER_GUIDE_DOC_ID']}", title: 'User Guide', class: 'redlink;', style: 'font-weight: bold; margin-bottom:-4px;')
+      return text_link(prefix: prefix, suffix: "aside/#{ENV['USER_GUIDE_DOC_ID']}", title: 'User Guide', class: 'redlink;', style: 'font-weight: bold; margin-bottom:-4px;')
       # link_to "G",  "document/#{ENV['USER_GUIDE_DOC_ID']}",  class: 'redlink;', style: 'font-weight: bold; margin-bottom:-4px;'
 
     end
