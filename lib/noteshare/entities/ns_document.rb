@@ -514,7 +514,8 @@ class NSDocument
       root_document.link(hash)
     else
       if root_document
-        hash[:view_mode] == 'compiled' ? '' :  root_document.link(hash)
+        # hash[:view_mode] == 'compiled' ? '' :  root_document.link(hash)
+        root_document.link(hash)
       else
         self.link(hash)
       end

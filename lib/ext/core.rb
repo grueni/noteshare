@@ -131,6 +131,10 @@ class String
     gsub(/[^a-zA-Z0-9_]/, substitution_character)
   end
 
+  def is_integer?
+    (self =~ /^[0-9]*$/) == 0
+  end
+
   # Map "It's cool!" to 'its_cool``
   def normalize(option='alpha')
     case option
