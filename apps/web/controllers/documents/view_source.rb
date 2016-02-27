@@ -6,9 +6,12 @@ module Web::Controllers::Documents
     include Web::Action
     include Keen
 
-    expose :document, :root_document, :updated_text, :current_image,:active_item, :active_item2
+    expose :document, :root_document, :updated_text, :current_image,:active_item, :active_item2, :view_options
 
     def call(params)
+
+      @view_options =  {stem: 'view_source'}
+
       puts "Enter: ViewSource".red
       user = current_user(session)
       id = params['id']

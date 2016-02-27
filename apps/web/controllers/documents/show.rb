@@ -7,9 +7,11 @@ module Web::Controllers::Documents
     include Web::Action
     include Keen
 
-    expose :document, :root_document,  :active_item, :active_item2
+    expose :document, :root_document,  :active_item, :active_item2,  :view_options
 
     def call(params)
+
+      @view_options =  {stem: 'document'}
 
       document_id = params['id']
       if document_id  == '0'

@@ -5,9 +5,12 @@ module Web::Controllers::Documents
     include Web::Action
     include Analytics
 
-    expose :document, :root_document, :aside, :active_item, :active_item2
+    expose :document, :root_document, :aside, :active_item, :active_item2, :view_options
 
     def call(params)
+
+      @view_options =  {stem: 'aside'}
+
 
       document_id = params['id']
       query_string = request.query_string || ''

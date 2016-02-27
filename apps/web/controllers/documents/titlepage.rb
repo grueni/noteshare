@@ -5,10 +5,13 @@ module Web::Controllers::Documents
     include Web::Action
     include Analytics
 
-    expose :root_document, :document, :toc, :blurb, :image_url
+    expose :root_document, :document, :toc, :blurb, :image_url,  :view_options
     expose :active_item, :active_item2
 
     def call(params)
+
+      @view_options =  {stem: 'titlepage'}
+
       puts "controller: Titlepage".red
 
       @active_item = 'reader'

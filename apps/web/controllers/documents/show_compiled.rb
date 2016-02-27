@@ -5,10 +5,13 @@ module Web::Controllers::Documents
     include Web::Action
     include Analytics
 
-    expose :root_document, :document, :toc
+    expose :root_document, :document, :toc, :view_options
     expose :active_item, :active_item2
 
     def call(params)
+
+      @view_options =  {stem: 'compiled'}
+
       puts "controller: ShowCompiled".red
       @active_item = 'reader'
       @active_item2 = 'compiled'
