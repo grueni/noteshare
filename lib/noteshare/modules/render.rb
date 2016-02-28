@@ -126,8 +126,6 @@ class Render
           numerical_id = selector
         end
 
-
-
         case score
           when 0
             str = "#{selector}"
@@ -137,7 +135,7 @@ class Render
             str = "#{numerical_id}?#{argument}"  # it is an option
           when 3
             args = argument.split('?')
-            str = "#{numerical_id}\##{args[0]}?#{args[1]}"
+            str = "#{numerical_id}?ref:#{args[0]},opt:#{args[1]}"
           else
         end
 
@@ -192,3 +190,17 @@ class Render
 
 end
 
+=begin
+
+Sample inputs and outputs.  The outputs
+are handled by class Link
+
+xlink::530[User Guide] => link/530
+
+xlink::530?aside[User Guide] => link/530?aside
+
+xlink::1492#_math_questions[User Guide] => link/1492#_math_questions
+
+xlink::1492#_math_questions?aside[User Guide] => link/1492?ref:_math_questions,opt:aside
+
+=end

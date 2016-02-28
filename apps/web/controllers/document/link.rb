@@ -19,21 +19,29 @@ module Web::Controllers::Document
     end
 
     def parse_query_string
-      puts "request.query_string: #{request.query_string}".red
-      @stem = request.query_string || 'document'
+      query_string = request.query_string
+      if query_string =~ /ref:/
+        ref_part, opt_part = query_string.split(',')
+        @reference = ref_part.sub('ref:', '')
+        @id = "#{@id}\##{@reference}"
+        @stem = opt_part.sub('opt:', '')
+      else
+        @stem = query_string
+      end
       @stem = 'document' if !['document', 'aside', 'view_source', 'compiled', 'titlepage'].include? @stem
-      puts "@stem: #{@stem}".red
     end
 
     def new_link(params)
-      id = params['id']
-      basic_link @prefix, "#{@stem}/#{id}"
+      basic_link @prefix, "#{@stem}/#{@id}"
     end
 
     def call(params)
+      @id = params['id']
       parse_query_string
       configure_prefix
       redirect_to new_link(params)
     end
   end
 end
+
+
