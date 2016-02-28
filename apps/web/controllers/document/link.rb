@@ -10,33 +10,19 @@ module Web::Controllers::Document
       @prefix = 'www'
       cu = current_user(session)
       @prefix = cu.screen_name if cu
-      @prefix
+    end
+    
+    def parse_query_string
+      @stem = request.query_string || 'document'
     end
 
     def new_link(params)
-      query = request.query_string
-      case query
-        when 'aside'
-          stem = 'aside'
-        when 'view_source'
-          stem = 'view_source'
-        when 'compiled'
-          stem = 'compiled'
-        when 'titlepage'
-          stem = 'titlepage'
-        else
-          stem = 'document'
-      end
-      reference = request.query_string || ''
       id = params['id']
-      if reference == ''
-        basic_link @prefix, "#{stem}/#{id}"
-      else
-        basic_link @prefix, "#{stem}/#{id}\##{reference}"
-      end
+      basic_link @prefix, "#{@stem}/#{id}"
     end
 
     def call(params)
+      parse_query_string
       configure_prefix
       redirect_to new_link(params)
     end
