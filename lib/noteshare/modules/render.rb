@@ -112,7 +112,7 @@ class Render
       id = scan_item[0]
       link_text = scan_item[1]
       if id =~ /#/
-         m = id.match /(.*)\#(.*)/
+         m = id.match /(.*?)[\#|\?](.*)/
          numerical_id = m[1]
          reference = m[2]
       else
@@ -149,7 +149,6 @@ class Render
     scan = @source.scan xlink_rx
     scan.each do |match|
       id = match[0]
-      internal_id = id.split('#')[1]
       label = match[1]
       old_reference = "xlink::#{id}[#{label}]"
       if id =~ /^\d*$/    # numerical id, that is, a file ID
