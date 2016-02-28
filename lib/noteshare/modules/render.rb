@@ -147,10 +147,6 @@ class Render
           prefix = "http://www#{ENV['DOMAIN']}"
         end
 
-        xlink_string = "xlink::#{id}[#{link_text}]"
-
-        puts "xlink_string: #{xlink_string}".cyan
-
         new_xlink_string = "#{prefix}/link/#{str}[#{link_text}]"
 
         puts "new_xlink_string: #{new_xlink_string}".cyan
