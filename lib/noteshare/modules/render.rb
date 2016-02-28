@@ -112,6 +112,8 @@ class Render
         selector = scan_item[0]
         link_text = scan_item[1]
 
+        xlink_string = "xlink::#{selector}[#{link_text}]"
+
         score = 0
         score = score + 1 if selector =~ /\#/
         score = score + 2 if selector =~ /\?/
@@ -128,19 +130,17 @@ class Render
 
         case score
           when 0
-            @str = ''
+            str = "#{selector}"
           when 1
-            @str = "\##{selector}" # it is a reference
+            str = "#{selector}" # it is a reference
           when 2
-            @str = "?#{argument}"  # it is an option
+            str = "#{numerical_id}?#{argument}"  # it is an option
           when 3
-            @reference, @option = argument.split('?')
-            @str = "\#{@reference}?#{@option}"
+            args = argument.split('?')
+            str = "#{numerical_id}\##{args[0]}?#{args[1]}"
           else
         end
 
-
-        end
 
         if ENV['MODE'] == 'LVH'
           prefix = "http://www#{ENV['DOMAIN']}:#{ENV['PORT']}"
@@ -148,11 +148,13 @@ class Render
           prefix = "http://www#{ENV['DOMAIN']}"
         end
 
-        new_xlink_string = "#{prefix}/link/#{@str}[#{link_text}]"
+        new_xlink_string = "#{prefix}/link/#{str}[#{link_text}]"
 
         puts "new_xlink_string: #{new_xlink_string}".cyan
 
         @source = @source.gsub(xlink_string, new_xlink_string)
+
+      end
   end
 
   # Example:

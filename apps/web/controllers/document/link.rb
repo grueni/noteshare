@@ -19,8 +19,10 @@ module Web::Controllers::Document
     end
 
     def parse_query_string
+      puts "request.query_string: #{request.query_string}".red
       @stem = request.query_string || 'document'
       @stem = 'document' if !['document', 'aside', 'view_source', 'compiled', 'titlepage'].include? @stem
+      puts "@stem: #{@stem}".red
     end
 
     def new_link(params)
