@@ -109,35 +109,53 @@ class Render
 
       scanner = @source.scan(/xlink::(.*?)\[(.*?)\]/m)
       scanner.each do |scan_item|
-      id = scan_item[0]
-      link_text = scan_item[1]
-      if id =~ /#/
-         m = id.match /(.*?)[\#|\?](.*)/
-         numerical_id = m[1]
-         reference = m[2]
-      else
-        numerical_id = id
-      end
+        selector = scan_item[0]
+        link_text = scan_item[1]
 
-      if ENV['MODE'] == 'LVH'
-        prefix = "http://www#{ENV['DOMAIN']}:#{ENV['PORT']}"
-      else
-        prefix = "http://www#{ENV['DOMAIN']}"
-      end
+        score = 0
+        score = score + 1 if selector =~ /\#/
+        score = score + 2 if selector =~ /?/
 
-      xlink_string = "xlink::#{id}[#{link_text}]"
+        if score > 0
+           m = selector.match /(.*?)[\#|\?](.*)/
+           numerical_id = m[1]
+           argument = m[2]
+        else
+          numerical_id = selector
+        end
 
-      puts "xlink_string: #{xlink_string}".cyan
 
-      if reference
-        new_xlink_string = "#{prefix}/link/#{numerical_id}?#{reference}[#{link_text}]"
-      else
-        new_xlink_string = "#{prefix}/link/#{numerical_id}[#{link_text}]"
-      end
+        case score
+          when 0
+            str = ''
+          when 1
+            str = "\##{selector}" # it is a reference
+          when 2
+            str = "?#{argument}"  # it is an option
+          when 3
+            reference, option = argument.split('?')
+            str = "\#{reference}?#{option}"
+          else
+        end
 
-      puts "new_xlink_string: #{new_xlink_string}".cyan
 
-      @source = @source.gsub(xlink_string, new_xlink_string)
+        end
+
+        if ENV['MODE'] == 'LVH'
+          prefix = "http://www#{ENV['DOMAIN']}:#{ENV['PORT']}"
+        else
+          prefix = "http://www#{ENV['DOMAIN']}"
+        end
+
+        xlink_string = "xlink::#{id}[#{link_text}]"
+
+        puts "xlink_string: #{xlink_string}".cyan
+
+        new_xlink_string = "#{prefix}/link/#{str}[#{link_text}]"
+
+        puts "new_xlink_string: #{new_xlink_string}".cyan
+
+        @source = @source.gsub(xlink_string, new_xlink_string)
     end
   end
 
