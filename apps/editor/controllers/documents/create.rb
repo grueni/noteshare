@@ -39,11 +39,12 @@ click on the "+" button, above left in the toolbar.#
 
 // How to make a section title:
 == Example text
+// Always start with "==" followed by a space.
 
 // This is how you insert an image:
 image::460[width=200, float=right]
 
-//Asciidoc formatting:
+//Simple Asciidoc formatting:
 *Note:* This is _only a test!_
 
 // Use LaTeX if you need it for formulas
@@ -53,17 +54,11 @@ $a^2 + b^2 = c^2$
 . Orange Juice
 . Milk
 . Cereal
-// Use * for itemized lists.
+// Use * instead of . for itemized lists.
 
 // Refer to a web page:
 _I read the http://nytimes.com[New York Times] every day._
 
-////
-You can delete all this example text anytime.
-
-But please leave the '== ' followed by whatever
-your section title is.  Otherwise Scripta will be confused.
-////
 
 #For more info, see the xlink::530[User Guide]#
 
