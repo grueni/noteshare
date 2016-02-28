@@ -7,17 +7,26 @@ module Web::Controllers::Document
     include Web::Action
 
     def configure_prefix
+      @prefix = 'www'
       cu = current_user(session)
-      cu ? @prefix = cu.screen_name : 'www'
+      @prefix = cu.screen_name if cu
+      @prefix
     end
 
     def new_link(params)
+      query = request.query_string
+      case query
+        when 'aside'
+          stem = 'aside'
+        else
+          stem = 'document'
+      end
       reference = request.query_string || ''
       id = params['id']
       if reference == ''
-        basic_link @prefix, "document/#{id}"
+        basic_link @prefix, "#{stem}/#{id}"
       else
-        basic_link @prefix, "document/#{id}\##{reference}"
+        basic_link @prefix, "#{stem}/#{id}\##{reference}"
       end
     end
 
