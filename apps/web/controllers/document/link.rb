@@ -20,7 +20,7 @@ module Web::Controllers::Document
 
     def parse_query_string
       @stem = request.query_string || 'document'
-      @stem = 'document' if ['document', 'aside', 'view_source', 'compiled', 'titlepage'].include? @stem
+      @stem = 'document' if !['document', 'aside', 'view_source', 'compiled', 'titlepage'].include? @stem
     end
 
     def new_link(params)
