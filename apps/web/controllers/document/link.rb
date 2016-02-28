@@ -18,6 +18,12 @@ module Web::Controllers::Document
       case query
         when 'aside'
           stem = 'aside'
+        when 'view_source'
+          stem = 'view_source'
+        when 'compiled'
+          stem = 'compiled'
+        when 'titlepage'
+          stem = 'titlepage'
         else
           stem = 'document'
       end
