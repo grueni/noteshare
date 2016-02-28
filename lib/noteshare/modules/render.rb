@@ -16,6 +16,7 @@ class Render
   def initialize(source, options = {})
     @source = source
     @options = options
+    @root_doc_id = @options['root_doc_id']
     puts "in Render, initialize, @options = #{@options}".magenta
   end
 
@@ -104,56 +105,125 @@ class Render
 
   end
 
-  def rewrite_xlinks
-      puts "rewrite_xlinks".magenta
-
-      scanner = @source.scan(/xlink::(.*?)\[(.*?)\]/m)
-      scanner.each do |scan_item|
-        selector = scan_item[0]
-        link_text = scan_item[1]
-
-        xlink_string = "xlink::#{selector}[#{link_text}]"
-
-        score = 0
-        score = score + 1 if selector =~ /\#/
-        score = score + 2 if selector =~ /\?/
-
-        if score > 0
-           m = selector.match /(.*?)[\#|\?](.*)/
-           numerical_id = m[1]
-           argument = m[2]
-        else
-          numerical_id = selector
-        end
-
-        case score
-          when 0
-            str = "#{selector}"
-          when 1
-            str = "#{selector}" # it is a reference
-          when 2
-            str = "#{numerical_id}?#{argument}"  # it is an option
-          when 3
-            args = argument.split('?')
-            str = "#{numerical_id}?ref:#{args[0]},opt:#{args[1]}"
-          else
-        end
-
-
-        if ENV['MODE'] == 'LVH'
-          prefix = "http://www#{ENV['DOMAIN']}:#{ENV['PORT']}"
-        else
-          prefix = "http://www#{ENV['DOMAIN']}"
-        end
-
-        new_xlink_string = "#{prefix}/link/#{str}[#{link_text}]"
-
-        puts "new_xlink_string: #{new_xlink_string}".cyan
-
-        @source = @source.gsub(xlink_string, new_xlink_string)
-
-      end
+  def old_xlink_string(scan_item)
+    selector = scan_item[0]
+    link_text = scan_item[1]
+    "xlink::#{selector}[#{link_text}]"
   end
+
+  def new_xlink_string(scan_item)
+    selector = scan_item[0]
+    link_text = scan_item[1]
+
+    score = 0
+    score = score + 1 if selector =~ /\#/
+    score = score + 2 if selector =~ /\?/
+
+    if score > 0
+      m = selector.match /(.*?)[\#|\?](.*)/
+      numerical_id = m[1]
+      argument = m[2]
+    else
+      numerical_id = selector
+    end
+
+    case score
+      when 0
+        str = "#{selector}"
+      when 1
+        str = "#{selector}" # it is a reference
+      when 2
+        str = "#{numerical_id}?#{argument}"  # it is an option
+      when 3
+        args = argument.split('?')
+        str = "#{numerical_id}?ref:#{args[0]},opt:#{args[1]}"
+      else
+    end
+
+    if ENV['MODE'] == 'LVH'
+      prefix = "http://www#{ENV['DOMAIN']}:#{ENV['PORT']}"
+    else
+      prefix = "http://www#{ENV['DOMAIN']}"
+    end
+
+    "#{prefix}/link/#{str}[#{link_text}]"
+  end
+
+  def rewrite_xlink(scan_item)
+    @source = @source.gsub(old_xlink_string(scan_item), new_xlink_string(scan_item))
+  end
+
+  def rewrite_xlinks
+    scanner = @source.scan(/xlink::(.*?)\[(.*?)\]/m)
+    scanner.each do |scan_item|
+      rewrite_xlink(scan_item)
+    end
+  end
+
+  def old_reference(id, label)
+    "xlink::#{id}[#{label}]"
+  end
+
+  def numerical_id(id)
+    id = id.to_s
+    if (id =~ /\A\d*/) == 0    # begins with numerical id, that is, a file ID
+
+      if id =~ /[\#|\?]/
+        m = id.match /(\A\d*?)[\?|\#](.*)/
+        numerical_id = m[1]
+      else
+        numerical_id = id
+      end
+      numerical_id
+    end
+
+  end
+
+  def new_reference(id, label)
+    id = id.to_s
+    puts "id: [#{id}]".red
+    if (id =~ /\A\d*/) == 0    # begins with numerical id, that is, a file ID
+
+      if id =~ /[\#|\?]/
+        m = id.match /(\A\d*?)[\?|\#](.*)/
+        puts "m: #{m}".red
+        numerical_id = m[1]
+      else
+        numerical_id = id
+      end
+
+      doc = DocumentRepository.find numerical_id
+
+      if doc
+        new_id = "_#{doc.title.normalize('alphanum')}"
+        return "<<#{new_id}, #{label}>>"
+      else
+        return nil
+      end
+
+    else
+
+      puts 'BBB'.red
+
+      new_id = id.split('#')[1]
+      new_id = new_id.normalize('alphanum')
+      new_id = new_id.gsub(" ", '_')
+      return "<<#{new_id}, #{label}>>"
+    end
+
+  end
+
+  def internalize_xlink(match)
+    id = match[0]
+    label = match[1]
+    new_ref = new_reference(id, label)
+    if numerical_id(id) == @root_doc_id
+      @source = @source.gsub(old_reference(id, label), new_ref) if new_ref
+    else
+      rewrite_xlink(match)
+    end
+  end
+
 
   # Example:
   # "xlink::540[Further reading]" =>  "<<_atomic_theory, Further reading>>"
@@ -161,25 +231,8 @@ class Render
     puts "internalize_xlinks".magenta
     xlink_rx = /xlink::(.*?)\[(.*?)\]/
     scan = @source.scan xlink_rx
-    return if scan == nil
     scan.each do |match|
-      id = match[0]
-      if id
-        label = match[1]
-        old_reference = "xlink::#{id}[#{label}]"
-        if id =~ /^\d*$/    # numerical id, that is, a file ID
-          doc = DocumentRepository.find id
-          new_id = "_#{doc.title.normalize('alphanum')}" if doc
-        else
-          new_id = id.split('#')[1]
-          new_id = new_id.normalize('alphanum')
-          new_id = new_id.gsub(" ", '_')
-        end
-        if new_id
-          new_reference = "<<#{new_id}, #{label}>>"
-          @source = @source.gsub(old_reference, new_reference)
-        end
-      end
+      internalize_xlink(match)
     end
   end
 

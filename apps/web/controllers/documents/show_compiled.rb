@@ -22,7 +22,7 @@ module Web::Controllers::Documents
       session[:current_document_id] = document.id
       @root_document = @document.root_document
 
-      options = {numbered: true, format: 'adoc-latex', xlinks: 'internalize'}
+      options = {numbered: true, format: 'adoc-latex', xlinks: 'internalize', root_document_id: @root_document.id}
       cm = ContentManager.new(@root_document, options)
       cm.compile_with_render_lazily
 
