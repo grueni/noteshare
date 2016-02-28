@@ -156,7 +156,6 @@ class Render
         puts "new_xlink_string: #{new_xlink_string}".cyan
 
         @source = @source.gsub(xlink_string, new_xlink_string)
-    end
   end
 
   # Example:
