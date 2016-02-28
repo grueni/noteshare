@@ -114,7 +114,7 @@ class Render
 
         score = 0
         score = score + 1 if selector =~ /\#/
-        score = score + 2 if selector =~ /?/
+        score = score + 2 if selector =~ /\?/
 
         if score > 0
            m = selector.match /(.*?)[\#|\?](.*)/
