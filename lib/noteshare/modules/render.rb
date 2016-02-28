@@ -125,16 +125,17 @@ class Render
         end
 
 
+
         case score
           when 0
-            str = ''
+            @str = ''
           when 1
-            str = "\##{selector}" # it is a reference
+            @str = "\##{selector}" # it is a reference
           when 2
-            str = "?#{argument}"  # it is an option
+            @str = "?#{argument}"  # it is an option
           when 3
-            reference, option = argument.split('?')
-            str = "\#{reference}?#{option}"
+            @reference, @option = argument.split('?')
+            @str = "\#{@reference}?#{@option}"
           else
         end
 
@@ -147,7 +148,7 @@ class Render
           prefix = "http://www#{ENV['DOMAIN']}"
         end
 
-        new_xlink_string = "#{prefix}/link/#{str}[#{link_text}]"
+        new_xlink_string = "#{prefix}/link/#{@str}[#{link_text}]"
 
         puts "new_xlink_string: #{new_xlink_string}".cyan
 
