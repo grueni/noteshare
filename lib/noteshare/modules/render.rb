@@ -163,6 +163,7 @@ class Render
     puts "internalize_xlinks".magenta
     xlink_rx = /xlink::(.*?)\[(.*?)\]/
     scan = @source.scan xlink_rx
+    return if scan == nil
     scan.each do |match|
       id = match[0]
       if id
