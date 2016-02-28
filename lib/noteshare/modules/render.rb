@@ -165,19 +165,21 @@ class Render
     scan = @source.scan xlink_rx
     scan.each do |match|
       id = match[0]
-      label = match[1]
-      old_reference = "xlink::#{id}[#{label}]"
-      if id =~ /^\d*$/    # numerical id, that is, a file ID
-        doc = DocumentRepository.find id
-        new_id = "_#{doc.title.normalize('alphanum')}" if doc
-      else
-        new_id = id.split('#')[1]
-        new_id = new_id.normalize('alphanum')
-        new_id = new_id.gsub(" ", '_')
-      end
-      if new_id
-        new_reference = "<<#{new_id}, #{label}>>"
-        @source = @source.gsub(old_reference, new_reference)
+      if id
+        label = match[1]
+        old_reference = "xlink::#{id}[#{label}]"
+        if id =~ /^\d*$/    # numerical id, that is, a file ID
+          doc = DocumentRepository.find id
+          new_id = "_#{doc.title.normalize('alphanum')}" if doc
+        else
+          new_id = id.split('#')[1]
+          new_id = new_id.normalize('alphanum')
+          new_id = new_id.gsub(" ", '_')
+        end
+        if new_id
+          new_reference = "<<#{new_id}, #{label}>>"
+          @source = @source.gsub(old_reference, new_reference)
+        end
       end
     end
   end
