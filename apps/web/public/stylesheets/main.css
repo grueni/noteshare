@@ -905,6 +905,26 @@ label {
     font-size: 20pt     !important;
 }
 
+
+
+.bibliography ul li  {
+
+    list-style:none;
+
+
+}
+
+
+.index ul li  {
+
+    list-style:none;
+
+
+}
+
+
+
+
 /*
 ul {
 
