@@ -2,7 +2,7 @@ module Node::Controllers::Public
   class Show
     include Node::Action
 
-    expose :node, :user,:active_item, :layout_option, :blurb_text
+    expose :node, :user,:active_item, :layout_option, :blurb_text, :rendered_text
 
     def call(params)
       @active_item = 'documents'
@@ -22,6 +22,9 @@ module Node::Controllers::Public
 
       node.meta = {} if node.meta == nil
       @blurb_text =  @node.meta['long_blurb'] || ''
+      @rendered_blurb = @node.meta['rendered-blurb'] || ''
+
+      NSNodeRepository.update @node
 
     end
 

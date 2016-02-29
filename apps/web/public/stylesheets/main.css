@@ -924,7 +924,20 @@ label {
 }
 
 
+.user_setup_form label {
 
+    margin-top:0;
+
+
+
+}
+
+.user_setup_form input {
+
+    margin-bottom:0.25em;
+    height: 2.5em;
+
+}
 
 /*
 ul {

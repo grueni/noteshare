@@ -113,6 +113,8 @@ class NSNode
     end
   end
 
+  # Add document to the given node
+  # The allowable types are 'author', 'principal', and 'standard'
   def append_doc(document_id, type)
     Publications.add_record(self.id, document_id, type)
   end

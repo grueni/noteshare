@@ -23,10 +23,6 @@ module Admin
         link_to 'delete', "/admin/delete_document/#{id}"
       end
 
-      def edit_node_link(id)
-        link_to 'edit', "/node/edit/#{id}"
-      end
-
       def upload_file_link
         link_to 'upload', "/uploader/file"
       end

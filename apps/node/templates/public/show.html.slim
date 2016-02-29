@@ -7,15 +7,16 @@
       .ns_card.s12.m4.l4 style='margin-left:25px; height:400px; overflow-y:scroll; padding-bottom:3em;'
         == node.documents_as_list(current_user(session), layout_option)
 
-  .col.hide-on-small-and-down.m4.offset-m4.l4.offset-l4
+  .col.hide-on-small-and-down.m6.offset-m4.l6.offset-l4
     - if blurb_text != ''
-      .ns_card.scroll-y   style='margin-top:50px;'
-        == Asciidoctor.convert(blurb_text)
+      .ns_card.darker.scroll-y style='height:550px; margin-top:40px; color:white;'
+        .div style='margin-top:-1.5em;'
+          == node.meta['rendered_blurb'] 
 
 
-  .col.hide-on-small-and-down.m2.offset-m8.l2.offset-l8.scroll-y style='margin-top:50px;'
+  .col.hide-on-small-and-down.m2.offset-m10.l2.offset-l10.scroll-y style='margin-top:50px;'
       -if user && (user.admin || user.id == node.owner_id)
-        .ns_card.hide-on-small-and-down.m2.l2
+        .ns_card.hide-on-small-and-down.m2.l2 style='height:400px;'
           p style='font-weight: bold; margin-bottom:0;' EDIT
           p.plainlink.lightlink style='margin_top:1em;margin-bottom:0;'  == link_to 'Settings', basic_link(node.name, "node/edit/#{node.id}")
           p.plainlink.lightlink style='margin_top:1em;margin-bottom:0;'  == link_to 'Blurb', basic_link(node.name, "node/edit_blurb/#{node.id}")

@@ -217,6 +217,7 @@ Lotus::Model.configure do
       attribute :args, PGStringArray
       attribute :created_at, DateTime
       attribute :expires_at, DateTime
+      attribute :next_token, String
 
     end
 

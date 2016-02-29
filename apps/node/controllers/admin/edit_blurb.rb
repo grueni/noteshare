@@ -10,6 +10,7 @@ module Node::Controllers::Admin
       id = params['id']
       @node = NSNodeRepository.find(id)
       #fixme:
+
       if @node.meta == nil
         @node.meta = {}
         NSNodeRepository.update @node

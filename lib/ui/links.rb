@@ -249,6 +249,12 @@ module UI
       link_to 'remove', "/node/remove_document/#{document_id}"
     end
 
+    ##########
+
+    def edit_node_link(id)
+      link_to 'edit', "/node/edit/#{id}"
+    end
+
     private
 
     # image_link2(prefix: :none, suffix: 'home', image: '/images/earth.png', 'system home')
