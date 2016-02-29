@@ -11,9 +11,10 @@ class CommandProcessor
   def put(hash)
     puts "hash: #{hash.to_s}".red
     c = Command.new(token: @token_presented,
-                    command_verb: hash[:command], args: hash[:args], days_alive: hash[:args])
+                    command_verb: hash[:command], args: hash[:args], days_alive: hash[:days_alive])
     c.created_at = DateTime.now
-    c.expires_at = c.created_at + hash['days_alive'].to_i
+    puts "days_alive; #{}"
+    c.expires_at = c.created_at + hash[:days_alive].to_i
     CommandRepository.create c
     c
   end
@@ -24,6 +25,12 @@ class CommandProcessor
     @args = @command_object.args
     puts "get, command_verb: #{@command_verb}"
     puts "get, args: #{@args}"
+    @command_object
+  end
+
+  def add_to_expires_at(n)
+    command = get
+    command.expires_at = command.expires_at + n
   end
 
   def execute
