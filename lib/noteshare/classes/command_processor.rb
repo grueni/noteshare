@@ -31,6 +31,7 @@ class CommandProcessor
   def add_to_expires_at(n)
     command = get
     command.expires_at = command.expires_at + n
+    CommandRepository.update command
   end
 
   def execute
@@ -44,10 +45,15 @@ class CommandProcessor
     puts "execute_command".red
     puts "args #{@args}".cyan
     case @command_verb
-      when 'add_group_to_user'
-        puts "add_group_to_user, args = #{@args}"
+      when 'add_group'
         ugm = UserGroupManager.new(@user)
         ugm.add(@args[0])
+      when 'add_document'
+        @user.node.append_doc(@args[0])
+      when 'add_group_and_document'
+        ugm = UserGroupManager.new(@user)
+        ugm.add(@args[0])
+        @user.node.append_doc(@args[1], 'standard')
       else
         puts 'unrecognized command'
     end
