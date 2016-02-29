@@ -34,6 +34,13 @@ module SessionManager::Controllers::User
         new_node = NSNode.create_for_user(new_user)
         new_user.dict2['node'] = new_node.id
         UserRepository.update new_user
+        
+        token = params[:user]['token']
+        if token
+          cp = CommandProcessor.new(user: new_user, token: token)
+          cp.execute
+        end
+
         new_user.login(password, session)
       end
 
