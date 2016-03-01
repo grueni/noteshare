@@ -57,7 +57,7 @@ class Render
   end
 
   def convert
-    @options = @options.merge({verbose:0})
+    @options = @options.merge({:verbose => 0, :safe => 'safe-mode-safe'})
     write_header
     puts "\n-----SOURCE:\n#{@source}\n-----\n".cyan
     rewrite_media_urls
