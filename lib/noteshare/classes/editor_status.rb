@@ -25,7 +25,7 @@ module Noteshare
     def add_editor(user)
       screen_name = user.screen_name
       if !@editors.include? screen_name
-        @editors. << screen_name
+        @editors << screen_name
       end
       save
     end
@@ -35,6 +35,11 @@ module Noteshare
       if @editors.include? screen_name
         @editors.delete(screen_name)
       end
+      save
+    end
+
+    def clear_editors
+      @editors = []
       save
     end
 

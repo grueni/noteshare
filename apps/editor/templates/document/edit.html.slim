@@ -2,7 +2,8 @@ script src="/javascripts/editor.js" type="text/javascript"
 .row
   .div id='source_text_data' data-source-text="#{document.content}"
   button id='update_source_button' class='green' style='position: absolute; bottom:4px; left:40px;z-index:100;'   Update
-  .span style='position: absolute; bottom:4px; left:160px; width:110px; padding-top:7px; padding-left:0.5em; height: 30px; z-index:100;' class='green' == link_to 'Check back in', "/editor/status/#{document.id}"
+  .span style='left:120px; width:50px;' class='green edit_control_button' == link_to 'Done', "/editor/status/#{document.id}"
+  .span style='left:180px; width:50px;' class='green edit_control_button' == link_to 'Clear', "/editor/status/#{document.id}?clear"
   .span style='color: white; position: absolute; bottom:4px; left:50%; width:300px; padding-top:6px; padding-left:0.5em; height: 30px; z-index:100;' == editors
 
 

@@ -939,6 +939,18 @@ label {
 
 }
 
+.edit_control_button {
+
+    position: absolute; bottom:4px; padding-top:7px; padding-left:0.5em; height: 25px; z-index:100;
+}
+
+.edit_control_button a {
+
+    text-decoration: none !important;
+    color: white;
+}
+
+
 /*
 ul {
 
