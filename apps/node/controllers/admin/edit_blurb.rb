@@ -6,7 +6,7 @@ module Node::Controllers::Admin
 
     def call(params)
       puts "Edit blurb call".red
-      # redirect_if_not_signed_in('image, Admin,  Edit')
+      redirect_if_not_signed_in('image, Admin,  Edit')
       @active_item='admin'
       id = params['id']
       @node = NSNodeRepository.find(id)

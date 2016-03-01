@@ -23,6 +23,8 @@ module Web::Controllers::Home
     # 'public' and 'personal'
     def handle_incoming_node
 
+      referer = request.env["HTTP_REFERER"]
+      puts "referer: #{referer}".cyan
       @incoming_node = NSNode.from_http(request)
       @incoming_node_name =  @incoming_node.name if @incoming_node
       if @incomin_node

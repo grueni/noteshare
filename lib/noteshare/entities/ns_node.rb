@@ -71,6 +71,8 @@ class NSNode
   #### ???? ####
 
   def self.from_http(request)
+    puts "request.host: #{request.host}".red
+    puts "request.referer: #{request.referer}".red
     prefix = request.host.split('.')[0]
     if prefix
       NSNodeRepository.find_one_by_name(prefix)
