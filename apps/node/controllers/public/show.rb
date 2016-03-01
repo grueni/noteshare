@@ -14,10 +14,18 @@ module Node::Controllers::Public
       if cu
         cu.set_current_node(cu, @node)
       end
-      if @node.dict['layout'] == 'simple_sidebar'
-        @layout_option = :sidebar
-      else
-        @layout_option = :titlepage
+
+      puts "layout = #{@node.dict['layout']}"
+
+      case @node.dict['layout']
+        when 'simple_sidebar'
+          @layout_option = :sidebar
+        when 'titlepage'
+          @layout_option = :titlepage
+        when 'view_source'
+          @layout_option = :view_source
+        else
+          @layout_option = :document
       end
 
       node.meta = {} if node.meta == nil
