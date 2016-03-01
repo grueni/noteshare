@@ -55,6 +55,7 @@ module Web
         link_to 'User Guide', "/aside/#{ENV['USER_GUIDE_DOC_ID']}"
       end
 
+
       def print_document_link(session, active_item2)
         user = current_user(session)
         document = DocumentRepository.find session['current_document_id']

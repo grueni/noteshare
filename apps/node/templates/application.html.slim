@@ -7,6 +7,21 @@ html
     link href="/stylesheets/asciidoctor.css" rel="stylesheet" type="text/css" /
     link href="/stylesheets/asciidoctor2.css" rel="stylesheet" type="text/css" /
     link href="/stylesheets/main.css" rel="stylesheet" type="text/css" /
+    -if true
+        script type="text/x-mathjax-config"
+          | MathJax.Hub.Config({
+          | tex2jax: {
+          | inlineMath: [["\\(", "\\)"]],
+          | displayMath: [["\\[", "\\]"]],
+          | ignoreClass: "nostem|nolatexmath"
+          | },
+          | asciimath2jax: {
+          | delimiters: [["\\$", "\\$"]],
+          | ignoreClass: "nostem|noasciimath"
+          | },
+          | TeX: { extensions: ["mhchem.js"] }
+          | });
+        script  src="http://cdn.mathjax.org/mathjax/latest/MathJax.js?config=TeX-AMS-MML_HTMLorMML"
     meta content="width=device-width, initial-scale=1.0" name="viewport" /
   body style='background-image: url("http://vschool.s3.amazonaws.com/public/library1.jpg");'
     script src="https://code.jquery.com/jquery-2.1.1.min.js" type="text/javascript"

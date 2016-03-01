@@ -126,19 +126,10 @@ class NSNode
   def delete_all_docs
   end
 
-  def titlepage_list(docs)
+  def html_list(docs, view_mode)
     output = "<ul>\n"
     docs.each do |doc|
-      output << "<li> <a href='/titlepage/#{doc.id}'>#{doc.title}</a></li>\n"
-    end
-    output << "</ul>\n"
-    output
-  end
-
-  def sidebar_list(docs)
-    output = "<ul>\n"
-    docs.each do |doc|
-      output << "<li> <a href='/aside/#{doc.id}'>#{doc.title}</a></li>\n"
+      output << "<li> <a href='/#{view_mode}/#{doc.id}'>#{doc.title}</a></li>\n"
     end
     output << "</ul>\n"
     output
@@ -150,11 +141,15 @@ class NSNode
     return '' if docs == []
     case option
       when :titlepage
-        titlepage_list(docs)
+        html_list(docs, 'titlepage')
       when :sidebar
-        sidebar_list(docs)
+        html_list(docs, 'aside')
+      when :view_source
+        html_list(docs, 'view_source')
+      when :compiled
+        html_list(docs, 'compiled')
       else
-        titlepage_list(docs)
+        html_list(docs, 'document')
     end
   end
 

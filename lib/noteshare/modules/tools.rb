@@ -13,6 +13,12 @@ module Noteshare
       sort_by { |item| item.title }
     end
 
+
+
+    def self.identity(x)
+      return x
+    end
+
     def remember_user_view(view_name, session)
       cu = current_user(session)
       if cu
