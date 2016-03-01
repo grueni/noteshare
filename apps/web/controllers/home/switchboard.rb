@@ -27,7 +27,7 @@ module Web::Controllers::Home
       puts "referer: #{referer}".cyan
       @incoming_node = NSNode.from_http(request)
       @incoming_node_name =  @incoming_node.name if @incoming_node
-      if @incomin_node
+      if @incoming_node
         puts "@incoming_node: #{@incoming_node}".red
       else
         puts "No incoming node".red
