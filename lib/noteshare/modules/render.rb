@@ -57,8 +57,8 @@ class Render
   end
 
   def convert
-    @options = @options.merge({:verbose => 0, :safe => 'safe-mode-safe', :source_highlighter =>  'coderay'})
-    write_header
+    @options = @options.merge({:verbose => 0, :safe => 'safe'})
+    write_header  
     puts "\n-----SOURCE:\n#{@source}\n-----\n".cyan
     rewrite_media_urls
     handle_xlinks
