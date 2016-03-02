@@ -60,8 +60,10 @@ class TOCManager
   # PUBLIC
   def make_child_of_sibling
     p = @document.previous_document
-    @document.remove_from_parent
-    @document.add_to(p)
+    if p
+      @document.remove_from_parent
+      @document.add_to(p)
+    end
   end
 
   ### PRIVATE ###

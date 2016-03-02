@@ -3,7 +3,11 @@ module Editor::Views::Document
     include Editor::View
 
     def new_section_title
-      "New section for #{document.title}"
+      if document.is_root_document?
+        "New section for #{document.title}"
+      else
+        "New section at #{document.title}"
+      end
     end
 
     def new_section_form
@@ -14,17 +18,23 @@ module Editor::Views::Document
         # label :content
         # text_area :content
 
-        label :position
-        div do
-          label :above
-          radio_button :create_mode, 'above', {value: 'sibling_above', id: 'select_sibling_above'}
 
-          label :below
-          radio_button :create_mode, 'below', {value: 'sibling_below', id: 'select_sibling_below'}
 
-          label :subdocument
-          radio_button :create_mode, 'subdocument', {value: 'child', id: 'select_subdocument'}
+        if !document.is_root_document?
+          div do
+            label :position
+
+            label :above
+            radio_button :create_mode, 'above', {value: 'sibling_above', id: 'select_sibling_above'}
+
+            label :below
+            radio_button :create_mode, 'below', {value: 'sibling_below', id: 'select_sibling_below'}
+
+            label :subdocument
+            radio_button :create_mode, 'subdocument', {value: 'child', id: 'select_subdocument'}
+          end
         end
+
 
         hidden_field :parent_id, value: params[:id]
         hidden_field :current_document_id, value: document.id

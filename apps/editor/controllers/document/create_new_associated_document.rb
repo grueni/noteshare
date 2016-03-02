@@ -27,7 +27,8 @@ module Editor::Controllers::Document
 
       current_document = DocumentRepository.find current_document_id
 
-      author = UserRepository.find current_document.author_id
+      author_id = current_document.author_credentials2['id']
+      author = UserRepository.find author_id
       new_document = NSDocument.create(title: title, content: content, author_credentials: author.credentials)
 
       #Fixme: the following is to be deleted when author_id is retired

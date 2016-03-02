@@ -13,6 +13,9 @@ module Editor::Controllers::Document
       puts "QUERY STRING; #{query_string}".red
 
       @document = DocumentRepository.find doc_id
+      if @document == nil
+        redirect_to '/error:0?Document not found'
+      end
       @tocManager = TOCManager.new(@document)
 
       case query_string
@@ -20,7 +23,7 @@ module Editor::Controllers::Document
           # new_parent = @document.move_section_to_parent_level
           @tocManager.move_section_to_sibling_of_parent
         when 'move_to_child_level'
-          @document.make_child_of_sibling
+          @tocManager.make_child_of_sibling
         when 'move_up_in_toc'
           @tocManager.move_up_in_toc
         when 'move_down_in_toc'
