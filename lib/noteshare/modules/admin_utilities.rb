@@ -142,4 +142,16 @@ module AdminUtilities
     count
   end
 
+  def self.set_user_attribute(key, value)
+    puts "user.dict2[#{key}] => #{value}"
+    count = 0
+    UserRepository.all.each do |user|
+      user.dict2[key] = value
+      UserRepository.update user
+      puts user.full_name
+      count = count + 1
+    end
+    count
+  end
+
 end

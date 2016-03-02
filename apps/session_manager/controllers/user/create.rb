@@ -33,6 +33,7 @@ module SessionManager::Controllers::User
         puts "app = SessionManager, controller = Create (User)".red
         new_node = NSNode.create_for_user(new_user)
         new_user.dict2['node'] = new_node.id
+        new_user.dict2['root_documents_created'] = 0
         UserRepository.update new_user
 
         token = params[:user]['token']
