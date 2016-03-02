@@ -38,7 +38,7 @@ module Editor::Controllers::Document
 
 
       _author_credentials = current_document.author_credentials2
-      author = UserRepository.find _author_credentials['id']
+      author = UserRepository.find _author_credentials2['id']
 
       puts "In create_new_section, current_document: #{current_document_id} (#{current_document.title})".red
       puts "--- Author is #{author.screen_name}".red

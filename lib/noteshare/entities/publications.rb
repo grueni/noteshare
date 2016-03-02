@@ -190,7 +190,7 @@ class PublicationsManager
   end
 
   def author_node
-    user = UserRepository.find @document.author_id
+    user = UserRepository.find @document.author_credentials2['id']
     user.node if user
   end
 
