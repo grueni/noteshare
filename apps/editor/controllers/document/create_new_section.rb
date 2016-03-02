@@ -15,7 +15,10 @@ module Editor::Controllers::Document
       document_packet = params['document']
       puts document_packet.inspect.red
 
-      title = document_packet['title'] || 'Oops, no title'
+      title = document_packet['title']
+      if title == nil or title == ''
+        redirect_to '/error/:0?Please enter a title for the new section'
+      end
       content = document_packet['content']
       parent_id = document_packet['parent_id']
       create_mode = document_packet['create_mode'] || 'sibling_below'

@@ -11,7 +11,15 @@ module Editor::Controllers::Document
 
       document_packet = params['document']
       title = document_packet['title']
-      type = document_packet['type'] || 'note'
+      if title == nil or title == ''
+        redirect_to '/error/:0?Please enter a title for the new document'
+      end
+
+      type = document_packet['type']
+      if type == nil or type == ''
+        redirect_to '/error/:0?Please enter a type e.g., note, aside, or texmacro'
+      end
+
       content = document_packet['content']
       current_document_id = document_packet['current_document_id']
 

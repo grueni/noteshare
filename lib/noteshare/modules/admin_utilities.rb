@@ -120,4 +120,26 @@ module AdminUtilities
     count
   end
 
+
+  def self.process_bozo(document, option)
+    if document.title == nil or document.title == ''
+      if option == 'fix'
+        document.delete
+      end
+      return 1
+    end
+    return 0
+  end
+
+
+  def self.find_bozos(option='')
+    docs = DocumentRepository.all
+    count = 0
+    docs.each do |document|
+      result =  self.process_bozo(document, option)
+      count += result
+    end
+    count
+  end
+
 end

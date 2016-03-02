@@ -4,6 +4,8 @@ module Editor::Controllers::Documents
     include Editor::Action
     include NSDocument::Asciidoc
 
+    expose :document
+
     def get_format(author)
       author_format = author.dict2['format']
       if author_format
@@ -14,23 +16,71 @@ module Editor::Controllers::Documents
       format_hash
     end
 
-    expose :document
 
     def call(params)
       redirect_if_not_signed_in('editor, documents, Create')
+
       puts "controller create!!!".red
+      @author = current_user(session)
+
       doc_params = params[:document]
       title = doc_params['title']
-      _author = current_user(session)
-      _author_credentials = _author.credentials
+      if title == nil or title == ''
+        redirect_to '/error/:0?Please enter a title for the document'
+      end
 
-      @document = NSDocument.create(title: title, author_credentials: _author_credentials)
+      # set up author
+      @author_credentials = @author.credentials
+
+      # set up document
+      @document = NSDocument.create(title: title, author_credentials: @author_credentials)
       @document.content = "= #{title}\n// Document header\n// Material before first section"
-      @document.author = _author.full_name
+      @document.author = @author.full_name
 
       #Fixme: the following is to be deleted when author_id is retired
-      @document.author_id = _author.credentials[:id].to_i
-      @document.render_options = get_format(_author)
+      @document.author_id = @author.credentials[:id].to_i
+
+      @document.render_options = get_format(@author)
+      make_first_section
+      update_user_dict
+      @document.compiled_dirty = false
+      DocumentRepository.update @document
+      @document.acl_set_permissions!('rw', 'r', '-')
+      update_user_node
+      redirect_to "document/#{@first_section.id}"
+    end
+
+    def update_user_node
+      user_node = @author.node
+      if user_node
+        user_node.publish_document(id: @document.id, type: 'author')
+        NSNodeRepository.update user_node
+      end
+    end
+
+    def update_user_dict
+      @author.dict2['root_documents_created'] = @author.dict2['root_documents_created'].to_i + 1
+      UserRepository.update @author
+    end
+
+    def make_first_section
+      flag = @author.dict2['root_documents_created']
+      if flag == nil or flag == '' or flag.to_i == 0
+        @author.dict2['root_documents_created'] = 1
+      end
+
+      if @author.dict2['root_documents_created'].to_i < 2
+        @first_section = NSDocument.create(title: 'First section', content: sample_content, author_credentials: @author_credentials)
+      else
+        @first_section = NSDocument.create(title: 'First section', content: "== First section\n\n", author_credentials: @author_credentials)
+      end
+
+      cm = ContentManager.new(@first_section)
+      cm.update_content
+      @first_section.add_to(@document)
+    end
+
+    def sample_content
 
       _content = <<EOF
 #The sample content below is just to help you get started.
@@ -62,33 +112,11 @@ _I read the http://nytimes.com[New York Times] every day._
 
 #For more info, see the xlink::530[User Guide]#
 
+NOTE: This sample content appears only the first time
+you create a document.
+
 EOF
-
-
-
-      @first_section = NSDocument.create(title: 'Example text',
-                                         content: _content, author_credentials: _author_credentials)
-
-      cm = ContentManager.new(@first_section)
-      cm.update_content
-
-      # cm = ContentManager.new(@first_section)
-      # cm.update_content
-      @first_section.add_to(@document)
-
-      @document.compiled_dirty = false
-      DocumentRepository.update @document
-
-      @document.acl_set_permissions!('rw', 'r', '-')
-
-      user = current_user(session)
-      user_node = user.node
-      if user_node
-        user_node.publish_document(id: @document.id, type: 'author')
-        NSNodeRepository.update user_node
-      end
-
-      redirect_to "document/#{@first_section.id}"
+      _content
     end
 
   end
