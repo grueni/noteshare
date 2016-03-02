@@ -33,7 +33,7 @@ module Editor::Controllers::Documents
       @document.render_options = get_format(_author)
 
       _content = <<EOF
-#The sample content below is just to help you how to get started.
+#The sample content below is just to help you get started.
 Modify it or delete it as you wish.  To create a new section,
 click on the "+" button, above left in the toolbar.#
 

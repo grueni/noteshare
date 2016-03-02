@@ -55,6 +55,10 @@ module Web
         link_to 'User Guide', "/aside/#{ENV['USER_GUIDE_DOC_ID']}"
       end
 
+      def cookbook_link(session)
+        link_to 'Cookbook', "/view_source/#{ENV['COOKBOOK_ID']}"
+      end
+
 
       def print_document_link(session, active_item2)
         user = current_user(session)
