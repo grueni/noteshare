@@ -12,9 +12,9 @@ module Editor::Controllers::Document
       # self.body = 'OK'
       @document = DocumentRepository.find params[:id]
 
-      ContentManager.new(@document).
-                                       
-      redirect_to "http://vschool.s3.amazonaws.com/latex/#{@document.id}.tar"
+      ContentManager.new(@document).export
+
+      redirect_to "/document/#{params[:id]}"
     end
 
   end

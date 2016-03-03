@@ -9,6 +9,7 @@ module Editor::Controllers::Document
       e = Exporter.new(document)
       e.export_latex
       self.body = "#{document.title} exported as LaTeX to folder 'outgoing'"
+      redirect_to "http://vschool.s3.amazonaws.com/latex/#{@document.id}.tar"
     end
   end
 end
