@@ -144,9 +144,10 @@ class Render
       if id =~ /^\d+\d$/
         iii = ImageRepository.find id
         if iii
-          new_tag = "image::#{iii.file_name}[#{attributes}]"
+          new_tag = "image_#{iii.file_name}[#{attributes}]"
           puts iii.url2
-          download_path = "outgoing/#{doc_folder}/images/#{iii.file_name}"
+          download_file_name = iii.file_name.sub('image::', 'image_')
+          download_path = "outgoing/#{doc_folder}/images/#{download_file_name}"
           puts download_path.red
           download_file(iii.url2, download_path)
           @source = @source.sub(old_tag, new_tag)
