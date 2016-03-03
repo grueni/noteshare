@@ -8,8 +8,7 @@ module Editor::Controllers::Document
       redirect_to "/error:#{id}?Document not found" if document == nil
       e = Exporter.new(document)
       e.export_latex
-      self.body = "#{document.title} exported as LaTeX to folder 'outgoing'"
-      redirect_to "http://vschool.s3.amazonaws.com/latex/#{@document.id}.tar"
+      self.body = "#{document.title} exported as LaTeX to folder 'latex' on Amazon S3"
     end
   end
 end
