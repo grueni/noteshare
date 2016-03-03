@@ -39,7 +39,6 @@ class Exporter
     puts "FILE_NAME: #{@document.id}.tar".red
     puts "TMPFILE: #{folder}.tar".red
     AWS.upload("#{@document.id}.tar", "#{folder}.tar", 'latex')
-    # def self.upload(file_name, tmpfile, folder='tmp')
   end
 
 end
