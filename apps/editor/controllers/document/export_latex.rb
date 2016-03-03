@@ -9,7 +9,7 @@ module Editor::Controllers::Document
       e = Exporter.new(document)
       e.export_latex
       output = "<p style='margin:3em;'> #{document.title} exported as LaTeX to "
-      output << "<a href='http://vschool.s3.amazonaws.com/latex/#{@document.id}.tar'>this link</a> "
+      output << "<a href='http://vschool.s3.amazonaws.com/latex/#{document.id}.tar'>this link</a> "
       output << "</p>\n\n"
       self.body = output
     end
