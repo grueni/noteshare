@@ -35,7 +35,8 @@ class Exporter
     self.export_adoc
     cmd = "asciidoctor-latex -a inject_javascript=no #{adoc_file_path}"
     system(cmd)
-    system("tar -cvf #{folder}.tar #{folder}/")
+    # system("tar -cvf #{folder}.tar #{folder}/")
+    system("cd outgoing; tar -cvf ../#{folder}.tar #{@document.id}/; cd ..")
     puts "FILE_NAME: #{@document.id}.tar".red
     puts "TMPFILE: #{folder}.tar".red
     AWS.upload("#{@document.id}.tar", "#{folder}.tar", 'latex')
