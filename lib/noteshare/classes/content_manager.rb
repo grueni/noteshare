@@ -130,12 +130,11 @@ class ContentManager
     header << ":toc2:" << "\n\n\n"
 
     renderer = Render.new(header + texmacros + @document.compile, @options )
-    renderer.rewrite_urls
+    renderer.rewrite_media_urls
     file_name = @document.title.normalize
     path = "outgoing/#{file_name}.adoc"
     IO.write(path, renderer.source)
     export_html
-
   end
 
   def prepare_content(new_content)

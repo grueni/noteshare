@@ -56,7 +56,7 @@ class Render
     @source = ":source-highlighter: coderay\n\n#{@source}"
   end
 
-  def convert
+  def prepare_adoc
     @options = @options.merge({:verbose => 0, :safe => :safe})
     write_header
     puts "\n-----SOURCE:\n#{@source}\n-----\n".cyan
@@ -64,6 +64,10 @@ class Render
     handle_xlinks
     make_index if @options[:make_index]
     append_glossary if @source.include?  ':glossary:'
+  end
+
+  def convert
+    prepare_adoc
     Asciidoctor.convert(@source, @options)
   end
 
