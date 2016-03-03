@@ -115,7 +115,8 @@ class Render
     File.open(filepath, "wb") do |saved_file|
       # the following "open" is provided by open-uri
       open(url, "rb") do |read_file|
-        saved_file.write(read_file.read)
+        puts "read_file: #{read_file}".red
+        saved_file.write(read_file.read) if read_file
       end
     end
   end
