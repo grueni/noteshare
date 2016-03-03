@@ -123,17 +123,22 @@ class ContentManager
 
   # OK?
   # One external use
-  def export
+
+  def export_adoc
     header = '= ' << @document.title << "\n"
     header << @document.author << "\n"
     header << ":numbered:" << "\n"
     header << ":toc2:" << "\n\n\n"
 
     renderer = Render.new(header + texmacros + @document.compile, @options )
-    renderer.rewrite_media_urls
+    renderer.rewrite_media_urls_for_export
     file_name = @document.title.normalize
     path = "outgoing/#{file_name}.adoc"
     IO.write(path, renderer.source)
+  end
+
+  def export
+    export_adoc
     export_html
   end
 

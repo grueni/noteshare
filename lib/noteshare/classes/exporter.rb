@@ -1,7 +1,7 @@
 class Exporter
 
 
-  def init(document)
+  def initialize(document)
     @document = document
   end
 
@@ -10,22 +10,27 @@ class Exporter
     "outgoing/#{file_name}.adoc"
   end
 
+  def latex_file_path
+    file_name = @document.title.normalize
+    "outgoing/#{file_name}.tex"
+  end
+
+  def latex_file_name
+    file_name = @document.title.normalize
+    "#{file_name}.tex"
+  end
+
   def export_adoc
-    header = '= ' << @document.title << "\n"
-    header << @document.author << "\n"
-    header << ":numbered:" << "\n"
-    header << ":toc2:" << "\n\n\n"
-
-    renderer = Render.new(header + texmacros + @document.compile, @options )
-    renderer.rewrite_media_urls
-
-    IO.write(adoc_file_path, renderer.source)
+    cm = ContentManager.new(@document)
+    cm.export_adoc
   end
 
 
-  def run_asciidoctor_for_latex(course, option)
-    cmd = 'asciidoctor-latex -a inject_javascript=no ' + "#{adoc_local_file(course)}"
+  def export_latex
+    self.export_adoc
+    cmd = "asciidoctor-latex -a inject_javascript=no #{adoc_file_path}"
     system(cmd)
+    #  AWS.upload(latex_file_name, latex_file_path, folder='tmp')
   end
 
 end

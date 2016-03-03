@@ -1,3 +1,4 @@
+get '/export_latex/:id', to: 'document#export_latex'
 get '/status/:id', to: 'document#editor_status'
 post '/status/:id', to: 'document#editor_status'
 get '/manage_publications/:id', to: 'document#manage_publications'

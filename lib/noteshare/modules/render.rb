@@ -1,5 +1,7 @@
 
 
+require 'open-uri'
+
 # module Render provides text-rendering
 # service via Render.convert.  It takes
 # Asciidoc or Asciidoc-LaTeX as input ahd
@@ -97,6 +99,49 @@ class Render
         iii = ImageRepository.find id
         if iii
           new_tag = "#{media_type}#{infix}#{iii.url2}[#{attributes}]"
+          @source = @source.sub(old_tag, new_tag)
+        else
+          puts "Media #{id} not found".red
+        end
+        puts "old_tag: #{old_tag}"
+        puts "new_tag: #{new_tag}"
+      end
+
+    end
+
+  end
+
+  def download_file(url, filepath)
+    File.open(filepath, "wb") do |saved_file|
+      # the following "open" is provided by open-uri
+      open(url, "rb") do |read_file|
+        saved_file.write(read_file.read)
+      end
+    end
+  end
+
+  def rewrite_media_urls_for_export
+
+    rxTag = /(image|video|audio)(:+)(.*?)\[(.*)\]/
+    scanner = @source.scan(rxTag)
+    count = 0
+
+    scanner.each do |scan_item|
+      count += 1
+
+      media_type = scan_item[0]
+      infix = scan_item[1]
+      id = scan_item[2]
+      attributes = scan_item[3]
+
+      old_tag = "#{media_type}#{infix}#{id}[#{attributes}]"
+
+      if id =~ /^\d+\d$/
+        iii = ImageRepository.find id
+        if iii
+          new_tag = "image::#{iii.file_name}[#{attributes}]"
+          puts iii.url2
+          download_file(iii.url2, "outgoing/images/#{iii.file_name}")
           @source = @source.sub(old_tag, new_tag)
         else
           puts "Media #{id} not found".red
