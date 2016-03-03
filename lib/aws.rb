@@ -46,7 +46,7 @@
 
       puts "Uploading #{file_name} as '#{folder}/#{base_name}' to '#{bucket}'"
       t1 = Time.now
-      obj = s3.bucket(bucket).object(base_name)
+      obj = s3.bucket(bucket).object("#{folder}/#{base_name}")
       obj.upload_file(tmpfile, acl: 'public-read')
       t2 = Time.now
       message =  "Uploaded #{file_name} as #{obj.public_url} in #{t2-t1} seconds"

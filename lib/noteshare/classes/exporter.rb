@@ -5,14 +5,18 @@ class Exporter
     @document = document
   end
 
+  def folder
+    "outgoing/#{@document.id}"
+  end
+
   def adoc_file_path
     file_name = @document.title.normalize
-    "outgoing/#{file_name}.adoc"
+    "#{folder}/#{file_name}.adoc"
   end
 
   def latex_file_path
     file_name = @document.title.normalize
-    "outgoing/#{file_name}.tex"
+    "#{folder}/#{file_name}.tex"
   end
 
   def latex_file_name
@@ -21,7 +25,7 @@ class Exporter
   end
 
   def export_adoc
-    cm = ContentManager.new(@document)
+    cm = ContentManager.new(@document, doc_folder: @document.id)
     cm.export_adoc
   end
 
@@ -30,7 +34,11 @@ class Exporter
     self.export_adoc
     cmd = "asciidoctor-latex -a inject_javascript=no #{adoc_file_path}"
     system(cmd)
-    #  AWS.upload(latex_file_name, latex_file_path, folder='tmp')
+    system("tar -cvf #{folder}.tar #{folder}")
+    puts "FILE_NAME: #{@document.id}.tar".red
+    puts "TMPFILE: #{folder}.tar".red
+    AWS.upload("#{@document.id}.tar", "#{folder}.tar", 'latex')
+    # def self.upload(file_name, tmpfile, folder='tmp')
   end
 
 end

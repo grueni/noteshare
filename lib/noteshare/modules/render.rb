@@ -122,6 +122,10 @@ class Render
 
   def rewrite_media_urls_for_export
 
+    puts "@options: #{@options}"
+    doc_folder = @options[:doc_folder]
+    puts "doc_folder: #{doc_folder}"
+
     rxTag = /(image|video|audio)(:+)(.*?)\[(.*)\]/
     scanner = @source.scan(rxTag)
     count = 0
@@ -141,7 +145,9 @@ class Render
         if iii
           new_tag = "image::#{iii.file_name}[#{attributes}]"
           puts iii.url2
-          download_file(iii.url2, "outgoing/images/#{iii.file_name}")
+          download_path = "outgoing/#{doc_folder}/images/#{iii.file_name}"
+          puts download_path.red
+          download_file(iii.url2, download_path)
           @source = @source.sub(old_tag, new_tag)
         else
           puts "Media #{id} not found".red

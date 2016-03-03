@@ -133,7 +133,9 @@ class ContentManager
     renderer = Render.new(header + texmacros + @document.compile, @options )
     renderer.rewrite_media_urls_for_export
     file_name = @document.title.normalize
-    path = "outgoing/#{file_name}.adoc"
+    system("mkdir -p outgoing/#{@document.id}")
+    system("mkdir -p outgoing/#{@document.id}/images")
+    path = "outgoing/#{@document.id}/#{file_name}.adoc"
     IO.write(path, renderer.source)
   end
 
