@@ -31,6 +31,7 @@ class Exporter
 
 
   def export_latex
+    system("mkdir -p outgoing/#{@document.id}/images")
     self.export_adoc
     cmd = "asciidoctor-latex -a inject_javascript=no #{adoc_file_path}"
     system(cmd)
