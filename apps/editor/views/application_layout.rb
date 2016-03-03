@@ -15,7 +15,9 @@ module Editor
 
       def export_link(document)
         # link_to 'Export', "/editor/export/#{document.id}"
-        image_link '/images/export.png', "/editor/export/#{document.id}", "export document #"
+        # image_link '/images/export.png', "/editor/export/#{document.id}", "export document #"
+        "/export_latex/#{document.id}"
+        image_link '/images/export.png', "/editor/export_latex/#{document.id}", "export document as .adoc and .tex"
       end
 
       #####################################################
@@ -127,6 +129,10 @@ module Editor
         else
           image_link '/images/upload_image.png', "/uploader/image?#{option}", 'upload image'
         end
+      end
+
+      def export_latex_link(document)
+        "/export_latex/#{document.id}"
       end
 
     end
