@@ -11,7 +11,7 @@
   .col.s4.offset-s8.m4.offset-m8.l4.offset-l8
     /h3==  current_domain_name
     div style='margin-top:20px;'
-      .ns_card style='min-height:450px;'
+      .ns_card style='min-height:500px;'
         - if current_user(session)
           p.compact == welcome_link(session)
           br
@@ -24,13 +24,15 @@
         p.compact.message
           p style='margin-bottom:0' == guide_link_long(session)
           p style='margin-top:0;margin-bottom:0;' == cookbook_link(session)
+          br
           p style='margin-top:0;margin-bottom:0;' == link_to 'Start.scripta.io', 'http://start.scripta.io'
+          p style='margin-top:0;margin-bottom:0;' == link_to 'Math.scripta.io', 'http://math.scripta.io'
           | <br>
           | <br>
           | <img src="https://s3.amazonaws.com/vschool%2Fnoteshare_images/rockband.jpg" alt="rockband" width="200">
           | <br>
           | <br>
-        p.compact.message == link_to "About #{ENV['SITENAME']}", '/about'
+        p.compact.message.plainlink style='position:absolute; bottom:2.5em;left:2.5em;' == link_to "About #{ENV['SITENAME']}", '/about'
 
         span style='color:#F5574F;position:absolute; bottom:1em;left:2.5em;' ❤
         i style='color:#F5574F;position:absolute; bottom:1em; left:4.0em;' Share the knowledge!
