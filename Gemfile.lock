@@ -1,6 +1,6 @@
 GIT
   remote: git://github.com/asciidoctor/asciidoctor-latex.git
-  revision: d7f04fb30160f61ee2359ecbbca605336075d13b
+  revision: 6d5cb7e3163ca5e3eb8c9499b8afb50d75cee69c
   branch: master
   specs:
     asciidoctor-latex (1.5.0.6.dev)
