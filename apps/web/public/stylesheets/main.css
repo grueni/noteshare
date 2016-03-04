@@ -945,3 +945,21 @@ label {
     color: white;
 }
 
+
+.top_ribbon_button {
+
+    margin-right:2em;
+}
+
+.ribbon {
+
+    background-color: rgba(10,10,50,0.77);
+    padding-left: 2em;
+    padding-right: 2em;
+    padding-top:6px;
+    height:30px;
+
+    /** width:inherit;  **/
+    color: #eee;
+
+}
