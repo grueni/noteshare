@@ -24,7 +24,7 @@ module Node::Controllers::Admin
           @node.meta = {}
           NSNodeRepository.update @node
         end
-
+      end
     end
   end
 end
