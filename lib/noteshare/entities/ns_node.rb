@@ -8,6 +8,8 @@ class NSNode
       attributes :id, :owner_id, :identifier,  :name, :type,
                  :meta, :docs, :children, :tags, :xattributes, :dict
 
+  include Asciidoctor
+
   # include Noteshare
   require 'json'
 
@@ -226,6 +228,10 @@ class NSNode
 
   def blurb
     dict['blurb'] || '--'
+  end
+
+  def update_sidebar_text
+    meta['rendered_sidebar_text'] = Asciidoctor.convert meta['sidebar_text']
   end
 
 end
