@@ -2,9 +2,9 @@ module Node::Controllers::Admin
   class EditSidebar
     include Node::Action
 
-    def call(params)
+    expose :active_item, :node
 
-      expose :active_item, :node
+    def call(params)
 
       def call(params)
         puts "Edit sidebar call".red
