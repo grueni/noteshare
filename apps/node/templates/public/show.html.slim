@@ -15,9 +15,13 @@
 
 
   .col.hide-on-small-and-down.m2.offset-m10.l2.offset-l10.scroll-y style='margin-top:50px;'
-      -if user && (user.admin || user.id == node.owner_id)
-        .ns_card.hide-on-small-and-down.m2.l2 style='height:400px;'
-          p style='font-weight: bold; margin-bottom:0;' EDIT
-          p.plainlink.lightlink style='margin_top:1em;margin-bottom:0;'  == link_to 'Settings', basic_link(node.name, "node/edit/#{node.id}")
-          p.plainlink.lightlink style='margin_top:1em;margin-bottom:0;'  == link_to 'Blurb', basic_link(node.name, "node/edit_blurb/#{node.id}")
-        d
+    -if user && (user.admin || user.id == node.owner_id)
+      .ns_card.hide-on-small-and-down.m2.l2 style='height:400px;'
+        p style='font-weight: bold; margin-bottom:0;' EDIT
+        p.plainlink.lightlink style='margin_top:1em;margin-bottom:0;'  == link_to 'Settings', basic_link(node.name, "node/edit/#{node.id}")
+        p.plainlink.lightlink style='margin_top:1em;margin-bottom:0;'  == link_to 'Blurb', basic_link(node.name, "node/edit_blurb/#{node.id}")
+    -else
+       - if sidebar_text != ''
+         .ns_card.hide-on-small-and-down.m2.l2 style='height:400px;'
+           .div style='margin-top:-1.5em;'
+             == node.meta['rendered_blurb']
