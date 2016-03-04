@@ -232,6 +232,7 @@ class NSNode
 
   def update_sidebar_text
     meta['rendered_sidebar_text'] = Asciidoctor.convert meta['sidebar_text']
+    NSNodeRepository.update self
   end
 
 end
