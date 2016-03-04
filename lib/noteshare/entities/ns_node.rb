@@ -1,5 +1,5 @@
 
-
+require 'asciidoctor'
 
 
 class NSNode
