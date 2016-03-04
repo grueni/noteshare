@@ -195,55 +195,38 @@ class PublicationsManager
   end
 
 
+  def link_prefix(session, node)
+    user = current_user(session)
+    if user
+      user.screen_name
+    else
+      node.name
+    end
+  end
+
 
   def principal_publisher_link(session)
 
     node1 = principal_publisher
-    node2 = author_node if node1 == nil
-    return '' if node1 == nil && node2 == nil
-    user = current_user(session)
-
-    if user
-      prefix = user.screen_name
+    if node1
+      puts "IN principal_publisher_link, node1 = #{node1.name}".magenta
     else
-      if node1
-        prefix = node1.name
-      else
-        prefix = node2.name
-      end
+      puts 'principal_publisher is NIL'
     end
 
     if node1
       link_text = "Published in #{node1.name}#{ENV['DOMAIN']}"
+      prefix = link_prefix(session, node1)
       link = basic_link(prefix, "node/#{node1.id}")
-      "<a href=\"#{link}\">#{link_text}</a>"
+      return "<a href=\"#{link}\">#{link_text}</a>"
     else
+      node2 = author_node
+      return '' if node2 == nil
       link_text = "Published in #{node2.name}#{ENV['DOMAIN']}"
       link = basic_link(node2.name, "node/#{node2.id}")
-      "<a href=\"#{link}\">#{link_text}</a>"
+      return "<a href=\"#{link}\">#{link_text}</a>"
     end
-
   end
-
-  def principal_publisher_link1(session)
-
-    node1 = principal_publisher
-    node2 = author_node if node1 == nil
-    return '' if node1 == nil && node2 == nil
-
-    if node1
-      link_text = "Published by #{node1.name}#{ENV['DOMAIN']}"
-      link = basic_link(node1.name, :none)
-      "<a href=\"#{link}\">#{link_text}</a>"
-    else
-      link_text = "Published by #{node2.name}#{ENV['DOMAIN']}"
-      link = basic_link(node2.name, "node/#{node2.id}")
-      "<a href=\"#{link}\">#{link_text}</a>"
-    end
-
-  end
-
-
 
   def publishers
     records = PublicationsRepository.records_for_document @document.id
@@ -270,7 +253,6 @@ class PublicationsManager
     node = NSNodeRepository.find_one_by_name node_name
     record = Publications.find_for_pair(node.id, @document.id)
     record.type = 'principal'
-    puts "Set record #{record.id} as principal".magenta
     PublicationsRepository.update record
 
   end
@@ -280,11 +262,8 @@ class PublicationsManager
     if node == nil
       puts "NODE IS NIL".magenta
     end
-    puts "node.id = #{node.id}".red
-    puts "document.id = #{@document.id}".red
     if node
       record = Publications.find_for_pair(node.id, @document.id)
-      puts "deleting record id = #{record.id}".magenta
      PublicationsRepository.delete record if record
     end
   end

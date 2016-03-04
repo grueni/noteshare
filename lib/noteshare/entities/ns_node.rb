@@ -177,13 +177,19 @@ class NSNode
     end
     hash = str.hash_value(',;')
     hash.each do |doc_title, doc_id|
-      puts "#{doc_title}: #{doc_id}".cyan
       Publications.add_record(self.id, doc_id, 'author')
     end
   end
 
   def documents
     Publications.documents_for_node(self.id)
+  end
+
+  def make_all_documents_principal
+    documents.each do |document|
+      pm = PublicationsManager.new(document)
+      pm.set_principal_publisher_to_node(self.name)
+    end
   end
 
   def public_documents
@@ -214,7 +220,6 @@ class NSNode
     document_id = hash[:id]
     # value of type: 'author', 'principal', 'ordinary'
     type = hash[:type] || 'ordinary'
-    puts "Adding document #{document_id} to node #{self.id} with type #{type}".red
     doc = DocumentRepository.find document_id
     if doc
       Publications.add_record(self.id, document_id, type)
@@ -230,8 +235,23 @@ class NSNode
     dict['blurb'] || '--'
   end
 
+  def update_blurb
+    #text = "++++\n<div id='node_blurb'>\n"
+    # text << meta['long_blurb']
+    #text << "\n</div>\n++++\n\n"
+    text = meta['long_blurb']
+    renderer = Render.new(text)
+    meta['rendered_blurb'] = renderer.convert
+    NSNodeRepository.update self
+  end
+
   def update_sidebar_text
-    meta['rendered_sidebar_text'] = Asciidoctor.convert meta['sidebar_text']
+    # text = "++++\n<div id='node_blurb'>\n"
+    # text << meta['sidebar_text']
+    # text << "\n</div>+++\n\n"
+    text = meta['sidebar_text']
+    renderer = Render.new(text)
+    meta['rendered_sidebar_text'] = renderer.convert
     NSNodeRepository.update self
   end
 
