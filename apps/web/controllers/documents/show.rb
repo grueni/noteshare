@@ -40,7 +40,7 @@ module Web::Controllers::Documents
 
       ContentManager.new(@document).update_content
       remember_user_view('standard', session)
-      ActivityManager.new(@document, cu).record
+      DocumentActivityManager.new(@document, cu).record
       Analytics.record_document_view(cu, @document)
 
       if query_string != ''

@@ -15,7 +15,11 @@
   .col.m3.offset-m9.l4.offset-l7.hide-on-small-only
     h3 Recently viewed
     .ns_card
+      h6 style='margin-top:0; color:red' Documents
       == presenter.recently_viewed('document')
+      br
+      h6 style='margin-top:0; color:red' Nodes
+      == presenter.recent_nodes
 
 
 .row style='position:absolute; bottom:20px; left:0; width:100%;'

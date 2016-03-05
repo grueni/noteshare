@@ -3,7 +3,7 @@
 # the documents a user
 # views and can present
 # a list of this activity
-class ActivityManager
+class DocumentActivityManager
 
 
 

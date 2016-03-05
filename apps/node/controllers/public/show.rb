@@ -16,6 +16,7 @@ module Node::Controllers::Public
         cu.set_current_node(cu, @node)
       end
 
+      NodeActivityManager.new(@node, @user).record
       @presenter = NodePresenter.new(@node, @user)
 
       puts "layout = #{@node.dict['layout']}"

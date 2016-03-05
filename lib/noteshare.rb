@@ -114,6 +114,7 @@ Lotus::Model.configure do
       attribute :dict2, PGHStore
       attribute :groups, PGStringArray
       attribute :docs_visited, JSON
+      attribute :nodes_visited, JSON
     end
 
 

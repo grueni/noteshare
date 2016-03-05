@@ -63,8 +63,23 @@ class DocsVisited < HashStack
     self.push(item)
   end
 
-  def get_item(k)
-
-  end
 
 end
+
+# NodesVisited manages a stack
+# of entries of the form
+# {node_id => [name]}
+class NodesVisited < HashStack
+
+  def itemize(node)
+    { node.id.to_s => [ node.name ]}
+  end
+
+  def push_node(node)
+    item = itemize(node)
+    self.push(item)
+  end
+
+
+end
+

@@ -33,7 +33,7 @@ module Web::Controllers::Documents
 
       remember_user_view('titlepage', session)
       cu = current_user(session)
-      ActivityManager.new(@document, cu).record
+      DocumentActivityManager.new(@document, cu).record
       Analytics.record_document_view(cu, @root_document)
 
       @blurb = @root_document.dict['blurb'] || 'blurb'
