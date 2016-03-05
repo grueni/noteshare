@@ -1,7 +1,7 @@
 .row
 
   .col.s12.m8.offset-m1.l5.offset-l1
-    h3 == "#{current_node.url}: documents (#{presenter.number_of_readable_documents})"
+    h3 == "#{current_node.url}: #{presenter.number_of_readable_documents} documents"
     div
       .ns_card.scroll-y style='height:400px;'
         - if current_node
