@@ -23,7 +23,8 @@ class ActivityManager
 
   # @document can be nil for this method:
   def list(view_mode)
-    array = @user.docs_visited.reverse
+    array = @user.docs_visited || []
+    array = array.reverse
     dv = DocsVisited.new(array, ENV['DOCS_VISITED_CAPACITY'])
     output = "<ul>\n"
     dv.stack.each do |item|
