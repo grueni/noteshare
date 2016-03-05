@@ -130,32 +130,6 @@ class NSNode
   def delete_all_docs
   end
 
-  def html_list(docs, view_mode)
-    output = "<ul>\n"
-    docs.each do |doc|
-      output << "<li> <a href='/#{view_mode}/#{doc.id}'>#{doc.title}</a></li>\n"
-    end
-    output << "</ul>\n"
-    output
-  end
-
-  # Return an HTML list of links to documents
-  def documents_as_list(user, option)
-    user ? docs = self.documents_readable_by(user) : docs = self.public_documents
-    return '' if docs == []
-    case option
-      when :titlepage
-        html_list(docs, 'titlepage')
-      when :sidebar
-        html_list(docs, 'aside')
-      when :view_source
-        html_list(docs, 'view_source')
-      when :compiled
-        html_list(docs, 'compiled')
-      else
-        html_list(docs, 'document')
-    end
-  end
 
   #################################################
 

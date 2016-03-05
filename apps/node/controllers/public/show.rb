@@ -2,7 +2,8 @@ module Node::Controllers::Public
   class Show
     include Node::Action
 
-    expose :node, :user,:active_item, :layout_option, :blurb_text, :rendered_text, :sidebar_text, :rendered_sidebar_text
+    expose :node, :user,:active_item, :layout_option, :blurb_text, :rendered_text
+    expose :sidebar_text, :rendered_sidebar_text, :presenter
 
     def call(params)
       @active_item = 'documents'
@@ -14,6 +15,8 @@ module Node::Controllers::Public
       if cu
         cu.set_current_node(cu, @node)
       end
+
+      @presenter = NodePresenter.new(@node, @user)
 
       puts "layout = #{@node.dict['layout']}"
 
@@ -28,7 +31,7 @@ module Node::Controllers::Public
           @layout_option = :document
       end
 
-      node.meta = {} if node.meta == nil
+      @node.meta = {} if @node.meta == nil
 
       @blurb_text =  @node.meta['long_blurb'] || ''
       @rendered_blurb = @node.meta['rendered-blurb'] || ''

@@ -13,7 +13,7 @@
     /== search_form
     - if node.document_count > 0
       .ns_card.s12.m4.l4 style='margin-left:25px; height:400px; overflow-y:scroll; padding-bottom:3em;'
-        == node.documents_as_list(current_user(session), layout_option)
+        == presenter.documents_as_list(layout_option)
 
   .col.hide-on-small-and-down.m6.offset-m4.l6.offset-l4
     - if blurb_text != ''

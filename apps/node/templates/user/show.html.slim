@@ -1,7 +1,7 @@
 .row
 
   .col.s12.m8.offset-m1.l5.offset-l1
-    h3 == "#{current_node.url}: documents"
+    h3 == "#{current_node.url}: documents (#{presenter.number_of_readable_documents})"
     div
       .ns_card.scroll-y style='height:400px;'
         - if current_node
@@ -9,7 +9,7 @@
             == link_to current_document.title, "/document/#{current_document.id}"
 
           h4 Documents
-          == current_node.documents_as_list(current_user(session),:titlepage)
+          == presenter.documents_as_list(:titlepage)
 
 
   .col.m3.offset-m9.l4.offset-l7.hide-on-small-only

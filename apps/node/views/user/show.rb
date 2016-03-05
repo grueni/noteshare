@@ -19,15 +19,6 @@ module Node::Views::User
       end
     end
 
-=begin
-    def doclist(node)
-      ul
-      documents.each do |doc|
-        li == document_link(doc)
-    end
-
-=end
-
   end
 
 end
