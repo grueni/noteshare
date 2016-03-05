@@ -953,11 +953,24 @@ label {
 
 .ribbon {
 
+     background-color: rgba(10,10,50,0.77);
+     padding-left: 2em;
+     padding-right: 2em;
+     padding-top:6px;
+     height:30px;
+
+     /** width:inherit;  **/
+     color: #eee;
+
+ }
+
+.bottom_ribbon {
+
     background-color: rgba(10,10,50,0.77);
     padding-left: 2em;
     padding-right: 2em;
     padding-top:6px;
-    height:30px;
+    height:35px;
 
     /** width:inherit;  **/
     color: #eee;

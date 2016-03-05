@@ -1,4 +1,4 @@
-.row.inset_top
+.row
 
   .col.s12.m8.offset-m1.l5.offset-l1
     h3 == "#{current_node.url}: documents"
@@ -13,13 +13,13 @@
 
 
   .col.m3.offset-m9.l4.offset-l7.hide-on-small-only
-    h3 Tools
+    h3 Under construction
     .ns_card
 
 
-.row.ribbon
-  .ribbon.hide-on-small-and-down.m12.l12
-    span.top_ribbon_button style='font-weight: bold;' EDIT:
+.row style='position:absolute; bottom:20px; left:0; width:100%;'
+  .bottom_ribbon.hide-on-small-and-down.m12.l12
+    span.top_ribbon_button style='font-weight: bold;' TOOLS
     span.plainlink.lightlink.top_ribbon_button == new_document_link
     span.plainlink.lightlink.top_ribbon_button == user_settings_link
     span.plainlink.lightlink.top_ribbon_button == link_to 'Manage node documents', "/node/manage/#{current_node.id}"
