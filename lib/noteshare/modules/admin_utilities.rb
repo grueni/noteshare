@@ -110,7 +110,7 @@ module AdminUtilities
       result
     end
 
-  def self.orphans(option='')
+  def self.process_orphans(option='')
     docs = DocumentRepository.all
     count = 0
     docs.each do |document|
@@ -132,7 +132,7 @@ module AdminUtilities
   end
 
 
-  def self.find_bozos(option='')
+  def self.process_bozos(option='')
     docs = DocumentRepository.all
     count = 0
     docs.each do |document|

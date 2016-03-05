@@ -1,7 +1,7 @@
 .row.inset_top
 
   .col.s12.m8.offset-m1.l5.offset-l1
-    h3 == current_node.url
+    h3 == "#{current_node.url}: documents"
     div
       .ns_card.scroll-y style='height:400px;'
         - if current_node
@@ -15,10 +15,11 @@
   .col.m3.offset-m9.l4.offset-l7.hide-on-small-only
     h3 Tools
     .ns_card
-      == new_document_link
-      br
-      br
-      == user_settings_link
-      br
-      br
-      == link_to 'Manage node documents', "/node/manage/#{current_node.id}"
+
+
+.row.ribbon
+  .ribbon.hide-on-small-and-down.m12.l12
+    span.top_ribbon_button style='font-weight: bold;' EDIT:
+    span.plainlink.lightlink.top_ribbon_button == new_document_link
+    span.plainlink.lightlink.top_ribbon_button == user_settings_link
+    span.plainlink.lightlink.top_ribbon_button == link_to 'Manage node documents', "/node/manage/#{current_node.id}"
