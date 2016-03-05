@@ -54,7 +54,7 @@ module SessionManager::Controllers::User
         redirect_to '/error/1?The passwords did not match' if user2
       end
 
-      new_user = User.create(first_name: first_name, last_name: last_name, screen_name: screen_name, password: password, password_confirmation: password_confirmation)
+      new_user = User.create(first_name: first_name, last_name: last_name, email: email, screen_name: screen_name, password: password, password_confirmation: password_confirmation)
 
       if new_user
         puts "app = SessionManager, controller = Create (User)".red
