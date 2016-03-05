@@ -29,7 +29,9 @@ module Web::Controllers::Documents
       session[:current_document_id] = @root_document.id
 
       remember_user_view('compiled', session)
-      Analytics.record_document_view(current_user(session), @root_document)
+      cu = current_user(session)
+      ActivityManager.new(@document, cu).record
+      Analytics.record_document_view(cu, @root_document)
 
       if @root_document.dict['make_index'] # && false
         index_content = @root_document.dict['document_index']

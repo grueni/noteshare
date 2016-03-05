@@ -51,5 +51,9 @@ class NodePresenter
     end
   end
 
+  def recently_viewed(view_mode)
+    ActivityManager.new(nil, @user).list(view_mode)
+  end
+
 
 end

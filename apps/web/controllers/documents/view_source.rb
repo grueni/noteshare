@@ -32,7 +32,8 @@ module Web::Controllers::Documents
         handle_nil_document(@document, id)
       end
       remember_user_view('source', session)
-      Analytics.record_document_view(user, @document)
+      ActivityManager.new(@document, user).record
+      Analytics.record_document_view(user, @root_document)
       session[:current_document_id] = id
 
       cm = ContentManager.new(@document)

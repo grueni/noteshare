@@ -39,11 +39,8 @@ module Web::Controllers::Documents
       session[:current_document_id] = document_id
 
       ContentManager.new(@document).update_content
-
       remember_user_view('standard', session)
-
-
-
+      ActivityManager.new(@document, cu).record
       Analytics.record_document_view(cu, @document)
 
       if query_string != ''
