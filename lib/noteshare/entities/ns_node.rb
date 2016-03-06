@@ -151,7 +151,7 @@ class NSNode
     end
     hash = str.hash_value(',;')
     hash.each do |doc_title, doc_id|
-      Publications.add_record(self.id, doc_id, 'author')
+      Publications.add_record(self.id, doc_id, 'author') if doc_id != ''
     end
   end
 
