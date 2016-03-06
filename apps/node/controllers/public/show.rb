@@ -29,7 +29,7 @@ module Node::Controllers::Public
         when 'view_source'
           @layout_option = :view_source
         else
-          @layout_option = :document
+          @layout_option = :titlepage
       end
 
       @node.meta = {} if @node.meta == nil
