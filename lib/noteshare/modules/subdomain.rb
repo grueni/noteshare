@@ -16,6 +16,7 @@ module Noteshare
       stem = ENV['DOMAIN'].sub(/^\./,'') # delete leading '.'
       stem = "#{stem}:#{ENV['PORT']}" if ENV['MODE'] == 'LVH'
       link = "http://#{prefix}#{stem}#{suffix}"
+      puts "basic_url: #{link}".red
       link
     end
 
