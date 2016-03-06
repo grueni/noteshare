@@ -13,6 +13,7 @@ class NodeActivityManager
   end
 
   def record
+    return if @user == nil
     array = @user.nodes_visited
     nv = NodesVisited.new(array, ENV['DOCS_VISITED_CAPACITY'])
     nv.push_node(@node)
