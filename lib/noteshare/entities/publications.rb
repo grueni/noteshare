@@ -174,6 +174,11 @@ class Publications
     end
   end
 
+  def doc_title
+    doc = Document_Repository.find document_id
+    doc.title
+  end
+
 
 end
 

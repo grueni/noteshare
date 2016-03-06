@@ -9,7 +9,7 @@ module Admin::Controllers::Publications
       @screen_name = current_user(session).screen_name
 
       @active_item = 'admin'
-      _publications = PublicationsRepository.all.sort_by{ |record| record.document_id }
+      _publications = PublicationsRepository.all.sort_by{ |record| record.document_title }
       @publications = []
       _publications.each do |publication|
 

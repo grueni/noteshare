@@ -1,3 +1,4 @@
+get '/set_publisher/:id', to: 'admin#set_publisher'
 post '/update_sidebar/:id', to: 'admin#update_sidebar'
 get '/edit_sidebar/:id', to: 'admin#edit_sidebar'
 post '/update_blurb/:id', to: 'admin#update_blurb'
