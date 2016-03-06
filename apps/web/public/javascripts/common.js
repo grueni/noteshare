@@ -33,6 +33,14 @@ function getLineNumber(textarea, indicator) {
     indicator.innerHTML = textarea.value.substr(0, textarea.selectionStart).split("\n").length;
 }
 
+function inset_window_height(inset) {
+
+    var val = $(window).height() - inset;
+    console.log('inset_window_height = ' + val);
+    return val;
+}
+
+
 $(document).ready(function() {
 
     $('#document-updated-text').onkeyup="getLineNumber(this, document.getElementById('document-updated-text'))"
@@ -74,8 +82,6 @@ $(document).ready(function() {
         var csrf_token = document.getElementsByName("_csrf_token")[0].value;
         $.post("set_search_type", { search_scope: "all", _csrf_token: csrf_token });
     });
-
-
 
 
     $('#select_document_search').change(function () {
@@ -142,6 +148,7 @@ $(document).ready(function() {
     $('.openblock.click').click(function() {
         return $(this).find('.content').slideToggle('200');
     });
+
 
 
     /**

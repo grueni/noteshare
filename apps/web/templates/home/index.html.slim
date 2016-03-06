@@ -2,7 +2,10 @@
 
   .col.s7.m7.l7
     div style='margin-top:20px;'
-      .ns_card.darker.scroll-y style='height:550px;'
+      /.ns_card.darker.scroll-y style='height:550px;'
+      /.ns_card.darker.scroll-y style='height:$(window).height()'
+      /.ns_card.darker.scroll-y style='height:$.inset_window_height(20)'
+      .ns_card.darker.tall.scroll-y tyle='height:500px;'
         .div style='margin-top:-1.5em;'
         .message == settings.dict['rendered_message']
         br
@@ -11,7 +14,9 @@
   .col.s4.offset-s8.m4.offset-m8.l4.offset-l8
     /h3==  current_domain_name
     div style='margin-top:20px;'
-      .ns_card style='min-height:500px;'
+      /.ns_card style='min-height:500px;'
+      /.ns_card style='height:calc(100% - 20px)'
+      .ns_card.scroll-y style='height:500px;'
         - if current_user(session)
           p.compact == welcome_link(session)
           br
