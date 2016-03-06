@@ -13,6 +13,7 @@ class DocumentActivityManager
   end
 
   def record
+    return if @user == nil
     array = @user.docs_visited
     dv = DocsVisited.new(array, ENV['DOCS_VISITED_CAPACITY'])
     dv.push_doc(@document)
