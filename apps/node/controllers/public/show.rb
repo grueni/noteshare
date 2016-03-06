@@ -9,6 +9,12 @@ module Node::Controllers::Public
       @active_item = 'documents'
       @node = NSNodeRepository.find params[:id]
       @user = current_user(session)
+      if @user
+        puts "controller Node, Public, Show, @user = #{@user.full_name}".red
+      else
+        puts "controller Node, Public, Show, @user = NIL".red
+      end
+
       return if @node == nil
       # ^^ Fixme: better, go to error page
       cu = current_user(session)
