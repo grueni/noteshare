@@ -527,6 +527,16 @@ textarea {
 
 }
 
+.footer_item_center {
+    position: absolute;
+    bottom: 10px;
+    left: 50%;
+    z-index: 400;
+    color: #eee;
+
+}
+
+
 /*** TABLE OF CONTENTS ***/
 
 .dragula_toc {
