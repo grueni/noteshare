@@ -56,7 +56,7 @@ class NodePresenter
   end
 
   def recent_nodes
-    NodeActivityManager.new(nil, @user).list
+    NodeActivityManager.new(user: @user).list
   end
 
 

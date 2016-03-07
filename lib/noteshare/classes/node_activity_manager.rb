@@ -5,11 +5,11 @@
 # a list of this activity
 class NodeActivityManager
 
+  attr_reader :last_node_id, :last_node_name
 
-
-  def initialize(node, user)
-    @node = node
-    @user = user
+  def initialize(hash)
+    @node = hash[:node]
+    @user = hash[:user]
   end
 
   def record
@@ -22,13 +22,22 @@ class NodeActivityManager
   end
 
 
-  # @document can be nil for this method:
-  def list
+  def configure
     array = @user.nodes_visited || []
     array = array.reverse
-    nv = NodesVisited.new(array, ENV['NODES_VISITED_CAPACITY'])
+    @object = NodesVisited.new(array, ENV['NODES_VISITED_CAPACITY'])
+    @stack = @object.stack
+    last_item = @stack.last
+    @last_node_id = last_item.keys[0]
+    @last_node_name = last_item[@last_node_id]
+  end
+
+
+  # @document can be nil for this method:
+  def list
+    configure
     output = "<ul>\n"
-    nv.stack.each do |item|
+    @stack.each do |item|
       node_id = item.keys[0]
       data = item[node_id]
       node_name = data[0]
@@ -38,5 +47,8 @@ class NodeActivityManager
     output
   end
 
+  def last_node
+   stack.last
+  end
 
 end

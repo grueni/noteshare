@@ -109,22 +109,19 @@ module UI
     def current_node_link(session, active_item='')
       cu = current_user(session)
       return ''  if cu == nil
-      node_name = cu.get_current_node_name
-      node_id = cu.get_current_node_id
-
-      if node_id
-        node = NSNodeRepository.find node_id
-      end
-      return '' if node == nil
+      nam = NodeActivityManager.new(user: cu)
+      nam .configure
+      last_node_id = nam.last_node_id
+      last_node_name = nam.last_node_name
 
       if cu
         prefix = cu.screen_name
       else
-        prefix = node_name
+        prefix = last_node_name
       end
 
       active_item == 'node' ? image = '/images/node_green.png' : image = '/images/node_white.png'
-      image_link2(prefix:prefix, suffix: "node/#{node.id}", title: 'current node', image: image)
+      image_link2(prefix:prefix, suffix: "node/#{last_node_id}", title: 'current node', image: image)
     end
 
     def image_manager_link(active_item='')
