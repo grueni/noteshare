@@ -16,7 +16,11 @@ module Admin::Views::Users
         end
         hour = hour - 5
         hour = hour + 24 if hour < 0
-        "#{week_day[wday]} #{hour}:#{date_time.minute}"
+        minutes = date_time.minute.to_s
+        if minutes.length == 1
+          minutes = "0#{minutes}"
+        end
+        "#{week_day[wday]} #{hour}:#{minutes}"
       else '-'
       end
     end
