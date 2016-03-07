@@ -93,6 +93,13 @@ module UI
       image_link2(prefix: user.node_name, suffix: "node/user/#{user.node_id}", title: 'user home', image: image)
     end
 
+    def start_node_link(session, active_item='')
+      user = current_user(session)
+      return '' if user == nil
+      active_item == 'home' ? image = '/images/start.png' : image = '/images/start.png'
+      image_link2(prefix: user.node_name, suffix: "node/34", title: 'go to start page', image: image)
+    end
+
     def node_link(node, session)
       # cu = current_user(session)
       # cu ? prefix = cu.node_name : prefix = node.name

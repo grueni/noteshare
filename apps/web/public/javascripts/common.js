@@ -149,6 +149,22 @@ $(document).ready(function() {
         return $(this).find('.content').slideToggle('200');
     });
 
+    $('.tall').height(
+        $(window).height() - $('.nav').height() - $('.footer').height() - 95
+    );
+
+    $('.tall500').height(
+        /* ($(window).height() < 500) : $(window).height() - $('.nav').height() - $('.footer').height() - 95 ? 500*/
+        500
+
+    );
+
+    $('.tall400').height(
+        /* ($(window).height() < 500) : $(window).height() - $('.nav').height() - $('.footer').height() - 95 ? 500*/
+        365
+
+    );
+
 
 
     /**
