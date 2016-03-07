@@ -154,7 +154,7 @@ $(document).ready(function() {
     );
 
     $('.tall500').height(
-        Math.max($(window).height() - $('.nav').height() - $('.footer').height() - 95, 500)
+        Math.min($(window).height() - $('.nav').height() - $('.footer').height() - 95, 500)
         /* 500 */
     );
 
