@@ -159,6 +159,12 @@ $(document).ready(function() {
 
     );
 
+    $('.tall400').height(
+        /* ($(window).height() < 500) : $(window).height() - $('.nav').height() - $('.footer').height() - 95 ? 500*/
+        400
+
+    );
+
 
 
     /**
