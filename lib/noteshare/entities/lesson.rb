@@ -4,7 +4,7 @@
 # to_document
 class Lesson
   include Lotus::Entity
-  attributes :id, :title, :content, :author_id, :course_id, :created_at, :modified_at,
+  attributes :id, :title, :content, :author_id, :course_id, :created_at, :updated_at,
              :tags, :area, :sequence, :summary, :aside, :image_path1, :image_path2, :content_type
 
   ### INTERFACE ###

@@ -88,7 +88,7 @@ class NSDocument
   attributes :id, :title, :identifier,
              :author_id, :author, :author_identifier, :author_credentials,
              :tags, :type, :area, :meta, :xattributes, :dict,
-             :created_at, :modified_at,
+             :created_at, :updated_at,
              :content, :compiled_content, :rendered_content, :compiled_and_rendered_content, :render_options,
              :parent_ref, :root_ref, :parent_id, :index_in_parent, :root_document_id,
              :subdoc_refs, :toc, :doc_refs,

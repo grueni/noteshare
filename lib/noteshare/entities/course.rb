@@ -5,7 +5,7 @@ require_relative '../../../lib/noteshare/modules/text_parse'
 # create_master_document
 class Course
   include Lotus::Entity
-  attributes :id, :title, :author, :author_id, :tags, :area, :created_at, :modified_at, :content, :course_attributes
+  attributes :id, :title, :author, :author_id, :tags, :area, :created_at, :updated_at, :content, :course_attributes
 
   include TextParse
 

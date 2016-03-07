@@ -60,7 +60,7 @@ Lotus::Model.configure do
       attribute :meta, JSON
 
       attribute :created_at, DateTime
-      attribute :modified_at, DateTime
+      attribute :updated_at, DateTime
 
       attribute :content, String
       attribute :compiled_content, String
@@ -108,6 +108,8 @@ Lotus::Model.configure do
       attribute :identifier, String
       attribute :email, String
       attribute :screen_name, String
+      attribute :created_at, DateTime
+      attribute :updated_at, DateTime
       attribute :level, Integer
       attribute :password, String
       attribute :meta, JSON
@@ -160,7 +162,7 @@ Lotus::Model.configure do
       attribute :file_name, String, as: :data_file_name
       attribute :mime_type, String, as: :data_content_type
       attribute :created_at, DateTime
-      attribute :modified_at, DateTime, as: :updated_at
+      attribute :updated_at, DateTime
       attribute :public, Boolean
       attribute :dict, PGHStore
       attribute :doc_ids, PGIntArray
@@ -181,7 +183,7 @@ Lotus::Model.configure do
       attribute :tags, String
       attribute :area, String
       attribute :created_at, DateTime
-      attribute :modified_at, DateTime, as: :updated_at
+      attribute :updated_at, DateTime, as: :updated_at
       attribute :content, String, as: :description
       attribute :course_attributes, String
 
@@ -200,7 +202,7 @@ Lotus::Model.configure do
       attribute :content, String,  as: :original_content
       attribute :sequence, Integer
       attribute :created_at, DateTime
-      attribute :modified_at, DateTime, as: :updated_at
+      attribute :updated_at, DateTime
       attribute :summary, String, as: :capsule
       attribute :aside, String, as: :original_aside
       attribute :image_path1, String

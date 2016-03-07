@@ -7,7 +7,7 @@
 # Image#url2
 class Image
   include Lotus::Entity
-  attributes :id, :title, :file_name, :mime_type, :created_at, :modified_at, :owner_id, :public, :doc_ids, :tags, :dict, :url, :identifier, :source
+  attributes :id, :title, :file_name, :mime_type, :created_at, :updated_at, :owner_id, :public, :doc_ids, :tags, :dict, :url, :identifier, :source
 
   ### INTERFACE ###
 

@@ -48,6 +48,8 @@ CREATE TABLE ns_users(
   identifier text,
   email text,
   screen_name text,
+  created_at timestamp with time zone,
+  modified_at timestamp with time zone,
   level integer,
   password text,
   meta jsonb,

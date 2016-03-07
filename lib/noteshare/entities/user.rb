@@ -7,6 +7,7 @@ class User
   # include Noteshare::Dict
 
   attributes :id, :admin, :first_name, :last_name, :identifier, :email, :screen_name,
+             :created_at, :updated_at,
              :level, :password, :meta, :dict2, :password_confirmation, :groups,
              :docs_visited, :nodes_visited
 
