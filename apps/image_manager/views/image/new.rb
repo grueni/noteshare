@@ -14,7 +14,6 @@ module ImageManager::Views::Image
 
         label :file_name
         text_field :file_name
-
         submit 'Create image',  class: "waves-effect waves-light btn"
 
       end

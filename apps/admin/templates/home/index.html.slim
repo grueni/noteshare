@@ -1,37 +1,50 @@
 .row
 
-  .col.s6.m6.l6
+  .col.s9.m9.l9
     h3 Admin Home:
-    .ns_card
+    .tallb.ns_card.scroll-y
 
-      button == link_to 'Users', '/admin/users/'
-      button == link_to 'Documents', '/admin/documents/'
-      button == link_to 'Nodes', '/node/admin/'
-      button == link_to 'Publications', 'admin/publications/'
-      button == link_to 'Import course', 'admin/course/import'
-      br
-      br
-      br
-      button == update_message_link
-      button== link_to 'New user', '/session_manager/new_user'
 
-      button == link_to 'Log in', '/session_manager/login'
-
-      button == link_to 'New node', 'node/new'
+      span.command1 == link_to 'Users', '/admin/users/'
+      span.command2 == link_to 'Documents', '/admin/documents/'
+      span.command3  == link_to 'Nodes', '/node/admin/'
+      span.command4 == link_to 'Publications', 'admin/publications/'
 
       br
       br
       br
-      button == upload_file_link
-      botton == link_to 'Courses', '/admin/courses'
+      span.command1 == update_message_link
+      span.command2 == link_to 'New user', '/session_manager/new_user'
+
+      span.command3 == link_to 'Log in', '/session_manager/login'
+
+      span.command4 == link_to 'New node', 'node/new'
 
       br
       br
-      br == admin_analytics_link(session)
       br
-      br
+      span.command1 == upload_file_link
+      span.command2 == link_to 'Courses', '/admin/courses'
+      span.command3 == link_to 'Import course', 'admin/course/import'
 
-  .col.s6.offset-s6.m6.offset-m6.l6.offset-l6
+      br
+      br
+      br
+      span.command1 == admin_analytics_link(session)
+      br
+      br
+      br
+      == command_input_form
+      br
+      br
+      p.compact Example 1: add_group token:yum111 group:yuuk days_alive:30
+      p.compact Example 2: add_document token:yum111 document:414 days_alive:30
+      p.compact Example 3: add_group_and_document token:yum333 group:yuuk doc_id:636 days_alive:30
+
+  .col.s2.offset-s10.m2.offset-m10.l2.offset-l10
     .ns_card style='margin-top:75px;'
-      p == admin_manual_link_long(session)
+      == admin_manual_link_long(session)
+      br
+      br
+      br
 

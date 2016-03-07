@@ -1,3 +1,4 @@
+post '/process_command', to: 'home#process_command'
 get '/publications', to: 'publications#manage'
 get '/courses', to: 'course#find'
 get '/analytics', to: 'home#show_analytics'

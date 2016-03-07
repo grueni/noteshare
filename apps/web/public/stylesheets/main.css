@@ -774,6 +774,18 @@ p.compact {
 
 }
 
+#command_form {
+
+    position:absolute;
+    left:40px;
+    padding-left: 20px;
+    placeholder: Search for;
+    color: black;
+    background-color: #eee;
+    height: 28px; width:750px;
+
+}
+
 
 .basic_search_form_short {
 
@@ -994,3 +1006,10 @@ label {
 }
 
 .heading_color {  color: darkred  }
+
+
+.command1 {  position: absolute; left: 40px;}
+.command2 {  position: absolute; left: 160px;}
+.command3 {  position: absolute; left: 280px;}
+.command4 {  position: absolute; left: 400px;}
+.command5 {  position: absolute; left: 520px;}

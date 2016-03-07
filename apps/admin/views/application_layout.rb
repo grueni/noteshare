@@ -12,7 +12,7 @@ module Admin
       #####################################################
 
       def update_message_link
-        link_to 'Edit system message', '/admin/update_message'
+        link_to 'Sys message', '/admin/update_message'
       end
 
       def delete_user_link(id)
@@ -24,7 +24,7 @@ module Admin
       end
 
       def upload_file_link
-        link_to 'upload', "/uploader/file"
+        link_to 'Upload', "/uploader/file"
       end
 
       def user_node_link(user)
