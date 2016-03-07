@@ -150,12 +150,11 @@ $(document).ready(function() {
     });
 
     $('.tall').height(
-        /* var top_margin = 30;
-        var bottom_margin = 30; */
-        /* $(window).height() - $('#header').height() - $('#footer').height() */
         $(window).height() - $('.nav').height() - $('.footer').height() - 95
-       /*- top_margin - bottom_margin */
-        /* $(window).height() - 100 */
+    );
+
+    $('.tall500').height(
+        Math.max(500, $(window).height() - $('.nav').height() - $('.footer').height() - 95)
     );
 
 
