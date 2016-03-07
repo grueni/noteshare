@@ -24,12 +24,13 @@ class NodeActivityManager
 
   def configure
     array = @user.nodes_visited || []
-    array = array.reverse
     @object = NodesVisited.new(array, ENV['NODES_VISITED_CAPACITY'])
     @stack = @object.stack
     last_item = @stack.last
-    @last_node_id = last_item.keys[0]
-    @last_node_name = last_item[@last_node_id]
+    if last_item
+      @last_node_id = last_item.keys[0]
+      @last_node_name = last_item.values[0]
+    end
   end
 
 
@@ -37,7 +38,7 @@ class NodeActivityManager
   def list
     configure
     output = "<ul>\n"
-    @stack.each do |item|
+    @stack.reverse.each do |item|
       node_id = item.keys[0]
       data = item[node_id]
       node_name = data[0]
