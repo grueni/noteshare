@@ -1,8 +1,8 @@
 .row
-  .col.s12.m10.l10
+  .col.s12.m12.l12
     .div style='margin-top:40px;margin-left:30px;'
       h5.heading_color == "#{users.count} Users"
-      .ns_card.scroll-y  style='height:400px;width:80%; '
+      .ns_card.scroll-y  style='height:400px;width:95%; '
         table
           tbody
             - users.each do |user|
@@ -11,7 +11,7 @@
                 td= "#{user.first_name} #{user.last_name}"
                 td== user_node_link(user)
                 td= user.email
-                td= user.updated_at
+                td= good_date(user.updated_at)
                 td== delete_user_link(user.id)
                 td= user.node_id
 

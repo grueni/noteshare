@@ -154,4 +154,16 @@ module AdminUtilities
     count
   end
 
+
+  def self.fix_dates
+    UserRepository.all.each do |user|
+      if user.created_at == nil or user.updated_at == nil
+        user.created_at = DateTime.now - 3
+        user.updated_at = DateTime.now - 2
+        UserRepository.update user
+        puts "fixing #{user.full_name}".red
+      end
+    end
+  end
+
 end
