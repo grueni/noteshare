@@ -5,7 +5,7 @@
       /.ns_card.darker.scroll-y style='height:550px;'
       /.ns_card.darker.scroll-y style='height:$(window).height()'
       /.ns_card.darker.scroll-y style='height:$.inset_window_height(20)'
-      .ns_card.darker.tall.scroll-y style='height:500px;'
+      .tall.ns_card.darker.tall.scroll-y style='height:500px;'
         .div style='margin-top:-1.5em;'
         .message == settings.dict['rendered_message']
         br
@@ -16,7 +16,8 @@
     div style='margin-top:20px;'
       /.ns_card style='min-height:500px;'
       /.ns_card style='height:calc(100% - 20px)'
-      .ns_card.scroll-y style='height:500px;'
+      /.ns_card.scroll-y style='height:500px;'
+      .tall.ns_card.scroll-y
         - if current_user(session)
           p.compact == welcome_link(session)
           br
