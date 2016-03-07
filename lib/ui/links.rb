@@ -97,7 +97,7 @@ module UI
       user = current_user(session)
       return '' if user == nil
       active_item == 'home' ? image = '/images/start.png' : image = '/images/start.png'
-      image_link2(prefix: user.node_name, suffix: "node/34", title: 'got to start page', image: image)
+      image_link2(prefix: user.node_name, suffix: "node/34", title: 'go to start page', image: image)
     end
 
     def node_link(node, session)
