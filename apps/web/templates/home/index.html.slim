@@ -2,17 +2,13 @@
 
   .col.s7.m7.l7
     div style='margin-top:20px;'
-      /.ns_card.darker.scroll-y style='height:550px;'
-      /.ns_card.darker.scroll-y style='height:$(window).height()'
-      /.ns_card.darker.scroll-y style='height:$.inset_window_height(20)'
-      .tall.ns_card.darker.tall.scroll-y style='height:500px;'
+      .tall.ns_card.darker.scroll-y
         .div style='margin-top:-1.5em;'
         .message == settings.dict['rendered_message']
         br
         br
 
   .col.s4.offset-s8.m4.offset-m8.l4.offset-l8
-    /h3==  current_domain_name
     div style='margin-top:20px;'
       .tall500.ns_card.scroll-y
         - if current_user(session)
