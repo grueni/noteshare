@@ -3,7 +3,7 @@ div style='margin-left:0.5em'
   br
 
   p.plainlink.lightlink style='color:white; margin-top:0.5em; font-size:11pt'
-    == PublicationsManager.new(document).principal_publisher_link(session)
+    == PublicationsManager.new(document.root_document).principal_publisher_link(session)
 
     - if document.doc_refs
     .toc2 style = 'padding-top:0' == AssociateDocManager.new(document).root_associated_document_map
