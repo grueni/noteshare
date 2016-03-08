@@ -257,8 +257,10 @@ class PublicationsManager
 
     node = NSNodeRepository.find_one_by_name node_name
     record = Publications.find_for_pair(node.id, @document.id)
-    record.type = 'principal'
-    PublicationsRepository.update record
+    if record
+      record.type = 'principal'
+      PublicationsRepository.update record
+    end
 
   end
 
