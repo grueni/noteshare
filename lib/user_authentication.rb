@@ -35,6 +35,8 @@ class UserAuthentication
       puts "At login, user = #{@user.full_name}".red
       @user.dict2['show_overlay'] = 'yes' if  @user.dict2['show_overlay'] == nil
       @user.dict2['show_overlay_this_session'] = 'yes' unless @user.dict2['show_overlay'] == 'no'
+      @user.dict2['search_scope'] = 'all'
+      @user.dict2['search_mode'] = 'document'
       UserRepository.update @user
       return @user
     else
