@@ -19,6 +19,20 @@ class Publications
     end
   end
 
+  def self.clean(option='list')
+    count = 0
+    PublicationsRepository.all.each do |publication|
+      if publication.document == nil
+        count = count + 1
+        puts "publication #{publication.id} has NIL document".red
+        if option == 'fix'
+          PublicationsRepository.delete publication
+        end
+      end
+    end
+    count
+  end
+
   def document
     DocumentRepository.find document_id
   end
