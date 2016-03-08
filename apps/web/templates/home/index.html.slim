@@ -16,9 +16,9 @@
           br
           p.compact == signout_link
         -else
-          p.compact == signin_link
-          br
-          p.compact == signup_link
+          p.compact style='font-size:18pt;' == signin_link
+          p.compact style='font-size:18pt;'== signup_link
+        br
         br
         p.compact.message
           p style='margin-bottom:0' == guide_link_long(session)
