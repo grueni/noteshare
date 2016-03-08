@@ -161,7 +161,8 @@ class NSNode
 
   def make_all_documents_principal
     documents.each do |document|
-      pm = PublicationsManager.new(document)
+      doc = document.root_document
+      pm = PublicationsManager.new(doc)
       pm.set_principal_publisher_to_node(self.name)
     end
   end
