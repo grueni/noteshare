@@ -11,7 +11,7 @@ module Node::Controllers::Public
       @user = current_user(session)
       if @user
         @show_overlay =  (@node.name == 'start') && (@user.dict2['show_overlay'] == 'yes')
-        @show_overlay = @show_overlay &&  (@user.dict2['show_overlay_this_session'] == 'yes') && (@user.id == 9)
+        @show_overlay = @show_overlay &&  (@user.dict2['show_overlay_this_session'] == 'yes') # && (@user.id == 9)
         puts "controller Node, Public, Show, @user = #{@user.full_name}".red
       else
         @show_overlay = false
