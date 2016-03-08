@@ -112,10 +112,18 @@ td.clear_style {
     text-decoration:none;
 }
 
+.redlink a:hover {
+
+    color: orange;
+
+}
+
 .red {
 
     color: #ea3925;
 }
+
+
 
 .no_underline_link a {
 
@@ -1013,3 +1021,16 @@ label {
 .command3 {  position: absolute; left: 280px;}
 .command4 {  position: absolute; left: 400px;}
 .command5 {  position: absolute; left: 520px;}
+
+.overlay {
+
+    position:absolute;
+    left:100px;
+    right:100px;
+    width: 400px;
+    height: 400px;
+    background-color: rgba(10,10,10,0.67);
+    padding: 2em;
+    padding-right: 2em;
+    color: #eee;
+}

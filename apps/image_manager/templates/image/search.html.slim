@@ -1,6 +1,8 @@
-.row.inset
-  .col style='margin-bottom:2em; color:white;width:60%'
+.row style='margin-left:1em; margin-top:1em;'
+
+  .col.s12.m7.l7 style='color:white;'
     .row
+      p.plainlink.redlink == link_to 'UPLOAD IMAGE', '/uploader/image'
       - if images.count == 1
         p 1 image
       - else
@@ -23,12 +25,16 @@
                 td= image.id
                 td= image.tags
 
-  .col style='margin-bottom:2em; color:white;left: 70%; width:40%'
+  .col.hide-on-small-and-down.m4.offset-m8.l4.offset-l8 style='color:white;'
 
     - if current_image
+      p style='font-size: 14pt;' Last image
+      br
+      br
       == image_link current_image.url2,  "/image_manager/show/#{current_image.id}"
+      br
+      br
       p == "ID: #{current_image.id}"
 
-    - if current_user_is_admin?(session)
-      p== link_to 'UPLOAD', '/uploader/image', class:'plainlink lightlink '
+
 

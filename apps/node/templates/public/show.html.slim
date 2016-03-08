@@ -28,4 +28,6 @@
       .tall500.ns_card.hide-on-small-and-down.m2.l2 style='height:400px;'
         .div style='margin-top:-1.5em;' == node.meta['rendered_sidebar_text']
 
-        
+-if show_overlay
+  .overlay
+    == render partial: 'overlay'

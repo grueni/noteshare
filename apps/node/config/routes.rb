@@ -1,3 +1,4 @@
+get '/manage_overlay/:id', to: 'public#manage_overlay'
 get '/set_publisher/:id', to: 'admin#set_publisher'
 post '/update_sidebar/:id', to: 'admin#update_sidebar'
 get '/edit_sidebar/:id', to: 'admin#edit_sidebar'

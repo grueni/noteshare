@@ -10,6 +10,7 @@ module Web::Controllers::Documents
       @active_item = 'reader'
       search_key = params['search']['search']
       cu = current_user(session)
+
       if cu
         search_scope = cu.dict2['search_scope'] || 'all'
         search_mode = cu.dict2['search_mode'] || 'document'

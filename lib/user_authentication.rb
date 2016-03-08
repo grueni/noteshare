@@ -32,6 +32,10 @@ class UserAuthentication
       session[:current_document_id] = @user.dict2['current_document_id']
       session[:current_image_id] = @user.dict2['current_image_id']
       session[:domain] = "#{@user.node_name}#{ENV['DOMAIN']}"
+      puts "At login, user = #{@user.full_name}".red
+      @user.dict2['show_overlay'] = 'yes' if  @user.dict2['show_overlay'] == nil
+      @user.dict2['show_overlay_this_session'] = 'yes' unless @user.dict2['show_overlay'] == 'no'
+      UserRepository.update @user
       return @user
     else
       return nil

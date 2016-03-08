@@ -3,15 +3,18 @@ module Node::Controllers::Public
     include Node::Action
 
     expose :node, :user,:active_item, :layout_option, :blurb_text, :rendered_text
-    expose :sidebar_text, :rendered_sidebar_text, :presenter
+    expose :sidebar_text, :rendered_sidebar_text, :presenter, :show_overlay
 
     def call(params)
       @active_item = 'documents'
       @node = NSNodeRepository.find params[:id]
       @user = current_user(session)
       if @user
+        @show_overlay =  (@node.name == 'start') && (@user.dict2['show_overlay'] == 'yes')
+        @show_overlay = @show_overlay &&  (@user.dict2['show_overlay_this_session'] == 'yes') && (@user.id == 9)
         puts "controller Node, Public, Show, @user = #{@user.full_name}".red
       else
+        @show_overlay = false
         puts "controller Node, Public, Show, @user = NIL".red
       end
 
