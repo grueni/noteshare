@@ -1034,3 +1034,5 @@ label {
     padding-right: 2em;
     color: #eee;
 }
+
+.radio_label { font-size: 12pt; margin-left:1.3em; margin-right:0.2em;  }
