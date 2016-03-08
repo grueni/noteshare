@@ -5,9 +5,6 @@
     div
       .tall500.ns_card.scroll-y style='height:430px;'
         - if current_node
-          - if current_document != nil
-            == link_to current_document.title, "/document/#{current_document.id}"
-
           h4 Documents
           == presenter.documents_as_list(:titlepage)
 

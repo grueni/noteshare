@@ -37,6 +37,7 @@ class UserAuthentication
       @user.dict2['show_overlay_this_session'] = 'yes' unless @user.dict2['show_overlay'] == 'no'
       @user.dict2['search_scope'] = 'all'
       @user.dict2['search_mode'] = 'document'
+      @user.dict2['current_document_id'] = ENV['GETTING_STARTED_ID'] if @user.dict2['current_document_id'] == nil
       UserRepository.update @user
       return @user
     else
