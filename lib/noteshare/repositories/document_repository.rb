@@ -111,13 +111,13 @@ class DocumentRepository
 
     case mode
       when 'document'
-        search_clause = "WHERE (title ILIKE '#{key}%' OR tags ILIKE '%#{key}%')"
+        search_clause = "WHERE (title ILIKE '#{key}%' OR tags ILIKE '#{key}%')"
       when 'section'
-        search_clause = "WHERE (title ILIKE '#{key}%' OR tags ILIKE '%#{key}%')"
+        search_clause = "WHERE (title ILIKE '#{key}%' OR tags ILIKE '#{key}%')"
       when 'text'
         search_clause = "WHERE content ILIKE '#{key}%'"
       else
-        search_clause = "WHERE (title ILIKE '#{key}%' OR tags ILIKE '%#{key}%')"
+        search_clause = "WHERE (title ILIKE '#{key}%' OR tags ILIKE '#{key}%')"
     end
 
     query = "SELECT id FROM documents #{search_clause} #{scope_clause} #{mode_clause} "
