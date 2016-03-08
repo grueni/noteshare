@@ -58,7 +58,11 @@ module SessionManager::Controllers::User
 
       if new_user
         puts "app = SessionManager, controller = Create (User)".red
+
         new_node = NSNode.create_for_user(new_user)
+        new_node.publish_document(id: ENV['GETTING_STARTED_ID'], type: 'reader')
+        NSNodeRepository.update new_node
+        
         new_user.dict2['node'] = new_node.id
         new_user.dict2['root_documents_created'] = 0
         UserRepository.update new_user
