@@ -6,7 +6,7 @@ module Node::Controllers::Admin
       redirect_if_not_admin('node, Admin,  SetPublisher')
       node = NSNodeRepository.find params[:id]
       node.make_all_documents_principal
-      self.body = 'DONE!'
+      self.body = body_message('DONE!')
     end
   end
 end
