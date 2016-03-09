@@ -166,4 +166,16 @@ module AdminUtilities
     end
   end
 
+  def self.generate_notebooks
+    count = 0
+    @content = "This is a place to practice writing. _Go for it!_\n"
+    UserRepository.all.each do |user|
+      count += 1
+      sd = SetupDocument.new(author: user, title: "#{user.screen_name.capitalize}'s Notebook", content: @content)
+      sd.make
+      puts user
+    end
+    count
+  end
+
 end
