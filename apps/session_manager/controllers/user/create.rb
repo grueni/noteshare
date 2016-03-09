@@ -67,6 +67,11 @@ module SessionManager::Controllers::User
         new_user.dict2['root_documents_created'] = 0
         UserRepository.update new_user
 
+        content = "This is a place to practice writing. _Go for it!_\n"
+
+        sd = SetupDocument.new(author: new_user, title: "#{new_user.screen_name.capitalize} Notes", content: content)
+        sd.make
+
         token = params[:user]['token']
         if token != ''
           cp = CommandProcessor.new(user: new_user, token: token)

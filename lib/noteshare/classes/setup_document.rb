@@ -68,7 +68,7 @@ class SetupDocument
       if minutes.length == 1
         minutes = "0#{minutes}"
       end
-      "#{week_day[wday]}, #{date_time.month}/#{date_time.day}/#{date_time.year} at #{hour}:#{minutes}"
+      "#{week_day[wday]}, #{date_time.month}/#{date_time.day}/#{date_time.year}"
     else
       '-'
     end
