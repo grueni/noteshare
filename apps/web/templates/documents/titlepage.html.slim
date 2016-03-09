@@ -8,7 +8,7 @@
 
           == render partial: 'documents/heading', locals: { }
 
-          .toc2 style='margin-top:0.6em;' == TOCPresenter.new(root_document).internal_table_of_contents(['root', 'titlepage', 'sectnums'], { doc_id: root_document.id })
+          .toc2 style='margin-top:0.6em;' == TOCPresenter.new(root_document).internal_table_of_contents(['root', 'titlepage', 'sectnums', 'skip_first_item'], { doc_id: root_document.id })
 
 
 
