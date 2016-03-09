@@ -7,6 +7,7 @@ class NSNodeRepository
     array.map{ |id| NSNodeRepository.find id }.sort_by { |item| item.name }
   end
 
+  # Get rid of this.  It doesn't do what it says
   def self.public
     array = fetch("SELECT id FROM nodes WHERE type = 'public';")
     array = array.map{ |h| h[:id] }.uniq
