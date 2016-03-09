@@ -1,4 +1,4 @@
-get '/update', to: 'image#update'
+post '/update/:id', to: 'image#update'
 get '/show/:id', to: 'image#show'
 get '/search', to: 'image#search'
 get '/list', to: 'image#list'

@@ -5,18 +5,26 @@ module ImageManager::Controllers::Image
 
     def call(params)
       redirect_if_not_signed_in('editor, image,  Update')
+      puts "Controller image, update -- I HAVE BEEN CALLED"
+      puts "In Controller image, update, session = #{session.inspect}".cyan
+      payload = params['edit_image']
+      id = params['id']
+      puts "In Controller image, update, ID = #{id}"
+      session[:current_image_id] = id
+      puts "XXXX: In Controller image, update, session = #{session.inspect}".cyan
       @active_item = 'images'
-      puts "#{session[:current_image_id]}".magenta
-      puts "#{params['source']}".cyan
-      current_image = ImageRepository.find session[:current_image_id]
-      puts "TITLE: #{current_image.title}".red
-
-      current_image.title = params['title']
-      current_image.tags = params['tags']
-      current_image.source = params['source']
+      if session[:current_image_id]
+        puts "#{session[:current_image_id]}".magenta
+      else
+        puts 'session[:current_image_id] = NIL'.magenta
+      end
+      current_image = ImageRepository.find id
+      current_image.title = payload['title']
+      current_image.tags = payload['tags']
+      current_image.source = payload['source']
       ImageRepository.update current_image
 
-      redirect_to "/image_manager/show/#{session[:current_image_id]}"
+      redirect_to "/image_manager/search?current_image_id=#{id}"
     end
   end
 end
