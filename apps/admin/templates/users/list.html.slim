@@ -10,7 +10,7 @@
                 td= user.id
                 td= "#{user.first_name} #{user.last_name}"
                 td== user_node_link(user)
-                td= user.email
+                td== link_to user.email, "mailto:#{user.email}?Subject=Scripta.io"
                 td= good_date(user.updated_at)
                 td== delete_user_link(user.id)
                 td= user.node_id
