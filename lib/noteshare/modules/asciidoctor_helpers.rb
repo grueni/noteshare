@@ -117,6 +117,7 @@ module Noteshare
        # the level of @section.  If it is zero, a heading is appended
        # to @toc_string. Otherwise, the toc_entry as a list item is appended.
        def update_toc_string
+           puts "#{@level}:#{spacing}#[toc_entry".red
            @toc_string << "#{spacing}#{@li} #{toc_entry}" << "</li>\n"
        end
 
