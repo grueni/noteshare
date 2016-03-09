@@ -3,7 +3,7 @@
   p.plainlink.redlink style='position:absolute; right:20px; bottom:0;'== link_to "Don't show this ever again", "/node/manage_overlay/#{node.id}?turn_overlay_off_forever"
 
   h4 style='color:white; margin-top:0;' Getting started
-
+  br
   img src='https://vschool.s3.amazonaws.com/noteshare_images/image%3A%3A85cf3dd742504351ae6e_earth_white.png'/
   | &nbsp; <= Go here to sign out or to find useful links and info.
   br
@@ -22,8 +22,16 @@
   | Note search box at top of page, in menu bar. Use to find documents, nodes.  Type 'art', 'code', or 'math' to test.
   br
   br
-  | Menu bar, right. Click 'Reader' to read current document.  Click 'Editor' to edit it.
-
+  | Menu bar, right. Click 'Reader' to read the current document.  Click 'Editor' to edit it.
+  br
+  br
+  br
+  i You are set up with one practice document
+  == " #{user.screen_name.capitalize}'s Notebook"
+  br
+  br
+  br
+  br
 
   /p.plainlink.redlink == link_to 'ON', "/node/manage_overlay/#{node.id}?turn_overlay_on"
   /p.plainlink.redlink == link_to "Do show this again", "/node/manage_overlay/#{node.id}?turn_overlay_on_forever"

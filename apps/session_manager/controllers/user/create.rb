@@ -69,7 +69,7 @@ module SessionManager::Controllers::User
 
         content = "This is a place to practice writing. _Go for it!_\n"
 
-        sd = SetupDocument.new(author: new_user, title: "#{new_user.screen_name.capitalize} Notes", content: content)
+        sd = SetupDocument.new(author: new_user, title: "#{new_user.screen_name.capitalize}'s Notebook", content: content)
         sd.make
 
         token = params[:user]['token']
