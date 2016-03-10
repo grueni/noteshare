@@ -132,6 +132,9 @@ class AdminCommandProcessor
   # Example: add_document_to_group document:414 group:red
   def add_document_to_group
     return if authorize_user_for_level(2) == false
+    @the_document = DocumentRepository.find @document
+    return if @the_document == nil
+    return if @the_document.author_credentials['id'] != @user.id
     _document = DocumentRepository.find @document
     if @document_modifier == 'read_only'
       _document.acl_set(:group, @group, 'r')
