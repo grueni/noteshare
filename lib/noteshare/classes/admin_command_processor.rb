@@ -26,7 +26,7 @@ class AdminCommandProcessor
   end
 
   def valid?(command)
-    commands = %w(add_group_and_document add_group add_document test use)
+    commands = %w(add_group_and_document add_group add_document add_document_to_group test use)
     if !commands.include?(command)
       @error = 'command not recognized'
       false
@@ -101,9 +101,11 @@ class AdminCommandProcessor
   # Execution of the token adds the use to the group.
   def add_group
     return if authorize_user_for_level(2) == false
-    puts "@command: #{@command}".red
-    cp = CommandProcessor.new(token: @token, user: @user)
-    @error = cp.put(command: @command, args: [@group], days_alive: @days_alive.to_i)
+    token = "#{@user.screen_name}_#{@token}"
+    group = "#{@user.screen_name}_#{@group}"
+    puts "token = #{@user.screen_name}_#{@gtoken}"
+    cp = CommandProcessor.new(token: token, user: @user)
+    @error = cp.put(command: @command, args: [group], days_alive: @days_alive.to_i)
   end
 
   # Example: add_document token:yum111 document:414 days_alive:30
@@ -111,7 +113,8 @@ class AdminCommandProcessor
   def add_document
     return if authorize_user_for_level(2) == false
     puts "@command: #{@command}".red
-    cp = CommandProcessor.new(token: @token, user: @user)
+    token = "#{@user.screen_name}_#{@token}"
+    cp = CommandProcessor.new(token: token, user: @user)
     @error = cp.put(command: @command, args: [@document], days_alive: @days_alive.to_i)
   end
 
@@ -123,7 +126,7 @@ class AdminCommandProcessor
     group = "#{@user.screen_name}_#{@group}"
     token = "#{@user.screen_name}_#{@token}"
     cp = CommandProcessor.new(token: token, user: @user)
-    @error = cp.put(command: @command, args: [group, @doc_id], days_alive: @days_alive.to_i)
+    @error = cp.put(command: @command, args: [group, @document], days_alive: @days_alive.to_i)
   end
 
   # Example: add_document_to_group document:414 group:red
