@@ -4,17 +4,19 @@ module Admin::Controllers::Home
 
     def call(params)
 
-      redirect_if_not_admin('Attempt to change system message (admin, settings, do update messge)')
+      redirect_if_not_signed_in('Attempt to execute a command without being signed in')
+      redirect_if_level_insufficient(2,'Attempt to execute a command by user with insufficient level')
 
       @user = current_user(session)
 
       command = params['command_processor']['command']
       secret_token = params['command_processor']['secret_token']
 
-      if secret_token == ENV['COMMAND_SECRET_TOKEN']
-        authorized = 'YES'
-      else
-        authorized = 'NO'
+      # check that the command originated from
+      # a logged-in user clicking submit on the
+      # approved form.
+      # fixme: I think we neede better authentication here
+      if secret_token != ENV['COMMAND_SECRET_TOKEN']
         halt 401
       end
 

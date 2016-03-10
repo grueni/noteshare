@@ -111,6 +111,19 @@ module SessionTools
     end
   end
 
+
+  def redirect_if_level_insufficient(level, message)
+    cu = current_user(session)
+    if cu == nil
+      Keen.publish(:unauthorized_access_attempt, {user: 'nil', message: message})
+      halt(401)
+    end
+    if cu.level == nil || cu.level < level
+      Keen.publish(:unauthorized_access_attempt, {user: 'nil', message: message})
+      halt(401)
+    end
+  end
+
   def redirect_if_document_not_public(document, message)
     cu = current_user(session)
     world_permission = document.acl_get(:world)
