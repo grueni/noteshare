@@ -12,31 +12,34 @@ class AdminCommandProcessor
     @tokens = @input.split(' ').map{ |token| token.strip }
     @command = @tokens.shift
     @tokens = @tokens.map { |token| token.split(':') }
-    puts "tokens: #{@tokens.inspect}".red
     @response = 'ok'
   end
 
   def execute
-    return @error if valid?(@command) == false
     parse_command
-    self.send(@command)
-    puts "in execute, response = #{@response}".red
+    self.send(@command_signature) if command_valid?
     @response = @error if @error
     @response
   end
 
-  def valid?(command)
-    commands = %w(add_group_and_document add_group add_document add_document_to_group test use)
-    if !commands.include?(command)
+  def command_valid?
+    signatures = ['test']
+    signatures << 'use_token'
+    signatures << 'add_doc_to_group_token_days'
+    signatures << 'add_doc_to_group_token_days'
+    signatures << 'add_group_token_days'
+    signatures << 'add_doc_token_days'
+    signatures << 'add_doc_and_group_token_days'
+    if signatures.include? @command_signature
+      true
+    else
       @error = 'command not recognized'
       false
-    else
-      true
     end
   end
 
+
   def process_token
-    # puts "@token: #{@acp_token.inspect}".cyan
     if @acp_token.count == 2
       name, value = @acp_token
       instance_variable_set("@#{name}", value)
@@ -47,10 +50,12 @@ class AdminCommandProcessor
     else
       @error = 'incorrect number of modifierss'
     end
+    @command_signature = "#{@command_signature}_#{name}"
     @error
   end
 
   def parse_command
+    @command_signature = @command
     @acp_token = 'null'
     while @acp_token do
       @acp_token = @tokens.shift
@@ -75,73 +80,62 @@ class AdminCommandProcessor
   end
 
   # Example: use token:abcd1234
-  def use
+  def use_token
     return if authorize_user_for_level(1) == false
     @response = "ok: using token #{@token}"
     cp = CommandProcessor.new(user: @user, token: @token)
     @response = cp.execute
   end
 
-  # Example: add_group token:yum111 group:yuuk days_alive:30
+  # Example: test
   def test
     return if authorize_user_for_level(1) == false
     @response = "TEST"
   end
 
-  # Example: use token:abcd1234
-  def use
-    return if authorize_user_for_level(1) == false
-    @response = "ok: using token #{@token}"
-    cp = CommandProcessor.new(user: @user, token: @token)
-    @error = cp.execute
-    @response = "executed command for token"
-  end
 
-  # Example: add_group token:yum111 group:yuuk days_alive:30
+  # Example: add group:yuuk token:yum111 days:30
   # Execution of the token adds the use to the group.
-  def add_group
+  def add_group_token_days
     return if authorize_user_for_level(2) == false
     token = "#{@user.screen_name}_#{@token}"
     group = "#{@user.screen_name}_#{@group}"
-    puts "token = #{@user.screen_name}_#{@gtoken}"
     cp = CommandProcessor.new(token: token, user: @user)
-    @error = cp.put(command: @command, args: [group], days_alive: @days_alive.to_i)
+    @error = cp.put(command: @command, args: [group], days_alive: @days.to_i)
   end
 
-  # Example: add_document token:yum111 document:414 days_alive:30
+  # Example: add doc:414 token:yum111 days:30
   # Execution of the tokenadds the document to the user's node
-  def add_document
+  def add_doc_token_days
     return if authorize_user_for_level(2) == false
-    puts "@command: #{@command}".red
     token = "#{@user.screen_name}_#{@token}"
     cp = CommandProcessor.new(token: token, user: @user)
-    @error = cp.put(command: @command, args: [@document], days_alive: @days_alive.to_i)
+    @error = cp.put(command: @command, args: [@doc], days_alive: @days.to_i)
   end
 
 
-      # Example: add_group_and_document token:yum111 group:yuuk doc_id:666 days_alive:30
-  # Exection of the token adds th edocument to the user's node ad adds the group to the user.
-  def add_group_and_document
+  # Example: add doc:123 and_group:foo token:11 days:30
+  # Execution of the token adds the document to the user's node ad adds the group to the user.
+  def add_doc_and_group_token_days
     return if authorize_user_for_level(2) == false
-    group = "#{@user.screen_name}_#{@group}"
+    group = "#{@user.screen_name}_#{@and_group}"
     token = "#{@user.screen_name}_#{@token}"
     cp = CommandProcessor.new(token: token, user: @user)
-    @error = cp.put(command: @command, args: [group, @document], days_alive: @days_alive.to_i)
+    @error = cp.put(command: @command, args: [group, @doc], days_alive: @days.to_i)
   end
 
   # Example: add_document_to_group document:414 group:red
-  def add_document_to_group
+  def add_doc_to_group_token_days
     return if authorize_user_for_level(2) == false
-    @the_document = DocumentRepository.find @document
-    return if @the_document == nil
-    return if @the_document.author_credentials['id'] != @user.id
-    _document = DocumentRepository.find @document
-    if @document_modifier == 'read_only'
-      _document.acl_set(:group, @group, 'r')
+    @document = DocumentRepository.find @doc
+    return if @document == nil
+    return if @document.author_credentials2['id'].to_i != @user.id
+    if @doc_modifier == 'read_only'
+      @document.acl_set(:group, @to_group, 'r')
     else
-      _document.acl_set(:group, @group, 'rw')
+      @document.acl_set(:group, @to_group, 'rw')
     end
-    DocumentRepository.update _document
+    DocumentRepository.update @document
     @response = 'set_acl'
   end
 
