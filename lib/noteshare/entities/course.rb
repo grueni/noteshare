@@ -86,7 +86,7 @@ class Course
     doc.tags = self.tags
     doc.area = self.area
     doc.created_at = self.created_at
-    doc.modified_at =  self.modified_at
+    doc.updated_at =  self.updated_at
     doc.content = self.content
     DocumentRepository.update(doc)
 
