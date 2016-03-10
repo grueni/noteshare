@@ -13,7 +13,7 @@ class AdminCommandProcessor
     @command = @tokens.shift
     @tokens = @tokens.map { |token| token.split(':') }
     puts "tokens: #{@tokens.inspect}".red
-    @response = '-'
+    @response = 'ok'
   end
 
   def execute
@@ -78,7 +78,7 @@ class AdminCommandProcessor
     return if authorize_user_for_level(2) == false
     puts "@command: #{@command}".red
     cp = CommandProcessor.new(token: @token, user: @user)
-    cp.put(command: @command, args: [@group], days_alive: @days_alive.to_i)
+    @error = cp.put(command: @command, args: [@group], days_alive: @days_alive.to_i)
   end
 
   # Example: add_document token:yum111 document:414 days_alive:30
@@ -86,7 +86,7 @@ class AdminCommandProcessor
     return if authorize_user_for_level(2) == false
     puts "@command: #{@command}".red
     cp = CommandProcessor.new(token: @token, user: @user)
-    cp.put(command: @command, args: [@document], days_alive: @days_alive.to_i)
+    @error = cp.put(command: @command, args: [@document], days_alive: @days_alive.to_i)
   end
 
   # Example: add_group_and_document token:yum111 group:yuuk doc_id:666 days_alive:30
@@ -94,7 +94,7 @@ class AdminCommandProcessor
     return if authorize_user_for_level(2) == false
     puts "@command: #{@command}".red
     cp = CommandProcessor.new(token: @token, user: @user)
-    cp.put(command: @command, args: [@group, @doc_id], days_alive: @days_alive.to_i)
+    @error = cp.put(command: @command, args: [@group, @doc_id], days_alive: @days_alive.to_i)
   end
 
 end
