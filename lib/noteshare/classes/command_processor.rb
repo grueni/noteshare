@@ -23,6 +23,11 @@ class CommandProcessor
 
   def get
     @command_object = CommandRepository.with_token(@token_presented)
+    if @command_object == nil
+      @error = 'command not found for token proffered'
+      puts @error.red
+      return @error
+    end
     @command_verb = @command_object.command_verb
     @args = @command_object.args
     puts "get, command_verb: #{@command_verb}"
@@ -38,9 +43,14 @@ class CommandProcessor
 
   def execute
     get
-    puts "in execute, expires_at #{@command_object.expires_at}".yellow
-    puts (DateTime.now > @command_object.expires_at).to_s.red
-    execute_command unless DateTime.now > @command_object.expires_at
+    return @error if @error
+    if DateTime.now > @command_object.expires_at
+      @error = 'token has expired'
+      puts @error.red
+      return @error
+    end
+    execute_command
+    return 'ok'
   end
 
   def execute_command

@@ -5,7 +5,7 @@ module Admin::Controllers::Home
     def call(params)
 
       redirect_if_not_signed_in('Attempt to execute a command without being signed in')
-      redirect_if_level_insufficient(2,'Attempt to execute a command by user with insufficient level')
+      redirect_if_level_insufficient(1,'Attempt to execute a command by user with insufficient level')
 
       @user = current_user(session)
 

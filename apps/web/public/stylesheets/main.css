@@ -798,9 +798,11 @@ p.compact {
 #command_form_node {
 
     position:absolute;
-    left:40px;
+    left:30px;
+    bottom: -10px;
+    z-index:10;
     padding-left: 20px;
-    placeholder: Search for;
+    placeholder: 'command ...';
     color: white;
     background-color: #444;
     height: 28px; width:450px;

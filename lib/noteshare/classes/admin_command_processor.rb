@@ -17,7 +17,7 @@ class AdminCommandProcessor
   end
 
   def execute
-    valid?(@command)
+    return @error if valid?(@command) == false
     parse_command
     self.send(@command)
     puts "in execute, response = #{@response}".red
@@ -26,9 +26,12 @@ class AdminCommandProcessor
   end
 
   def valid?(command)
-    commands = %w(add_group_and_document add_group add_document test)
+    commands = %w(add_group_and_document add_group add_document test use)
     if !commands.include?(command)
       @error = 'command not recognized'
+      false
+    else
+      true
     end
   end
 
@@ -48,8 +51,8 @@ class AdminCommandProcessor
   end
 
   def authorize_user_for_level(level)
-    if user.level == nil or user.level < level
-      @error = 'user does not have sufficient privileges'
+    if @user.level == nil or @user.level < level
+      @error = 'insufficient privileges'
       return false
     else
       return true
@@ -57,9 +60,17 @@ class AdminCommandProcessor
   end
 
   # Example: add_group token:yum111 group:yuuk days_alive:30
-  def tests
+  def test
     return if authorize_user_for_level(1) == false
     @response = "TEST"
+  end
+
+  # Example: use token:abcd1234
+  def use
+    return if authorize_user_for_level(1) == false
+    @response = "ok: using token #{@token}"
+    cp = CommandProcessor.new(user: @user, token: @token)
+    @response = cp.execute
   end
 
   # Example: add_group token:yum111 group:yuuk days_alive:30
