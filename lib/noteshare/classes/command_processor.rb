@@ -6,28 +6,46 @@ class CommandProcessor
     @token_presented = hash[:token]
   end
 
+  def handle_error
+    if @error == nil
+      return 'ok'
+    else
+      return @error
+    end
+  end
+
 
   # hash = { 'command_verb' => the_command_verb, 'args' => the_args, 'days_alive' => N}
   def put(hash)
-    puts "hash: #{hash.to_s}".red
+    command2 = CommandRepository.with_token(@token_presented)
+    if command2
+      @error = 'token already exists'
+      puts @error.red
+      return @error
+    end
+
     days_alive = hash[:days_alive].to_i
-    c = Command.new(token: @token_presented,
+    command = Command.new(token: @token_presented,
                     command_verb: hash[:command], args: hash[:args], days_alive: days_alive)
-    c.created_at = DateTime.now
-    puts "days_alive; #{days_alive}"
-    c.expires_at = c.created_at + days_alive
-    puts "expires_at; #{c.expires_at}".red
-    CommandRepository.create c
-    c
+    command.created_at = DateTime.now
+    command.expires_at = command.created_at + days_alive
+
+    CommandRepository.create command
+    handle_error
   end
 
   def get
     @command_object = CommandRepository.with_token(@token_presented)
+    if @command_object == nil
+      @error = 'command not found for token proffered'
+      puts @error.red
+      return @error
+    end
     @command_verb = @command_object.command_verb
     @args = @command_object.args
     puts "get, command_verb: #{@command_verb}"
     puts "get, args: #{@args}"
-    @command_object
+    return 'ok'
   end
 
   def add_to_expires_at(n)
@@ -38,12 +56,19 @@ class CommandProcessor
 
   def execute
     get
-    puts "in execute, expires_at #{@command_object.expires_at}".yellow
-    puts (DateTime.now > @command_object.expires_at).to_s.red
-    execute_command unless DateTime.now > @command_object.expires_at
+    return @error if @error
+    if DateTime.now > @command_object.expires_at
+      @error = 'token has expired'
+      puts @error.red
+      return @error
+    end
+    return @error if @error
+    execute_command
+    handle_error
   end
 
   def execute_command
+
     puts "execute_command".red
     puts "args #{@args}".cyan
     case @command_verb

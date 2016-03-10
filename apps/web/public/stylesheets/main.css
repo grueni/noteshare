@@ -787,10 +787,25 @@ p.compact {
     position:absolute;
     left:40px;
     padding-left: 20px;
-    placeholder: Search for;
+    placeholder: 'Search for';
     color: black;
     background-color: #eee;
     height: 28px; width:750px;
+
+}
+
+
+#command_form_node {
+
+    position:absolute;
+    left:30px;
+    bottom: -10px;
+    z-index:10;
+    padding-left: 20px;
+    placeholder: 'command ...';
+    color: white;
+    background-color: #444;
+    height: 28px; width:45%;
 
 }
 

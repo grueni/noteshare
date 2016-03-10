@@ -59,13 +59,12 @@ html
               == admin_link(session, active_item)
 
 
-
-
-
     .main_row
       == yield
 
     .footer
+      .footer_item_left
+        /== command_input_form
       .footer_item_center
         span.plainlink.lightlink
           a href="mailto:jxxcarlson@gmail.com?Subject=Scripta" Contact Scripta
