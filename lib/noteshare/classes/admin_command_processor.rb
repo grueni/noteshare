@@ -26,7 +26,7 @@ class AdminCommandProcessor
     signatures = ['test']
     signatures << 'use_token'
     signatures << 'add_doc_to_group_token_days'
-    signatures << 'add_doc_to_group_token_days'
+    signatures << 'add_doc_to_group'
     signatures << 'add_group_token_days'
     signatures << 'add_doc_token_days'
     signatures << 'add_doc_and_group_token_days'
@@ -125,15 +125,16 @@ class AdminCommandProcessor
   end
 
   # Example: add_document_to_group document:414 group:red
-  def add_doc_to_group_token_days
+  def add_doc_to_group
     return if authorize_user_for_level(2) == false
     @document = DocumentRepository.find @doc
     return if @document == nil
     return if @document.author_credentials2['id'].to_i != @user.id
+    group = "#{@user.screen_name}_#{@to_group}"
     if @doc_modifier == 'read_only'
-      @document.acl_set(:group, @to_group, 'r')
+      @document.acl_set(:group, group, 'r')
     else
-      @document.acl_set(:group, @to_group, 'rw')
+      @document.acl_set(:group, group, 'rw')
     end
     DocumentRepository.update @document
     @response = 'set_acl'
