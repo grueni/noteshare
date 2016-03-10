@@ -7,11 +7,7 @@ class CommandProcessor
   end
 
   def handle_error
-    if @error == nil
-      return 'ok'
-    else
-      return @error
-    end
+    @error
   end
 
 
@@ -45,7 +41,7 @@ class CommandProcessor
     @args = @command_object.args
     puts "get, command_verb: #{@command_verb}"
     puts "get, args: #{@args}"
-    return 'ok'
+    @error
   end
 
   def add_to_expires_at(n)
@@ -69,21 +65,27 @@ class CommandProcessor
 
   def execute_command
 
-    puts "execute_command".red
-    puts "args #{@args}".cyan
     case @command_verb
       when 'add_group'
         ugm = UserGroupManager.new(@user)
-        ugm.add(@args[0])
+        group = @args[0]
+        ugm.add(group)
       when 'add_document'
-        @user.node.append_doc(@args[0])
-      when 'add_group_and_document'
+        @user.node.append_doc(@args[0], 'standard')
+      when 'add_document_to_group'
         ugm = UserGroupManager.new(@user)
-        ugm.add(@args[0])
-        @user.node.append_doc(@args[1], 'standard')
+        group = @args[0]
+        ugm.add(group)
+      when 'add_group_and_document'
+        doc_id = @args[0]
+        group = @args[1]
+        @document = DocumentRepository.find doc_id
+        @document.acl_set(:group, group, 'rw')
+        DocumentRepository.update @document
       else
-        puts 'unrecognized command'
+        @error = 'unrecognized command'
     end
+    @error
   end
 
 
