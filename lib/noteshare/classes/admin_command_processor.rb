@@ -12,22 +12,21 @@ class AdminCommandProcessor
     @tokens = @input.split(' ').map{ |token| token.strip }
     @command = @tokens.shift
     @tokens = @tokens.map { |token| token.split(':') }
-    @response = 'foo'
+    puts "tokens: #{@tokens.inspect}".red
+    @response = 'ok'
   end
 
   def execute
     return @error if valid?(@command) == false
     parse_command
     self.send(@command)
-    if @error
-      @error
-    else
-      @response
-    end
+    puts "in execute, response = #{@response}".red
+    @response = @error if @error
+    @response
   end
 
   def valid?(command)
-    commands = %w(add_group_and_document add_group add_document add_document_to_group test use)
+    commands = %w(add_group_and_document add_group add_document test use)
     if !commands.include?(command)
       @error = 'command not recognized'
       false
@@ -68,6 +67,21 @@ class AdminCommandProcessor
     end
   end
 
+
+  # Example: add_group token:yum111 group:yuuk days_alive:30
+  def test
+    return if authorize_user_for_level(1) == false
+    @response = "TEST"
+  end
+
+  # Example: use token:abcd1234
+  def use
+    return if authorize_user_for_level(1) == false
+    @response = "ok: using token #{@token}"
+    cp = CommandProcessor.new(user: @user, token: @token)
+    @response = cp.execute
+  end
+
   # Example: add_group token:yum111 group:yuuk days_alive:30
   def test
     return if authorize_user_for_level(1) == false
@@ -87,21 +101,18 @@ class AdminCommandProcessor
   # Execution of the token adds the use to the group.
   def add_group
     return if authorize_user_for_level(2) == false
-    group = "#{@user.screen_name}_#{@group}"
-    token = "#{@user.screen_name}_#{@token}"
-    cp = CommandProcessor.new(token: token, user: @user)
-    @error = cp.put(command: @command, args: [group], days_alive: @days_alive.to_i)
-    @response = "token: #{token}"
+    puts "@command: #{@command}".red
+    cp = CommandProcessor.new(token: @token, user: @user)
+    @error = cp.put(command: @command, args: [@group], days_alive: @days_alive.to_i)
   end
 
   # Example: add_document token:yum111 document:414 days_alive:30
   # Execution of the tokenadds the document to the user's node
   def add_document
     return if authorize_user_for_level(2) == false
-    token = "#{@user.screen_name}_#{@token}"
-    cp = CommandProcessor.new(token: token, user: @user)
+    puts "@command: #{@command}".red
+    cp = CommandProcessor.new(token: @token, user: @user)
     @error = cp.put(command: @command, args: [@document], days_alive: @days_alive.to_i)
-    @reponse = 'Add document with tokn'
   end
 
 
@@ -127,5 +138,6 @@ class AdminCommandProcessor
     DocumentRepository.update _document
     @response = 'set_acl'
   end
+
 
 end

@@ -7,7 +7,15 @@ class CommandProcessor
   end
 
   def handle_error
+<<<<<<< HEAD
     @error
+=======
+    if @error == nil
+      return 'ok'
+    else
+      return @error
+    end
+>>>>>>> command
   end
 
 
@@ -41,7 +49,11 @@ class CommandProcessor
     @args = @command_object.args
     puts "get, command_verb: #{@command_verb}"
     puts "get, args: #{@args}"
+<<<<<<< HEAD
     @error
+=======
+    return 'ok'
+>>>>>>> command
   end
 
   def add_to_expires_at(n)
@@ -64,6 +76,9 @@ class CommandProcessor
   end
 
   def execute_command
+
+    puts "execute_command".red
+    puts "args #{@args}".cyan
 
     case @command_verb
       when 'add_group'
