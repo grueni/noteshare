@@ -1084,5 +1084,11 @@ label {
     color: white;
 }
 
+.close_popup_button {
+
+    background-color: #eee;
+    color: black;
+    float: right;
+}
 
 .radio_label { font-size: 13pt; margin-left:1.3em; margin-right:0.2em;  }

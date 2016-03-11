@@ -151,6 +151,7 @@ $(document).ready(function() {
 
     $('.popup').hide();
     $('.popup_show').click(function() {
+        $('.popup2').hide();
         $('.popup').show();
     });
     $('.popup_hide').click(function() {
@@ -160,6 +161,7 @@ $(document).ready(function() {
     $('.popup2').hide();
     $('.popup2_show').click(function() {
         console.log('CLICKED SHOW')
+        $('.popup').hide();
         $('.popup2').show();
     });
     $('.popup2_hide').click(function() {

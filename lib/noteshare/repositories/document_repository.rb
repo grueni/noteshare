@@ -2,7 +2,7 @@ require 'sequel'
 require 'sequel/extensions/pg_array'
 require 'sequel/extensions/pg_hstore'
 
-
+# DocumentRepository.all.select{ |doc| doc.acl['world'] == 'r' }.count
 
 # DocumentRespository provides services for
 # persistence and search to NSDocument
