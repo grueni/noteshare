@@ -149,6 +149,25 @@ $(document).ready(function() {
         return $(this).find('.content').slideToggle('200');
     });
 
+    $('.popup').hide();
+    $('.popup_show').click(function() {
+        $('.popup').show();
+    });
+    $('.popup_hide').click(function() {
+        $('.popup').hide();
+    });
+
+    $('.popup2').hide();
+    $('.popup2_show').click(function() {
+        console.log('CLICKED SHOW')
+        $('.popup2').show();
+    });
+    $('.popup2_hide').click(function() {
+        console.log('CLICKED HIDE');
+        $('.popup2').hide();
+    });
+
+
     $('.tall').height(
         $(window).height() - $('.nav').height() - $('.footer').height() - 95
     );

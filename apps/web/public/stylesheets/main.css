@@ -991,6 +991,8 @@ label {
 }
 
 
+
+
 .top_ribbon_button {
 
     margin-right:2em;
@@ -1049,5 +1051,38 @@ label {
     padding-right: 2em;
     color: #eee;
 }
+
+.popup {
+
+    position:absolute;
+    left:100px;
+    right:100px;
+    width: 400px;
+    height: 400px;
+    background-color: rgba(10,10,10,0.67);
+    padding: 2em;
+    padding-right: 2em;
+    color: #eee;
+}
+
+.popup2 {
+
+    position:absolute;
+    left:100px;
+    right:100px;
+    width: 400px;
+    height: 400px;
+    background-color: rgba(10,10,10,0.67);
+    padding: 2em;
+    padding-right: 2em;
+    color: #eee;
+}
+
+.popup_button {
+
+    background-color: rgba(10,10,10,0.0);
+    color: white;
+}
+
 
 .radio_label { font-size: 13pt; margin-left:1.3em; margin-right:0.2em;  }

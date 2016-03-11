@@ -16,7 +16,7 @@
     | &nbsp;&nbsp;
     - if current_image
       /== image_link current_image.url2,  "/image_manager/show/#{current_image.id}"
-      button#image_id_control.blue style='color:white' == current_image.id
+      button#image_id_control.blue style='color:white' == "insert #{current_image.id}"
 
     | &nbsp;&nbsp; &nbsp;&nbsp; &nbsp;&nbsp; &nbsp;&nbsp
     | &nbsp;&nbsp; &nbsp;&nbsp &nbsp;&nbsp; &nbsp;&nbsp
@@ -27,3 +27,5 @@
     == publish_section_link(document)
     | &nbsp; &nbsp;
     == share_document_link(document)
+
+    | &nbsp; &nbsp; &nbsp; &nbsp;
