@@ -18,7 +18,7 @@ class ImageRepository
     find_by_title(title).first
   end
 
-  def self.basic_search(key, limit: 8)
+  def self.basic_search(key, limit: 16)
     fetch("SELECT id FROM ns_images WHERE title ILIKE '%#{key}%' OR tags ILIKE '%#{key}%';")
   end
   
@@ -33,13 +33,10 @@ class ImageRepository
 
   def self.search3(key, limit: 8)
     if key == nil
-      puts "1".magenta
       @images = ImageRepository.all.random_sublist(16)
     elsif key == ''
-      puts "2".magenta
       @images = ImageRepository.all.random_sublist(16)
     else
-      puts "3".magenta
       @images = self.search(key, limit: 8)
     end
   end
