@@ -59,7 +59,8 @@ module UI
       return '' if session == nil
       cu = current_user(session)
       return '' if cu == nil
-      _id = cu.dict2['current_document_id']
+      # _id = cu.dict2['current_document_id']
+      _id = session['current_document_id']
       return '' if _id == nil
       document = DocumentRepository.find _id
       return '' if document == nil
