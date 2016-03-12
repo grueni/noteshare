@@ -1,7 +1,7 @@
 .row.inset
   .col
     .ns_card
-      form[action='do_image_upload' name='upload' enctype='multipart/form-data' method='post']
+      form[action="do_image_upload" name='upload' enctype='multipart/form-data' method='post']
         p Title:
         input[type='text' name='title' size=30]
         br
@@ -11,6 +11,7 @@
         br
         input[type="file" name="datafile" size="40" class='green' style='color:white' ]
         input[type="hidden" name="option" value=option]
+        input[type="hidden" name="originating_document_id" value=document_id]
         br
         br
         input[type="submit" value="Send" class='green' style='color:white']

@@ -15,7 +15,7 @@ script src="/javascripts/editor.js" type="text/javascript"
 
 
 .row style='top:40px;left:0; height:45px;width:100%; background-color: #333; color: red;margin-top:-20px;'
-  .col== render partial: 'document/tool_bar', locals: { }
+  .col== render partial: 'document/tool_bar', locals: { :document => document }
   .col.s7.offset-s7.m7.offset-m7.l7.offset-l7 style='margin-top:8px; float: right;'== render partial: 'document/right_tool_bar', locals: { }
 
 

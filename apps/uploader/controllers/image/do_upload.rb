@@ -21,16 +21,12 @@ module Uploader::Controllers::Image
       @filename = params['datafile']['filename']
       @tempfile = params['datafile']['tempfile'].inspect.match(/Tempfile:(.*)>/)[1]
       @option = params['option']
+      @originating_document_id = params['originating_document_id']
 
-      # PROBLEM IS HERE -- current_document_id CHANGES
-      puts "WARNING:".magenta
-      puts "In image upload, option = #{@option}, current_document_id = #{session['current_document_id']}".red
-      puts "----------------------------".magenta
+      puts "originating_document_id = #{@originating_document_id}".red
 
       _identifier = Identifier.new('image').string
       @filename =  "#{_identifier}_#{@filename}"
-
-
       @url = Noteshare::AWS.upload(@filename, @tempfile, 'noteshare_images' )
 
       if @url
@@ -46,9 +42,9 @@ module Uploader::Controllers::Image
         @message = "Image upload failed"
       end
 
-      if @option == 'editor' && session['current_document_id']
-        puts "UPLOADER IS REDIRECTING TO EDITOR WITH CURRENT DOCUMENT ID = #{session['current_document_id']}".magenta
-        redirect_to "/editor/document/#{session['current_document_id']}"
+      if @option =~ /editor:.*/
+        puts "UPLOADER IS REDIRECTING TO EDITOR WITH CURRENT DOCUMENT ID = #{@originating_document_id}".magenta
+        redirect_to "/editor/document/#{@originating_document_id}"
       end
     end
 

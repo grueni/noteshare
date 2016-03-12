@@ -12,7 +12,7 @@
     | &nbsp;&nbsp; &nbsp;&nbsp; &nbsp;&nbsp; &nbsp;&nbsp
     | &nbsp;&nbsp; &nbsp;&nbsp &nbsp;&nbsp; &nbsp;&nbsp
 
-    == upload_image_link('editor')
+    == upload_image_link("editor:#{document.id}")
     | &nbsp;&nbsp;
     - if current_image
       /== image_link current_image.url2,  "/image_manager/show/#{current_image.id}"
