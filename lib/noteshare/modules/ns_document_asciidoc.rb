@@ -46,11 +46,14 @@ module NSDocument::Asciidoc
   # Make document.title agree with what
   # is said in the text.
   def synchronize_title
-    return if self.is_root_document?
+    puts "1. synchronize_title".magenta
+    # return if self.is_root_document?
+    puts "2. synchronize_title".magenta
     old_title = self.title || ''
     new_title = title_from_content || ''
     old_title = 'No Title' if old_title == ''
     new_title = 'NO TITLE' if new_title == ''
+    puts "new_title = #{new_title}".magenta
     if new_title and (old_title != new_title)
       self.title = new_title
       if parent_document

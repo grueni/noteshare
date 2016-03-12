@@ -2,13 +2,14 @@ module Editor::Controllers::Document
   class Edit
     include Editor::Action
 
-    expose :document, :updated_text, :current_image,:active_item, :editors
+    expose :document, :root_document, :updated_text, :current_image,:active_item, :editors
 
     def call(params)
       redirect_if_not_signed_in('editor, document, Edit')
       user = current_user(session)
       id = params['id']
       @document = DocumentRepository.find(id)
+      @root_document = @document.root_document
 
       # Do not edit document root in the regular editor
       if @document.is_root_document?

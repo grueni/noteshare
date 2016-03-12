@@ -1,3 +1,5 @@
+post '/update_header/:id', to: 'document#update_header'
+get '/edit_header/:id', to: 'document#edit_header'
 get '/export_latex/:id', to: 'document#export_latex'
 get '/status/:id', to: 'document#editor_status'
 post '/status/:id', to: 'document#editor_status'
