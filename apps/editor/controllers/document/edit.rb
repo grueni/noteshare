@@ -8,6 +8,8 @@ module Editor::Controllers::Document
       redirect_if_not_signed_in('editor, document, Edit')
       user = current_user(session)
       id = params['id']
+      user.dict2['current_document_id'] = id
+      UserRepository.update user
       session['current_document_id'] = id
       puts "EDITOR IS RECORDING CURRENT DOCUMENT ID AS #{id}".magenta
 
