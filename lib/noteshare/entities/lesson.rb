@@ -23,7 +23,7 @@ class Lesson
     doc.tags = self.tags
     doc.area = self.area
     doc.created_at = self.created_at
-    doc.modified_at =  self.modified_at
+    doc.updated_at =  self.updated_at
     doc.content = self.content
     doc.acl_set_permissions!('rw', 'r', '-')
 
