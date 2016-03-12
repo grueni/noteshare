@@ -55,12 +55,19 @@ module UI
     #
     #####################################################
 
+    def get_current_document_id(session, label='')
+      _id = session['current_document_id']
+      puts "#{label} current_document_id = #{_id}".green
+      _id
+    end
+
     def editor_link(session, active_item='')
       return '' if session == nil
       cu = current_user(session)
       return '' if cu == nil
       # _id = cu.dict2['current_document_id']
-      _id = session['current_document_id']
+      # _id = session['current_document_id']
+      _id = get_current_document_id(session, 'editor_link:')
       return '' if _id == nil
       document = DocumentRepository.find _id
       return '' if document == nil
@@ -171,7 +178,8 @@ module UI
       return '' if session == nil
       # cu = current_user(session)
       # return '' if cu == nil
-      _id = session['current_document_id']
+      # _id = session['current_document_id']
+      _id = get_current_document_id(session, 'reader_link:')
       return '' if _id == nil
       if active_item == 'reader'
         return link_to 'Reader', '#', class: 'active_item'
