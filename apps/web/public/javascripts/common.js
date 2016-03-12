@@ -152,7 +152,7 @@ $(document).ready(function() {
     $('.popup').hide();
     $('.popup_show').click(function() {
         $('.popup2').hide();
-        $('.popup').show();
+        $('.popup').toggle();
     });
     $('.popup_hide').click(function() {
         $('.popup').hide();
@@ -160,12 +160,10 @@ $(document).ready(function() {
 
     $('.popup2').hide();
     $('.popup2_show').click(function() {
-        console.log('CLICKED SHOW')
         $('.popup').hide();
-        $('.popup2').show();
+        $('.popup2').toggle();
     });
     $('.popup2_hide').click(function() {
-        console.log('CLICKED HIDE');
         $('.popup2').hide();
     });
 
