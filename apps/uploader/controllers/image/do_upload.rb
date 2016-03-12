@@ -43,8 +43,9 @@ module Uploader::Controllers::Image
       end
 
       if @option =~ /editor:.*/
-        puts "UPLOADER IS REDIRECTING TO EDITOR WITH CURRENT DOCUMENT ID = #{@originating_document_id}".magenta
         redirect_to "/editor/document/#{@originating_document_id}"
+      else
+        redirect_to "/image_manager/search?search=#{@image.title}"
       end
     end
 
