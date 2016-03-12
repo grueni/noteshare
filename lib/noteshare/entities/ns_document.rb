@@ -399,8 +399,15 @@ class NSDocument
     # Fixme: bad code in next line
     # Think about who can modify toc
     toc_item = toc[k]
-    doc_id = toc_item[:id] || toc_item['id']
-    DocumentRepository.find(doc_id) if doc_id
+    if toc_item
+      doc_id = toc_item[:id] || toc_item['id']
+      DocumentRepository.find(doc_id) if doc_id
+    end
+  end
+
+
+  def first_section
+    subdocument(0)
   end
 
 
