@@ -9,7 +9,7 @@ class User
   attributes :id, :admin, :first_name, :last_name, :identifier, :email, :screen_name,
              :created_at, :updated_at,
              :level, :password, :meta, :dict2, :password_confirmation, :groups,
-             :docs_visited, :nodes_visited
+             :docs_visited, :nodes_visited, :images_visited
 
   # http://hawkins.io/2012/07/rack_from_the_beginning/
   # https://blog.engineyard.com/2015/understanding-rack-apps-and-middleware

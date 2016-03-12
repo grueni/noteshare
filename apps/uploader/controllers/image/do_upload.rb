@@ -42,6 +42,8 @@ module Uploader::Controllers::Image
         @message = "Image upload failed"
       end
 
+      ImageActivityManager.new(image: @image, user: current_user(session)).record
+
       if @option =~ /editor:.*/
         redirect_to "/editor/document/#{@originating_document_id}"
       else

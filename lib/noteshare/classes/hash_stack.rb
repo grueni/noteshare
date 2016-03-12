@@ -83,3 +83,19 @@ class NodesVisited < HashStack
 
 end
 
+# NodesVisited manages a stack
+# of entries of the form
+# {node_id => [name]}
+class ImagesVisited < HashStack
+
+  def itemize(image)
+    { image.id.to_s => [ image.title ]}
+  end
+
+  def push_image(image)
+    item = itemize(image)
+    self.push(item)
+  end
+
+
+end

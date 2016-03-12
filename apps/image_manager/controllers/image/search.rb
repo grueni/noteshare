@@ -9,6 +9,7 @@ module ImageManager::Controllers::Image
 
       query_string = request.query_string
       puts "SEARCH, query_string = #{query_string}".red
+
       if query_string and query_string =~ /current_image_id/
         puts 'AAAA'.cyan
         tag, @current_image_id = query_string.split('=')

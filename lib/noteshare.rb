@@ -117,6 +117,7 @@ Lotus::Model.configure do
       attribute :groups, PGStringArray
       attribute :docs_visited, JSON
       attribute :nodes_visited, JSON
+      attribute :images_visited, JSON
     end
 
 
