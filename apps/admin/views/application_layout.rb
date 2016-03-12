@@ -5,8 +5,6 @@ module Admin
       require_relative '../../../lib/ui/links'
       include UI::Links
 
-
-
       #####################################################
       #
       #   4. ADMIN LINKS
