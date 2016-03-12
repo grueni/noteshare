@@ -36,6 +36,12 @@ module Editor::Controllers::Document
       @editors = "Editors: #{es.editor_array_string_value}"
       es.add_editor(user)
 
+      if ['compiled', 'titlepage'].include? user.dict2['reader_view']
+        user.dict2['reader_view'] = 'sidebar'
+        UserRepository.update user
+      end
+
+
     end
 
   end
