@@ -7,7 +7,7 @@ module Editor::Controllers::Document
       id = params[:id]
       document = (DocumentRepository.find id).root_document
       document_header = params['document_header']['header_content']
-      document_header = "#{document_header.trim}\n\n"
+      document_header = "#{document_header.strip}\n\n"
       puts "id = #{id}, document_header = #{document_header}".green
 
       document.content_dirty = true
