@@ -55,8 +55,14 @@ module UI
     #
     #####################################################
 
-    def get_current_document_id(session, label='')
+    def get_current_document_id1(session, label='')
       _id = session['current_document_id']
+      puts "#{label} current_document_id = #{_id}".green
+      _id
+    end
+
+    def get_current_document_id(session, label='')
+      _id = current_user(session).dict2['current_document_id']
       puts "#{label} current_document_id = #{_id}".green
       _id
     end

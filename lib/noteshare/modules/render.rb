@@ -70,6 +70,7 @@ class Render
 
   def convert
     prepare_adoc
+    puts "Asciidoctor.convert @o ptions = #{@options}".green
     Asciidoctor.convert(@source, @options)
   end
 
