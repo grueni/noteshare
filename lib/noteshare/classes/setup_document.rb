@@ -11,8 +11,8 @@ class SetupDocument
 
     # set up document
     @document = NSDocument.create(title: @title, author_credentials: @author.credentials)
-    @document.content = "= #{@title}\n// Document header\n// Material before first section\n\n"
-    @document.content << "This document was created on #{good_date(DateTime.now)}\n"
+    @document.content = "= #{@title}\n\n\n"
+    # @document.content << "This document was created on #{good_date(DateTime.now)}\n"
     @document.author = @author.full_name
 
     #Fixme: the following is to be deleted when author_id is retired
