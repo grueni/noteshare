@@ -8,9 +8,10 @@
 
       .toc2 style='margin-top:0.75em' ==  TOCPresenter.new(root_document).internal_table_of_contents(['root', 'titlepage', 'sectnums', 'skip_first_item'], { doc_id: root_document.id })
 
-    .col.s12.m9.offset-m3.l9.offset-l3.scroll-y style = 'background-color: #fff; padding-bottom:6em;padding-top:2em;'
+    .col.s12.m9.offset-m3.l9.offset-l3.readable_width.scroll-y style = 'background-color: #fff; padding-bottom:6em;padding-top:2em;'
       h5== root_document.title
       == root_document.compiled_and_rendered_content
   - else
   p.placeholder Documents not found.
 
+.div.backing
