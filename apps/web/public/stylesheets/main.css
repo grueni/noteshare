@@ -106,6 +106,19 @@ td.clear_style {
 
 }
 
+.ns_link a {
+
+    color: white;
+}
+
+
+
+.ns_link a:hover {
+
+    color: red;
+
+}
+
 .redlink a {
      /* color: #ba3925; */
     color: #da3925;
