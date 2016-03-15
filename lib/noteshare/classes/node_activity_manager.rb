@@ -42,7 +42,7 @@ class NodeActivityManager
       node_id = item.keys[0]
       data = item[node_id]
       node_name = data[0]
-      output << "<li> <a href='/node/#{node_id}'>#{node_name}</a></li>\n"
+      output << "<li class='ns_link'> <a href='/node/#{node_id}'>#{node_name}</a></li>\n"
     end
     output << "</ul>\n"
     output

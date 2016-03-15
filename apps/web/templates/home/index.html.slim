@@ -14,25 +14,25 @@
         - if current_user(session)
           p.compact == welcome_link(session)
           br
-          p.compact == signout_link
+          p.compact.ns_link == signout_link
         -else
-          p.compact style='font-size:18pt;' == signin_link
-          p.compact style='font-size:18pt;'== signup_link
+          p.compact.ns_link style='font-size:18pt;' == signin_link
+          p.compact.ns_link style='font-size:18pt;'== signup_link
         br
         br
         p.compact.message
-          p style='margin-bottom:0' == guide_link_long(session)
-          p style='margin-top:0;margin-bottom:0;' == cookbook_link(session)
+          p.ns_link style='margin-bottom:0' == guide_link_long(session)
+          p.ns_link style='margin-top:0;margin-bottom:0;' == cookbook_link(session)
           br
-          p style='margin-top:0;margin-bottom:0;' == link_to 'Start.scripta.io', 'http://start.scripta.io'
-          p style='margin-top:0;margin-bottom:0;' == link_to 'Math.scripta.io', 'http://math.scripta.io'
+          p.ns_link style='margin-top:0;margin-bottom:0;' == link_to 'Start.scripta.io', 'http://start.scripta.io'
+          p.ns_link style='margin-top:0;margin-bottom:0;' == link_to 'Math.scripta.io', 'http://math.scripta.io'
           | <br>
           | <br>
           | <img src="https://s3.amazonaws.com/vschool%2Fnoteshare_images/rockband.jpg" alt="rockband" width="200">
           | <br>
           | <br>
-          | <a href='http://concentricengineering.com'>Concentric Engineering Blog</a>
-        p.compact.message.plainlink style='position:absolute; bottom:2.5em;left:2.5em;' == link_to "About #{ENV['SITENAME']}", '/about'
+          span.ns_link == link_to 'Concentric Engineering Blog', 'http://concentricengineering.com'
+        p.compact.message.ns_link style='position:absolute; bottom:2.5em;left:2.5em;' == link_to "About #{ENV['SITENAME']}", '/about'
 
         span style='color:#F5574F;position:absolute; bottom:1em;left:2.5em;' ❤
         i style='color:#F5574F;position:absolute; bottom:1em; left:4.0em;' Share the knowledge!

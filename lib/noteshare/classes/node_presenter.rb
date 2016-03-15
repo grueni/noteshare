@@ -28,7 +28,7 @@ class NodePresenter
   def html_list(docs, view_mode)
     output = "<ul>\n"
     @docs.each do |doc|
-      output << "<li> <a href='/#{view_mode}/#{doc.id}'>#{doc.title}</a></li>\n"
+      output << "<li class='ns_link'> <a href='/#{view_mode}/#{doc.id}'>#{doc.title}</a></li>\n"
     end
     output << "</ul>\n"
     output
