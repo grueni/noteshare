@@ -15,7 +15,7 @@ module Noteshare
       else
         prefix = ''
       end
-      put "basic_link, prefix = #{prefix}".green
+      puts "basic_link, prefix = #{prefix}".green
       suffix == :none ? suffix = '' : suffix = "/#{suffix}"
       return suffix if ENV['MODE'] == 'LOCAL'
       stem = ENV['DOMAIN'].sub(/^\./,'') # delete leading '.'
