@@ -34,7 +34,7 @@ class DocumentActivityManager
       doc_id = data[2]
       doc_title = data[1]
       # root_title = data[0]
-      output << "<li> <a href='/#{view_mode}/#{doc_id}'>#{doc_title}</a></li>\n"
+      output << "<li class='ns_link'> <a href='/#{view_mode}/#{doc_id}'>#{doc_title}</a></li>\n"
     end
     output << "</ul>\n"
     output
