@@ -71,7 +71,7 @@ class NSNode
 
   def stem
     domain = ENV['DOMAIN']
-    "#{self.name} at #{domain.split('.')[1]}"
+    "#{domain.split('.')[1]}"
   end
 
 
