@@ -29,6 +29,10 @@ module UI
     #
     #####################################################
 
+    def site_title
+      ENV['DOMAIN'].sub('.','')
+    end
+
     def document_index_link(document, session)
       user = current_user(session)
       prefix = get_prefix(session)
