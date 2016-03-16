@@ -29,10 +29,15 @@ module UI
     #
     #####################################################
 
+    def site_title
+      ENV['DOMAIN'].sub('.','')
+    end
+
     def document_index_link(document, session)
       user = current_user(session)
+      prefix = get_prefix(session)
       if user && !document.is_associated_document?
-        text_link(title: 'Index', prefix: user.screen_name, suffix: "compiled/#{document.id}\#_index")
+        text_link(title: 'Index', prefix: prefix, suffix: "compiled/#{document.id}\#_index")
       else
         ''
       end
@@ -55,12 +60,6 @@ module UI
     #
     #####################################################
 
-    def get_current_document_id1(session, label='')
-      _id = session['current_document_id']
-      puts "#{label} current_document_id = #{_id}".green
-      _id
-    end
-
     def get_current_document_id(session, label='')
       _id = current_user(session).dict2['current_document_id']
       puts "#{label} current_document_id = #{_id}".green
@@ -71,8 +70,6 @@ module UI
       return '' if session == nil
       cu = current_user(session)
       return '' if cu == nil
-      # _id = cu.dict2['current_document_id']
-      # _id = session['current_document_id']
       _id = get_current_document_id(session, 'editor_link:')
       return '' if _id == nil
       document = DocumentRepository.find _id
@@ -89,41 +86,30 @@ module UI
 
     def home_link(session, active_item='')
       active_item == 'home' ? image = '/images/earth_green.png' : image = '/images/earth_white.png'
-      puts "In home link, session = #{session.inspect}".cyan
-      cu = current_user(session)
-      if cu
-        puts "in home_link, user = #{cu.full_name}".red
-        image_link2(prefix: cu.node_name, suffix: 'home', title: 'system home', image: image)
-      else
-        puts "in home_link,NO USER".red
-        image_link2(prefix: :none, suffix: 'home', title: 'system home', image: image)
-      end
+      prefix = get_prefix(session)
+      image_link2(prefix: prefix, suffix: 'home', title: 'system home', image: image)
+      # image_link2(prefix: :none, suffix: 'home', title: 'system home', image: image)
     end
 
     def current_user_node_link(session, active_item='')
+      prefix = get_prefix(session)
       user = current_user(session)
       return '' if user == nil
       active_item == 'home' ? image = '/images/home_green.png' : image = '/images/home_red.png'
-      image_link2(prefix: user.node_name, suffix: "node/user/#{user.node_id}", title: 'user home', image: image)
+      image_link2(prefix: prefix, suffix: "node/user/#{user.node.name}", title: 'user home', image: image)
     end
 
     def start_node_link(session, active_item='')
+      prefix = get_prefix(session)
       user = current_user(session)
       return '' if user == nil
       active_item == 'home' ? image = '/images/start.png' : image = '/images/start.png'
-      image_link2(prefix: user.node_name, suffix: "node/34", title: 'go to start page', image: image)
+      image_link2(prefix: prefix, suffix: "node/start", title: 'go to start page', image: image)
     end
 
     def node_link(node, session)
-      # cu = current_user(session)
-      # cu ? prefix = cu.node_name : prefix = node.name
-      user = current_user(session)
-      if user
-        prefix = user.screen_name
-      else
-        prefix = node.name
-      end
-      text_link(prefix: prefix, suffix: "node/#{node.id}", title: node.name)
+      prefix = get_prefix(session)
+      text_link(prefix: prefix, suffix: "node/#{node.name}", title: node.name)
     end
 
 
@@ -131,18 +117,13 @@ module UI
       cu = current_user(session)
       return ''  if cu == nil
       nam = NodeActivityManager.new(user: cu)
-      nam .configure
-      last_node_id = nam.last_node_id
+      nam.configure
       last_node_name = nam.last_node_name
 
-      if cu
-        prefix = cu.screen_name
-      else
-        prefix = last_node_name
-      end
+      prefix = get_prefix(session)
 
       active_item == 'node' ? image = '/images/node_green.png' : image = '/images/node_white.png'
-      image_link2(prefix:prefix, suffix: "node/#{last_node_id}", title: 'current node', image: image)
+      image_link2(prefix: prefix, suffix: "node/#{last_node_name}", title: 'current node', image: image)
     end
 
     def image_manager_link(active_item='')
@@ -151,33 +132,25 @@ module UI
       else
         html.tag(:a, 'Images', href: '/image_manager/search')
       end
-
     end
 
 
     def admin_link(session, active_item='')
       active_item == 'admin' ? css_class = 'active_item' : ''
       cu = current_user(session)
-      return ''  if cu == nil
-      text_link(title: 'Admin', prefix: cu.node_name , suffix: 'admin', class: css_class)
+      return ''  if cu == nil or cu.admin == false
+      text_link(title: 'Admin', prefix: '' , suffix: 'admin', class: css_class)
     end
 
     def guide_link(session)
-      cu = current_user(session)
-      cu ? prefix = cu.node_name : prefix = :none
-      return text_link(prefix: prefix, suffix: "aside/#{ENV['USER_GUIDE_DOC_ID']}", title: 'User Guide', class: 'redlink;', style: 'font-weight: bold; margin-bottom:-4px;')
-      # link_to "G",  "document/#{ENV['USER_GUIDE_DOC_ID']}",  class: 'redlink;', style: 'font-weight: bold; margin-bottom:-4px;'
-
+      return text_link(prefix: '', suffix: "aside/#{ENV['USER_GUIDE_DOC_ID']}", title: 'User Guide', class: 'redlink;', style: 'font-weight: bold; margin-bottom:-4px;')
+      return text_link(prefix: '', suffix: "aside/#{ENV['USER_GUIDE_DOC_ID']}", title: 'User Guide', class: 'redlink;', style: 'font-weight: bold; margin-bottom:-4px;')
     end
 
     def documents_link(session, active_item='')
       active_item == 'documents' ? css_class = 'active_item' : css_class = ''
-      cu = current_user(session)
-      if cu
-        return text_link(prefix: cu.node_name, suffix: "documents", title: 'Directory', class: css_class)
-      else
-        return  text_link(prefix: :none, suffix: "documents", title: 'Directory', class: css_class)
-      end
+      prefix = get_prefix(session)
+      return  text_link(prefix: prefix, suffix: "documents", title: 'Directory', class: css_class)
     end
 
     def reader_link(session, active_item='')

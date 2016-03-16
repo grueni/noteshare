@@ -135,6 +135,7 @@ Lotus::Model.configure do
       attribute :tags, String
       attribute :xattributes, PGStringArray
       attribute :dict, PGHStore
+      attribute :neighbors, JSON
     end
 
     collection :publications do

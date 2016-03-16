@@ -1,13 +1,23 @@
+
 module Node::Controllers::Public
+
+
   class Show
     include Node::Action
+    include NodeMapper
 
     expose :node, :user,:active_item, :layout_option, :blurb_text, :rendered_text
     expose :sidebar_text, :rendered_sidebar_text, :presenter, :show_overlay
 
     def call(params)
+
       @active_item = 'documents'
-      @node = NSNodeRepository.find params[:id]
+
+      # @node = NSNodeRepository.find params[:id]
+      # @node = NSNodeRepository.find NodeMapper.new(params[:id]).translate
+      @node = get_node(params[:id])
+
+
       @user = current_user(session)
       if @user
         @show_overlay =  (@node.name == 'start') && (@user.dict2['show_overlay'] == 'yes')
@@ -47,7 +57,8 @@ module Node::Controllers::Public
       @rendered_blurb = @node.meta['rendered-blurb'] || ''
 
       @sidebar_text =  @node.meta['sidebar_text'] || ''
-      @rendered_sidebar_text = @node.meta['rendered_sidebar_text'] || ''
+      # @rendered_sidebar_text = @node.meta['rendered_sidebar_text'] || ''
+      @rendered_sidebar_text = @presenter.sidebar
 
       NSNodeRepository.update @node
 

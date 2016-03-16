@@ -29,7 +29,7 @@ class NodeActivityManager
     last_item = @stack.last
     if last_item
       @last_node_id = last_item.keys[0]
-      @last_node_name = last_item.values[0]
+      @last_node_name = last_item.values[0][0]
     end
   end
 
@@ -42,7 +42,7 @@ class NodeActivityManager
       node_id = item.keys[0]
       data = item[node_id]
       node_name = data[0]
-      output << "<li class='ns_link'> <a href='/node/#{node_id}'>#{node_name}</a></li>\n"
+      output << "<li class='ns_link'> <a href='/node/#{node_name}'>#{node_name}</a></li>\n"
     end
     output << "</ul>\n"
     output

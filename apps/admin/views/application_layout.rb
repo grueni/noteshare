@@ -33,24 +33,18 @@ module Admin
 
       def admin_analytics_link(session, active_item='')
         active_item == 'admin' ? css_class = 'active_item' : ''
-        cu = current_user(session)
-        return ''  if cu == nil
-        text_link(title: 'Analytics', prefix: cu.node_name , suffix: 'admin/analytics', class: css_class)
+        prefix = get_prefix(session)
+        text_link(title: 'Analytics', prefix: prefix , suffix: 'admin/analytics', class: css_class)
       end
 
       def admin_manual_link(session)
-        cu = current_user(session)
-        cu ? prefix = cu.node_name : prefix = :none
+        prefix = get_prefix(session)
         return text_link(prefix: prefix, suffix: "document/#{ENV['ADMIN_MANUAL_DOC_ID']}", title: 'A', class: 'redlink;', style: 'font-weight: bold; margin-bottom:-4px;')
-        # link_to "G",  "document/#{ENV['USER_GUIDE_DOC_ID']}",  class: 'redlink;', style: 'font-weight: bold; margin-bottom:-4px;'
-
       end
 
       def admin_manual_link_long(session)
-        cu = current_user(session)
-        cu ? prefix = cu.node_name : prefix = :none
+        prefix=get_prefix(session)
         return text_link(prefix: prefix, suffix: "document/#{ENV['ADMIN_MANUAL_DOC_ID']}", title: "Administrator's manual")
-        # link_to 'User Guide', "/document/#{ENV['USER_GUIDE_DOC_ID']}"
       end
 
       end

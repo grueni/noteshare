@@ -6,7 +6,7 @@ class NSNode
 
   include Lotus::Entity
       attributes :id, :owner_id, :identifier,  :name, :type,
-                 :meta, :docs, :children, :tags, :xattributes, :dict
+                 :meta, :docs, :children, :tags, :xattributes, :dict, :neighbors
 
   include Asciidoctor
 
@@ -66,8 +66,11 @@ class NSNode
   def url
     domain = ENV['DOMAIN']
     puts "domain: #[domain}"
-    "#{self.name}#{domain}"
+    #"#{self.name}@#{domain.sub('.', '' )}"
+    "#{self.name} at #{domain.sub('.', '' )}"
   end
+
+
 
 
   #### ???? ####
