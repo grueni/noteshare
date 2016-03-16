@@ -113,13 +113,13 @@ module UI
       cu = current_user(session)
       return ''  if cu == nil
       nam = NodeActivityManager.new(user: cu)
-      nam .configure
-      last_node_id = nam.last_node_id
+      nam.configure
+      last_node_name = nam.last_node_name
 
       prefix = get_prefix(session)
 
       active_item == 'node' ? image = '/images/node_green.png' : image = '/images/node_white.png'
-      image_link2(prefix: prefix, suffix: "node/#{last_node_id}", title: 'current node', image: image)
+      image_link2(prefix: prefix, suffix: "node/#{last_node_name}", title: 'current node', image: image)
     end
 
     def image_manager_link(active_item='')
