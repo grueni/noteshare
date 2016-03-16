@@ -34,6 +34,15 @@ class NodePresenter
     output
   end
 
+  def blurb
+    if @node.meta && @node.meta['rendered_blurb']
+      @node.meta['rendered_blurb']
+    else
+      text = ''
+      text << '<img src="http://s3.amazonaws.com/vschool/noteshare_images/111129135500aR7j-original.jpg" width=60% style="margin-top:1em; float:right; "/>'
+    end
+  end
+
   # Return an HTML list of links to documents
   def documents_as_list(option)
     return '' if @docs == []
@@ -49,6 +58,18 @@ class NodePresenter
       else
         html_list(@docs, 'document')
     end
+  end
+
+  def neighboring_nodes_list
+    Neighbors.new(node: @node).html_list
+  end
+
+  def sidebar
+    html = '<h4>Nearby nodes</h4>'
+    html << neighboring_nodes_list || ''
+    meta = @node.meta['rendered_sidebar_text']
+    html << meta if meta != nil
+    html
   end
 
   def recently_viewed(view_mode)

@@ -57,7 +57,8 @@ module Node::Controllers::Public
       @rendered_blurb = @node.meta['rendered-blurb'] || ''
 
       @sidebar_text =  @node.meta['sidebar_text'] || ''
-      @rendered_sidebar_text = @node.meta['rendered_sidebar_text'] || ''
+      # @rendered_sidebar_text = @node.meta['rendered_sidebar_text'] || ''
+      @rendered_sidebar_text = @presenter.sidebar
 
       NSNodeRepository.update @node
 

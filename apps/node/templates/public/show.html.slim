@@ -17,16 +17,14 @@
         == presenter.documents_as_list(layout_option)
 
   .col.hide-on-small-and-down.m6.offset-m4.l6.offset-l4
-    - if blurb_text != ''
-      .tall500.ns_card.darker.scroll-y style='margin-top:40px; color:white;'
-        .div style='margin-top:-1.5em;'
-          == node.meta['rendered_blurb']
+    .tall500.ns_card.darker.scroll-y style='margin-top:40px; color:white;'
+      .div style='margin-top:-1.5em;'
+        == presenter.blurb
 
 
   .col.hide-on-small-and-down.m2.offset-m10.l2.offset-l10.scroll-y style='margin-top:40px;'
-    - if sidebar_text != ''
-      .tall500.ns_card.hide-on-small-and-down.m2.l2 style='height:400px;'
-        .div style='margin-top:-1.5em;' == node.meta['rendered_sidebar_text']
+    .tall500.ns_card.hide-on-small-and-down.m2.l2 style='height:400px;'
+      .div style='margin-top:-1.5em;' == presenter.sidebar
 
 -if show_overlay
   .overlay style='width:500px;height:450px; margin-left:120px; margin-top:0px;'
