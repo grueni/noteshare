@@ -234,14 +234,14 @@ class PublicationsManager
     end
 
     if node1
-      link_text = "Published in #{node1.name} at #{node.stem}"
+      link_text = "Published in #{node1.name} at #{node1.stem}"
       prefix = link_prefix(session, node1)
       link = basic_link(prefix, "node/#{node1.name}")
       return "<a href=\"#{link}\">#{link_text}</a>"
     else
       node2 = author_node
       return '' if node2 == nil
-      link_text = "Published in #{node2.name} at #{node.stem}"
+      link_text = "Published in #{node2.name} at #{node2.stem}"
       link = basic_link(node2.name, "node/#{node2.name}")
       return "<a href=\"#{link}\">#{link_text}</a>"
     end
