@@ -29,7 +29,7 @@ class NodeActivityManager
     last_item = @stack.last
     if last_item
       @last_node_id = last_item.keys[0]
-      @last_node_name = last_item.values[0]
+      @last_node_name = last_item.values[0][0]
     end
   end
 

@@ -30,7 +30,7 @@ module Noteshare
         if user
           prefix = user.screen_name
         else
-          prefix = node.name
+          prefix = '' # node.name
         end
       else
         prefix = ''
