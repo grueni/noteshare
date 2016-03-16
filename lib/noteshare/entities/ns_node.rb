@@ -65,9 +65,7 @@ class NSNode
 
   def url
     domain = ENV['DOMAIN']
-    puts "domain: #[domain}"
-    #"#{self.name}@#{domain.sub('.', '' )}"
-    "#{self.name} at #{domain.sub('.', '' )}"
+    "#{self.name} at #{domain.split('.')[1]}"
   end
 
 
