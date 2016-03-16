@@ -63,9 +63,15 @@ class NSNode
     owner.full_name if owner
   end
 
+  # deprecate
   def url
     domain = ENV['DOMAIN']
     "#{self.name} at #{domain.split('.')[1]}"
+  end
+
+  def stem
+    domain = ENV['DOMAIN']
+    "#{domain.split('.')[1]}"
   end
 
 
