@@ -17,11 +17,11 @@ module Web::Views::Documents
         div do
           label :search, class: 'radio_label'
           label :my_docs, class: 'radio_label'
-          radio_button :category, 'local', {value: 'local', id: 'select_local_search'}
+          radio_button :category, 'personal', {value: 'personal', id: 'select_local_search'}
           label :other_docs, class: 'radio_label'
-          radio_button :category, 'global', {value: 'global', id: 'select_global_search'}
-          label :all, class: 'radio_label'
-          radio_button :category, 'all', {value: 'all', id: 'select_all_search'}
+          radio_button :category, 'public', {value: 'public', id: 'select_global_search'}
+          # label :all, class: 'radio_label'
+          # radio_button :category, 'all', {value: 'all', id: 'select_all_search'}
         end
       end
     end
