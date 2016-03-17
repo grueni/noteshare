@@ -8,12 +8,12 @@ module Editor::Controllers::Document
 
     def call(params)
       redirect_if_not_signed_in('editor, document, PublishAll')
-      puts "controller PublishAll".red
       @active_item = 'editor'
       document = DocumentRepository.find params[:id]
-      ACL.toggle_world_readable_for_tree(document)
+      root_document = document.root_document
+      redirect_to '/error/0?root document not found' if root_document == nil
+      ACL.toggle_world_readable_for_tree(root_document)
       redirect_to "/editor/document/#{params[:id]}"
       end
-
   end
 end

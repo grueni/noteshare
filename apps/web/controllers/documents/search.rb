@@ -19,6 +19,8 @@ module Web::Controllers::Documents
         search_mode = 'document'
       end
 
+      puts "search_mode = #{search_mode}, search_scope = #{search_scope}".green
+
       if cu == nil
         puts 'DOING SEARCH FOR ALL'.red
         @documents = DocumentRepository.basic_search(nil, search_key, 'document', 'all').select{ |item| item.acl_get(:world) =~ /r/ }.sort_by { |item| item.title }
