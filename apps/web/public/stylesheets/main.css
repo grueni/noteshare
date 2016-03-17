@@ -113,11 +113,12 @@ td.clear_style {
 
 
 
-.ns_link a:hover {
+.ns_link  a:hover {
 
     color: red;
 
 }
+
 
 .redlink a {
      /* color: #ba3925; */
@@ -410,6 +411,12 @@ ul {
 
     color: #eee;
     text-decoration: none;
+}
+
+#navlist li a:hover {
+
+    color: red;
+
 }
 
 

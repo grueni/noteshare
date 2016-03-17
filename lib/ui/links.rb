@@ -80,7 +80,7 @@ module UI
       if active_item == 'editor'
         return link_to 'Editor', "/editor/document/#{_id}", class: 'active_item'
       else
-        return  link_to 'Editor', "/editor/document/#{_id}"
+        return  link_to 'Editor', "/editor/document/#{_id}", class: ''
       end
     end
 
