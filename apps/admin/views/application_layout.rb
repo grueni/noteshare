@@ -39,7 +39,7 @@ module Admin
 
       def admin_manual_link(session)
         prefix = get_prefix(session)
-        return text_link(prefix: prefix, suffix: "document/#{ENV['ADMIN_MANUAL_DOC_ID']}", title: 'A', class: 'redlink;', style: 'font-weight: bold; margin-bottom:-4px;')
+        return text_link(prefix: prefix, suffix: "document/#{ENV['ADMIN_MANUAL_DOC_ID']}", title: 'Admin Manual', class: 'redlink;', style: 'font-weight: bold; margin-bottom:-4px;')
       end
 
       def admin_manual_link_long(session)
