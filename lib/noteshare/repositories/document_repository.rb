@@ -90,9 +90,9 @@ class DocumentRepository
     puts "Search where key = #{key} mode = #{mode}, scope = #{scope}".red
 
     case scope
-      when 'local'
+      when 'personal'
         user ? scope_clause = "AND author_id = #{user.id}" : ''
-      when 'global'
+      when 'other'
         user ? scope_clause = "AND author_id != #{user.id}"  : ''
       when  'all'
         scope_clause =  ""

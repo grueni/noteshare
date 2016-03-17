@@ -12,6 +12,8 @@ module Web::Controllers::Documents
       search_mode_matcher = data.match(/search_mode=(.*?)&/)
       search_mode = search_mode_matcher[1] if search_mode_matcher
 
+      puts "I AM SETTING THE SEARCH MODE TO #{search_mode}".magenta
+
       cu = current_user(session)
       if cu
         cu.dict2['search_scope'] = search_scope if search_scope

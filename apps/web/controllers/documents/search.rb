@@ -19,12 +19,18 @@ module Web::Controllers::Documents
         search_mode = 'document'
       end
 
-      if cu == nil
-        puts 'DOING SEARCH FOR ALL'.red
-        @documents = DocumentRepository.basic_search(nil, search_key, 'document', 'all').select{ |item| item.acl_get(:world) =~ /r/ }.sort_by { |item| item.title }
-      else
-        @documents = DocumentRepository.basic_search(cu, search_key, search_mode, search_scope).select{ |item| (item.acl_get(:world) =~ /r/) || (item.author_credentials['id'] == cu.id) }.sort_by { |item| item.title }
+      puts "search_mode = #{search_mode}, search_scope = #{search_scope}".green
+
+      case search_scope
+        when 'global'
+          @documents = DocumentRepository.basic_search(nil, search_key, 'document', 'all')
+          @documents = @documents.select{ |item| item.acl_get(:world) =~ /r/ } || [] 
+        when 'local'
+          @documents = DocumentRepository.basic_search(cu, search_key, search_mode, 'personal') || []
+        else
+          @documents = []
       end
+
       @nodes = NSNodeRepository.search(search_key).sort_by { |item| item.name }
     end
 
