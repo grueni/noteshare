@@ -3,7 +3,6 @@ module Node::Controllers::Admin
     include Node::Action
 
     def call(params)
-      redirect_if_not_signed_in('editor, Admin,  Create')
       node_info = params['new_node']
 
       name = node_info['name']

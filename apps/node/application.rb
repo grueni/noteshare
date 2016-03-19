@@ -1,4 +1,5 @@
 require 'lotus/helpers'
+require_relative './controllers/authenticate'
 require_relative '../../apps/web/views/forms'
 
 
@@ -196,6 +197,7 @@ module Node
       #
       # See: http://www.rubydoc.info/gems/lotus-controller#Configuration
       controller.prepare do
+        include Node::Authentication
         # include MyAuthentication # included in all the actions
         # before :authenticate!    # run an authentication before callback
       end

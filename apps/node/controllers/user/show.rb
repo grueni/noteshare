@@ -9,17 +9,17 @@ module Node::Controllers::User
 
 
     def call(params)
-      redirect_if_not_signed_in('image, User,  Show')
+
       @active_item = 'node'
 
       # get current user node
-      @user = current_user(session)
-      @current_node = current_user(session).node
+
+      @current_node = current_user2.node
       if @current_node == nil
         redirect_to '/error:0?Sorry, your node could not be found'
       end
 
-      @presenter = NodePresenter.new(@current_node, @user)
+      @presenter = NodePresenter.new(@current_node, current_user2)
 
       # get current document
       if session[:current_document_id]

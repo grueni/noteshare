@@ -6,11 +6,10 @@ module Node::Controllers::Admin
 
     def call(params)
       puts "Edit sidebar call".red
-      cu = current_user(session)
-      if cu
-        puts "  -- current_user: #{cu.full_name}".cyan
+      if current_user2
+        puts "  -- current_user: #{current_user2.full_name}".cyan
       else
-        puts "  -- no current_user".cyan
+        puts "  -- no add_column :, :, :".cyan
       end
       redirect_if_not_signed_in('image, Admin,  Edit')
       @active_item='admin'

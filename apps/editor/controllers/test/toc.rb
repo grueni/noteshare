@@ -3,7 +3,7 @@ module Editor::Controllers::Test
     include Editor::Action
 
     def call(params)
-      
+
     end
   end
 end

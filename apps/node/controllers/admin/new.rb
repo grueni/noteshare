@@ -5,7 +5,6 @@ module Node::Controllers::Admin
     expose :active_item
 
     def call(params)
-      redirect_if_not_signed_in('image, Admin,  New')
       @active_item = 'admin'
     end
   end
