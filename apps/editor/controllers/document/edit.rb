@@ -5,8 +5,6 @@ module Editor::Controllers::Document
     expose :document, :root_document, :updated_text, :current_image,:active_item, :editors
 
     def call(params)
-      redirect_if_not_signed_in('editor, document, Edit')
-      user = current_user(session)
       id = params['id']
       @document = DocumentRepository.find(id)
       @root_document = @document.root_document
@@ -18,8 +16,8 @@ module Editor::Controllers::Document
       end
 
 
-      user.dict2['current_document_id'] = id
-      UserRepository.update user
+      current_user2.dict2['current_document_id'] = id
+      UserRepository.update current_user2
       session['current_document_id'] = id
 
       if session['current_image_id']
@@ -28,7 +26,7 @@ module Editor::Controllers::Document
 
       @active_item = 'editor'
 
-      Analytics.record_edit(user, @document)
+      Analytics.record_edit(current_user2, @document)
 
 
       cm = ContentManager.new(@document)
@@ -41,11 +39,11 @@ module Editor::Controllers::Document
 
       es = Noteshare::EditorStatus.new(@document)
       @editors = "Editors: #{es.editor_array_string_value}"
-      es.add_editor(user)
+      es.add_editor(current_user2)
 
-      if ['compiled', 'titlepage'].include? user.dict2['reader_view']
-        user.dict2['reader_view'] = 'sidebar'
-        UserRepository.update user
+      if ['compiled', 'titlepage'].include? current_user2.dict2['reader_view']
+        current_user2.dict2['reader_view'] = 'sidebar'
+        UserRepository.update current_user2
       end
 
 

@@ -7,7 +7,6 @@ module Editor::Controllers::Document
 
 
     def call(params)
-      redirect_if_not_signed_in('editor, doc, add pdf')
       puts "controller AddPdf".red
       @active_item = 'editor'
 

@@ -15,7 +15,6 @@ module Editor::Controllers::Document
     end
 
     def call(params)
-      redirect_if_not_signed_in('editor, document, GetFile')
       id = params[:id]
       @document = DocumentRepository.find id
       if @document

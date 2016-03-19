@@ -3,8 +3,6 @@ module Editor::Controllers::Document
     include Editor::Action
 
     def call(params)
-      redirect_if_not_signed_in('editor, document, DoAddPdf')
-      puts "controller DoAddPdf".red
 
       @document_id = params['document_id']
       @title = params['title']
@@ -27,7 +25,7 @@ module Editor::Controllers::Document
         @message1 = "Image upload successful (id: #{@image.id})"
       end
 
-      author = current_user(session)
+      author = current_user2
       current_document = DocumentRepository.find @document_id
       puts "The current document with id #{current_document.id}".red
 

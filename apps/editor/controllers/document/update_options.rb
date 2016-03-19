@@ -66,10 +66,7 @@ module Editor::Controllers::Document
     end
 
     def call(params)
-      puts "update_options".red
-      redirect_if_not_signed_in('editor, document, UpdateOptions')
       @active_item = 'editor'
-      #  @mode = if document_packet['mode'] == 'root'
 
       document_packet = params.env['rack.request.form_hash']['document']
       puts "document packet:\n#{document_packet}".cyan

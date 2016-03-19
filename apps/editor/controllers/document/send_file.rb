@@ -10,7 +10,6 @@ module Editor::Controllers::Document
     end
 
     def call(params)
-      redirect_if_not_signed_in('editor, document, SendFile')
       id = params[:id]
       @document = DocumentRepository.find id
 

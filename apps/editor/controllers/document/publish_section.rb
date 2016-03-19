@@ -7,7 +7,6 @@ module Editor::Controllers::Document
     expose :document, :active_item
 
     def call(params)
-      redirect_if_not_signed_in('editor, document, PublishSection')
       puts "controller PublishSection".red
       @active_item = 'editor'
       document = DocumentRepository.find params[:id]

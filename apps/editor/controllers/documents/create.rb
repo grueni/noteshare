@@ -18,10 +18,9 @@ module Editor::Controllers::Documents
 
 
     def call(params)
-      redirect_if_not_signed_in('editor, documents, create')
 
       puts "controller create!!!".red
-      @author = current_user(session)
+      @author = current_user2
 
       doc_params = params[:document]
       title = doc_params['title']
