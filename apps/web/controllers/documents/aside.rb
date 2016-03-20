@@ -38,9 +38,8 @@ module Web::Controllers::Documents
       session[:current_document_id] = @document.id
 
       remember_user_view('sidebar', session)
-      cu = current_user(session)
-      DocumentActivityManager.new(@document, cu).record
-      Analytics.record_document_view(cu, @root_document)
+      DocumentActivityManager.new(@document, current_user2).record
+      Analytics.record_document_view(current_user2, @root_document)
 
       if query_string != ''
         redirect_to "/document/#{document_id}\##{query_string}"

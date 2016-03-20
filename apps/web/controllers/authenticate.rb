@@ -1,4 +1,4 @@
-module Node
+module Web
   module Authentication
 
     def self.included(action)
@@ -12,8 +12,8 @@ module Node
 
     def authenticate!
       # puts request.env.keys
-      request_path = request.env['REQUEST_PATH']
-      halt 401 unless request_path =~ /node\/public/ or authenticated?
+      # request_path = request.env['REQUEST_PATH']
+      # halt 401 unless request_path =~ /node\/public/ or authenticated?
     end
 
     def authenticated?

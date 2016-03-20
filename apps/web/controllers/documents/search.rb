@@ -9,11 +9,11 @@ module Web::Controllers::Documents
     def call(params)
       @active_item = 'reader'
       search_key = params['search']['search']
-      cu = current_user(session)
 
-      if cu
-        search_scope = cu.dict2['search_scope'] || 'all'
-        search_mode = cu.dict2['search_mode'] || 'document'
+
+      if current_user2
+        search_scope = current_user2.dict2['search_scope'] || 'all'
+        search_mode = current_user2.dict2['search_mode'] || 'document'
       else
         search_scope = 'all'
         search_mode = 'document'
@@ -26,7 +26,7 @@ module Web::Controllers::Documents
           @documents = DocumentRepository.basic_search(nil, search_key, 'document', 'all')
           @documents = @documents.select{ |item| item.acl_get(:world) =~ /r/ } || [] 
         when 'local'
-          @documents = DocumentRepository.basic_search(cu, search_key, search_mode, 'personal') || []
+          @documents = DocumentRepository.basic_search(current_user2, search_key, search_mode, 'personal') || []
         else
           @documents = []
       end

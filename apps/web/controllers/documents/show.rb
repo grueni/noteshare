@@ -18,8 +18,6 @@ module Web::Controllers::Documents
         document_id = session['current_document_id']
       end
 
-      cu = current_user(session)
-
       redirect_to '/error/0?Sorry, no document recalled from memory' if document_id == nil
 
       query_string = request.query_string || ''
@@ -40,8 +38,8 @@ module Web::Controllers::Documents
 
       ContentManager.new(@document).update_content
       remember_user_view('standard', session)
-      DocumentActivityManager.new(@document, cu).record
-      Analytics.record_document_view(cu, @document)
+      DocumentActivityManager.new(@document, current_user2).record
+      Analytics.record_document_view(current_user2, @document)
 
       if query_string != ''
         redirect_to "/document/#{document_id}\##{query_string}"

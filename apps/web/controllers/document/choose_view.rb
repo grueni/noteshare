@@ -9,11 +9,10 @@ module Web::Controllers::Document
         document_id = session['current_document_id']
       end
 
-      cu = current_user(session)
-      redirect_to "/document/#{document_id}" if cu == nil
+      redirect_to "/document/#{document_id}" if current_user2 == nil
 
-      reader_view = cu.dict2['reader_view']
-      return if reader_view == nil || reader_view == 'standard'
+      reader_view = current_user2.dict2['reader_view'] || 'standard'
+
       case reader_view
         when 'sidebar'
           redirect_to "/aside/#{document_id}"
@@ -27,7 +26,6 @@ module Web::Controllers::Document
           redirect_to "/document/#{document_id}"
       end
 
-      self.body = 'OK'
     end
   end
 end

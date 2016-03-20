@@ -85,7 +85,7 @@ module UI
     end
 
     def home_link(session, active_item='')
-      active_item == 'home' ? image = '/images/earth_green.png' : image = '/images/earth_white.png'
+      active_item == 'home' ? image = '/images/earth_green.png' : image = '/images/home_white.png'
       prefix = get_prefix(session)
       image_link2(prefix: prefix, suffix: 'home', title: 'system home', image: image)
       # image_link2(prefix: :none, suffix: 'home', title: 'system home', image: image)
@@ -95,7 +95,7 @@ module UI
       prefix = get_prefix(session)
       user = current_user(session)
       return '' if user == nil
-      active_item == 'home' ? image = '/images/home_green.png' : image = '/images/home_red.png'
+      active_item == 'home' ? image = '/images/home_green.png' : image = '/images/person_red.png'
       image_link2(prefix: prefix, suffix: "node/user/#{user.node.name}", title: 'user home', image: image)
     end
 

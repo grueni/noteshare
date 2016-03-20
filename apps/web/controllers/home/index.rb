@@ -15,12 +15,6 @@ module Web::Controllers::Home
       puts session.inspect.cyan
 
       @settings = SettingsRepository.first
-      if current_user(session)
-        puts current_user_full_name(session).magenta
-      else
-        puts "NO USER".magenta
-      end
-      puts '----------------------------'.red
 
 
     end
