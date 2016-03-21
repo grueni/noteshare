@@ -32,7 +32,7 @@ class CreateSection
     @new_document = NSDocument.create(title: @title, content: @content, author_credentials: @author_credentials)
     #Fixme: the following line is to be deleted when author_id is retired
     @new_document.author_id = @author_credentials['id'].to_i
-    @new_document.acl = current_document.root_document.acl
+    @new_document.acl = @current_document.root_document.acl
 
     ContentManager.new(@new_document).update_content(nil)
     DocumentRepository.update @new_document

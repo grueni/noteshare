@@ -1,4 +1,4 @@
-require '../../../../lib/noteshare/interactors/create_section'
+require_relative '../../../../lib/noteshare/interactors/create_section'
 
 module Editor::Controllers::Document
   class CreateNewSection

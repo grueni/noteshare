@@ -24,7 +24,7 @@ class CreateAssociatedDocument
       return
     end
 
-    if @type == nil or type == ''
+    if @type == nil or @type == ''
       @error = '/error/:0?Please enter a type e.g., note, aside, or texmacro'
       return
     end
