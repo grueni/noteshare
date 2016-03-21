@@ -14,16 +14,23 @@ class NodeActivityManager
 
   def record
     return if @user == nil
-    array = @user.nodes_visited
-    nv = NodesVisited.new(array, ENV['DOCS_VISITED_CAPACITY'])
-    nv.push_node(@node)
-    @user.nodes_visited = nv.stack
-    UserRepository.update @user
+    if @node.name != 'start'
+      push(@node)
+    end
+  end
+
+  def push_default
+    default_node = NSNodeRepository.find_one_by_name(ENV['DEFAULT_LAST_NODE_ID'])
+    push(default_node)
   end
 
 
   def configure
     array = @user.nodes_visited || []
+    if array == []
+      push_default
+      array = @user.nodes_visited
+    end
     @object = NodesVisited.new(array, ENV['NODES_VISITED_CAPACITY'])
     @stack = @object.stack
     last_item = @stack.last
@@ -50,6 +57,16 @@ class NodeActivityManager
 
   def last_node
    stack.last
+  end
+
+  private
+
+  def push(node)
+    array = @user.nodes_visited
+    nv = NodesVisited.new(array, ENV['DOCS_VISITED_CAPACITY'])
+    nv.push_node(node)
+    @user.nodes_visited = nv.stack
+    UserRepository.update @user
   end
 
 end
