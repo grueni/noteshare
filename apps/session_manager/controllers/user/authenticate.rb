@@ -24,13 +24,9 @@ module SessionManager::Controllers::User
     def handle_redirect
 
       if ENV['MODE'] == 'LOCAL'
-        # redirect_to "/node/#{@user.node_id}"
         redirect_to "/node/#{@user.node_id}"
       else
-        puts "handle_redirect, basic link = #{basic_link(@user.node_name, "node/34")}".green
-        # redirect_to basic_link(@user.node_name, "node/#{@user.node_id}")
-        redirect_to basic_link(@user.node_name, "node/34")
-        # redirect_to 'http://start.scripta.io'
+        redirect_to basic_link(@user.node_name, "node/start")
       end
 
 
