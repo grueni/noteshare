@@ -3,11 +3,6 @@ class NodePresenter
 
   def initialize(node, user)
     @node = node
-    if @node
-      puts "@node = #{@node.name}".red
-    else
-      puts "@node is NIL".red
-    end
     @user = user
     @user ? @docs = @node.documents_readable_by(@user) : @docs = @node.public_documents
     @docs = @docs.sort_by_title
@@ -78,6 +73,14 @@ class NodePresenter
 
   def recent_nodes
     NodeActivityManager.new(user: @user).list
+  end
+
+  def setup_message
+    if @user
+      "You are set up with one practice document, #{@user.screen_name.capitalize}'s Notebook'"
+    else
+      ''
+    end
   end
 
 
