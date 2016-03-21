@@ -18,8 +18,7 @@ class CreateAssociatedDocument
     @error = nil
   end
 
-  def validate
-
+  def validate_document
     if @title == nil or @title == ''
       @error = '/error/:0?Please enter a title for the new document'
       return
@@ -29,16 +28,20 @@ class CreateAssociatedDocument
       @error = '/error/:0?Please enter a type e.g., note, aside, or texmacro'
       return
     end
-
   end
 
-  def call
+  def create
     @new_document = NSDocument.create(title: @title, content: @content, author_credentials: @author.credentials)
     #Fixme: the following is to be deleted when author_id is retired
     @new_document.author_id = @author.id
     @new_document.acl = @current_document.root_document.acl
     ContentManager.new(@new_document).update_content(nil)
     DocumentRepository.update @new_document
+  end
+
+  def call
+    validate_document
+    create
     @new_document.associate_to(@current_document, @type)
   end
 
