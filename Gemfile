@@ -13,6 +13,7 @@ gem 'keen'
 gem 'lotusrb',     '0.5.0'
 gem 'lotus-model', '~> 0.5'
 gem 'lotus-assets'
+gem 'lotus-utils'
 
 
 gem 'pg'

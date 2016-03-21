@@ -138,6 +138,7 @@ DEPENDENCIES
   keen
   lotus-assets
   lotus-model (~> 0.5)
+  lotus-utils
   lotusrb (= 0.5.0)
   minitest
   minitest-capybara
