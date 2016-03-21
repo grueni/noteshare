@@ -1,6 +1,7 @@
 require 'lotus/helpers'
 require_relative 'views/forms'
 require_relative 'views/menus'
+require_relative './controllers/authenticate'
 require_relative '../../lib/noteshare/modules/tools'
 # require_relative '../../lib/ui/links'
 # require 'lotus/assets'
@@ -224,7 +225,7 @@ module Web
       #
       # See: http://www.rubydoc.info/gems/lotus-controller#Configuration
       controller.prepare do
-
+        include Web::Authentication
         expose :document
         # include MyAuthentication # included in all the actions
         # before :authenticate!    # run an authentication before callback

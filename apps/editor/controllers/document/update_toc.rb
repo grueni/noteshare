@@ -9,7 +9,6 @@ module Editor::Controllers::Document
 
     def call(params)
 
-      redirect_if_not_signed_in('editor, document, UpdateToc')
       id = session['current_document_id']
       @document_id = id
       data = request.query_string
@@ -23,7 +22,7 @@ module Editor::Controllers::Document
 
       puts 'READY TO REDIRECT'.magenta
       # redirect_to "/editor/document/#{id}
-      redirect_to basic_link "#{current_user(session)}.screen_name",   "/editor/document/#{id}"
+      redirect_to basic_link "#{current_user2.screen_name}",   "/editor/document/#{id}"
       puts 'AFTER REDIRECT'.magenta
       # redirect_to "/"
 

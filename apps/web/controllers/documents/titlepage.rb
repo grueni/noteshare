@@ -32,9 +32,9 @@ module Web::Controllers::Documents
       puts "web titlepage, recording session[:current_document_id] as #{session[:current_document_id]}".red
 
       remember_user_view('titlepage', session)
-      cu = current_user(session)
-      DocumentActivityManager.new(@document, cu).record
-      Analytics.record_document_view(cu, @root_document)
+
+      DocumentActivityManager.new(@document, current_user2).record
+      Analytics.record_document_view(current_user2, @root_document)
 
       @blurb = @root_document.dict['blurb'] || 'blurb'
 

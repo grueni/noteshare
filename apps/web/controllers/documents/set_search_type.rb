@@ -14,14 +14,11 @@ module Web::Controllers::Documents
 
       puts "I AM SETTING THE SEARCH MODE TO #{search_mode}".magenta
 
-      cu = current_user(session)
-      if cu
-        cu.dict2['search_scope'] = search_scope if search_scope
-        cu.dict2['search_mode'] = search_mode if search_mode
-        UserRepository.update cu
+      if current_user2
+        current_user2.dict2['search_scope'] = search_scope if search_scope
+        current_user2.dict2['search_mode'] = search_mode if search_mode
+        UserRepository.update current_user2
       end
-
-      puts "set: search_scope: #{cu.dict2['search_scope']}, search_mode: #{cu.dict2['search_mode']}".cyan
 
       self.body = 'set search type -- OK'
     end

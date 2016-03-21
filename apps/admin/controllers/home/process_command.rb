@@ -7,8 +7,6 @@ module Admin::Controllers::Home
       redirect_if_not_signed_in('Attempt to execute a command without being signed in')
       redirect_if_level_insufficient(1,'Attempt to execute a command by user with insufficient level')
 
-      @user = current_user(session)
-
       command = params['command_processor']['command']
       secret_token = params['command_processor']['secret_token']
 
@@ -20,7 +18,7 @@ module Admin::Controllers::Home
         halt 401
       end
 
-      acp = AdminCommandProcessor.new(user: @user, input: command)
+      acp = AdminCommandProcessor.new(user: current_user2, input: command)
       result = acp.execute
 
 

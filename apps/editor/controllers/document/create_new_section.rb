@@ -5,7 +5,6 @@ module Editor::Controllers::Document
     expose :active_item
 
     def call(params)
-      redirect_if_not_signed_in('editor, document, CreateNewSection')
       @active_item = 'editor'
       puts 'controller: CreateNewSection'.red
       puts "(2) query: #{request.query_string}".cyan
@@ -24,12 +23,6 @@ module Editor::Controllers::Document
       create_mode = document_packet['create_mode'] || 'sibling_below'
 
       current_document_id = document_packet['current_document_id']
-
-      user = current_user(session)
-
-      puts "user: #{user.screen_name}".magenta
-      puts "parent_id: #{parent_id}".magenta
-      puts "create_mode: #{create_mode  }".magenta
 
       current_document = DocumentRepository.find current_document_id
       if current_document.is_root_document?
@@ -53,7 +46,7 @@ module Editor::Controllers::Document
 
       DocumentRepository.update new_document
 
-      Analytics.record_new_section(user, new_document)
+      Analytics.record_new_section(current_user2, new_document)
 
       case create_mode
         when 'child'

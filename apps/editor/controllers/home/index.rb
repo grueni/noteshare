@@ -4,7 +4,7 @@ module Editor::Controllers::Home
     include Editor::Action
 
     def call(params)
-      redirect_if_not_signed_in('editor, home, Index')
+
     end
   end
 end

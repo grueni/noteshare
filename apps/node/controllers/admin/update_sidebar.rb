@@ -16,7 +16,7 @@ module Node::Controllers::Admin
       node.meta['sidebar_text'] = sidebar_text
       node.update_sidebar_text
 
-      redirect_to basic_link current_user(session).screen_name, "node/#{id}"
+      redirect_to basic_link current_user2.screen_name, "node/#{id}"
 
       self.body = "OK Boss, I am updating the blurb, just as you say.: #{blurb_text}"
     end

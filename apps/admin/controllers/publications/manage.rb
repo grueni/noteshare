@@ -6,7 +6,7 @@ module Admin::Controllers::Publications
 
     def call(params)
 
-      @screen_name = current_user(session).screen_name
+      @screen_name = current_user2.screen_name
 
       @active_item = 'admin'
       _publications = PublicationsRepository.all.sort_by{ |record| record.document_title }

@@ -3,11 +3,7 @@ module Node::Controllers::User
     include Node::Action
 
     def call(params)
-      redirect_if_not_signed_in('node, user,  remove')
-      redirect_to "/error/5?Either the node or the document was invalid" if current_user(session) == nil
-      puts params['id'].red
-      puts current_user(session).screen_name.red
-      node = NSNodeRepository.find current_user(session).node.id
+      node = NSNodeRepository.find current_user2.node.id
       document_id = params['id']
       puts node.name.red
       document = DocumentRepository.find document_id

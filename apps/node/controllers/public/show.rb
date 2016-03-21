@@ -18,25 +18,22 @@ module Node::Controllers::Public
       @node = get_node(params[:id])
 
 
-      @user = current_user(session)
-      if @user
-        @show_overlay =  (@node.name == 'start') && (@user.dict2['show_overlay'] == 'yes')
-        @show_overlay = @show_overlay &&  (@user.dict2['show_overlay_this_session'] == 'yes') # && (@user.id == 9)
-        puts "controller Node, Public, Show, @user = #{@user.full_name}".red
+
+      if current_user2
+        @show_overlay =  (@node.name == 'start') && (current_user2.dict2['show_overlay'] == 'yes')
+        @show_overlay = @show_overlay &&  (current_user2.dict2['show_overlay_this_session'] == 'yes') # && (current_user2.id == 9)
       else
         @show_overlay = false
-        puts "controller Node, Public, Show, @user = NIL".red
       end
 
       return if @node == nil
       # ^^ Fixme: better, go to error page
-      cu = current_user(session)
-      if cu
-        cu.set_current_node(cu, @node)
+      if current_user2
+        current_user2.set_current_node(current_user2, @node)
       end
 
-      NodeActivityManager.new(node: @node, user: @user).record
-      @presenter = NodePresenter.new(@node, @user)
+      NodeActivityManager.new(node: @node, user: current_user2).record
+      @presenter = NodePresenter.new(@node, current_user2)
 
       puts "layout = #{@node.dict['layout']}"
 

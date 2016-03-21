@@ -33,10 +33,8 @@ module Web::Controllers::Home
         puts "No incoming node".red
       end
 
-
-      user = current_user(session)
-      if user
-        prefix = user.screen_name
+      if current_user2
+        prefix = current_user2.screen_name
       else
         prefix = @incoming_node_name || :none
       end

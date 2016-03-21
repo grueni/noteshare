@@ -13,7 +13,7 @@ module Web::Controllers::Documents
       @view_options =  {stem: 'view_source'}
 
       puts "Enter: ViewSource".red
-      user = current_user(session)
+
       id = params['id']
 
       if session['current_image_id']
@@ -32,8 +32,8 @@ module Web::Controllers::Documents
         handle_nil_document(@document, id)
       end
       remember_user_view('source', session)
-      DocumentActivityManager.new(@document, user).record
-      Analytics.record_document_view(user, @root_document)
+      DocumentActivityManager.new(@document, current_user2).record
+      Analytics.record_document_view(current_user2, @root_document)
       session[:current_document_id] = id
 
       cm = ContentManager.new(@document)

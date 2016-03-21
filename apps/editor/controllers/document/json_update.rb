@@ -8,7 +8,6 @@ module Editor::Controllers::Document
     expose :active_item
 
     def call(params)
-      redirect_if_not_signed_in('editor, document, JsonUpdate')
       id = request.env['REQUEST_URI'].split('/')[-1]
 
       @active_item = 'editor'

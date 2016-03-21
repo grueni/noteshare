@@ -5,7 +5,6 @@ module Editor::Controllers::Document
     expose :document, :active_item
 
     def call(params)
-      redirect_if_not_signed_in('editor, document, Export')
      @active_item = 'editor'
      puts "EDTIOR EXPORT".magenta
      puts "ID: #{params[:id]}".red

@@ -5,10 +5,8 @@
     expose :active_item
 
     def call(params)
-      redirect_if_not_signed_in('editor, document, DeleteDocument')
 
       @active_item = 'editor'
-      user = current_user(session)
       control =  params['document']['destroy']
       doc_id =  params[:id]
       @delete_mode = params['document']['delete_mode']
@@ -18,7 +16,7 @@
       document_id = @document.id
 
 
-      redirect_to '/error/666' if Permission.new(user, :delete,  @document).grant == false
+      redirect_to '/error/666' if Permission.new(current_user2, :delete,  @document).grant == false
       message = ''
 
       if control != 'destroy'
@@ -33,14 +31,14 @@
         if parent_id != document_id
           redirect_to "/editor/document/#{parent_id}"
         else
-          redirect_to "/node/user/#{current_user(session).id}"
+          redirect_to "/node/user/#{current_user2.id}"
         end
       end
 
       if @delete_mode == 'tree'
         DocumentRepository.destroy_tree @document.id, [:verbose, :kill]
         message << "#{@document.title} and it entrie document tree has been deleted."
-        redirect_to "/node/user/#{current_user(session).id}"
+        redirect_to "/node/user/#{current_user2.id}"
       end
 
     end

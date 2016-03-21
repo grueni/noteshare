@@ -3,7 +3,6 @@ module Editor::Controllers::Document
     include Editor::Action
 
     def call(params)
-      redirect_if_not_signed_in('editor, document, CreateNewAssociatedDocument')
       query_string = request.query_string
       @document = DocumentRepository.find params['id']
       puts "Setting status of #{@document.title} (#{@document.id}) to 'OK'"
@@ -12,7 +11,7 @@ module Editor::Controllers::Document
       if query_string == 'clear'
         es.clear_editors
       else
-        es.remove_editor(current_user(session))
+        es.remove_editor(current_user2)
       end
 
 
