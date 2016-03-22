@@ -123,6 +123,7 @@ class DocumentRepository
     end
 
     query = "SELECT id FROM documents #{search_clause} #{scope_clause} #{mode_clause} "
+    # puts "QUERY: #{query}".red
     array = fetch(query)
     array = array.map{ |h| h[:id] }.uniq
     puts "Found #{array.count} items".cyan
