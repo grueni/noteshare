@@ -1,3 +1,5 @@
+require_relative '../../../../lib/noteshare/interactors/advanced_searcher'
+
 module Admin::Controllers::Documents
   class List
     include Admin::Action
