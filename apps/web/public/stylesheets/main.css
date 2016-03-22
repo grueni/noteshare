@@ -1072,6 +1072,12 @@ label {
     color: #eee;
 }
 
+.bluish {
+
+    background-color: rgba(10,10,20,0.67);
+
+}
+
 .popup {
 
     position:absolute;
