@@ -28,7 +28,17 @@ module SessionManager::Controllers::User
       if ENV['MODE'] == 'LOCAL'
       else
       end
-      self.body = "<div style='position:absolute;left:80px;top:80px;'>You are now logged out\n<br/><a href='#{url}'>Back to #{name}</a></div>"
+
+
+      html = "<style>\n"
+      html << "a { color: white; }\n"
+      html << "</style>\n"
+      html << "<div style='position:absolute;left:0;top:0;padding:3em;width:100%; height:100%;font-size:16pt;background-color:#444; color: white;'>You are now logged out\n<br/><a href='#{url}'>Back to #{name}</a></div>"
+
+
+
+      self.body = html
+      
     end
   end
 end
