@@ -34,8 +34,8 @@ class UserAuthentication
       session[:domain] = "#{@user.node_name}#{ENV['DOMAIN']}"
       @user.dict2['show_overlay'] = 'yes' if  @user.dict2['show_overlay'] == nil
       @user.dict2['show_overlay_this_session'] = 'yes' unless @user.dict2['show_overlay'] == 'no'
-      @user.dict2['search_scope'] = 'all'
-      @user.dict2['search_mode'] = 'document'
+      @user.dict2['search_scope'] ||= 'all'
+      @user.dict2['search_mode'] ||= 'document'
       @user.dict2['current_document_id'] = ENV['GETTING_STARTED_ID'] if @user.dict2['current_document_id'] == nil
       @user.dict2['reader_view'] = 'titlepage' if @user.dict2['reader_view'] == nil
       session['current_document_id'] = @user.dict2['current_document_id']
