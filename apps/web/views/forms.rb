@@ -7,7 +7,7 @@ module Web
 
       def basic_search_form
         form_for :search, '/search' do
-          text_field :search, {id: 'basic_search_form', style: 'margin-left: 40px;', placeholder: 'Search ...'}
+          text_field :search, {id: 'basic_search_form', style: 'margin-left: 40px;width:80%', placeholder: 'Search ...'}
         end
       end
 
