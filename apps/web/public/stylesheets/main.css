@@ -1135,5 +1135,9 @@ label {
     background-color: #555;
 }
 
+.flash {
+
+    color: lightskyblue;
+}
 
 /* Asciidoc-LaTeX */
