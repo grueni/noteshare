@@ -12,6 +12,7 @@ module Editor::Controllers::Document
       if result.error
         redirect_to "/error/0?#{result.error}"
       else
+        flash[:notice] = "New section created"
         redirect_to "/editor/document/#{result.new_document.id}"
       end
     end
