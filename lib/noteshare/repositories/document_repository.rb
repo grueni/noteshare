@@ -76,11 +76,14 @@ class DocumentRepository
     end
   end
 
-  def self.search111(key, mode, limit: 20)
-    array = fetch("SELECT id FROM documents WHERE parent_id = 0 AND (title ILIKE '%#{key}%' OR tags ILIKE '%#{key}%');")
-    # array = fetch("SELECT id FROM documents WHERE parent_id = 0 AND tags ILIKE '%#{key}%';")
-    # array = fetch("SELECT id FROM documents WHERE parent_id = 0 AND title ILIKE '%#{key}%';")
+  def self.search_with_title(key)
+    array = fetch("SELECT id FROM documents WHERE title ILIKE '%#{key}%'")
+    array = array.map{ |h| h[:id] }.uniq
+    array.map{ |id| DocumentRepository.find id }.sort_by { |item| item.title }
+  end
 
+  def self.search_with_tags(key)
+    array = fetch("SELECT id FROM documents WHERE tags ILIKE '%#{key}%'")
     array = array.map{ |h| h[:id] }.uniq
     array.map{ |id| DocumentRepository.find id }.sort_by { |item| item.title }
   end
