@@ -9,6 +9,7 @@ module Admin::Controllers::Documents
     expose :documents, :document_count, :active_item
 
     def call(params)
+      puts "HERE I AM BOSS!".green
       @active_item = 'admin'
 
       result = AdvancedSearcher.new(params, current_user2).call

@@ -7,17 +7,17 @@ class AdvancedSearcher
 
   def initialize(params, user)
     @commands = ['ti', 'ta']
-    @search_key = params['search']['search']
+    payload = params['search'] || {}
+    @search_key = payload['search'] || ''
+    @user = user
+  end
+
+  def configure
     parts = @search_key.split(' ')
     if parts.count > 1 and @commands.include? parts[0]
       @command = parts[0]
       @search_key = @search_key.sub(@command, '').strip
     end
-    @user = user
-  end
-
-  def configure
-
   end
 
   def advanced_search

@@ -8,7 +8,7 @@ module Admin::Controllers::Documents
       redirect_if_not_admin("Attempt to delete document #{id}: (admin, documents, delete)")
       puts "Admin, Delete, id = #{id}".red
       DocumentRepository.destroy_tree(id, [:verbose, :kill])
-      redirect_to '/admin/documents'
+      redirect_to '/admin/search'
     end
   end
 end
