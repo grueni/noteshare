@@ -10,7 +10,9 @@ class AdminCommandProcessor
     @input = hash[:input]
     @user = hash[:user]
     @tokens = @input.split(' ').map{ |token| token.strip }
+    puts "@tokens = #{@tokens}".green
     @command = @tokens.shift
+    puts "@command = #{@command}".green
     @tokens = @tokens.map { |token| token.split(':') }
     @response = 'ok'
   end
@@ -30,6 +32,7 @@ class AdminCommandProcessor
     signatures << 'add_group_token_days'
     signatures << 'add_doc_token_days'
     signatures << 'add_doc_and_group_token_days'
+    signatures << 'change_author_id_from_to'
     if signatures.include? @command_signature
       true
     else
@@ -102,6 +105,14 @@ class AdminCommandProcessor
     group = "#{@user.screen_name}_#{@group}"
     cp = CommandProcessor.new(token: token, user: @user)
     @error = cp.put(command: @command, args: [group], days_alive: @days.to_i)
+  end
+
+  # Example: add group:yuuk token:yum111 days:30
+  # Execution of the token adds the use to the group.
+  def change_author_id_from_to
+    return if authorize_user_for_level(2) == false
+    @response = AdminUtilities.change_author_id(@from, @to)
+    puts "change_author_id_from_to: #{@response}"
   end
 
   # Example: add doc:414 token:yum111 days:30

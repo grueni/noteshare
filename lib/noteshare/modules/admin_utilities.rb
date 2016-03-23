@@ -178,6 +178,21 @@ module AdminUtilities
     count
   end
 
+  def self.change_author_id(from_id, to_id, option='test')
+    count = 0
+    DocumentRepository.all.each do |doc|
+      if doc.author_id == from_id
+        count = count + 1
+        puts "#{doc.id}: #{doc.title}"
+        if option == 'fix'
+          doc.author_id = to_id
+          DocumentRepository.update doc
+        end
+      end
+    end
+    count
+  end
+
 
 
 end
