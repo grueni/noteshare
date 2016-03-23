@@ -76,6 +76,9 @@ class DocumentRepository
     end
   end
 
+  ############################
+
+
   def self.search_with_title(key)
     array = fetch("SELECT id FROM documents WHERE title ILIKE '%#{key}%'")
     array = array.map{ |h| h[:id] }.uniq
@@ -87,6 +90,8 @@ class DocumentRepository
     array = array.map{ |h| h[:id] }.uniq
     array.map{ |id| DocumentRepository.find id }.sort_by { |item| item.title }
   end
+
+  ###########################
 
   def self.basic_search(user, key, mode, scope, limit: 20)
 
