@@ -1,0 +1,15 @@
+.row
+  .col.s12.m11.l11
+    span style='position:absolute; left:-100px;width:40%' == search_form
+    h4 style='margin-top:65px;' == document_count
+    - if documents
+      .col.ns_card.scroll-y style='height:400px;width:90%;'
+        table style='border=0; border-color: #444; border-collapse;'
+          tbody
+            - documents.each do |document|
+              tr.clear_style
+                td== document.id
+                td.lightlink == document.link
+                td== document.author_id
+                td== node_link_for_document document
+                td== admin_delete_document_link document.id
