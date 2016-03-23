@@ -107,11 +107,11 @@ class AdminCommandProcessor
     @error = cp.put(command: @command, args: [group], days_alive: @days.to_i)
   end
 
-  # Example: add group:yuuk token:yum111 days:30
+  # Example: change_author_id from:1 to:9
   # Execution of the token adds the use to the group.
   def change_author_id_from_to
     return if authorize_user_for_level(2) == false
-    @response = AdminUtilities.change_author_id(@from, @to)
+    @response = AdminUtilities.change_author_id(@from, @to, 'fix')
     puts "change_author_id_from_to: #{@response}"
   end
 
