@@ -6,8 +6,13 @@ class AdvancedSearcher
   expose :documents
 
   def initialize(params, user)
+    @commands = ['ti', 'ta']
     @search_key = params['search']['search']
-    puts "interactor: @search_key = #{@search_key}".green
+    parts = @search_key.split(' ')
+    if parts.count > 1 and @commands.include? parts[0]
+      @command = parts[0]
+      @search_key = @search_key.sub(@command, '').strip
+    end
     @user = user
   end
 
@@ -15,8 +20,23 @@ class AdvancedSearcher
 
   end
 
+  def advanced_search
+    case @command
+      when 'ti'
+        @documents = DocumentRepository.search_with_title(@search_key)
+      when 'ta'
+        @documents = DocumentRepository.search_with_tags(@search_key)
+      else
+        @documents = DocumentRepository.search_with_title(@search_key)
+    end
+  end
+
   def search_documents
-    @documents = DocumentRepository.search_with_title(@search_key)
+    if @command == nil
+      @documents = DocumentRepository.search_with_title(@search_key)
+    else
+      advanced_search
+    end
   end
 
 

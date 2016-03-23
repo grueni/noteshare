@@ -82,6 +82,12 @@ class DocumentRepository
     array.map{ |id| DocumentRepository.find id }.sort_by { |item| item.title }
   end
 
+  def self.search_with_tags(key)
+    array = fetch("SELECT id FROM documents WHERE tags ILIKE '%#{key}%'")
+    array = array.map{ |h| h[:id] }.uniq
+    array.map{ |id| DocumentRepository.find id }.sort_by { |item| item.title }
+  end
+
   def self.basic_search(user, key, mode, scope, limit: 20)
 
     puts "Search where key = #{key} mode = #{mode}, scope = #{scope}".red
