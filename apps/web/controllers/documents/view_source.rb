@@ -29,7 +29,7 @@ module Web::Controllers::Documents
 
 
       remember_user_view('source', session)
-      session[:current_document_id] = id
+      session[:current_document_id] = @document.id
 
       cm = ContentManager.new(@document)
       if @document.is_root_document?
