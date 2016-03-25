@@ -32,7 +32,7 @@ class ReadDocument
   def call
     return unless validated
     ContentManager.new(@document).update_content
-    DocumentActivityManager.new(@user).record(@document)
+    DocumentActivityManager.new(@user).record(@document) if @user
     Analytics.record_document_view(@user, @document)
   end
 
