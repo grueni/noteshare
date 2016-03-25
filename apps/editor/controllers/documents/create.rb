@@ -45,6 +45,7 @@ module Editor::Controllers::Documents
       @document.compiled_dirty = false
       DocumentRepository.update @document
       @document.acl_set_permissions!('rw', 'r', '-')
+      DocumentActivityManager.new(@author).record(@first_section)
       update_user_node
       redirect_to "document/#{@first_section.id}"
     end
