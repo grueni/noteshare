@@ -1,5 +1,6 @@
 require 'keen'
 require_relative '../../../../lib/modules/analytics'
+require_relative '../../../../lib/noteshare/interactors/read_document'
 
 module Web::Controllers::Documents
   class ViewSource
@@ -13,27 +14,21 @@ module Web::Controllers::Documents
       @view_options =  {stem: 'view_source'}
 
       puts "Enter: ViewSource".red
+      @active_item = 'reader'
+      @active_item2 = 'source'
 
-      id = params['id']
+      result = ReadDocument.new(params, current_user2).call
+      handle_error(result.error)
+      @document = result.document
+      @root_document = result.root_document
+
 
       if session['current_image_id']
         @current_image = ImageRepository.find session['current_image_id']
       end
 
-      @active_item = 'reader'
-      @active_item2 = 'source'
-      @document = DocumentRepository.find(id)
-      handle_nil_document(@document, params['id'])
-      redirect_if_document_not_public(@document, 'Unauthorized attempt to read document that is not world-readable')
 
-      @root_document = @document.root_document
-      if @document.content.length < 3
-        @document = @document.subdocument(0)
-        handle_nil_document(@document, id)
-      end
       remember_user_view('source', session)
-      DocumentActivityManager.new(current_user2).record(@document)
-      Analytics.record_document_view(current_user2, @root_document)
       session[:current_document_id] = id
 
       cm = ContentManager.new(@document)
