@@ -1,4 +1,4 @@
-require_relative '../../../../lib/modules/analytics'
+require_relative '../../../../lib/noteshare/interactors/read_document'
 
 module Web::Controllers::Documents
   class Titlepage
@@ -11,30 +11,22 @@ module Web::Controllers::Documents
     def call(params)
 
       @view_options =  {stem: 'titlepage'}
-
-      puts "controller: Titlepage".red
-
       @active_item = 'reader'
       @active_item2 = 'titlepage'
 
-      @document = DocumentRepository.find(params['id'])
-      handle_nil_document(@document, params['id'])
-      redirect_if_document_not_public(@document, 'Unauthorized attempt to read document that is not world-readable')
+      result = ReadDocument.new(params, current_user2).call
+      handle_error(result.error)
+      @document = result.document
+      @root_document = result.root_document
 
       session[:current_document_id] = @document.id
 
-      @root_document = @document.root_document
       cm = ContentManager.new(@root_document, {numbered: true, format: 'adoc-latex'})
       cm.compile_with_render
       @root_document.compiled_content = ContentManager.new(@root_document).compile
 
       session[:current_document_id] = @root_document.id
-      puts "web titlepage, recording session[:current_document_id] as #{session[:current_document_id]}".red
-
       remember_user_view('titlepage', session)
-
-      DocumentActivityManager.new(@document, current_user2).record
-      Analytics.record_document_view(current_user2, @root_document)
 
       @blurb = @root_document.dict['blurb'] || 'blurb'
 

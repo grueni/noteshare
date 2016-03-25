@@ -68,7 +68,7 @@ class NodePresenter
   end
 
   def recently_viewed(view_mode)
-    DocumentActivityManager.new(nil, @user).list(view_mode)
+    DocumentActivityManager.new(@user).list(view_mode)
   end
 
   def recent_nodes

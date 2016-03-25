@@ -1,4 +1,5 @@
 require_relative '../../../../lib/modules/analytics'
+require_relative '../../../../lib/noteshare/interactors/read_document'
 
 module Web::Controllers::Documents
   class Aside
@@ -10,37 +11,21 @@ module Web::Controllers::Documents
     def call(params)
 
       @view_options =  {stem: 'aside'}
-
-
-      document_id = params['id']
-      query_string = request.query_string || ''
-
       @active_item = 'reader'
       @active_item2 = 'sidebar'
-      @document = DocumentRepository.find(document_id)
-      handle_nil_document(@document, document_id)
-      redirect_if_document_not_public(@document, 'Unauthorized attempt to read document that is not world-readable')
 
-      @root_document = @document.root_document
-      if @document.content.length < 3
-        @document = @document.subdocument(0)
-        handle_nil_document(@document, document_id)
-      end
-
-      session[:current_document_id] = document_id
-
-
-      ContentManager.new(@document).update_content
+      result = ReadDocument.new(params, current_user2).call
+      handle_error(result.error)
+      @document = result.document
+      @root_document = result.root_document
 
       @aside = @document.associated_document('aside')
       ContentManager.new(@aside).update_content if @aside && @aside.content
 
       session[:current_document_id] = @document.id
-
       remember_user_view('sidebar', session)
-      DocumentActivityManager.new(@document, current_user2).record
-      Analytics.record_document_view(current_user2, @root_document)
 
+      query_string = request.query_string || ''
       if query_string != ''
         redirect_to "/document/#{document_id}\##{query_string}"
       end

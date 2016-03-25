@@ -1,6 +1,6 @@
 
 require 'keen'
-require_relative '../../../../lib/modules/analytics'
+require_relative '../../../../lib/noteshare/interactors/read_document'
 
 module Web::Controllers::Documents
   class Show
@@ -10,41 +10,23 @@ module Web::Controllers::Documents
     expose :document, :root_document,  :active_item, :active_item2,  :view_options
 
     def call(params)
-
-      @view_options =  {stem: 'document'}
-
-      document_id = params['id']
-      if document_id  == '0'
-        document_id = session['current_document_id']
-      end
-
-      redirect_to '/error/0?Sorry, no document recalled from memory' if document_id == nil
-
-      query_string = request.query_string || ''
-
+      puts "Boss this is Docuemnts, Show".red
       @active_item = 'reader'
       @active_item2 = 'standard'
-      @document = DocumentRepository.find(document_id)
-      handle_nil_document(@document, document_id)
-      redirect_if_document_not_public(@document, 'Unauthorized attempt to read document that is not world-readable')
+      @view_options =  {stem: 'document'}
 
-      @root_document = @document.root_document
-      if @document.content.length < 3
-        @document = @document.subdocument(0)
-        handle_nil_document(@document, document_id)
-      end
+      result = ReadDocument.new(params, current_user2).call
+      handle_error(result.error)
+      @document = result.document
+      @root_document = result.root_document
 
-      session[:current_document_id] = document_id
-
-      ContentManager.new(@document).update_content
+      session[:current_document_id] = @document.id
       remember_user_view('standard', session)
-      DocumentActivityManager.new(@document, current_user2).record
-      Analytics.record_document_view(current_user2, @document)
 
+      query_string = request.query_string || ''
       if query_string != ''
         redirect_to "/document/#{document_id}\##{query_string}"
       end
-
     end
   end
 end

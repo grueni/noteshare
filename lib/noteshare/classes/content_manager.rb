@@ -1,5 +1,8 @@
 
-
+# The content Manager updates
+# the content of a document if necessary
+# and also has facilities for document export
+#
 # Public interface:
 #
 #   - update_content

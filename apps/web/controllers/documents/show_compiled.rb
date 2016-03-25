@@ -1,4 +1,5 @@
-require_relative '../../../../lib/modules/analytics'
+require_relative '../../../../lib/noteshare/interactors/read_document'
+
 
 module Web::Controllers::Documents
   class ShowCompiled
@@ -11,27 +12,22 @@ module Web::Controllers::Documents
     def call(params)
 
       @view_options =  {stem: 'compiled'}
-
-      puts "controller: ShowCompiled".red
       @active_item = 'reader'
       @active_item2 = 'compiled'
-      @document = DocumentRepository.find(params['id'])
-      handle_nil_document(@document, params['id'])
-      redirect_if_document_not_public(@document, 'Unauthorized attempt to read document that is not world-readable')
+
+      result = ReadDocument.new(params, current_user2).call
+      handle_error(result.error)
+      @document = result.document
+      @root_document = result.root_document
 
       session[:current_document_id] = document.id
-      @root_document = @document.root_document
 
       options = {numbered: true, format: 'adoc-latex', xlinks: 'internalize', root_document_id: @root_document.id}
       cm = ContentManager.new(@root_document, options)
       cm.compile_with_render_lazily
 
       session[:current_document_id] = @root_document.id
-
       remember_user_view('compiled', session)
-
-      DocumentActivityManager.new(@document, current_user2).record
-      Analytics.record_document_view(current_user2, @root_document)
 
       if @root_document.dict['make_index'] # && false
         index_content = @root_document.dict['document_index']

@@ -5,27 +5,22 @@
 # a list of this activity
 class DocumentActivityManager
 
-
-
-  def initialize(document, user)
-    @document = document
+  def initialize(user)
+    puts "Boss, this is the DocumentActivityManager".green
     @user = user
+    @array = @user.docs_visited || []
   end
 
-  def record
-    return if @user == nil
-    array = @user.docs_visited
-    dv = DocsVisited.new(array, ENV['DOCS_VISITED_CAPACITY'])
-    dv.push_doc(@document)
+  def record(document)
+    dv = DocsVisited.new(@array, ENV['DOCS_VISITED_CAPACITY'])
+    dv.push_doc(document)
     @user.docs_visited = dv.stack
     UserRepository.update @user
   end
 
 
-  # @document can be nil for this method:
   def list(view_mode)
-    array = @user.docs_visited || []
-    array = array.reverse
+    array = @array.reverse
     dv = DocsVisited.new(array, ENV['DOCS_VISITED_CAPACITY'])
     output = "<ul>\n"
     dv.stack.each do |item|
@@ -38,6 +33,16 @@ class DocumentActivityManager
     end
     output << "</ul>\n"
     output
+  end
+
+  def last_document_id
+    last__item = (@user.docs_visited || []).last
+    id = last__item.values[0][2] if  last__item
+    if id
+      id.to_i
+    else
+      DEFAULT_DOCUMENT_ID.to_i
+    end
   end
 
 

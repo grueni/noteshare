@@ -2,6 +2,14 @@ module Noteshare
 
   module ErrorHandler
 
+    def handle_error(error)
+      if error && error.downcase =~ /unauthorized/
+        halt 401
+      elsif error != nil
+        redirect_to "/error/0/?#{error}"
+      end
+    end
+
     # If the 'document' is nil, redirect the request
     # to an error page with information in the header
     # about the nature of the error
