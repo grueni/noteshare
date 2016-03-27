@@ -95,7 +95,8 @@ namespace :db do
   end
 
   desc "Restores the local database from the dump at db/APP_NAME.dump."
-  task :restore => :reset do
+  # task :restore => :reset do
+  task :restore  do
     cmd = "pg_restore --verbose --host 'localhost' --username #{user} --clean --no-owner --no-acl --dbname #{db} #{here}/db/#{app}.dump"
     # Rake::Task["db:reset"].invoke
     puts cmd

@@ -1,4 +1,6 @@
-                  workers Integer(ENV['PUMA_WORKERS'] || 2)
+# require 'lotus/model'
+
+workers Integer(ENV['PUMA_WORKERS'] || 2)
 workers Integer(ENV['WEB_CONCURRENCY'] || 2)
 threads Integer(ENV['MIN_THREADS']  || 1), Integer(ENV['MAX_THREADS'] || 8)
 
