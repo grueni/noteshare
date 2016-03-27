@@ -31,7 +31,11 @@ class UserAuthentication
       session[:user_id] = @user.id
       session[:current_document_id] = @user.dict2['current_document_id']
       session[:current_image_id] = @user.dict2['current_image_id']
-      session[:domain] = "#{@user.node_name}#{ENV['DOMAIN']}"
+      if ENV['MODE'] == 'LOCAL'
+        session[:domain] = ENV['DOMAIN']
+      else
+        session[:domain] = "#{@user.node_name}#{ENV['DOMAIN']}"
+      end
       @user.dict2['show_overlay'] = 'yes' if  @user.dict2['show_overlay'] == nil
       @user.dict2['show_overlay_this_session'] = 'yes' unless @user.dict2['show_overlay'] == 'no'
       @user.dict2['search_scope'] ||= 'all'

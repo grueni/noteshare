@@ -41,7 +41,7 @@ class DocumentActivityManager
     if id
       id.to_i
     else
-      DEFAULT_DOCUMENT_ID.to_i
+      ENV['DEFAULT_DOCUMENT_ID'].to_i
     end
   end
 
