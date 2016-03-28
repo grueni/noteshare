@@ -138,8 +138,9 @@ update_document = function () {
 
   var element2 = document.getElementById('document-document-id');
   var id = element2.value;
+  var csrf_token = document.getElementsByName("_csrf_token")[0].value;
 
-  $.post( '/editor/json_update/' + id, { source: source_text }, update_rendered_content );
+  $.post( '/editor/json_update/' + id, { source: source_text, '_csrf_token': csrf_token }, update_rendered_content );
 }
 
 count_words = function(text) {

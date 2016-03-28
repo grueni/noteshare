@@ -25,7 +25,7 @@ get '/new_associated_document/:id', to: 'document#new_associated_document'
 post '/create_new_section', to: 'document#create_new_section'
 get '/new_section/:id', to: 'document#new_section'
 
-post '/json_update/:ipd', to: 'document#json_update'
+post '/json_update/:id', to: 'document#json_update'
 get '/export/:id', to: 'document#export'
 
 get '/prepare_to_delete_document/:id', to: 'document#prepare_to_delete'

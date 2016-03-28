@@ -16,13 +16,5 @@ module Editor::Controllers::Document
 
     end
 
-
-    #Fixme: we really shouldn't do this
-    private
-    def verify_csrf_token?
-      false
-    end
-
-
   end
 end
