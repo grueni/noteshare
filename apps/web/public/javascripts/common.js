@@ -23,9 +23,10 @@ function yak() {
 
 
 
-function csrfToken() {
+function csrfToken(document) {
 
-    return $('meta[name=csrf-token]').attr('content');
+    return document.getElementsByName("_csrf_token")[0].value;
+    /* return $('meta[name=csrf-token]').attr('content'); */
 }
 
 function getLineNumber(textarea, indicator) {

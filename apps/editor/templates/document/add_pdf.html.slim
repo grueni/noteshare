@@ -15,5 +15,6 @@
         input[type="file" name="datafile" size="40" class='green' style='color:white' ]
         br
         input[type="hidden" name="document_id" value=document.id ]
+        input[type="hidden" name="_csrf_token" value=session['_csrf_token'] ]
         br
         input[type="submit" value="Add" class='green' style='color:white']
