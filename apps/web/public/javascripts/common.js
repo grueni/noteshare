@@ -55,7 +55,8 @@ $(document).ready(function() {
 
         var data = localStorage.getItem('toc_permutation');
         var url = "/editor/update_toc/0?" + data;
-        $.post(url, 'foo');
+        var csrf_token = document.getElementsByName("_csrf_token")[0].value;
+        $.post(url, { '_csrf_token': csrf_token });
 
     });
 

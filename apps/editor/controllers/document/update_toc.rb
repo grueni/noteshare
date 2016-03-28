@@ -8,7 +8,6 @@ module Editor::Controllers::Document
     expose :document_id
 
     def call(params)
-
       id = session['current_document_id']
       @document_id = id
       data = request.query_string
@@ -20,21 +19,8 @@ module Editor::Controllers::Document
       document.root_document.compiled_dirty = true
       DocumentRepository.update document
 
-      puts 'READY TO REDIRECT'.magenta
-      # redirect_to "/editor/document/#{id}
-      redirect_to basic_link "#{current_user2.screen_name}",   "/editor/document/#{id}"
-      puts 'AFTER REDIRECT'.magenta
-      # redirect_to "/"
-
+      redirect_to basic_link "#{current_user2.screen_name}", "/editor/document/#{id}"
     end
-
-    #Fixme: we really shouldn't do this
-    #See: https://rubygems.org/gems/jquery-lotus
-    private
-    def verify_csrf_token?
-      false
-    end
-
 
   end
 end
