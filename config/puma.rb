@@ -12,7 +12,9 @@ port        ENV['PORT']     || 3000
 environment ENV['RACK_ENV'] || ENV['LOTUS_ENV'] || 'development'
 
 on_worker_boot do
-   # Lotus::Model.load!
+  if ENV['LOTUS_ENV'] != 'development'
+    Lotus::Model.load!
+  end
 end
 
 
