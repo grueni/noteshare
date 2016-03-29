@@ -9,6 +9,9 @@ module Web::Controllers::Home
 
     expose :settings, :active_item
 
+    cache_control :public, max_age: 6000
+    # => Cache-Control: public, max-age: 600
+
     def call(params)
 
       puts "app = web, controller = switchboard".red
