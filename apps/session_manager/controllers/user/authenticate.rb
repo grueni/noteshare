@@ -53,12 +53,13 @@ module SessionManager::Controllers::User
 
     end
 
+=begin
     #Fixme: this is BAAAD!!
     private
     def verify_csrf_token?
       false
     end
-
+=end
 
   end
 end
