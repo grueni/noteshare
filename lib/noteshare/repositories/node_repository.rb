@@ -14,6 +14,12 @@ class NSNodeRepository
     array.map{ |id| NSNodeRepository.find id }.sort_by { |item| item.name }
   end
 
+  def self.personal
+    array = fetch("SELECT id FROM nodes WHERE type = 'personal';")
+    array = array.map{ |h| h[:id] }.uniq
+    array.map{ |id| NSNodeRepository.find id }.sort_by { |item| item.name }
+  end
+
   def self.find_by_name(name)
     query do
       where(name: name)

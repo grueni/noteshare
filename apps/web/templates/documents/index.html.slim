@@ -1,7 +1,7 @@
 
 .row
 
-  .col.s12.m6.l6
+  .col.s12.m4.l4
     h4 style='margin-left:25px;' == "Documents (#{documents.count})"
     /== search_form
     - if documents
@@ -13,9 +13,9 @@
               - documents.each do |document|
                 tr.clear_style
                   td.lightlink == titlepage_link2 document
-                  td== node_link_for_document(document)
+                  / td== node_link_for_document(document)
 
-  .col.hide-on-small-only.m6.offset-m6.l5.offset-l6
+  .col.hide-on-small-only.m3.offset-m4.l3.offset-l4
     h4 == "Nodes (#{nodes.count})"
     .ns_card.scroll-y style='height:400px;'
       table style='border=0; border-color: #444; border-collapse;'
@@ -23,4 +23,14 @@
         - nodes.each do |node|
           tr.clear_style
             td.lightlink== node_link(node, session)
-            td= node.blurb
+            /td= node.blurb
+
+  .col.hide-on-small-only.m3.offset-m7.l3.offset-l7
+    h4 == "People (#{users.count})"
+    .ns_card.scroll-y style='height:400px;'
+      table style='border=0; border-color: #444; border-collapse;'
+        tbody
+        - users.each do |node|
+          tr.clear_style
+            td.lightlink== node_link(node, session)
+            /td= node.blurb
