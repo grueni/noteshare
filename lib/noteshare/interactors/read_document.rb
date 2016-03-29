@@ -16,6 +16,9 @@ class ReadDocument
     else
       @root_document = @document.root_document
     end
+    if @document == @root_document and @document.rendered_content and @document.rendered_content != ''
+      @document = @document.first_section
+    end
   end
 
   def validated
