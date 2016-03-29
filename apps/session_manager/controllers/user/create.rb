@@ -91,7 +91,7 @@ module SessionManager::Controllers::User
       end
 
     end
-    
+
   end
 end
 
