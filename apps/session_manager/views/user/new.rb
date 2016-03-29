@@ -33,6 +33,8 @@ module SessionManager::Views::User
         text_field :token
         label :token
 
+        hidden_field :_csrf_token, value: session['_csrf_token']
+
         br
         br
         submit 'Create account', {id: 'create_uwer_button', class: 'green top_margin2;'}
