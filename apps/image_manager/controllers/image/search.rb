@@ -22,10 +22,12 @@ module ImageManager::Controllers::Image
 
     end
 
+=begin
     private
     def verify_csrf_token?
       false
     end
+=end
 
   end
 end

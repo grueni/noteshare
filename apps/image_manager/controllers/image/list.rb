@@ -27,10 +27,12 @@ module ImageManager::Controllers::Image
       puts "N = #{@images.count} documents found".magenta
     end
 
+=begin
     private
     def verify_csrf_token?
       false
     end
+=end
 
   end
 end
