@@ -13,7 +13,7 @@
         puts 'DOING SEARCH FOR ALL'.red
         @documents = DocumentRepository.basic_search(nil, '', 'document', 'all').select{ |item| item.acl_get(:world) =~ /r/ }.sort_by { |item| item.title }
       else
-        @documents = DocumentRepository.basic_search(current_user2, '', 'document', 'all').select{ |item| (item.acl_get(:world) =~ /r/) || (item.author_credentials['id'] == current_user2.id) }.sort_by { |item| item.title }
+        @documents = DocumentRepository.basic_search(current_user2, '', 'document', 'all').select{ |item| (item.acl_get(:world) =~ /r/) }.sort_by { |item| item.title }
       end
 
       @documents = (DocumentRepository.root_documents.all.select &can_read(current_user2)).sort_by { |item| item.title }
