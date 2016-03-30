@@ -146,6 +146,7 @@ DEPENDENCIES
   puma
   puma_worker_killer
   rake
+  shotgun
   slim
   thread_safe
 
