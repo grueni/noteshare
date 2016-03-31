@@ -35,7 +35,7 @@ class SetupDocument
     @first_section = NSDocument.create(title: 'First section', content: @content, author_credentials: @author.credentials)
     # cm = ContentManager.new(@first_section)
     # cm.update_content
-    @first_section.add_to(@document)
+    DocumentManager.new(@document).append(@first_section)
   end
 
   def update_user_dict

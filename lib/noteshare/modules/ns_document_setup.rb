@@ -51,8 +51,9 @@ require_relative '../entities/ns_document'
       @section1.insert(0,@article)
       @section2.insert(1,@article)
       @section3.insert(2,@article)
-      @subsection.add_to(@section2)
-      @subsubsection.add_to(@subsection)
+
+      DocumentManager.new(@section2).append(@subsection)
+      DocumentManager.new(@subsection).append(@subsubsection)
 
       DocumentRepository.all.each do |document|
         # document.update_table_of_contents

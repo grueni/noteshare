@@ -1,3 +1,4 @@
+
 module Editor::Controllers::Document
   class Edit
     include Editor::Action
@@ -5,14 +6,15 @@ module Editor::Controllers::Document
     expose :document, :root_document, :updated_text, :current_image,:active_item, :editors
 
     def call(params)
+      puts "params['id'] = #{params['id']}".red
       id = params['id']
       @document = DocumentRepository.find(id)
       @root_document = @document.root_document
 
       # Do not edit document root in the regular editor
       if @document.is_root_document?
-        @document = @document.first_section
-        id = @document.id
+        first_section = @document.first_section
+        id = first_section.id if first_section
       end
 
 

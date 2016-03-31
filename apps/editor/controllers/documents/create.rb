@@ -77,7 +77,8 @@ module Editor::Controllers::Documents
 
       cm = ContentManager.new(@first_section)
       cm.update_content
-      @first_section.add_to(@document)
+      DocumentManager.new(@document).append(@first_section)
+
     end
 
     def sample_content

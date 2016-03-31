@@ -60,7 +60,7 @@ class Course
           stack.pop
         end
         puts "D".red
-        section.add_to(stack.last)
+        DocumentManager.new(stack.last).append(section)
         puts "E".red
         last_node = section
       rescue

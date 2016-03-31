@@ -16,7 +16,7 @@ describe DocumentManager do
 
   end
 
-  it 'can add a document as a siblinng of a given subdocument of a master document' do
+  it 'can add a document as a sibling of a given subdocument of a master document' do
 
     doc = NSDocument.create(title: 'Master')
     doc.title.must_equal 'Master'

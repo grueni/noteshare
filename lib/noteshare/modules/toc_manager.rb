@@ -32,7 +32,7 @@ class TOCManager
     gp = @document.grandparent_document
     if gp && gp != @document.parent_document
       @document.remove_from_parent
-      @document.add_to(gp)
+      DocumentManager.new(p).append(@document)
       return gp
     else
       puts 'grand parent is parent'.cyan
@@ -62,7 +62,7 @@ class TOCManager
     p = @document.previous_document
     if p
       @document.remove_from_parent
-      @document.add_to(p)
+      DocumentManager.new(p).append(@document)
     end
   end
 

@@ -165,86 +165,11 @@ class NSDocument
 
   ###################################################
   #
-  #     2. MANAGE SUBDOCUMENTS
+  #     2. Deletion
   #
   ###################################################
 
 
-  # USED INTERNALLY AND IN TESTS --  PRIVATE?
-  # @section(k, @article) makes @section the k-th subdocument
-  # of @article.  The subdocuments that were in position
-  # k and above are shifted to the right.  This method
-  # updates all links: parent, index_in_parent,
-  # amd the relevant next and previous links                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                            
-  def insert(k, parent_document)
-
-    # puts "Insert #{self.id} (#{self.title}) at k = #{k}"
-
-    # Insert the TOCItem of the current document (receiver)
-    # in the toc array of the parent document.
-    # Note the index of the TOCItem and copy that index
-    # into self.index_in_parent.  Thus, at the
-    # the end of these operations, the parent
-    # references the child (the subdocument),
-    # and vice versa.
-    parent_toc = TOC.new(parent_document)
-    new_toc_item = TOCItem.new(self.id, self.title, self.identifier, false)
-    parent_toc.insert(k, new_toc_item)
-    parent_toc.save!
-    self.index_in_parent =  k
-    self.parent_ref = {id: parent_document.id, title: parent_document.title, identifier: parent_document.identifier, has_subdocs:true }
-    self.parent_id = parent_document.id
-
-    root_doc = find_root_document
-    if root_doc
-      self.root_document_id = root_doc.id
-      self.root_ref = {id: root_doc.id, title: root_doc.title, identifier: root_doc.identifier, has_subdocs:true }
-    else
-      self.root_ref = {id: 0, title: '', identifier: '', has_subdocs:false }
-    end
-
-      # Inherit the render_option from the root document
-    if root_doc and root_doc != self
-      self.render_options = root_doc.render_options
-    end
-
-    # update index_in_parent for subdocuments
-    # that were shifted to the right
-    # puts "Shifting ..."
-    # puts "parent_document.subdoc_refs.tail(k+1): #{parent_document.subdoc_refs.tail(k)}"
-    TOC.new(parent_document).table.tail(k).each do |item|
-      doc = DocumentRepository.find item.id
-      doc.index_in_parent = doc.index_in_parent + 1
-      DocumentRepository.update(doc )
-    end
-
-    DocumentRepository.update(self)
-    DocumentRepository.update(parent_document)
-
-    # update_neighbors
-
-  end
-
-  # PUBLIC
-  def add_as_sibling_of(document, direction)
-    p = document.parent_document
-    _toc = TOC.new(p)
-    k = _toc.index_by_identifier(document.identifier)
-    direction == :before ? offset = 0 : offset = +1
-    k = k + offset
-    return if k < 0
-    return if k > _toc.count
-    insert(k,p)
-  end
-
-
-  # PUBLIC
-  # section.add_to(article) makes section
-  # the last subdocument of article
-  def add_to(parent_document)
-    new_index = parent_document.toc.length
-    insert(new_index, parent_document)
-  end
 
   # PRIVATE
   def delete_subdocument
@@ -281,17 +206,6 @@ class NSDocument
     _toc.save!
   end
 
-
-
-  # NOT UESD EXCEPT IN TESTS
-  # @foo.move_to(7) moves @foo in its
-  # parent document to position 7.
-  # Subdocuments that were in position 7 and up
-  # are moved up.
-  def move_to(new_position)
-    remove_from_parent
-    insert(new_position, parent_document)
-  end
 
 
   #########################################

@@ -56,6 +56,10 @@ class AddPDF
   end
 
   def attach_document
+
+    @parent_document = @current_document.parent_document
+    document_manager = DocumentManager.new(@parent_document)
+
     if @current_document.is_root_document?
       @create_mode = 'child'
     else
@@ -64,11 +68,11 @@ class AddPDF
 
     case @create_mode
       when 'child'
-        @new_document.add_to(@current_document)
+        document_manager.append(@new_document)
       when 'sibling_before'
-        @new_document.add_as_sibling_of @current_document, :before
+        document_manager.add_as_sibling(new_sibling: @new_document, direction: :before, old_sibling: @current_document)
       when 'sibling_after'
-        @new_document.add_as_sibling_of @current_document, :after
+        document_manager.add_as_sibling(new_sibling: @new_document, direction: :after, old_sibling: @current_document)
       else
         puts 'do nothing'
     end

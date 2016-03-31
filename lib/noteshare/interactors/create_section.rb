@@ -10,6 +10,7 @@ class CreateSection
     @title = document_packet['title']
     @content = document_packet['content']
     @create_mode = document_packet['create_mode'] || 'sibling_below'
+    puts "@create_mode = #{@create_mode}".green
     current_document_id = document_packet['current_document_id']
     @current_document = DocumentRepository.find current_document_id
     @author_credentials = @current_document.author_credentials2
@@ -26,6 +27,7 @@ class CreateSection
     if @current_document.is_root_document?
       @create_mode = 'child'
     end
+    puts "@create_mode = #{@create_mode}".red
   end
 
   def create
@@ -39,16 +41,25 @@ class CreateSection
   end
 
   def attach
+    @parent_document = @current_document.parent_document
+
+    if @create_mode == 'child'
+      document_manager = DocumentManager.new(@current_document)
+    else
+      document_manager = DocumentManager.new(@parent_document)
+    end
+
     case @create_mode
       when 'child'
-        @new_document.add_to(@current_document)
+       document_manager.append(@new_document)
       when 'sibling_above'
-        @new_document.add_as_sibling_of @current_document, :before
+       document_manager.add_as_sibling(new_sibling: @new_document, direction: :before, old_sibling: @current_document)
       when 'sibling_below'
-        @new_document.add_as_sibling_of @current_document, :after
+       document_manager.add_as_sibling(new_sibling: @new_document, direction: :after, old_sibling: @current_document)
       else
         puts 'do nothing'
     end
+
   end
 
   def call
