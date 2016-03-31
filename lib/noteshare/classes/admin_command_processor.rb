@@ -152,8 +152,9 @@ class AdminCommandProcessor
     @response = 'set_acl'
   end
 
-  # Example: add node:poetrt
+  # Example: add node:poetry
   def add_node
+    puts "ADD NODE, @node = #{@node}".red
     # return if authorize_user_for_level(2) == false
     node_name = @node
     @target_node = NSNodeRepository.find_one_by_name node_name
