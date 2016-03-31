@@ -8,6 +8,10 @@ class NodePresenter
     @docs = @docs.sort_by_title
   end
 
+  def title
+     "<a href='/node/#{@user.screen_name}'>#{@user.screen_name}</a> at #{ENV['DOMAIN']}"
+  end
+
   def readable_documents
     @docs
   end

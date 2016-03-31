@@ -1,7 +1,7 @@
 .row style='margin-top:20px;'
 
   .col.s12.m8.offset-m1.l5.offset-l1
-    h3 == "#{current_node.url}: #{presenter.number_of_readable_documents} documents"
+    h3 == "#{presenter.title}: #{presenter.number_of_readable_documents} documents"
     div
       .tall500.ns_card.scroll-y style='height:430px;'
         - if current_node

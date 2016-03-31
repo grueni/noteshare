@@ -33,6 +33,7 @@ class AdminCommandProcessor
     signatures << 'add_doc_token_days'
     signatures << 'add_doc_and_group_token_days'
     signatures << 'change_author_id_from_to'
+    signatures << 'add_node'
     if signatures.include? @command_signature
       true
     else
@@ -151,5 +152,15 @@ class AdminCommandProcessor
     @response = 'set_acl'
   end
 
+  # Example: add node:poetrt
+  def add_node
+    # return if authorize_user_for_level(2) == false
+    node_name = @node
+    @target_node = NSNodeRepository.find_one_by_name node_name
+    if @target_node
+      Neighbors.new(node: @target_node).add(name: node_name, strength: 0.5)
+      @response = "Node #{@target_node.name} added"
+    end
+  end
 
 end
