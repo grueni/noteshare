@@ -71,76 +71,45 @@ class DocumentManager
   end
 
 
-=begin
-
   # PUBLIC
-  def add_as_sibling_of(document, direction)
-    p = document.parent_document
-    _toc = TOC.new(p)
-    k = _toc.index_by_identifier(document.identifier)
+  def add_as_sibling(hash)
+    new_sibling = hash[:new_sibling]
+    old_sibling = hash[:old_sibling]
+    direction =  hash[:direction]
+    toc = TOC.new(@parent_document)
+    position = toc.index_by_identifier(old_sibling.identifier)
     direction == :before ? offset = 0 : offset = +1
-    k = k + offset
-    return if k < 0
-    return if k > _toc.count
-    insert(k,p)
+    position = position + offset
+    return if position < 0
+    return if position > toc.count
+    insert(subdocument: new_sibling, position: position)
   end
 
 
   # PUBLIC
   # section.add_to(article) makes section
   # the last subdocument of article
-  def add_to(parent_document)
-    new_index = parent_document.toc.length
-    insert(new_index, parent_document)
+  def append(new_document)
+    new_index = @parent_document.toc.length
+    insert(subdocument: new_document, position: new_index)
   end
 
-  # PRIVATE
-  def delete_subdocument
-    if parent_document
-      self.remove_from_parent
-    end
-    DocumentRepository.delete self
+  def remove(subdocument)
+    toc = TOC.new(@parent_document)
+    toc.delete_by_identifier(subdocument.identifier)
+    toc.save!
   end
 
-
-
-  #Fixme, spaghetti?
-  # PUBLIC
-  def delete
-    if is_associated_document?
-      puts "I am now in DELETE!".red
-      delete_associated_document
-    else
-      delete_subdocument
-    end
+  def delete(subdocument)
+    remove(subdocument)
+    DocumentRepository.delete subdocument
   end
 
-
-  # PRIVATE, tests
-  # @foo.remove_from_parent removes
-  # @foo as a subdocument of its parent.
-  # It does not delete @foo.
-  # Fixme: it is intended that a document have at most one parent.
-  # However, this is not yet enforced.
-  def remove_from_parent
-    p = parent_document
-    _toc = TOC.new(p)
-    _toc.delete_by_identifier(self.identifier)
-    _toc.save!
+  def move(subdocument, new_position)
+    remove(subdocument)
+    insert(subdocument: subdocument, position: new_position)
   end
-
-
-
-  # NOT UESD EXCEPT IN TESTS
-  # @foo.move_to(7) moves @foo in its
-  # parent document to position 7.
-  # Subdocuments that were in position 7 and up
-  # are moved up.
-  def move_to(new_position)
-    remove_from_parent
-    insert(new_position, parent_document)
-  end
-
-=end
 
 end
+
+
