@@ -72,7 +72,13 @@ module UI
       return '' unless doc_id
       document = DocumentRepository.find doc_id
       return '' unless document
-      return '' if Permission.is_not_given?(user, :edit, document)
+      permission_not_given = Permission.is_not_given?(user, :edit, document)
+      puts "user = #{user.full_name}".red
+      puts "user groups = #{user.groups}".green
+      puts "document = #{document.id} (#{document.title})".red
+      puts "document acl = #{document.acl}".green
+      puts "permission_not_given = #{permission_not_given}".red
+      return '' if permission_not_given
       if active_item == 'editor'
         return link_to 'Editor', "/editor/document/#{doc_id}", class: 'active_item'
       else
@@ -84,21 +90,6 @@ module UI
       editor_link1(current_user(session), active_item)
     end
 
-    def editor_linkkkkkkk(session, active_item='')
-      return '' if session == nil
-      cu = current_user(session)
-      return '' if cu == nil
-      _id = DocumentActivityManager.new(current_user(session)).last_document_id
-      return '' if _id == nil
-      document = DocumentRepository.find _id
-      return '' if document == nil
-      return '' if Permission.is_not_given?(cu, :edit, document)
-      if active_item == 'editor'
-        return link_to 'Editor', "/editor/document/#{_id}", class: 'active_item'
-      else
-        return  link_to 'Editor', "/editor/document/#{_id}", class: ''
-      end
-    end
 
     def home_link(session, active_item='')
       active_item == 'home' ? image = '/images/earth_green.png' : image = '/images/home_white.png'

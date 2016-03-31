@@ -146,10 +146,11 @@ class AdminCommandProcessor
     return if @document == nil
     return if @document.author_credentials2['id'].to_i != @user.id
     group = "#{@user.screen_name}_#{@to_group}"
+    @document = @document.root_document            
     if @doc_modifier == 'read_only'
-      @document.acl_set(:group, group, 'r')
+      @document.apply_to_tree(:acl_set, [:group, group, 'r'])
     else
-      @document.acl_set(:group, group, 'rw')
+      @document.apply_to_tree(:acl_set, [:group, group, 'rw'])
     end
     DocumentRepository.update @document
     @response = 'set_acl'
