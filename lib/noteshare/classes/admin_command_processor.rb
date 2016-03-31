@@ -34,6 +34,9 @@ class AdminCommandProcessor
     signatures << 'add_doc_and_group_token_days'
     signatures << 'change_author_id_from_to'
     signatures << 'add_node'
+    signatures << 'remove_node'
+    signatures << 'add_document'
+    signatures << 'remove_document'
     if signatures.include? @command_signature
       true
     else
@@ -154,15 +157,53 @@ class AdminCommandProcessor
 
   # Example: add node:poetry
   def add_node
-    puts "ADD NODE, @node = #{@node}".red
     # return if authorize_user_for_level(2) == false
     node_name = @node
     @target_node = NSNodeRepository.find_one_by_name node_name
     if @target_node
       neighbors = Neighbors.new(node: @user.node)
-      neighbors.add(node_name, 0.5)
-      neighbors.save
+      neighbors.add!(node_name, 0.5)
       @response = "Node #{@target_node.name} added"
+    end
+  end
+
+  def remove_node
+    # return if authorize_user_for_level(2) == false
+    node_name = @node
+    @target_node = NSNodeRepository.find_one_by_name node_name
+    if @target_node
+      neighbors = Neighbors.new(node: @user.node)
+      neighbors.remove!(node_name)
+      @response = "Node #{@target_node.name} removed"
+    end
+  end
+
+  def add_document
+    # return if authorize_user_for_level(2) == false
+    doc_id = @document
+    @target_document = DocumentRepository.find doc_id
+    if @target_document && @user && @user.id == @target_document.author_id
+      user_node = @user.node
+      user_node.append_doc(doc_id, 'author')
+      @response = "Document #{@target_document.title} added"
+    else
+      @response = 'Unauthorized'
+    end
+  end
+
+  def remove_document
+    # return if authorize_user_for_level(2) == false
+    doc_id = @document
+    @target_document = DocumentRepository.find doc_id
+    puts "@target_document title = #{@target_document.title}"
+    puts "@target_document author_id = #{@target_document.author_id}"
+    puts "@user = #{@user.screen_name}"
+    if @target_document && @user && @user.id == @target_document.author_id
+      user_node = @user.node
+      user_node.remove_doc(doc_id)
+      @response = "Document #{@target_document.title} removed"
+    else
+      @response = 'Unauthorized'
     end
   end
 
