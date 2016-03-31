@@ -166,6 +166,12 @@ class Permission
 
     return false if @object == nil
 
+    # If the @object doesn't have an acl defined, used the root object's acl
+    # if that makes sense
+    if @object.class.name == 'NSDocument' and (@object.acl == nil || @object.acl == {})
+      @object = @object.root_document
+    end
+
     # if there is no logged in user, grant access
     # if the world permission of the object matches
     # the code of action
