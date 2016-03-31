@@ -13,7 +13,7 @@ CREATE TABLE documents(
   area text,
   meta jsonb,
   created_at timestamp with time zone,
-  modified_at timestamp with time zone,
+  updated_at timestamp with time zone,
   content text,
   compiled_content text,
   rendered_content text,
