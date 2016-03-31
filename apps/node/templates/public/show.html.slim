@@ -29,3 +29,8 @@
 -if show_overlay
   .overlay.bluish style='width:500px;height:450px; margin-left:120px; margin-top:0px;'
     == render partial: 'overlay', locals: { :presneter => presenter }
+
+
+-if user && (user.admin || user.id == node.owner_id)
+  div
+    == command_input_form

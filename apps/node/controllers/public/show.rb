@@ -6,7 +6,7 @@ module Node::Controllers::Public
     include Node::Action
     include NodeMapper
 
-    expose :node, :user,:active_item, :layout_option, :blurb_text, :rendered_text
+    expose :node, :user, :active_item, :layout_option, :blurb_text, :rendered_text
     expose :sidebar_text, :rendered_sidebar_text, :presenter, :show_overlay
 
     def call(params)
@@ -17,7 +17,7 @@ module Node::Controllers::Public
       # @node = NSNodeRepository.find NodeMapper.new(params[:id]).translate
       @node = get_node(params[:id])
 
-
+      @user = current_user2
 
       if current_user2
         @show_overlay =  (@node.name == 'start') && (current_user2.dict2['show_overlay'] == 'yes')
