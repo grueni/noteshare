@@ -27,7 +27,8 @@ class Searcher
       when 'global'
         puts "branch = GLOBAL"
         @documents = DocumentRepository.basic_search(nil, @search_key, 'document', 'all')
-        @documents = @documents.select{ |item| item.acl_get(:world) =~ /r/ } || []
+        # @documents = @documents.select{ |item| item.acl_get(:world) =~ /r/ } || []
+        @documents = @documents.select(&can_read(@user)) || []
       when 'local'
         puts "branch = LOCAL"
         @documents = DocumentRepository.basic_search(@user, @search_key, @search_mode, 'personal') || []

@@ -102,7 +102,7 @@ class AdminCommandProcessor
 
 
   # Example: add group:yuuk token:yum111 days:30
-  # Execution of the token adds the use to the group.
+  # Execution of the token adds the user to the group.
   def add_group_token_days
     return if authorize_user_for_level(2) == false
     token = "#{@user.screen_name}_#{@token}"
@@ -120,7 +120,7 @@ class AdminCommandProcessor
   end
 
   # Example: add doc:414 token:yum111 days:30
-  # Execution of the tokenadds the document to the user's node
+  # Execution of the token adds the document to the user's node
   def add_doc_token_days
     return if authorize_user_for_level(2) == false
     token = "#{@user.screen_name}_#{@token}"
