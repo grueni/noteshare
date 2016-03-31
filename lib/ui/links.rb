@@ -66,7 +66,25 @@ module UI
       _id
     end
 
+    def editor_link1(user, active_item='')
+      return '' unless user
+      doc_id = DocumentActivityManager.new(user).last_document_id
+      return '' unless doc_id
+      document = DocumentRepository.find doc_id
+      return '' unless document
+      return '' if Permission.is_not_given?(user, :edit, document)
+      if active_item == 'editor'
+        return link_to 'Editor', "/editor/document/#{doc_id}", class: 'active_item'
+      else
+        return  link_to 'Editor', "/editor/document/#{doc_id}", class: ''
+      end
+    end
+
     def editor_link(session, active_item='')
+      editor_link1(current_user(session), active_item)
+    end
+
+    def editor_linkkkkkkk(session, active_item='')
       return '' if session == nil
       cu = current_user(session)
       return '' if cu == nil
@@ -74,8 +92,6 @@ module UI
       return '' if _id == nil
       document = DocumentRepository.find _id
       return '' if document == nil
-      cu = current_user(session)
-      return '' if cu == nil
       return '' if Permission.is_not_given?(cu, :edit, document)
       if active_item == 'editor'
         return link_to 'Editor', "/editor/document/#{_id}", class: 'active_item'
