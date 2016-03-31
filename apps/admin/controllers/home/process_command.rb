@@ -5,8 +5,8 @@ module Admin::Controllers::Home
     def call(params)
       puts "Howdy!"
 
-      # redirect_if_not_signed_in('Attempt to execute a command without being signed in')
-      # redirect_if_level_insufficient(1,'Attempt to execute a command by user with insufficient level')
+      redirect_if_not_signed_in('Attempt to execute a command without being signed in')
+      redirect_if_level_insufficient(1,'Attempt to execute a command by user with insufficient level')
 
       command = params['command_processor']['command']
       secret_token = params['command_processor']['secret_token']

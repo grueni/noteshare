@@ -21,7 +21,7 @@
       end
     end
 
-    def add(name, strength)
+    def add(name, strength=0.5)
       hash = { 'strength' => strength }
       if @data[name] == nil
         @data[name] = hash
@@ -30,12 +30,22 @@
       end
     end
 
+    def add!(name, strength=0.5)
+      add(name, strength)
+      save
+    end
+
     def data
       @data
     end
 
     def remove(name)
       @data.delete(name)
+    end
+
+    def remove!(name)
+      @data.delete(name)
+      save
     end
 
     def nodes

@@ -159,7 +159,9 @@ class AdminCommandProcessor
     node_name = @node
     @target_node = NSNodeRepository.find_one_by_name node_name
     if @target_node
-      Neighbors.new(node: @target_node).add(name: node_name, strength: 0.5)
+      neighbors = Neighbors.new(node: @user.node)
+      neighbors.add(node_name, 0.5)
+      neighbors.save
       @response = "Node #{@target_node.name} added"
     end
   end
