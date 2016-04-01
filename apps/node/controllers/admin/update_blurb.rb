@@ -10,6 +10,6 @@ module Node::Controllers::Admin
       EditNodeBlurb.new(node_id, blurb_text ).call
       redirect_to basic_link current_user2.screen_name, "node/#{node_id}"
     end
-    
+
   end
 end

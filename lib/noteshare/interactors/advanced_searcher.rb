@@ -5,10 +5,9 @@ class AdvancedSearcher
   include Lotus::Interactor
   expose :documents
 
-  def initialize(params, user)
+  def initialize(search_key, user)
     @commands = ['ti', 'ta', 'aid']
-    payload = params['search'] || {}
-    @search_key = payload['search'] || ''
+    @search_key = search_key
     @user = user
   end
 
@@ -21,6 +20,7 @@ class AdvancedSearcher
   end
 
   def advanced_search
+    puts "advanced search on command #{@command} with key #{@search_key}".red
     case @command
       when 'ti'
         @documents = DocumentRepository.search_with_title(@search_key)

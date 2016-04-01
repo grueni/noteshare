@@ -11,8 +11,9 @@ module Admin::Controllers::Documents
     def call(params)
       puts "HERE I AM BOSS!".green
       @active_item = 'admin'
-
-      result = AdvancedSearcher.new(params, current_user2).call
+      payload = params['search'] || {}
+      search_key = payload['search'] || ''
+      result = AdvancedSearcher.new(search_key, current_user2).call
       @documents = result.documents
       number_of_docs = @documents.count
 
