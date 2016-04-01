@@ -8,72 +8,8 @@ require_relative '../modules/document_dictionary'
 require_relative '../modules/ns_document_helpers'
 
 
-# require_relative '../modules/render'
-
-
-# An instance of the Document class has *content*, a block of text,
-# various metadata -- *title*, *author*, *tags* etc. -- and a set
-# of links.  First, there is *subdoc_refs*, an array of *id's*
-# of Documents.  The idea is that the text of document is composed of
-# its content plus the content of it subdocuments. Subdocuments
-# can have their own subdocuments, and so on. The *compile* method
-# assembles the content of a document, its subdocuments, etc.,
-# in the proper order.   Second, there is
-# *doc_refs*, which is a hash that could look like this:
-#
-# { 'previous': 124, 'next': 201, 'comments': 444, 'summary': 555 }
-#
-# The *previous* and *next* keys are used by an editor for navigation.
-# Keys like *comment* and *summary* point to little documents that
-# may or may not not be compiled into the main text.  There is
-# also a set of special pointers, *parent_id* and *index_in_parent*.
-# Suppose that document 123 refers to document 555 via the  element
-# of index two in its *subdoc_refs* array, e.g.,
-#
-#    subdoc_refs = [21, 19, 555, 56]
-#
-# Then the parent_id of document 555 is 123 and the value of
-# index_in_parent is 2.
-#
-# The subdoc array is populated by the method *insert*.
-# To illustrate, suppose we have documents @article,
-# @section1, @section2, and @section3.  The succession of
-# method calls
-#
-#    @section1.insert(0, @article)
-#    @section2.insert(1, @article)
-#    @section2.insert(2, @article)
-#
-# builds up the subdoc array of @article and manages
-# the pointers parent_id, index_in_parent, previous
-# and next.
-#
-#    CONTENTS
-#
-#       1. REQUIRE, INCLUDE, AND INITIALIZE
-#
 class NSDocument
-
-  ###################################################
-  #
-  #     CONTENTS
-  #
-  #     1. Initialize and create
-  #
-  #        initialize
-  #        create
-  #
-  #     2. Display
-  #
-  #
-  #
-  #
-  #     2. MANAGE SUBDOCUMENTS
-  #
-  #
-  ###################################################
-
-
+  
 
   ###################################################
   #
@@ -513,8 +449,6 @@ class NSDocument
     self.root_document_id = root.id
     self.root_ref = { id: root.id, title: root.title, identifier: root.identifier}
   end
-
-
 
 
 end

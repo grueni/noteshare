@@ -27,8 +27,6 @@
 
       if @delete_mode == 'section'
 
-
-
         @document.delete
         message << "#{@document.title} has been deleted."
         if parent_id != document_id
