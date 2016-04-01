@@ -10,11 +10,6 @@ module Node::Controllers::Admin
       type = node_info['type']
       tags = node_info['tags']
 
-      puts "name: #{name}".red
-      puts "owner_id: #{owner_id}".red
-      puts "type: #{type}".red
-      puts "tags: #{tags}".red
-
       NSNode.create(name, owner_id, type, tags)
 
       redirect_to  '/node/admin/'

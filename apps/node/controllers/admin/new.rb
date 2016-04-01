@@ -7,5 +7,6 @@ module Node::Controllers::Admin
     def call(params)
       @active_item = 'admin'
     end
+
   end
 end

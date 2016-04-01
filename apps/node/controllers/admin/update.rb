@@ -1,3 +1,5 @@
+require_relative '../../../../lib/noteshare/interactors/node/update_node'
+
 module Node::Controllers::Admin
   class Update
     include Node::Action
@@ -18,6 +20,15 @@ module Node::Controllers::Admin
     end
 
     def call(params)
+      @active_item = 'admin'
+      data = params['node']
+      node_id  = data['node_id']
+      dictionary = data['dictionary']
+      UpdateNode.new(node_id, dictionary)
+      redirect_to "/node/#{node_id}"
+    end
+
+    def callxxx(params)
       @active_item = 'admin'
 
       data = params['node']

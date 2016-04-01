@@ -1,6 +1,6 @@
 require 'lotus/interactor'
 
-class EditNodeBlurb
+class UpdateNodeBlurb
 
   include Lotus::Interactor
   expose :new_document, :error

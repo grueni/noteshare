@@ -6,10 +6,8 @@ module Node::Controllers::Admin
 
     def call(paramm)
       @active_item = 'admin'
-      puts "call: controller Node, Admin, List".red
       @nodes = NSNodeRepository.public
       @documents = DocumentRepository.root_documents.sort_by{|document| document.title}
-      puts "exit controller node, admin, list".red
     end
 
   end
