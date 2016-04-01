@@ -13,6 +13,7 @@ module Node::Controllers::Admin
 
       id = params['id']
       node = NSNodeRepository.find id
+      node.meta['long_blurb'] = blurb_text
 
       # @renderer = Render.new(blurb_text)
       # node.meta['rendered_blurb'] = @renderer.convert
