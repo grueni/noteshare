@@ -42,7 +42,7 @@ class CreateAssociatedDocument
   def call
     validate_document
     create
-    @new_document.associate_to(@current_document, @type)
+    AssociateDocumentManager.new(@current_document).attach(@new_document, @type)
   end
 
 end

@@ -33,7 +33,7 @@ module Web::Controllers::Documents
         index_content = @root_document.dict['document_index']
         ## add new associated document of type index if necessary
         if @root_document.associated_document('index') == nil
-          @root_document.add_associate(title: 'Index', type: 'index', rendered_content: index_content)
+          AssociateDocumentManager.new(@root_document).add(title: 'Index', type: 'index', rendered_content: index_content)
         else
           @root_document.associated_document('index').rendered_content = index_content
         end

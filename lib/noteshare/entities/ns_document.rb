@@ -170,6 +170,14 @@ class NSDocument
   ###################################################
 
 
+  # PUBLIC
+  def delete
+    if is_associated_document?
+      AssociateDocumentManager.new(self.parent_document).delete(self)
+    else
+      delete_subdocument
+    end
+  end
 
   # PRIVATE
   def delete_subdocument
@@ -177,19 +185,6 @@ class NSDocument
       self.remove_from_parent
     end
     DocumentRepository.delete self
-  end
-
-
-
-  #Fixme, spaghetti?
-  # PUBLIC
-  def delete
-    if is_associated_document?
-     puts "I am now in DELETE!".red
-     delete_associated_document
-    else
-      delete_subdocument
-    end
   end
 
 
@@ -449,76 +444,37 @@ class NSDocument
   #
   # ASSOCIATE DOCUMENTS
   #
-  # about 80 lines of code
+  # about 13 lines of code
   #
   ########################
 
 
+  # only in spec/
   # return hash of associates of a given document
   def associates
     self.doc_refs
   end
 
-  # @foo.associate_to(@bar, 'summary',)
-  # associates @foo to @bar as a 'summary'.
-  # It can be retrieved as @foo.associated_document('summary')
-  def associate_to(parent, type)
-    parent.doc_refs[type] = self.id
-    self.type = 'associated:' + type
-    self.set_parent_document_to(parent)
-    self.set_root_document_to(parent)
-    DocumentRepository.update(parent)
-    DocumentRepository.update(self)
-  end
 
-
-  # Add associate to receiver
-  # Example
-  #
-  #    @content = 'Dr. Smith said that conservation laws ...'
-  #    @article.add_associate(title: 'Notes from class', type: 'note', content: @content)
-  #
-  def add_associate(hash)
-
-    type = hash.delete(:type)
-
-    doc = NSDocument.new(hash)
-    doc.identifier = Noteshare::Identifier.new().string
-    doc.root_ref = { 'id'=> 0, 'title' => ''}
-    doc.author_id = self.author_id
-    doc.author = self.author
-    doc.author_credentials2 = self.author_credentials2
-
-    doc2 = DocumentRepository.create doc
-
-    doc2.associate_to(self, type)
-
-    doc2
-
-  end
-
-  # The method below assumes that a document
-  # is the associate of at most one other
-  # document.  This should be enforced (#fixme)
-  def disassociate
-    _parent = parent_document
-    _type = self.type.sub('associated:', '')
-    _parent.doc_refs.delete(_type)
-    self.parent_id = 0
-    self.parent_ref =  nil
-    self.root_document_id = 0
-    self.root_ref = nil
-    DocumentRepository.update(_parent)
-    DocumentRepository.update(self)
-  end
-
-
+  # KEEP
   # @foo.associatd_document('summary')
   # retrieve the document associated to
   # @foo which is of type 'summary'
   def associated_document(type)
     DocumentRepository.find(self.doc_refs[type])
   end
+
+  def is_associated_document?
+    if type =~ /associated:/
+      return true
+    else
+      return false
+    end
+  end
+
+
+
+  #########################################
 
 
   # private
@@ -558,18 +514,6 @@ class NSDocument
     self.root_ref = { id: root.id, title: root.title, identifier: root.identifier}
   end
 
-  def is_associated_document?
-    if type =~ /associated:/
-      return true
-    else
-      return false
-    end
-  end
-
-  def delete_associated_document
-    disassociate
-    DocumentRepository.delete self
-  end
 
 
 
