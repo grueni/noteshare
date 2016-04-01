@@ -193,6 +193,15 @@ module AdminUtilities
     count
   end
 
+  def self.tag_user_nodes
+
+    UserRepository.all.each do |user|
+      node = user.node
+      node.tags = "#{user.full_name}; #{node.tags}"
+      NSNodeRepository.update node
+    end
+  end
+
 
 
 end

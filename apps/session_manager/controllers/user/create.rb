@@ -63,6 +63,7 @@ module SessionManager::Controllers::User
 
         new_node = NSNode.create_for_user(new_user)
         new_node.publish_document(id: ENV['GETTING_STARTED_ID'], type: 'reader')
+        new_node.tags = new_user.full_name + '  '
         NSNodeRepository.update new_node
 
         new_user.dict2['node'] = new_node.id
