@@ -21,7 +21,6 @@ module Node::Controllers::Public
       UserRepository.update current_user2
       back_link = referer.split('?')[0]
       redirect_to back_link
-      # self.body = "#{id} <== #{query_string}.  Referred by #{referer} from user #{current_user2.full_name}"
     end
   end
 end

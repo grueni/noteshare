@@ -56,6 +56,7 @@ describe UserGroupManager do
     ugm.set(document: document, group_name: 'work', permission: :rw)
     document.acl_get('group:work').must_equal 'rw'
     document.acl.inspect.must_equal '{"group:work"=>"rw"}'
+    puts document.acl.inspect.red
     ugm.set(document: document, group_name: 'work', permission: :none)
     document.acl.inspect.must_equal '{"group:work"=>"-"}'
 

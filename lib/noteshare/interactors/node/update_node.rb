@@ -3,7 +3,7 @@ require 'lotus/interactor'
 class UpdateNode
 
   include Lotus::Interactor
-  expose :new_document, :error
+  expose :node
 
   def initialize(node_id, dictionary)
     @node =  NSNodeRepository.find node_id
@@ -24,7 +24,7 @@ class UpdateNode
   def call
     @dictionary = @dictionary.gsub(/\n\n*/m, "\n")
     @hash = @dictionary.hash_value(":\n")
-    @node.update_publication_records_from_string(hash['docs']) if hash['docs']
+    @node.update_publication_records_from_string(@hash['docs']) # if @hash['docs']
     update_dict
     NSNodeRepository.update @node
   end
