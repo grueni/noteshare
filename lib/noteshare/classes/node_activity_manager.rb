@@ -14,7 +14,7 @@ class NodeActivityManager
 
   def record
     return if @user == nil
-    if @node.name != 'start'
+    if @node.name != 'start' && @node.name != @user.node.name
       push(@node)
     end
   end
