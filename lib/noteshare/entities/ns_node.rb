@@ -66,7 +66,7 @@ class NSNode
   # deprecate
   def url
     domain = ENV['DOMAIN']
-    if domain = 'localhost'
+    if domain == 'localhost'
       "#{self.name} at localhost"
     else
       "#{self.name} at #{domain.split('.')[1]}"
