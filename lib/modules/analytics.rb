@@ -56,18 +56,21 @@ module Analytics
 
 
   def self.record_document_view(user, document)
+    root_document = document.root_document
     puts "analytics, record_page_visit".red
     if user
       user.dict2['current_document_id'] = document.id
       UserRepository.update user
       if user.screen_name != ENV['DEVELOPER_SCREEN_NAME']
         Keen.publish(:document_views_signed_in, { :username => user.screen_name,
-                                        :document => document.title, :document_id => document.id })
+                                                  :document => document.title, :document_id => document.id,
+                                       :root_document => root_document.title, :root_document_id => root_document.id})
 
       end
     else
       Keen.publish(:anonymous_document_views, { :username => 'anonymous',
-                                      :document => document.title, :document_id => document.id })
+                                      :document => document.title, :document_id => document.id,
+                                                :root_document => root_document.title, :root_document_id => root_document.id})
     end
   end
 
