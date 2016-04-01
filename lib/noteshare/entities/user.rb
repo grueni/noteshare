@@ -34,6 +34,7 @@ class User
       new_user.password = BCrypt::Password.create(new_user.password)
       new_user.set_identifier
       new_user.dict2 = {}
+      new_user.groups = []
       UserRepository.create new_user
     end
 
