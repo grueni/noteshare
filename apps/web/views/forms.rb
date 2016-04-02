@@ -11,6 +11,12 @@ module Web
         end
       end
 
+      def basic_search_form_phone
+        form_for :search, '/search' do
+          text_field :search, {id: 'basic_search_form', style: 'margin-left: -70px;margin-top:8px;  width:80%', placeholder: 'Search ...'}
+        end
+      end
+
       def basic_search_form_short
         form_for :search, '/search' do
           text_field :search, {style: 'position:absolute; top:-6px; padding-left: 20px; color: white; background-color: #444; height: 28px; width:180px;', placeholder: 'Search ...'}

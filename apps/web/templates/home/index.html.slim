@@ -1,6 +1,6 @@
 .row
 
-  .col.s7.m7.l7
+  .col.s7.m7.l7.hide-on-phones
     div style='margin-top:20px;'
       .tall.ns_card.darker.scroll-y
         .div style='margin-top:-1.5em;'
@@ -8,7 +8,7 @@
         br
         br
 
-  .col.s4.offset-s8.m4.offset-m8.l4.offset-l8
+  .col.s4.offset-s8.m4.offset-m8.l4.offset-l8.hide-on-phones
     div style='margin-top:20px;'
       .tall500.ns_card.scroll-y
         - if current_user(session)
@@ -38,4 +38,32 @@
         i style='color:#F5574F;position:absolute; bottom:1em; left:4.0em;' Share the knowledge!
 
 
+  .col.s12.m12.l12.show-on-phones
+    div style='margin-top:20px;'
+      .tall500.ns_card.scroll-y
+        - if current_user(session)
+          p.compact == welcome_link(session)
+          br
+          p.compact.ns_link == signout_link
+        - else
+          p.compact.ns_link style='font-size:18pt;' == signin_link
+          p.compact.ns_link style='font-size:18pt;'== signup_link
+        br
+        br
+        p.compact.message
+          p.ns_link style='margin-bottom:0' == guide_link_long(session)
+          p.ns_link style='margin-top:0;margin-bottom:0;' == cookbook_link(session)
+          br
+          p.ns_link style='margin-top:0;margin-bottom:0;' == link_to 'Start.scripta.io', 'http://start.scripta.io'
+          p.ns_link style='margin-top:0;margin-bottom:0;' == link_to 'Math.scripta.io', 'http://math.scripta.io'
+          | <br>
+          | <br>
+          | <img src="https://s3.amazonaws.com/vschool%2Fnoteshare_images/rockband.jpg" alt="rockband" width="200">
+          | <br>
+          | <br>
+          span.ns_link == link_to 'Concentric Engineering Blog_', 'http://concentricengineering.com'
+        p.compact.message.ns_link style='position:absolute; bottom:2.5em;left:2.5em;' == link_to "About #{ENV['SITENAME']}", '/about'
+
+        span style='color:#F5574F;position:absolute; bottom:1em;left:2.5em;' ❤
+        i style='color:#F5574F;position:absolute; bottom:1em; left:4.0em;' Share the knowledge!
 

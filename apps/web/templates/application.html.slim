@@ -33,17 +33,19 @@ html
     script src="/javascripts/scroll_toc.js" type="text/javascript"
     script src="/javascripts/scrollintoview.js" type="text/javascript"
 
-    .nav
+    .nav.hide-on-small-and-down
       == render partial: 'left_menu'
+    .nav.show-on-phones
+      == render partial: 'left_menu_minimal'
 
-      .navbar_middle_item
+      .navbar_middle_item.hide-on-small-and-down
 
         span.ns_link == guide_link(session)
 
         /- if document
           == document.previous_link(title: "<img src='/images/arrowleft_light_gray.png', width=24px>", alt_title: "<img src='/images/arrowleft_gray.png', width=24px>")
           == document.next_link(title: "<img src='/images/arrowright_light_gray.png', width=24px>", alt_title: "<img src='/images/arrowright_gray.png', width=24px>")
-      .navbar_right_item
+      .navbar_right_item.hide-on-small-and-down
         ul id='navlist' style='float:right'
           - if current_user(session)
             li
@@ -58,7 +60,13 @@ html
             li
               == admin_link(session, active_item)
 
-
+      .navbar_right_item.show-on-small
+        ul id='navlist' style='float:right'
+          - if current_user(session)
+            li
+              == reader_link(session, active_item)
+          li
+            == documents_link(session, active_item)
 
       .navbar_right_item2 style='display:none'
         ul#dropdown2a.dropdown-content
