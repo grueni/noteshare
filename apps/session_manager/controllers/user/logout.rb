@@ -13,8 +13,8 @@ module SessionManager::Controllers::User
 
       case ENV['MODE']
         when 'LOCAL'
-          url = 'localhost:2300'
-          name = 'localhost'
+          url = "http://#{ENV['DOMAIN']}:2300"
+          name = ENV['DOMAIN']
         when 'LVH'
           stem = ENV['DOMAIN'].sub(/^\./,'') # delete leading '.'
           url = "http://#{stem}:#{ENV['PORT']}"
