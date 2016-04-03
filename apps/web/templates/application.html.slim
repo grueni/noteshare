@@ -38,7 +38,7 @@ html
     .nav.show-on-phones
       == render partial: 'left_menu_minimal'
 
-      .navbar_middle_item.hide-on-small-and-down
+      .navbar_middle_item.hide-on-med-and-down
 
         span.ns_link == guide_link(session)
 
@@ -60,7 +60,7 @@ html
             li
               == admin_link(session, active_item)
 
-      .navbar_right_item.show-on-small
+      .navbar_right_item.hide-on-med-and-up
         ul id='navlist' style='float:right'
           - if current_user(session)
             li
@@ -94,5 +94,5 @@ html
       .footer_item_center
         span.plainlink.lightlink
           a href="mailto:jxxcarlson@gmail.com?Subject=Scripta" Contact Scripta
-      .footer_item_right
+      .footer_item_right.hide-on-small-and-down
         | ❤ Knowledge

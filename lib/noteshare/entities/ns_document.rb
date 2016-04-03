@@ -1,12 +1,10 @@
 require_relative '../../ext/core'
 require_relative '../../../lib/noteshare/modules/tools'
 require_relative '../modules/toc_item'
-require_relative '../../../lib/acl'
-require_relative '../modules/groups'
-require_relative '../../../lib/noteshare/modules/asciidoctor_helpers'
-require_relative '../modules/document_dictionary'
-require_relative '../modules/ns_document_helpers'
+require_relative '../../../lib/acl'  ### ???
 
+
+# ^^^ audit dependencies
 
 class NSDocument
   
@@ -36,11 +34,11 @@ class NSDocument
   # include Noteshare::Setup
   include Noteshare::Tools
   include Noteshare
-  include Noteshare::Groups
-  include Noteshare::AsciidoctorHelper
+  # include Noteshare::Groups
+  # include Noteshare::AsciidoctorHelper
   include ACL
-  include Noteshare::NSDocumentDictionary
-  include NSDocumentHelpers
+  # include Noteshare::NSDocumentDictionary
+  # include NSDocumentHelpers
 
 
   # When initializing an NSDocument, ensure that certain fields
@@ -101,12 +99,19 @@ class NSDocument
 
   ###################################################
   #
-  #     2. Deletion
+  #     Deletion
+  #     --------
+  #     # delete
+  #     # delete_subdocument
+  #     # remove_from_parent
+  #     ----------
+  #     3
   #
   ###################################################
 
 
-  # PUBLIC
+  # Docuemnts come in three kinds: root, subdocumnet,
+  # and associated documennt
   def delete
     if is_associated_document?
       AssociateDocumentManager.new(self.parent_document).delete(self)
@@ -142,45 +147,19 @@ class NSDocument
   #########################################
   #
   #  References
+  #  ----------
+  #  parent_document
+  #  grandparent_docuemnt
+  #  root_document
+  #  is_root_document?
+  #  ancestor_ids
+  #  next_oldest_ancestor
+  #  subdocument
+  #  first_section
+  #  --------------
+  #  7
   #
   #########################################N
-
-  # used by TOCManager
-  def grandparent_document
-    parent_document.parent_document
-  end
-
-  # CORE METHOD, USED INTERNALLY AND IN TOC MANAGER
-  # Return next NSDocument.  That is, if @foo, @bar, and @baz
-  # are subocuments in order of @article, then @bar.next_document = @baz
-  def next_document
-    return if parent_document == nil
-    _toc = TOC.new(parent_document)
-    found_index = _toc.index_by_identifier(self.identifier)
-    return if found_index == nil
-    return if found_index > _toc.table.count - 2
-    _id = _toc.table[found_index + 1].id
-    return  DocumentRepository.find(_id)
-  end
-
-
-  # CORE METHOD, USED INTERNALLY AND IN TOC MANAGER
-  # Return previous NSDocument.  That is, if @foo, @bar, and @baz
-  # are subocuments in order of @article, then @bar.previous_document = @foo
-  def previous_document
-    return if parent_document == nil
-    _toc = TOC.new(parent_document)
-    found_index = _toc.index_by_identifier(self.identifier)
-    return if found_index == nil
-    return if found_index == 0
-    _id = _toc.table[found_index - 1].id
-    return  DocumentRepository.find(_id)
-  end
-
-
-  ##################
-  # PARENT DOCUMENT
-  ##################
 
   # *doc.parent* returns nil or the parent object
   def parent_document
@@ -191,10 +170,11 @@ class NSDocument
     DocumentRepository.find(pi_id)
   end
 
+  # used by TOCManager
+  def grandparent_document
+    parent_document.parent_document
+  end
 
-  ##################
-  # ROOT DOCUMENT
-  ##################
 
   # The root_document is what you get by
   # following parent_document links to their
@@ -214,10 +194,6 @@ class NSDocument
     self == find_root_document
   end
 
-  ##################
-  # ANCESTORS
-  ##################
-
   def ancestor_ids
     cursor = self
     list = []
@@ -236,7 +212,6 @@ class NSDocument
     end
     noa
   end
-
 
   # *doc.subdocment(k)* returns the k-th
   # subdocument of *doc*
@@ -267,6 +242,34 @@ class NSDocument
     end
     length
   end
+
+  # CORE METHOD, USED INTERNALLY AND IN TOC MANAGER
+  # Return next NSDocument.  That is, if @foo, @bar, and @baz
+  # are subocuments in order of @article, then @bar.next_document = @baz
+  def next_document
+    return if parent_document == nil
+    _toc = TOC.new(parent_document)
+    found_index = _toc.index_by_identifier(self.identifier)
+    return if found_index == nil
+    return if found_index > _toc.table.count - 2
+    _id = _toc.table[found_index + 1].id
+    return  DocumentRepository.find(_id)
+  end
+
+
+  # CORE METHOD, USED INTERNALLY AND IN TOC MANAGER
+  # Return previous NSDocument.  That is, if @foo, @bar, and @baz
+  # are subocuments in order of @article, then @bar.previous_document = @foo
+  def previous_document
+    return if parent_document == nil
+    _toc = TOC.new(parent_document)
+    found_index = _toc.index_by_identifier(self.identifier)
+    return if found_index == nil
+    return if found_index == 0
+    _id = _toc.table[found_index - 1].id
+    return  DocumentRepository.find(_id)
+  end
+
 
 
 

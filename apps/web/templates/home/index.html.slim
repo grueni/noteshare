@@ -1,6 +1,6 @@
 .row
 
-  .col.s7.m7.l7.hide-on-phones
+  .col.s7.m7.l7.hide-on-small-and-down
     div style='margin-top:20px;'
       .tall.ns_card.darker.scroll-y
         .div style='margin-top:-1.5em;'
@@ -8,7 +8,7 @@
         br
         br
 
-  .col.s4.offset-s8.m4.offset-m8.l4.offset-l8.hide-on-phones
+  .col.s4.offset-s8.m4.offset-m8.l4.offset-l8.hide-on-small-and-down
     div style='margin-top:20px;'
       .tall500.ns_card.scroll-y
         - if current_user(session)
@@ -38,9 +38,9 @@
         i style='color:#F5574F;position:absolute; bottom:1em; left:4.0em;' Share the knowledge!
 
 
-  .col.s12.m12.l12.show-on-phones
+  .col.s12.m12.l12.hide-on-med-and-up
     div style='margin-top:20px;'
-      .tall500.ns_card.scroll-y
+      .tall400.ns_card.scroll-y
         - if current_user(session)
           p.compact == welcome_link(session)
           br
@@ -62,8 +62,4 @@
           | <br>
           | <br>
           span.ns_link == link_to 'Concentric Engineering Blog_', 'http://concentricengineering.com'
-        p.compact.message.ns_link style='position:absolute; bottom:2.5em;left:2.5em;' == link_to "About #{ENV['SITENAME']}", '/about'
-
-        span style='color:#F5574F;position:absolute; bottom:1em;left:2.5em;' ❤
-        i style='color:#F5574F;position:absolute; bottom:1em; left:4.0em;' Share the knowledge!
 

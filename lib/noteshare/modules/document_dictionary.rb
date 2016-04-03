@@ -1,4 +1,5 @@
 module Noteshare
+  # Are any of these used 'outside?'  -- #fixme
   module NSDocumentDictionary
 
     #### PUBLISHING #####

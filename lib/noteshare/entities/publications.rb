@@ -1,6 +1,15 @@
 # require '../repositories/publications_repository'
 
-
+# A publication has the followoing structure:
+#
+#   id          -- integer
+#   node_id     -- integer
+#   document_id -- integer
+#   type        -- string
+#
+# A document is published in a node
+# by creating a publication record
+# pointing to the document and the node.
 class Publications
   include Lotus::Entity
 

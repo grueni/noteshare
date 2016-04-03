@@ -13,7 +13,7 @@ module Noteshare
       sort_by { |item| item.title }
     end
 
-
+    #########################
 
     def self.identity(x)
       return x
