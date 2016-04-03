@@ -1,4 +1,4 @@
-require_relative '../../../../lib/noteshare/interactors/advanced_searcher'
+require_relative '../../../../lib/noteshare/interactors/shared/advanced_searcher'
 
 module Admin::Controllers::Documents
   class List

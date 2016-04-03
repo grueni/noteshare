@@ -1,4 +1,4 @@
-require_relative '../../../../lib/noteshare/interactors/add_pdf'
+require_relative '../../../../lib/noteshare/interactors/editor/add_pdf'
 
 module Editor::Controllers::Document
   class DoAddPdf

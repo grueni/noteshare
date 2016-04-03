@@ -1,6 +1,6 @@
 
 require 'keen'
-require_relative '../../../../lib/noteshare/interactors/read_document'
+require_relative '../../../../lib/noteshare/interactors/editor/read_document'
 
 module Web::Controllers::Documents
   class Show

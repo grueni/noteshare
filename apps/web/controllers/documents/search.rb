@@ -1,4 +1,4 @@
-require_relative '../../../../lib/noteshare/interactors/searcher'
+require_relative '../../../../lib/noteshare/interactors/web/searcher'
 
 module Web::Controllers::Documents
   class Search
