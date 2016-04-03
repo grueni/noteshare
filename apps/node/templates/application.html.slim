@@ -39,25 +39,29 @@ html
         == start_node_link(session)
         | &nbsp; &nbsp;
         == basic_search_form
-      .navbar_middle_item
+      .navbar_middle_item.hide-on-small-and-down
         span.ns_link== guide_link(session)
 
 
-      .navbar_right_item
+      .navbar_right_item.hide-on-med-and-up style='right:-50px;'
+        ul id='navlist'
+          li
+            == documents_link(session, active_item)
+
+      .navbar_right_item.hide-on-small-and-down
         ul id='navlist'
           - if current_user(session)
-            li.hide-on-small-only
+            li
               == editor_link(session)
             li
               == reader_link(session)
-            li.hide-on-small-only
+            li
               == image_manager_link
           li
             == documents_link(session, active_item)
-          - if current_user_is_admin?(session)
+            - if current_user_is_admin?(session)
             li.hide-on-small-only
               == admin_link(session, active_item)
-
 
     .main_row
       == yield
@@ -66,7 +70,7 @@ html
       .footer_item_left
         /== command_input_form
       .footer_item_center
-        span.plainlink.lightlink
+        span.plainlink.lightlink.hide-on-small-and-down
           a href="mailto:jxxcarlson@gmail.com?Subject=Scripta" Contact Scripta
-      .footer_item_right
+      .footer_item_right.hide-on-small-and-down
         == right_footer_text
