@@ -5,10 +5,15 @@ class AdvancedSearcher
   include Lotus::Interactor
   expose :documents
 
-  def initialize(search_key, user)
+  def initialize(search_key=nil, user=nil)
     @commands = ['ti', 'ta', 'aid']
     @search_key = search_key
     @user = user
+  end
+
+
+  def commands
+    %w(ti ta aid)
   end
 
   def configure

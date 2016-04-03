@@ -9,9 +9,24 @@ module Web::Controllers::Documents
 
     def call(params)
       @active_item = 'reader'
-      result = Searcher.new(params, current_user2).call
-      @documents = result.documents
-      @nodes = result.nodes
+      search_key = params['search']['search']
+      search_key_parts = search_key.split(' ')
+      command = search_key_parts[0]
+      commands = AdvancedSearcher.new().commands
+      puts "commands = #{commands}".red
+      puts "command = #{command}".red
+      puts "search key = #{search_key}".red
+      puts "search_key_parts = #{search_key_parts}".cyan
+      if command and commands.include? command
+        result = AdvancedSearcher.new(search_key, current_user2).call
+        @documents = result.documents
+        @nodes = []
+      else
+        result = Searcher.new(params, current_user2).call
+        @documents = result.documents
+        @nodes = result.nodes
+      end
+
     end
 
   end

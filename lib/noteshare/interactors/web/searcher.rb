@@ -17,7 +17,7 @@ class Searcher
       @search_mode = @user.dict2['search_mode'] || 'document'
     else
       @search_scope = 'all'
-      @earch_mode = 'document'
+      @search_mode = 'document'
     end
     puts "search_mode = #{@search_mode}, search_scope = #{@search_scope}".green
   end
