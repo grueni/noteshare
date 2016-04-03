@@ -1,4 +1,4 @@
-require_relative '../../../../lib/noteshare/interactors/create_associated_document'
+require_relative '../../../../lib/noteshare/interactors/editor/create_associated_document'
 
 module Editor::Controllers::Document
   class CreateNewAssociatedDocument

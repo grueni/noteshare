@@ -1,5 +1,5 @@
 require 'lotus/interactor'
-require_relative '../../modules/analytics'
+require_relative '../../../modules/analytics'
 
 class ReadDocument
 

@@ -1,5 +1,5 @@
 require_relative '../../../../lib/modules/analytics'
-require_relative '../../../../lib/noteshare/interactors/read_document'
+require_relative '../../../../lib/noteshare/interactors/editor/read_document'
 
 module Web::Controllers::Documents
   class Aside
