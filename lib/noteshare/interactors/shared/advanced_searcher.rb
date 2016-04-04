@@ -6,19 +6,17 @@ class AdvancedSearcher
   expose :documents
 
   def initialize(search_key=nil, user=nil)
-    @commands = ['ti', 'ta', 'aid']
     @search_key = search_key
     @user = user
   end
 
-
   def commands
-    %w(ti ta aid)
+    %w(ti ta au)
   end
 
   def configure
     parts = @search_key.split(' ')
-    if parts.count > 1 and @commands.include? parts[0]
+    if parts.count > 1 and commands.include? parts[0]
       @command = parts[0]
       @search_key = @search_key.sub(@command, '').strip
     end
@@ -31,8 +29,13 @@ class AdvancedSearcher
         @documents = DocumentRepository.search_with_title(@search_key)
       when 'ta'
         @documents = DocumentRepository.search_with_tags(@search_key)
-      when 'aid'
-        @documents = DocumentRepository.find_by_author_id(@search_key)
+      when 'au'
+        user = UserRepository.find_one_by_screen_name @search_key
+        if user
+          @documents = DocumentRepository.find_by_author_id(user.id)
+        else
+          @documents = []
+        end
       else
         @documents = DocumentRepository.search_with_title(@search_key)
     end
