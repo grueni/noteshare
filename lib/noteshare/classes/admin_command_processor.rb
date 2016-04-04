@@ -9,18 +9,8 @@ class AdminCommandProcessor
   def initialize(hash)
     @input = hash[:input]
     @user = hash[:user]
-    node_id = hash[:node_id]
-    if node_id
-      puts "node_id = #{node_id}".red
-    else
-      puts "node_id = NIL".red
-    end
-    if node_id
-    @node = NSNodeRepository.find node_id if node_id
-      puts "@node = #{@node.name}".green
-    else
-      puts "@node is NIL".green
-    end
+    receptor_node_id = hash[:node_id]
+    @receptor_node = NSNodeRepository.find receptor_node_id if receptor_node_id
     @tokens = @input.split(' ').map{ |token| token.strip }
     puts "@tokens = #{@tokens}".green
     @command = @tokens.shift
@@ -174,37 +164,32 @@ class AdminCommandProcessor
   def add_node
     # return if authorize_user_for_level(2) == false
     node_name = @node
-    @target_node = NSNodeRepository.find_one_by_name node_name
-    if @target_node
-      neighbors = Neighbors.new(node: @user.node)
+    @node_to_add = NSNodeRepository.find_one_by_name @node
+    if @node_to_add
+      neighbors = Neighbors.new(node: @receptor_node)
       neighbors.add!(node_name, 0.5)
-      @response = "Node #{@target_node.name} added"
+      @response = "Node #{@node.name} added to #{@receptor_node.name}"
     end
   end
 
   def remove_node
     # return if authorize_user_for_level(2) == false
     node_name = @node
-    @target_node = NSNodeRepository.find_one_by_name node_name
-    if @target_node
-      neighbors = Neighbors.new(node: @user.node)
-      neighbors.remove!(node_name)
-      @response = "Node #{@target_node.name} removed"
+    @node_to_remove = NSNodeRepository.find_one_by_name @node
+    if @node_to_add
+      neighbors = Neighbors.new(node: @receptor_node)
+      neighbors.add!(node_name, 0.5)
+      @response = "Node #{@node.name} added to #{@receptor_node.name}"
     end
   end
 
 
   def can_modify_document_status(document)
     return false if document == nil
-    puts "1".red
     return false if @user == nil
-    puts "2".red
-    return false if @node == nil
-    puts "3".red
+    return false if @receptor_node == nil
     return false if @user.id != document.author_id
-    puts "4".red
-    return false if @user.id != @node.owner_id
-    puts "5".red
+    return false if @user.id != @receptor_node.owner_id
     return true
   end
 
@@ -215,7 +200,7 @@ class AdminCommandProcessor
     doc_id = @document
     @target_document = DocumentRepository.find doc_id
     if can_modify_document_status @target_document
-      @node.append_doc(doc_id, 'author')
+      @receptor_node.append_doc(doc_id, 'author')
       @response = "Document #{@target_document.title} added"
     else
       @response = 'Unauthorized'
@@ -229,7 +214,7 @@ class AdminCommandProcessor
     doc_id = @document
     @target_document = DocumentRepository.find doc_id
     if can_modify_document_status @target_document
-      @node.remove_doc(doc_id)
+      @receptor_node.remove_doc(doc_id)
       @response = "Document #{@target_document.title} removed"
     else
       @response = 'Unauthorized'
