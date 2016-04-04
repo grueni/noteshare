@@ -135,7 +135,7 @@ class DocumentRepository
     array = fetch(query)
     array = array.map{ |h| h[:id] }.uniq
     puts "Found #{array.count} items".cyan
-    array.map{ |id| DocumentRepository.find id }.sort_by { |item| item.title }
+    array.map{ |id| DocumentRepository.find id }.select{ |item| item.title }.sort_by{ |item| item.title }
   end
 
 

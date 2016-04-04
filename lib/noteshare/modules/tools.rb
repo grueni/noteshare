@@ -10,7 +10,7 @@ module Noteshare
     end
 
     def sort_by_title
-      sort_by { |item| item.title }
+      select{ |item| item.title }.sort_by { |item| item.title }
     end
 
     #########################

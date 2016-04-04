@@ -184,7 +184,7 @@ class NSNode
   end
 
   def documents_readable_by(user)
-    Publications.documents_for_node(self.id).select(&can_read(user)).sort_by { |item| item.title }
+    Publications.documents_for_node(self.id).select(&can_read(user)).sort_by_title
   end
 
   #################################################

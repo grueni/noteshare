@@ -1,5 +1,5 @@
 module Web::Controllers::Document
-  # Class link redirects an income request for a document
+  # Class link redirects an incoming request for a document
   # to a request for the same document prefixed by the
   # user's screen_name.  This is to ensure continuity
   # of user experience.

@@ -26,4 +26,4 @@
     span.plainlink.lightlink.top_ribbon_button == link_to 'Manage node documents', "/node/manage/#{current_node.id}"
 
 div
-  == command_input_form
+  == command_input_form(current_node)

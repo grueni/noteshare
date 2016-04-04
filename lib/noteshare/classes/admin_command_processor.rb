@@ -9,6 +9,18 @@ class AdminCommandProcessor
   def initialize(hash)
     @input = hash[:input]
     @user = hash[:user]
+    node_id = hash[:node_id]
+    if node_id
+      puts "node_id = #{node_id}".red
+    else
+      puts "node_id = NIL".red
+    end
+    if node_id
+    @node = NSNodeRepository.find node_id if node_id
+      puts "@node = #{@node.name}".green
+    else
+      puts "@node is NIL".green
+    end
     @tokens = @input.split(' ').map{ |token| token.strip }
     puts "@tokens = #{@tokens}".green
     @command = @tokens.shift
@@ -37,6 +49,8 @@ class AdminCommandProcessor
     signatures << 'remove_node'
     signatures << 'add_document'
     signatures << 'remove_document'
+    signatures << 'add_group'
+    signatures << 'remove_group'
     if signatures.include? @command_signature
       true
     else
@@ -179,33 +193,67 @@ class AdminCommandProcessor
     end
   end
 
+
+  def can_modify_document_status(document)
+    return false if document == nil
+    puts "1".red
+    return false if @user == nil
+    puts "2".red
+    return false if @node == nil
+    puts "3".red
+    return false if @user.id != document.author_id
+    puts "4".red
+    return false if @user.id != @node.owner_id
+    puts "5".red
+    return true
+  end
+
+  # Add document to node list
+  # The user must be the author of the document and
+  # the owner of the node (for now)
   def add_document
-    # return if authorize_user_for_level(2) == false
     doc_id = @document
     @target_document = DocumentRepository.find doc_id
-    if @target_document && @user && @user.id == @target_document.author_id
-      user_node = @user.node
-      user_node.append_doc(doc_id, 'author')
+    if can_modify_document_status @target_document
+      @node.append_doc(doc_id, 'author')
       @response = "Document #{@target_document.title} added"
     else
       @response = 'Unauthorized'
     end
   end
 
+  # Remove document from node list
+  # The user must be the author of the document and
+  # the owner of the node (for now)
   def remove_document
-    # return if authorize_user_for_level(2) == false
     doc_id = @document
     @target_document = DocumentRepository.find doc_id
-    puts "@target_document title = #{@target_document.title}"
-    puts "@target_document author_id = #{@target_document.author_id}"
-    puts "@user = #{@user.screen_name}"
-    if @target_document && @user && @user.id == @target_document.author_id
-      user_node = @user.node
-      user_node.remove_doc(doc_id)
+    if can_modify_document_status @target_document
+      @node.remove_doc(doc_id)
       @response = "Document #{@target_document.title} removed"
     else
       @response = 'Unauthorized'
     end
+  end
+
+  def add_group
+    return if authorize_user_for_level(2) == false
+    manager = UserGroupManager.new(@user)
+    new_group = "#{@user.screen_name}_#{@group}"
+    manager.add new_group
+    @response = "<p>Added: #{new_group}</p>"
+    @response << "<h3>Groups</h3>"
+    @response << manager.html_list
+  end
+
+  def remove_group
+    return if authorize_user_for_level(2) == false
+    manager = UserGroupManager.new(@user)
+    old_group = "#{@user.screen_name}_#{@group}"
+    @response = "<p>Removed: #{old_group}</p>"
+    manager.delete old_group
+    @response << "<h3>Groups</h3>"
+    @response << manager.html_list
   end
 
 end
