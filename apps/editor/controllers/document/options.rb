@@ -6,10 +6,8 @@ module Editor::Controllers::Document
 
     def call(params)
       @active_item = 'editor'
-      puts "controller Editor Options".red
       query_string = request.query_string
       @document = DocumentRepository.find params[:id]
-
       if query_string == 'root'
         @document = @document.root_document if query_string == 'root'
         @mode = 'root'

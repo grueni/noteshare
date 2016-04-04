@@ -19,7 +19,6 @@ module Editor::Controllers::Document
       else
         self.body = "ERROR: file (id = #{id}) not found"
       end
-
     end
 
   end

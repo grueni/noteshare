@@ -31,9 +31,6 @@ class AddPDF
   end
 
   def prepare_content_for_document
-    current_document = DocumentRepository.find @document_id
-    puts "The current document with id #{current_document.id}".red
-
     if @type == 'application/pdf'
       @content = "#{@url}[PDF document]\n\n"
       @content << "++++\n"

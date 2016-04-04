@@ -5,14 +5,9 @@ module Editor::Controllers::Document
     expose :document, :active_item
 
     def call(params)
-     @active_item = 'editor'
-     puts "EDTIOR EXPORT".magenta
-     puts "ID: #{params[:id]}".red
-      # self.body = 'OK'
+      @active_item = 'editor'
       @document = DocumentRepository.find params[:id]
-
       ContentManager.new(@document).export
-
       redirect_to "/document/#{params[:id]}"
     end
 

@@ -7,10 +7,7 @@ module Editor::Controllers::Document
       object_name = "#{@document.identifier}.txt"
       str = AWS.get_string(object_name, 'test')
       @document.content = str
-
       ContentManager.new(@document).update_content
-
-      puts "Updated  document #{@document.id} (#{@document.title}) with text  #{str[0..200]}".cyan
       redirect_to "/editor/document/#{@document.id}"
     end
 
@@ -23,7 +20,6 @@ module Editor::Controllers::Document
       else
         puts "Error; file #{id} not found"
       end
-
 
     end
   end

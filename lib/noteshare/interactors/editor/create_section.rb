@@ -10,7 +10,6 @@ class CreateSection
     @title = document_packet['title']
     @content = document_packet['content']
     @create_mode = document_packet['create_mode'] || 'sibling_below'
-    puts "@create_mode = #{@create_mode}".green
     current_document_id = document_packet['current_document_id']
     @current_document = DocumentRepository.find current_document_id
     @author_credentials = @current_document.author_credentials2
@@ -27,7 +26,6 @@ class CreateSection
     if @current_document.is_root_document?
       @create_mode = 'child'
     end
-    puts "@create_mode = #{@create_mode}".red
   end
 
   def create

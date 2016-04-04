@@ -18,7 +18,6 @@ module Editor::Controllers::Document
       TOCManager.new(document).permute_table_of_contents(permutation)
       document.root_document.compiled_dirty = true
       DocumentRepository.update document
-
       redirect_to basic_link "#{current_user2.screen_name}", "/editor/document/#{id}"
     end
 

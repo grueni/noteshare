@@ -7,7 +7,6 @@ module Editor::Controllers::Document
     expose :document, :active_item
 
     def call(params)
-      puts "controller PublishSection".red
       @active_item = 'editor'
       document = DocumentRepository.find params[:id]
       ACL.toggle_world_readable(document)

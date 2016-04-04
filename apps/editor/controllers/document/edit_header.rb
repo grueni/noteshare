@@ -5,14 +5,9 @@ module Editor::Controllers::Document
     expose :document, :active_item
 
     def call(params)
-
       @active_item = 'editor'
       id = params[:id]
-
       @document = DocumentRepository.find id
-
-      # self.body = "ID: #{id}"
-
     end
 
   end

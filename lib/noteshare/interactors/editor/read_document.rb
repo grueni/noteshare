@@ -8,9 +8,7 @@ class ReadDocument
 
   def initialize(params, user)
     @user = user
-    puts "BOSS, this the ReadDocument interactor"
     @document = DocumentRepository.find(params['id'])
-    puts "interactor, @document = #{@document.id}, #{@document.title}"
     if @document == nil
       @error ='document not found'
     else

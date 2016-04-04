@@ -1,54 +1,26 @@
 
+require_relative '../../../../lib/noteshare/interactors/editor/edit_document'
+
 module Editor::Controllers::Document
   class Edit
     include Editor::Action
 
-    expose :document, :root_document, :updated_text, :current_image,:active_item, :editors
+    expose :document, :root_document, :updated_text, :current_image, :active_item, :editors
 
     def call(params)
-      puts "params['id'] = #{params['id']}".red
-      id = params['id']
-      @document = DocumentRepository.find(id)
-      @root_document = @document.root_document
+      @active_item = 'editor'
 
-      # Do not edit document root in the regular editor
-      if @document.is_root_document?
-        first_section = @document.first_section
-        id = first_section.id if first_section
-      end
+      result = Editor.new(params, current_user2).call
+      @document = result.document
+      @root_document= result.root_document
+      @updated_text = result.update_text
+      @editors = result.editors
 
-
-      current_user2.dict2['current_document_id'] = id
-      UserRepository.update current_user2
-      session['current_document_id'] = id
+      session['current_document_id'] = @document.id
 
       if session['current_image_id']
         @current_image = ImageRepository.find session['current_image_id']
       end
-
-      @active_item = 'editor'
-
-      Analytics.record_edit(current_user2, @document)
-
-
-      cm = ContentManager.new(@document)
-      if @document.is_root_document?
-        cm.compile_with_render_lazily
-      else
-        cm.update_content_lazily
-      end
-      @updated_text = @document.content
-
-      es = Noteshare::EditorStatus.new(@document)
-      @editors = "Editors: #{es.editor_array_string_value}"
-      es.add_editor(current_user2)
-
-      if ['compiled', 'titlepage'].include? current_user2.dict2['reader_view']
-        current_user2.dict2['reader_view'] = 'sidebar'
-        UserRepository.update current_user2
-      end
-
-
     end
 
   end

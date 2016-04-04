@@ -7,7 +7,6 @@ module Editor::Controllers::Document
     def call(params)
       @delete_mode = request.query_string
       @active_item = 'editor'
-      puts "controller: PrepareToDelete".red
       @document = DocumentRepository.find params[:id]
     end
   end
