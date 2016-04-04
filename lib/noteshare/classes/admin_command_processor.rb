@@ -12,11 +12,21 @@ class AdminCommandProcessor
     receptor_node_id = hash[:node_id]
     @receptor_node = NSNodeRepository.find receptor_node_id if receptor_node_id
     @tokens = @input.split(' ').map{ |token| token.strip }
+    @command_signature = get_command_signature(@tokens)
     puts "@tokens = #{@tokens}".green
+    puts "@command_signature = #{@command_signature}".cyan
     @command = @tokens.shift
     puts "@command = #{@command}".green
     @tokens = @tokens.map { |token| token.split(':') }
     @response = 'ok'
+    @return_message = "<br/>\n\n<p><a  href='/node/#{@receptor_node.name}'>Back</a></p>\n"
+  end
+
+  def get_command_signature(array)
+    tokens = array.dup
+    # remove the arguments, i.e., map 'def:12' to 'def'
+    tokens = tokens.map{ |str| str.split(':')[0] }
+    tokens.join('_')
   end
 
   def execute
@@ -30,7 +40,7 @@ class AdminCommandProcessor
     signatures = ['test']
     signatures << 'use_token'
     signatures << 'add_doc_to_group_token_days'
-    signatures << 'add_doc_to_group'
+    signatures << 'add_document_to_group'
     signatures << 'add_group_token_days'
     signatures << 'add_doc_token_days'
     signatures << 'add_doc_and_group_token_days'
@@ -41,6 +51,9 @@ class AdminCommandProcessor
     signatures << 'remove_document'
     signatures << 'add_group'
     signatures << 'remove_group'
+    signatures << 'list_groups'
+
+    puts "@command_signature = #{@command_signature}".red
     if signatures.include? @command_signature
       true
     else
@@ -59,14 +72,14 @@ class AdminCommandProcessor
       instance_variable_set("@#{name}", value)
       instance_variable_set("@#{name}_modifier", modifier)
     else
-      @error = 'incorrect number of modifierss'
+      # @error = 'incorrect number of modifierss'
     end
-    @command_signature = "#{@command_signature}_#{name}"
+    # @command_signature = "#{@command_signature}_#{name}"
     @error
   end
 
   def parse_command
-    @command_signature = @command
+    # @command_signature = @command
     @acp_token = 'null'
     while @acp_token do
       @acp_token = @tokens.shift
@@ -144,13 +157,14 @@ class AdminCommandProcessor
   end
 
   # Example: add_document_to_group document:414 group:red
-  def add_doc_to_group
-    return if authorize_user_for_level(2) == false
-    @document = DocumentRepository.find @doc
+  def add_document_to_group
+    # return if authorize_user_for_level(2) == false
+    @document = DocumentRepository.find @document
     return if @document == nil
     return if @document.author_credentials2['id'].to_i != @user.id
-    group = "#{@user.screen_name}_#{@to_group}"
-    @document = @document.root_document            
+    # group = "#{@user.screen_name}_#{@to_group}"
+    group = "#{@user.screen_name}_#{@group}"
+    @document = @document.root_document
     if @doc_modifier == 'read_only'
       @document.apply_to_tree(:acl_set, [:group, group, 'r'])
     else
@@ -168,11 +182,8 @@ class AdminCommandProcessor
     if @node_to_add
       neighbors = Neighbors.new(node: @receptor_node)
       neighbors.add!(node_name, 0.5)
-      text = "<p>Node #{@node} added to #{@receptor_node.name}</p>\n"
-      text << "<br/>\n"
-      text << "<p><a href='/node/#{@receptor_node.name}'>Back</a></p>\n"
-      puts text
-      @response  = text
+      @response  =  "<p>Node #{@node} added to #{@receptor_node.name}</p>\n"
+      @response << @return_message
     end
   end
 
@@ -182,11 +193,8 @@ class AdminCommandProcessor
     if @node_to_remove
       neighbors = Neighbors.new(node: @receptor_node)
       neighbors.remove!(@node)
-      text = "<p>Node #{@node} removed from #{@receptor_node.name}</p>\n"
-      text << "<br/>\n"
-      text << "<p><a  href='/node/#{@receptor_node.name}'>Back</a></p>\n"
-      puts text
-      @response = text
+      @response = "<p>Node #{@node} removed from #{@receptor_node.name}</p>\n"
+      @response << @return_message
     end
   end
 
@@ -209,8 +217,10 @@ class AdminCommandProcessor
     if can_modify_document_status @target_document
       @receptor_node.append_doc(doc_id, 'author')
       @response = "Document #{@target_document.title} added"
+      @response << @return_message
     else
       @response = 'Unauthorized'
+      @response << @return_message
     end
   end
 
@@ -223,8 +233,10 @@ class AdminCommandProcessor
     if can_modify_document_status @target_document
       @receptor_node.remove_doc(doc_id)
       @response = "Document #{@target_document.title} removed"
+      @response << @return_message
     else
       @response = 'Unauthorized'
+      @response << @return_message
     end
   end
 
@@ -236,6 +248,7 @@ class AdminCommandProcessor
     @response = "<p>Added: #{new_group}</p>"
     @response << "<h3>Groups</h3>"
     @response << manager.html_list
+    @response << @return_message
   end
 
   def remove_group
@@ -246,6 +259,15 @@ class AdminCommandProcessor
     manager.delete old_group
     @response << "<h3>Groups</h3>"
     @response << manager.html_list
+    @response
+  end
+
+  def list_groups
+    return if authorize_user_for_level(2) == false
+    manager = UserGroupManager.new(@user)
+    @response = "<h3>Groups</h3>"
+    @response << manager.html_list
+    @response << @return_message
   end
 
 end
