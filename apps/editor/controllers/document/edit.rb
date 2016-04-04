@@ -10,10 +10,10 @@ module Editor::Controllers::Document
     def call(params)
       @active_item = 'editor'
 
-      result = Editor.new(params, current_user2).call
+      result = EditDocument.new(params, current_user2).call
       @document = result.document
       @root_document= result.root_document
-      @updated_text = result.update_text
+      @updated_text = result.updated_text
       @editors = result.editors
 
       session['current_document_id'] = @document.id

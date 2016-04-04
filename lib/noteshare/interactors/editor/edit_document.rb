@@ -4,7 +4,7 @@ require_relative '../../../modules/analytics'
 class EditDocument
 
   include Lotus::Interactor
-  expose :document, :root_document, :updated_text
+  expose :document, :root_document, :updated_text, :editors
 
   def initialize(params, user)
     id = params['id']
