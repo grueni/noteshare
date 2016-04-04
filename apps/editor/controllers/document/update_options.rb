@@ -1,4 +1,4 @@
-require_relative '../../../../lib/noteshare/interactors/editor/update_options'
+require_relative '../../../../lib/noteshare/interactors/editor/update_document_options'
 
 module Editor::Controllers::Document
   class UpdateOptions
@@ -8,9 +8,9 @@ module Editor::Controllers::Document
 
     def call(params)
       @active_item = 'editor'
-      result = UpdateOptions.new(params).call
+      result = UpdateDocumentOptions.new(params).call
       @document = result.document
-      redirect_to "/editor/document/#{id}"
+      redirect_to result.redirect_path
     end
 
   end

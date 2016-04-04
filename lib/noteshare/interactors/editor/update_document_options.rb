@@ -1,10 +1,10 @@
 require 'lotus/interactor'
 require_relative '../../../modules/analytics'
 
-class UpdateOptions
+class UpdateDocumentOptions
 
   include Lotus::Interactor
-  expose :document, :root_document
+  expose :document, :redirect_path
 
   def initialize(params)
     @document_packet = params.env['rack.request.form_hash']['document']
@@ -12,7 +12,8 @@ class UpdateOptions
     @mode = @document_packet['mode']
     document_id =  @document_packet['document_id']
     @document = DocumentRepository.find document_id
-    @document = document.root_document if @mode == 'root'
+    @document = @document.root_document if @mode == 'root'
+    @redirect_path = "/editor/document/#{document_id}"
   end
 
   def propagate(document, hash)
