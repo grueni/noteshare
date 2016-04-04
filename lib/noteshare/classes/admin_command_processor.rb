@@ -168,18 +168,25 @@ class AdminCommandProcessor
     if @node_to_add
       neighbors = Neighbors.new(node: @receptor_node)
       neighbors.add!(node_name, 0.5)
-      @response = "Node #{@node.name} added to #{@receptor_node.name}"
+      text = "<p>Node #{@node} added to #{@receptor_node.name}</p>\n"
+      text << "<br/>\n"
+      text << "<p><a href='/node/#{@receptor_node.name}'>Back</a></p>\n"
+      puts text
+      @response  = text
     end
   end
 
   def remove_node
     # return if authorize_user_for_level(2) == false
-    node_name = @node
     @node_to_remove = NSNodeRepository.find_one_by_name @node
-    if @node_to_add
+    if @node_to_remove
       neighbors = Neighbors.new(node: @receptor_node)
-      neighbors.add!(node_name, 0.5)
-      @response = "Node #{@node.name} added to #{@receptor_node.name}"
+      neighbors.remove!(@node)
+      text = "<p>Node #{@node} removed from #{@receptor_node.name}</p>\n"
+      text << "<br/>\n"
+      text << "<p><a  href='/node/#{@receptor_node.name}'>Back</a></p>\n"
+      puts text
+      @response = text
     end
   end
 

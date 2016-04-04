@@ -55,7 +55,7 @@ module Noteshare
     end
 
     def body_message(message)
-      "<style>body { background-color: #444; color: white; margin: 3em;}</style>\n#{message}\n"
+      "<style>\nbody { background-color: #444; color: white; margin: 3em;}\n a { color: white; }\n</style>\n\n#{message}\n"
     end
 
     # an element has the form
