@@ -1,28 +1,32 @@
+require_relative '../../ext/core'
+require_relative '../../../lib/acl'  ### ???
+
+
 # An NSDocument consists of
 #
-#     * Various meta data such as title and author information
-#     * Textual content, both in raw source and rendered form
-#     * Structural links to subdocuments and associated documents
+# * Various meta data such as title and author information
+# * Textual content, both in raw source and rendered form
+# * Structural links to subdocuments and associated documents
 #
-#   A master, or root document is one that is not a subdocuemnt
-#   or associated document of any other document. It corresponds
-#   to what we normally think of a document.  Subdocuments are
-#   ordered and may themselves have subdocuments and associated
-#   documents.  Consequently the subdocuments form a tree.  In the
-#   simplest and most common case, the tree consists of just one
-#   level and that subdocuments form the sections of the document.
+# A aster, or root document is one that is not a subdocuemnt
+# or associated document of any other document. It corresponds
+# to what we normally think of a document.  Subdocuments are
+# ordered and may themselves have subdocuments and associated
+# documents.  Consequently the subdocuments form a tree.  In the
+# simplest and most common case, the tree consists of just one
+# level and that subdocuments form the sections of the document.
 #
-#   Associated documents are not ordered and are entirely optional;
-#   many documents have none.  Some examples.
+# Associated documents are not ordered and are entirely optional;
+# many documents have none.  Some examples.
 #
-#     * The sections of a document may have an "aside", or "sidebar".
-#       All sections may have an aside, or some, or none.
+# * The sections of a document may have an "aside", or "sidebar".
+#   All sections may have an aside, or some, or none.
 #
-#     * Sections may have one or more associated notes; these may
-#       be intended for display, or to help the author during
-#       composition of the document.
+# * Sections may have one or more associated notes; these may
+#   be intended for display, or to help the author during
+#   composition of the document.
 #
-#     * Documents that use LaTeX may have a "texmacros" document
+# * Documents that use LaTeX may have a "texmacros" document
 #
 # An NSDocument is a complex object whose feeding and care requires
 # the cooperation of many classes.  The NSDocument class is mostly
@@ -37,18 +41,6 @@
 # Note that testing this class requires, for example, the XXX
 # class, since it is there that the methods for building
 # subdocuemnt structure are defined.
-
-
-
-
-require_relative '../../ext/core'
-# require_relative '../../../lib/noteshare/modules/tools'
-require_relative '../../../lib/acl'  ### ???
-
-# require_relative '../modules/toc_item'
-
-# ^^^ audit dependencies
-
 class NSDocument
   
 
@@ -73,15 +65,19 @@ class NSDocument
              :acl, :visibility, :groups_json,
              :author_credentials2
 
+  include ACL
 
+  # I don't think that the below
+  # are needed anymore
+  # -----------------------------
+  # include Noteshare
   # include Noteshare::Setup
   # include Noteshare::Tools
-  include Noteshare
   # include Noteshare::Groups
   # include Noteshare::AsciidoctorHelper
-  include ACL
   # include Noteshare::NSDocumentDictionary
   # include NSDocumentHelpers
+
 
 
   # When initializing an NSDocument, ensure that certain fields
@@ -89,8 +85,7 @@ class NSDocument
   # The hash should follow this model
   #
   #  {title: 'Introduction to Chemistry', author_credentials{ id: 0, first_name: 'Linus', last_name: 'Pauling', identifier: 'abcd1234'}}
-
-
+  #
   def initialize(hash)
 
     hash.each { |name, value| instance_variable_set("@#{name}", value) }
@@ -109,7 +104,6 @@ class NSDocument
 
   end
 
-  # PUBLIC
   # Create a document given a hash.
   # The hash must define both the title and the author credentials,
   # as in the example below;
@@ -139,27 +133,22 @@ class NSDocument
     DocumentRepository.create doc
   end
 
-
-  ###################################################
-  #
-  #     Deletion
-  #     --------
-  #     # delete
-  #     # delete_subdocument
-  #     # remove_from_parent
-  #     ----------
-  #     3
-  #
-  ###################################################
-
-
-  # Docuemnts come in three kinds: root, subdocumnet,
-  # and associated documennt
   def delete
+    DocumentRepository.delete(self)
+  end
+
+  # Documents come in three kinds: root, subdocumnet,
+  # and associated document.  The smart_delete method ships
+  # out the task to the appropriate handler
+  def smart_delete
     if is_associated_document?
       AssociateDocumentManager.new(self.parent_document).delete(self)
-    else
+    elsif is_subdocument?
       delete_subdocument
+    elsif is_root_document?
+      delete_root_document
+    else
+      delete
     end
   end
 
@@ -169,6 +158,11 @@ class NSDocument
       self.remove_from_parent
     end
     DocumentRepository.delete self
+  end
+
+  def delete_root_document
+    apply_to_tree(:delete, [])
+    self.delete
   end
 
 
@@ -234,7 +228,11 @@ class NSDocument
   end
 
   def is_root_document?
-    self == find_root_document
+    parent_id == 0
+  end
+
+  def is_subdocument?
+    parent_id > 0
   end
 
   def ancestor_ids

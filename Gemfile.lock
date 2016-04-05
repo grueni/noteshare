@@ -80,6 +80,7 @@ GEM
       thor (~> 0.19)
     mail (2.6.3)
       mime-types (>= 1.16, < 3)
+    method_source (0.8.2)
     mime-types (2.99.1)
     mini_portile2 (2.0.0)
     minitest (5.8.4)
@@ -94,6 +95,10 @@ GEM
       source_map
       sprockets
     pg (0.18.4)
+    pry (0.10.3)
+      coderay (~> 1.1.0)
+      method_source (~> 0.8.1)
+      slop (~> 3.4)
     puma (3.0.2)
     puma_worker_killer (0.0.5)
       get_process_mem (~> 0.2)
@@ -108,6 +113,7 @@ GEM
     slim (3.0.6)
       temple (~> 0.7.3)
       tilt (>= 1.3.3, < 2.1)
+    slop (3.6.0)
     source_map (3.0.1)
       json
     sprockets (3.5.2)
@@ -143,6 +149,7 @@ DEPENDENCIES
   minitest
   minitest-capybara
   pg
+  pry
   puma
   puma_worker_killer
   rake
