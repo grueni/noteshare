@@ -1,5 +1,5 @@
 require_relative 'toc_item'
-require_relative '../classes/toc_presenter'
+require_relative '../classes/document/toc_presenter'
 
 module Noteshare
 

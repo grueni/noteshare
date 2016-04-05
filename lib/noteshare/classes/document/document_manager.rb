@@ -5,6 +5,18 @@
 # is responsible for adding
 # and deleting documents
 # attached to a Master Document
+#
+#   Methods
+#   --------------------------------
+#   * initialize(parent_document)
+#   * insert(hash)
+#   * add_as_sibling(hash)
+#   * append(new_document)
+#   * remove(subdocument)
+#   * delete(subdocument)
+#   * move(subdocument, new_position)
+
+
 class DocumentManager
 
   def initialize(parent_document)

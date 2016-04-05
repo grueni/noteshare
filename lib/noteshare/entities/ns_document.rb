@@ -1,8 +1,51 @@
+# An NSDocument consists of
+#
+#     * Various meta data such as title and author information
+#     * Textual content, both in raw source and rendered form
+#     * Structural links to subdocuments and associated documents
+#
+#   A master, or root document is one that is not a subdocuemnt
+#   or associated document of any other document. It corresponds
+#   to what we normally think of a document.  Subdocuments are
+#   ordered and may themselves have subdocuments and associated
+#   documents.  Consequently the subdocuments form a tree.  In the
+#   simplest and most common case, the tree consists of just one
+#   level and that subdocuments form the sections of the document.
+#
+#   Associated documents are not ordered and are entirely optional;
+#   many documents have none.  Some examples.
+#
+#     * The sections of a document may have an "aside", or "sidebar".
+#       All sections may have an aside, or some, or none.
+#
+#     * Sections may have one or more associated notes; these may
+#       be intended for display, or to help the author during
+#       composition of the document.
+#
+#     * Documents that use LaTeX may have a "texmacros" document
+#
+# An NSDocument is a complex object whose feeding and care requires
+# the cooperation of many classes.  The NSDocument class is mostly
+# concerned with various accessors and reporters: what is the root
+# document of a given document, is it a root document, what is the
+# 7th subdocument, etc. Other takss, such as adding subdocuments,
+# rendering content, etc., are left to other classes.  This is so
+# done in order to keep the size of classes within the bounds
+# comprehensibility and to keep their focus on a single kind of
+# work.
+#
+# Note that testing this class requires, for example, the XXX
+# class, since it is there that the methods for building
+# subdocuemnt structure are defined.
+
+
+
+
 require_relative '../../ext/core'
-require_relative '../../../lib/noteshare/modules/tools'
-require_relative '../modules/toc_item'
+# require_relative '../../../lib/noteshare/modules/tools'
 require_relative '../../../lib/acl'  ### ???
 
+# require_relative '../modules/toc_item'
 
 # ^^^ audit dependencies
 
@@ -32,7 +75,7 @@ class NSDocument
 
 
   # include Noteshare::Setup
-  include Noteshare::Tools
+  # include Noteshare::Tools
   include Noteshare
   # include Noteshare::Groups
   # include Noteshare::AsciidoctorHelper
