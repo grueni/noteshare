@@ -26,13 +26,15 @@ class AdvancedSearcher
     puts "advanced search on command #{@command} with key #{@search_key}".red
     case @command
       when 'ti'
+        # @documents = DocumentRepository.search_with_title(@search_key, root_documents_only: 'yes')
         @documents = DocumentRepository.search_with_title(@search_key)
       when 'ta'
         @documents = DocumentRepository.search_with_tags(@search_key)
       when 'au'
         user = UserRepository.find_one_by_screen_name @search_key
         if user
-          @documents = DocumentRepository.find_by_author_id(user.id)
+          # @documents = DocumentRepository.find_by_author_id(user.id)
+          @documents = DocumentRepository.find_by_author_id(user.id, root_documents_only: 'yes')
         else
           @documents = []
         end

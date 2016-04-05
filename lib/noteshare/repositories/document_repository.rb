@@ -16,9 +16,15 @@ class DocumentRepository
     end
   end
 
-  def self.find_by_author_id(author_id)
-    query do
-      where(author_id: author_id)
+  def self.find_by_author_id(author_id, hash={})
+    if hash[:root_documents_only] == 'yes'
+      query do
+        where(author_id: author_id, root_document_id: 0)
+      end
+    else
+      query do
+        where(author_id: author_id)
+      end
     end
   end
 
@@ -79,8 +85,14 @@ class DocumentRepository
   ############################
 
 
-  def self.search_with_title(key)
-    array = fetch("SELECT id FROM documents WHERE title ILIKE '%#{key}%'")
+  def self.search_with_title(key, hash={})
+    if hash[:root_documents_only] == 'yes'
+      array = fetch("SELECT id FROM documents WHERE title ILIKE '%#{key}% AND root_document_id = 0'")
+    else
+      array = fetch("SELECT id FROM documents WHERE title ILIKE '%#{key}%'")
+    end
+
+
     array = array.map{ |h| h[:id] }.uniq
     array.map{ |id| DocumentRepository.find id }.sort_by { |item| item.title }
   end

@@ -86,6 +86,7 @@ module Web
       end
 
       def compiled_root_document_link(document)
+        return '' if document == nil
         root_doc = document.root_document
         if document == root_doc
           link_to root_doc.title, "/compiled/#{root_doc.id}"

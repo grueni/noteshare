@@ -13,10 +13,7 @@ class AdminCommandProcessor
     @receptor_node = NSNodeRepository.find receptor_node_id if receptor_node_id
     @tokens = @input.split(' ').map{ |token| token.strip }
     @command_signature = get_command_signature(@tokens)
-    puts "@tokens = #{@tokens}".green
-    puts "@command_signature = #{@command_signature}".cyan
     @command = @tokens.shift
-    puts "@command = #{@command}".green
     @tokens = @tokens.map { |token| token.split(':') }
     @response = 'ok'
     @return_message = "<br/>\n\n<p><a  href='/node/#{@receptor_node.name}'>Back</a></p>\n"
@@ -53,7 +50,6 @@ class AdminCommandProcessor
     signatures << 'remove_group'
     signatures << 'list_groups'
 
-    puts "@command_signature = #{@command_signature}".red
     if signatures.include? @command_signature
       true
     else
@@ -63,27 +59,37 @@ class AdminCommandProcessor
   end
 
 
+  # Break token into name, value, modifier,
+  # where the modifier is optional
   def process_token
-    if @acp_token.count == 2
-      name, value = @acp_token
+    if @arg_token.count == 2
+      name, value = @arg_token
       instance_variable_set("@#{name}", value)
-    elsif @acp_token.count == 3
-      name, value, modifier = @acp_token
+    elsif @arg_token.count == 3
+      name, value, modifier = @arg_token
       instance_variable_set("@#{name}", value)
       instance_variable_set("@#{name}_modifier", modifier)
     else
-      # @error = 'incorrect number of modifierss'
+      # @error = 'incorrect number of modifiers'
     end
-    # @command_signature = "#{@command_signature}_#{name}"
     @error
   end
 
+  # parse the token string, breaking
+  # the original tokens into pairs
+  # or triples of the form
+  # (name, value, modifier),
+  # then create instance variables
+  # with name = name and value = value
+  # For the modfiers, create an instance
+  # variable with name = name_modifier
+  # and value modifier.  These will
+  # be used when the command is executed.
   def parse_command
-    # @command_signature = @command
-    @acp_token = 'null'
-    while @acp_token do
-      @acp_token = @tokens.shift
-      process_token if @acp_token
+    @arg_token = 'null'
+    while @arg_token do
+      @arg_token = @tokens.shift
+      process_token if @arg_token
     end
   end
 
@@ -110,13 +116,6 @@ class AdminCommandProcessor
     cp = CommandProcessor.new(user: @user, token: @token)
     @response = cp.execute
   end
-
-  # Example: test
-  def test
-    return if authorize_user_for_level(1) == false
-    @response = "TEST"
-  end
-
 
   # Example: add group:yuuk token:yum111 days:30
   # Execution of the token adds the user to the group.
