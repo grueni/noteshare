@@ -1,5 +1,6 @@
 require_relative '../../ext/core'
 require_relative '../../../lib/acl'  ### ???
+require 'pry'
 
 
 # An NSDocument consists of
@@ -60,7 +61,7 @@ class NSDocument
              :created_at, :updated_at,
              :content, :compiled_content, :rendered_content, :compiled_and_rendered_content, :render_options,
              :parent_ref, :root_ref, :parent_id, :index_in_parent, :root_document_id,
-             :subdoc_refs, :toc, :doc_refs,
+             :subdoc_refs, :toc, :doc_refs, :doc_refs2,
              :content_dirty, :compiled_dirty, :toc_dirty,
              :acl, :visibility, :groups_json,
              :author_credentials2
@@ -432,7 +433,7 @@ class NSDocument
   # only in spec/
   # return hash of associates of a given document
   def associates
-    self.doc_refs
+    self.doc_refs2
   end
 
 
@@ -441,7 +442,13 @@ class NSDocument
   # retrieve the document associated to
   # @foo which is of type 'summary'
   def associated_document(type)
-    DocumentRepository.find(self.doc_refs[type])
+    assoc_docs = []
+    self.doc_refs2.keys.each do |key|
+      if self.doc_refs2[key] == type
+        assoc_docs << DocumentRepository.find(key.to_i)
+      end
+    end
+    assoc_docs[0]
   end
 
   def is_associated_document?

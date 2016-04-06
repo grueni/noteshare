@@ -350,6 +350,7 @@ describe NSDocument do
 
    end
 
+
   #########################################################################
 
   describe 'application of method to the document tree' do
