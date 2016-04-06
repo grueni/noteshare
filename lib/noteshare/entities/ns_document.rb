@@ -2,6 +2,7 @@ require_relative '../../ext/core'
 require_relative '../../../lib/noteshare/modules/tools'
 require_relative '../modules/toc_item'
 require_relative '../../../lib/acl'  ### ???
+require 'pry'
 
 
 # ^^^ audit dependencies
@@ -391,7 +392,7 @@ class NSDocument
   # only in spec/
   # return hash of associates of a given document
   def associates
-    self.doc_refs
+    self.doc_refs2
   end
 
 
@@ -400,8 +401,13 @@ class NSDocument
   # retrieve the document associated to
   # @foo which is of type 'summary'
   def associated_document(type)
-    AssociatedDocumentManager.new(self).get_one(type)
-    # DocumentRepository.find(self.doc_refs[type])
+    assoc_docs = []
+    self.doc_refs2.keys.each do |key|
+      if self.doc_refs2[key] == type
+        assoc_docs << DocumentRepository.find(key.to_i)
+      end
+    end
+    assoc_docs[0]
   end
 
   def is_associated_document?
