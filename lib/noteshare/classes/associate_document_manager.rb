@@ -1,3 +1,6 @@
+require 'pry'
+
+
 # The AssociateDocumentManager class
 # is responsible for adding, manipulating,
 # and deleteing associates documents
@@ -9,7 +12,8 @@ class AssociateDocumentManager
 
 
   def attach(document, type)
-    @parent_document.doc_refs[type] = document.id
+    @parent_document.doc_refs2 ||= {}
+    @parent_document.doc_refs2[document.id.to_s] = type
     document.type = 'associated:' + type
     document.set_parent_document_to(@parent_document)
     document.set_root_document_to(@parent_document)
@@ -19,7 +23,17 @@ class AssociateDocumentManager
 
 
   def get(type)
-    DocumentRepository.find(@parent_document.doc_refs[type])
+    assoc_docs = []
+    @parent_document.doc_refs2.keys.each do |key|
+      if @parent_document.doc_refs2[key] == type
+        assoc_docs << DocumentRepository.find(key.to_i)
+      end
+    end
+    assoc_docs
+  end
+
+  def get_one(type)
+    get(type)[0]
   end
 
 
@@ -46,6 +60,8 @@ class AssociateDocumentManager
   # is the associate of at most one other
   # document.  This should be enforced (#fixme)
   def detach(document)
+
+
     type = document.type
     return if type == nil
     type = type.sub('associated:', '')

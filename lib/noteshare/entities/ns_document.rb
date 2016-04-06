@@ -400,7 +400,8 @@ class NSDocument
   # retrieve the document associated to
   # @foo which is of type 'summary'
   def associated_document(type)
-    DocumentRepository.find(self.doc_refs[type])
+    AssociatedDocumentManager.new(self).get_one(type)
+    # DocumentRepository.find(self.doc_refs[type])
   end
 
   def is_associated_document?

@@ -78,6 +78,7 @@ Lotus::Model.configure do
       attribute :visibility, Integer
       attribute :subdoc_refs, PGIntArray
       attribute :doc_refs, JSON
+      attribute :doc_refs2, JSON
       attribute :toc, JSON
       attribute :content_dirty, Boolean
       attribute :compiled_dirty, Boolean
