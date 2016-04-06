@@ -1,5 +1,6 @@
 require 'spec_helper'
 require_relative '../../../lib/noteshare/classes/associate_document_manager'
+require 'pry'
 
 
 describe AssociateDocumentManager do
@@ -11,10 +12,29 @@ describe AssociateDocumentManager do
     assoc_doc = NSDocument.create(title: 'Notes')
     assoc_doc.title.must_equal 'Notes'
 
+
     AssociateDocumentManager.new(master_doc).attach(assoc_doc, 'note')
     assoc_doc2 = AssociateDocumentManager.new(master_doc).get('note')
     assoc_doc2.must_equal assoc_doc
     assoc_doc2.parent_document.must_equal master_doc
+
+
+
+  end
+
+
+  it 'can attach several associated documents' do
+
+    master_doc = NSDocument.create(title: 'Master')
+    master_doc.title.must_equal 'Master'
+    assoc_doc = NSDocument.create(title: 'Notes')
+    assoc_doc2 = NSDocument.create(title: 'References')
+
+    AssociateDocumentManager.new(master_doc).attach(assoc_doc, 'note')
+    AssociateDocumentManager.new(master_doc).attach(assoc_doc2, 'references')
+
+    binding.pry
+
 
   end
 

@@ -5,6 +5,7 @@ ruby '2.2.3'
 
 gem 'bundler'
 gem 'rake'
+gem 'pry'
 
 gem 'puma'
 gem "puma_worker_killer" # TEMPORARY MEASURE

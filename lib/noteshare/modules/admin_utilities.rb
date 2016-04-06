@@ -1,3 +1,5 @@
+require 'pry'
+
 module AdminUtilities
 
     def self.fix_author_credentials(option)
@@ -203,5 +205,18 @@ module AdminUtilities
   end
 
 
+  def self.migrate_doc_refs
+    DocumentRepository.all.each do |doc|
+      return if doc == nil
+      return if doc.doc_refs == nil
+      doc.doc_refs2 = {}
+      doc.doc_refs.keys.each do |key|
+        value = doc.doc_refs[key]
+        doc.doc_refs2[value.to_s] = key
+      end
+      DocumentRepository.update doc
+      puts doc.doc_refs2 if doc.doc_refs2 != {}
+    end
+  end
 
 end

@@ -25,7 +25,7 @@ class NSDocument
              :created_at, :updated_at,
              :content, :compiled_content, :rendered_content, :compiled_and_rendered_content, :render_options,
              :parent_ref, :root_ref, :parent_id, :index_in_parent, :root_document_id,
-             :subdoc_refs, :toc, :doc_refs,
+             :subdoc_refs, :toc, :doc_refs, :doc_refs2,
              :content_dirty, :compiled_dirty, :toc_dirty,
              :acl, :visibility, :groups_json,
              :author_credentials2
