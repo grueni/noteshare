@@ -52,6 +52,14 @@ describe NSDocument do
     DocumentRepository.update @subsubsection1
     DocumentRepository.update @subsubsection2
 
+    manager = DocumentManager.new(@article)
+    manager.append(@section1)
+    manager.append(@section2)
+    manager.append(@section3)
+    manager2 = DocumentManager.new(@section2)
+    manager2.append(@subsection1)
+    manager2.append(@subsection2)
+
   end
 
 
@@ -92,7 +100,7 @@ describe NSDocument do
     table.must_equal ([])
 
 
-    @section1.add_to(@article1)
+
 
     table1 = TOC.new(@article1).table
 
@@ -125,12 +133,6 @@ describe NSDocument do
 
     # @article.update_table_of_contents
 
-    @section1.add_to(@article1)
-    @section2.add_to(@article1)
-    @section3.add_to(@article1)
-    @subsection1.add_to(@section2)
-    @subsection2.add_to(@section2)
-
 
     table = TOC.new(@article1).table
     table.count.must_equal(3)
@@ -157,11 +159,7 @@ describe NSDocument do
 
   it 'can return a TOC item given an id 777' do
 
-    @section1.add_to(@article1)
-    @section2.add_to(@article1)
-    @section3.add_to(@article1)
-    @subsection1.add_to(@section2)
-    @subsection2.add_to(@section2)
+
 
     puts "@section2 id = #{@section2.id}".red
 
@@ -187,20 +185,13 @@ describe NSDocument do
 
   it 'can return a TOC item given an id (20' do
 
-    @section1.add_to(@article1)
-    @section2.add_to(@article1)
-    @section3.add_to(@article1)
-    @subsection1.add_to(@section2)
-    @subsection2.add_to(@section2)
+
 
   end
 
 
   it 'can crudely delete an entry by id number cuu' do
 
-    @section1.add_to(@article1)
-    @section2.add_to(@article1)
-    @section3.add_to(@article1)
 
     assert @article1.toc.count == 3,  'There should be three items in the toc after setup'
 
@@ -220,10 +211,6 @@ describe NSDocument do
 
     id = @article1.id
 
-    @section1.add_to(@article1)
-    @section2.add_to(@article1)
-    @section3.add_to(@article1)
-
     assert @article1.toc.count == 3,  'There should be three items in the toc after setup'
 
     @section2.remove_from_parent
@@ -237,9 +224,6 @@ describe NSDocument do
   it 'can swap two entries in the TOC (swax)' do
 
     id = @article1.id
-    @section1.add_to(@article1)
-    @section2.add_to(@article1)
-    @section3.add_to(@article1)
 
     TOC.new(@article1).swap(@section1, @section3)
 
@@ -253,9 +237,6 @@ describe NSDocument do
   it 'can swap two entries in the TOC using NSDocument convenience methods(sway)' do
 
     id = @article1.id
-    @section1.add_to(@article1)
-    @section2.add_to(@article1)
-    @section3.add_to(@article1)
 
     @tocManager = TOCManager.new(@section1)
 
@@ -272,9 +253,6 @@ describe NSDocument do
   it 'can move a subdocument up in the toc upx' do
 
     id = @article1.id
-    @section1.add_to(@article1)
-    @section2.add_to(@article1)
-    @section3.add_to(@article1)
 
     @tocManager = TOCManager.new(@section3)
     @tocManager.move_up_in_toc
@@ -288,9 +266,6 @@ describe NSDocument do
   it 'can respond gracefully when the section if the first subdocument' do
 
     id = @article1.id
-    @section1.add_to(@article1)
-    @section2.add_to(@article1)
-    @section3.add_to(@article1)
 
     @tocManager = TOCManager.new(@section1)
     @tocManager.move_up_in_toc
@@ -306,9 +281,6 @@ describe NSDocument do
   it 'can move a subdocument down in the toc downx' do
 
     id = @article1.id
-    @section1.add_to(@article1)
-    @section2.add_to(@article1)
-    @section3.add_to(@article1)
 
     @tocManager = TOCManager.new(@section1)
     @tocManager.move_down_in_toc
@@ -322,9 +294,6 @@ describe NSDocument do
   it 'can respond gracefully when the section if the last subdocument downxx' do
 
     id = @article1.id
-    @section1.add_to(@article1)
-    @section2.add_to(@article1)
-    @section3.add_to(@article1)
 
     @tocManager = TOCManager.new(@section3)
     @tocManager.move_down_in_toc
