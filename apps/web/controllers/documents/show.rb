@@ -7,7 +7,8 @@ module Web::Controllers::Documents
     include Web::Action
     include Keen
 
-    expose :document, :root_document,  :active_item, :active_item2,  :view_options
+    expose :document, :root_document, :payload,
+           :active_item, :active_item2,  :view_options
 
     def call(params)
       puts "Boss this is Docuemnts, Show".red
@@ -15,10 +16,10 @@ module Web::Controllers::Documents
       @active_item2 = 'standard'
       @view_options =  {stem: 'document'}
 
-      result = ReadDocument.new(params, current_user2).call
-      handle_error(result.error)
-      @document = result.document
-      @root_document = result.root_document
+      @payload = ReadDocument.new(params, current_user2).call
+      handle_error(@payload.error)
+      @document = @payload.document
+      @root_document = @payload.root_document
 
       session[:current_document_id] = @document.id
       remember_user_view('standard', session)
