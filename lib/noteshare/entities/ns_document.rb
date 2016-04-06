@@ -443,8 +443,9 @@ class NSDocument
   # @foo which is of type 'summary'
   def associated_document(type)
     assoc_docs = []
-    self.doc_refs2.keys.each do |key|
-      if self.doc_refs2[key] == type
+    doc_refs = self.doc_refs2 || {}
+    doc_refs.keys.each do |key|
+      if doc_refs[key] == type
         assoc_docs << DocumentRepository.find(key.to_i)
       end
     end
