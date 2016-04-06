@@ -14,14 +14,12 @@ module Web::Controllers::Documents
       @active_item = 'reader'
       @active_item2 = 'titlepage'
 
-      @payload = ReadDocument.new(params, current_user2).call
+      @payload = ReadDocument.new(params, current_user2, 'titlepage').call
       handle_error(@payload.error)
       @document = @payload.document
       @root_document = @payload.root_document
 
       session[:current_document_id] = @document.id
-
-
 
       session[:current_document_id] = @root_document.id
       remember_user_view('titlepage', session)

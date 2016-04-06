@@ -91,7 +91,7 @@ class ReadDocument
       when 'compiled'
         @table_of_contents = TOCPresenter.new(@root_document).internal_table_of_contents(['root', 'titlepage', 'sectnums', 'skip_first_item'], { doc_id: @root_document.id })
       when 'titlepage'
-        @table_of_contents = TOCPresenter.new(root_document).internal_table_of_contents(['root', 'titlepage', 'sectnums', 'skip_first_item'], { doc_id: root_document.id })
+        @table_of_contents = TOCPresenter.new(@root_document).internal_table_of_contents(['root', 'titlepage', 'sectnums', 'skip_first_item'], { doc_id: @root_document.id })
       else
         @table_of_contents = TOCPresenter.new(@document.root_document).root_table_of_contents(@document.id, 'document')
     end
