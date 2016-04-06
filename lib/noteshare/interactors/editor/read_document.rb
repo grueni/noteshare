@@ -104,11 +104,13 @@ class ReadDocument
   end
 
   def prepare_aside
-    puts "PREPARE ASIDE".red
     @aside = @document.associated_document('aside')
-    ContentManager.new(@aside).update_content if @aside && @aside.content
-    @rendered_aside_content = @aside.rendered_content || ''
-    puts "Aside has length #{@rendered_aside_content.length}, #{@aside.content.length}".red
+    if @aside && @aside.content
+      ContentManager.new(@aside).update_content
+      @rendered_aside_content = @aside.rendered_content
+    else
+      @rendered_aside_content = ''
+    end
   end
 
 

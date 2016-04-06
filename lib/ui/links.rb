@@ -73,11 +73,6 @@ module UI
       document = DocumentRepository.find doc_id
       return '' unless document
       permission_not_given = Permission.is_not_given?(user, :edit, document)
-      puts "user = #{user.full_name}".red
-      puts "user groups = #{user.groups}".green
-      puts "document = #{document.id} (#{document.title})".red
-      puts "document acl = #{document.acl}".green
-      puts "permission_not_given = #{permission_not_given}".red
       return '' if permission_not_given
       if active_item == 'editor'
         return link_to 'Editor', "/editor/document/#{doc_id}", class: 'active_item'

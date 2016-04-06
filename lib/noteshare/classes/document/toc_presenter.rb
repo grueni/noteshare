@@ -1,4 +1,4 @@
-
+require 'pry'
 
 class TOCPresenter
   
@@ -127,13 +127,13 @@ class TOCPresenter
   def process_associated_documents(item, target)
     doc = DocumentRepository.find item.id
     output = ''
-    if doc.doc_refs
+    if doc.doc_refs2
       prefix = '/editor'
-      stem = 'document'
+      stem = 'mini_edit'
       class_str = 'toc_associated_doc'
       output << "<ul class='toc_associated_doc'>\n"
-      doc.doc_refs.each do |type, id|
-        # type = "sidebar" if type == "aside"
+      doc.doc_refs2.each do |id, type|
+        type = "sidebar" if type == "aside"
         doc_link = "href='#{prefix}/#{stem}/#{id}'>#{type}</a>"
         output <<  "<li #{class_str} '><a #{doc_link}</a></li>\n"
       end

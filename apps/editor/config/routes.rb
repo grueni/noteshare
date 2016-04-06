@@ -1,3 +1,4 @@
+get '/mini_edit/:id', to: 'document#mini_edit'
 post '/update_header/:id', to: 'document#update_header'
 get '/edit_header/:id', to: 'document#edit_header'
 get '/export_latex/:id', to: 'document#export_latex'
