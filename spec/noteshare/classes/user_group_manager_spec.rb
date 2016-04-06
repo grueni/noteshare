@@ -1,5 +1,5 @@
 require 'spec_helper'
-require_relative '../../../lib/noteshare/classes/user_group_manager'
+require_relative '../../../lib/noteshare/classes/group/user_group_manager'
 
 
 describe UserGroupManager do

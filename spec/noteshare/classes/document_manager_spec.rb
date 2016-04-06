@@ -1,5 +1,5 @@
 require 'spec_helper'
-require_relative '../../../lib/noteshare/classes/document_manager'
+require_relative '../../../lib/noteshare/classes/document/document_manager'
 
 
 describe DocumentManager do
