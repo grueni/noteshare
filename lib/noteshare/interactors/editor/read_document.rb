@@ -45,6 +45,7 @@ class ReadDocument
     prepare_rendered_content
     prepare_aside if @reader_type == 'aside'
     prepare_root_document if @reader_type == 'compiled'
+    prepare_title_page if @reader_type == 'titlepage'
     prepare_table_of_contents
   end
 
@@ -89,9 +90,17 @@ class ReadDocument
         @table_of_contents = TOCPresenter.new(@document.root_document).root_table_of_contents(@document.id, @reader_type)
       when 'compiled'
         @table_of_contents = TOCPresenter.new(@root_document).internal_table_of_contents(['root', 'titlepage', 'sectnums', 'skip_first_item'], { doc_id: @root_document.id })
+      when 'titlepage'
+        @table_of_contents = TOCPresenter.new(root_document).internal_table_of_contents(['root', 'titlepage', 'sectnums', 'skip_first_item'], { doc_id: root_document.id })
       else
         @table_of_contents = TOCPresenter.new(@document.root_document).root_table_of_contents(@document.id, 'document')
     end
+  end
+
+  def prepare_title_page
+    cm = ContentManager.new(@root_document, {numbered: true, format: 'adoc-latex'})
+    cm.compile_with_render
+    @root_document.compiled_content = ContentManager.new(@root_document).compile
   end
 
   def prepare_aside

@@ -20,12 +20,9 @@ module Web::Controllers::Documents
       @document = @payload.document
       @root_document = @payload.root_document
 
-
       session[:current_document_id] = document.id
-
       session[:current_document_id] = @root_document.id
       remember_user_view('compiled', session)
-
 
     end
 

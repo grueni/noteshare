@@ -5,7 +5,7 @@ module Web::Controllers::Documents
     include Web::Action
     include Analytics
 
-    expose :root_document, :document, :toc, :blurb, :image_url,  :view_options
+    expose :root_document, :document, :payload, :blurb, :image_url,  :view_options
     expose :active_item, :active_item2
 
     def call(params)
@@ -14,16 +14,14 @@ module Web::Controllers::Documents
       @active_item = 'reader'
       @active_item2 = 'titlepage'
 
-      result = ReadDocument.new(params, current_user2).call
-      handle_error(result.error)
-      @document = result.document
-      @root_document = result.root_document
+      @payload = ReadDocument.new(params, current_user2).call
+      handle_error(@payload.error)
+      @document = @payload.document
+      @root_document = @payload.root_document
 
       session[:current_document_id] = @document.id
 
-      cm = ContentManager.new(@root_document, {numbered: true, format: 'adoc-latex'})
-      cm.compile_with_render
-      @root_document.compiled_content = ContentManager.new(@root_document).compile
+
 
       session[:current_document_id] = @root_document.id
       remember_user_view('titlepage', session)
