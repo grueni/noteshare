@@ -1,5 +1,4 @@
-
-
+require 'pry'
 require 'open-uri'
 
 # module Render provides text-rendering
@@ -113,6 +112,7 @@ class Render
   end
 
   def download_file(url, filepath)
+    # return unless File.file?(filepath)
     File.open(filepath, "wb") do |saved_file|
       # the following "open" is provided by open-uri
       open(url, "rb") do |read_file|
@@ -123,9 +123,8 @@ class Render
   end
 
   def rewrite_media_urls_for_export
-
     puts "@options: #{@options}"
-    doc_folder = @options[:doc_folder]
+    doc_folder = @options[:doc_folder] || 'a2a2a2'
     puts "doc_folder: #{doc_folder}"
 
     rxTag = /(image|video|audio)(:+)(.*?)\[(.*)\]/
@@ -145,18 +144,17 @@ class Render
       if id =~ /^\d+\d$/
         iii = ImageRepository.find id
         if iii
-          new_tag = "image_#{iii.file_name}[#{attributes}]"
           puts iii.url2
           download_file_name = iii.file_name.sub('image::', 'image_')
           download_path = "outgoing/#{doc_folder}/images/#{download_file_name}"
+          new_tag = "image::#{download_file_name}[#{attributes}]"
           puts download_path.red
           download_file(iii.url2, download_path)
           @source = @source.sub(old_tag, new_tag)
         else
           puts "Media #{id} not found".red
         end
-        puts "old_tag: #{old_tag}"
-        puts "new_tag: #{new_tag}"
+        puts "tag: #{old_tag} => #{new_tag}"
       end
 
     end
