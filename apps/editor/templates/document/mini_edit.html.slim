@@ -25,6 +25,9 @@ script src="/javascripts/editor.js" type="text/javascript"
     .div style='position:absolute; top:60px; left:20px;' id='toc_panel'
       br
       br
+      span.lightlink.plainlink == link_to parent_document.title, "/editor/document/#{parent_document.id}"
+      br
+      br
       span.lightlink.plainlink == link_to 'Back', "/editor/document/#{parent_document.id}"
 
 
