@@ -9,8 +9,6 @@ module Editor::Controllers::Document
       doc_id =  params[:id]
       query_string = request.query_string
 
-      puts "QUERY STRING; #{query_string}".red
-
       @document = DocumentRepository.find doc_id
       if @document == nil
         redirect_to '/error:0?Document not found'
