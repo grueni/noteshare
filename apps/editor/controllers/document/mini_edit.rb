@@ -2,7 +2,7 @@ module Editor::Controllers::Document
   class MiniEdit
     include Editor::Action
 
-    expose :document, :parent_document, :root_document, :updated_text,
+    expose :document, :parent_document, :root_document, :updated_text, :mapper,
            :current_image, :active_item, :editors
 
     def call(params)
@@ -15,6 +15,7 @@ module Editor::Controllers::Document
       @parent_document = @document.parent_document
       @updated_text = result.updated_text
       @editors = result.editors
+      @mapper = AssociateDocMapper.new(@document)
 
       session['current_document_id'] = @document.id
 

@@ -28,7 +28,8 @@ script src="/javascripts/editor.js" type="text/javascript"
       span.lightlink.plainlink == link_to parent_document.title, "/editor/document/#{parent_document.id}"
       br
       br
-      span.lightlink.plainlink == link_to 'Back', "/editor/document/#{parent_document.id}"
+      /.div.plainlink.lightlink
+        == mapper.associated_document_map
 
 
     .div

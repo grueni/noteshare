@@ -1,3 +1,4 @@
+require 'pry'
 
 class AssociateDocMapper
 
@@ -10,13 +11,13 @@ class AssociateDocMapper
   ############################################################
 
   # EXTERNAL (3)
-  def root_associated_document_map(target='reader')
+  def root_associated_document_map
     root = @document.root_document || @document
     if root != @document
       adm = AssociateDocMapper.new(root)
-      adm.associated_document_map(target)
+      adm.associated_document_map
     else
-      associated_document_map(target)
+      associated_document_map
     end
   end
 
@@ -37,7 +38,7 @@ class AssociateDocMapper
   end
 
   # ONE INTERNAL USE
-  def associated_document_map(target='reader')
+  def associated_document_map
 
     heal_associated_docs
 
@@ -47,18 +48,18 @@ class AssociateDocMapper
       document = @document
     end
 
-    hash = document.doc_refs
-    keys = hash.keys
-    if keys
-      keys.delete 'previous'
-      keys.delete 'next'
-      keys.delete 'index'
+    # binding.pry
+
+    hash = document.doc_refs2
+    ids = hash.keys
+    if ids
       map = "<ul>\n"
-      keys.sort.each do |key|
-        if target == 'editor'
-          map << '<li>' << "#{associate_link(key, 'editor')}</li>\n"
+      ids.each do |id|
+        document = DocumentRepository.find id
+        if id == @document.id.to_s
+          map << '<li>' << "#{document.title}</li>\n"
         else
-          map << '<li>' << "#{associate_link(key)}</li>\n"
+          map << '<li>' << "<a href='/editor/mini_edit/#{id}' >#{document.title}</li>\n"
         end
       end
       map << "</ul>\n"
