@@ -61,6 +61,11 @@ class ImageUploader
 
   def ensure_directory
     exec 'mkdir -p outgoing/images' unless Dir.exists? 'outgoing/images'
+    if Dir.exists? 'outgoing/images'
+      puts "outgoing/images EXISTS".red
+    else
+      puts "outgoing/images DOES NOT EXIST".red
+    end
   end
 
   def upload
