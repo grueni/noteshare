@@ -45,8 +45,8 @@ module Noteshare
 
     def self.upload(file_name, tmpfile, folder='tmp')
 
-      binding.pry
-      # bucket = "vschool"
+      # binding.pry
+      bucket = "vschool"
       # mime_type = "application/octet-stream"
 
       s3 = Aws::S3::Resource.new(
