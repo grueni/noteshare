@@ -1,4 +1,4 @@
-# require 'lotus/model'
+
 
 workers Integer(ENV['PUMA_WORKERS'] || 2)
 workers Integer(ENV['WEB_CONCURRENCY'] || 2)

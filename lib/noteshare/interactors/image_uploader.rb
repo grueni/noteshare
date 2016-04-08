@@ -1,8 +1,6 @@
 require 'lotus/interactor'
-# require_relative '../../.../lib/modules/analytics'
 require_relative '../../../lib/modules/analytics'
 require_relative '../../../lib/aws'
-require 'pry'
 
 class ImageUploader
 
@@ -23,13 +21,11 @@ class ImageUploader
   end
 
   def set_mode
-    # binding.pry
     if @incoming_url && @incoming_url =~ /http/
       @mode = :from_url
     else
       @mode = :from_local_file
     end
-    puts "mode = #{@mode.to_s}".red
   end
 
   def set_tempfile
@@ -63,7 +59,12 @@ class ImageUploader
     return
   end
 
+  def ensure_directory
+    exec 'mkdir -p outgoing/images' unless Dir.exists? 'outgoing/images'
+  end
+
   def upload
+    ensure_directory
     if @mode == :from_url
       # binding.pry
       Util.save_url_to_file(@incoming_url, @tempfile)
