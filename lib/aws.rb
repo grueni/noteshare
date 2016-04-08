@@ -4,6 +4,7 @@
   module Util
     require 'net/http'
     require 'uri'
+    require "open-uri"
 
     def self.read_local_file(file_name, tmpfile)
 
@@ -16,6 +17,14 @@
     def self.read_url(url)
 
       Net::HTTP.get(URI.parse(url))
+
+    end
+
+    def self.save_url_to_file(url, file_name)
+
+      File.open(file_name, 'wb') do |fo|
+        fo.write open(url).read
+      end
 
     end
 
@@ -99,6 +108,8 @@
       resp.body.read
 
     end
+
+
 
 
   end
