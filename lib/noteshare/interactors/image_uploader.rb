@@ -34,7 +34,7 @@ class ImageUploader
     else
       @filename = @title.normalize
       file_suffix = @incoming_url.split('.').last
-      @tempfile = "outgoing/images/#{@filename}.#{file_suffix}"
+      @tempfile = "outgoing/#{@filename}.#{file_suffix}"
     end
   end
 
@@ -69,7 +69,6 @@ class ImageUploader
   end
 
   def upload
-    ensure_directory
     if @mode == :from_url
       # binding.pry
       Util.save_url_to_file(@incoming_url, @tempfile)
