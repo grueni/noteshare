@@ -1,15 +1,17 @@
 require 'lotus/interactor'
 # require_relative '../../.../lib/modules/analytics'
 require_relative '../../../lib/modules/analytics'
+require_relative '../../../lib/aws'
 require 'pry'
 
 class ImageUploader
 
   include Lotus::Interactor
+  include Noteshare::Util
+
   expose :url, :image, :message, :originating_document_id
 
   def initialize(params, user)
-    # binding.pry
     @user = user
     @title =  params['title']
     @tags =  params['tags']
@@ -36,7 +38,7 @@ class ImageUploader
     else
       @filename = @title.normalize
       file_suffix = @incoming_url.split('.').last
-      @tempfile = "outgoing/images/foo.#{file_suffix}"
+      @tempfile = "outgoing/images/#{@filename}.#{file_suffix}"
     end
   end
 
@@ -63,7 +65,8 @@ class ImageUploader
 
   def upload
     if @mode == :from_url
-      self.save_url_to_file(@incoming_url, @tempfile)
+      # binding.pry
+      Util.save_url_to_file(@incoming_url, @tempfile)
       @url = Noteshare::AWS.upload(@filename, @tempfile, 'noteshare_images' )
     else
       @url = Noteshare::AWS.upload(@filename, @tempfile, 'noteshare_images' )
