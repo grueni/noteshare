@@ -99,6 +99,8 @@ class ReadDocument
     case @reader_type
       when 'show' ,'aside'
         @table_of_contents = TOCPresenter.new(@document.root_document).root_table_of_contents(@document.id, @reader_type)
+      when 'view_sourcegit '
+        @table_of_contents = TOCPresenter.new(@document.root_document).root_table_of_contents(@document.id, @reader_type)
       when 'compiled'
         @table_of_contents = TOCPresenter.new(@root_document).internal_table_of_contents(['root', 'titlepage', 'sectnums', 'skip_first_item'], { doc_id: @root_document.id })
       when 'titlepage'
