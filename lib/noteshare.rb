@@ -63,6 +63,7 @@ Lotus::Model.configure do
       attribute :updated_at, DateTime
 
       attribute :content, String
+      attribute :content_stash, String
       attribute :compiled_content, String
       attribute :rendered_content, String
       attribute :compiled_and_rendered_content, String

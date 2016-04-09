@@ -1,6 +1,8 @@
 get '/search', to: 'documents#search'
 post '/search', to: 'documents#search'
 post '/process_command', to: 'home#process_command'
+get '/process_command', to: 'home#process_command'
+
 get '/publications', to: 'publications#manage'
 get '/courses', to: 'course#find'
 get '/analytics', to: 'home#show_analytics'

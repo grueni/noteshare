@@ -8,9 +8,14 @@ class AdminCommandProcessor
 
   def initialize(hash)
     @input = hash[:input]
+    puts "In AdminCommandProcessor, input = #{@input}".red
     @user = hash[:user]
     receptor_node_id = hash[:node_id]
-    @receptor_node = NSNodeRepository.find receptor_node_id if receptor_node_id
+    if receptor_node_id
+      @receptor_node = NSNodeRepository.find receptor_node_id
+    else
+      @receptor_node = @user.node
+    end
     @tokens = @input.split(' ').map{ |token| token.strip }
     @command_signature = get_command_signature(@tokens)
     @command = @tokens.shift
@@ -49,6 +54,8 @@ class AdminCommandProcessor
     signatures << 'add_group'
     signatures << 'remove_group'
     signatures << 'list_groups'
+    signatures << 'push_document'
+    signatures << 'pop_document'
 
     if signatures.include? @command_signature
       true
@@ -267,6 +274,22 @@ class AdminCommandProcessor
     @response = "<h3>Groups</h3>"
     @response << manager.html_list
     @response << @return_message
+  end
+
+  def push_document
+    return if authorize_user_for_level(2) == false
+    @active_document = DocumentRepository.find @document
+    @active_document.content_stash = @active_document.content
+    DocumentRepository.update @active_document
+    @response = "<p>Stashed: #{@active_document.title}</p>"
+  end
+
+  def pop_document
+    return if authorize_user_for_level(2) == false
+    @active_document = DocumentRepository.find @document
+    @active_document.content = @active_document.content_stash
+        DocumentRepository.update @active_document
+    @response = "<p>Popped: #{@active_document.title}</p>"
   end
 
 end
