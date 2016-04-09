@@ -62,6 +62,9 @@ class ReadDocument
     ContentManager.new(@document).update_content if @document && @document.content
     if @document.rendered_content and @document.rendered_content != ''
       @rendered_content = @document.rendered_content
+      if @document.is_root_document?
+        @rendered_content = @rendered_content.sub('<h2 id="_index">Index</h2>', '')
+      end
     else
       @rendered_content = "<p style='margin:3em;font-size:24pt;'>This block of the document is blank.  Please edit it or go to the next block</p>"
     end
