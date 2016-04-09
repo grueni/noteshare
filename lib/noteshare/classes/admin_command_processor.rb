@@ -54,7 +54,7 @@ class AdminCommandProcessor
     signatures << 'add_group'
     signatures << 'remove_group'
     signatures << 'list_groups'
-    signatures << 'push_document'
+    signatures << 'stash_document'
     signatures << 'pop_document'
 
     if signatures.include? @command_signature
@@ -276,17 +276,17 @@ class AdminCommandProcessor
     @response << @return_message
   end
 
-  def push_document
-    return if authorize_user_for_level(2) == false
+  def stash_document
     @active_document = DocumentRepository.find @document
+    return if @user.id != @active_document.author_id
     @active_document.content_stash = @active_document.content
     DocumentRepository.update @active_document
     @response = "<p>Stashed: #{@active_document.title}</p>"
   end
 
   def pop_document
-    return if authorize_user_for_level(2) == false
     @active_document = DocumentRepository.find @document
+    return if @user.id != @active_document.author_id
     @active_document.content = @active_document.content_stash
         DocumentRepository.update @active_document
     @response = "<p>Popped: #{@active_document.title}</p>"

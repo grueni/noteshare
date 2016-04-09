@@ -17,6 +17,8 @@
 
 | &nbsp;&nbsp; &nbsp;&nbsp; &nbsp;&nbsp; &nbsp;&nbsp
 == export_link(document)
+span.lightlink.plainlink style='margin-left:1em;' == link_to 'Stash', "/admin/process_command?stash document:#{document.id}::#{ENV['COMMAND_SECRET_TOKEN']}"
+span.lightlink.plainlink style='margin-left:1em;' == link_to 'Pop', "/admin/process_command?pop document:#{document.id}::#{ENV['COMMAND_SECRET_TOKEN']}"
 | &nbsp;&nbsp; &nbsp;
 /- if current_user(session).admin
   == get_document_link(document)
