@@ -16,7 +16,7 @@ module Web::Controllers::Documents
 
       @payload = ReadDocument.new(params, current_user2, 'aside').call
       redirect_to_path @payload.redirect_path
-      
+
       handle_error(@payload.error)
       @document = @payload.document
       @root_document = @payload.root_document
