@@ -16,6 +16,8 @@ module Web::Controllers::Documents
       @active_item2 = 'compiled'
 
       @payload = ReadDocument.new(params, current_user2, 'compiled').call
+      redirect_to_path @payload.redirect_path
+
       handle_error(@payload.error)
       @document = @payload.document
       @root_document = @payload.root_document

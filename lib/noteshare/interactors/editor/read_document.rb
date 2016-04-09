@@ -5,13 +5,20 @@ require_relative '../../../../lib/noteshare/classes/document/toc_presenter'
 class ReadDocument
 
   include Lotus::Interactor
-  expose :document, :root_document, :rendered_content, :rendered_aside_content, :table_of_contents
+  expose :document, :root_document, :rendered_content,
+         :rendered_aside_content, :table_of_contents, :redirect_path
 
   def initialize(params, user, reader_type='document')
+    puts "Hey!!! this is ReadDocument, initialize".red
     @user = user
     # The reader type is one of: 'document', 'aside', 'compiled', 'view_source', 'titlepage'
     @reader_type = reader_type
-    @document = DocumentRepository.find(params['id'])
+    id = params['id']
+    @document = DocumentRepository.find(id)
+    if @document == nil
+      puts "Sorry boss, the document you want ain't there no more".red
+      @redirect_path = "/error?Document #{id} not found"
+    end
   end
 
   def validated
@@ -37,6 +44,7 @@ class ReadDocument
   end
 
   def call
+    return if @redirect_path
     return unless validated
     configure_root_document
     ContentManager.new(@document).update_content

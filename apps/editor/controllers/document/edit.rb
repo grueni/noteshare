@@ -11,6 +11,8 @@ module Editor::Controllers::Document
       @active_item = 'editor'
 
       result = EditDocument.new(params, current_user2).call
+      redirect_to_path result.redirect_path
+
       @document = result.document
       @root_document= result.root_document
       @updated_text = result.updated_text

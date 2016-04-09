@@ -4,6 +4,7 @@ get '/link/:id', to: 'document#link'
 get '/view_source/:id', to: 'documents#view_source'
 post '/set_search_type', to: 'documents#set_search_type'
 get '/error/:id', to: 'home#error'
+get '/error', to: 'home#error'
 get '/aside/:id', to: 'documents#aside'
 
 get '/titlepage/:id', to: 'documents#titlepage'

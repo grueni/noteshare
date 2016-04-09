@@ -135,6 +135,9 @@ class NSDocument
   end
 
   def delete
+    parent = self.parent_document
+    parent.content_dirty = true
+    DocumentRepository.update parent
     DocumentRepository.delete(self)
   end
 

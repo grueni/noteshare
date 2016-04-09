@@ -4,16 +4,22 @@ require_relative '../../../modules/analytics'
 class EditDocument
 
   include Lotus::Interactor
-  expose :document, :root_document, :updated_text, :editors
+  expose :document, :root_document, :updated_text, :editors, :redirect_path
 
   def initialize(params, user)
     id = params['id']
     @document = DocumentRepository.find(id)
-    @root_document = @document.root_document
-    @user = user
+    if @document
+      @root_document = @document.root_document
+      @user = user
+    else
+      @redirect_path = "/error?Document #{id} not found"
+    end
   end
 
+
   def call
+    return unless @document
     # Do not edit document root in the regular editor
     if @document.is_root_document?
       first_section = @document.first_section

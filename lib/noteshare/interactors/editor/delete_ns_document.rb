@@ -35,7 +35,7 @@ class DeleteNSDocument
     end
 
     if @delete_mode == 'section'
-      @document.delete
+      @document.delete_subdocument
       @message << "#{@document.title} has been deleted."
       if parent_id != document_id
         @redirect_path =  "/editor/document/#{parent_id}"

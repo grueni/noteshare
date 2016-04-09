@@ -2,6 +2,11 @@ module Noteshare
 
   module ErrorHandler
 
+
+    def redirect_to_path(path)
+      redirect_to path if path
+    end
+
     def handle_error(error)
       if error && error.downcase =~ /unauthorized/
         halt 401
@@ -25,15 +30,14 @@ module Noteshare
 
     def initialize(code, query_string)
       @code = code
-      @query = query_string
+      @query = query_string.gsub('%20', ' ')
     end
 
     def message
-      case @query
-        when 'document_not_found'
-          "Document #{@code} not found.  Perhaps it has been deleted."
-        else
-          "Error code #{@code} — #{@query.gsub('%20', ' ')}"
+      if @code
+        "Error #{@code}: #{@query}"
+      else
+        "Error: #{@query}"
       end
     end
 
