@@ -126,6 +126,7 @@ class TOCPresenter
 
   def process_associated_documents(item, target)
     doc = DocumentRepository.find item.id
+    return '' unless  doc
     output = ''
     if doc.doc_refs2
       prefix = '/editor'
