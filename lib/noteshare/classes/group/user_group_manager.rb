@@ -20,6 +20,46 @@ class UserGroupManager
     output
   end
 
+  # return a list of groups for the given docuemnt
+  def groups_for_document(document)
+    document.acl.keys.select{ |item| item =~ /\Agroup\:[a-zA-Z].*/ }.map { |item| item.sub('group:', '')}
+  end
+
+  # return a hash of the form
+  # { 'group1': [document1, document2] 'group2': [documen1, documuent5] }
+  def documents_for_groups
+    user_documents = DocumentRepository.find_by_author_id(@user.id, :root_documents_only => 'yes')
+    group_dictionary = {}
+    user_documents.all.each do |doc|
+      if doc.title
+        groups = groups_for_document(doc)
+        groups.each do |group|
+          if group_dictionary[group] == nil
+            group_dictionary[group] = [doc]
+          else
+            group_dictionary[group] << doc
+          end
+        end
+      else
+        DocumentRepository.delete doc
+      end
+    end
+    group_dictionary
+  end
+
+
+  # produce an html lising of a user's groups and thei documents
+  def html_list_with_documents
+    documents = documents_for_group
+
+    output = "<ul>"
+    @user.groups.sort.each do |group|
+      output << "  <li>#{group}</li>\n"
+    end
+    output << "</ul>"
+    output
+  end
+
   # produce reprsentations of a user's
   # groups in various formats
   def list(option=nil)
