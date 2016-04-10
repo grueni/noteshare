@@ -186,7 +186,7 @@ Lotus::Model.configure do
       attribute :tags, String
       attribute :area, String
       attribute :created_at, DateTime
-      attribute :updated_at, DateTime, as: :updated_at
+      attribute :updated_at, DateTime
       attribute :content, String, as: :description
       attribute :course_attributes, String
 

@@ -1,7 +1,7 @@
 require 'spec_helper'
 require_relative '../../../lib/noteshare/modules/toc'
 
-include Noteshare
+include Noteshare::Core
 
 describe OuterTableOfContents do
 
@@ -34,9 +34,10 @@ describe OuterTableOfContents do
     DocumentRepository.update @subsection
     DocumentRepository.update @subsubsection
 
-    @section1.add_to(@article)
-    @section2.add_to(@article)
-    @section3.add_to(@article)
+    dm = DocumentManager.new(@article)
+    dm.append(@section1)
+    dm.append(@section2)
+    dm.append(@section3)
 
 
 
@@ -54,8 +55,15 @@ describe OuterTableOfContents do
 
     otc = OuterTableOfContents.new(@article, ['dumb'], {})
     output = otc.master_table_of_contents
-    puts
-    puts output.cyan
+    expected_output = <<EOF
+<ul class='toc2'>
+<li>Uncertainty Principle</li>
+<li>Wave-Particle Duality</li>
+<li>Matrix Mechanics</li>
+</ul>
+EOF
+
+    output.strip.must_equal expected_output.strip, 'produces html table of contents'
 
 
   end
@@ -63,13 +71,29 @@ describe OuterTableOfContents do
 
   it 'can dive deeper' do
 
-    @subsection.add_to(@section2)
-    @subsubsection.add_to(@section2)
+    dm2 = DocumentManager.new(@section2)
+    dm2.append(@subsection)
+    dm2.append(@subsubsection)
 
     otc = OuterTableOfContents.new(@article, ['dumb'], {})
     output = otc.master_table_of_contents
-    puts
-    puts output.magenta
+
+    expected_output = <<EOF
+<ul class='toc2'>
+<li>Uncertainty Principle</li>
+<li>Wave-Particle Duality</li>
+
+<ul class='toc2'>
+<li>de Broglie's idea</li>
+<li>Wild idea</li>
+</ul>
+
+
+<li>Matrix Mechanics</li>
+</ul>
+EOF
+
+    assert output.strip.must_equal expected_output.strip
 
 
   end
@@ -79,18 +103,9 @@ describe OuterTableOfContents do
     tc = OuterTableOfContents.new(@article, [], {})
     # assert otc.is_a? OuterTableOfContents
 
-    puts tc
 
   end
 
-  it 'can make a table of contents in dragula format' do
 
-    otc = OuterTableOfContents.new(@article, [], {})
-    output = otc.dragula_table
-    puts
-    puts output.cyan
-
-
-  end
 
 end

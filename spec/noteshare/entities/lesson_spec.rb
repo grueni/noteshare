@@ -1,5 +1,7 @@
 require 'spec_helper'
 
+include Noteshare::Core
+
 describe Lesson do
 
   before do
@@ -29,7 +31,7 @@ describe Lesson do
 
     lesson = Lesson.new(title: 'Introductory Magick')
     lesson.created_at = DateTime.now
-    lesson.modified_at = DateTime.now
+    lesson.updated_at = DateTime.now
     doc = lesson.to_document(user.screen_name)
     doc.title.must_equal lesson.title
 

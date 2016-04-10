@@ -1,5 +1,7 @@
 require 'spec_helper'
 
+include Noteshare::Core
+
 describe Course do
 
 
@@ -45,7 +47,7 @@ describe Course do
 
     course = Course.new(title: 'Introductory Magick')
     course.created_at = DateTime.now
-    course.modified_at = DateTime.now
+    course.updated_at = DateTime.now
     doc = course.to_document @user.screen_name
     doc.title.must_equal course.title
 

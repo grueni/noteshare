@@ -20,7 +20,7 @@ describe 'Login User' do
 
     visit2 nil,  '/session_manager/login'
 
-    within 'form#user-form' do
+    within 'form#user_form' do
       fill_in 'Email',  with: 'jayfoo@bar.com'
       fill_in 'Password', with: 'foobar123'
 
@@ -28,8 +28,8 @@ describe 'Login User' do
     end
 
     visit2 @user, "/node/user/#{@user.id}"
-    assert page.has_content?(@user.screen_name), "Go to user's node page"
-
+    # assert page.has_content?('Nearby nodes'), "Go to start page"
+    assert page.body.must_match /Nearby nodes/, "Go to start page"
   end
 
 end

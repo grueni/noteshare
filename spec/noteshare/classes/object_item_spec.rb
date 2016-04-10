@@ -1,6 +1,6 @@
 require 'spec_helper'
 require_relative '../../../lib/noteshare/modules/toc_item'
-include Noteshare
+include Noteshare::Core
 
 describe ObjectItem do
 

@@ -28,13 +28,14 @@ module FeatureHelpers
 
   module Common
 
+    include Noteshare::Core
     include Noteshare::Subdomain
 
     def visit2(user, route)
       if user
-        visit "http://#{user.screen_name}.fuf.me:2300#{route}"
+        visit "http://jxxmbp.local/#{route}"
       else
-        visit "http://fuf.me:2300#{route}"
+        visit "http://jxxmbp.local/#{route}"
       end
     end
 
@@ -65,9 +66,9 @@ module FeatureHelpers
         click_button 'Log in'
       end
 
-      visit2 @user, "/node/user/#{@user.id}"
-      assert page.has_content?(@user.screen_name), "Go to user's node page"
-      @user
+      # visit2 @user, "/node/user/#{@user.id}"
+      # assert page.has_content?(@user.screen_name), "Go to user's node page"
+      #  @user
     end
 
   end
