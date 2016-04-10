@@ -3,6 +3,7 @@ require_relative '../../../../lib/noteshare/interactors/editor/create_associated
 module Editor::Controllers::Document
   class CreateNewAssociatedDocument
     include Editor::Action
+    include Noteshare::Interactor
 
     expose :active_item
 
