@@ -50,7 +50,7 @@ class AssociateDocMapper
 
     # binding.pry
 
-    hash = document.doc_refs2
+    hash = document.doc_refs2 || {}
     ids = hash.keys
     if ids
       map = "<ul>\n"
