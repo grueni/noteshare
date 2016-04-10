@@ -1,3 +1,5 @@
+
+
 module Admin::Controllers::Publications
   class Manage
     include Admin::Action

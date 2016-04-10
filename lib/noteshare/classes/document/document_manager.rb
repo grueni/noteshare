@@ -19,6 +19,8 @@
 
 class DocumentManager
 
+  include Noteshare::Core
+
   def initialize(parent_document)
     @parent_document = parent_document
   end

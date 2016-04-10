@@ -4,7 +4,6 @@ require 'lotus/mailer'
 require_relative './ext/pg_array'
 require_relative './ext/pg_hstore'
 
-
 Dir["#{ __dir__ }/noteshare/**/*.rb"].each { |file| require_relative file }
 
 Lotus::Model.configure do
@@ -43,7 +42,7 @@ Lotus::Model.configure do
   mapping do
     # ...
     collection :documents do
-      entity     NSDocument
+      entity     Noteshare::Core::NSDocument
       repository DocumentRepository
       attribute :id,   Integer
       attribute :title, String

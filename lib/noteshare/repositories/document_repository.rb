@@ -72,7 +72,7 @@ class DocumentRepository
   # Return all root documents
   def self.root_documents
     query do
-      where(root_document_id: 0)
+      where(root_document_id: 0).select{ |item| item.title }
     end
   end
 

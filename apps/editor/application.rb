@@ -202,7 +202,8 @@ module Editor
       # See: http://www.rubydoc.info/gems/lotus-controller#Configuration
       controller.prepare do
         include Editor::Authentication
-        include Noteshare::ErrorHandler
+        include Noteshare::Util
+        include Noteshare::Util::ErrorHandler
         expose :flash
         # include MyAuthentication # included in all the actions
         # before :authenticate!    # run an authentication before callback

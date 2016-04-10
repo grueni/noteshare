@@ -226,7 +226,8 @@ module Web
       # See: http://www.rubydoc.info/gems/lotus-controller#Configuration
       controller.prepare do
         include Web::Authentication
-        include Noteshare::ErrorHandler
+        include Noteshare::Util
+        include Noteshare::Util::ErrorHandler
         expose :document
         # include MyAuthentication # included in all the actions
         # before :authenticate!    # run an authentication before callback
@@ -244,9 +245,7 @@ module Web
         include Noteshare
       end
 
-      controller.prepare do
-        include Noteshare::ErrorHandler
-      end
+
     end
 
     ##

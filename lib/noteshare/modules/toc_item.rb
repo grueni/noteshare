@@ -2,7 +2,7 @@ require 'json'
 require_relative '../modules/tools'
 include Noteshare::Tools
 
-module Noteshare
+module Noteshare::Core
 
 
 

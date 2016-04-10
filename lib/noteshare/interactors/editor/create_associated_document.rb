@@ -6,6 +6,8 @@ module Noteshare
       class CreateAssociatedDocument
 
         include Lotus::Interactor
+        include Noteshare::Core
+
         expose :current_document, :error
 
         def initialize(params)

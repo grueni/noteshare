@@ -1,13 +1,15 @@
 require 'pry'
 
 class TOCPresenter
+
+  include Noteshare::Core
   
   def initialize(document)
 
     @document = document
 
     first_section_title = @document.title_from_content || @document.title
-    @master_toc_item = TOCItem.from_hash(:id => @document.id, :title => first_section_title,
+    @master_toc_item =  TOCItem.from_hash(:id => @document.id, :title => first_section_title,
                                          :identifier => @document.id, :has_subdocs => @document.id )
   end
 

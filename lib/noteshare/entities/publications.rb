@@ -12,6 +12,7 @@
 # pointing to the document and the node.
 class Publications
   include Lotus::Entity
+  include Noteshare::Core
 
   attributes :id, :node_id, :document_id, :type
   # type can be 'author', 'principal', or ''
@@ -47,7 +48,7 @@ class Publications
   end
 
   def document_title
-    document.title
+     document.title || 'No title'
   end
 
   def node

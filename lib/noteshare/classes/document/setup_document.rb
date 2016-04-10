@@ -1,5 +1,7 @@
 class SetupDocument
 
+  include Noteshare::Core
+
   def initialize(hash)
     @author = hash[:author]
     @title = hash[:title]

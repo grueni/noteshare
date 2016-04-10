@@ -124,7 +124,7 @@ module AdminUtilities
 
 
   def self.process_bozo(document, option)
-    if document.title == nil or document.title == ''
+    if document.title == nil
       if option == 'fix'
         document.delete
       end
@@ -216,6 +216,15 @@ module AdminUtilities
       end
       DocumentRepository.update doc
       puts doc.doc_refs2 if doc.doc_refs2 != {}
+    end
+  end
+
+  def self.repair_publications
+    PublicationsRepository.all.each do |pub|
+      doc = DocumentRepository.find pub.document_id
+      if doc == nil
+        PublicationsRepository.delete pub
+      end
     end
   end
 

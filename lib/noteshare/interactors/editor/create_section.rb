@@ -6,6 +6,7 @@ module Noteshare
       class CreateSection
 
         include Lotus::Interactor
+        include Noteshare::Core
         expose :new_document, :error
 
         def initialize(params)

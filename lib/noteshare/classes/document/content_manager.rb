@@ -1,3 +1,5 @@
+require_relative '../../../../lib/noteshare/modules/ns_document_asciidoc'
+include Noteshare::Core::Asciidoc
 
 # The content Manager updates
 # the content of a document if necessary
@@ -12,6 +14,7 @@
 #
 ####################
 class ContentManager
+
 
 
   def initialize(document, options = {})

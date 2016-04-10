@@ -1,4 +1,4 @@
-module Admin::Controllers::Node
+ module Admin::Controllers::Node
   class AddDocument
     include Admin::Action
 

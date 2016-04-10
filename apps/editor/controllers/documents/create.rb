@@ -1,10 +1,11 @@
 require_relative '../../../../lib/noteshare/interactors/editor/create_document'
 
+
 module Editor::Controllers::Documents
   class Create
     include Editor::Action
     include Noteshare::Interactor::Document
-    include NSDocument::Asciidoc
+    include Noteshare::Core::Asciidoc
 
     expose :document
 

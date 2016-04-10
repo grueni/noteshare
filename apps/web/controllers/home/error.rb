@@ -1,6 +1,7 @@
 module Web::Controllers::Home
   class Error
     include Web::Action
+    include Noteshare::Util
 
     expose :error_message, :active_item
 

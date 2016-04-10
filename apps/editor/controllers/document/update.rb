@@ -1,9 +1,10 @@
 require_relative '../../../../lib/noteshare/modules/ns_document_asciidoc'
-include NSDocument::Asciidoc
+
 
 module Editor::Controllers::Document
   class Update
     include Editor::Action
+    include Noteshare::Core::Asciidoc
 
     expose :document, :active_item
 

@@ -5,6 +5,7 @@ require_relative '../entities/ns_document'
 
 # Seed data for the database for NSDocument
   module Noteshare::Setup
+    include Noteshare::Core
 
     def self.seed_db
 
