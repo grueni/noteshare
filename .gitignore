@@ -12,3 +12,4 @@ apps/node/public
 exp/
 keen*
 public/assets*
+doc/*
