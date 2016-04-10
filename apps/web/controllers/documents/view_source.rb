@@ -4,7 +4,7 @@ require_relative '../../../../lib/noteshare/interactors/editor/read_document'
 module Web::Controllers::Documents
   class ViewSource
     include Web::Action
-    include Keen
+    include Noteshare::Interactor::Document
 
     expose :document, :root_document, :updated_text, :payload,
            :current_image,:active_item, :active_item2, :view_options

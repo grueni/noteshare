@@ -4,7 +4,7 @@ require_relative '../../../../lib/noteshare/interactors/editor/read_document'
 module Web::Controllers::Documents
   class ShowCompiled
     include Web::Action
-    include Analytics
+    include Noteshare::Interactor::Document
 
     expose :root_document, :document, :payload, :view_options
     expose :active_item, :active_item2

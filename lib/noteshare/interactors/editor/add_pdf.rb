@@ -1,8 +1,8 @@
 require 'lotus/interactor'
 
 module Noteshare
-  module Document
-    module Interactor
+  module Interactor
+    module Document
       class AddPDF
 
         include Lotus::Interactor

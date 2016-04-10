@@ -3,6 +3,7 @@ require_relative '../../../../lib/noteshare/interactors/editor/delete_ns_documen
 module Editor::Controllers::Document
   class DeleteDocument
     include Editor::Action
+    include Noteshare::Interactor::Document
 
     expose :active_item
 

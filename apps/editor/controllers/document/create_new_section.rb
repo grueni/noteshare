@@ -3,6 +3,7 @@ require_relative '../../../../lib/noteshare/interactors/editor/create_section'
 module Editor::Controllers::Document
   class CreateNewSection
     include Editor::Action
+    include Noteshare::Interactor::Document
 
     expose :active_item
 

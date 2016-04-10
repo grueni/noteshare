@@ -3,7 +3,7 @@ require_relative '../../../../lib/noteshare/interactors/editor/read_document'
 module Web::Controllers::Documents
   class Titlepage
     include Web::Action
-    include Analytics
+    include Noteshare::Interactor::Document
 
     expose :root_document, :document, :payload, :blurb, :image_url,  :view_options
     expose :active_item, :active_item2

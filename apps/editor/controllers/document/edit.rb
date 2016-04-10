@@ -4,6 +4,7 @@ require_relative '../../../../lib/noteshare/interactors/editor/edit_document'
 module Editor::Controllers::Document
   class Edit
     include Editor::Action
+    include Noteshare::Interactor::Document
 
     expose :document, :root_document, :updated_text, :current_image, :active_item, :editors
 

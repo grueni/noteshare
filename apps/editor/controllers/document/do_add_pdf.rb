@@ -3,7 +3,7 @@ require_relative '../../../../lib/noteshare/interactors/editor/add_pdf'
 module Editor::Controllers::Document
   class DoAddPdf
     include Editor::Action
-    include Noteshare::Document::Interactor
+    include Noteshare::Interactor::Document
 
     def call(params)
 
