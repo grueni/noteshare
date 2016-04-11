@@ -8,13 +8,15 @@ describe Settings do
     # The database is set up to have exactly one entry:n
     # SettingsRepository.clear
     # @settings = Settings.new(id: 1, message: 'Howdy', owner: 'Jason Foo-Bar')
-    # settingsRepository.create @settings
+    # puts @settings.owner.red
+    # SettingsRepository.create @settings
     @settings = SettingsRepository.first
+    puts @settings.owner.red
   end
 
   describe 'initialization' do
 
-    it 'works' do
+    it 'works 111' do
 
       @settings.owner.must_equal('Jason Foo-Bar')
 
