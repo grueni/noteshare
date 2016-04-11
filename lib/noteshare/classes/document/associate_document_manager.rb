@@ -60,12 +60,7 @@ class AssociateDocumentManager
   # is the associate of at most one other
   # document.  This should be enforced (#fixme)
   def detach(document)
-
-
-    type = document.type
-    return if type == nil
-    type = type.sub('associated:', '')
-    @parent_document.doc_refs.delete(type)
+    @parent_document.doc_refs2.delete(document.id.to_s)
     document.parent_id = 0
     document.parent_ref =  nil
     document.root_document_id = 0

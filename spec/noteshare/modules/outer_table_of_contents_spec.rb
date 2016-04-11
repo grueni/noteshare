@@ -1,7 +1,7 @@
 require 'spec_helper'
 require_relative '../../../lib/noteshare/modules/toc'
 
-include Noteshare::Core
+include Noteshare::Core::Document
 
 describe OuterTableOfContents do
 

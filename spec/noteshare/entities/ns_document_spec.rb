@@ -2,6 +2,8 @@ require 'spec_helper'
 require 'json'
 require 'pry'
 
+include Noteshare::Core::Document
+
 describe NSDocument do
 
   before 'set up a root document with subdocuments' do
@@ -247,6 +249,7 @@ describe NSDocument do
 
       DocumentRepository.all.count.must_equal 7
       @article.delete_root_document
+      d = DocumentRepository.all.first
       DocumentRepository.all.count.must_equal 0
 
     end

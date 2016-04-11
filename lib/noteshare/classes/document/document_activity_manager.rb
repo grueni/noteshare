@@ -1,9 +1,11 @@
+require_relative '../hash_stack'
 
 # ActivityManager records
 # the documents a user
 # views and can present
 # a list of this activity
 class DocumentActivityManager
+  include Noteshare::Helper::Document
 
   def initialize(user)
     puts "Boss, this is the DocumentActivityManager".green

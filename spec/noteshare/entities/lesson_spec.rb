@@ -1,6 +1,6 @@
 require 'spec_helper'
 
-include Noteshare::Core
+include Noteshare::Core::Document
 
 describe Lesson do
 

@@ -6,7 +6,7 @@ module Noteshare
       class CreateAssociatedDocument
 
         include Lotus::Interactor
-        include Noteshare::Core
+        include Noteshare::Core::Document
 
         expose :current_document, :error
 

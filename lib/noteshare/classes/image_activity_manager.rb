@@ -4,6 +4,7 @@
 # views and can present
 # a list of this activity
 class ImageActivityManager
+  include Noteshare::Helper::Image
 
   attr_reader :last_image_id, :last_image_title
 

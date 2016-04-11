@@ -6,7 +6,7 @@ module Noteshare
       class AddPDF
 
         include Lotus::Interactor
-        include Noteshare::Core
+        include Noteshare::Core::Document
 
         expose :new_document, :author
 

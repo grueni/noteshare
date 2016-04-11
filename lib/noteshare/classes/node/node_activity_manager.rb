@@ -4,6 +4,7 @@
 # views and can present
 # a list of this activity
 class NodeActivityManager
+  include Noteshare::Helper::Node
 
   attr_reader :last_node_id, :last_node_name
 

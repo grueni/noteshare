@@ -4,6 +4,7 @@ require 'pry'
 
 module Noteshare
   module Core
+    module Document
 
 # An NSDocument consists of
 #
@@ -136,10 +137,15 @@ module Noteshare
           DocumentRepository.create doc
         end
 
+        # - Ensure that references to the document in its
+        #   parent are deleted before the document is deleted
+        # Fixme: also remove relevant Publication records
         def delete
           parent = self.parent_document
-          parent.content_dirty = true
-          DocumentRepository.update parent
+          if parent
+            parent.content_dirty = true
+            DocumentRepository.update parent
+          end
           DocumentRepository.delete(self)
         end
 
@@ -167,7 +173,7 @@ module Noteshare
         end
 
         def delete_root_document
-          apply_to_tree(:delete, [])
+          apply_to_tree(:delete_subdocument, [])
           self.delete
         end
 
@@ -363,7 +369,6 @@ module Noteshare
         # a document, and all subdocuments
         # and associated documents
         def apply_to_tree(message, args)
-          puts "#{self.title} #{message} #{args}"
           self.send(message, *args)
           DocumentRepository.update self
           table = TOC.new(self).table
@@ -371,7 +376,8 @@ module Noteshare
             doc = DocumentRepository.find item.id
             doc.apply_to_tree(message, args) if doc
           end
-          doc_refs.each do |title, id|
+          doc_refs = doc_refs2 || {}
+          doc_refs.each do |id, title|
             doc = DocumentRepository.find id
             doc.apply_to_tree(message, args) if doc
           end
@@ -438,7 +444,7 @@ module Noteshare
         # only in spec/
         # return hash of associates of a given document
         def associates
-          self.doc_refs2
+          self.doc_refs2 || []
         end
 
 
@@ -507,6 +513,7 @@ module Noteshare
           self.root_ref = { id: root.id, title: root.title, identifier: root.identifier}
         end
 
+      end
     end
   end
 end

@@ -1,12 +1,14 @@
 require 'spec_helper'
-
 require 'json'
+require_relative '../../../lib/noteshare/modules/toc'
+include Noteshare::Core::Document
 
-include Noteshare
 
 # The tests below are mainly concerned with
 # setting and persisting attributes
-describe NSDocument do
+describe TOC do
+
+
 
   before do
 

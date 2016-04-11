@@ -2,7 +2,7 @@ require 'pry'
 
 class TOCPresenter
 
-  include Noteshare::Core
+  include Noteshare::Core::Document
   
   def initialize(document)
 

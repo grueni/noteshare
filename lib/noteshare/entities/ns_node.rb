@@ -9,6 +9,7 @@ class NSNode
                  :meta, :docs, :children, :tags, :xattributes, :dict, :neighbors
 
   include Asciidoctor
+  # include Noteshare::Core::Text
 
   # include Noteshare
   require 'json'

@@ -1,5 +1,9 @@
 require_relative '../../../../lib/noteshare/modules/ns_document_asciidoc'
+require_relative '../../../../lib/noteshare/modules/render'
+
 include Noteshare::Core::Asciidoc
+include Noteshare::Core::Text
+
 
 # The content Manager updates
 # the content of a document if necessary

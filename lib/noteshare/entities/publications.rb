@@ -12,7 +12,7 @@
 # pointing to the document and the node.
 class Publications
   include Lotus::Entity
-  include Noteshare::Core
+  include Noteshare::Core::Document
 
   attributes :id, :node_id, :document_id, :type
   # type can be 'author', 'principal', or ''
