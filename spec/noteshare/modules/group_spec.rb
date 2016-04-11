@@ -1,5 +1,7 @@
 require 'spec_helper'
 
+include Noteshare::Core::Document
+include Noteshare::Helpers::Groups
 
 describe Groups do
 
