@@ -1,10 +1,14 @@
 require 'pry'
 
+require_relative '../../../../lib/noteshare/entities/ns_document'
+
 
 # The AssociateDocumentManager class
 # is responsible for adding, manipulating,
 # and deleteing associates documents
 class AssociateDocumentManager
+  include Noteshare::Core::Document
+
 
   def initialize(parent_document)
     @parent_document = parent_document
