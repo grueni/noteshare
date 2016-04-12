@@ -40,7 +40,7 @@ script src="/javascripts/editor.js" type="text/javascript"
       / == document.root_link(prefix: '/editor')
       br
       .toc.plainlink.lightlink == document_index_link(document, session)
-      .toc.plainlink.lightlink == AssociateDocMapper.new(document).root_associated_document_map
+      .toc.plainlink.lightlink == result.associated_document_mapper.root_associated_document_map
       .toc == render partial: 'document/index_tools', locals: { }
       .toc2== toc_presenter.editor_table_of_contents(document)
 

@@ -1,5 +1,8 @@
 require 'spec_helper'
 
+include Noteshare::Core::Node
+include Noteshare::Core::Document
+
 describe NSNode do
 
   before do

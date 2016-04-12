@@ -7,7 +7,7 @@ module Noteshare
       class EditDocument
 
         include Lotus::Interactor
-        expose :document, :root_document, :updated_text, :editors, :redirect_path
+        expose :document, :root_document, :updated_text, :editors, :redirect_path, :associated_document_mapper
 
         def initialize(params, user)
           id = params['id']
@@ -50,6 +50,7 @@ module Noteshare
             @user.dict2['reader_view'] = 'sidebar'
             UserRepository.update @user
           end
+          @associated_document_mapper = Noteshare::Presenter::Document::AssociateDocMapper.new(@document)
         end
 
       end

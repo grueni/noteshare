@@ -8,7 +8,7 @@ module Noteshare
       class ReadDocument
 
         include Lotus::Interactor
-        expose :document, :root_document, :rendered_content,
+        expose :document, :root_document, :rendered_content, :associated_document_mapper,
                :rendered_aside_content, :table_of_contents, :redirect_path
 
         def initialize(params, user, reader_type='document')
@@ -58,6 +58,7 @@ module Noteshare
           prepare_root_document if @reader_type == 'compiled'
           prepare_title_page if @reader_type == 'titlepage'
           prepare_table_of_contents
+          @associated_document_mapper = Noteshare::Presenter::Document::AssociateDocMapper.new(@document)
         end
 
         def prepare_rendered_content
@@ -88,7 +89,7 @@ module Noteshare
             index_content = @root_document.dict['document_index']
             ## add new associated document of type index if necessary
             if @root_document.associated_document('index') == nil
-              AssociateDocumentManager.new(@root_document).add(title: 'Index', type: 'index', rendered_content: index_content)
+              Noteshare::Core::Document::AssociateDocumentManager.new(@root_document).add(title: 'Index', type: 'index', rendered_content: index_content)
             else
               @root_document.associated_document('index').rendered_content = index_content
             end

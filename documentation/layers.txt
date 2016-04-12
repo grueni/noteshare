@@ -1,6 +1,7 @@
 Interactor
   Document
     AddPDF
+    AssociateDocumentManager
     CreateAssociatedDocument
     CreateDocument
     CreateSection
@@ -14,7 +15,9 @@ Interactor
   Search
     AdvancedSearcher
     Searcher
-Service/Presenter
+Presenter
+  Document
+    AssociateDocMapper
 Helper
   Document
     DocsVisited
@@ -32,6 +35,8 @@ Core
     TOC
     TOCItem
     TOCManager
+  Node
+    NSNode
   Search
   Text
     DocumentIndex

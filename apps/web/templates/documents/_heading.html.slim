@@ -11,6 +11,6 @@ div style='margin-left:0.5em'
   - if root_document.dict['make_index']
     .toc.plainlink.lightlink == document_index_link(document, session)
   - if document.doc_refs
-    .toc.plainlink.lightlink == AssociateDocMapper.new(document).root_associated_document_map
+    .toc.plainlink.lightlink == payload.associated_document_mapper.root_associated_document_map
 
 

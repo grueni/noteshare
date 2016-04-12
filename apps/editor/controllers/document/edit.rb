@@ -6,18 +6,18 @@ module Editor::Controllers::Document
     include Editor::Action
     include Noteshare::Interactor::Document
 
-    expose :document, :root_document, :updated_text, :current_image, :active_item, :editors
+    expose :document, :root_document, :updated_text, :current_image, :active_item, :editors, :result
 
     def call(params)
       @active_item = 'editor'
 
-      result = EditDocument.new(params, current_user2).call
+      @result = EditDocument.new(params, current_user2).call
       redirect_to_path result.redirect_path
 
-      @document = result.document
-      @root_document= result.root_document
-      @updated_text = result.updated_text
-      @editors = result.editors
+      @document = @result.document
+      @root_document= @result.root_document
+      @updated_text = @result.updated_text
+      @editors = @result.editors
 
       session['current_document_id'] = @document.id
 
