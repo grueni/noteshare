@@ -1,7 +1,9 @@
+require 'pry'
+
 require 'spec_helper'
 require 'json'
 require_relative '../../../lib/noteshare/modules/toc'
-include Noteshare::Core::Document
+include Noteshare::Core::Document # for TOCManager
 
 
 # The tests below are mainly concerned with
@@ -62,6 +64,8 @@ describe TOC do
     manager2.append(@subsection1)
     manager2.append(@subsection2)
 
+    # binding.pry
+
   end
 
 
@@ -96,13 +100,12 @@ describe TOC do
   end
 
 
-  it 'sets the correct parent_item and root_item fields for a document added to another' do
+  it 'sets the correct parent_item and root_item fields for a document added to another ts111' do
+
+    # binding.pry
 
     table = TOC.new(@article1).table
     table.must_equal ([])
-
-
-
 
     table1 = TOC.new(@article1).table
 

@@ -4,6 +4,7 @@ include Noteshare::Subdomain
 module Editor::Controllers::Document
   class UpdateToc
     include Editor::Action
+    include Noteshare::Core::Document # for TOCManager
 
     expose :document_id
 
