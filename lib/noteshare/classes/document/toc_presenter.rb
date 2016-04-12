@@ -18,6 +18,32 @@ class TOCPresenter
   # root_table_of_contents
   # internal_table_of_contents
 
+  # PUBLIC
+  def  internal_table_of_contents(attributes, options)
+
+    (attributes.include? 'root') ? source = @document.compiled_content : source = @document.content
+
+    toc =  Noteshare::AsciidoctorHelper::NSTableOfContents.new(source, attributes, options)
+
+    toc.table || ''
+
+  end
+
+  # PUBLIC
+  # The active_id is the id of the subdocument which
+  # the user has selected.
+  def root_table_of_contents(active_id, target='reader')
+    root = @document.root_document || @document
+    if root
+      master_table_of_contents(active_id, target)
+    else
+      ''
+    end
+  end
+
+
+  ####### INTERNAL #######
+
 
   # Return TOC object corresponding to the toc
   # field in the database
@@ -63,21 +89,9 @@ class TOCPresenter
   end
 
 
-  # The active_id is the id of the subdocument which
-  # the user has selected.
-  def root_table_of_contents(active_id, target='reader')
-    root = @document.root_document || @document
-    if root
-      master_table_of_contents(active_id, target)
-    else
-      ''
-    end
-  end
-
   def editor_table_of_contents(document)
     root_table_of_contents(document.id, 'editor')
   end
-
 
 
   def process_toc_item(item, active_id, ancestral_ids, target)
@@ -219,15 +233,6 @@ class TOCPresenter
   end
 
 
-  def  internal_table_of_contents(attributes, options)
-
-    (attributes.include? 'root') ? source = @document.compiled_content : source = @document.content
-
-    toc =  Noteshare::AsciidoctorHelper::NSTableOfContents.new(source, attributes, options)
-
-    toc.table || ''
-
-  end
 
 
 
