@@ -4,6 +4,7 @@ require 'pry'
 module Web::Controllers::Documents
   class Search
     include Web::Action
+    include Noteshare::Interactor::Search
 
     expose :documents, :nodes
     expose :active_item

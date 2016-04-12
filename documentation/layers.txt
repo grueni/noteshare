@@ -1,8 +1,27 @@
-Presentation/Service/Interactor
-
+Interactor
+  Document
+    AddPDF
+    CreateAssociatedDocument
+    CreateDocument
+    CreateSection
+    DeleteNSDocument
+    EditNSDocument
+    ReadDocument
+    UpdateDocumentOptions
+  Node
+    UpdateNode
+    UpdateNodeBlurb
+  Search
+    AdvancedSearcher
+    Searcher
+Service/Presenter
 Helper
-
-
+  Document
+    DocsVisited
+  Image
+    ImagesVisited
+  Node
+    NodesVisited
 Core
   Document
     DocumentManager
@@ -13,6 +32,7 @@ Core
     TOC
     TOCItem
     TOCManager
+  Search
   Text
     DocumentIndex
     Glossary
