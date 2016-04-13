@@ -19,10 +19,8 @@
 
       doc_id = get_doc_id_from_title(doc_id) if (doc_id =~ /^\d*\d$/) != 0
 
-      puts "doc_id: #{doc_id}".red
       node = NSNodeRepository.find node_id
       doc = DocumentRepository.find doc_id
-      puts "Boss, I will add document #{doc.title} to node #{node.name}".red
       node.publish_document(id: doc_id, type: 'publisher')
       NSNodeRepository.update node
       redirect_to "/node/#{node_id}"

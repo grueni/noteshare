@@ -3,7 +3,6 @@ module SessionManager::Views::Settings
     include SessionManager::View
 
     def form
-      puts ">> form NEW USER".red
 
       form_for :user_settings, '/session_manager/update_settings', class: 'user_setup_form' do
 

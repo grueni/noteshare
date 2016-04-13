@@ -1,9 +1,10 @@
 require 'pry'
-
 require 'spec_helper'
 require 'json'
+
 require_relative '../../../lib/noteshare/modules/toc'
-include Noteshare::Core::Document # for TOCManager
+
+include Noteshare::Core::Document # for TOC
 
 
 # The tests below are mainly concerned with
@@ -56,7 +57,7 @@ describe TOC do
     DocumentRepository.update @subsubsection1
     DocumentRepository.update @subsubsection2
 
-    manager = DocumentManager.new(@article)
+    manager = DocumentManager.new(@article1)
     manager.append(@section1)
     manager.append(@section2)
     manager.append(@section3)
@@ -66,9 +67,22 @@ describe TOC do
 
     # binding.pry
 
+
   end
 
+  it 'has valid test data and toc passes obvious tests vtd' do
 
+    assert @article1.title == 'Quantum Mechanics', 'title OK'
+    assert @article1.toc.count == 3, 'number of items in toc for @article1 ok'
+    assert @section2.toc.count == 2, 'number of items in toc for @section2 ok'
+
+    toc = TOC.new(@article1)
+
+    assert toc.display.split("\n").count == 8, 'diplayed table is OK'
+    assert toc.table.count == 3, 'number of items in toc.table is OK'
+    assert TOC.new(@article1).table.count == 3, 'number of items in toc.table is OK (2)'
+
+  end
 
   it 'can initialize an instance from a toc_array and access the data therein (weak check)' do
 
@@ -76,8 +90,6 @@ describe TOC do
     t.table[0].id.must_equal @toc_array[0]['id']
 
   end
-
-
 
   it 'can make changes to its data, read them back, and save them to the database  cxx' do
 
@@ -102,11 +114,6 @@ describe TOC do
 
   it 'sets the correct parent_item and root_item fields for a document added to another ts111' do
 
-    # binding.pry
-
-    table = TOC.new(@article1).table
-    table.must_equal ([])
-
     table1 = TOC.new(@article1).table
 
     DocumentRepository.update @article1
@@ -119,24 +126,17 @@ describe TOC do
 
     @section1.parent_item.identifier.must_equal @article1.identifier
 
-    # @section1.display('@section1', [:id, :title, :identifier, :root_document_id, :root_ref, :root_item, :parent_id, :parent_ref, :parent_item, :toc])
-    # @article1.display('@section1', [:id, :title, :identifier, :root_document_id, :root_ref, :root_item, :parent_id, :parent_ref, :parent_item, :toc])
-
     @section1.parent_item.id.must_equal(@article1.id)
     @section1.parent_id.must_equal(@article1.id)
     @section1.root_item.title.must_equal(@article1.title)
     @section1.level.must_equal(1)
     @section1.ancestor_ids.must_equal([@article1.id])
-    # assert @section1.toc[0].identifier != nil
 
 
   end
 
 
-
   it 'can update its table of contents mtoc 666' do
-
-    # @article.update_table_of_contents
 
 
     table = TOC.new(@article1).table
@@ -146,7 +146,6 @@ describe TOC do
     DocumentRepository.update @article1
 
     article2 = DocumentRepository.find @article1.id
-    article2_table = TOC.new(article2).table
 
     @section1.previous_document.must_equal(nil)
     @section1.next_document.title.must_equal(@section2.title)
@@ -164,26 +163,8 @@ describe TOC do
 
   it 'can return a TOC item given an id 777' do
 
-
-
-    puts "@section2 id = #{@section2.id}".red
-
-    # puts @article1.toc
-
     toc = TOC.new(@article)
-    puts '===================='.red
-    puts toc.inspect.red
-    toc.display
-    puts '===================='.red
-
-
     _item = toc.get_by_doc_title @section2.title
-    if _item
-      puts _item.inspect.cyan
-    else
-      puts "_item is NIL".red
-    end
-   #  _item ? puts _item.inspect.cyan : puts "_item is NIL".red
     _item[:title].must_equal(@section2.title)
 
   end

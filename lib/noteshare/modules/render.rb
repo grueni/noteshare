@@ -21,21 +21,17 @@ module Noteshare
           @source = source
           @options = options
           @root_doc_id = @options['root_doc_id']
-          puts "in Render, initialize, @options = #{@options}".magenta
         end
 
 
 
 
         def make_index
-          puts "MAKING INDEX".red
           @indexer = DocumentIndex.new(string: @source)
           @indexer.preprocess_to_string
           @source = @indexer.output
           @index = @indexer.document_index
-          puts "In convert, @index = #{@index}".blue
           @source << "\n:!sectnums:\n\n== Index\n\n" << @index
-          puts "In convert, @source = #{@source}".cyan
         end
 
         ####
@@ -63,7 +59,6 @@ module Noteshare
         def prepare_adoc
           @options = @options.merge({:verbose => 0, :safe => :safe})
           write_header
-          puts "\n-----SOURCE:\n#{@source}\n-----\n".cyan
           rewrite_media_urls
           handle_xlinks
           make_index if @options[:make_index]
@@ -72,7 +67,6 @@ module Noteshare
 
         def convert
           prepare_adoc
-          puts "Asciidoctor.convert @o ptions = #{@options}".green
           Asciidoctor.convert(@source, @options)
         end
 
@@ -103,11 +97,7 @@ module Noteshare
               if iii
                 new_tag = "#{media_type}#{infix}#{iii.url2}[#{attributes}]"
                 @source = @source.sub(old_tag, new_tag)
-              else
-                puts "Media #{id} not found".red
               end
-              puts "old_tag: #{old_tag}"
-              puts "new_tag: #{new_tag}"
             end
 
           end
@@ -119,16 +109,13 @@ module Noteshare
           File.open(filepath, "wb") do |saved_file|
             # the following "open" is provided by open-uri
             open(url, "rb") do |read_file|
-              puts "read_file: #{read_file}".red
               saved_file.write(read_file.read) if read_file
             end
           end
         end
 
         def rewrite_media_urls_for_export
-          puts "@options: #{@options}"
           doc_folder = @options[:doc_folder] || 'a2a2a2'
-          puts "doc_folder: #{doc_folder}"
 
           rxTag = /(image|video|audio)(:+)(.*?)\[(.*)\]/
           scanner = @source.scan(rxTag)
@@ -147,17 +134,12 @@ module Noteshare
             if id =~ /^\d+\d$/
               iii = ImageRepository.find id
               if iii
-                puts iii.url2
                 download_file_name = iii.file_name.sub('image::', 'image_')
                 download_path = "outgoing/#{doc_folder}/images/#{download_file_name}"
                 new_tag = "image::#{download_file_name}[#{attributes}]"
-                puts download_path.red
                 download_file(iii.url2, download_path)
                 @source = @source.sub(old_tag, new_tag)
-              else
-                puts "Media #{id} not found".red
               end
-              puts "tag: #{old_tag} => #{new_tag}"
             end
 
           end
@@ -240,12 +222,10 @@ module Noteshare
 
         def new_reference(id, label)
           id = id.to_s
-          puts "id: [#{id}]".red
           if (id =~ /\A\d*/) == 0    # begins with numerical id, that is, a file ID
 
             if id =~ /[\#|\?]/
               m = id.match /(\A\d*?)[\?|\#](.*)/
-              puts "m: #{m}".red
               numerical_id = m[1]
             else
               numerical_id = id
@@ -261,9 +241,6 @@ module Noteshare
             end
 
           else
-
-            puts 'BBB'.red
-
             new_id = id.split('#')[1]
             new_id = new_id.normalize('alphanum')
             new_id = new_id.gsub(" ", '_')
@@ -287,7 +264,6 @@ module Noteshare
         # Example:
         # "xlink::540[Further reading]" =>  "<<_atomic_theory, Further reading>>"
         def internalize_xlinks
-          puts "internalize_xlinks".magenta
           xlink_rx = /xlink::(.*?)\[(.*?)\]/
           scan = @source.scan xlink_rx
           scan.each do |match|
@@ -306,18 +282,3 @@ module Noteshare
   end
 end
 
-
-=begin
-
-Sample inputs and outputs.  The outputs
-are handled by class Link
-
-xlink::530[User Guide] => link/530
-
-xlink::530?aside[User Guide] => link/530?aside
-
-xlink::1492#_math_questions[User Guide] => link/1492#_math_questions
-
-xlink::1492#_math_questions?aside[User Guide] => link/1492?ref:_math_questions,opt:aside
-
-=end

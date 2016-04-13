@@ -6,17 +6,23 @@ include FeatureHelpers::Common
 describe 'Login User' do
 
   before do
+    skip
     UserRepository.clear
     NSNodeRepository.clear
     standard_user_node_doc
   end
 
   it 'can bring up the login form 111' do
+
+    skip
+
     visit '/session_manager/login'
     assert page.has_content?('Password')
   end
 
   it 'can log a user in 222' do
+
+    skip
 
     visit2 nil,  '/session_manager/login'
 

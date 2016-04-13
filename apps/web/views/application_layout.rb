@@ -27,7 +27,6 @@ module Web
       #####################################################
 
       def signin_link
-        puts 'SIGNIN_LINK'.red
         link_to 'Sign in', '/session_manager/login'
       end
 

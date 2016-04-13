@@ -58,9 +58,6 @@ module Web::Controllers::Home
 
 
     def call(params)
-
-      puts "app = web, controller = switchboard".red
-
       @active_item = 'home'
       handle_incoming_node
 

@@ -13,13 +13,7 @@ module Web::Controllers::Home
     # => Cache-Control: public, max-age: 600
 
     def call(params)
-
-      puts "app = web, controller = switchboard".red
-      puts session.inspect.cyan
-
       @settings = SettingsRepository.first
-
-
     end
     
   end

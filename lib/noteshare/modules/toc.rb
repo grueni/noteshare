@@ -1,30 +1,30 @@
 require_relative 'toc_item'
+# fixme: the line below is a layer violation
 require_relative '../classes/document/toc_presenter'
 
 module Noteshare
   module Core
     module Document
+
+      # A TOC object is initialized
+      # from a document and represents
+      # the document.toc array of hashes
+      # in @table as an array of TOCItems.
+      #
+      # A TOCItem is a struct with fields
+      # id, :title, :identifier, :has_subdocs
+
+      # A toc_array is an array of hashes
+      # where each hash has keys
+      # :id, :title, and :identifier
+      #
+      # The toc_array of a document
+      # determines its structure,
+      # essentially the ordered list
+      # of its subdocuments ("sections")
       class TOC
 
         attr_reader :toc_array
-
-        # A TOC object is initialized
-        # from a document and represents
-        # the document.toc array of hashes
-        # in @table as an array of TOCItems.
-        #
-        # A TOCItem is a struct with fields
-        # id, :title, :identifier, :has_subdocs
-
-        # A toc_array is an array of hashes
-        # where each hash has keys
-        # :id, :title, and :identifier
-        #
-        # The toc_array of a document
-        # determines its structure,
-        # essentially the ordered list
-        # of its subdocuments ("sections")
-
 
         def initialize(document)
           @document = document
@@ -218,7 +218,7 @@ module Noteshare
         # viewed can be highlighted.``
         #
         def master_table_of_contents(target='reader')
-          start = Time.now
+
           return '' if @toc.length == 0
 
           @ancestral_ids = []
@@ -229,10 +229,6 @@ module Noteshare
             output << toc_item(item)
             dive(item, output)
           end
-
-          finish = Time.now
-          elapsed = finish - start
-          puts "\nTable Of_Contents: elapsed time = #{elapsed}\n".magenta
 
           output << "</ul>\n\n"
         end

@@ -9,7 +9,6 @@ module Admin::Controllers::Documents
     expose :documents, :document_count, :active_item
 
     def call(params)
-      puts "HERE I AM BOSS!".green
       @active_item = 'admin'
       payload = params['search'] || {}
       search_key = payload['search'] || ''

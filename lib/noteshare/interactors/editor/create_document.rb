@@ -21,10 +21,8 @@ module Noteshare
         end
 
         def call
-          puts "AAAA".red
           # set up document
           @document = NSDocument.create(title: @title, author_credentials: @author_credentials)
-          puts "BBBB".red
 
           @document.content = "= #{@title}\n// Document header\n// Material before first section"
           @document.author = @author.full_name

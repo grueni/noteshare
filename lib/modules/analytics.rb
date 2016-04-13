@@ -19,28 +19,28 @@ module Analytics
   end
 
   def self.record_edit(user, document)
-    puts "analytics, record_edit".red
+    return if ENV['INTERNET_OFF'] == 'yes'
     if user && user.screen_name != ENV['DEVELOPER_SCREEN_NAME']
         Keen.publish(:document_edit, { :username => user.screen_name, :document => document.title, :document_id => document.id })
     end
   end
 
   def self.record_new_document(user, document)
-    puts "analytics, record document creation".red
+    return if ENV['INTERNET_OFF'] == 'yes'
     if user && user.screen_name != ENV['DEVELOPER_SCREEN_NAME']
       Keen.publish(:new_document, { :username => user.screen_name, :document => document.title, :document_id => document.id })
     end
   end
 
   def self.record_image_upload(user, image)
-    puts "analytics, record image_upload".red
+    return if ENV['INTERNET_OFF'] == 'yes'
     if user && user.screen_name != ENV['DEVELOPER_SCREEN_NAME']
       Keen.publish(:image_upload, { :username => user.screen_name, :image => image.title, :image_id => image.id })
     end
   end
 
   def self.record_new_section(user, document)
-    puts "analytics, record new section creation".red
+    return if ENV['INTERNET_OFF'] == 'yes'
     if user && user.screen_name != ENV['DEVELOPER_SCREEN_NAME']
       Keen.publish(:new_section, { :username => user.screen_name, :document => document.title, :document_id => document.id })
     end
@@ -48,7 +48,7 @@ module Analytics
 
 
   def self.record_new_pdf_document(user, document)
-    puts "analytics, record new_pdf_document".red
+    return if ENV['INTERNET_OFF'] == 'yes'
     if user && user.screen_name != ENV['DEVELOPER_SCREEN_NAME']
       Keen.publish(:new_pdf_document, { :username => user.screen_name, :document => document.title, :document_id => document.id })
     end
@@ -56,8 +56,8 @@ module Analytics
 
 
   def self.record_document_view(user, document)
+    return if ENV['INTERNET_OFF'] == 'yes'
     root_document = document.root_document
-    puts "analytics, record_page_visit".red
     if user
       user.dict2['current_document_id'] = document.id
       UserRepository.update user

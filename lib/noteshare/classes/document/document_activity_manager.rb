@@ -8,7 +8,6 @@ class DocumentActivityManager
   include Noteshare::Helper::Document
 
   def initialize(user)
-    puts "Boss, this is the DocumentActivityManager".green
     @user = user
     @array = @user.docs_visited || []
   end

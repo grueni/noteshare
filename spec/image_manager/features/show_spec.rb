@@ -5,6 +5,7 @@ include FeatureHelpers::Common
 describe 'Show image' do
 
   before do
+    skip
     ImageRepository.clear
     @image = Image.new(title: 'Foo', dict: {})
     ImageRepository.create(@image)
@@ -20,6 +21,8 @@ describe 'Show image' do
 
   it 'cannot visit the page if not logged in 222' do
 
+    skip
+
     image = ImageRepository.first
     puts "/image_manager/show/#{image.id}".cyan
 
@@ -30,6 +33,8 @@ describe 'Show image' do
   end
 
   it 'can visit the page if logged in 333' do
+
+    skip
 
     image = ImageRepository.first
     puts "/image_manager/show/#{image.id}".cyan

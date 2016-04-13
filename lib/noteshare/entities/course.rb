@@ -27,8 +27,6 @@ class Course
       master.dict['titlepage_image'] = titlepage_image_id
     end
     lessons = self.associated_lessons
-    lesson_count = lessons.count
-    puts "Lessons to import: #{lesson_count}".red
 
     # Handle tex macros if necessary
     _tex_macros = tex_macros
@@ -48,21 +46,15 @@ class Course
     # Process the lessons
     lessons.all.each do |lesson|
       count = count + 1
-      puts "#{count}: #{lesson.id}, #{lesson.title}".cyan
       begin
-        puts "A".red
         section = lesson.to_document(screen_name)
-        puts "B".red
         stack == [] ?  delta = 2 : delta =  section.asciidoc_level - stack.last.asciidoc_level
-        puts "C".red
         if delta >= 2
           stack.push(last_node)
         elsif delta <= 0
           stack.pop
         end
-        puts "D".red
         DocumentManager.new(stack.last).append(section)
-        puts "E".red
         last_node = section
       rescue
         puts "Error in importing #{lesson.title} (#{lesson.id})".red

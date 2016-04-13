@@ -16,8 +16,6 @@ describe 'Create User' do
   end
 
   it 'can create a new user record' do
-    
-    puts "(1) UserRepository.all.count = #{UserRepository.all.count}".cyan
 
     visit '/session_manager/new_user'
 
@@ -31,13 +29,6 @@ describe 'Create User' do
       click_button 'Create account'
      end
 
-
-    puts "(2) UserRepository.all.count = #{UserRepository.all.count}".cyan
-    # user = UserRepository.last
-    # current_path.must_equal("/user/#{user.id}")       ###????
-
-    # visit "/node/users/#{user.id}"
-    # assert page.has_content?(user.screen_name), "Go to user's node page"
 
   end
 

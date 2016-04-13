@@ -6,6 +6,9 @@ include FeatureHelpers::Common
 describe 'Show document' do
 
   before do
+
+    skip
+
     DocumentRepository.clear
     standard_user_node_doc
     @user = login_standard_user
@@ -18,12 +21,17 @@ describe 'Show document' do
 
 
   it 'has a valid document for testing 666' do
+
+    skip
+
     doc = DocumentRepository.find_by_title('Compendium Vitae').first
     doc.title.must_equal('Compendium Vitae')
   end
 
 
   it 'can visit the page and see the document 777' do
+
+    skip
 
     puts "USER = #{@user.full_name}".magenta
     visit "/document/#{@document.id}"

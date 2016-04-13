@@ -12,14 +12,12 @@ module Noteshare
                :rendered_aside_content, :table_of_contents, :redirect_path
 
         def initialize(params, user, reader_type='document')
-          puts "Hey!!! this is ReadDocument, initialize".red
           @user = user
           # The reader type is one of: 'document', 'aside', 'compiled', 'view_source', 'titlepage'
           @reader_type = reader_type
           id = params['id']
           @document = DocumentRepository.find(id)
           if @document == nil
-            puts "Sorry boss, the document you want ain't there no more".red
             @redirect_path = "/error?Document #{id} not found"
           end
         end
@@ -62,7 +60,6 @@ module Noteshare
         end
 
         def prepare_rendered_content
-          puts "PREPARE DOC".red
           ContentManager.new(@document).update_content if @document && @document.content
           if @document.rendered_content and @document.rendered_content != ''
             @rendered_content = @document.rendered_content

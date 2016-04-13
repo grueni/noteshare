@@ -11,7 +11,6 @@ module Web::Controllers::Documents
            :active_item, :active_item2,  :view_options
 
     def call(params)
-      puts "Boss this is Docuemnts, Show".red
       @active_item = 'reader'
       @active_item2 = 'standard'
       @view_options =  {stem: 'document'}

@@ -137,7 +137,6 @@ describe DocumentManager do
     document_manager.move(c,0)
 
     toc = TOC.new(doc)
-    puts toc.display
     doc.subdocument(0).title.must_equal 'C'
     doc.subdocument(1).title.must_equal 'A'
     doc.subdocument(2).title.must_equal 'B'
@@ -161,8 +160,6 @@ describe DocumentManager do
 
     document_manager.move(a,1)
 
-    toc = TOC.new(doc)
-    puts toc.display
     doc.subdocument(0).title.must_equal 'B'
     doc.subdocument(1).title.must_equal 'A'
     doc.subdocument(2).title.must_equal 'C'
@@ -186,8 +183,6 @@ describe DocumentManager do
 
     document_manager.move(a,2)
 
-    toc = TOC.new(doc)
-    puts toc.display
     doc.subdocument(0).title.must_equal 'B'
     doc.subdocument(1).title.must_equal 'C'
     doc.subdocument(2).title.must_equal 'A'

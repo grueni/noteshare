@@ -1,5 +1,6 @@
 require 'spec_helper'
 include Noteshare
+include Noteshare::Core::Document # for TOC
 
 describe TOC do
 
@@ -36,43 +37,37 @@ describe TOC do
 
   it 'can initialize a document' do
 
-
     @article = DocumentRepository.create(NSDocument.new(title: 'Quantum Mechanics', author_credentials: @author_credentials))
     @article.title.must_equal('Quantum Mechanics')
-
-
+    
   end
 
 
 
   it 'can be initialized from an NSDocument and then the raw data is []' do
 
+    manager = DocumentManager.new(@article)
 
-    @section1.add_to(@article)
-    @section2.add_to(@article)
-    @section3.add_to(@article)
+    manager.append(@section1)
+    manager.append(@section2)
+    manager.append(@section3)
 
   end
 
 
   it 'can compile a document to deeper levels using recursion cccc' do
 
-    @section1.add_to(@article)
-    @section2.add_to(@article)
-    # @subsection.add_to(@section2)
-    @section3.add_to(@article)
+    manager = DocumentManager.new(@article)
+
+    manager.append(@section1)
+    manager.append(@section2)
+    manager.append(@section3)
 
     compiled_text = @article.compile
-
-
-    #compiled_text2 = @section2.compile
-    #compiled_text2.must_include @section2.content
-    # compiled_text2.must_include @subsection.content
 
     compiled_text.must_include @article.content
     compiled_text.must_include @section1.content
     compiled_text.must_include @section2.content
-    # compiled_text.must_include @subsection.content
 
   end
 

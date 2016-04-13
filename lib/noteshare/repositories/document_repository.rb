@@ -107,8 +107,6 @@ class DocumentRepository
 
   def self.basic_search(user, key, mode, scope, limit: 20)
 
-    puts "Search where key = #{key} mode = #{mode}, scope = #{scope}".red
-
     case scope
       when 'personal'
         user ? scope_clause = "AND author_id = #{user.id}" : ''
@@ -143,10 +141,8 @@ class DocumentRepository
     end
 
     query = "SELECT id FROM documents #{search_clause} #{scope_clause} #{mode_clause} "
-    puts "QUERY: #{query}".red
     array = fetch(query)
     array = array.map{ |h| h[:id] }.uniq
-    puts "Found #{array.count} items".cyan
     array.map{ |id| DocumentRepository.find id }.select{ |item| item.title }.sort_by{ |item| item.title }
   end
 
@@ -164,7 +160,6 @@ class DocumentRepository
     descendants = self.descendants(doc_id)
     n = descendants.count
     descendants.each do |doc|
-      puts "#{doc.id}: #{doc.title}" if switches.include? :verbose
       DocumentRepository.delete doc if switches.include? :kill
     end
     doc = DocumentRepository.find(doc_id) if switches.include? :verbose

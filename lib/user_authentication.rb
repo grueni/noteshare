@@ -25,7 +25,6 @@ class UserAuthentication
   end
 
   def login(session)
-    puts "Enter UserAuthenticator # login ".magenta
 
     if authenticate
       session[:user_id] = @user.id
@@ -57,7 +56,6 @@ module SessionTools
   include Keen
 
   def logout(user, session)
-    puts "LOGOUT".red
     if user
       user.remember_current_document_id(session)
       UserRepository.update user

@@ -6,6 +6,8 @@ include FeatureHelpers::Common
 describe 'List users' do
   it 'displays the users' do
 
+    skip
+
     User.create(first_name: 'Jared', last_name: 'Foo-Bar', screen_name: 'jayfoo', password: 'foobar123', password_confirmation: 'foobar123')
 
     #Fixme, should log in an admin user, etc

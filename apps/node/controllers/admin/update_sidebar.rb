@@ -5,10 +5,7 @@ module Node::Controllers::Admin
     def call(params)
       data = params['node']
 
-      puts "data: #{data.inspect}".red
       sidebar_text = data['sidebar_text'] || ''
-
-      puts "sidebar_text: #{sidebar_text}".cyan
 
       id = params['id']
       node = NSNodeRepository.find id
