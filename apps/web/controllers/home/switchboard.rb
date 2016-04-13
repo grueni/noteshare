@@ -26,6 +26,8 @@ module Web::Controllers::Home
     # 'public' and 'personal'
     def handle_incoming_node
 
+      puts "handle_incoming_node".red
+
       referer = request.env["HTTP_REFERER"]
       puts "referer: #{referer}".cyan
       @incoming_node = NSNode.from_http(request)
