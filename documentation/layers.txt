@@ -60,4 +60,10 @@ Noteshare
 
   Tool
       CommandProcessor
+        Commmand
+        CommandProcesor
+        CommandRepository
+        TokenCommandProcessor
+Utility
+  Hash
 

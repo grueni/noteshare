@@ -216,8 +216,8 @@ Lotus::Model.configure do
     end
 
     collection :commands2 do
-      entity Command
-      repository CommandRepository
+      entity Noteshare::Tool::CommandProcessor::Command
+      repository Noteshare::Tool::CommandProcessor::CommandRepository
 
       attribute :token, String
       attribute :command_verb, String
