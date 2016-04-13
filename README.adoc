@@ -1,34 +1,21 @@
-The purpose of this project is to lay the groundwork for a future version
-of http://www.noteshare.io[Noteshare.io] -- a (technical) web publishing
+The project is running at http://scripta.io[Scripta.io].  It
+is a re-engineeing of http://www.noteshare.io[Noteshare.io] 
+-- a (technical) web publishing
 site powered by the awesome http://asciidoctor.org[Asciidoctor.org] text
-processing engine.  In addition to supporting Noteshare.io, the project
-aims to develop a good chunked editing system for general use.
+processing engine.  
 
-== Setup
+++++
+<a href="https://codeclimate.com/github/jxxcarlson/noteshare"><img src="https://codeclimate.com/github/jxxcarlson/noteshare/badges/gpa.svg" /></a>
+++++
 
-. Clone this repository
+++++
+<a href="https://codeclimate.com/github/jxxcarlson/noteshare/coverage"><img src="https://codeclimate.com/github/jxxcarlson/noteshare/badges/coverage.svg" /></a>
+++++
 
-. Make sure that your Postgres database is set up, that
-`psql` is installed, and the `psql` can access your
-database.
+++++
+<a href="https://codeclimate.com/github/jxxcarlson/noteshare"><img src="https://codeclimate.com/github/jxxcarlson/noteshare/badges/issue_count.svg" /></a>
+++++
 
-. (Optional)  Edit the file `lib/noteshare/entities/ns_document_setup.rb`
-so that the line `UsersRepository.create(Users.new(first_name: 'Jason', last_name: 'Foo-Bar'))` reflects your identity.
-It will be used to set the authorship of documents created in this
-experimentail version of Noteshare.
 
-. In the `Noteshare` directory, run `sh setup.sh USERNAME`.  This
-will create the tables needed by Noteshare.
-The contents of the file `setup.sh` read as follows
-+
-----
-psql -U $1 -d noteshare_test --file psql.setup
-psql -U $1 -d noteshare_development --file psql.setup
-----
-You will have to modify things if you have tables
-of the same name:-)
+(Pretty bad, huh?)
 
-. Run `lotus console` and then execute the command `NSDocument::Setup.seed_db`
-
-You can now view the local Noteshare website at http://localhost:2300.
-It still needs quite a bit of work.
