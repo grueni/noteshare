@@ -6,9 +6,13 @@ processing engine.
 
 ++++
 <a href="https://codeclimate.com/github/jxxcarlson/noteshare"><img src="https://codeclimate.com/github/jxxcarlson/noteshare/badges/gpa.svg" /></a>
+++++
 
+++++
 <a href="https://codeclimate.com/github/jxxcarlson/noteshare/coverage"><img src="https://codeclimate.com/github/jxxcarlson/noteshare/badges/coverage.svg" /></a>
+++++
 
+++++
 <a href="https://codeclimate.com/github/jxxcarlson/noteshare"><img src="https://codeclimate.com/github/jxxcarlson/noteshare/badges/issue_count.svg" /></a>
 ++++
 
