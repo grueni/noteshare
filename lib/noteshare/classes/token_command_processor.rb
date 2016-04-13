@@ -1,4 +1,4 @@
-class CommandProcessor
+class TokenCommandProcessor
 
 
   def initialize(hash)

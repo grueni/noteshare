@@ -77,7 +77,7 @@ module SessionManager::Controllers::User
 
         token = params[:user]['token']
         if token != ''
-          cp = CommandProcessor.new(user: new_user, token: token)
+          cp = TokenCommandProcessor.new(user: new_user, token: token)
           cp.execute
         end
 

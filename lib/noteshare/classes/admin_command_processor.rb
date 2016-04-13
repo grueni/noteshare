@@ -120,7 +120,7 @@ class AdminCommandProcessor
   def use_token
     return if authorize_user_for_level(1) == false
     @response = "ok: using token #{@token}"
-    cp = CommandProcessor.new(user: @user, token: @token)
+    cp = TokenCommandProcessor.new(user: @user, token: @token)
     @response = cp.execute
   end
 
@@ -130,7 +130,7 @@ class AdminCommandProcessor
     return if authorize_user_for_level(2) == false
     token = "#{@user.screen_name}_#{@token}"
     group = "#{@user.screen_name}_#{@group}"
-    cp = CommandProcessor.new(token: token, user: @user)
+    cp = TokenCommandProcessor.new(token: token, user: @user)
     @error = cp.put(command: @command, args: [group], days_alive: @days.to_i)
   end
 
@@ -147,7 +147,7 @@ class AdminCommandProcessor
   def add_doc_token_days
     return if authorize_user_for_level(2) == false
     token = "#{@user.screen_name}_#{@token}"
-    cp = CommandProcessor.new(token: token, user: @user)
+    cp = TokenCommandProcessor.new(token: token, user: @user)
     @error = cp.put(command: @command, args: [@doc], days_alive: @days.to_i)
   end
 
@@ -158,7 +158,7 @@ class AdminCommandProcessor
     return if authorize_user_for_level(2) == false
     group = "#{@user.screen_name}_#{@and_group}"
     token = "#{@user.screen_name}_#{@token}"
-    cp = CommandProcessor.new(token: token, user: @user)
+    cp = TokenCommandProcessor.new(token: token, user: @user)
     @error = cp.put(command: @command, args: [group, @doc], days_alive: @days.to_i)
   end
 
