@@ -8,6 +8,7 @@ module SessionManager::Controllers::User
   class Create
     include SessionManager::Action
     include Noteshare::Subdomain
+    include Noteshare::Tool::CommandProcessor
     include Keen
 
     def call(params)

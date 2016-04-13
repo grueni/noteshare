@@ -1,6 +1,7 @@
 module Admin::Controllers::Home
   class ProcessCommand
     include Admin::Action
+    include Noteshare::Tool::CommandProcessor
 
     def call(params)
       puts "Howdy!"
@@ -26,7 +27,7 @@ module Admin::Controllers::Home
         # halt 401
       end
 
-      acp = AdminCommandProcessor.new(user: current_user2, node_id: node_id, input: command)
+      acp = CommandProcessor.new(user: current_user2, node_id: node_id, input: command)
       result = acp.execute
 
 
