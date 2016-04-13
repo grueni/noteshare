@@ -2,9 +2,12 @@
 require_relative '../../../../lib/ui/links'
 
 module Web::Controllers::Home
+
+
   class Switchboard
     include Web::Action
     include UI::Links
+    include Noteshare::Core::Node
 
     expose :active_item
 
