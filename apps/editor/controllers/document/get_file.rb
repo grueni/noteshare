@@ -1,6 +1,7 @@
 module Editor::Controllers::Document
   class GetFile
     include Editor::Action
+    include Noteshare::Core::Document
 
 
     def get_new_document_text

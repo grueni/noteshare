@@ -1,6 +1,7 @@
 module Web::Views::Documents
   class Aside
     include Web::View
+    include Noteshare::Presenter::Document
 
     def root_document_title
       root =  root_document || self

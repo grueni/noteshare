@@ -1,3 +1,5 @@
+include Noteshare::Core::Document
+
 class Exporter
 
 

@@ -1,6 +1,7 @@
 module Editor::Views::Document
   class MiniEdit
     include Editor::View
+    include Noteshare::Presenter::Document
 
     def form
       puts "form EDITOR".red

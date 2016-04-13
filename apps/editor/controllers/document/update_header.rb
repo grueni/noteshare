@@ -1,6 +1,7 @@
 module Editor::Controllers::Document
   class UpdateHeader
     include Editor::Action
+    include Noteshare::Core::Document
 
     def call(params)
       id = params[:id]

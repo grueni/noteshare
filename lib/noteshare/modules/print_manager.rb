@@ -1,3 +1,5 @@
+include Noteshare::Core::Document
+
 class PrintManager
 
   require_relative '../modules/css_data'

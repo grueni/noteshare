@@ -1,5 +1,7 @@
 module Editor::Controllers::Document
 
+  include Noteshare::Core::Document
+
   # This code is called restfully by Javascript,
   # ajaxs $.post. See javascripts/editor.js
   class JsonUpdate

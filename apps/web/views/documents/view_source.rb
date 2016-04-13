@@ -1,6 +1,7 @@
 module Web::Views::Documents
   class ViewSource
     include Web::View
+    include Noteshare::Presenter::Document
 
     def document_presenter
       DocumentPresenter.new(document)

@@ -1,6 +1,7 @@
 module Admin::Controllers::Course
   class DoImport
     include Admin::Action
+    include OldNoteshare
 
     def call(params)
       redirect_if_not_admin('Attempt to import course (admin, course, do_import)')

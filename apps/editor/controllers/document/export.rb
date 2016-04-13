@@ -1,6 +1,7 @@
 module Editor::Controllers::Document
   class Export
     include Editor::Action
+    include Noteshare::Core::Document
 
     expose :document, :active_item
 

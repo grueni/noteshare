@@ -5,6 +5,7 @@ module Web::Controllers::Documents
   class ViewSource
     include Web::Action
     include Noteshare::Interactor::Document
+    include Noteshare::Core::Document
 
     expose :document, :root_document, :updated_text, :payload,
            :current_image,:active_item, :active_item2, :view_options

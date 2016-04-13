@@ -1,6 +1,7 @@
 require 'spec_helper'
 
 include Noteshare::Core::Document
+include OldNoteshare
 
 describe Course do
 

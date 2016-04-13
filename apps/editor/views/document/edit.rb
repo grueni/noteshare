@@ -1,6 +1,7 @@
 module Editor::Views::Document
   class Edit
     include Editor::View
+    include Noteshare::Presenter::Document
 
 
     def form

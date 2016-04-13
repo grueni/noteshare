@@ -177,8 +177,8 @@ Lotus::Model.configure do
 
 
     collection :courses do
-      entity     Course
-      repository CourseRepository
+      entity     OldNoteshare::Course
+      repository OldNoteshare::CourseRepository
 
       attribute :id,    Integer
       attribute :title, String
@@ -193,8 +193,8 @@ Lotus::Model.configure do
     end
 
     collection :lessons do
-      entity     Lesson
-      repository LessonRepository
+      entity     OldNoteshare::Lesson
+      repository OldNoteshare::LessonRepository
 
       attribute :id,    Integer
       attribute :title, String

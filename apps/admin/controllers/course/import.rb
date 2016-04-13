@@ -1,6 +1,7 @@
 module Admin::Controllers::Course
   class Import
     include Admin::Action
+    include OldNoteshare
 
     expose :active_item
 

@@ -7,6 +7,9 @@ module Noteshare
       class EditDocument
 
         include Lotus::Interactor
+        include Noteshare::Core::Document
+
+
         expose :document, :root_document, :updated_text, :editors, :redirect_path, :associated_document_mapper
 
         def initialize(params, user)
