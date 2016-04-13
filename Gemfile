@@ -7,7 +7,8 @@ gem 'bundler'
 gem 'rake'
 gem 'pry'
 gem 'pry-nav'
-
+# gem 'simplecov', :require => false, :group => :test
+# gem 'simplecov', :require => false, :group => :test
 
 gem 'puma'
 gem "puma_worker_killer" # TEMPORARY MEASURE
