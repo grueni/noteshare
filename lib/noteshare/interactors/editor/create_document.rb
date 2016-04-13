@@ -37,7 +37,7 @@ module Noteshare
           @document.compiled_dirty = false
           DocumentRepository.update @document
           @document.acl_set_permissions!('rw', 'r', '-')
-          DocumentActivityManager.new(@author).record(@first_section)
+          Noteshare::Helper::Document::DocumentActivityManager.new(@author).record(@first_section)
 
           update_user_node
           @redirect_path = "document/#{@first_section.id}"

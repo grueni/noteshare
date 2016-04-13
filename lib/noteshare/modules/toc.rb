@@ -6,6 +6,25 @@ module Noteshare
   module Core
     module Document
 
+
+      class InternalTableOfContents
+
+        def initialize(document)
+          @document = document
+        end
+
+        def  table(attributes, options)
+
+          (attributes.include? 'root') ? source = @document.compiled_content : source = @document.content
+
+          toc =  Noteshare::AsciidoctorHelper::NSTableOfContents.new(source, attributes, options)
+
+          toc.table || ''
+
+        end
+
+      end
+
       # A TOC object is initialized
       # from a document and represents
       # the document.toc array of hashes
@@ -170,7 +189,10 @@ module Noteshare
 
       class OuterTableOfContents
 
-        # exmaples:
+
+        include Noteshare::Core::Document
+
+        # examples:
         # options = {active_id: 44}
         def initialize(document, attributes, options)
 
@@ -249,7 +271,8 @@ module Noteshare
           doc = DocumentRepository.find item.id
           return '' if doc == nil
 
-          itoc = TOCPresenter.new(doc).internal_table_of_contents(attributes, {doc_id: doc.id} )
+          # itoc = TOCPresenter.new(doc).internal_table_of_contents(attributes, {doc_id: doc.id} )
+          itoc = InternalTableOfContents.new(doc).table(attributes, {doc_id: doc.id} )
           output << itoc
           # Fixme: memoize, make lazy what we can.
 
@@ -262,6 +285,7 @@ module Noteshare
         end
 
       end
+
     end
   end
 end

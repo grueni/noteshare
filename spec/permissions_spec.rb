@@ -44,7 +44,7 @@ describe Permission do
 
   it 'denies a generic user editing and delete access ta a document wth permissions rw, r, - ummm' do
 
-    @document.acl_info
+    # @document.acl_info
 
     Permission.new(@janedoe, :create, @document).grant.must_equal(false)
     Permission.new(@janedoe, :read, @document).grant.must_equal(true)

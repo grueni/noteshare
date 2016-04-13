@@ -1,7 +1,10 @@
 require_relative '../../lib/noteshare/modules/tools'
 require_relative '../../lib/acl'
+include Noteshare::Helper::Document
+include Noteshare::Core::Document
 
 module UI
+
 
   #####################################################
   #

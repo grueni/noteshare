@@ -8,10 +8,7 @@ describe Settings do
     # The database is set up to have exactly one entry:n
     # SettingsRepository.clear
     # @settings = Settings.new(id: 1, message: 'Howdy', owner: 'Jason Foo-Bar')
-    # puts @settings.owner.red
-    # SettingsRepository.create @settings
     @settings = SettingsRepository.first
-    puts @settings.owner.red
   end
 
   describe 'initialization' do
@@ -60,8 +57,6 @@ describe Settings do
     it 'can update its image in the database' do
 
       @settings.set 'foo': 1111
-      puts @settings.inspect.cyan
-      # @settings.update
       SettingsRepository.update @settings
       @settings = SettingsRepository.first
       @settings.get_key('foo').must_equal('1111')

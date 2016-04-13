@@ -43,7 +43,7 @@ Lotus::Model.configure do
     # ...
     collection :documents do
       entity     Noteshare::Core::Document::NSDocument
-      repository DocumentRepository
+      repository Noteshare::Core::Document::DocumentRepository
       attribute :id,   Integer
       attribute :title, String
       attribute :identifier, String

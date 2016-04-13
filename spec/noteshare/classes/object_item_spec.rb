@@ -23,7 +23,7 @@ describe ObjectItemList do
     hash2 = { id: 22, title: 'Goodbye' }
     array = [hash1, hash2]
     object_list = ObjectItemList.new(array)
-    puts object_list.display
+
 
   end
 
@@ -33,7 +33,6 @@ describe ObjectItemList do
     hash2 = { id: 22, title: 'Goodbye' }
     array = [hash1, hash2]
     oil = ObjectItemList.new(array)
-    puts oil.to_hash_array
     oil.table[0].id.must_equal(hash1[:id])
     oil.table[0].title.must_equal(hash1[:title])
 
@@ -59,7 +58,6 @@ describe ObjectItemList do
     oil = ObjectItemList.new(array)
     oi = ObjectItem.new(33, 'Shaking hands')
     oil.insert(1, oi)
-    puts oil
 
   end
 

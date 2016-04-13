@@ -49,7 +49,7 @@ module Noteshare
           return unless validated
           configure_root_document
           ContentManager.new(@document).update_content
-          DocumentActivityManager.new(@user).record(@document) if @user
+          Noteshare::Helper::Document::DocumentActivityManager.new(@user).record(@document) if @user
           Analytics.record_document_view(@user, @document)
           prepare_rendered_content
           prepare_aside if @reader_type == 'aside'
@@ -103,9 +103,12 @@ module Noteshare
             when 'view_source'
               @table_of_contents = TOCPresenter.new(@document.root_document).root_table_of_contents(@document.id, @reader_type)
             when 'compiled'
-              @table_of_contents = TOCPresenter.new(@root_document).internal_table_of_contents(['root', 'titlepage', 'sectnums', 'skip_first_item'], { doc_id: @root_document.id })
+              # @table_of_contents = TOCPresenter.new(@root_document).internal_table_of_contents(['root', 'titlepage', 'sectnums', 'skip_first_item'], { doc_id: @root_document.id })
+              @table_of_contents = Noteshare::Core::Document::InternalTableOfContents.new(@root_document).table(['root', 'titlepage', 'sectnums', 'skip_first_item'], { doc_id: @root_document.id })
             when 'titlepage'
-              @table_of_contents = TOCPresenter.new(@root_document).internal_table_of_contents(['root', 'titlepage', 'sectnums', 'skip_first_item'], { doc_id: @root_document.id })
+              # @table_of_contents = TOCPresenter.new(@root_document).internal_table_of_contents(['root', 'titlepage', 'sectnums', 'skip_first_item'], { doc_id: @root_document.id })
+              @table_of_contents = Noteshare::Core::Document::InternalTableOfContents.new(@root_document).table(['root', 'titlepage', 'sectnums', 'skip_first_item'], { doc_id: @root_document.id })
+
             else
               @table_of_contents = TOCPresenter.new(@document.root_document).root_table_of_contents(@document.id, 'document')
           end

@@ -27,7 +27,6 @@ module Admin::Controllers::Home
 
       redirect_if_not_admin('Attempt to show analytics (admin, home, show analytics)')
 
-      puts "Here is controller DisplayAnalytics".magenta
       @active_item = 'admin'
 
       document_view_count_signed_in = Analytics.get_keen_data(query_type: 'count', collection: 'document_views_signed_in')

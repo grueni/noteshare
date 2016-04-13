@@ -15,7 +15,7 @@ module Web::Controllers::Documents
       @active_item2 = 'standard'
       @view_options =  {stem: 'document'}
 
-      @payload = ReadDocument.new(params, current_user2).call
+      @payload = ReadDocument.new(params, current_user2, 'document').call
       redirect_to_path @payload.redirect_path
       handle_error(@payload.error)
       @document = @payload.document

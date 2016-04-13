@@ -172,7 +172,8 @@ class TOCPresenter
     return '' if doc == nil
 
     toc_presenter =  TOCPresenter.new(doc)
-    output << toc_presenter.internal_table_of_contents(attributes, {doc_id: doc.id, target: target } )
+    # output << toc_presenter.internal_table_of_contents(attributes, {doc_id: doc.id, target: target } )
+    output << Noteshare::Core::Document::InternalTableOfContents.new(@document).table(attributes, {doc_id: doc.id, target: target } )
     # Fixme: memoize, make lazy what we can.
 
     # Here is where the recursion happens:

@@ -18,9 +18,11 @@ Interactor
 Presenter
   Document
     AssociateDocMapper
+    DocumentPresenter
 Helper
   Document
     DocsVisited
+    DocumentActivityManager
   Image
     ImagesVisited
   Node
@@ -28,6 +30,8 @@ Helper
 Core
   Document
     DocumentManager
+    DocumentRepository
+    InternalTableOfContents
     NSDocument
     ObjectItem
     ObjectItemList
