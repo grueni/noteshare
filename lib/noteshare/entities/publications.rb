@@ -12,8 +12,8 @@
 # pointing to the document and the node.
 class Publications
   include Lotus::Entity
-  include Noteshare::Core::Document
-  include Noteshare::Core::Node
+  # include Noteshare::Core::Document
+  # include Noteshare::Core::Node
 
   attributes :id, :node_id, :document_id, :type
   # type can be 'author', 'principal', or ''
@@ -45,7 +45,7 @@ class Publications
   end
 
   def document
-    DocumentRepository.find document_id
+    Noteshare::Core::Document::DocumentRepository.find document_id
   end
 
   def document_title
@@ -53,14 +53,14 @@ class Publications
   end
 
   def node
-    NSNodeRepository.find node_id
+    Noteshare::Core::Node::NSNodeRepository.find node_id
   end
 
   # Add publication record with given node_id and document_id
   # unless one of those id's is invalid, e.g., not present
   def self.add_record(node_id, document_id, type)
-    return if (NSNodeRepository.find node_id) == nil
-    return if (DocumentRepository.find document_id) == nil
+    return if (Noteshare::Core::Document::NSNodeRepository.find node_id) == nil
+    return if (Noteshare::Core::Document::DocumentRepository.find document_id) == nil
     record = self.find_for_pair(node_id,document_id)
     if record == nil
       publication = Publications.new(node_id: node_id, document_id: document_id, type: type)
@@ -106,7 +106,7 @@ class Publications
   end
 
   def set_default_type
-    node = NSNodeRepository.find self.node_id
+    node = Noteshare::Core::Node::NSNodeRepository.find self.node_id
     if node == nil
       PublicationsRepository.delete self
       return
@@ -121,7 +121,7 @@ class Publications
 
   def self.set_type_for_all
     count = 0
-    DocumentRepository.root_documents.each do |doc|
+    Noteshare::Core::Document::DocumentRepository.root_documents.each do |doc|
       puts "doc: #{doc.id}"
       records = PublicationsRepository.records_for_document doc.id
       records = records.select{ |r| r != nil }
@@ -150,7 +150,7 @@ class Publications
   end
 
   def publicationsManager
-    doc = DocumentRepository.find self.document_id
+    doc = Noteshare::Core::Document::DocumentRepository.find self.document_id
     PublicationsManager.new(doc) if doc
   end
 
@@ -200,7 +200,7 @@ class Publications
   end
 
   def doc_title
-    doc = Document_Repository.find document_id
+    doc = Noteshare::Core::Document::Document_Repository.find document_id
     doc.title
   end
 
@@ -209,7 +209,7 @@ end
 
 class PublicationsManager
   # include Noteshare::Core::Document
-  include Noteshare::Core::Node
+  # include Noteshare::Core::Node
 
   def initialize(document)
     @document = document
@@ -218,7 +218,7 @@ class PublicationsManager
   def principal_publisher
     query = PublicationsRepository.principal_publisher_for_document(@document.id)
     record = query.first
-    NSNodeRepository.find record.node_id if record
+    Noteshare::Core::Node::NSNodeRepository.find record.node_id if record
   end
 
   def author_node
@@ -264,7 +264,7 @@ class PublicationsManager
     records = PublicationsRepository.records_for_document @document.id
     _publishers = {}
     records.each do |record|
-      node = NSNodeRepository.find record.node_id
+      node = Noteshare::Core::Node::NSNodeRepository.find record.node_id
       if node
         _publishers[node.name] = {node_id: node.id, record_id: record.id, type: record.type}
       end
@@ -282,7 +282,7 @@ class PublicationsManager
       end
     end
 
-    node = NSNodeRepository.find_one_by_name node_name
+    node = Noteshare::Core::Node::NSNodeRepository.find_one_by_name node_name
     record = Publications.find_for_pair(node.id, @document.id)
     if record
       record.type = 'principal'
@@ -292,7 +292,7 @@ class PublicationsManager
   end
 
   def delete_publication_for_node(node_name)
-    node = NSNodeRepository.find_one_by_name node_name
+    node = Noteshare::Core::Node::NSNodeRepository.find_one_by_name node_name
     if node == nil
       puts "NODE IS NIL".magenta
     end
