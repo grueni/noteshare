@@ -1,5 +1,5 @@
 require 'lotus/interactor'
-require '../../classes/node/node_presenter'
+# require '../../classes/node/node_presenter'
 require '../../classes/node/node_activity_manager'
 
 module Noteshare
