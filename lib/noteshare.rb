@@ -4,6 +4,8 @@ require 'lotus/mailer'
 require_relative './ext/pg_array'
 require_relative './ext/pg_hstore'
 
+include Database
+
 Dir["#{ __dir__ }/noteshare/**/*.rb"].each { |file| require_relative file }
 
 Lotus::Model.configure do
