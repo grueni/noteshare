@@ -3,9 +3,11 @@ require 'pry'
 module Noteshare
   module Presenter
     module Document
+
+      include Noteshare::Core::Document
       class TOCPresenter
 
-        include Noteshare::Core::Document
+
 
         def initialize(document)
 
