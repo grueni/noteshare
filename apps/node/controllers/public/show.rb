@@ -11,7 +11,7 @@ module Node::Controllers::Public
 
     def call(params)
 
-      puts "In interactor PublicShow, node_id = #{params[:id]}".red
+      puts "In controller Public Show, node_id = #{params[:id]}".red
       result = PublicShow.new(user: current_user2, node_id: params[:id]).call
       @node = result.node
       @user = result.user

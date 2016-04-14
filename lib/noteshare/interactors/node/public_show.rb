@@ -16,7 +16,7 @@ module Noteshare
                :sidebar_text, :rendered_sidebar_text, :presenter, :show_overlay
 
         def initialize(hash)
-          @node = NSNode.get_node(hash[:node_name])
+          @node = NSNode.get_node(hash[:node_id])
           puts "Interactor public_show, node = #{@node.name}".red
           @user = hash[:user]
         end
