@@ -59,6 +59,7 @@ Noteshare
       Node
         Neighbors
         NodesVisited
+        NodeActivityManager
 
   Tool
       CommandProcessor

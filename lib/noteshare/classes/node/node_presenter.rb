@@ -81,7 +81,7 @@ module Noteshare
         end
 
         def recent_nodes
-          NodeActivityManager.new(user: @user).list
+          Noteshare::Helper::Node::NodeActivityManager.new(user: @user).list
         end
 
         def setup_message

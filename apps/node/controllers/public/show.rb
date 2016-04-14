@@ -6,6 +6,7 @@ module Node::Controllers::Public
     include Node::Action
     include NodeMapper
     include Noteshare::Presenter::Node
+    include Noteshare::Helper::Node
 
     expose :node, :user, :active_item, :layout_option, :blurb_text, :rendered_text
     expose :sidebar_text, :rendered_sidebar_text, :presenter, :show_overlay

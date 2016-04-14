@@ -36,7 +36,14 @@ module Node
     end
 
     def current_user2
-      @current_user2 ||= UserRepository.find(session[:user_id])
+      if ENV['LOTUS_ENV'] == 'test'
+        puts "Creating mock user Jared Foo-Bar".red
+        @current_user2 = User.create(first_name: 'Jared', last_name: 'Foo-Bar', email: 'jayfoo@bar.com',
+                                     screen_name: 'jayfoo', password: 'foobar123', password_confirmation: 'foobar123')
+      else
+        @current_user2 ||= UserRepository.find(session[:user_id])
+      end
+
     end
 
   end

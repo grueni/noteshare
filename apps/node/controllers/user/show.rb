@@ -10,6 +10,11 @@ module Node::Controllers::User
 
     def call(params)
 
+      puts "HOLA!!!".red
+
+      puts "params[:id] = #{params[:id]}".red
+
+
       @active_item = 'node'
 
       # get current user node
@@ -19,7 +24,7 @@ module Node::Controllers::User
         redirect_to '/error:0?Sorry, your node could not be found'
       end
 
-      @presenter = NodePresenter.new(@current_node, current_user2)
+      @presenter = Noteshare::Presenter::Node::NodePresenter.new(@current_node, current_user2)
 
       # get current document
       if session[:current_document_id]

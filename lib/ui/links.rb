@@ -121,7 +121,7 @@ module UI
     def current_node_link(session, active_item='')
       cu = current_user(session)
       return ''  if cu == nil
-      nam = NodeActivityManager.new(user: cu)
+      nam = Noteshare::Helper::Node::NodeActivityManager.new(user: cu)
       nam.configure
       last_node_name = nam.last_node_name
 
