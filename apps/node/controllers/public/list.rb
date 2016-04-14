@@ -7,7 +7,7 @@ module Node::Controllers::Public
     def call(paramm)
       @active_item = 'admin'
       puts "call: controller Node, Public, List".red
-      @nodes = NSNodeRepository.all
+      @nodes = NSNode.all
     end
 
   end

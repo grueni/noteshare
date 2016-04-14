@@ -15,7 +15,7 @@ describe PublicShow do
 
     @node = NSNode.create('foo', @user.id, 'public','foo')
     NSNodeRepository.update @node
-    
+
   end
 
   it 'can blah blah' do

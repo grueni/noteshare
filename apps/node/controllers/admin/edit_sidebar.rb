@@ -8,11 +8,11 @@ module Node::Controllers::Admin
       redirect_if_not_signed_in('image, Admin,  Edit')
       @active_item='admin'
       id = params['id']
-      @node = NSNodeRepository.find(id)
+      @node = NSNode.find(id)
       #fixme:
       if @node.meta == nil
         @node.meta = {}
-        NSNodeRepository.update @node
+        NSNode.update @node
       end
 
     end

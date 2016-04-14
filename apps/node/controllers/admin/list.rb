@@ -1,4 +1,4 @@
-module Node::Controllers::Admin
+ module Node::Controllers::Admin
   class List
     include Node::Action
     include Noteshare::Core::Document

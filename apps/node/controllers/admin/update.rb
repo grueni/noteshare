@@ -11,7 +11,7 @@ module Node::Controllers::Admin
       data = params['node']
       node_id  = data['node_id']
       dictionary = data['dictionary']
-      result = UpdateNode.new(node_id, dictionary).call
+      result = Noteshare::Interactor::Node::UpdateNode.new(node_id, dictionary).call
       @node = result.node
       redirect_to "/node/#{node_id}"
     end

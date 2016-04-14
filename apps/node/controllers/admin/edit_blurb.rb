@@ -7,11 +7,11 @@ module Node::Controllers::Admin
     def call(params)
       @active_item='admin'
       id = params['id']
-      @node = NSNodeRepository.find(id)
+      @node = NSNode.find(id)
       #fixme:
       if @node.meta == nil
         @node.meta = {}
-        NSNodeRepository.update @node
+        @node.update
       end
     end
   end

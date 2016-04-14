@@ -8,7 +8,7 @@ module Node::Controllers::Admin
     def call(params)
       blurb_text = params['node']['blurb'] || ''
       node_id =params['id']
-      UpdateNodeBlurb.new(node_id, blurb_text ).call
+      Noteshare::Interactor::Node::UpdateNodeBlurb.new(node_id, blurb_text ).call
       redirect_to basic_link current_user2.screen_name, "node/#{node_id}"
     end
 

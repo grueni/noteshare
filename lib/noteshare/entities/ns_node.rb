@@ -93,8 +93,16 @@ module Noteshare
           end
         end
 
+        def self.find(id)
+          NSNodeRepository.find(id)
+        end
+
         def update
           NSNodeRepository.update self
+        end
+
+        def all
+          NSNodeRepository.all
         end
 
 

@@ -8,7 +8,7 @@ module Node::Controllers::Admin
       sidebar_text = data['sidebar_text'] || ''
 
       id = params['id']
-      node = NSNodeRepository.find id
+      node = NSNode.find id
 
       node.meta['sidebar_text'] = sidebar_text
       node.update_sidebar_text
