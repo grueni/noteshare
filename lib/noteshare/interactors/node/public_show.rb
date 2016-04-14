@@ -8,12 +8,14 @@ module Noteshare
         include Lotus::Interactor
         include Noteshare::Presenter::Node
         include Noteshare::Helper::Node
+        include Noteshare::Core::Node
 
         expose :node, :user, :active_item, :layout_option, :blurb_text, :rendered_text,
                :sidebar_text, :rendered_sidebar_text, :presenter, :show_overlay
 
         def initialize(hash)
-          @node = Noteshare::Core::Node::NSNode.get_node(hash[:node_name])
+          @node = NSNode.get_node(hash[:node_name])
+          puts "Interactor public_show, node = #{@node.name}".red
           @user = hash[:user]
         end
 
