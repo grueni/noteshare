@@ -4,7 +4,7 @@ module Noteshare
   module Presenter
     module Node
       class NodePresenter
-        Noteshare::Helper::Node
+        include Noteshare::Helper::Node
 
         def initialize(node, user)
           @node = node
