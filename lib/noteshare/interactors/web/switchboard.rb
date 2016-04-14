@@ -1,14 +1,17 @@
 require 'lotus/interactor'
+require_relative '../../../../lib/ui/links'
 
 module Noteshare
   module Interactor
     module Web
 
-      include UI::Links
+
       class Switchboard
 
         include Lotus::Interactor
         include Noteshare::Core::Node
+        include UI::Links
+
 
         expose :redirect_path
 
