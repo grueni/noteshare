@@ -5,20 +5,16 @@ require 'sequel/extensions/pg_hstore'
 
 Sequel.extension :pg_hstore_ops
 
-module Database
+class PGHStore < Lotus::Model::Coercer
 
-  class PGHStore < Lotus::Model::Coercer
-
-    def self.dump(value)
-      # puts "HSTORE DUMP #{value}".red
-      value = {} if value == nil
-      ::Sequel.hstore(value)
-    end
-
-    def self.load(value)
-      # puts "HSTORE LOAD #{value}".red
-      value == nil ? {} :  ::Kernel.Hash(value)
-    end
+  def self.dump(value)
+    # puts "HSTORE DUMP #{value}".red
+    value = {} if value == nil
+    ::Sequel.hstore(value)
   end
 
+  def self.load(value)
+    # puts "HSTORE LOAD #{value}".red
+    value == nil ? {} :  ::Kernel.Hash(value)
+  end
 end

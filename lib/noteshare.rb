@@ -4,8 +4,7 @@ require 'lotus/mailer'
 require_relative './ext/pg_array'
 require_relative './ext/pg_hstore'
 
-include Database
-include Noteshare::Core::Node
+# include Database
 
 Dir["#{ __dir__ }/noteshare/**/*.rb"].each { |file| require_relative file }
 
