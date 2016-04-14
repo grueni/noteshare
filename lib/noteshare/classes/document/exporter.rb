@@ -1,6 +1,7 @@
-include Noteshare::Core::Document
+
 
 class Exporter
+  include ::Noteshare::Core::Document
 
 
   def initialize(document)
