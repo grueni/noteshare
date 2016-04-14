@@ -1,5 +1,4 @@
 require 'lotus/interactor'
-require_relative '../../modules/node_mapper'
 
 module Noteshare
   module Interactor
@@ -14,7 +13,7 @@ module Noteshare
                :sidebar_text, :rendered_sidebar_text, :presenter, :show_overlay
 
         def initialize(hash)
-          @node = Noteshare::Core::Node::NSNode.get_node(hash[:node_id])
+          @node = Noteshare::Core::Node::NSNode.get_node(hash[:node_name])
           @user = hash[:user]
         end
 

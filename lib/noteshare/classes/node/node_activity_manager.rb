@@ -17,7 +17,7 @@ module Noteshare
         end
 
         def record
-          return if @user == nil
+          return if @user == nil or @user.node == nil
           if @node.name != 'start' && @node.name != @user.node.name
             push(@node)
           end
