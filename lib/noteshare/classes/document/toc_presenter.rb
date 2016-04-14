@@ -5,7 +5,7 @@ module Noteshare
     module Document
 
       class TOCPresenter
-        include Noteshare::Core::Document
+        include ::Noteshare::Core::Document
 
 
         def initialize(document)
