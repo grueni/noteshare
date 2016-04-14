@@ -1,3 +1,5 @@
+require_relative '../../noteshare/classes/node/neighbors'
+
 module Noteshare
   module Tool
     module CommandProcessor
@@ -7,6 +9,8 @@ module Noteshare
       #    command a:b c:d etc
       #    e.g., create-command token:foo123 verb:add_group_and_document group:linearstudent doc:1701
       class CommandProcessor
+
+        Noteshare::Helper::Node
 
 
         def initialize(hash)

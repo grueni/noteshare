@@ -132,7 +132,8 @@ class User
 
   def node
     id = dict2['node']
-    NSNodeRepository.find id if id
+    # fixme -- layer violattion?  Bad pratice?
+    Noteshare::Core::Node::NSNodeRepository.find id if id
   end
 
   def set_node(id_of_node)

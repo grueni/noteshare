@@ -18,6 +18,7 @@ Noteshare
         TOCItem
         TOCManager
       Node
+        NodeRepository
         NSNode
       Text
         DocumentIndex
@@ -56,6 +57,7 @@ Noteshare
       Image
         ImagesVisited
       Node
+        Neighbors
         NodesVisited
 
   Tool

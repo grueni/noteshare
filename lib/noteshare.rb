@@ -124,7 +124,7 @@ Lotus::Model.configure do
 
     collection :nodes do
       entity Noteshare::Core::Node::NSNode
-      repository NSNodeRepository
+      repository Noteshare::Core::Node::NSNodeRepository
       attribute :id, Integer
       attribute :owner_id, Integer
       attribute :identifier, String
