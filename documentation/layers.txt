@@ -40,6 +40,7 @@ Noteshare
         ReadDocument
         UpdateDocumentOptions
       Node
+        PublicShow
         UpdateNode
         UpdateNodeBlurb
       Search

@@ -65,7 +65,7 @@ module Noteshare
         end
 
         def neighboring_nodes_list
-          Neighbors.new(node: @node).html_list
+          Noteshare::Helper::Node::Neighbors.new(node: @node).html_list
         end
 
         def sidebar

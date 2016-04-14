@@ -85,7 +85,17 @@ module Noteshare
           end
         end
 
+        def self.get_node(id)
+          if id =~ /\A\d*\z/
+            NSNodeRepository.find id
+          else
+            NSNodeRepository.find_one_by_name id
+          end
+        end
 
+        def update
+          NSNodeRepository.update self
+        end
 
 
 
