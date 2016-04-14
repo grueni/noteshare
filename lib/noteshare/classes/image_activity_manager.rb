@@ -4,7 +4,7 @@
 # views and can present
 # a list of this activity
 class ImageActivityManager
-  include Noteshare::Helper::Image
+  # include Noteshare::Helper::Image
 
   attr_reader :last_image_id, :last_image_title
 
@@ -17,7 +17,7 @@ class ImageActivityManager
   def record
     return if @user == nil
     array = @user.images_visited
-    iv = ImagesVisited.new(array, ENV['IMAGES_VISITED_CAPACITY'])
+    iv = Noteshare::Helper::Image::ImagesVisited.new(array, ENV['IMAGES_VISITED_CAPACITY'])
     iv.push_image(@image)
     @user.images_visited = iv.stack
     UserRepository.update @user
@@ -26,7 +26,7 @@ class ImageActivityManager
 
   def configure
     array = @user.images_visited || []
-    @object = ImagesVisited.new(array, ENV['IMAGES_VISITED_CAPACITY'])
+    @object = Noteshare::Helper::Image::ImagesVisited.new(array, ENV['IMAGES_VISITED_CAPACITY'])
     @stack = @object.stack
     last_item = @stack.last
     if last_item
