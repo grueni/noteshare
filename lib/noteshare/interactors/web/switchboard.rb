@@ -24,7 +24,7 @@ module Noteshare
         # There are currently two values for the value of @node.type:
         # 'public' and 'personal'
         def handle_incoming_node
-          
+
           puts "referer: #{@referer}".cyan
 
           if @incoming_node
