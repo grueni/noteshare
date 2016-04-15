@@ -208,8 +208,8 @@ class Publications
 end
 
 class PublicationsManager
-  # include ::Noteshare::Core::Document
-  # include Noteshare::Core::Node
+  include ::Noteshare::Core::Document
+  include Noteshare::Core::Node
 
   def initialize(document)
     @document = document
