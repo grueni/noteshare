@@ -1,10 +1,9 @@
-
+require_relative '../modules/css_data'
+require_relative '../classes/document/content_manager'
 
 class PrintManager
 
   include ::Noteshare::Core::Document
-
-  require_relative '../modules/css_data'
   include CSSData
 
 
