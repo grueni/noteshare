@@ -2,6 +2,7 @@
   class Index
     include Web::Action
     include ::Noteshare::Core::Document
+    include ::Noteshare::Core::Node
 
     expose :documents, :nodes, :users
     expose :active_item
