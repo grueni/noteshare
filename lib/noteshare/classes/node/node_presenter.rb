@@ -4,7 +4,8 @@ module Noteshare
   module Presenter
     module Node
       class NodePresenter
-        include Noteshare::Helper::Node
+        include ::Noteshare::Helper::Node
+        include ::Noteshare::Helper::Document
 
         def initialize(node, user)
           @node = node
@@ -65,7 +66,7 @@ module Noteshare
         end
 
         def neighboring_nodes_list
-          Noteshare::Helper::Node::Neighbors.new(node: @node).html_list
+          Neighbors.new(node: @node).html_list
         end
 
         def sidebar
@@ -81,7 +82,7 @@ module Noteshare
         end
 
         def recent_nodes
-          Noteshare::Helper::Node::NodeActivityManager.new(user: @user).list
+          NodeActivityManager.new(user: @user).list
         end
 
         def setup_message
