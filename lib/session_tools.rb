@@ -1,5 +1,6 @@
 
 module HR
+  module Core
 
     require 'keen'
     module SessionTools
@@ -89,6 +90,7 @@ module HR
     end
 
 
-
+  end
 end
+
 

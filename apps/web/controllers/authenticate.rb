@@ -22,7 +22,7 @@ module Web
     end
 
     def current_user2
-      @current_user2 ||= HR::UserRepository.find(session[:user_id])
+      @current_user2 ||= HR::Core::UserRepository.find(session[:user_id])
     end
 
   end

@@ -1,7 +1,7 @@
 require 'spec_helper'
 require 'json'
 
-include HR
+include HR::Core
 
 describe User do
 

@@ -103,8 +103,8 @@ Lotus::Model.configure do
     end
 
     collection :ns_users do
-      entity HR::User
-      repository HR::UserRepository
+      entity HR::Core::User
+      repository HR::Core::UserRepository
       attribute :id, Integer
       attribute :admin, Boolean
       attribute :first_name, String

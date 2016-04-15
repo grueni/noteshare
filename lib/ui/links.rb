@@ -18,7 +18,7 @@ module UI
     require_relative '../noteshare/classes/document/document_activity_manager'
     require_relative '../session_tools'
 
-    include ::HR::SessionTools
+    include ::HR::Core::SessionTools
     include Noteshare::Tools
     include ACL
     include Noteshare::Subdomain

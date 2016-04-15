@@ -78,11 +78,12 @@ Noteshare
         CommandProcesor
         CommandRepository
         TokenCommandProcessor
-User
-  SessionTools
-  User
-  UserAuthentication
-  UserRepository
+HR
+  Core
+     SessionTools
+     User
+     UserAuthentication
+     UserRepository
 Utility
 
 
