@@ -1,4 +1,4 @@
-# require '../repositories/publications_repository'
+require '../repositories/publications_repository'
 
 # A publication has the followoing structure:
 #
