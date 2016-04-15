@@ -6,6 +6,8 @@ require_relative './ext/pg_hstore'
 
 # include Database
 
+include ::Database
+
 Dir["#{ __dir__ }/noteshare/**/*.rb"].each { |file| require_relative file }
 
 Lotus::Model.configure do

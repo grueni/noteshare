@@ -3,18 +3,24 @@ require 'lotus/model/coercer'
 require 'sequel'
 require 'sequel/extensions/pg_hstore'
 
-Sequel.extension :pg_hstore_ops
+module Database
 
-class PGHStore < Lotus::Model::Coercer
 
-  def self.dump(value)
-    # puts "HSTORE DUMP #{value}".red
-    value = {} if value == nil
-    ::Sequel.hstore(value)
+  Sequel.extension :pg_hstore_ops
+
+  class PGHStore < Lotus::Model::Coercer
+
+    def self.dump(value)
+      # puts "HSTORE DUMP #{value}".red
+      value = {} if value == nil
+      ::Sequel.hstore(value)
+    end
+
+    def self.load(value)
+      # puts "HSTORE LOAD #{value}".red
+      value == nil ? {} :  ::Kernel.Hash(value)
+    end
   end
 
-  def self.load(value)
-    # puts "HSTORE LOAD #{value}".red
-    value == nil ? {} :  ::Kernel.Hash(value)
-  end
+
 end
