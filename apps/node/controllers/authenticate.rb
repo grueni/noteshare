@@ -1,5 +1,6 @@
 module Node
   module Authentication
+    include HR::Core
 
     def self.included(action)
       action.class_eval do

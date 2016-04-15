@@ -1,5 +1,8 @@
+require_relative '../../../lib/noteshare/repositories/user_repository'
+
 module Noteshare
   module Tools
+    include ::HR::Core
 
     def can_read(user)
       lambda{ |doc| Permission.new(user, :read, doc).grant }

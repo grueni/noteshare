@@ -2,6 +2,7 @@ require 'spec_helper'
 
 include ::Noteshare::Core::Document
 include Noteshare::Helpers::Groups
+include UserGroup::Core
 
 describe Groups do
 

@@ -152,8 +152,8 @@ Lotus::Model.configure do
     end
 
     collection :ns_groups do
-      entity Groups
-      repository GroupsRepository
+      entity UserGroup::Core::Groups
+      repository UserGroup::Core::GroupsRepository
       attribute :id, Integer
       attribute :owner_id, Integer
       attribute :name, String

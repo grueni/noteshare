@@ -52,73 +52,80 @@ module HR
 
     end
   end
+end
 
 
+module HR
+  module Core
+    class Permission
 
+      # Visiblity of document is 0 = private (user only)
+      # 1 = group, 1, 2, 3 =
+      # private (user on)
 
-  class Permission
-
-    # Visiblity of document is 0 = private (user only)
-    # 1 = group, 1, 2, 3 =
-    # private (user on)
-
-    def initialize(user, action, object)
-      @user = user
-      @object = object
-      action_code_map = { read: 'r', edit: 'w', update: 'w', create: 'w', delete: 'w'}
-      @action_code = action_code_map[action]
-    end
-
-    def self.is_given?(subject, verb, object)
-      Permission.new(subject, verb, object).grant
-    end
-
-    def self.is_not_given?(subject, verb, object)
-      !Permission.new(subject, verb, object).grant
-    end
-
-    def grant
-
-
-      return false if @object == nil
-
-      # If the @object doesn't have an acl defined, used the root object's acl
-      # if that makes sense
-      if @object.class.name == 'NSDocument' and (@object.acl == nil || @object.acl == {})
-        @object = @object.root_document
+      def initialize(user, action, object)
+        @user = user
+        @object = object
+        action_code_map = { read: 'r', edit: 'w', update: 'w', create: 'w', delete: 'w'}
+        @action_code = action_code_map[action]
       end
 
-      # if there is no logged in user, grant access
-      # if the world permission of the object matches
-      # the code of action
-      return @object.acl_get(:world) =~ /#{@action_code}/  if @user == nil
-
-      # Grant permission if the world permission matches
-      return true if @object.acl_get(:world) =~ /#{@action_code}/
-
-      # From now on, we may assume that @user exists
-      # and that world permissions have been processed
-
-      # admin can do anything
-      return true if @user.admin
-
-      # process user permissions
-      return true if @user.id == @object.author_credentials2['id'].to_i && @object.acl_get(:user) =~ /#{@action_code}/
-
-      # grant permission if the access control list permits it for the user
-      _info = @object.acl_get "user:#{@user.screen_name}"
-      return true if (@object.acl_get "user:#{@user.screen_name}") =~ /#{@action_code}/
-
-
-      # process group permissions for ACL
-      @user.groups.each do |group|
-        return true if @object.acl_get("group:#{group}") =~/#{@action_code}/
+      def self.is_given?(subject, verb, object)
+        Permission.new(subject, verb, object).grant
       end
 
+      def self.is_not_given?(subject, verb, object)
+        !Permission.new(subject, verb, object).grant
+      end
 
-      return false
+      def grant
+
+
+        return false if @object == nil
+
+        # If the @object doesn't have an acl defined, used the root object's acl
+        # if that makes sense
+        if @object.class.name == 'NSDocument' and (@object.acl == nil || @object.acl == {})
+          @object = @object.root_document
+        end
+
+        # if there is no logged in user, grant access
+        # if the world permission of the object matches
+        # the code of action
+        return @object.acl_get(:world) =~ /#{@action_code}/  if @user == nil
+
+        # Grant permission if the world permission matches
+        return true if @object.acl_get(:world) =~ /#{@action_code}/
+
+        # From now on, we may assume that @user exists
+        # and that world permissions have been processed
+
+        # admin can do anything
+        return true if @user.admin
+
+        # process user permissions
+        return true if @user.id == @object.author_credentials2['id'].to_i && @object.acl_get(:user) =~ /#{@action_code}/
+
+        # grant permission if the access control list permits it for the user
+        _info = @object.acl_get "user:#{@user.screen_name}"
+        return true if (@object.acl_get "user:#{@user.screen_name}") =~ /#{@action_code}/
+
+
+        # process group permissions for ACL
+        @user.groups.each do |group|
+          return true if @object.acl_get("group:#{group}") =~/#{@action_code}/
+        end
+
+
+        return false
+      end
+
     end
-
   end
 end
+
+
+
+
+
 
