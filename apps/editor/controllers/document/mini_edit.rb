@@ -2,7 +2,8 @@ module Editor::Controllers::Document
   class MiniEdit
     include Editor::Action
     include Noteshare::Interactor::Document
-    include Noteshare::Presenter::Document
+    include ::Noteshare::Presenter::Document
+    include ::Noteshare::Core::Image
 
     expose :document, :parent_document, :root_document, :updated_text, :mapper,
            :current_image, :active_item, :editors

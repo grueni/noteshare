@@ -93,7 +93,7 @@ module Noteshare
             old_tag = "#{media_type}#{infix}#{id}[#{attributes}]"
 
             if id =~ /^\d+\d$/
-              iii = ImageRepository.find id
+              iii = Noteshare::Core::Image::ImageRepository.find id
               if iii
                 new_tag = "#{media_type}#{infix}#{iii.url2}[#{attributes}]"
                 @source = @source.sub(old_tag, new_tag)
@@ -132,7 +132,7 @@ module Noteshare
             old_tag = "#{media_type}#{infix}#{id}[#{attributes}]"
 
             if id =~ /^\d+\d$/
-              iii = ImageRepository.find id
+              iii = Noteshare::Core::Image::ImageRepository.find id
               if iii
                 download_file_name = iii.file_name.sub('image::', 'image_')
                 download_path = "outgoing/#{doc_folder}/images/#{download_file_name}"
@@ -231,7 +231,7 @@ module Noteshare
               numerical_id = id
             end
 
-            doc = DocumentRepository.find numerical_id
+            doc = Noteshare::Core::Document::DocumentRepository.find numerical_id
 
             if doc
               new_id = "_#{doc.title.normalize('alphanum')}"

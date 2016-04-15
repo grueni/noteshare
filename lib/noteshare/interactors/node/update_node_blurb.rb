@@ -1,7 +1,7 @@
 require 'lotus/interactor'
 
 module Noteshare
-  module Intereactor
+  module Interactor
     module Node
 
       class UpdateNodeBlurb

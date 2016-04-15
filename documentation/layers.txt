@@ -1,3 +1,8 @@
+Database
+  PGHStore
+  PGJSONb
+  PGStringArray
+  PGIntArray
 OldNoteshare
   Course
   CourseRepository
@@ -28,6 +33,17 @@ Noteshare
         TableOfContents
       Util
         HashStack
+  Helper
+      Document
+        DocsVisited
+        DocumentActivityManager
+      Image
+        ImageActvityManager
+        ImagesVisited
+      Node
+        Neighbors
+        NodesVisited
+        NodeActivityManager
   Interactor
       Document
         AddPDF
@@ -39,6 +55,8 @@ Noteshare
         EditNSDocument
         ReadDocument
         UpdateDocumentOptions
+      Image
+        ImageUploader
       Node
         PublicShow
         UpdateNode
@@ -51,17 +69,6 @@ Noteshare
         AssociateDocMapper
         DocumentPresenter
         TOCPresenter
-  Helper
-      Document
-        DocsVisited
-        DocumentActivityManager
-      Image
-        ImagesVisited
-      Node
-        Neighbors
-        NodesVisited
-        NodeActivityManager
-
   Tool
       CommandProcessor
         Commmand

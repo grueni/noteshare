@@ -6,19 +6,13 @@ module Viewer::Controllers::Document
 
 
     def call(params)
+
       redirect_if_not_signed_in('viewer, Document,  Print')
+
       option = request.query_string
       id = params['id']
-      @document = DocumentRepository.find  id
-      if @document == nil
-        redirect_to "/error/#{id}?Couldn't find the document you want to print"
-      end
 
-      pm = PrintManager.new(@document)
-      pm.process_document(option)
-      html = pm.get_print_string
-
-      self.body = html
+      self.body = Noteshare::Interactor::Document::PrintManager.new(id, option).call
 
     end
   end

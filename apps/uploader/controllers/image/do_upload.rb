@@ -6,9 +6,7 @@ module Uploader::Controllers::Image
 
     require_relative '../../../../lib/aws'
     include Uploader::Action
-    include Noteshare::AWS
-    include Noteshare::
-    include Analytics
+    include ::Noteshare::Interactor::Image
 
     expose :url, :image, :message, :payload
 

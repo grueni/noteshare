@@ -5,6 +5,7 @@ module Editor::Controllers::Document
   class Edit
     include Editor::Action
     include Noteshare::Interactor::Document
+    include ::Noteshare::Core::Image
 
     expose :document, :root_document, :updated_text, :current_image, :active_item, :editors, :result
 

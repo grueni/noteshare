@@ -1,6 +1,7 @@
 module ImageManager::Controllers::Image
   class Search
     include ImageManager::Action
+    include ::Noteshare::Helper::Image
 
     expose :images, :active_item, :current_image
 

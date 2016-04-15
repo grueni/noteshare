@@ -4,6 +4,7 @@ module Web::Controllers::Documents
   class Titlepage
     include Web::Action
     include Noteshare::Interactor::Document
+    include ::Noteshare::Core::Image
 
     expose :root_document, :document, :payload, :blurb, :image_url,  :view_options
     expose :active_item, :active_item2
