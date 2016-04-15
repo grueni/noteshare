@@ -20,7 +20,7 @@ describe PublicShow do
 
   it 'can blah blah' do
 
-    @payload = PublicShow.new(user: @user, node_name: @node.name).call
+    @payload = PublicShow.new(user: @user, node_id: @node.name).call
     assert @payload.user.id == @user.id
 
   end
