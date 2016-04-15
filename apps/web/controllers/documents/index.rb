@@ -1,7 +1,7 @@
  module Web::Controllers::Documents
   class Index
     include Web::Action
-    include Noteshare::Core::Document
+    include ::Noteshare::Core::Document
 
     expose :documents, :nodes, :users
     expose :active_item
