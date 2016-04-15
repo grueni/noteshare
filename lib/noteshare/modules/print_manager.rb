@@ -1,4 +1,4 @@
-include Noteshare::Core::Document
+include ::Noteshare::Core::Document
 
 class PrintManager
 

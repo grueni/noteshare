@@ -12,7 +12,7 @@ module Noteshare
 #   move_down_in_toc
 #   make_child_of_sibling
       class TOCManager
-        include Noteshare::Core::Document
+        include ::Noteshare::Core::Document
 
         def initialize(document)
           @document = document

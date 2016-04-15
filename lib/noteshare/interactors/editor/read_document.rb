@@ -9,7 +9,7 @@ module Noteshare
 
         include Lotus::Interactor
         include Noteshare::Presenter::Document
-        include Noteshare::Core::Document
+        include ::Noteshare::Core::Document
 
         expose :document, :root_document, :rendered_content, :associated_document_mapper,
                :rendered_aside_content, :table_of_contents, :redirect_path

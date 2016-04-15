@@ -1,7 +1,7 @@
 require 'spec_helper'
 require_relative '../../../lib/noteshare/classes/document/document_manager'
 
-include Noteshare::Core::Document
+include ::Noteshare::Core::Document
 
 describe DocumentManager do
 

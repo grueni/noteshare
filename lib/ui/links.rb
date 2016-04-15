@@ -21,7 +21,7 @@ module UI
     include ACL
     include Noteshare::Subdomain
     include Noteshare::Helper::Document
-    include Noteshare::Core::Document
+    include ::Noteshare::Core::Document
 
     #####################################################
     #

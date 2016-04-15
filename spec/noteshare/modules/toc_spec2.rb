@@ -1,6 +1,6 @@
 require 'spec_helper'
 include Noteshare
-include Noteshare::Core::Document # for TOC
+include ::Noteshare::Core::Document # for TOC
 
 describe TOC do
 

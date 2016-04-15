@@ -1,7 +1,7 @@
 module Editor::Controllers::Document
   class Move
     include Editor::Action
-    include Noteshare::Core::Document # for TOCManager
+    include ::Noteshare::Core::Document # for TOCManager
 
     expose :active_item
 

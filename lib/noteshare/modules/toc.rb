@@ -190,7 +190,7 @@ module Noteshare
       class OuterTableOfContents
 
 
-        include Noteshare::Core::Document
+        include ::Noteshare::Core::Document
 
         # examples:
         # options = {active_id: 44}

@@ -1,6 +1,6 @@
 require 'spec_helper'
 
-include Noteshare::Core::Document
+include ::Noteshare::Core::Document
 
 describe NSDocument do
 

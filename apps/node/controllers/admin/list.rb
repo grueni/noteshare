@@ -1,7 +1,7 @@
  module Node::Controllers::Admin
   class List
     include Node::Action
-    include Noteshare::Core::Document
+    include ::Noteshare::Core::Document
 
     expose :nodes, :active_item, :documents
 

@@ -3,7 +3,7 @@ require_relative '../../lib/ui/links'
 require 'pry'
 
 include UI::Links
-# include Noteshare::Core::Document
+# include ::Noteshare::Core::Document
 
 
 describe UI::Links do

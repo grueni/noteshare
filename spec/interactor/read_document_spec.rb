@@ -4,7 +4,7 @@ require_relative '../../lib/noteshare/interactors/editor/read_document'
 require 'pry'
 
 include Noteshare::Interactor::Document
-include Noteshare::Core::Document
+include ::Noteshare::Core::Document
 include Noteshare::Core::Node
 
 

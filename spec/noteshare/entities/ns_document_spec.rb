@@ -2,7 +2,7 @@ require 'spec_helper'
 require 'json'
 require 'pry'
 
-include Noteshare::Core::Document
+include ::Noteshare::Core::Document
 
 describe NSDocument do
 

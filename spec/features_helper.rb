@@ -28,7 +28,7 @@ module FeatureHelpers
 
   module Common
 
-    include Noteshare::Core::Document
+    include ::Noteshare::Core::Document
     include Noteshare::Subdomain
 
     def visit2(user, route)

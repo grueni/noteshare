@@ -5,7 +5,7 @@ module Editor::Controllers::Document
   class Update
     include Editor::Action
     include Noteshare::Core::Asciidoc
-    include Noteshare::Core::Document
+    include ::Noteshare::Core::Document
 
     expose :document, :active_item
 

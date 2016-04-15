@@ -12,7 +12,7 @@
 # pointing to the document and the node.
 class Publications
   include Lotus::Entity
-  # include Noteshare::Core::Document
+  # include ::Noteshare::Core::Document
   # include Noteshare::Core::Node
 
   attributes :id, :node_id, :document_id, :type
@@ -208,7 +208,7 @@ class Publications
 end
 
 class PublicationsManager
-  # include Noteshare::Core::Document
+  # include ::Noteshare::Core::Document
   # include Noteshare::Core::Node
 
   def initialize(document)

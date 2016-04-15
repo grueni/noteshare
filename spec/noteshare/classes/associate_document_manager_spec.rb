@@ -2,7 +2,7 @@ require 'spec_helper'
 require_relative '../../../lib/noteshare/classes/document/associate_document_manager'
 require 'pry'
 
-include Noteshare::Core::Document
+include ::Noteshare::Core::Document
 
 
 describe AssociateDocumentManager do

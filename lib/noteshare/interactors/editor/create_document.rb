@@ -1,6 +1,6 @@
 require 'lotus/interactor'
-include Noteshare::Core::Document
-include Noteshare::Core::Document
+include ::Noteshare::Core::Document
+include ::Noteshare::Core::Document
 
 module Noteshare
   module Interactor

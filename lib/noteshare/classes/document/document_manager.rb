@@ -20,7 +20,7 @@ module Noteshare
 
       class DocumentManager
 
-        include Noteshare::Core::Document
+        include ::Noteshare::Core::Document
 
         def initialize(parent_document)
           @parent_document = parent_document

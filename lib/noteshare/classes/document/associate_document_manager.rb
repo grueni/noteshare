@@ -10,7 +10,7 @@ module Noteshare
       # is responsible for adding, manipulating,
       # and deleteing associates documents
       class AssociateDocumentManager
-        include Noteshare::Core::Document
+        include ::Noteshare::Core::Document
 
 
         def initialize(parent_document)

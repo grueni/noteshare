@@ -4,7 +4,7 @@ require 'json'
 
 require_relative '../../../lib/noteshare/modules/toc'
 
-include Noteshare::Core::Document # for TOC
+include ::Noteshare::Core::Document # for TOC
 
 
 # The tests below are mainly concerned with
