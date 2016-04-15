@@ -1,4 +1,5 @@
 require_relative '../../../../lib/noteshare/classes/node/neighbors'
+require_relative '../document/document_activity_manager'
 
 module Noteshare
   module Presenter
