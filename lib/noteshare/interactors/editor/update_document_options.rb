@@ -7,6 +7,9 @@ module Noteshare
       class UpdateDocumentOptions
 
         include Lotus::Interactor
+        include ::Noteshare::Core::Document
+        include ::Noteshare::Core::Node
+
         expose :document, :redirect_path
 
         def initialize(params)

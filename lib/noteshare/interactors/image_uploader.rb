@@ -5,7 +5,8 @@ require_relative '../../../lib/aws'
 class ImageUploader
 
   include Lotus::Interactor
-  include Noteshare::Util
+  include ::Noteshare::Util
+  include ::Noteshare::Core::Image
 
   expose :url, :image, :message, :originating_document_id
 

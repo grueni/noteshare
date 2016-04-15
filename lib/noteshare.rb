@@ -160,8 +160,8 @@ Lotus::Model.configure do
     end
 
     collection :ns_images do
-      entity Image
-      repository ImageRepository
+      entity Noteshare::Core::Image::Image
+      repository Noteshare::Core::Image::ImageRepository
       attribute :id, Integer
       attribute :owner_id, Integer, as: :owner
       attribute :title, String

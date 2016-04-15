@@ -47,7 +47,7 @@ module Noteshare
         def call
           validate_document
           create
-          Noteshare::Core::Document::AssociateDocumentManager.new(@current_document).attach(@new_document, @type)
+          AssociateDocumentManager.new(@current_document).attach(@new_document, @type)
         end
 
       end

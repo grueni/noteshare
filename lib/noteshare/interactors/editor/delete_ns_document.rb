@@ -6,6 +6,9 @@ module Noteshare
       class DeleteNSDocument
 
         include Lotus::Interactor
+        include ::Noteshare::Core::Document
+
+
         expose :document, :root_document, :error, :message, :redirect_path
 
         def initialize(params, user)

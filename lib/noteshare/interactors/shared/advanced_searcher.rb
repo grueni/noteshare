@@ -6,6 +6,8 @@ module Noteshare
       class AdvancedSearcher
 
         include Lotus::Interactor
+        include ::Noteshare::Core::Document
+
         expose :documents
 
         def initialize(search_key=nil, user=nil)

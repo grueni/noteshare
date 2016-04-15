@@ -6,6 +6,8 @@ module Noteshare
       class UpdateNode
 
         include Lotus::Interactor
+        include ::Noteshare::Core::Node
+
         expose :node
 
         def initialize(node_id, dictionary)

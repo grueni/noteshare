@@ -8,6 +8,9 @@ module Noteshare
       class CreateDocument
 
         include Lotus::Interactor
+        include ::Noteshare::Core::Document
+        include ::Noteshare::Core::Node
+
         expose :document, :error, :redirect_path
 
         def initialize(params, author)

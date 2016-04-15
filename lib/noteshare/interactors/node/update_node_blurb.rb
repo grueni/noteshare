@@ -5,6 +5,7 @@ module Noteshare
     module Node
 
       class UpdateNodeBlurb
+        include ::Noteshare::Core::Node
 
         include Lotus::Interactor
         expose :new_document, :error

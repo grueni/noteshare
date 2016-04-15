@@ -6,6 +6,8 @@ module Noteshare
       class Searcher
 
         include Lotus::Interactor
+        include ::Noteshare::Core::Document
+        include ::Noteshare::Core::Node
         expose :documents, :nodes
 
         def initialize(params, user)

@@ -7,6 +7,7 @@ module Noteshare
 
         include Lotus::Interactor
         include ::Noteshare::Core::Document
+        include ::Noteshare::Core::Image
 
         expose :new_document, :author
 
