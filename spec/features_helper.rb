@@ -44,6 +44,7 @@ module FeatureHelpers
                           screen_name: 'jayfoo', password: 'foobar123', password_confirmation: 'foobar123')
       NSNode.create_for_user(@user)
       @document = NSDocument.create(title: 'Test', author_credentials: @user.credentials)
+      @document.content = "== Introduction\n\nThis _is_ a test: $a^2 + b^2 = c^2$\n\n"
       @document.acl_set_permissions('rw', 'r', 'r')
       DocumentRepository.update @document
     end

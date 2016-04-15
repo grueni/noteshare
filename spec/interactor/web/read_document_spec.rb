@@ -1,6 +1,6 @@
 require 'spec_helper'
-require_relative '../features_helper'
-require_relative '../../lib/noteshare/interactors/editor/read_document'
+require_relative '../../features_helper'
+require_relative '../../../lib/noteshare/interactors/editor/read_document'
 require 'pry'
 
 include Noteshare::Interactor::Document

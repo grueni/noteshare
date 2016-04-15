@@ -1,6 +1,6 @@
-require_relative '../modules/css_data'
-require_relative '../classes/document/content_manager'
-require_relative '../../../lib/aws'
+require_relative '../../modules/css_data'
+require_relative '../../classes/document/content_manager'
+require_relative '../../../../lib/aws'
 
 module Noteshare
   module Interactor
@@ -29,9 +29,10 @@ EOF
 }
 EOF
 
-        def initialize(id, option)
-          @option = option
-          @document = DocumentRepository.find  id
+        def initialize(hash)
+
+          @option = hash[:option]
+          @document = DocumentRepository.find hash[:document_id]
           if @document == nil
             @redirect_path = "/error/#{id}?Couldn't find the document you want to print"
           end

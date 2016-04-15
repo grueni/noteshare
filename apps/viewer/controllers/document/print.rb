@@ -12,7 +12,9 @@ module Viewer::Controllers::Document
       option = request.query_string
       id = params['id']
 
-      self.body = Noteshare::Interactor::Document::PrintManager.new(id, option).call
+      puts "OPTION: #{option}".red
+      result = Noteshare::Interactor::Document::PrintManager.new(document_id: id, option: option).call
+      self.body = result.html
 
     end
   end
