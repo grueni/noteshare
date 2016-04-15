@@ -1,3 +1,9 @@
-class TestRepository
-  include Lotus::Repository
+module Test
+
+  class TestRepository
+    include Lotus::Repository
+  end
+
 end
+
+

@@ -1,5 +1,8 @@
 require 'spec_helper'
 
+include AppSettings
+
+
 describe Settings do
   # place your tests here
 
@@ -57,8 +60,8 @@ describe Settings do
     it 'can update its image in the database' do
 
       @settings.set 'foo': 1111
-      SettingsRepository.update @settings
-      @settings = SettingsRepository.first
+      AppSettings::SettingsRepository.update @settings
+      @settings = AppSettings::SettingsRepository.first
       @settings.get_key('foo').must_equal('1111')
 
     end

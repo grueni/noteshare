@@ -10,6 +10,7 @@ module SessionManager::Controllers::User
     include Noteshare::Subdomain
     include Noteshare::Tool::CommandProcessor
     include Keen
+    include Noteshare::Helper::Document
 
     def call(params)
 

@@ -1,6 +1,7 @@
 module Editor::Controllers::Document
   class ManagePublications
     include Editor::Action
+    include Noteshare::Core::Publications
 
     def call(params)
       @screen_name = current_user2.screen_name

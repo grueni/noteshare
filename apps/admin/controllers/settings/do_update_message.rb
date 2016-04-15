@@ -10,10 +10,10 @@ module Admin::Controllers::Settings
       redirect_if_not_admin('Attempt to change system message (admin, settings, do update messge)')
       @active_item = 'admin'
       raw_new_message = params['update_settings']['message']
-      @settings = SettingsRepository.first
+      @settings = AppSettings::SettingsRepository.first
       @settings.dict['message'] = raw_new_message
       @settings.dict['rendered_message'] = Asciidoctor.convert @settings.dict['message']
-      SettingsRepository.update @settings
+      AppSettings::SettingsRepository.update @settings
 
       redirect_to "/"
 

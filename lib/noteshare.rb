@@ -95,8 +95,8 @@ Lotus::Model.configure do
     end
 
     collection :settings do
-      entity     Settings
-      repository SettingsRepository
+      entity     AppSettings::Settings
+      repository AppSettings::SettingsRepository
       attribute :id,   Integer
       attribute :owner, String
       attribute :dict, PGHStore
@@ -143,8 +143,8 @@ Lotus::Model.configure do
     end
 
     collection :publications do
-      entity Publications
-      repository PublicationsRepository
+      entity Noteshare::Core::Publications::Publications
+      repository Noteshare::Core::Publications::PublicationsRepository
       attribute :id, Integer
       attribute :node_id, Integer
       attribute :document_id, Integer

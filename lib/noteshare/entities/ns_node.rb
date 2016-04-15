@@ -1,10 +1,12 @@
 
 require 'asciidoctor'
+require_relative '../entities/publications'
 
 module Noteshare
   module Core
     module Node
       class NSNode
+        include ::Noteshare::Core::Publications
 
         include Lotus::Entity
         attributes :id, :owner_id, :identifier,  :name, :type,

@@ -11,3 +11,4 @@ describe SessionManager::Views::Settings::Edit do
     view.foo.must_equal exposures.fetch(:foo)
   end
 end
+

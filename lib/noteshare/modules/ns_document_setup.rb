@@ -10,8 +10,8 @@ require_relative '../entities/ns_document'
 
       def self.seed_db
 
-        SettingsRepository.clear
-        UserRepository.clear
+        AppSettings::SettingsRepository.clear
+        AppSettings::UserRepository.clear
         DocumentRepository.clear
 
         @user = User.create(first_name: 'Jared', last_name: 'Foo-Bar', screen_name: 'jayfoo', password: 'foobar123', password_confirmation: 'foobar123')

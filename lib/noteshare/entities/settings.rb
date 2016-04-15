@@ -1,35 +1,42 @@
-class Settings
-  include Lotus::Entity
-
-  attributes :owner, :id, :dict
 
 
-  def set_key(key, value)
-    dict[key] = value
-  end
 
-  def get_key(key)
-    dict[key]
-  end
+module AppSettings
 
-  def delete_key(key)
-    dict.delete(key)
-  end
+  class Settings
+    include Lotus::Entity
 
-  def clear
-    self.dict = {}
-  end
+    attributes :owner, :id, :dict
 
-  def set(hash)
-    self.dict = hash
-  end
 
-  def as_string
-    self.dict.to_s
-  end
+    def set_key(key, value)
+      dict[key] = value
+    end
 
-  def update
-    SettingsRepository.update self
+    def get_key(key)
+      dict[key]
+    end
+
+    def delete_key(key)
+      dict.delete(key)
+    end
+
+    def clear
+      self.dict = {}
+    end
+
+    def set(hash)
+      self.dict = hash
+    end
+
+    def as_string
+      self.dict.to_s
+    end
+
+    def update
+      SettingsRepository.update self
+    end
+
   end
 
 end

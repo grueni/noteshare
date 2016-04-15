@@ -7,7 +7,7 @@
     def call(params)
       redirect_if_not_admin('Attempt to change system message (admin, settings, update messge)')
       @active_item = 'admin'
-      @settings = SettingsRepository.first
+      @settings = AppSettings::SettingsRepository.first
     end
   end
 end

@@ -22,6 +22,12 @@ module Noteshare
           @redirect_path = "/editor/document/#{document_id}"
         end
 
+        def set_format_of_render_option(value)
+          self.render_options['format'] = value
+          DocumentRepository.update self
+        end
+
+
         def propagate(document, hash)
           puts "Propagating ...".red
           if hash['format']

@@ -13,7 +13,7 @@ module Web::Controllers::Home
     # => Cache-Control: public, max-age: 600
 
     def call(params)
-      @settings = SettingsRepository.first
+      @settings = AppSettings::SettingsRepository.first
     end
     
   end
