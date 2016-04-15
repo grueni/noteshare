@@ -2,6 +2,8 @@ module Noteshare
   module Tool
     module CommandProcessor
       class TokenCommandProcessor
+        include Noteshare::Tool::CommandProcessor
+        include Noteshare::Helper::UserGroup
 
 
         def initialize(hash)

@@ -1,4 +1,6 @@
 require_relative '../../noteshare/classes/node/neighbors'
+require_relative '../../../lib/noteshare/classes/group/user_group_manager'
+require_relative '../entities/ns_node'
 
 module Noteshare
   module Tool
@@ -9,9 +11,10 @@ module Noteshare
       #    command a:b c:d etc
       #    e.g., create-command token:foo123 verb:add_group_and_document group:linearstudent doc:1701
       class CommandProcessor
-
-        Noteshare::Helper::Node
-
+        include Noteshare::Helper::UserGroup
+        include Noteshare::Helper::Node
+        include ::Noteshare::Core::Node
+        include ::Noteshare::Core::Document
 
         def initialize(hash)
           @input = hash[:input]

@@ -47,6 +47,8 @@ Noteshare
         Neighbors
         NodesVisited
         NodeActivityManager
+      UserGroup
+        UserGroupManager
   Interactor
       Document
         AddPDF

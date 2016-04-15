@@ -1,6 +1,7 @@
 require 'spec_helper'
 require_relative '../../../lib/noteshare/classes/group/user_group_manager'
 
+include Noteshare::Helper::UserGroup
 
 describe UserGroupManager do
 
