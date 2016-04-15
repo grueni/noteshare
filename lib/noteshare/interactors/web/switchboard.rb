@@ -9,8 +9,8 @@ module Noteshare
       class Switchboard
 
         include Lotus::Interactor
-        include Noteshare::Core::Node
-        include UI::Links
+        include ::Noteshare::Core::Node
+        include ::UI::Links
 
 
         expose :redirect_path

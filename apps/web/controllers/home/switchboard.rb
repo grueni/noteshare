@@ -5,7 +5,6 @@ module Web::Controllers::Home
 
   class Switchboard
     include Web::Action
-    include Noteshare::Core::Node
 
     expose :active_item
 
