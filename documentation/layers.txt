@@ -31,6 +31,9 @@ Noteshare
         NSTableOfContets
         Render
         TableOfContents
+      User
+        UserRepository
+        User
       Util
         HashStack
   Helper
@@ -75,7 +78,11 @@ Noteshare
         CommandProcesor
         CommandRepository
         TokenCommandProcessor
+User
+  SessionTools
+  User
+  UserAuthentication
+  UserRepository
 Utility
-  MonkeyPatch
-    Hash
+
 

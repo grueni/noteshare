@@ -1,6 +1,7 @@
 module Web
   module Authentication
 
+
     def self.included(action)
       action.class_eval do
         before :authenticate!
@@ -21,7 +22,7 @@ module Web
     end
 
     def current_user2
-      @current_user2 ||= UserRepository.find(session[:user_id])
+      @current_user2 ||= HR::UserRepository.find(session[:user_id])
     end
 
   end

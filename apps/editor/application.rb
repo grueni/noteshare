@@ -204,6 +204,8 @@ module Editor
         include Editor::Authentication
         include Noteshare::Util
         include Noteshare::Util::ErrorHandler
+        include ::HR
+
         expose :flash
         # include MyAuthentication # included in all the actions
         # before :authenticate!    # run an authentication before callback

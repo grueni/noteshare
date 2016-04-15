@@ -194,6 +194,7 @@ module Viewer
       controller.prepare do
         # include MyAuthentication # included in all the actions
         # before :authenticate!    # run an authentication before callback
+        include ::HR
       end
 
       # Configure the code that will yield each time Uploader::View is included

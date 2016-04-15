@@ -1,6 +1,8 @@
 require 'spec_helper'
 require 'json'
 
+include HR
+
 describe User do
 
   before do
@@ -9,7 +11,7 @@ describe User do
   end
 
 
-  it 'can create and find a user' do
+  it 'can create and find a user 111' do
 
     user =  UserRepository.first
     assert user.first_name.must_equal 'Jared'

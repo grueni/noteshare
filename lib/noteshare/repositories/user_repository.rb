@@ -1,28 +1,34 @@
 require 'bcrypt'
 
-class UserRepository
-  include Lotus::Repository
+module HR
 
-  def self.find_by_email(email)
-    query do
-      where(email: email)
+
+  class UserRepository
+    include Lotus::Repository
+
+    def self.find_by_email(email)
+      query do
+        where(email: email)
+      end
     end
-  end
 
-  def self.find_one_by_email(email)
-    result = self.find_by_email(email)
-    return result.first if result
-  end
-
-  def self.find_by_screen_name(name)
-    query do
-      where(screen_name: name)
+    def self.find_one_by_email(email)
+      result = self.find_by_email(email)
+      return result.first if result
     end
-  end
 
-  def self.find_one_by_screen_name(name)
-    result = self.find_by_screen_name(name)
-    return result.first if result
+    def self.find_by_screen_name(name)
+      query do
+        where(screen_name: name)
+      end
+    end
+
+    def self.find_one_by_screen_name(name)
+      result = self.find_by_screen_name(name)
+      return result.first if result
+    end
+
+
   end
 
 

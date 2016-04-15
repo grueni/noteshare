@@ -1,5 +1,5 @@
 require_relative '../../../../lib/user_authentication'
-include SessionTools
+include HR::SessionTools
 
 module SessionManager::Views::User
   class Authenticate

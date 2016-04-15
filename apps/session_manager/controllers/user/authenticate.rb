@@ -37,7 +37,7 @@ module SessionManager::Controllers::User
       puts session.inspect.cyan
 
       session[:user_id] = nil
-      authenticator = UserAuthentication.new(params[:user]['email'], params[:user]['password'])
+      authenticator = HR::UserAuthentication.new(params[:user]['email'], params[:user]['password'])
       @user = authenticator.login(session)
 
       Keen.publish(:sign_ins, { :username => @user.screen_name }) if @user && !@user.admin

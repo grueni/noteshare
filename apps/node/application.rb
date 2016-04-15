@@ -199,6 +199,7 @@ module Node
       controller.prepare do
         include Node::Authentication
         include Noteshare::Core::Node
+        include ::HR
         # include MyAuthentication # included in all the actions
         # before :authenticate!    # run an authentication before callback
       end
