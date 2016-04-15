@@ -228,6 +228,8 @@ module Web
         include Web::Authentication
         include Noteshare::Util
         include Noteshare::Util::ErrorHandler
+        include Noteshare::Core::Document
+        include Noteshare::Core::Node
         expose :document
         # include MyAuthentication # included in all the actions
         # before :authenticate!    # run an authentication before callback
