@@ -59,7 +59,7 @@ module Noteshare
   module Helper
 
     module Document
-      include Noteshare::Core::Util
+      include ::Noteshare::Core::Util
 
       # Visited Docs manages a stack
       # of entries of the form
@@ -78,7 +78,7 @@ module Noteshare
     end # module Document
 
     module Node
-      include Noteshare::Core::Util
+      include ::Noteshare::Core::Util
 
       # NodesVisited manages a stack
       # of entries of the form
@@ -96,7 +96,7 @@ module Noteshare
     end # module Node
 
     module Image
-      include Noteshare::Core::Util
+      include ::Noteshare::Core::Util
 
      # NodesVisited manages a stack
        # of entries of the form

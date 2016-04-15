@@ -7,6 +7,7 @@ module Noteshare
       # a list of this activity
 
       class NodeActivityManager
+        include ::Noteshare::Helper
 
 
         attr_reader :last_node_id, :last_node_name
