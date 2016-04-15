@@ -8,7 +8,6 @@ module Noteshare
       # views and can present
       # a list of this activity
       class DocumentActivityManager
-        include Noteshare::Helper::Document
 
         def initialize(user)
           @user = user

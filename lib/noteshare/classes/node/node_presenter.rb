@@ -3,6 +3,7 @@ require_relative '../../../../lib/noteshare/classes/node/neighbors'
 module Noteshare
   module Presenter
     module Node
+
       class NodePresenter
         include ::Noteshare::Helper::Node
         include ::Noteshare::Helper::Document
