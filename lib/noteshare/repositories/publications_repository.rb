@@ -1,6 +1,6 @@
 module Noteshare
   module Core
-    module Publications
+    module NSPublication
       class PublicationsRepository
         include Lotus::Repository
 

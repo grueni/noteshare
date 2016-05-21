@@ -41,7 +41,7 @@ describe NSNode do
     @node =  NSNode.create_for_user(@user)
     @node.update_docs_for_owner
 
-    publications = Publications.records_for_node(@node.id)
+    publications = NSPublication.records_for_node(@node.id)
     publications.count.must_equal(1)
 
   end

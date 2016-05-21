@@ -1,6 +1,7 @@
 require 'lotus/interactor'
 require_relative '../../../lib/modules/analytics'
 require_relative '../../../lib/aws'
+require_relative '../../../lib/noteshare/entities/image'
 
 module Noteshare
   module Interactor

@@ -1,7 +1,7 @@
 require 'spec_helper'
 
-include Noteshare::Core::Publications
+include Noteshare::Core::NSPublication
 
-describe Publications do
+describe NSPublication do
   # place your tests here
 end

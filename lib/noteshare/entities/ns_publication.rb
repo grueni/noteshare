@@ -1,9 +1,11 @@
 require_relative '../repositories/publications_repository'
 require_relative '../repositories/node_repository'
+require_relative '../entities/ns_document'
+
 
 module Noteshare
   module Core
-    module Publications
+    module NSPublication
       # A publication has the followoing structure:
       #
       #   id          -- integer

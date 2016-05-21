@@ -1,3 +1,5 @@
+require_relative 'group/user_group_manager'
+
 module Noteshare
   module Tool
     module CommandProcessor

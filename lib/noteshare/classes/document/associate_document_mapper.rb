@@ -39,10 +39,12 @@ module Noteshare
             map = "<ul>\n"
             ids.each do |id|
               document = DocumentRepository.find id
-              if id == @document.id.to_s
-                map << '<li>' << "#{document.title}</li>\n"
-              else
-                map << '<li>' << "<a href='/editor/mini_edit/#{id}' >#{document.title}</li>\n"
+              if document
+                if id == @document.id.to_s
+                  map << '<li>' << "#{document.title}</li>\n"
+                else
+                  map << '<li>' << "<a href='/editor/mini_edit/#{id}' >#{document.title}</li>\n"
+                end
               end
             end
             map << "</ul>\n"

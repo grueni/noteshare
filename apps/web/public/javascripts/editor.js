@@ -1,4 +1,93 @@
-$(document).ready(function(){
+var render_asciidoc;
+var count_words;
+var reloadMathJax;
+var update_rendered_content;
+
+$(document).ready( function() {
+
+    render_asciidoc();
+
+})
+
+reloadMathJax = function () {
+
+    MathJax.Hub.Queue(["Typeset", MathJax.Hub]);
+
+    console.log("reloadMathJax called");
+
+}
+
+render_asciidoc = function(){
+
+    var textarea = document.getElementById('document-updated-text');
+    var request_in_progress = false;
+    var latest_text = '';
+
+    var update_document;
+    var render_text;
+    var update_rendered_content;
+
+    render_text = function(text) {
+        request_in_progress = true;
+        // console.log("Rendering " + text)
+        update_document();
+        var millisecondsToWait = 2000;
+        setTimeout(function() {
+            // console.log("Completed! " + text);
+            request_in_progress = false;
+            if (text !== latest_text) {
+                render_text(latest_text);
+            }
+        }, millisecondsToWait);
+    }
+
+
+    textarea.addEventListener('input', function() {
+        latest_text = textarea.value;
+        if (!request_in_progress) {
+            render_text(latest_text);
+        }
+    }, false);
+
+
+    update_document = function () {
+
+        console.log('Master, I hear your call!')
+
+        var source_text_element = document.getElementById('document-updated-text');
+        var source_text = source_text_element.value;
+
+        var id_element = document.getElementById('document-document-id');
+        var id = id_element.value;
+        var csrf_token;
+
+        csrf_token = document.getElementsByName("_csrf_token")[0].value;
+
+        $.post( '/editor/json_update/' + id, { source: source_text, '_csrf_token': csrf_token }, update_rendered_content );
+
+    }
+
+    /* Replace the rendered content with the updated rendered content */
+
+    update_rendered_content = function(data, status) {
+
+        $('#rendered_content').html(data);
+        reloadMathJax();
+
+    }
+
+} // End of render_asciidoc
+
+count_words = function(text) {
+
+    var message = "word count: " + text.split(" ").length
+    return message
+}
+
+
+
+
+var old_asciidoc_render;  old_asciidoc_render = function(){
 
     $(window).on('unload', function() {
         console.log('EDITOR UNLOADED')
@@ -47,8 +136,10 @@ $(document).ready(function(){
   $('#image_id_control').click(insert_image_link);
 
 
-});
+}
+// END OF OLD EDITOR UPDATER
 
+var setup_editor;
 setup_editor = function() {
 
     var element = document.getElementById('document-updated-text');
@@ -57,6 +148,7 @@ setup_editor = function() {
     $('#count_words').html("<span>" + count_words(source_text) + "</span>");
 }
 
+var mark_text_as_dirty;
 mark_text_as_dirty = function() {
 
     localStorage.setItem('text_is_dirty', 'yes');
@@ -66,16 +158,10 @@ mark_text_as_dirty = function() {
 }
 
 
-/* Replace the rendered content with the updated rendered content */
-update_rendered_content = function(data, status) {
 
-  $('#rendered_content').html(data);
 
-  reloadMathJax();
-
-}
-
-// Get the auto-upodate delay; its minimum value is 0.5 seconds
+// Get the auto-update delay; its minimum value is 0.5 seconds
+var auto_update_delay;
 auto_update_delay = function() {
 
     var val = $('#slider').slider("option", "value");
@@ -91,6 +177,7 @@ auto_update_delay = function() {
  /editor/json_update/' to update the text and its
  rendered verson. See the notes below for 'update_document'.
  */
+var auto_update_document;
 auto_update_document = function () {
 
 
@@ -116,38 +203,6 @@ auto_update_document = function () {
 
 }
 
-
-
-/* Send the updated text to the server by POST.
-The action '/editor/json_update/' will render
-the Asciidoc text received as HTML and place
-it in data using the statement
-
- self.body = @document.rendered_content
-
-The callback 'update_rendered_content'
-will then use this HTML to update the rendered
-text in the client's browser.
- */
-update_document = function () {
-
-  console.log('Update_document');
-
-  var element = document.getElementById('document-updated-text');
-  var source_text = element.value;
-
-  var element2 = document.getElementById('document-document-id');
-  var id = element2.value;
-  var csrf_token = document.getElementsByName("_csrf_token")[0].value;
-
-  $.post( '/editor/json_update/' + id, { source: source_text, '_csrf_token': csrf_token }, update_rendered_content );
-}
-
-count_words = function(text) {
-
-  var message = "word count: " + text.split(" ").length
-  return message
-}
 
 
 // http://stackoverflow.com/questions/15976574/how-to-add-a-text-to-a-textbox-from-the-current-position-of-the-pointer-with-jqu

@@ -16,6 +16,9 @@ module Web::Controllers::Documents
       @active_item2 = 'titlepage'
 
       @payload = ReadDocument.new(params, current_user2, 'titlepage').call
+
+      puts ('@payload.root_document ' + @payload.root_document.id.to_s).green
+
       redirect_to_path @payload.redirect_path
 
       handle_error(@payload.error)
@@ -24,15 +27,14 @@ module Web::Controllers::Documents
 
       session[:current_document_id] = @document.id
 
-      session[:current_document_id] = @root_document.id
-      remember_user_view('titlepage', session)
-
-      @blurb = @root_document.dict['blurb'] || 'blurb'
-
-      titlepage_image_id =  @root_document.dict['titlepage_image'] || 727
-      titlepage_image = ImageRepository.find  titlepage_image_id
-      @image_url = titlepage_image.url2
-
+      if @root_document
+        session[:current_document_id] = @root_document.id if @root_document
+        @blurb = @root_document.dict['blurb'] || 'blurb'
+        titlepage_image_id =  @root_document.dict['titlepage_image'] || 727
+        titlepage_image = ImageRepository.find  titlepage_image_id
+        @image_url = titlepage_image.url2
+        remember_user_view('titlepage', session)
+      end
 
     end
   end

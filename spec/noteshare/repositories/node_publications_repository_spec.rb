@@ -1,6 +1,6 @@
 require 'spec_helper'
 
-include Noteshare::Core::Publications
+include Noteshare::Core::NSPublication
 
 describe PublicationsRepository do
   # place your tests here

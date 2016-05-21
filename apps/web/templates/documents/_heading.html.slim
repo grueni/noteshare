@@ -6,7 +6,7 @@ div style='margin-left:0.5em'
     == document.root_link(view_options)
 
   p.plainlink.lightlink style='color:white; margin-top:0.5em; font-size:11pt'
-    == PublicationsManager.new(root_document).principal_publisher_link(session)
+    /== PublicationsManager.new(root_document).principal_publisher_link(session)
 
   - if root_document.dict['make_index']
     .toc.plainlink.lightlink == document_index_link(document, session)

@@ -1,3 +1,5 @@
+require_relative '../../../lib/noteshare/entities/image'
+
 module OldNoteshare
 
   ### INTERFACE ###

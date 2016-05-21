@@ -143,8 +143,8 @@ Lotus::Model.configure do
     end
 
     collection :publications do
-      entity Noteshare::Core::Publications::Publications
-      repository Noteshare::Core::Publications::PublicationsRepository
+      entity Noteshare::Core::NSPublication::Publications
+      repository Noteshare::Core::NSPublication::PublicationsRepository
       attribute :id, Integer
       attribute :node_id, Integer
       attribute :document_id, Integer

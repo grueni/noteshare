@@ -1,6 +1,8 @@
 require 'lotus/interactor'
 
 require_relative '../../classes/node/node_presenter'
+require_relative '../../../noteshare/entities/ns_node'
+
 
 # require '../../../noteshare/classes/node/node_activity_manager'
 

@@ -2,6 +2,9 @@ require 'lotus/interactor'
 require_relative '../../../modules/analytics'
 require_relative '../../../../lib/noteshare/classes/document/toc_presenter'
 
+require 'pry'
+require 'pry-nav'
+
 module Noteshare
   module Interactor
     module Document
@@ -19,6 +22,8 @@ module Noteshare
           # The reader type is one of: 'document', 'aside', 'compiled', 'view_source', 'titlepage'
           @reader_type = reader_type
           id = params['id']
+          puts "ReadDocument, id = #{id}".red
+
           @document = DocumentRepository.find(id)
           if @document == nil
             @redirect_path = "/error?Document #{id} not found"
@@ -26,6 +31,8 @@ module Noteshare
         end
 
         def validated
+          puts "Enter validated".red
+          puts "@error: #{@error}".cyan
           return false if @error
           world_permission = @document.acl_get(:world)
           if @user == nil && !(world_permission =~ /r/)
@@ -41,6 +48,7 @@ module Noteshare
             @error ='document not found'
           else
             @root_document = @document.root_document
+            puts "@root_document: #{@root_document.title} (#{@root_document.id})".cyan
           end
           if @document == @root_document and @document.rendered_content and @document.rendered_content == ''
             @document = @document.first_section
@@ -48,6 +56,8 @@ module Noteshare
         end
 
         def call
+          # binding.pry
+          puts "ReadDocument ENTER".red
           return if @redirect_path
           return unless validated
           configure_root_document
@@ -60,6 +70,7 @@ module Noteshare
           prepare_title_page if @reader_type == 'titlepage'
           prepare_table_of_contents
           @associated_document_mapper = Noteshare::Presenter::Document::AssociateDocMapper.new(@document)
+          puts "In ReadDocument, @root_document = #{@root_document.id}".cyan
         end
 
         def prepare_rendered_content

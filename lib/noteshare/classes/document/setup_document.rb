@@ -1,3 +1,5 @@
+require_relative '../../entities/ns_document'
+
 module Noteshare
   module Helper
     module Document
