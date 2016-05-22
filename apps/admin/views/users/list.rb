@@ -8,6 +8,8 @@ module Admin::Views::Users
       if date_time
         hour = date_time.hour
         wday = date_time.wday
+        day = date_time.day
+        month = date_time.month
         if hour < 5
           wday = wday - 1
           if wday < 1
@@ -20,7 +22,7 @@ module Admin::Views::Users
         if minutes.length == 1
           minutes = "0#{minutes}"
         end
-        "#{week_day[wday]} #{hour}:#{minutes}"
+        "#{month}-#{day}: #{week_day[wday]} #{hour}:#{minutes}"
       else '-'
       end
     end
