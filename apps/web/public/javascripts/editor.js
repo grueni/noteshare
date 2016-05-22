@@ -38,7 +38,7 @@ render_asciidoc = function(){
         // console.log("Rendering " + text)
         update_document();
         //var word_count = text.split(" ").length
-        var millisecondsToWait = 3000l //500 + 2.0*word_count;
+        var millisecondsToWait = 3000;//500 + 2.0*word_count;
         console.log('millisecondsToWait: ' + millisecondsToWait)
         setTimeout(function() {
             // console.log("Completed! " + text);
