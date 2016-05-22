@@ -10,6 +10,11 @@ $(document).ready( function() {
 
 })
 
+word_count = function(text) {
+
+    return text.split(" ").length
+}
+
 reloadMathJax = function () {
 
     MathJax.Hub.Queue(["Typeset", MathJax.Hub]);
@@ -32,7 +37,9 @@ render_asciidoc = function(){
         request_in_progress = true;
         // console.log("Rendering " + text)
         update_document();
-        var millisecondsToWait = 2000;
+        var word_count = text.split(" ").length
+        var millisecondsToWait = 1000 + 0.6*word_count;
+        console.log('millisecondsToWait: ' + millisecondsToWait)
         setTimeout(function() {
             // console.log("Completed! " + text);
             request_in_progress = false;
