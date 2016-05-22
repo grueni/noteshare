@@ -1,5 +1,6 @@
 var render_asciidoc;
 var count_words;
+var display_word_count;
 var reloadMathJax;
 var update_rendered_content;
 
@@ -60,6 +61,8 @@ render_asciidoc = function(){
         var id_element = document.getElementById('document-document-id');
         var id = id_element.value;
         var csrf_token;
+
+        display_word_count();
 
         csrf_token = document.getElementsByName("_csrf_token")[0].value;
 
@@ -139,8 +142,8 @@ var old_asciidoc_render;  old_asciidoc_render = function(){
 }
 // END OF OLD EDITOR UPDATER
 
-var setup_editor;
-setup_editor = function() {
+
+display_word_count = function() {
 
     var element = document.getElementById('document-updated-text');
     var source_text = element.value;
