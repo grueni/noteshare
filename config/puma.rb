@@ -13,7 +13,7 @@ environment ENV['RACK_ENV'] || ENV['LOTUS_ENV'] || 'development'
 
 on_worker_boot do
   if ENV['LOTUS_ENV'] != 'development'
-    Lotus::Model.load!
+    # Lotus::Model.load!
   end
 end
 
