@@ -4,9 +4,13 @@ var display_word_count;
 var reloadMathJax;
 var update_rendered_content;
 
+var slider_manager;
+var auto_update_delay;
+
 $(document).ready( function() {
 
     render_asciidoc();
+    slider_manager();
 
 })
 
@@ -38,8 +42,10 @@ render_asciidoc = function(){
         // console.log("Rendering " + text)
         update_document();
         //var word_count = text.split(" ").length
-        var millisecondsToWait = 3000;//500 + 2.0*word_count;
+        var user_requested_delay = Math.round(1000*auto_update_delay())
+        var millisecondsToWait = 500 + user_requested_delay;
         console.log('millisecondsToWait: ' + millisecondsToWait)
+        console.log('auto_update_delay: ' + user_requested_delay)
         setTimeout(function() {
             // console.log("Completed! " + text);
             request_in_progress = false;
@@ -95,59 +101,31 @@ count_words = function(text) {
 }
 
 
+slider_manager = function(){
 
-
-var old_asciidoc_render;  old_asciidoc_render = function(){
-
-    $(window).on('unload', function() {
-        console.log('EDITOR UNLOADED')
-        clearInterval(auto_update_interval);
-    });
-
-    $(window).on('load', function () {
-        console.log("EDITOR LOADED event fired!");
+    $( "#slider" ).slider({
+        value: 4.167,
+        min: 0,
+        max: 100
     });
 
 
-  $('#document-updated-text').on('input', mark_text_as_dirty )
+    /* The slider sets the auto-refresh interval; the initial value is 3 seconds. */
+    $('#slider_value').html("<span>auto-refresh: " + 3 + " seconds</span>")
 
-  /* Do manual update/refresh */
-  $('#update_source_button').click(update_document);
+    $( "#slider" ).slider({
+        max: 60,
+        min: 0,
+        change: function( event, ui ) {
 
-  $( "#slider" ).slider({
-    value: 4.167,
-    min: 0,
-    max: 100
-  });
+            var delay =  auto_update_delay();
+            $('#slider_value').html("<span>auto-refresh: " + delay + " seconds</span>");
 
-    // #toc_editor
-
-    auto_update_interval = setInterval(auto_update_document, 1000*auto_update_delay());
-
-
-  /* The slider sets the auto-refresh interval; the initial value is 3 seconds. */
-  $('#slider_value').html("<span>auto-refresh: " + 3 + " seconds</span>")
-
-  $( "#slider" ).slider({
-      max: 60,
-      min: 1,
-      change: function( event, ui ) {
-
-          var delay =  auto_update_delay();
-          $('#slider_value').html("<span>auto-refresh: " + delay + " seconds</span>");
-          clearInterval(auto_update_interval);
-          auto_update_interval = setInterval(auto_update_document, 1000*auto_update_delay());
-
-    }
-  });
-
-  setup_editor();
-
-  $('#image_id_control').click(insert_image_link);
-
+        }
+    });
 
 }
-// END OF OLD EDITOR UPDATER
+// END OF SLIDER MANAGER
 
 
 display_word_count = function() {
@@ -171,12 +149,12 @@ mark_text_as_dirty = function() {
 
 
 // Get the auto-update delay; its minimum value is 0.5 seconds
-var auto_update_delay;
+
 auto_update_delay = function() {
 
     var val = $('#slider').slider("option", "value");
     var delay = parseFloat(val);
-    console.log('delay: ' + delay + 'seconds');
+    console.log('delay: ' + delay + ' seconds');
     return delay
 
 }
@@ -252,3 +230,58 @@ insert_image_link = function() {
     update_document();
 
 }
+
+
+var old_asciidoc_render;
+
+old_asciidoc_render = function(){
+
+    $(window).on('unload', function() {
+        console.log('EDITOR UNLOADED')
+        clearInterval(auto_update_interval);
+    });
+
+    $(window).on('load', function () {
+        console.log("EDITOR LOADED event fired!");
+    });
+
+
+    $('#document-updated-text').on('input', mark_text_as_dirty )
+
+    /* Do manual update/refresh */
+    $('#update_source_button').click(update_document);
+
+    $( "#slider" ).slider({
+        value: 4.167,
+        min: 0,
+        max: 100
+    });
+
+    // #toc_editor
+
+    auto_update_interval = setInterval(auto_update_document, 1000*auto_update_delay());
+
+
+    /* The slider sets the auto-refresh interval; the initial value is 3 seconds. */
+    $('#slider_value').html("<span>auto-refresh: " + 3 + " seconds</span>")
+
+    $( "#slider" ).slider({
+        max: 60,
+        min: 1,
+        change: function( event, ui ) {
+
+            var delay =  auto_update_delay();
+            $('#slider_value').html("<span>auto-refresh: " + delay + " seconds</span>");
+            clearInterval(auto_update_interval);
+            auto_update_interval = setInterval(auto_update_document, 1000*auto_update_delay());
+
+        }
+    });
+
+    setup_editor();
+
+    $('#image_id_control').click(insert_image_link);
+
+
+}
+// END OF OLD EDITOR UPDATER
