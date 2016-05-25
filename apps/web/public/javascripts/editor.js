@@ -39,7 +39,7 @@ render_asciidoc = function(){
 
     render_text = function(text) {
         request_in_progress = true;
-        // console.log("Rendering " + text)
+        console.log("Rendering")
         update_document();
         //var word_count = text.split(" ").length
         var user_requested_delay = Math.round(1000*auto_update_delay())
@@ -47,7 +47,7 @@ render_asciidoc = function(){
         console.log('millisecondsToWait: ' + millisecondsToWait)
         console.log('auto_update_delay: ' + user_requested_delay)
         setTimeout(function() {
-            // console.log("Completed! " + text);
+            console.log("Completed!");
             request_in_progress = false;
             if (text !== latest_text) {
                 render_text(latest_text);
