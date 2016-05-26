@@ -1,4 +1,7 @@
 require 'lotus/interactor'
+require_relative '../../entities/ns_document'
+require_relative '../../entities/image'
+
 
 module Noteshare
   module Interactor
