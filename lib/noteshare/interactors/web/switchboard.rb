@@ -1,5 +1,6 @@
 require 'lotus/interactor'
 require_relative '../../../../lib/ui/links'
+require_relative '../../entities/ns_node'
 
 module Noteshare
   module Interactor
