@@ -8,11 +8,18 @@ var update_rendered_content;
 var slider_manager;
 var auto_update_delay;
 
+
+var message = function() {
+
+    console.log('I have been clicked');
+}
+
 $(document).ready( function() {
 
     render_asciidoc();
     slider_manager();
     $('#update_source_button').click(update_document);
+    $('#update_source_button').click(message);
 
 })
 
@@ -33,18 +40,23 @@ update_document = function () {
 
     console.log('Master, I hear your call!')
 
-    var source_text_element = document.getElementById('document-updated-text');
-    var source_text = source_text_element.value;
+    var source_text = document.getElementById('document-updated-text').value;
+    var id = document.getElementById('document-document-id').value;
+    var csrf_token = document.getElementsByName("_csrf_token")[0].value;
 
-    var id_element = document.getElementById('document-document-id');
-    var id = id_element.value;
-    var csrf_token;
+    console.log('source_text length = ' + source_text.length)
+    console.log('csrf_token: ' + csrf_token)
 
     display_word_count();
 
-    csrf_token = document.getElementsByName("_csrf_token")[0].value;
-
     $.post( '/editor/json_update/' + id, { source: source_text, '_csrf_token': csrf_token }, update_rendered_content );
+
+}
+
+update_rendered_content = function(data, status) {
+
+    $('#rendered_content').html(data);
+    reloadMathJax();
 
 }
 
@@ -55,7 +67,7 @@ render_asciidoc = function(){
     var latest_text = '';
 
     var render_text;
-    var update_rendered_content;
+    // var update_rendered_content;
 
     render_text = function(text) {
         request_in_progress = true;
@@ -88,12 +100,6 @@ render_asciidoc = function(){
 
     /* Replace the rendered content with the updated rendered content */
 
-    update_rendered_content = function(data, status) {
-
-        $('#rendered_content').html(data);
-        reloadMathJax();
-
-    }
 
 } // End of render_asciidoc
 

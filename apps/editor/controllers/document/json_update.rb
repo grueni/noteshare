@@ -10,6 +10,7 @@ module Editor::Controllers::Document
     expose :active_item
 
     def call(params)
+      puts "Enter JsonUpdate".red
       id = request.env['REQUEST_URI'].split('/')[-1]
       @active_item = 'editor'
       @document = DocumentRepository.find(id)
