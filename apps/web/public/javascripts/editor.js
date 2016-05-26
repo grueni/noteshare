@@ -1,4 +1,5 @@
 var render_asciidoc;
+var update_document;
 var count_words;
 var display_word_count;
 var reloadMathJax;
@@ -11,6 +12,7 @@ $(document).ready( function() {
 
     render_asciidoc();
     slider_manager();
+    $('#update_source_button').click(update_document);
 
 })
 
@@ -27,13 +29,31 @@ reloadMathJax = function () {
 
 }
 
+update_document = function () {
+
+    console.log('Master, I hear your call!')
+
+    var source_text_element = document.getElementById('document-updated-text');
+    var source_text = source_text_element.value;
+
+    var id_element = document.getElementById('document-document-id');
+    var id = id_element.value;
+    var csrf_token;
+
+    display_word_count();
+
+    csrf_token = document.getElementsByName("_csrf_token")[0].value;
+
+    $.post( '/editor/json_update/' + id, { source: source_text, '_csrf_token': csrf_token }, update_rendered_content );
+
+}
+
 render_asciidoc = function(){
 
     var textarea = document.getElementById('document-updated-text');
     var request_in_progress = false;
     var latest_text = '';
 
-    var update_document;
     var render_text;
     var update_rendered_content;
 
@@ -64,24 +84,7 @@ render_asciidoc = function(){
     }, false);
 
 
-    update_document = function () {
 
-        console.log('Master, I hear your call!')
-
-        var source_text_element = document.getElementById('document-updated-text');
-        var source_text = source_text_element.value;
-
-        var id_element = document.getElementById('document-document-id');
-        var id = id_element.value;
-        var csrf_token;
-
-        display_word_count();
-
-        csrf_token = document.getElementsByName("_csrf_token")[0].value;
-
-        $.post( '/editor/json_update/' + id, { source: source_text, '_csrf_token': csrf_token }, update_rendered_content );
-
-    }
 
     /* Replace the rendered content with the updated rendered content */
 
