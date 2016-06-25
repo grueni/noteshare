@@ -1,3 +1,5 @@
+require 'lotus/interactor'
+
 require_relative '../../modules/css_data'
 require_relative '../../classes/document/content_manager'
 require_relative '../../../../lib/aws'
