@@ -14,8 +14,9 @@ module ImageManager::Controllers::Image
       file_name = image_data['file_name']
       title = image_data['title']
       puts "title = #{title}, filename = #{file_name}".red
-      message = Image.upload(file_name)
+      # message = Image.upload(file_name)
 
+      ImageUploader.new(params, current_user(session))
       self.body = "Hi there!" # message
     end
   end

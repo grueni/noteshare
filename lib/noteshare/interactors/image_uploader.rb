@@ -1,7 +1,8 @@
 require 'lotus/interactor'
 require_relative '../../../lib/modules/analytics'
 require_relative '../../../lib/aws'
-require_relative '../../../lib/noteshare/entities/image'
+# require_relative '../../../lib/noteshare/entities/image'
+require_relative '../entities/image'
 
 module Noteshare
   module Interactor
@@ -88,7 +89,7 @@ module Noteshare
           configure
           upload
           bail_out unless @url
-          raw_image = Image.new(title: @title, file_name: @filename, url: @url, tags: @tags, dict: {})
+          raw_image = Noteshare::Core::Image::Image.new(title: @title, file_name: @filename, url: @url, tags: @tags, dict: {})
           @image = ImageRepository.create raw_image
           @user.dict2['current_image_id'] = @image.id
           Analytics.record_image_upload(@user, @image)
