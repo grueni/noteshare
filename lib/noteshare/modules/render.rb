@@ -136,7 +136,7 @@ module Noteshare
               if iii
                 download_file_name = iii.file_name.sub('image::', 'image_')
                 download_path = "outgoing/#{doc_folder}/images/#{download_file_name}"
-                new_tag = "image::#{download_file_name}[#{attributes}]"
+                new_tag = "image::images/#{download_file_name}[#{attributes}]"
                 download_file(iii.url2, download_path)
                 @source = @source.sub(old_tag, new_tag)
               end
